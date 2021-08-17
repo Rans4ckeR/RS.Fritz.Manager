@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net6.0-windows;net5.0-windows</TargetFrameworks>
+    <AssemblyName>RS.Fritz.Manager.UI</AssemblyName>
+    <RootNamespace>RS.Fritz.Manager.UI</RootNamespace>
+    <Title>RS.Fritz.Manager.UI</Title>
+    <Product>RS.Fritz.Manager.UI</Product>
+    <Copyright>Copyright 2021 (c) RS. All rights reserved.</Copyright>
+    <Company>RS</Company>
+    <Configuration></Configuration>
+    <Trademark></Trademark>
+    <Culture></Culture>
+    <Authors>RS</Authors>
+    <DebugType>pdbonly</DebugType>
+    <ComVisible>false</ComVisible>
+    <CLSCompliant>false</CLSCompliant>
+    <AnalysisLevel>preview</AnalysisLevel>
+    <LangVersion>preview</LangVersion>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Images\Device.png" />
+    <None Remove="Images\Password.png" />
+    <None Remove="Images\Search.png" />
+    <None Remove="Images\User.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0-preview.7.21377.19" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.27.0.35380">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RS.Fritz.Manager.Domain\RS.Fritz.Manager.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Device.png" />
+    <Resource Include="Images\Password.png" />
+    <Resource Include="Images\Search.png" />
+    <Resource Include="Images\User.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="UserControls\WanDslInterfaceConfigView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\LanConfigSecurityView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="UserControls\WanDslInterfaceConfigView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\LanConfigSecurityView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

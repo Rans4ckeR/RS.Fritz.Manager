@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net5.0</TargetFrameworks>
+    <AssemblyName>RS.Fritz.Manager.Domain</AssemblyName>
+    <RootNamespace>RS.Fritz.Manager.Domain</RootNamespace>
+    <Title>RS.Fritz.Manager.Domain</Title>
+    <Product>RS.Fritz.Manager.Domain</Product>
+    <Copyright>Copyright 2021 (c) RS. All rights reserved.</Copyright>
+    <Company>RS</Company>
+    <Configuration></Configuration>
+    <Trademark></Trademark>
+    <Culture></Culture>
+    <Authors>RS</Authors>
+    <DebugType>pdbonly</DebugType>
+    <ComVisible>false</ComVisible>
+    <CLSCompliant>false</CLSCompliant>
+    <AnalysisLevel>preview</AnalysisLevel>
+    <LangVersion>preview</LangVersion>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0-preview.7.21377.19" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.27.0.35380">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Reflection.DispatchProxy" Version="5.0.0-preview.7.20364.11" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="6.0.0-preview.7.21377.19" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.9.0-preview1.21220.1" />
+  </ItemGroup>
+</Project>
