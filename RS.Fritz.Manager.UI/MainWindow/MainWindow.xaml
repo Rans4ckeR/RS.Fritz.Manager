@@ -61,16 +61,16 @@
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="Device information">
-                <RibbonGroup Header="Get DeviceInfo">
+                <RibbonGroup Header="Get DeviceInfo" ToolTip="This service allows the reporting of basic device information, including the current hardware and software versions.">
                     <RibbonButton Label="DeviceInfo" Command="{Binding DeviceInfoViewModel.GetDeviceInfoCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png" />
                 </RibbonGroup>
-                <RibbonGroup Header="Get LanConfigSecurity">
+                <RibbonGroup Header="Get LanConfigSecurity" ToolTip="This service enables the ability to set the password that will allow the device to be configured via the xml interface.">
                     <RibbonButton Label="LanConfigSecurity" Command="{Binding LanConfigSecurityViewModel.GetLanConfigSecurityCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png" />
                 </RibbonGroup>
-                <RibbonGroup Header="Get WanDslInterfaceConfig">
+                <RibbonGroup Header="Get WanDslInterfaceConfig" ToolTip="The WANDSLInterfaceConfig service models physical layer properties specific to a single physical connection of a DSL modem used for Internet access on an IGD.">
                     <RibbonButton Label="WanDslInterfaceConfig" Command="{Binding WanDslInterfaceConfigViewModel.GetWanDslInterfaceConfigCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png" />
                 </RibbonGroup>
-                <RibbonGroup Header="Set LanConfigSecurity">
+                <RibbonGroup Header="Set LanConfigSecurity" ToolTip="Replaces the existing ConfigPassword with the value specified in NewPassword.">
                     <RibbonButton Label="Update Password" Command="{Binding LanConfigSecurityViewModel.SetConfigPasswordCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png" />
                     <RibbonTextBox Label="New Password:" Text="{Binding LanConfigSecurityViewModel.LanConfigSecuritySetConfigPasswordValue, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label Content="Changing the password needs up to 20 seconds."/>

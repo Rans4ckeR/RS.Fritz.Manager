@@ -29,25 +29,25 @@
             get
             {
                 if (DSLDiagnoseState == "NONE" && CableNokDistance == -1 && DSLLastDiagnoseTime == 0 && DSLSignalLossTime == 0 && DSLActive && DSLSync)
-                    return "The DSL connection is ready for data traffic.The CPE has set DSL to Active and the DSL chip could sync to ISP destination device.";
+                    return "The DSL connection is ready for data traffic. The CPE has set DSL to Active and the DSL chip could sync to ISP destination device.";
 
                 if (DSLDiagnoseState == "NONE" && CableNokDistance == -1 && DSLLastDiagnoseTime == 0 && DSLSignalLossTime > 0 && DSLSignalLossTime < 300 && DSLActive && !DSLSync)
-                    return "The CPE Device has lost the sync state since DSLSignalLossTime(in seconds)";
+                    return "The CPE Device has lost the sync state since DSLSignalLossTime(in seconds).";
 
                 if (DSLDiagnoseState == "RUNNING" && CableNokDistance == -1 && DSLLastDiagnoseTime == 0 && DSLSignalLossTime > 300 && DSLActive && !DSLSync)
-                    return "5 minutes passed since the last DSLSync = 1, the CPE device is now instantiating a cable cut measurement. While the diagnose is running the DSLDiagnoseState is set to „RUNNING“";
+                    return "5 minutes passed since the last DSLSync = 1, the CPE device is now instantiating a cable cut measurement. While the diagnose is running the DSLDiagnoseState is set to 'RUNNING'.";
 
                 if (DSLDiagnoseState == "NO_CALIB" && CableNokDistance == -1 && DSLLastDiagnoseTime == 0 && DSLSignalLossTime > 300 && DSLActive && !DSLSync)
-                    return "The CPE has tried to start a cable cut measurement, but could not initiate the measurement.Therefore no calibration has passed";
+                    return "The CPE has tried to start a cable cut measurement, but could not initiate the measurement.Therefore no calibration has passed.";
 
                 if (DSLDiagnoseState == "DONE_CABLE_OK" && CableNokDistance == -1 && DSLLastDiagnoseTime > 0 && DSLSignalLossTime > 300 && DSLActive && !DSLSync)
                     return "The cable cut measurement is finished and no cable cut could be detected.";
 
                 if (DSLDiagnoseState == "DONE_CABLE_NOK" && CableNokDistance > 0 && DSLLastDiagnoseTime > 0 && DSLSignalLossTime > 300 && DSLActive && !DSLSync)
-                    return FormattableString.Invariant($"The cable cut measurement is finished and a problem with the cable connection could be detected at {CableNokDistance} meters");
+                    return FormattableString.Invariant($"The cable cut measurement is finished and a problem with the cable connection could be detected at {CableNokDistance} meters.");
 
                 if (DSLDiagnoseState == "DONE_CABLE_OK" && CableNokDistance == -1 && DSLLastDiagnoseTime > 0 && DSLSignalLossTime > 300 && DSLActive && !DSLSync)
-                    return "The measurement for cable cut is finished but the distance could not be detected or is too inaccurate";
+                    return "The measurement for cable cut is finished but the distance could not be detected or is too inaccurate.";
 
                 if (DSLDiagnoseState == "NONE" && CableNokDistance == -1 && DSLLastDiagnoseTime > 0 && DSLSignalLossTime == 0 && DSLActive && DSLSync)
                     return "When the DSL signal is sync again, all values will be set to default values. Except the DSLLastDiagnoseTime which remains at the value of time in seconds between the last measurement and the resync.";
