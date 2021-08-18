@@ -12,10 +12,6 @@
             {
                 await Execute(client, operation).ConfigureAwait(false);
             }
-            catch (FaultException ex)
-            {
-                throw new ServiceOperationHandlerException(GetExceptionMessage(operation), ex);
-            }
             finally
             {
                 CloseClient(client);
@@ -28,19 +24,10 @@
             {
                 return await Execute(client, operation).ConfigureAwait(false);
             }
-            catch (FaultException ex)
-            {
-                throw new ServiceOperationHandlerException(GetExceptionMessage(operation), ex);
-            }
             finally
             {
                 CloseClient(client);
             }
-        }
-
-        private static string GetExceptionMessage<T>(Func<T, Task> operation)
-        {
-            return FormattableString.Invariant($"Service returned error for {typeof(T)}.{operation.Method.Name}.");
         }
 
         private static Task Execute<T>(T client, Func<T, Task> operation)

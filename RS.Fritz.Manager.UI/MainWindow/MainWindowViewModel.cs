@@ -64,7 +64,7 @@
             });
         }
 
-        public static string Title { get => "RS"; }
+        public static string Title { get => "FritzManager"; }
 
         public DeviceInfoViewModel DeviceInfoViewModel
         {

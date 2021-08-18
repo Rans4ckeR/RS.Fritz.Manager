@@ -17,41 +17,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="DeviceInfoGetSecurityPortResponse:"/>
-            <ContentControl Grid.Row="1" Content="{Binding DeviceInfoGetSecurityPortResponse}" />
-        </Grid>
-
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="DeviceInfoGetInfoResponse:"/>
-            <ContentControl Grid.Row="1" Content="{Binding DeviceInfoGetInfoResponse}" />
-        </Grid>
-
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="DeviceInfoGetDeviceLogResponse:"/>
-            <ContentControl Grid.Row="1" Content="{Binding DeviceInfoGetDeviceLogResponse}" />
-        </Grid>
+        <ContentControl Grid.Row="0" Content="{Binding DeviceInfoGetSecurityPortResponse}"/>
+        <ContentControl Grid.Row="1" Content="{Binding DeviceInfoGetInfoResponse}"/>
+        <ContentControl Grid.Row="2" Content="{Binding DeviceInfoGetDeviceLogResponse}"/>
     </Grid>
 </UserControl>

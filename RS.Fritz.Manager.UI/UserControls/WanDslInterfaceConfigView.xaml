@@ -18,53 +18,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="WanDslInterfaceConfigGetDSLDiagnoseInfoResponse:"/>
-            <ContentControl Grid.Row="1" Content="{Binding WanDslInterfaceConfigGetDSLDiagnoseInfoResponse}" />
-        </Grid>
-
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="WanDslInterfaceConfigGetDSLInfoResponse:"/>
-            <ContentControl Grid.Row="1" Content="{Binding WanDslInterfaceConfigGetDSLInfoResponse}" />
-        </Grid>
-
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="WanDslInterfaceConfigGetInfoResponse:"/>
-            <ContentControl Grid.Row="1" Content="{Binding WanDslInterfaceConfigGetInfoResponse}" />
-        </Grid>
-
-        <Grid Grid.Row="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="WanDslInterfaceConfigGetStatisticsTotalResponse:"/>
-            <ContentControl Grid.Row="1" Content="{Binding WanDslInterfaceConfigGetStatisticsTotalResponse}" />
-        </Grid>
+        <ContentControl Grid.Row="0" Content="{Binding WanDslInterfaceConfigGetDSLDiagnoseInfoResponse}"/>
+        <ContentControl Grid.Row="1" Content="{Binding WanDslInterfaceConfigGetDSLInfoResponse}"/>
+        <ContentControl Grid.Row="2" Content="{Binding WanDslInterfaceConfigGetInfoResponse}"/>
+        <ContentControl Grid.Row="3" Content="{Binding WanDslInterfaceConfigGetStatisticsTotalResponse}"/>
     </Grid>
 </UserControl>

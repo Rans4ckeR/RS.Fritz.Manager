@@ -18,53 +18,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="LanConfigSecurityGetAnonymousLoginResponse:"/>
-            <ContentControl Grid.Row="1" Content="{Binding LanConfigSecurityGetAnonymousLoginResponse}" />
-        </Grid>
-
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="LanConfigSecurityGetCurrentUserResponse:"/>
-            <ContentControl Grid.Row="1" Content="{Binding LanConfigSecurityGetCurrentUserResponse}" />
-        </Grid>
-
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="LanConfigSecurityGetInfoResponse:"/>
-            <ContentControl Grid.Row="1" Content="{Binding LanConfigSecurityGetInfoResponse}" />
-        </Grid>
-
-        <Grid Grid.Row="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Row="0" Text="LanConfigSecurityGetUserListResponse:"/>
-            <ContentControl Grid.Row="1" Content="{Binding LanConfigSecurityGetUserListResponse}" />
-        </Grid>
+        <ContentControl Grid.Row="0" Content="{Binding LanConfigSecurityGetAnonymousLoginResponse}"/>
+        <ContentControl Grid.Row="1" Content="{Binding LanConfigSecurityGetCurrentUserResponse}"/>
+        <ContentControl Grid.Row="2" Content="{Binding LanConfigSecurityGetInfoResponse}"/>
+        <ContentControl Grid.Row="3" Content="{Binding LanConfigSecurityGetUserListResponse}"/>
     </Grid>
 </UserControl>
