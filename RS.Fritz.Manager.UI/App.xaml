@@ -28,6 +28,11 @@
                 <Setter Property="Foreground" Value="#FF255FFF"/>
                 <Setter Property="FontFamily" Value="Arial"/>
             </Style>
+            <Style TargetType="{x:Type ToolTip}">
+                <Setter Property="Foreground" Value="{StaticResource titleTextSolidColorBrush}"/>
+                <Setter Property="Background" Value="{StaticResource titleBackgroundSolidColorBrush}"/>
+                <Setter Property="FontFamily" Value="Arial"/>
+            </Style>
             <DataTemplate DataType="{x:Type domain:InternetGatewayDevice}">
                 <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource navigationBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="Selected InternetGatewayDevice">
