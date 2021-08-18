@@ -19,7 +19,7 @@
 
         public string? Ext { get; set; }
 
-        public string? ServiceType { get; set; }
+        public string? SearchTarget { get; set; }
 
         // the last 48 bits are the CPE’s LAN MAC address
         public string? UniqueServiceName { get; set; }

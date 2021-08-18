@@ -24,7 +24,7 @@
         </Grid.ColumnDefinitions>
         <Ribbon Grid.Row="0" Background="{StaticResource titleBackgroundSolidColorBrush}" Foreground="{StaticResource navigationBackgroundSolidColorBrush}">
             <Ribbon.ApplicationMenu>
-                <RibbonApplicationMenu Visibility="Hidden" />
+                <RibbonApplicationMenu Visibility="Hidden"/>
             </Ribbon.ApplicationMenu>
             <Ribbon.ContextMenu>
                 <ContextMenu Visibility="Hidden"/>
@@ -39,7 +39,7 @@
                             <RibbonGalleryCategory ItemsSource="{Binding Devices}">
                                 <RibbonGalleryCategory.ItemTemplate>
                                     <DataTemplate DataType="{x:Type domain:InternetGatewayDevice}">
-                                        <TextBlock Text="{Binding Server}" />
+                                        <TextBlock Text="{Binding Server}"/>
                                     </DataTemplate>
                                 </RibbonGalleryCategory.ItemTemplate>
                             </RibbonGalleryCategory>
@@ -52,7 +52,7 @@
                             <RibbonGalleryCategory ItemsSource="{Binding Users}">
                                 <RibbonGalleryCategory.ItemTemplate>
                                     <DataTemplate DataType="{x:Type domain:User}">
-                                        <TextBlock Text="{Binding Name}" />
+                                        <TextBlock Text="{Binding Name}"/>
                                     </DataTemplate>
                                 </RibbonGalleryCategory.ItemTemplate>
                             </RibbonGalleryCategory>
@@ -65,16 +65,16 @@
             </RibbonTab>
             <RibbonTab Header="Device Information">
                 <RibbonGroup ToolTip="This service allows the reporting of basic device information, including the current hardware and software versions.">
-                    <RibbonButton Label="DeviceInfo" Command="{Binding DeviceInfoViewModel.GetDeviceInfoCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png" />
+                    <RibbonButton Label="DeviceInfo" Command="{Binding DeviceInfoViewModel.GetDeviceInfoCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
                 <RibbonGroup ToolTip="This service enables the ability to set the password that will allow the device to be configured via the xml interface.">
-                    <RibbonButton Label="LanConfigSecurity" Command="{Binding LanConfigSecurityViewModel.GetLanConfigSecurityCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png" />
+                    <RibbonButton Label="LanConfigSecurity" Command="{Binding LanConfigSecurityViewModel.GetLanConfigSecurityCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
                 <RibbonGroup ToolTip="The WANDSLInterfaceConfig service models physical layer properties specific to a single physical connection of a DSL modem used for Internet access on an IGD.">
-                    <RibbonButton Label="WanDslInterfaceConfig" Command="{Binding WanDslInterfaceConfigViewModel.GetWanDslInterfaceConfigCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png" />
+                    <RibbonButton Label="WanDslInterfaceConfig" Command="{Binding WanDslInterfaceConfigViewModel.GetWanDslInterfaceConfigCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
                 <RibbonGroup ToolTip="Replaces the existing ConfigPassword with the value specified in NewPassword.">
-                    <RibbonButton Label="Update Password" Command="{Binding LanConfigSecurityViewModel.SetConfigPasswordCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png" />
+                    <RibbonButton Label="Update Password" Command="{Binding LanConfigSecurityViewModel.SetConfigPasswordCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                     <RibbonTextBox Label="New Password:" Text="{Binding LanConfigSecurityViewModel.LanConfigSecuritySetConfigPasswordValue, UpdateSourceTrigger=PropertyChanged}"/>
                     <Label Content="Changing the password needs up to 20 seconds."/>
                 </RibbonGroup>

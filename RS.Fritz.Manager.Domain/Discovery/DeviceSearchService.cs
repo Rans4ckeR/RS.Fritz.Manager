@@ -30,7 +30,7 @@
 
         public async Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string deviceType)
         {
-            IEnumerable<string> responses = (await Task.WhenAll(GetLocalAddresses().Select(q => SearchDevicesAsync(q, deviceType, 3)))).SelectMany(q => q);
+            IEnumerable<string> responses = (await Domain.TaskExtensions.WhenAllSafe(GetLocalAddresses().Select(q => SearchDevicesAsync(q, deviceType, 3)))).SelectMany(q => q);
             IEnumerable<Dictionary<string, string>> dictionaries = responses.Select(q => q.Split(Environment.NewLine)).Select(q => q.Where(q => q.Contains(": ")).ToDictionary(r => r.Split(": ")[0], r => r.Split(": ")[1]));
 
             return dictionaries.Select(q => new InternetGatewayDeviceResponse
@@ -39,7 +39,7 @@
                 Ext = q.TryGetValue("EXT", out string? ext) ? ext : default,
                 Location = q.TryGetValue("LOCATION", out string? location) ? new Uri(location) : default,
                 Server = q.TryGetValue("SERVER", out string? server) ? server : default,
-                St = q.TryGetValue("ST", out string? st) ? st : default,
+                SearchTarget = q.TryGetValue("ST", out string? st) ? st : default,
                 Usn = q.TryGetValue("USN", out string? usn) ? usn : default
             }).GroupBy(q => q.Usn).Select(q => new InternetGatewayDevice
             {
@@ -47,7 +47,7 @@
                 Ext = q.Select(r => r.Ext).Distinct().Single(),
                 Locations = q.Select(r => r.Location!).Distinct(),
                 Server = q.Select(r => r.Server).Distinct().Single(),
-                ServiceType = q.Select(r => r.St).Distinct().Single(),
+                SearchTarget = q.Select(r => r.SearchTarget).Distinct().Single(),
                 UniqueServiceName = q.Key
             });
         }

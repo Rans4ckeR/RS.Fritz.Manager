@@ -6,56 +6,56 @@
              xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
     <Application.Resources>
         <ResourceDictionary>
-            <SolidColorBrush x:Key="windowBackgroundSolidColorBrush" Color="#FF292822" />
-            <SolidColorBrush x:Key="foregroundSolidColorBrush" Color="#FF121212" />
-            <SolidColorBrush x:Key="navigationBackgroundSolidColorBrush" Color="#FF266FC3" />
-            <SolidColorBrush x:Key="titleBackgroundSolidColorBrush" Color="#FF3F8FE2" />
-            <SolidColorBrush x:Key="labelSolidColorBrush" Color="#FF414446" />
-            <SolidColorBrush x:Key="titleTextSolidColorBrush" Color="White" />
-            <SolidColorBrush x:Key="textSolidColorBrush" Color="#FFC3CAD1" />
+            <SolidColorBrush x:Key="windowBackgroundSolidColorBrush" Color="#FF292822"/>
+            <SolidColorBrush x:Key="foregroundSolidColorBrush" Color="#FF121212"/>
+            <SolidColorBrush x:Key="navigationBackgroundSolidColorBrush" Color="#FF266FC3"/>
+            <SolidColorBrush x:Key="titleBackgroundSolidColorBrush" Color="#FF3F8FE2"/>
+            <SolidColorBrush x:Key="labelSolidColorBrush" Color="#FF414446"/>
+            <SolidColorBrush x:Key="titleTextSolidColorBrush" Color="White"/>
+            <SolidColorBrush x:Key="textSolidColorBrush" Color="#FFC3CAD1"/>
             <Style x:Key="textStyle" TargetType="{x:Type Control}">
-                <Setter Property="Foreground" Value="{StaticResource textSolidColorBrush}" />
-                <Setter Property="FontFamily" Value="Arial" />
+                <Setter Property="Foreground" Value="{StaticResource textSolidColorBrush}"/>
+                <Setter Property="FontFamily" Value="Arial"/>
             </Style>
             <Style TargetType="{x:Type Label}">
-                <Setter Property="Foreground" Value="{StaticResource titleBackgroundSolidColorBrush}" />
-                <Setter Property="FontFamily" Value="Arial" />
+                <Setter Property="Foreground" Value="{StaticResource titleBackgroundSolidColorBrush}"/>
+                <Setter Property="FontFamily" Value="Arial"/>
             </Style>
             <Style TargetType="{x:Type TextBlock}">
-                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="VerticalAlignment" Value="Center"/>
             </Style>
             <Style TargetType="{x:Type RibbonTab}">
-                <Setter Property="Foreground" Value="#FF255FFF" />
-                <Setter Property="FontFamily" Value="Arial" />
+                <Setter Property="Foreground" Value="#FF255FFF"/>
+                <Setter Property="FontFamily" Value="Arial"/>
             </Style>
             <DataTemplate DataType="{x:Type domain:InternetGatewayDevice}">
                 <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource navigationBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="Selected InternetGatewayDevice">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Server}" Content="_Server" />
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Locations}" Content="_Locations" />
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=ServiceType}" Content="_ServiceType" />
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CacheControl}" Content="_CacheControl" />
-                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Ext}" Content="_Ext" />
-                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=UniqueServiceName}" Content="_UniqueServiceName" />
-                            <TextBlock x:Name="Server" Grid.Row="0" Grid.Column="1" Text="{Binding Server}" />
-                            <ListView x:Name="Locations" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Locations}" Foreground="{StaticResource textSolidColorBrush}" Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="2" />
-                            <TextBlock x:Name="ServiceType" Grid.Row="2" Grid.Column="1" Text="{Binding ServiceType}" />
-                            <TextBlock x:Name="CacheControl" Grid.Row="3" Grid.Column="1" Text="{Binding CacheControl}" />
-                            <TextBlock x:Name="Ext" Grid.Row="4" Grid.Column="1" Text="{Binding Ext}" />
-                            <TextBlock x:Name="UniqueServiceName" Grid.Row="5" Grid.Column="1" Text="{Binding UniqueServiceName}" />
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Server}" Content="_Server" ToolTip="Field value shall begin with the following 'product tokens' (defined by HTTP/1.1). The first product token identifes the operating system in the form OS name/OS version, the second token represents the UPnP version, and the third token identifes the product using the form product name/product version."/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Locations}" Content="_Locations" ToolTip="Field value contains a URL to the UPnP description of the root device. Normally the host portion contains a literal IP address rather than a domain name in unmanaged networks (see RFC 3986)."/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=SearchTarget}" Content="_SearchTarget" ToolTip="Field value contains Search Target. The response sent by the device depends on the field value of the ST header field that was sent in the request."/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CacheControl}" Content="_CacheControl" ToolTip="Field value shall have the max-age directive ('max-age=') followed by an integer that specifies the number of seconds the advertisement is valid. After this duration, control points should assume the device (or service) is no longer available; as long as a control point has received at least one advertisement that is still valid from a root device, any of its embedded devices or any of its services, then the control point can assume that all are available. The number of seconds should be greater than or equal to 1800 seconds (30 minutes), although exceptions are defined in the text above."/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Ext}" Content="_Ext" ToolTip="Required for backwards compatibility with UPnP 1.0. (Header field name only; no field value.)"/>
+                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=UniqueServiceName}" Content="_UniqueServiceName" ToolTip="Field value contains Unique Service Name. Identifies a unique instance of a device or service. The prefix (before the double colon) shall match the value of the UDN element in the device description OR the lower ST version used in the M-Search request."/>
+                            <TextBlock x:Name="Server" Grid.Row="0" Grid.Column="1" Text="{Binding Server}"/>
+                            <ListView x:Name="Locations" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Locations}" Foreground="{StaticResource textSolidColorBrush}" Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="2"/>
+                            <TextBlock x:Name="SearchTarget" Grid.Row="2" Grid.Column="1" Text="{Binding SearchTarget}"/>
+                            <TextBlock x:Name="CacheControl" Grid.Row="3" Grid.Column="1" Text="{Binding CacheControl}"/>
+                            <TextBlock x:Name="Ext" Grid.Row="4" Grid.Column="1" Text="{Binding Ext}"/>
+                            <TextBlock x:Name="UniqueServiceName" Grid.Row="5" Grid.Column="1" Text="{Binding UniqueServiceName}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -65,14 +65,14 @@
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="SecurityPort">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=SecurityPort}" Content="_SecurityPort" />
-                            <TextBlock x:Name="SecurityPort" Grid.Row="0" Grid.Column="1" Text="{Binding SecurityPort}" />
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=SecurityPort}" Content="_SecurityPort"/>
+                            <TextBlock x:Name="SecurityPort" Grid.Row="0" Grid.Column="1" Text="{Binding SecurityPort}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -80,17 +80,17 @@
             <DataTemplate DataType="{x:Type domain:User}">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Name}" Content="_Name" />
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=LastUser}" Content="_LastUser" />
-                    <TextBlock x:Name="Name" Grid.Row="0" Grid.Column="1" Text="{Binding Name}" />
-                    <TextBlock x:Name="LastUser" Grid.Row="1" Grid.Column="1" Text="{Binding LastUser}" />
+                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Name}" Content="_Name"/>
+                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=LastUser}" Content="_LastUser"/>
+                    <TextBlock x:Name="Name" Grid.Row="0" Grid.Column="1" Text="{Binding Name}"/>
+                    <TextBlock x:Name="LastUser" Grid.Row="1" Grid.Column="1" Text="{Binding LastUser}"/>
                 </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:DeviceInfoGetInfoResponse}">
@@ -98,47 +98,47 @@
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="Info">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Description}" Content="_Description" ToolTip="A full description of the CPE device (human readable string)." />
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DeviceLog}" Content="_DeviceLog" ToolTip="Vendor specific content containing the contents of all logs." />
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=HardwareVersion}" Content="_HardwareVersion" ToolTip="Represents the current hardware revision of the IGD" />
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=ManufacturerName}" Content="_ManufacturerName" ToolTip="The manufacturer of the CPE (human readable string)" />
-                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=ManufacturerOUI}" Content="_ManufacturerOUI" ToolTip="Organizationally unique identifier of the device manufacturer. Represented as a six hexadecimal-digit value using all upper-case letters and including any leading zeros. The value MUST be a valid OUI as defined in http://standards.ieee.org/faqs/OUI.html." />
-                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=ModelName}" Content="_ModelName" ToolTip="Model name of the CPE (human readable string)." />
-                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=ProductClass}" Content="_ProductClass" ToolTip="Identifier of the class of product for which the serial number applies. That is, for a given manufacturer, this parameter is used to identify the product or class of product over which the SerialNumber parameter is unique." />
-                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=ProvisioningCode}" Content="_ProvisioningCode" ToolTip="Identifier of the primary service provider, which MAY be used to determine service provider-specific customization and provisioning parameters. If non-empty, this argument SHOULD be in the form of a hierarchical descriptor with one or more nodes specified. Each node in the hierarchy is represented as a 4-character sub-string, containing only numerals or upper-case letters. If there is more than one node indicated, each node is separated by a '.' (dot). Examples: 'TLCO' or 'TLCO.GRP2'" />
-                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=SerialNumber}" Content="_SerialNumber" ToolTip="Serial number of the CPE." />
-                            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=SoftwareVersion}" Content="_SoftwareVersion" ToolTip="Represents the current firmware version. It should be in the syntax used by the individual vendor to identify software versions." />
-                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=SpecVersion}" Content="_SpecVersion" ToolTip="Represents the version of the specification implemented by the device. Currently 1.0 is the only available version." />
-                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=UpTime}" Content="_UpTime" ToolTip="Time in seconds since the CPE was last restarted." />
-                            <TextBlock x:Name="Description" Grid.Row="0" Grid.Column="1" Text="{Binding Description}" />
-                            <TextBlock x:Name="DeviceLog" Grid.Row="1" Grid.Column="1" Text="{Binding DeviceLog}" />
-                            <TextBlock x:Name="HardwareVersion" Grid.Row="2" Grid.Column="1" Text="{Binding HardwareVersion}" />
-                            <TextBlock x:Name="ManufacturerName" Grid.Row="3" Grid.Column="1" Text="{Binding ManufacturerName}" />
-                            <TextBlock x:Name="ManufacturerOUI" Grid.Row="4" Grid.Column="1" Text="{Binding ManufacturerOUI}" />
-                            <TextBlock x:Name="ModelName" Grid.Row="5" Grid.Column="1" Text="{Binding ModelName}" />
-                            <TextBlock x:Name="ProductClass" Grid.Row="6" Grid.Column="1" Text="{Binding ProductClass}" />
-                            <TextBlock x:Name="ProvisioningCode" Grid.Row="7" Grid.Column="1" Text="{Binding ProvisioningCode}" />
-                            <TextBlock x:Name="SerialNumber" Grid.Row="8" Grid.Column="1" Text="{Binding SerialNumber}" />
-                            <TextBlock x:Name="SoftwareVersion" Grid.Row="9" Grid.Column="1" Text="{Binding SoftwareVersion}" />
-                            <TextBlock x:Name="SpecVersion" Grid.Row="10" Grid.Column="1" Text="{Binding SpecVersion}" />
-                            <TextBlock x:Name="UpTime" Grid.Row="11" Grid.Column="1" Text="{Binding UpTime}" />
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Description}" Content="_Description" ToolTip="A full description of the CPE device (human readable string)."/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DeviceLog}" Content="_DeviceLog" ToolTip="Vendor specific content containing the contents of all logs."/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=HardwareVersion}" Content="_HardwareVersion" ToolTip="Represents the current hardware revision of the IGD"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=ManufacturerName}" Content="_ManufacturerName" ToolTip="The manufacturer of the CPE (human readable string)"/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=ManufacturerOUI}" Content="_ManufacturerOUI" ToolTip="Organizationally unique identifier of the device manufacturer. Represented as a six hexadecimal-digit value using all upper-case letters and including any leading zeros. The value MUST be a valid OUI as defined in http://standards.ieee.org/faqs/OUI.html."/>
+                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=ModelName}" Content="_ModelName" ToolTip="Model name of the CPE (human readable string)."/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=ProductClass}" Content="_ProductClass" ToolTip="Identifier of the class of product for which the serial number applies. That is, for a given manufacturer, this parameter is used to identify the product or class of product over which the SerialNumber parameter is unique."/>
+                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=ProvisioningCode}" Content="_ProvisioningCode" ToolTip="Identifier of the primary service provider, which MAY be used to determine service provider-specific customization and provisioning parameters. If non-empty, this argument SHOULD be in the form of a hierarchical descriptor with one or more nodes specified. Each node in the hierarchy is represented as a 4-character sub-string, containing only numerals or upper-case letters. If there is more than one node indicated, each node is separated by a '.' (dot). Examples: 'TLCO' or 'TLCO.GRP2'"/>
+                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=SerialNumber}" Content="_SerialNumber" ToolTip="Serial number of the CPE."/>
+                            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=SoftwareVersion}" Content="_SoftwareVersion" ToolTip="Represents the current firmware version. It should be in the syntax used by the individual vendor to identify software versions."/>
+                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=SpecVersion}" Content="_SpecVersion" ToolTip="Represents the version of the specification implemented by the device. Currently 1.0 is the only available version."/>
+                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=UpTime}" Content="_UpTime" ToolTip="Time in seconds since the CPE was last restarted."/>
+                            <TextBlock x:Name="Description" Grid.Row="0" Grid.Column="1" Text="{Binding Description}"/>
+                            <TextBlock x:Name="DeviceLog" Grid.Row="1" Grid.Column="1" Text="{Binding DeviceLog}"/>
+                            <TextBlock x:Name="HardwareVersion" Grid.Row="2" Grid.Column="1" Text="{Binding HardwareVersion}"/>
+                            <TextBlock x:Name="ManufacturerName" Grid.Row="3" Grid.Column="1" Text="{Binding ManufacturerName}"/>
+                            <TextBlock x:Name="ManufacturerOUI" Grid.Row="4" Grid.Column="1" Text="{Binding ManufacturerOUI}"/>
+                            <TextBlock x:Name="ModelName" Grid.Row="5" Grid.Column="1" Text="{Binding ModelName}"/>
+                            <TextBlock x:Name="ProductClass" Grid.Row="6" Grid.Column="1" Text="{Binding ProductClass}"/>
+                            <TextBlock x:Name="ProvisioningCode" Grid.Row="7" Grid.Column="1" Text="{Binding ProvisioningCode}"/>
+                            <TextBlock x:Name="SerialNumber" Grid.Row="8" Grid.Column="1" Text="{Binding SerialNumber}"/>
+                            <TextBlock x:Name="SoftwareVersion" Grid.Row="9" Grid.Column="1" Text="{Binding SoftwareVersion}"/>
+                            <TextBlock x:Name="SpecVersion" Grid.Row="10" Grid.Column="1" Text="{Binding SpecVersion}"/>
+                            <TextBlock x:Name="UpTime" Grid.Row="11" Grid.Column="1" Text="{Binding UpTime}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -148,14 +148,14 @@
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="DeviceLog">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DeviceLog}" Content="_DeviceLog" />
-                            <TextBlock x:Name="DeviceLog" Grid.Row="0" Grid.Column="1" Text="{Binding DeviceLog}" />
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DeviceLog}" Content="_DeviceLog"/>
+                            <TextBlock x:Name="DeviceLog" Grid.Row="0" Grid.Column="1" Text="{Binding DeviceLog}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -165,14 +165,14 @@
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="AnonymousLogin">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AnonymousLoginEnabled}" Content="_AnonymousLoginEnabled" />
-                            <TextBlock x:Name="AnonymousLoginEnabled" Grid.Row="0" Grid.Column="1" Text="{Binding AnonymousLoginEnabled}" />
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AnonymousLoginEnabled}" Content="_AnonymousLoginEnabled"/>
+                            <TextBlock x:Name="AnonymousLoginEnabled" Grid.Row="0" Grid.Column="1" Text="{Binding AnonymousLoginEnabled}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -182,17 +182,17 @@
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="CurrentUser">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=CurrentUsername}" Content="_CurrentUsername" />
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=CurrentUserRights}" Content="_CurrentUserRights" />
-                            <TextBlock x:Name="CurrentUsername" Grid.Row="0" Grid.Column="1" Text="{Binding CurrentUsername}" />
-                            <TextBlock x:Name="CurrentUserRights" Grid.Row="1" Grid.Column="1" Text="{Binding CurrentUserRights}" />
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=CurrentUsername}" Content="_CurrentUsername"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=CurrentUserRights}" Content="_CurrentUserRights"/>
+                            <TextBlock x:Name="CurrentUsername" Grid.Row="0" Grid.Column="1" Text="{Binding CurrentUsername}"/>
+                            <TextBlock x:Name="CurrentUserRights" Grid.Row="1" Grid.Column="1" Text="{Binding CurrentUserRights}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -202,20 +202,20 @@
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="Info">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=MaxCharsPassword}" Content="_MaxCharsPassword" />
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MinCharsPassword}" Content="_MinCharsPassword" />
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AllowedCharsPassword}" Content="_AllowedCharsPassword" />
-                            <TextBlock x:Name="MaxCharsPassword" Grid.Row="0" Grid.Column="1" Text="{Binding MaxCharsPassword}" />
-                            <TextBlock x:Name="MinCharsPassword" Grid.Row="1" Grid.Column="1" Text="{Binding MinCharsPassword}" />
-                            <TextBlock x:Name="AllowedCharsPassword" Grid.Row="2" Grid.Column="1" Text="{Binding AllowedCharsPassword}" />
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=MaxCharsPassword}" Content="_MaxCharsPassword"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MinCharsPassword}" Content="_MinCharsPassword"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AllowedCharsPassword}" Content="_AllowedCharsPassword"/>
+                            <TextBlock x:Name="MaxCharsPassword" Grid.Row="0" Grid.Column="1" Text="{Binding MaxCharsPassword}"/>
+                            <TextBlock x:Name="MinCharsPassword" Grid.Row="1" Grid.Column="1" Text="{Binding MinCharsPassword}"/>
+                            <TextBlock x:Name="AllowedCharsPassword" Grid.Row="2" Grid.Column="1" Text="{Binding AllowedCharsPassword}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -225,14 +225,14 @@
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="UserList">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=UserList}" Content="_UserList" />
-                            <TextBlock x:Name="UserList" Grid.Row="0" Grid.Column="1" Text="{Binding UserList}" />
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=UserList}" Content="_UserList"/>
+                            <TextBlock x:Name="UserList" Grid.Row="0" Grid.Column="1" Text="{Binding UserList}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -242,14 +242,14 @@
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="ConfigPassword">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Password}" Content="_Password" ToolTip="A password to allow access to any protected auto-configuration service." />
-                            <TextBox x:Name="Password" Grid.Row="0" Grid.Column="1" Text="{Binding Password}" />
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Password}" Content="_Password" ToolTip="A password to allow access to any protected auto-configuration service."/>
+                            <TextBox x:Name="Password" Grid.Row="0" Grid.Column="1" Text="{Binding Password}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -259,32 +259,32 @@
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="DSLDiagnoseInfo">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=CableNokDistance}" Content="_CableNokDistance" />
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DSLActive}" Content="_DSLActive" />
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DSLDiagnoseState}" Content="_DSLDiagnoseState" ToolTip="Possible values are NONE, NO_CALIB, RUNNING, DONE, DONE_CABLE_NOK, DONE_CABLE_OK." />
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=DSLLastDiagnoseTime}" Content="_DSLLastDiagnoseTime" />
-                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DSLSignalLossTime}" Content="_DSLSignalLossTime" />
-                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=DSLSync}" Content="_DSLSync" />
-                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status" />
-                            <TextBlock x:Name="CableNokDistance" Grid.Row="0" Grid.Column="1" Text="{Binding CableNokDistance}" />
-                            <TextBlock x:Name="DSLActive" Grid.Row="1" Grid.Column="1" Text="{Binding DSLActive}" />
-                            <TextBlock x:Name="DSLDiagnoseState" Grid.Row="2" Grid.Column="1" Text="{Binding DSLDiagnoseState}" />
-                            <TextBlock x:Name="DSLLastDiagnoseTime" Grid.Row="3" Grid.Column="1" Text="{Binding DSLLastDiagnoseTime}" />
-                            <TextBlock x:Name="DSLSignalLossTime" Grid.Row="4" Grid.Column="1" Text="{Binding DSLSignalLossTime}" />
-                            <TextBlock x:Name="DSLSync" Grid.Row="5" Grid.Column="1" Text="{Binding DSLSync}" />
-                            <TextBlock x:Name="Status" Grid.Row="6" Grid.Column="1" Text="{Binding Status}" />
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=CableNokDistance}" Content="_CableNokDistance"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DSLActive}" Content="_DSLActive"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DSLDiagnoseState}" Content="_DSLDiagnoseState" ToolTip="Possible values are NONE, NO_CALIB, RUNNING, DONE, DONE_CABLE_NOK, DONE_CABLE_OK."/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=DSLLastDiagnoseTime}" Content="_DSLLastDiagnoseTime"/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DSLSignalLossTime}" Content="_DSLSignalLossTime"/>
+                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=DSLSync}" Content="_DSLSync"/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status"/>
+                            <TextBlock x:Name="CableNokDistance" Grid.Row="0" Grid.Column="1" Text="{Binding CableNokDistance}"/>
+                            <TextBlock x:Name="DSLActive" Grid.Row="1" Grid.Column="1" Text="{Binding DSLActive}"/>
+                            <TextBlock x:Name="DSLDiagnoseState" Grid.Row="2" Grid.Column="1" Text="{Binding DSLDiagnoseState}"/>
+                            <TextBlock x:Name="DSLLastDiagnoseTime" Grid.Row="3" Grid.Column="1" Text="{Binding DSLLastDiagnoseTime}"/>
+                            <TextBlock x:Name="DSLSignalLossTime" Grid.Row="4" Grid.Column="1" Text="{Binding DSLSignalLossTime}"/>
+                            <TextBlock x:Name="DSLSync" Grid.Row="5" Grid.Column="1" Text="{Binding DSLSync}"/>
+                            <TextBlock x:Name="Status" Grid.Row="6" Grid.Column="1" Text="{Binding Status}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -294,86 +294,86 @@
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="DSLInfo">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ATURCountry}" Content="_ATURCountry" />
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ATURVendor}" Content="_ATURVendor" />
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=CRCErrors}" Content="_CRCErrors" />
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CurrentProfile}" Content="_CurrentProfile" />
-                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DownstreamAttenuation}" Content="_DownstreamAttenuation" />
-                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=DownstreamCurrRate}" Content="_DownstreamCurrRate" />
-                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=DownstreamMaxRate}" Content="_DownstreamMaxRate" />
-                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=DownstreamNoiseMargin}" Content="_DownstreamNoiseMargin" />
-                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=DownstreamPower}" Content="_DownstreamPower" />
-                            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=FECErrors}" Content="_FECErrors" />
-                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=LATNds}" Content="_LATNds" ToolTip="Comma-separated list (maximum list length 24) of strings. Indicates the downstream line attenuation per usable band, as computed during initialization. Number of elements is dependent on the number of downstream bands but will exceed one only for G.993.2. Interpretation of LATNds is as defined in ITU-T Rec. G.997.1." />
-                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=LATNus}" Content="_LATNus" ToolTip="Comma-separated list (maximum list length 24) of strings. Indicates the upstream line attenuation per usable band, as computed during initialization. Number of elements is dependent on the number of upstream bands but will exceed one only for G.993.2. Interpretation of LATNus is as defined in ITU-T Rec. G.997.1." />
-                            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=LinkStatus}" Content="_LinkStatus" ToolTip="Possible values are Up, Down, Initializing, Unavailable." />
-                            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=ModulationType}" Content="_ModulationType" ToolTip="Possible values are ADSL G.lite, G.shdsl, IDSL, HDSL, SDSL, VDSL." />
-                            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=SNRGds}" Content="_SNRGds" ToolTip="Number of sub-carriers per sub-carrier group in the downstream direction for SNRpsds. Valid values are 1, 2, 4, and 8." />
-                            <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=SNRGus}" Content="_SNRGus" ToolTip="Number of sub-carriers per sub-carrier group in the upstream direction for SNRpsus. Valid values are 1, 2, 4, and 8. Always returns 1." />
-                            <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=SNRMTds}" Content="_SNRMTds" ToolTip="Indicates the number of symbols over which SNRpsds was measured." />
-                            <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=SNRMTus}" Content="_SNRMTus" ToolTip="Indicates the number of symbols over which SNRpsus was measured." />
-                            <Label Grid.Row="18" Grid.Column="0" Target="{Binding ElementName=SNRpsds}" Content="_SNRpsds" ToolTip="Comma-separated list (maximum list length 2047) of integers. Indicates the downstream SNR per subcarrier group. The maximum number of elements is 256 for G.992.3, and 512 for G.992.5. For G.993.2, the number of elements will depend on the value of SNRGds but will not exceed 512. Interpretation of the values is as defined in ITU-T Rec. G.997.1." />
-                            <Label Grid.Row="19" Grid.Column="0" Target="{Binding ElementName=SNRpsus}" Content="_SNRpsus" ToolTip="Comma-separated list (maximum list length 2047) of strings. Indicates the upstream SNR per subcarrier group. The maximum number of elements is 64 for G.992.3 and G.992.5. For G.993.2, the number of elements will depend on the value of SNRGus but will not exceed 512. Interpretation of the values is as defined in ITU-T Rec. G.997.1." />
-                            <Label Grid.Row="20" Grid.Column="0" Target="{Binding ElementName=UpstreamAttenuation}" Content="_UpstreamAttenuation" />
-                            <Label Grid.Row="21" Grid.Column="0" Target="{Binding ElementName=UpstreamCurrRate}" Content="_UpstreamCurrRate" />
-                            <Label Grid.Row="22" Grid.Column="0" Target="{Binding ElementName=UpstreamMaxRate}" Content="_UpstreamMaxRate" />
-                            <Label Grid.Row="23" Grid.Column="0" Target="{Binding ElementName=UpstreamNoiseMargin}" Content="_UpstreamNoiseMargin" />
-                            <Label Grid.Row="24" Grid.Column="0" Target="{Binding ElementName=UpstreamPower}" Content="_UpstreamPower" />
-                            <TextBlock x:Name="ATURCountry" Grid.Row="0" Grid.Column="1" Text="{Binding ATURCountry}" />
-                            <TextBlock x:Name="ATURVendor" Grid.Row="1" Grid.Column="1" Text="{Binding ATURVendor}" />
-                            <TextBlock x:Name="CRCErrors" Grid.Row="2" Grid.Column="1" Text="{Binding CRCErrors}" />
-                            <TextBlock x:Name="CurrentProfile" Grid.Row="3" Grid.Column="1" Text="{Binding CurrentProfile}" />
-                            <TextBlock x:Name="DownstreamAttenuation" Grid.Row="4" Grid.Column="1" Text="{Binding DownstreamAttenuation}" />
-                            <TextBlock x:Name="DownstreamCurrRate" Grid.Row="5" Grid.Column="1" Text="{Binding DownstreamCurrRate}" />
-                            <TextBlock x:Name="DownstreamMaxRate" Grid.Row="6" Grid.Column="1" Text="{Binding DownstreamMaxRate}" />
-                            <TextBlock x:Name="DownstreamNoiseMargin" Grid.Row="7" Grid.Column="1" Text="{Binding DownstreamNoiseMargin}" />
-                            <TextBlock x:Name="DownstreamPower" Grid.Row="8" Grid.Column="1" Text="{Binding DownstreamPower}" />
-                            <TextBlock x:Name="FECErrors" Grid.Row="9" Grid.Column="1" Text="{Binding FECErrors}" />
-                            <TextBlock x:Name="LATNds" Grid.Row="10" Grid.Column="1" Text="{Binding LATNds}" />
-                            <TextBlock x:Name="LATNus" Grid.Row="11" Grid.Column="1" Text="{Binding LATNus}" />
-                            <TextBlock x:Name="LinkStatus" Grid.Row="12" Grid.Column="1" Text="{Binding LinkStatus}" />
-                            <TextBlock x:Name="ModulationType" Grid.Row="13" Grid.Column="1" Text="{Binding ModulationType}" />
-                            <TextBlock x:Name="SNRGds" Grid.Row="14" Grid.Column="1" Text="{Binding SNRGds}" />
-                            <TextBlock x:Name="SNRGus" Grid.Row="15" Grid.Column="1" Text="{Binding SNRGus}" />
-                            <TextBlock x:Name="SNRMTds" Grid.Row="16" Grid.Column="1" Text="{Binding SNRMTds}" />
-                            <TextBlock x:Name="SNRMTus" Grid.Row="17" Grid.Column="1" Text="{Binding SNRMTus}" />
-                            <TextBlock x:Name="SNRpsds" Grid.Row="18" Grid.Column="1" Text="{Binding SNRpsds}" />
-                            <TextBlock x:Name="SNRpsus" Grid.Row="19" Grid.Column="1" Text="{Binding SNRpsus}" />
-                            <TextBlock x:Name="UpstreamAttenuation" Grid.Row="20" Grid.Column="1" Text="{Binding UpstreamAttenuation}" />
-                            <TextBlock x:Name="UpstreamCurrRate" Grid.Row="21" Grid.Column="1" Text="{Binding UpstreamCurrRate}" />
-                            <TextBlock x:Name="UpstreamMaxRate" Grid.Row="22" Grid.Column="1" Text="{Binding UpstreamMaxRate}" />
-                            <TextBlock x:Name="UpstreamNoiseMargin" Grid.Row="23" Grid.Column="1" Text="{Binding UpstreamNoiseMargin}" />
-                            <TextBlock x:Name="UpstreamPower" Grid.Row="24" Grid.Column="1" Text="{Binding UpstreamPower}" />
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ATURCountry}" Content="_ATURCountry"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ATURVendor}" Content="_ATURVendor"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=CRCErrors}" Content="_CRCErrors"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CurrentProfile}" Content="_CurrentProfile"/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DownstreamAttenuation}" Content="_DownstreamAttenuation"/>
+                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=DownstreamCurrRate}" Content="_DownstreamCurrRate"/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=DownstreamMaxRate}" Content="_DownstreamMaxRate"/>
+                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=DownstreamNoiseMargin}" Content="_DownstreamNoiseMargin"/>
+                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=DownstreamPower}" Content="_DownstreamPower"/>
+                            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=FECErrors}" Content="_FECErrors"/>
+                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=LATNds}" Content="_LATNds" ToolTip="Comma-separated list (maximum list length 24) of strings. Indicates the downstream line attenuation per usable band, as computed during initialization. Number of elements is dependent on the number of downstream bands but will exceed one only for G.993.2. Interpretation of LATNds is as defined in ITU-T Rec. G.997.1."/>
+                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=LATNus}" Content="_LATNus" ToolTip="Comma-separated list (maximum list length 24) of strings. Indicates the upstream line attenuation per usable band, as computed during initialization. Number of elements is dependent on the number of upstream bands but will exceed one only for G.993.2. Interpretation of LATNus is as defined in ITU-T Rec. G.997.1."/>
+                            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=LinkStatus}" Content="_LinkStatus" ToolTip="Possible values are Up, Down, Initializing, Unavailable."/>
+                            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=ModulationType}" Content="_ModulationType" ToolTip="Possible values are ADSL G.lite, G.shdsl, IDSL, HDSL, SDSL, VDSL."/>
+                            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=SNRGds}" Content="_SNRGds" ToolTip="Number of sub-carriers per sub-carrier group in the downstream direction for SNRpsds. Valid values are 1, 2, 4, and 8."/>
+                            <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=SNRGus}" Content="_SNRGus" ToolTip="Number of sub-carriers per sub-carrier group in the upstream direction for SNRpsus. Valid values are 1, 2, 4, and 8. Always returns 1."/>
+                            <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=SNRMTds}" Content="_SNRMTds" ToolTip="Indicates the number of symbols over which SNRpsds was measured."/>
+                            <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=SNRMTus}" Content="_SNRMTus" ToolTip="Indicates the number of symbols over which SNRpsus was measured."/>
+                            <Label Grid.Row="18" Grid.Column="0" Target="{Binding ElementName=SNRpsds}" Content="_SNRpsds" ToolTip="Comma-separated list (maximum list length 2047) of integers. Indicates the downstream SNR per subcarrier group. The maximum number of elements is 256 for G.992.3, and 512 for G.992.5. For G.993.2, the number of elements will depend on the value of SNRGds but will not exceed 512. Interpretation of the values is as defined in ITU-T Rec. G.997.1."/>
+                            <Label Grid.Row="19" Grid.Column="0" Target="{Binding ElementName=SNRpsus}" Content="_SNRpsus" ToolTip="Comma-separated list (maximum list length 2047) of strings. Indicates the upstream SNR per subcarrier group. The maximum number of elements is 64 for G.992.3 and G.992.5. For G.993.2, the number of elements will depend on the value of SNRGus but will not exceed 512. Interpretation of the values is as defined in ITU-T Rec. G.997.1."/>
+                            <Label Grid.Row="20" Grid.Column="0" Target="{Binding ElementName=UpstreamAttenuation}" Content="_UpstreamAttenuation"/>
+                            <Label Grid.Row="21" Grid.Column="0" Target="{Binding ElementName=UpstreamCurrRate}" Content="_UpstreamCurrRate"/>
+                            <Label Grid.Row="22" Grid.Column="0" Target="{Binding ElementName=UpstreamMaxRate}" Content="_UpstreamMaxRate"/>
+                            <Label Grid.Row="23" Grid.Column="0" Target="{Binding ElementName=UpstreamNoiseMargin}" Content="_UpstreamNoiseMargin"/>
+                            <Label Grid.Row="24" Grid.Column="0" Target="{Binding ElementName=UpstreamPower}" Content="_UpstreamPower"/>
+                            <TextBlock x:Name="ATURCountry" Grid.Row="0" Grid.Column="1" Text="{Binding ATURCountry}"/>
+                            <TextBlock x:Name="ATURVendor" Grid.Row="1" Grid.Column="1" Text="{Binding ATURVendor}"/>
+                            <TextBlock x:Name="CRCErrors" Grid.Row="2" Grid.Column="1" Text="{Binding CRCErrors}"/>
+                            <TextBlock x:Name="CurrentProfile" Grid.Row="3" Grid.Column="1" Text="{Binding CurrentProfile}"/>
+                            <TextBlock x:Name="DownstreamAttenuation" Grid.Row="4" Grid.Column="1" Text="{Binding DownstreamAttenuation}"/>
+                            <TextBlock x:Name="DownstreamCurrRate" Grid.Row="5" Grid.Column="1" Text="{Binding DownstreamCurrRate}"/>
+                            <TextBlock x:Name="DownstreamMaxRate" Grid.Row="6" Grid.Column="1" Text="{Binding DownstreamMaxRate}"/>
+                            <TextBlock x:Name="DownstreamNoiseMargin" Grid.Row="7" Grid.Column="1" Text="{Binding DownstreamNoiseMargin}"/>
+                            <TextBlock x:Name="DownstreamPower" Grid.Row="8" Grid.Column="1" Text="{Binding DownstreamPower}"/>
+                            <TextBlock x:Name="FECErrors" Grid.Row="9" Grid.Column="1" Text="{Binding FECErrors}"/>
+                            <TextBlock x:Name="LATNds" Grid.Row="10" Grid.Column="1" Text="{Binding LATNds}"/>
+                            <TextBlock x:Name="LATNus" Grid.Row="11" Grid.Column="1" Text="{Binding LATNus}"/>
+                            <TextBlock x:Name="LinkStatus" Grid.Row="12" Grid.Column="1" Text="{Binding LinkStatus}"/>
+                            <TextBlock x:Name="ModulationType" Grid.Row="13" Grid.Column="1" Text="{Binding ModulationType}"/>
+                            <TextBlock x:Name="SNRGds" Grid.Row="14" Grid.Column="1" Text="{Binding SNRGds}"/>
+                            <TextBlock x:Name="SNRGus" Grid.Row="15" Grid.Column="1" Text="{Binding SNRGus}"/>
+                            <TextBlock x:Name="SNRMTds" Grid.Row="16" Grid.Column="1" Text="{Binding SNRMTds}"/>
+                            <TextBlock x:Name="SNRMTus" Grid.Row="17" Grid.Column="1" Text="{Binding SNRMTus}"/>
+                            <TextBlock x:Name="SNRpsds" Grid.Row="18" Grid.Column="1" Text="{Binding SNRpsds}"/>
+                            <TextBlock x:Name="SNRpsus" Grid.Row="19" Grid.Column="1" Text="{Binding SNRpsus}"/>
+                            <TextBlock x:Name="UpstreamAttenuation" Grid.Row="20" Grid.Column="1" Text="{Binding UpstreamAttenuation}"/>
+                            <TextBlock x:Name="UpstreamCurrRate" Grid.Row="21" Grid.Column="1" Text="{Binding UpstreamCurrRate}"/>
+                            <TextBlock x:Name="UpstreamMaxRate" Grid.Row="22" Grid.Column="1" Text="{Binding UpstreamMaxRate}"/>
+                            <TextBlock x:Name="UpstreamNoiseMargin" Grid.Row="23" Grid.Column="1" Text="{Binding UpstreamNoiseMargin}"/>
+                            <TextBlock x:Name="UpstreamPower" Grid.Row="24" Grid.Column="1" Text="{Binding UpstreamPower}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -383,56 +383,56 @@
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="Info">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Enable}" Content="_Enable" ToolTip="Enables or disables the link." />
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status" ToolTip="Status of the DSL physical link. Possible values Up, Initializing, EstablishingLink, NoSignal, Error, Disabled." />
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DataPath}" Content="_DataPath" ToolTip="Indicates whether the data path is fast (lower latency) or interleaved (lower error rate). Possible values Interleaved, Fast." />
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=UpstreamCurrRate}" Content="_UpstreamCurrRate" ToolTip="Provides a snapshot of the current payload bandwidth (expressed in Kbps of the upstream DSL channel." />
-                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DownstreamCurrRate}" Content="_DownstreamCurrRate" ToolTip="Provides a snapshot of the current payload bandwidth (expressed in Kbps of the downstream DSL channel." />
-                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=UpstreamMaxRate}" Content="_UpstreamMaxRate" ToolTip="Describes the current attainable rate (expressed in Kbps) of the upstream DSL channel." />
-                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=DownstreamMaxRate}" Content="_DownstreamMaxRate" ToolTip="Describes the current attainable rate (expressed in Kbps) of the downstream DSL channel." />
-                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=UpstreamNoiseMargin}" Content="_UpstreamNoiseMargin" ToolTip="Provides a snapshot of the current signal-to-noise ratio (expressed in 0.1 db) of the upstream DSL connection." />
-                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=DownstreamNoiseMargin}" Content="_DownstreamNoiseMargin" ToolTip="Provides a snapshot of the current signal-to-noise ratio (expressed in 0.1 db) of the downstream DSL connection." />
-                            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=UpstreamAttenuation}" Content="_UpstreamAttenuation" ToolTip="Provides a measurement of the upstream signal loss (expressed in 0.1 dB)." />
-                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=DownstreamAttenuation}" Content="_DownstreamAttenuation" ToolTip="Provides a measurement of the downstream signal loss (expressed in 0.1 dB)." />
-                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=ATURVendor}" Content="_ATURVendor" ToolTip="ATU-R vendor identifier as defined in G.994.1 and T1.413." />
-                            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ATURCountry}" Content="_ATURCountry" ToolTip="T.35 country code of the ATU-R vendor as defined in G.994.1." />
-                            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=UpstreamPower}" Content="_UpstreamPower" ToolTip="Provides a snapshot of the current output power at the CPE's DSL interface (expressed in 0.1 dBmV)." />
-                            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DownstreamPower}" Content="_DownstreamPower" ToolTip="Provides a snapshot of the current received power signal level at the CPE's DSL interface (expressed in 0.1 dBmV)." />
-                            <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}" />
-                            <TextBlock x:Name="Status" Grid.Row="1" Grid.Column="1" Text="{Binding Status}" />
-                            <TextBlock x:Name="DataPath" Grid.Row="2" Grid.Column="1" Text="{Binding DataPath}" />
-                            <TextBlock x:Name="UpstreamCurrRate" Grid.Row="3" Grid.Column="1" Text="{Binding UpstreamCurrRate}" />
-                            <TextBlock x:Name="DownstreamCurrRate" Grid.Row="4" Grid.Column="1" Text="{Binding DownstreamCurrRate}" />
-                            <TextBlock x:Name="UpstreamMaxRate" Grid.Row="5" Grid.Column="1" Text="{Binding UpstreamMaxRate}" />
-                            <TextBlock x:Name="DownstreamMaxRate" Grid.Row="6" Grid.Column="1" Text="{Binding DownstreamMaxRate}" />
-                            <TextBlock x:Name="UpstreamNoiseMargin" Grid.Row="7" Grid.Column="1" Text="{Binding UpstreamNoiseMargin}" />
-                            <TextBlock x:Name="DownstreamNoiseMargin" Grid.Row="8" Grid.Column="1" Text="{Binding DownstreamNoiseMargin}" />
-                            <TextBlock x:Name="UpstreamAttenuation" Grid.Row="9" Grid.Column="1" Text="{Binding UpstreamAttenuation}" />
-                            <TextBlock x:Name="DownstreamAttenuation" Grid.Row="10" Grid.Column="1" Text="{Binding DownstreamAttenuation}" />
-                            <TextBlock x:Name="ATURVendor" Grid.Row="11" Grid.Column="1" Text="{Binding ATURVendor}" />
-                            <TextBlock x:Name="ATURCountry" Grid.Row="12" Grid.Column="1" Text="{Binding ATURCountry}" />
-                            <TextBlock x:Name="UpstreamPower" Grid.Row="13" Grid.Column="1" Text="{Binding UpstreamPower}" />
-                            <TextBlock x:Name="DownstreamPower" Grid.Row="14" Grid.Column="1" Text="{Binding DownstreamPower}" />
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Enable}" Content="_Enable" ToolTip="Enables or disables the link."/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status" ToolTip="Status of the DSL physical link. Possible values Up, Initializing, EstablishingLink, NoSignal, Error, Disabled."/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DataPath}" Content="_DataPath" ToolTip="Indicates whether the data path is fast (lower latency) or interleaved (lower error rate). Possible values Interleaved, Fast."/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=UpstreamCurrRate}" Content="_UpstreamCurrRate" ToolTip="Provides a snapshot of the current payload bandwidth (expressed in Kbps of the upstream DSL channel."/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DownstreamCurrRate}" Content="_DownstreamCurrRate" ToolTip="Provides a snapshot of the current payload bandwidth (expressed in Kbps of the downstream DSL channel."/>
+                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=UpstreamMaxRate}" Content="_UpstreamMaxRate" ToolTip="Describes the current attainable rate (expressed in Kbps) of the upstream DSL channel."/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=DownstreamMaxRate}" Content="_DownstreamMaxRate" ToolTip="Describes the current attainable rate (expressed in Kbps) of the downstream DSL channel."/>
+                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=UpstreamNoiseMargin}" Content="_UpstreamNoiseMargin" ToolTip="Provides a snapshot of the current signal-to-noise ratio (expressed in 0.1 db) of the upstream DSL connection."/>
+                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=DownstreamNoiseMargin}" Content="_DownstreamNoiseMargin" ToolTip="Provides a snapshot of the current signal-to-noise ratio (expressed in 0.1 db) of the downstream DSL connection."/>
+                            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=UpstreamAttenuation}" Content="_UpstreamAttenuation" ToolTip="Provides a measurement of the upstream signal loss (expressed in 0.1 dB)."/>
+                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=DownstreamAttenuation}" Content="_DownstreamAttenuation" ToolTip="Provides a measurement of the downstream signal loss (expressed in 0.1 dB)."/>
+                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=ATURVendor}" Content="_ATURVendor" ToolTip="ATU-R vendor identifier as defined in G.994.1 and T1.413."/>
+                            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ATURCountry}" Content="_ATURCountry" ToolTip="T.35 country code of the ATU-R vendor as defined in G.994.1."/>
+                            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=UpstreamPower}" Content="_UpstreamPower" ToolTip="Provides a snapshot of the current output power at the CPE's DSL interface (expressed in 0.1 dBmV)."/>
+                            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DownstreamPower}" Content="_DownstreamPower" ToolTip="Provides a snapshot of the current received power signal level at the CPE's DSL interface (expressed in 0.1 dBmV)."/>
+                            <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
+                            <TextBlock x:Name="Status" Grid.Row="1" Grid.Column="1" Text="{Binding Status}"/>
+                            <TextBlock x:Name="DataPath" Grid.Row="2" Grid.Column="1" Text="{Binding DataPath}"/>
+                            <TextBlock x:Name="UpstreamCurrRate" Grid.Row="3" Grid.Column="1" Text="{Binding UpstreamCurrRate}"/>
+                            <TextBlock x:Name="DownstreamCurrRate" Grid.Row="4" Grid.Column="1" Text="{Binding DownstreamCurrRate}"/>
+                            <TextBlock x:Name="UpstreamMaxRate" Grid.Row="5" Grid.Column="1" Text="{Binding UpstreamMaxRate}"/>
+                            <TextBlock x:Name="DownstreamMaxRate" Grid.Row="6" Grid.Column="1" Text="{Binding DownstreamMaxRate}"/>
+                            <TextBlock x:Name="UpstreamNoiseMargin" Grid.Row="7" Grid.Column="1" Text="{Binding UpstreamNoiseMargin}"/>
+                            <TextBlock x:Name="DownstreamNoiseMargin" Grid.Row="8" Grid.Column="1" Text="{Binding DownstreamNoiseMargin}"/>
+                            <TextBlock x:Name="UpstreamAttenuation" Grid.Row="9" Grid.Column="1" Text="{Binding UpstreamAttenuation}"/>
+                            <TextBlock x:Name="DownstreamAttenuation" Grid.Row="10" Grid.Column="1" Text="{Binding DownstreamAttenuation}"/>
+                            <TextBlock x:Name="ATURVendor" Grid.Row="11" Grid.Column="1" Text="{Binding ATURVendor}"/>
+                            <TextBlock x:Name="ATURCountry" Grid.Row="12" Grid.Column="1" Text="{Binding ATURCountry}"/>
+                            <TextBlock x:Name="UpstreamPower" Grid.Row="13" Grid.Column="1" Text="{Binding UpstreamPower}"/>
+                            <TextBlock x:Name="DownstreamPower" Grid.Row="14" Grid.Column="1" Text="{Binding DownstreamPower}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -442,68 +442,68 @@
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="StatisticsTotal">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ATUCCRCErrors}" Content="_ATUCCRCErrors" ToolTip="Total number of CRC errors detected by the ATU-C." />
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ATUCFECErrors}" Content="_ATUCFECErrors" ToolTip="Total number of FEC errors detected by the ATU-C." />
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=ATUCHECErrors}" Content="_ATUCHECErrors" ToolTip="Total number of HEC errors detected by the ATU-C." />
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CellDelin}" Content="_CellDelin" ToolTip="Number of cell-delineation errors since the most recent DSL Showtime." />
-                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=CRCErrors}" Content="_CRCErrors" ToolTip="Total number of CRC errors detected." />
-                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=ErroredSecs}" Content="_ErroredSecs" ToolTip="Total number of errored seconds." />
-                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=FECErrors}" Content="_FECErrors" ToolTip="Total number of FEC errors detected." />
-                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=HECErrors}" Content="_HECErrors" ToolTip="Total number of HEC errors detected." />
-                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=InitErrors}" Content="_InitErrors" ToolTip="Total number of initialization errors." />
-                            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=InitTimeouts}" Content="_InitTimeouts" ToolTip="Total number of initialization timeout errors." />
-                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=LinkRetrain}" Content="_LinkRetrain" ToolTip="Total number of link-retrain errors." />
-                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=LossOfFraming}" Content="_LossOfFraming" ToolTip="Total number of loss-of-framing errors." />
-                            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ReceiveBlocks}" Content="_ReceiveBlocks" ToolTip="Total number of successfully received superframes." />
-                            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=SeverelyErroredSecs}" Content="_SeverelyErroredSecs" ToolTip="Total number of severely errored seconds." />
-                            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=TransmitBlocks}" Content="_TransmitBlocks" ToolTip="Total number of successfully transmitted superframes." />
-                            <TextBlock x:Name="ATUCCRCErrors" Grid.Row="0" Grid.Column="1" Text="{Binding ATUCCRCErrors}" />
-                            <TextBlock x:Name="ATUCFECErrors" Grid.Row="1" Grid.Column="1" Text="{Binding ATUCFECErrors}" />
-                            <TextBlock x:Name="ATUCHECErrors" Grid.Row="2" Grid.Column="1" Text="{Binding ATUCHECErrors}" />
-                            <TextBlock x:Name="CellDelin" Grid.Row="3" Grid.Column="1" Text="{Binding CellDelin}" />
-                            <TextBlock x:Name="CRCErrors" Grid.Row="4" Grid.Column="1" Text="{Binding CRCErrors}" />
-                            <TextBlock x:Name="ErroredSecs" Grid.Row="5" Grid.Column="1" Text="{Binding ErroredSecs}" />
-                            <TextBlock x:Name="FECErrors" Grid.Row="6" Grid.Column="1" Text="{Binding FECErrors}" />
-                            <TextBlock x:Name="HECErrors" Grid.Row="7" Grid.Column="1" Text="{Binding HECErrors}" />
-                            <TextBlock x:Name="InitErrors" Grid.Row="8" Grid.Column="1" Text="{Binding InitErrors}" />
-                            <TextBlock x:Name="InitTimeouts" Grid.Row="9" Grid.Column="1" Text="{Binding InitTimeouts}" />
-                            <TextBlock x:Name="LinkRetrain" Grid.Row="10" Grid.Column="1" Text="{Binding LinkRetrain}" />
-                            <TextBlock x:Name="LossOfFraming" Grid.Row="11" Grid.Column="1" Text="{Binding LossOfFraming}" />
-                            <TextBlock x:Name="ReceiveBlocks" Grid.Row="12" Grid.Column="1" Text="{Binding ReceiveBlocks}" />
-                            <TextBlock x:Name="SeverelyErroredSecs" Grid.Row="13" Grid.Column="1" Text="{Binding SeverelyErroredSecs}" />
-                            <TextBlock x:Name="TransmitBlocks" Grid.Row="14" Grid.Column="1" Text="{Binding TransmitBlocks}" />
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ATUCCRCErrors}" Content="_ATUCCRCErrors" ToolTip="Total number of CRC errors detected by the ATU-C."/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ATUCFECErrors}" Content="_ATUCFECErrors" ToolTip="Total number of FEC errors detected by the ATU-C."/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=ATUCHECErrors}" Content="_ATUCHECErrors" ToolTip="Total number of HEC errors detected by the ATU-C."/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CellDelin}" Content="_CellDelin" ToolTip="Number of cell-delineation errors since the most recent DSL Showtime."/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=CRCErrors}" Content="_CRCErrors" ToolTip="Total number of CRC errors detected."/>
+                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=ErroredSecs}" Content="_ErroredSecs" ToolTip="Total number of errored seconds."/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=FECErrors}" Content="_FECErrors" ToolTip="Total number of FEC errors detected."/>
+                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=HECErrors}" Content="_HECErrors" ToolTip="Total number of HEC errors detected."/>
+                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=InitErrors}" Content="_InitErrors" ToolTip="Total number of initialization errors."/>
+                            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=InitTimeouts}" Content="_InitTimeouts" ToolTip="Total number of initialization timeout errors."/>
+                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=LinkRetrain}" Content="_LinkRetrain" ToolTip="Total number of link-retrain errors."/>
+                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=LossOfFraming}" Content="_LossOfFraming" ToolTip="Total number of loss-of-framing errors."/>
+                            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ReceiveBlocks}" Content="_ReceiveBlocks" ToolTip="Total number of successfully received superframes."/>
+                            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=SeverelyErroredSecs}" Content="_SeverelyErroredSecs" ToolTip="Total number of severely errored seconds."/>
+                            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=TransmitBlocks}" Content="_TransmitBlocks" ToolTip="Total number of successfully transmitted superframes."/>
+                            <TextBlock x:Name="ATUCCRCErrors" Grid.Row="0" Grid.Column="1" Text="{Binding ATUCCRCErrors}"/>
+                            <TextBlock x:Name="ATUCFECErrors" Grid.Row="1" Grid.Column="1" Text="{Binding ATUCFECErrors}"/>
+                            <TextBlock x:Name="ATUCHECErrors" Grid.Row="2" Grid.Column="1" Text="{Binding ATUCHECErrors}"/>
+                            <TextBlock x:Name="CellDelin" Grid.Row="3" Grid.Column="1" Text="{Binding CellDelin}"/>
+                            <TextBlock x:Name="CRCErrors" Grid.Row="4" Grid.Column="1" Text="{Binding CRCErrors}"/>
+                            <TextBlock x:Name="ErroredSecs" Grid.Row="5" Grid.Column="1" Text="{Binding ErroredSecs}"/>
+                            <TextBlock x:Name="FECErrors" Grid.Row="6" Grid.Column="1" Text="{Binding FECErrors}"/>
+                            <TextBlock x:Name="HECErrors" Grid.Row="7" Grid.Column="1" Text="{Binding HECErrors}"/>
+                            <TextBlock x:Name="InitErrors" Grid.Row="8" Grid.Column="1" Text="{Binding InitErrors}"/>
+                            <TextBlock x:Name="InitTimeouts" Grid.Row="9" Grid.Column="1" Text="{Binding InitTimeouts}"/>
+                            <TextBlock x:Name="LinkRetrain" Grid.Row="10" Grid.Column="1" Text="{Binding LinkRetrain}"/>
+                            <TextBlock x:Name="LossOfFraming" Grid.Row="11" Grid.Column="1" Text="{Binding LossOfFraming}"/>
+                            <TextBlock x:Name="ReceiveBlocks" Grid.Row="12" Grid.Column="1" Text="{Binding ReceiveBlocks}"/>
+                            <TextBlock x:Name="SeverelyErroredSecs" Grid.Row="13" Grid.Column="1" Text="{Binding SeverelyErroredSecs}"/>
+                            <TextBlock x:Name="TransmitBlocks" Grid.Row="14" Grid.Column="1" Text="{Binding TransmitBlocks}"/>
                         </Grid>
                     </Expander>
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:DeviceInfoViewModel}">
-                <ui:DeviceInfoView />
+                <ui:DeviceInfoView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:LanConfigSecurityViewModel}">
-                <ui:LanConfigSecurityView />
+                <ui:LanConfigSecurityView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:WanDslInterfaceConfigViewModel}">
-                <ui:WanDslInterfaceConfigView />
+                <ui:WanDslInterfaceConfigView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

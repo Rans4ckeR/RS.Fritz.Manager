@@ -3,8 +3,11 @@
     using System.ServiceModel;
 
     [MessageContract(WrapperName = "GetDSLInfoResponse")]
+#pragma warning disable S101 // Types should be named in PascalCase
     public sealed record WanDslInterfaceConfigGetDSLInfoResponse
+#pragma warning restore S101 // Types should be named in PascalCase
     {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         [MessageBodyMember(Name = "NewSNRGds")]
         public uint SNRGds { get; set; }
 

@@ -23,10 +23,10 @@
     <FileVersion>0.1.0.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
+    <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0-preview.7.21377.19" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0-preview.7.21377.19"/>
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.27.0.35380">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -35,8 +35,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Reflection.DispatchProxy" Version="5.0.0-preview.7.20364.11" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="6.0.0-preview.7.21377.19" />
-    <PackageReference Include="System.ServiceModel.Http" Version="4.9.0-preview1.21220.1" />
+    <PackageReference Include="System.Reflection.DispatchProxy" Version="5.0.0-preview.7.20364.11"/>
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="6.0.0-preview.7.21377.19"/>
+    <PackageReference Include="System.ServiceModel.Http" Version="4.9.0-preview1.21220.1"/>
   </ItemGroup>
 </Project>
