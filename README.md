@@ -1,15 +1,14 @@
 # RS.Fritz.Manager
 A Windows .NET app with WPF UI to read information from and manage FritzBox devices using pure WCF calls.
 
-Work in progress with a rudimentary user expierence.
-All testing was done with a FritzBox 7530.
+Work in progress, all testing was done with a FritzBox 7530.
 
 Currently implemented services:
 * urn:dslforum-org:service:DeviceInfo:1
 * urn:dslforum-org:service:LANConfigSecurity:1
 * urn:dslforum-org:service:WANDSLInterfaceConfig:1
 
-![Untitled](https://user-images.githubusercontent.com/25006126/129746246-77dbc461-afdb-4df3-991b-3a6367bb5a45.png)
+![Screenshot 2021-08-18 142340](https://user-images.githubusercontent.com/25006126/129897659-11afc54b-d4fa-4de3-8f34-294565bc1da9.png)
 
 ## Usage Instructions
 1. Click Discover Internet Gateway Devices
