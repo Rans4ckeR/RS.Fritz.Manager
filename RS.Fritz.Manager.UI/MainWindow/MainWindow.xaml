@@ -35,7 +35,7 @@
                 </RibbonGroup>
                 <RibbonGroup>
                     <RibbonComboBox Label="Select A Discovered Device:" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Device.png">
-                        <RibbonGallery SelectedItem="{Binding SelectedDevice}">
+                        <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.Device}">
                             <RibbonGalleryCategory ItemsSource="{Binding Devices}">
                                 <RibbonGalleryCategory.ItemTemplate>
                                     <DataTemplate DataType="{x:Type domain:InternetGatewayDevice}">
@@ -48,7 +48,7 @@
                 </RibbonGroup>
                 <RibbonGroup>
                     <RibbonComboBox Label="Select A User:" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/User.png">
-                        <RibbonGallery SelectedItem="{Binding SelectedUser}">
+                        <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.User}">
                             <RibbonGalleryCategory ItemsSource="{Binding Users}">
                                 <RibbonGalleryCategory.ItemTemplate>
                                     <DataTemplate DataType="{x:Type domain:User}">
@@ -60,7 +60,7 @@
                     </RibbonComboBox>
                 </RibbonGroup>
                 <RibbonGroup>
-                    <RibbonTextBox Label="Enter User Password:" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Password.png"/>
+                    <RibbonTextBox Label="Enter User Password:" Text="{Binding DeviceLoginInfo.Password, UpdateSourceTrigger=PropertyChanged}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Password.png"/>
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="Device Information">
@@ -72,11 +72,6 @@
                 </RibbonGroup>
                 <RibbonGroup ToolTip="The WANDSLInterfaceConfig service models physical layer properties specific to a single physical connection of a DSL modem used for Internet access on an IGD.">
                     <RibbonButton Label="WanDslInterfaceConfig" Command="{Binding WanDslInterfaceConfigViewModel.GetWanDslInterfaceConfigCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-                <RibbonGroup ToolTip="Replaces the existing ConfigPassword with the value specified in NewPassword.">
-                    <RibbonButton Label="Update Password" Command="{Binding LanConfigSecurityViewModel.SetConfigPasswordCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                    <RibbonTextBox Label="New Password:" Text="{Binding LanConfigSecurityViewModel.LanConfigSecuritySetConfigPasswordValue, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Label Content="Changing the password needs up to 20 seconds."/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>

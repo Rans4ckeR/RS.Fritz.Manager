@@ -27,6 +27,7 @@
                     services.AddSingleton<MainWindowViewModel>();
                     services.AddSingleton<DeviceInfoViewModel>();
                     services.AddSingleton<LanConfigSecurityViewModel>();
+                    services.AddSingleton<LanConfigSecuritySetConfigPasswordViewModel>();
                     services.AddSingleton<WanDslInterfaceConfigViewModel>();
                     services.AddSingleton<DeviceLoginInfo>();
                     services.AddSingleton<ILogger, UserInterfaceLogService>();

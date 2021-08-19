@@ -112,13 +112,7 @@
             set { _ = SetProperty(ref deviceAndLoginControlsEnabled, value); }
         }
 
-        public string? Password { get => deviceLoginInfo.Password; set => deviceLoginInfo.Password = value; }
-
         public ObservableCollection<User> Users { get => users; set => _ = SetProperty(ref users, value); }
-
-        public User? SelectedUser { get => deviceLoginInfo.User; set => deviceLoginInfo.User = value; }
-
-        public InternetGatewayDevice? SelectedDevice { get => deviceLoginInfo.Device; set => deviceLoginInfo.Device = value; }
 
         public ObservableObject? ActiveView { get => activeView; set => _ = SetProperty(ref activeView, value); }
 

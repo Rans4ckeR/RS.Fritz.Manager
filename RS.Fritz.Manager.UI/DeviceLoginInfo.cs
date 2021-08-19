@@ -1,10 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI
 {
-    using System;
-    using System.Collections.ObjectModel;
     using System.ComponentModel;
-    using System.Linq;
-    using System.ServiceModel.Channels;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Messaging;
     using RS.Fritz.Manager.Domain;

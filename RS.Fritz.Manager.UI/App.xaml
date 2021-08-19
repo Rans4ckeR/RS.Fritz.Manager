@@ -33,6 +33,11 @@
                 <Setter Property="Background" Value="{StaticResource titleBackgroundSolidColorBrush}"/>
                 <Setter Property="FontFamily" Value="Arial"/>
             </Style>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Foreground" Value="{StaticResource titleTextSolidColorBrush}"/>
+                <Setter Property="Background" Value="{StaticResource titleBackgroundSolidColorBrush}"/>
+                <Setter Property="FontFamily" Value="Arial"/>
+            </Style>
             <DataTemplate DataType="{x:Type domain:InternetGatewayDevice}">
                 <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource navigationBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="Selected InternetGatewayDevice">
@@ -238,23 +243,6 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=UserList}" Content="_UserList"/>
                             <TextBlock x:Name="UserList" Grid.Row="0" Grid.Column="1" Text="{Binding UserList}"/>
-                        </Grid>
-                    </Expander>
-                </Border>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:LanConfigSecuritySetConfigPasswordRequest}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="ConfigPassword">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Password}" Content="_Password" ToolTip="A password to allow access to any protected auto-configuration service."/>
-                            <TextBox x:Name="Password" Grid.Row="0" Grid.Column="1" Text="{Binding Password}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -509,6 +497,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:WanDslInterfaceConfigViewModel}">
                 <ui:WanDslInterfaceConfigView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:LanConfigSecuritySetConfigPasswordViewModel}">
+                <ui:LanConfigSecuritySetConfigPasswordView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

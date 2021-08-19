@@ -130,6 +130,7 @@
         {
             switch (e.PropertyName)
             {
+                case nameof(deviceLoginInfo.Device):
                 case nameof(deviceLoginInfo.User):
                 case nameof(deviceLoginInfo.Password):
                     {
@@ -184,7 +185,7 @@
 
         private void UpdateCanExecuteGetWanDslInterfaceConfig()
         {
-            CanExecuteGetWanDslInterfaceConfig = deviceLoginInfo.User is not null && !string.IsNullOrWhiteSpace(deviceLoginInfo.Password) && !GetWanDslInterfaceConfigCommandActive;
+            CanExecuteGetWanDslInterfaceConfig = deviceLoginInfo.Device is not null && deviceLoginInfo.User is not null && !string.IsNullOrWhiteSpace(deviceLoginInfo.Password) && !GetWanDslInterfaceConfigCommandActive;
         }
     }
 }

@@ -16,26 +16,24 @@
         private readonly IServiceOperationHandler serviceOperationHandler;
         private readonly IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory;
         private readonly ILogger logger;
+        private readonly LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel;
 
         private bool getLanConfigSecurityCommandActive = false;
-        private bool setConfigPasswordCommandActive = false;
         private bool canExecuteLanConfigSecurity = false;
-        private bool canExecuteSetConfigPassword = false;
         private DeviceLoginInfo deviceLoginInfo;
         private LanConfigSecurityGetAnonymousLoginResponse? lanConfigSecurityGetAnonymousLoginResponse;
         private LanConfigSecurityGetCurrentUserResponse? lanConfigSecurityGetCurrentUserResponse;
         private LanConfigSecurityGetInfoResponse? lanConfigSecurityGetInfoResponse;
         private LanConfigSecurityGetUserListResponse? lanConfigSecurityGetUserListResponse;
-        private string? lanConfigSecuritySetConfigPasswordValue;
 
-        public LanConfigSecurityViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, IServiceOperationHandler serviceOperationHandler, IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory)
+        public LanConfigSecurityViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel, IServiceOperationHandler serviceOperationHandler, IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory)
         {
             this.deviceLoginInfo = deviceLoginInfo;
             this.serviceOperationHandler = serviceOperationHandler;
             this.fritzLanConfigSecurityServiceClientFactory = fritzLanConfigSecurityServiceClientFactory;
             this.logger = logger;
+            this.lanConfigSecuritySetConfigPasswordViewModel = lanConfigSecuritySetConfigPasswordViewModel;
             GetLanConfigSecurityCommand = new AsyncRelayCommand(GetLanConfigSecurityAsync, () => CanExecuteGetLanConfigSecurity);
-            SetConfigPasswordCommand = new AsyncRelayCommand(SetConfigPasswordAsync, () => CanExecuteSetConfigPassword);
             deviceLoginInfo.PropertyChanged += DeviceLoginInfoPropertyChanged;
             PropertyChanged += LanConfigSecurityViewModelPropertyChanged;
 
@@ -55,9 +53,12 @@
             }
         }
 
-        public IAsyncRelayCommand GetLanConfigSecurityCommand { get; }
+        public LanConfigSecuritySetConfigPasswordViewModel LanConfigSecuritySetConfigPasswordViewModel
+        {
+            get => lanConfigSecuritySetConfigPasswordViewModel;
+        }
 
-        public IAsyncRelayCommand SetConfigPasswordCommand { get; }
+        public IAsyncRelayCommand GetLanConfigSecurityCommand { get; }
 
         public bool CanExecuteGetLanConfigSecurity
         {
@@ -66,26 +67,6 @@
             {
                 if (SetProperty(ref canExecuteLanConfigSecurity, value))
                     GetLanConfigSecurityCommand.NotifyCanExecuteChanged();
-            }
-        }
-
-        public bool CanExecuteSetConfigPassword
-        {
-            get => canExecuteSetConfigPassword;
-            set
-            {
-                if (SetProperty(ref canExecuteSetConfigPassword, value))
-                    SetConfigPasswordCommand.NotifyCanExecuteChanged();
-            }
-        }
-
-        public string? LanConfigSecuritySetConfigPasswordValue
-        {
-            get => lanConfigSecuritySetConfigPasswordValue;
-            set
-            {
-                if (SetProperty(ref lanConfigSecuritySetConfigPasswordValue, value))
-                    SetConfigPasswordCommand.NotifyCanExecuteChanged();
             }
         }
 
@@ -124,21 +105,6 @@
             }
         }
 
-        public bool SetConfigPasswordCommandActive
-        {
-            get => setConfigPasswordCommandActive;
-            set
-            {
-                if (value)
-                    Mouse.OverrideCursor = Cursors.Wait;
-                else
-                    Mouse.OverrideCursor = null;
-
-                if (SetProperty(ref setConfigPasswordCommandActive, value))
-                    SetConfigPasswordCommand.NotifyCanExecuteChanged();
-            }
-        }
-
         private async Task GetLanConfigSecurityAsync()
         {
             try
@@ -167,37 +133,15 @@
             }
         }
 
-        private async Task SetConfigPasswordAsync()
-        {
-            try
-            {
-                SetConfigPasswordCommandActive = true;
-
-                var networkCredential = new NetworkCredential(deviceLoginInfo.User!.Name, deviceLoginInfo.Password);
-
-                await SetLanConfigSecuritySetConfigPasswordAsync(new LanConfigSecuritySetConfigPasswordRequest { Password = LanConfigSecuritySetConfigPasswordValue! }, networkCredential);
-
-                WeakReferenceMessenger.Default.Send(new ActiveViewValueChangedMessage(this));
-            }
-            catch (Exception ex)
-            {
-                logger.ExceptionThrown(ex);
-            }
-            finally
-            {
-                SetConfigPasswordCommandActive = false;
-            }
-        }
-
         private void DeviceLoginInfoPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
+                case nameof(deviceLoginInfo.Device):
                 case nameof(deviceLoginInfo.User):
                 case nameof(deviceLoginInfo.Password):
                     {
                         UpdateCanExecuteGetLanConfigSecurity();
-                        UpdateCanExecuteSetConfigPasswordCommand();
                         break;
                     }
 
@@ -213,13 +157,6 @@
                 case nameof(GetLanConfigSecurityCommandActive):
                     {
                         UpdateCanExecuteGetLanConfigSecurity();
-                        break;
-                    }
-
-                case nameof(SetConfigPasswordCommandActive):
-                case nameof(LanConfigSecuritySetConfigPasswordValue):
-                    {
-                        UpdateCanExecuteSetConfigPasswordCommand();
                         break;
                     }
 
@@ -248,11 +185,6 @@
             LanConfigSecurityGetUserListResponse = await serviceOperationHandler.ExecuteAsync(GetFritzLanConfigSecurityServiceClient(true, deviceLoginInfo.Device!.SecurityPort, networkCredential), q => q.GetUserListAsync(new LanConfigSecurityGetUserListRequest()));
         }
 
-        private async Task SetLanConfigSecuritySetConfigPasswordAsync(LanConfigSecuritySetConfigPasswordRequest lanConfigSecuritySetConfigPasswordRequest, NetworkCredential networkCredential)
-        {
-            _ = await serviceOperationHandler.ExecuteAsync(GetFritzLanConfigSecurityServiceClient(true, deviceLoginInfo.Device!.SecurityPort, networkCredential), q => q.SetConfigPasswordAsync(lanConfigSecuritySetConfigPasswordRequest));
-        }
-
         private IFritzLanConfigSecurityService GetFritzLanConfigSecurityServiceClient(bool secure = true, ushort? port = null, NetworkCredential? networkCredential = null)
         {
             return fritzLanConfigSecurityServiceClientFactory.Build((q, r, t) => new FritzLanConfigSecurityService(q, r, t), deviceLoginInfo.Device!.PreferredLocation, secure, FritzLanConfigSecurityService.ControlUrl, port, networkCredential);
@@ -260,12 +192,7 @@
 
         private void UpdateCanExecuteGetLanConfigSecurity()
         {
-            CanExecuteGetLanConfigSecurity = deviceLoginInfo.User is not null && !string.IsNullOrWhiteSpace(deviceLoginInfo.Password) && !GetLanConfigSecurityCommandActive;
-        }
-
-        private void UpdateCanExecuteSetConfigPasswordCommand()
-        {
-            CanExecuteSetConfigPassword = deviceLoginInfo.User is not null && !string.IsNullOrWhiteSpace(deviceLoginInfo.Password) && !string.IsNullOrWhiteSpace(LanConfigSecuritySetConfigPasswordValue) && !SetConfigPasswordCommandActive;
+            CanExecuteGetLanConfigSecurity = deviceLoginInfo.Device is not null && deviceLoginInfo.User is not null && !string.IsNullOrWhiteSpace(deviceLoginInfo.Password) && !GetLanConfigSecurityCommandActive;
         }
     }
 }
