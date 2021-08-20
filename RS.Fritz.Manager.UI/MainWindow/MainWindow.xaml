@@ -70,7 +70,7 @@
                 <RibbonGroup ToolTip="This service enables the ability to set the password that will allow the device to be configured via the xml interface.">
                     <RibbonButton Label="LanConfigSecurity" Command="{Binding LanConfigSecurityViewModel.GetLanConfigSecurityCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
-                <RibbonGroup ToolTip="The WANDSLInterfaceConfig service models physical layer properties specific to a single physical connection of a DSL modem used for Internet access on an IGD.">
+                <RibbonGroup ToolTip="The WANDSLInterfaceConfig service models physical layer properties specific to a single physical connection of a DSL modem used for Internet access on an Internet Gateway Device (IGD).">
                     <RibbonButton Label="WanDslInterfaceConfig" Command="{Binding WanDslInterfaceConfigViewModel.GetWanDslInterfaceConfigCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
             </RibbonTab>

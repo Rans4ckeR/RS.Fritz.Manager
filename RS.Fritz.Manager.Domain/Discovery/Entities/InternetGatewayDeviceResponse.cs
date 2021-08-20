@@ -14,7 +14,6 @@
 
         public string? SearchTarget { get; set; }
 
-        // the last 48 bits are the CPE’s LAN MAC address
         public string? Usn { get; set; }
     }
 }

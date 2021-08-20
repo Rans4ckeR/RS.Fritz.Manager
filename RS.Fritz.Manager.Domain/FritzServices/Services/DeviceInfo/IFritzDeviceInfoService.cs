@@ -15,5 +15,8 @@
 
         [OperationContract(Action = "urn:dslforum-org:service:DeviceInfo:1#GetDeviceLog")]
         public Task<DeviceInfoGetDeviceLogResponse> GetDeviceLogAsync(DeviceInfoGetDeviceLogRequest deviceInfoGetDeviceLogRequest);
+
+        [OperationContract(Action = "urn:dslforum-org:service:DeviceInfo:1#SetProvisioningCode")]
+        public Task<SetProvisioningCodeResponse> SetProvisioningCodeAsync(SetProvisioningCodeRequest setProvisioningCodeRequest);
     }
 }

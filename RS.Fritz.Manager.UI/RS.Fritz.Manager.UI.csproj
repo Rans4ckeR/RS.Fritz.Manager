@@ -55,26 +55,33 @@
     <Resource Include="Images\User.png" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="UserControls\LanConfigSecuritySetConfigPasswordView.xaml.cs">
+    <Compile Update="UserControls\DeviceInfo\DeviceInfoSetProvisioningCodeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControls\WanDslInterfaceConfigView.xaml.cs">
+    <Compile Update="UserControls\LanConfigSecurity\LanConfigSecuritySetConfigPasswordView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControls\LanConfigSecurityView.xaml.cs">
+    <Compile Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\LanConfigSecurity\LanConfigSecurityView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="UserControls\LanConfigSecuritySetConfigPasswordView.xaml">
+    <Page Update="UserControls\DeviceInfo\DeviceInfoSetProvisioningCodeView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControls\WanDslInterfaceConfigView.xaml">
+    <Page Update="UserControls\LanConfigSecurity\LanConfigSecuritySetConfigPasswordView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControls\LanConfigSecurityView.xaml">
+    <Page Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\LanConfigSecurity\LanConfigSecurityView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

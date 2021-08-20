@@ -16,6 +16,7 @@
         private readonly IServiceOperationHandler serviceOperationHandler;
         private readonly IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory;
         private readonly ILogger logger;
+        private readonly DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel;
 
         private bool getDeviceInfoCommandActive = false;
         private bool canExecuteGetDeviceInfo = false;
@@ -24,12 +25,13 @@
         private DeviceInfoGetDeviceLogResponse? deviceInfoGetDeviceLogResponse;
         private DeviceLoginInfo deviceLoginInfo;
 
-        public DeviceInfoViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, IServiceOperationHandler serviceOperationHandler, IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory)
+        public DeviceInfoViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel, IServiceOperationHandler serviceOperationHandler, IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory)
         {
             this.deviceLoginInfo = deviceLoginInfo;
             this.serviceOperationHandler = serviceOperationHandler;
             this.fritzDeviceInfoServiceClientFactory = fritzDeviceInfoServiceClientFactory;
             this.logger = logger;
+            this.deviceInfoSetProvisioningCodeViewModel = deviceInfoSetProvisioningCodeViewModel;
             GetDeviceInfoCommand = new AsyncRelayCommand(GetDeviceInfoAsync, () => CanExecuteGetDeviceInfo);
             deviceLoginInfo.PropertyChanged += DeviceLoginInfoPropertyChanged;
             PropertyChanged += DeviceInfoViewModelPropertyChanged;
@@ -63,6 +65,11 @@
                 if (SetProperty(ref deviceLoginInfo, value))
                     GetDeviceInfoCommand.NotifyCanExecuteChanged();
             }
+        }
+
+        public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel
+        {
+            get => deviceInfoSetProvisioningCodeViewModel;
         }
 
         public IAsyncRelayCommand GetDeviceInfoCommand { get; }

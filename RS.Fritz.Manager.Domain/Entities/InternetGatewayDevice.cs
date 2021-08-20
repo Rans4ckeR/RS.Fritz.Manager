@@ -21,7 +21,7 @@
 
         public string? SearchTarget { get; set; }
 
-        // the last 48 bits are the CPE’s LAN MAC address
+        // the last 48 bits are the Customer Premises Equipment (CPE)’s LAN MAC address
         public string? UniqueServiceName { get; set; }
 
         public ushort? SecurityPort { get; set; }
