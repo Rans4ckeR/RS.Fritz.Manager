@@ -2,14 +2,18 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Net;
+    using System.Net.Http;
     using System.Net.NetworkInformation;
     using System.Net.Sockets;
     using System.Runtime.InteropServices;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Xml;
+    using System.Xml.Serialization;
 
     public sealed partial class DeviceSearchService : IDeviceSearchService
     {
@@ -21,6 +25,13 @@
         private const uint SIO_UDP_CONNRESET = IOC_IN | IOC_VENDOR | 12;
 #pragma warning restore SA1310 // Field names should not contain underscore
 
+        private readonly IHttpClientFactory httpClientFactory;
+
+        public DeviceSearchService(IHttpClientFactory httpClientFactory)
+        {
+            this.httpClientFactory = httpClientFactory;
+        }
+
         private static IDictionary<AddressType, string> MulticastAddresses => new Dictionary<AddressType, string>
         {
             [AddressType.IPv4] = "239.255.255.250",
@@ -30,10 +41,10 @@
 
         public async Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string deviceType)
         {
-            IEnumerable<string> responses = (await Domain.TaskExtensions.WhenAllSafe(GetLocalAddresses().Select(q => SearchDevicesAsync(q, deviceType, 3)))).SelectMany(q => q);
+            IEnumerable<string> responses = (await TaskExtensions.WhenAllSafe(GetLocalAddresses().Select(q => SearchDevicesAsync(q, deviceType, 3)))).SelectMany(q => q);
             IEnumerable<Dictionary<string, string>> dictionaries = responses.Select(q => q.Split(Environment.NewLine)).Select(q => q.Where(q => q.Contains(": ")).ToDictionary(r => r.Split(": ")[0], r => r.Split(": ")[1]));
 
-            return dictionaries.Select(q => new InternetGatewayDeviceResponse
+            InternetGatewayDevice[]? internetGatewayDevices = dictionaries.Select(q => new InternetGatewayDeviceResponse
             {
                 CacheControl = q.TryGetValue("CACHE-CONTROL", out string? cacheControl) ? cacheControl : default,
                 Ext = q.TryGetValue("EXT", out string? ext) ? ext : default,
@@ -49,7 +60,11 @@
                 Server = q.Select(r => r.Server).Distinct().Single(),
                 SearchTarget = q.Select(r => r.SearchTarget).Distinct().Single(),
                 UniqueServiceName = q.Key
-            });
+            }).ToArray();
+
+            await TaskExtensions.WhenAllSafe(internetGatewayDevices.Select(GetUPnPDescription));
+
+            return internetGatewayDevices;
         }
 
         private static IEnumerable<IPAddress> GetLocalAddresses()
@@ -135,6 +150,16 @@
                 if (i > 0)
                     responses.Add(Encoding.UTF8.GetString(buffer.Take(i).ToArray()));
             }
+        }
+
+        private async Task GetUPnPDescription(InternetGatewayDevice internetGatewayDevice)
+        {
+            Uri? uri = internetGatewayDevice.Locations.SingleOrDefault(r => r.HostNameType == UriHostNameType.IPv6) ?? internetGatewayDevice.Locations.Single(r => r.HostNameType == UriHostNameType.IPv4);
+            string uPnPDescription = await httpClientFactory.CreateClient(Constants.HttpClientName).GetStringAsync(uri);
+            using var stringReader = new StringReader(uPnPDescription);
+            using var xmlTextReader = new XmlTextReader(stringReader);
+
+            internetGatewayDevice.UPnPDescription = (UPnPDescription?)new XmlSerializer(typeof(UPnPDescription)).Deserialize(xmlTextReader);
         }
     }
 }

@@ -44,31 +44,189 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Server}" Content="_Server" ToolTip="Field value shall begin with the following 'product tokens' (defined by HTTP/1.1). The first product token identifes the operating system in the form OS name/OS version, the second token represents the UPnP version, and the third token identifes the product using the form product name/product version."/>
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Locations}" Content="_Locations" ToolTip="Field value contains a URL to the UPnP description of the root device. Normally the host portion contains a literal IP address rather than a domain name in unmanaged networks (see RFC 3986)."/>
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=SearchTarget}" Content="_SearchTarget" ToolTip="Field value contains Search Target. The response sent by the device depends on the field value of the ST header field that was sent in the request."/>
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CacheControl}" Content="_CacheControl" ToolTip="Field value shall have the max-age directive ('max-age=') followed by an integer that specifies the number of seconds the advertisement is valid. After this duration, control points should assume the device (or service) is no longer available; as long as a control point has received at least one advertisement that is still valid from a root device, any of its embedded devices or any of its services, then the control point can assume that all are available. The number of seconds should be greater than or equal to 1800 seconds (30 minutes), although exceptions are defined in the text above."/>
-                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Ext}" Content="_Ext" ToolTip="Required for backwards compatibility with UPnP 1.0. (Header field name only; no field value.)"/>
-                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=UniqueServiceName}" Content="_UniqueServiceName" ToolTip="Field value contains Unique Service Name. Identifies a unique instance of a device or service. The prefix (before the double colon) shall match the value of the UDN element in the device description OR the lower ST version used in the M-Search request."/>
-                            <TextBlock x:Name="Server" Grid.Row="0" Grid.Column="1" Text="{Binding Server}"/>
-                            <ListView x:Name="Locations" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Locations}" Foreground="{StaticResource textSolidColorBrush}" Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="2"/>
-                            <TextBlock x:Name="SearchTarget" Grid.Row="2" Grid.Column="1" Text="{Binding SearchTarget}"/>
-                            <TextBlock x:Name="CacheControl" Grid.Row="3" Grid.Column="1" Text="{Binding CacheControl}"/>
-                            <TextBlock x:Name="Ext" Grid.Row="4" Grid.Column="1" Text="{Binding Ext}"/>
-                            <TextBlock x:Name="UniqueServiceName" Grid.Row="5" Grid.Column="1" Text="{Binding UniqueServiceName}"/>
+                            <Grid Grid.Row="0" Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="_SSDP Information"/>
+                                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Server}" Content="_Server" ToolTip="Field value shall begin with the following 'product tokens' (defined by HTTP/1.1). The first product token identifes the operating system in the form OS name/OS version, the second token represents the UPnP version, and the third token identifes the product using the form product name/product version."/>
+                                <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Locations}" Content="_Locations" ToolTip="Field value contains a URL to the UPnP description of the root device. Normally the host portion contains a literal IP address rather than a domain name in unmanaged networks (see RFC 3986)."/>
+                                <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=SearchTarget}" Content="_SearchTarget" ToolTip="Field value contains Search Target. The response sent by the device depends on the field value of the ST header field that was sent in the request."/>
+                                <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=CacheControl}" Content="_CacheControl" ToolTip="Field value shall have the max-age directive ('max-age=') followed by an integer that specifies the number of seconds the advertisement is valid. After this duration, control points should assume the device (or service) is no longer available; as long as a control point has received at least one advertisement that is still valid from a root device, any of its embedded devices or any of its services, then the control point can assume that all are available. The number of seconds should be greater than or equal to 1800 seconds (30 minutes), although exceptions are defined in the text above."/>
+                                <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Ext}" Content="_Ext" ToolTip="Required for backwards compatibility with UPnP 1.0. (Header field name only; no field value.)"/>
+                                <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=UniqueServiceName}" Content="_UniqueServiceName" ToolTip="Field value contains Unique Service Name. Identifies a unique instance of a device or service. The prefix (before the double colon) shall match the value of the UDN element in the device description OR the lower ST version used in the M-Search request."/>
+                                <TextBlock x:Name="Server" Grid.Row="1" Grid.Column="1" Text="{Binding Server}"/>
+                                <ListView x:Name="Locations" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Locations}" Foreground="{StaticResource textSolidColorBrush}" Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="2">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <ui:ExternalBrowserHyperlink NavigateUri="{Binding}">
+                                                    <TextBlock Text="{Binding}"/>
+                                                </ui:ExternalBrowserHyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                <TextBlock x:Name="SearchTarget" Grid.Row="3" Grid.Column="1" Text="{Binding SearchTarget}"/>
+                                <TextBlock x:Name="CacheControl" Grid.Row="4" Grid.Column="1" Text="{Binding CacheControl}"/>
+                                <TextBlock x:Name="Ext" Grid.Row="5" Grid.Column="1" Text="{Binding Ext}"/>
+                                <TextBlock x:Name="UniqueServiceName" Grid.Row="6" Grid.Column="1" Text="{Binding UniqueServiceName}"/>
+                            </Grid>
+                            <Grid Grid.Row="0" Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Content="_UPnP Information"/>
+                                <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding UPnPDescription}"/>
+                            </Grid>
                         </Grid>
                     </Expander>
                 </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type domain:UPnPDescription}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding SpecVersion}"/>
+                        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding SystemVersion}"/>
+                    </Grid>
+                    <ContentControl Grid.Row="0" Grid.Column="1" Content="{Binding Device}"/>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type domain:SpecVersion}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="_SpecVersion"/>
+                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Major}" Content="_Major"/>
+                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Minor}" Content="_Minor"/>
+                    <TextBlock x:Name="Major" Grid.Row="1" Grid.Column="1" Text="{Binding Major}"/>
+                    <TextBlock x:Name="Minor" Grid.Row="2" Grid.Column="1" Text="{Binding Minor}"/>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type domain:SystemVersion}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="_SystemVersion"/>
+                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=HW}" Content="_HW"/>
+                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Major}" Content="_Major"/>
+                    <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Minor}" Content="_Minor"/>
+                    <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Patch}" Content="_Patch"/>
+                    <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Buildnumber}" Content="_Buildnumber"/>
+                    <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=Display}" Content="_Display"/>
+                    <TextBlock x:Name="HW" Grid.Row="1" Grid.Column="1" Text="{Binding HW}"/>
+                    <TextBlock x:Name="Major" Grid.Row="2" Grid.Column="1" Text="{Binding Major}"/>
+                    <TextBlock x:Name="Minor" Grid.Row="3" Grid.Column="1" Text="{Binding Minor}"/>
+                    <TextBlock x:Name="Patch" Grid.Row="4" Grid.Column="1" Text="{Binding Patch}"/>
+                    <TextBlock x:Name="Buildnumber" Grid.Row="5" Grid.Column="1" Text="{Binding Buildnumber}"/>
+                    <TextBlock x:Name="Display" Grid.Row="6" Grid.Column="1" Text="{Binding Display}"/>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type domain:Device}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="_Device"/>
+                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DeviceType}" Content="_DeviceType" ToolTip="Some standard property values are defined by the Universal Plug and Play Forum. The type string also includes a version number as defined in the UPnP specification."/>
+                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=FriendlyName}" Content="_FriendlyName" ToolTip="User friendly name of the device."/>
+                    <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Manufacturer}" Content="_Manufacturer" ToolTip="Device manufacturer's name."/>
+                    <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=ManufacturerUrl}" Content="_ManufacturerUrl" ToolTip="URL to the device manufacturers Web site."/>
+                    <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=ModelDescription}" Content="_ModelDescription" ToolTip="Long description of the device for the end user."/>
+                    <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=ModelName}" Content="_ModelName" ToolTip="Gives more information about the device model."/>
+                    <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=ModelNumber}" Content="_ModelNumber" ToolTip="Model number of the device."/>
+                    <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=ModelUrl}" Content="_ModelUrl" ToolTip="URL to the Web site for this model."/>
+                    <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=UniqueDeviceName}" Content="_UniqueDeviceName" ToolTip="Name that uniquely identifies a specific device."/>
+                    <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=PresentationUrl}" Content="_PresentationUrl" ToolTip="URL to a device representation Web page."/>
+                    <TextBlock x:Name="DeviceType" Grid.Row="1" Grid.Column="1" Text="{Binding DeviceType}"/>
+                    <TextBlock x:Name="FriendlyName" Grid.Row="2" Grid.Column="1" Text="{Binding FriendlyName}"/>
+                    <TextBlock x:Name="Manufacturer" Grid.Row="3" Grid.Column="1" Text="{Binding Manufacturer}"/>
+                    <TextBlock x:Name="ManufacturerUrl" Grid.Row="4" Grid.Column="1">
+                        <ui:ExternalBrowserHyperlink NavigateUri="{Binding ManufacturerUrl}">
+                            <TextBlock Text="{Binding ManufacturerUrl}"/>
+                        </ui:ExternalBrowserHyperlink>
+                    </TextBlock>
+                    <TextBlock x:Name="ModelDescription" Grid.Row="5" Grid.Column="1" Text="{Binding ModelDescription}"/>
+                    <TextBlock x:Name="ModelName" Grid.Row="6" Grid.Column="1" Text="{Binding ModelName}"/>
+                    <TextBlock x:Name="ModelNumber" Grid.Row="7" Grid.Column="1" Text="{Binding ModelNumber}"/>
+                    <TextBlock x:Name="ModelUrl" Grid.Row="8" Grid.Column="1">
+                        <ui:ExternalBrowserHyperlink NavigateUri="{Binding ModelUrl}">
+                            <TextBlock Text="{Binding ModelUrl}"/>
+                        </ui:ExternalBrowserHyperlink>
+                    </TextBlock>
+                    <TextBlock x:Name="UniqueDeviceName" Grid.Row="9" Grid.Column="1" Text="{Binding UniqueDeviceName}"/>
+                    <TextBlock x:Name="PresentationUrl" Grid.Row="10" Grid.Column="1">
+                        <ui:ExternalBrowserHyperlink NavigateUri="{Binding PresentationUrl}">
+                            <TextBlock Text="{Binding PresentationUrl}"/>
+                        </ui:ExternalBrowserHyperlink>
+                    </TextBlock>
+                </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:DeviceInfoGetSecurityPortResponse}">
                 <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">

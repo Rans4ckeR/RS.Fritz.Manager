@@ -1,5 +1,8 @@
 ﻿namespace RS.Fritz.Manager.UI
 {
+    using System;
+    using System.Net;
+    using System.Net.Http;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
@@ -37,6 +40,7 @@
                     services.AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>();
                     services.AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>();
                     services.AddSingleton<IClientFactory<IFritzWanDslInterfaceConfigService>, ClientFactory<IFritzWanDslInterfaceConfigService>>();
+                    ConfigureHttpClients(services);
                 }).Build();
         }
 
@@ -65,6 +69,20 @@
             base.OnExit(e);
 
             Mouse.OverrideCursor = null;
+        }
+
+        private static void ConfigureHttpClients(IServiceCollection services)
+        {
+            services.AddHttpClient(Constants.HttpClientName)
+                .ConfigureHttpClient((_, httpClient) =>
+                {
+                    httpClient.Timeout = TimeSpan.FromSeconds(60);
+                    httpClient.DefaultRequestVersion = Version.Parse("2.0");
+                })
+                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
+                {
+                    AutomaticDecompression = DecompressionMethods.All
+                });
         }
 
         private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

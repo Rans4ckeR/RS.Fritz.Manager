@@ -38,5 +38,7 @@
                 return location;
             }
         }
+
+        public UPnPDescription? UPnPDescription { get; set; }
     }
 }
