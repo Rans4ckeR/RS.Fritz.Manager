@@ -565,8 +565,8 @@
                             <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=DownstreamNoiseMargin}" Content="_DownstreamNoiseMargin" ToolTip="Provides a snapshot of the current signal-to-noise ratio (expressed in 0.1 db) of the downstream DSL connection."/>
                             <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=UpstreamAttenuation}" Content="_UpstreamAttenuation" ToolTip="Provides a measurement of the upstream signal loss (expressed in 0.1 dB)."/>
                             <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=DownstreamAttenuation}" Content="_DownstreamAttenuation" ToolTip="Provides a measurement of the downstream signal loss (expressed in 0.1 dB)."/>
-                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=ATURVendor}" Content="_ATURVendor" ToolTip="ATU-R vendor identifier as defined in G.994.1 and T1.413."/>
-                            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ATURCountry}" Content="_ATURCountry" ToolTip="T.35 country code of the ATU-R vendor as defined in G.994.1."/>
+                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=ATURVendor}" Content="_ATURVendor" ToolTip="ADSL Termination Unit - Remote (ATU-R) vendor identifier as defined in G.994.1 and T1.413."/>
+                            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ATURCountry}" Content="_ATURCountry" ToolTip="T.35 country code of the ADSL Termination Unit - Remote (ATU-R) vendor as defined in G.994.1."/>
                             <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=UpstreamPower}" Content="_UpstreamPower" ToolTip="Provides a snapshot of the current output power at the Customer Premises Equipment (CPE)'s DSL interface (expressed in 0.1 dBmV)."/>
                             <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DownstreamPower}" Content="_DownstreamPower" ToolTip="Provides a snapshot of the current received power signal level at the Customer Premises Equipment (CPE)'s DSL interface (expressed in 0.1 dBmV)."/>
                             <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
@@ -613,14 +613,14 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ATUCCRCErrors}" Content="_ATUCCRCErrors" ToolTip="Total number of CRC errors detected by the ATU-C."/>
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ATUCFECErrors}" Content="_ATUCFECErrors" ToolTip="Total number of FEC errors detected by the ATU-C."/>
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=ATUCHECErrors}" Content="_ATUCHECErrors" ToolTip="Total number of HEC errors detected by the ATU-C."/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ATUCCRCErrors}" Content="_ATUCCRCErrors" ToolTip="Total number of Cyclic Redundancy Check (CRC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ATUCFECErrors}" Content="_ATUCFECErrors" ToolTip="Total number of Foward Error Correction (FEC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=ATUCHECErrors}" Content="_ATUCHECErrors" ToolTip="Total number of Header Error Checksum (HEC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
                             <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CellDelin}" Content="_CellDelin" ToolTip="Number of cell-delineation errors since the most recent DSL Showtime."/>
-                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=CRCErrors}" Content="_CRCErrors" ToolTip="Total number of CRC errors detected."/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=CRCErrors}" Content="_CRCErrors" ToolTip="Total number of Cyclic Redundancy Check (CRC) errors detected."/>
                             <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=ErroredSecs}" Content="_ErroredSecs" ToolTip="Total number of errored seconds."/>
-                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=FECErrors}" Content="_FECErrors" ToolTip="Total number of FEC errors detected."/>
-                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=HECErrors}" Content="_HECErrors" ToolTip="Total number of HEC errors detected."/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=FECErrors}" Content="_FECErrors" ToolTip="Total number of Foward Error Correction (FEC) errors detected."/>
+                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=HECErrors}" Content="_HECErrors" ToolTip="Total number of Header Error Checksum (HEC) errors detected."/>
                             <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=InitErrors}" Content="_InitErrors" ToolTip="Total number of initialization errors."/>
                             <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=InitTimeouts}" Content="_InitTimeouts" ToolTip="Total number of initialization timeout errors."/>
                             <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=LinkRetrain}" Content="_LinkRetrain" ToolTip="Total number of link-retrain errors."/>
