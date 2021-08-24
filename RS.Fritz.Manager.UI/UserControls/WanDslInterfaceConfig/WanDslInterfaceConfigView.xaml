@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
         <ContentControl Grid.Row="0" Content="{Binding WanDslInterfaceConfigGetDSLDiagnoseInfoResponse}"/>
         <ContentControl Grid.Row="1" Content="{Binding WanDslInterfaceConfigGetDSLInfoResponse}"/>
-        <ContentControl Grid.Row="2" Content="{Binding WanDslInterfaceConfigGetInfoResponse}"/>
+        <ContentControl Grid.Row="2" Content="{Binding WanDslInterfaceConfigInfoControlViewModel}"/>
         <ContentControl Grid.Row="3" Content="{Binding WanDslInterfaceConfigGetStatisticsTotalResponse}"/>
     </Grid>
 </UserControl>

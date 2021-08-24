@@ -529,65 +529,6 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:WanDslInterfaceConfigGetInfoResponse}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="Info">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Enable}" Content="_Enable" ToolTip="Enables or disables the link."/>
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status" ToolTip="Status of the DSL physical link. Possible values Up, Initializing, EstablishingLink, NoSignal, Error, Disabled."/>
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DataPath}" Content="_DataPath" ToolTip="Indicates whether the data path is fast (lower latency) or interleaved (lower error rate). Possible values Interleaved, Fast."/>
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=UpstreamCurrRate}" Content="_UpstreamCurrRate" ToolTip="Provides a snapshot of the current payload bandwidth (expressed in Kbps of the upstream DSL channel."/>
-                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DownstreamCurrRate}" Content="_DownstreamCurrRate" ToolTip="Provides a snapshot of the current payload bandwidth (expressed in Kbps of the downstream DSL channel."/>
-                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=UpstreamMaxRate}" Content="_UpstreamMaxRate" ToolTip="Describes the current attainable rate (expressed in Kbps) of the upstream DSL channel."/>
-                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=DownstreamMaxRate}" Content="_DownstreamMaxRate" ToolTip="Describes the current attainable rate (expressed in Kbps) of the downstream DSL channel."/>
-                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=UpstreamNoiseMargin}" Content="_UpstreamNoiseMargin" ToolTip="Provides a snapshot of the current signal-to-noise ratio (expressed in 0.1 db) of the upstream DSL connection."/>
-                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=DownstreamNoiseMargin}" Content="_DownstreamNoiseMargin" ToolTip="Provides a snapshot of the current signal-to-noise ratio (expressed in 0.1 db) of the downstream DSL connection."/>
-                            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=UpstreamAttenuation}" Content="_UpstreamAttenuation" ToolTip="Provides a measurement of the upstream signal loss (expressed in 0.1 dB)."/>
-                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=DownstreamAttenuation}" Content="_DownstreamAttenuation" ToolTip="Provides a measurement of the downstream signal loss (expressed in 0.1 dB)."/>
-                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=ATURVendor}" Content="_ATURVendor" ToolTip="ADSL Termination Unit - Remote (ATU-R) vendor identifier as defined in G.994.1 and T1.413."/>
-                            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ATURCountry}" Content="_ATURCountry" ToolTip="T.35 country code of the ADSL Termination Unit - Remote (ATU-R) vendor as defined in G.994.1."/>
-                            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=UpstreamPower}" Content="_UpstreamPower" ToolTip="Provides a snapshot of the current output power at the Customer Premises Equipment (CPE)'s DSL interface (expressed in 0.1 dBmV)."/>
-                            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DownstreamPower}" Content="_DownstreamPower" ToolTip="Provides a snapshot of the current received power signal level at the Customer Premises Equipment (CPE)'s DSL interface (expressed in 0.1 dBmV)."/>
-                            <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
-                            <TextBlock x:Name="Status" Grid.Row="1" Grid.Column="1" Text="{Binding Status}"/>
-                            <TextBlock x:Name="DataPath" Grid.Row="2" Grid.Column="1" Text="{Binding DataPath}"/>
-                            <TextBlock x:Name="UpstreamCurrRate" Grid.Row="3" Grid.Column="1" Text="{Binding UpstreamCurrRate}"/>
-                            <TextBlock x:Name="DownstreamCurrRate" Grid.Row="4" Grid.Column="1" Text="{Binding DownstreamCurrRate}"/>
-                            <TextBlock x:Name="UpstreamMaxRate" Grid.Row="5" Grid.Column="1" Text="{Binding UpstreamMaxRate}"/>
-                            <TextBlock x:Name="DownstreamMaxRate" Grid.Row="6" Grid.Column="1" Text="{Binding DownstreamMaxRate}"/>
-                            <TextBlock x:Name="UpstreamNoiseMargin" Grid.Row="7" Grid.Column="1" Text="{Binding UpstreamNoiseMargin}"/>
-                            <TextBlock x:Name="DownstreamNoiseMargin" Grid.Row="8" Grid.Column="1" Text="{Binding DownstreamNoiseMargin}"/>
-                            <TextBlock x:Name="UpstreamAttenuation" Grid.Row="9" Grid.Column="1" Text="{Binding UpstreamAttenuation}"/>
-                            <TextBlock x:Name="DownstreamAttenuation" Grid.Row="10" Grid.Column="1" Text="{Binding DownstreamAttenuation}"/>
-                            <TextBlock x:Name="ATURVendor" Grid.Row="11" Grid.Column="1" Text="{Binding ATURVendor}"/>
-                            <TextBlock x:Name="ATURCountry" Grid.Row="12" Grid.Column="1" Text="{Binding ATURCountry}"/>
-                            <TextBlock x:Name="UpstreamPower" Grid.Row="13" Grid.Column="1" Text="{Binding UpstreamPower}"/>
-                            <TextBlock x:Name="DownstreamPower" Grid.Row="14" Grid.Column="1" Text="{Binding DownstreamPower}"/>
-                        </Grid>
-                    </Expander>
-                </Border>
-            </DataTemplate>
             <DataTemplate DataType="{x:Type domain:WanDslInterfaceConfigGetStatisticsTotalResponse}">
                 <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="StatisticsTotal">
@@ -661,6 +602,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:DeviceInfoSetProvisioningCodeViewModel}">
                 <ui:DeviceInfoSetProvisioningCodeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:WanDslInterfaceConfigInfoControlViewModel}">
+                <ui:WanDslInterfaceConfigInfoControl/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

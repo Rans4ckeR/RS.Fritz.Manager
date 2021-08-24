@@ -108,8 +108,7 @@
 
         public bool DeviceAndLoginControlsEnabled
         {
-            get => deviceAndLoginControlsEnabled;
-            set { _ = SetProperty(ref deviceAndLoginControlsEnabled, value); }
+            get => deviceAndLoginControlsEnabled; set { _ = SetProperty(ref deviceAndLoginControlsEnabled, value); }
         }
 
         public ObservableCollection<User> Users { get => users; set => _ = SetProperty(ref users, value); }

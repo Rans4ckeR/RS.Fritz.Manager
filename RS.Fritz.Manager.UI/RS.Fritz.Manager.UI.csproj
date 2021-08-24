@@ -61,6 +61,9 @@
     <Compile Update="UserControls\LanConfigSecurity\LanConfigSecuritySetConfigPasswordView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigInfoControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -74,6 +77,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\LanConfigSecurity\LanConfigSecuritySetConfigPasswordView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigInfoControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

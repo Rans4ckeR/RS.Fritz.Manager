@@ -9,7 +9,7 @@
         d:DataContext="{d:DesignInstance Type=ui:MainWindowViewModel}"
         mc:Ignorable="d"
         Title="{Binding Title}"
-        Style="{StaticResource textStyle}">
+        Style="{DynamicResource textStyle}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -72,6 +72,7 @@
                 </RibbonGroup>
                 <RibbonGroup ToolTip="The WANDSLInterfaceConfig service models physical layer properties specific to a single physical connection of a DSL modem used for Internet access on an Internet Gateway Device (IGD).">
                     <RibbonButton Label="WanDslInterfaceConfig" Command="{Binding WanDslInterfaceConfigViewModel.GetWanDslInterfaceConfigCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                    <RibbonCheckBox Label="Auto Refresh" IsChecked="{Binding WanDslInterfaceConfigViewModel.AutoRefresh}" />
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>

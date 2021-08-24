@@ -16,7 +16,7 @@
         public string DataPath { get; set; }
 
         [MessageBodyMember(Name = "NewUpstreamCurrRate")]
-        public int UpstreamCurrRate { get; set; }
+        public uint UpstreamCurrRate { get; set; }
 
         [MessageBodyMember(Name = "NewDownstreamCurrRate")]
         public uint DownstreamCurrRate { get; set; }

@@ -5,6 +5,7 @@
     using System.Net;
     using System.Threading.Tasks;
     using System.Windows.Input;
+    using System.Windows.Threading;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.Messaging;
@@ -16,13 +17,14 @@
         private readonly IServiceOperationHandler serviceOperationHandler;
         private readonly IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory;
         private readonly ILogger logger;
+        private readonly DispatcherTimer autoRefreshTimer;
 
         private bool getWanDslInterfaceConfigCommand = false;
         private bool canExecuteWanDslInterfaceConfig = false;
+        private bool autoRefresh = false;
         private DeviceLoginInfo deviceLoginInfo;
         private WanDslInterfaceConfigGetDSLDiagnoseInfoResponse? wanDslInterfaceConfigGetDSLDiagnoseInfoResponse;
         private WanDslInterfaceConfigGetDSLInfoResponse? wanDslInterfaceConfigGetDSLInfoResponse;
-        private WanDslInterfaceConfigGetInfoResponse? wanDslInterfaceConfigGetInfoResponse;
         private WanDslInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
 
         public WanDslInterfaceConfigViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, IServiceOperationHandler serviceOperationHandler, IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory)
@@ -32,13 +34,34 @@
             this.fritzWanDslInterfaceConfigServiceClientFactory = fritzWanDslInterfaceConfigServiceClientFactory;
             this.logger = logger;
             GetWanDslInterfaceConfigCommand = new AsyncRelayCommand(GetExecuteWanDslInterfaceConfigAsync, () => CanExecuteGetWanDslInterfaceConfig);
+            WanDslInterfaceConfigInfoControlViewModel = new WanDslInterfaceConfigInfoControlViewModel();
             deviceLoginInfo.PropertyChanged += DeviceLoginInfoPropertyChanged;
             PropertyChanged += WanDslInterfaceConfigViewModelPropertyChanged;
+            autoRefreshTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(3)
+            };
+            autoRefreshTimer.Tick += AutoRefreshTimerTick;
 
             WeakReferenceMessenger.Default.Register<DeviceLoginInfoValueChangedMessage>(this, (r, m) =>
             {
                 ((WanDslInterfaceConfigViewModel)r).DeviceLoginInfo = m.Value;
             });
+        }
+
+        public bool AutoRefresh
+        {
+            get => autoRefresh;
+            set
+            {
+                if (SetProperty(ref autoRefresh, value))
+                {
+                    if (value)
+                        autoRefreshTimer.Start();
+                    else
+                        autoRefreshTimer.Stop();
+                }
+            }
         }
 
         public DeviceLoginInfo DeviceLoginInfo
@@ -88,14 +111,17 @@
             get => wanDslInterfaceConfigGetDSLInfoResponse; set { _ = SetProperty(ref wanDslInterfaceConfigGetDSLInfoResponse, value); }
         }
 
-        public WanDslInterfaceConfigGetInfoResponse? WanDslInterfaceConfigGetInfoResponse
-        {
-            get => wanDslInterfaceConfigGetInfoResponse; set { _ = SetProperty(ref wanDslInterfaceConfigGetInfoResponse, value); }
-        }
+        public WanDslInterfaceConfigInfoControlViewModel WanDslInterfaceConfigInfoControlViewModel { get; set; }
 
         public WanDslInterfaceConfigGetStatisticsTotalResponse? WanDslInterfaceConfigGetStatisticsTotalResponse
         {
             get => wanDslInterfaceConfigGetStatisticsTotalResponse; set { _ = SetProperty(ref wanDslInterfaceConfigGetStatisticsTotalResponse, value); }
+        }
+
+        private async void AutoRefreshTimerTick(object? sender, EventArgs e)
+        {
+            if (CanExecuteGetWanDslInterfaceConfig)
+                await GetExecuteWanDslInterfaceConfigAsync();
         }
 
         private async Task GetExecuteWanDslInterfaceConfigAsync()
@@ -170,7 +196,7 @@
 
         private async Task GetWanDslInterfaceConfigGetInfoAsync(NetworkCredential networkCredential)
         {
-            WanDslInterfaceConfigGetInfoResponse = await serviceOperationHandler.ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(deviceLoginInfo.Device!.SecurityPort!.Value, networkCredential), q => q.GetInfoAsync(new WanDslInterfaceConfigGetInfoRequest()));
+            WanDslInterfaceConfigInfoControlViewModel.WanDslInterfaceConfigGetInfoResponse = await serviceOperationHandler.ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(deviceLoginInfo.Device!.SecurityPort!.Value, networkCredential), q => q.GetInfoAsync(new WanDslInterfaceConfigGetInfoRequest()));
         }
 
         private async Task GetWanDslInterfaceConfigGetStatisticsTotalAsync(NetworkCredential networkCredential)

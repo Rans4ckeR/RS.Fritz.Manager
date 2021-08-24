@@ -1,0 +1,199 @@
+﻿<UserControl x:Class="RS.Fritz.Manager.UI.WanDslInterfaceConfigInfoControl"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="clr-namespace:RS.Fritz.Manager.UI"
+             d:DataContext="{d:DesignInstance Type=ui:WanDslInterfaceConfigInfoControlViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+        <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="Info">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Enable}" Content="_Enable" ToolTip="Enables or disables the link."/>
+                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status" ToolTip="Status of the DSL physical link. Possible values Up, Initializing, EstablishingLink, NoSignal, Error, Disabled."/>
+                <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DataPath}" Content="_DataPath" ToolTip="Indicates whether the data path is fast (lower latency) or interleaved (lower error rate). Possible values Interleaved, Fast."/>
+                <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=UpstreamCurrRate}" Content="_UpstreamCurrRate" ToolTip="Provides a snapshot of the current payload bandwidth (expressed in Kbps of the upstream DSL channel."/>
+                <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DownstreamCurrRate}" Content="_DownstreamCurrRate" ToolTip="Provides a snapshot of the current payload bandwidth (expressed in Kbps of the downstream DSL channel."/>
+                <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=UpstreamMaxRate}" Content="_UpstreamMaxRate" ToolTip="Describes the current attainable rate (expressed in Kbps) of the upstream DSL channel."/>
+                <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=DownstreamMaxRate}" Content="_DownstreamMaxRate" ToolTip="Describes the current attainable rate (expressed in Kbps) of the downstream DSL channel."/>
+                <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=UpstreamNoiseMargin}" Content="_UpstreamNoiseMargin" ToolTip="Provides a snapshot of the current signal-to-noise ratio (expressed in 0.1 db) of the upstream DSL connection."/>
+                <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=DownstreamNoiseMargin}" Content="_DownstreamNoiseMargin" ToolTip="Provides a snapshot of the current signal-to-noise ratio (expressed in 0.1 db) of the downstream DSL connection."/>
+                <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=UpstreamAttenuation}" Content="_UpstreamAttenuation" ToolTip="Provides a measurement of the upstream signal loss (expressed in 0.1 dB)."/>
+                <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=DownstreamAttenuation}" Content="_DownstreamAttenuation" ToolTip="Provides a measurement of the downstream signal loss (expressed in 0.1 dB)."/>
+                <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=ATURVendor}" Content="_ATURVendor" ToolTip="ADSL Termination Unit - Remote (ATU-R) vendor identifier as defined in G.994.1 and T1.413."/>
+                <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ATURCountry}" Content="_ATURCountry" ToolTip="T.35 country code of the ADSL Termination Unit - Remote (ATU-R) vendor as defined in G.994.1."/>
+                <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=UpstreamPower}" Content="_UpstreamPower" ToolTip="Provides a snapshot of the current output power at the Customer Premises Equipment (CPE)'s DSL interface (expressed in 0.1 dBmV)."/>
+                <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DownstreamPower}" Content="_DownstreamPower" ToolTip="Provides a snapshot of the current received power signal level at the Customer Premises Equipment (CPE)'s DSL interface (expressed in 0.1 dBmV)."/>
+                <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Enable}"/>
+                <TextBlock x:Name="Status" Grid.Row="1" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Status}"/>
+                <TextBlock x:Name="DataPath" Grid.Row="2" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.DataPath}"/>
+                <TextBlock x:Name="UpstreamCurrRate" Grid.Row="3" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.UpstreamCurrRate}"/>
+                <ItemsControl Grid.Row="3" Grid.Column="2" ItemsSource="{Binding UpstreamCurrRateHistory}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Canvas.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="-0.5" />
+                                    </TransformGroup>
+                                </Canvas.RenderTransform>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <TextBlock x:Name="DownstreamCurrRate" Grid.Row="4" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.DownstreamCurrRate}"/>
+                <ItemsControl Grid.Row="4" Grid.Column="2" ItemsSource="{Binding DownstreamCurrRateHistory}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Canvas.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="-0.5" />
+                                    </TransformGroup>
+                                </Canvas.RenderTransform>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <TextBlock x:Name="UpstreamMaxRate" Grid.Row="5" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.UpstreamMaxRate}"/>
+                <ItemsControl Grid.Row="5" Grid.Column="2" ItemsSource="{Binding UpstreamMaxRateHistory}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Canvas.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="-0.5" />
+                                    </TransformGroup>
+                                </Canvas.RenderTransform>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <TextBlock x:Name="DownstreamMaxRate" Grid.Row="6" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.DownstreamMaxRate}"/>
+                <ItemsControl Grid.Row="6" Grid.Column="2" ItemsSource="{Binding DownstreamMaxRateHistory}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Canvas.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="-0.5" />
+                                    </TransformGroup>
+                                </Canvas.RenderTransform>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <TextBlock x:Name="UpstreamNoiseMargin" Grid.Row="7" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.UpstreamNoiseMargin}"/>
+                <ItemsControl Grid.Row="7" Grid.Column="2" ItemsSource="{Binding UpstreamNoiseMarginHistory}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Canvas.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="-0.5" />
+                                    </TransformGroup>
+                                </Canvas.RenderTransform>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <TextBlock x:Name="DownstreamNoiseMargin" Grid.Row="8" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.DownstreamNoiseMargin}"/>
+                <ItemsControl Grid.Row="8" Grid.Column="2" ItemsSource="{Binding DownstreamNoiseMarginHistory}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Canvas.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="-0.5" />
+                                    </TransformGroup>
+                                </Canvas.RenderTransform>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <TextBlock x:Name="UpstreamAttenuation" Grid.Row="9" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.UpstreamAttenuation}"/>
+                <ItemsControl Grid.Row="9" Grid.Column="2" ItemsSource="{Binding UpstreamAttenuationHistory}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Canvas.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="-0.5" />
+                                    </TransformGroup>
+                                </Canvas.RenderTransform>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <TextBlock x:Name="DownstreamAttenuation" Grid.Row="10" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.DownstreamAttenuation}"/>
+                <ItemsControl Grid.Row="10" Grid.Column="2" ItemsSource="{Binding DownstreamAttenuationHistory}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Canvas.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="-0.5" />
+                                    </TransformGroup>
+                                </Canvas.RenderTransform>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <TextBlock x:Name="ATURVendor" Grid.Row="11" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.ATURVendor}"/>
+                <TextBlock x:Name="ATURCountry" Grid.Row="12" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.ATURCountry}"/>
+                <TextBlock x:Name="UpstreamPower" Grid.Row="13" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.UpstreamPower}"/>
+                <ItemsControl Grid.Row="13" Grid.Column="2" ItemsSource="{Binding UpstreamPowerHistory}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Canvas.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="-0.5" />
+                                    </TransformGroup>
+                                </Canvas.RenderTransform>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <TextBlock x:Name="DownstreamPower" Grid.Row="14" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.DownstreamPower}"/>
+                <ItemsControl Grid.Row="14" Grid.Column="2" ItemsSource="{Binding DownstreamPowerHistory}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Canvas VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Canvas.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="-0.5" />
+                                    </TransformGroup>
+                                </Canvas.RenderTransform>
+                            </Canvas>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+        </Expander>
+    </Border>
+</UserControl>
