@@ -8,7 +8,7 @@ Currently implemented services:
 * urn:dslforum-org:service:LANConfigSecurity:1
 * urn:dslforum-org:service:WANDSLInterfaceConfig:1
 
-![Untitled](https://user-images.githubusercontent.com/25006126/130323710-63bd9ca9-f4fe-4574-9f52-cec11ffa6b30.png)
+![Untitled](https://user-images.githubusercontent.com/25006126/130702690-2dbbd2a7-34c3-488a-bfd8-6e29dea2add2.png)
 
 ## Usage Instructions
 1. Click Discover Internet Gateway Devices
