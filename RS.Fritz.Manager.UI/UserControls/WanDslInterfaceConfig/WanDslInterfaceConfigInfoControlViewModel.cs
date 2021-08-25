@@ -116,24 +116,29 @@
 
         private static List<UIElement> UpdateHistory(List<uint> values)
         {
-            uint min = values.Min();
-            uint max = values.Max();
-            uint range = max - min;
             const double yScale = 30d;
+            const double xScale = 5d;
+            const int xLimit = 100;
+            int startIndex = values.Count > xLimit ? values.Count - xLimit : 1;
+            uint min = values.Skip(startIndex).Min();
+            uint max = values.Skip(startIndex).Max();
+            uint labelMinValue = values.Min();
+            uint labelMaxValue = values.Max();
+            uint range = max - min;
 
             if (range == 0)
                 range = 1;
 
             var uiElements = new List<UIElement>();
 
-            for (int i = 1; i < values.Count; i++)
+            for (int i = startIndex; i < values.Count; i++)
             {
                 uint value = values[i];
                 var line = new Line
                 {
-                    X1 = i - 1,
+                    X1 = (i - startIndex - 1) * xScale,
                     Y1 = (values[i - 1] - min) / (double)range * yScale,
-                    X2 = i,
+                    X2 = (i - startIndex) * xScale,
                     Y2 = (value - min) / (double)range * yScale,
                     Fill = Brushes.Green,
                     Stroke = Brushes.Green
@@ -142,8 +147,8 @@
                 uiElements.Add(line);
             }
 
-            var labelMax = new Label { Content = max, Foreground = Brushes.LightGreen, LayoutTransform = new ScaleTransform { ScaleY = -1 } };
-            var labelMin = new Label { Content = min, Foreground = Brushes.Orange, LayoutTransform = new ScaleTransform { ScaleY = -1 } };
+            var labelMax = new Label { Content = labelMaxValue, Foreground = Brushes.LightGreen, LayoutTransform = new ScaleTransform { ScaleY = -1d } };
+            var labelMin = new Label { Content = labelMinValue, Foreground = Brushes.Orange, LayoutTransform = new ScaleTransform { ScaleY = -1d } };
 
             Canvas.SetLeft(labelMax, uiElements.OfType<Line>().Last().X2);
             Canvas.SetTop(labelMax, 0.5);

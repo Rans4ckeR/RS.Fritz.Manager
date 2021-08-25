@@ -39,7 +39,7 @@
             PropertyChanged += WanDslInterfaceConfigViewModelPropertyChanged;
             autoRefreshTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(3)
+                Interval = TimeSpan.FromSeconds(3d)
             };
             autoRefreshTimer.Tick += AutoRefreshTimerTick;
 
