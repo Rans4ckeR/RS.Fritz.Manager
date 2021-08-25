@@ -120,8 +120,8 @@
             const double xScale = 5d;
             const int xLimit = 100;
             int startIndex = values.Count > xLimit ? values.Count - xLimit : 1;
-            uint min = values.Skip(startIndex).Min();
-            uint max = values.Skip(startIndex).Max();
+            uint min = values.Skip(startIndex - 1).Min();
+            uint max = values.Skip(startIndex - 1).Max();
             uint labelMinValue = values.Min();
             uint labelMaxValue = values.Max();
             uint range = max - min;
