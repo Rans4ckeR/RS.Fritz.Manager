@@ -26,6 +26,7 @@
 #pragma warning restore SA1310 // Field names should not contain underscore
 
         private readonly IHttpClientFactory httpClientFactory;
+        private readonly AddressFamily[] supportedAddressFamilies = new[] { AddressFamily.InterNetwork, AddressFamily.InterNetworkV6 };
 
         public DeviceSearchService(IHttpClientFactory httpClientFactory)
         {
@@ -67,16 +68,6 @@
             return internetGatewayDevices;
         }
 
-        private static IEnumerable<IPAddress> GetLocalAddresses()
-        {
-            return NetworkInterface.GetAllNetworkInterfaces()
-                .Select(ni => ni.GetIPProperties())
-                .Where(p => p.GatewayAddresses != null && p.GatewayAddresses.Any())
-                .SelectMany(p => p.UnicastAddresses)
-                .Select(aInfo => aInfo.Address)
-                .Where(a => a.AddressFamily == AddressFamily.InterNetwork || a.AddressFamily == AddressFamily.InterNetworkV6);
-        }
-
         private static async Task<IEnumerable<string>> SearchDevicesAsync(IPAddress localAddress, string deviceType, int sendCount)
         {
             var responses = new List<string>();
@@ -85,32 +76,25 @@
             if (addressType is AddressType.Unknown)
                 return responses;
 
-            try
+            using var socket = new Socket(localAddress.AddressFamily, SocketType.Dgram, ProtocolType.Udp);
+
+            socket.ExclusiveAddressUse = true;
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                socket.IOControl(unchecked((int)SIO_UDP_CONNRESET), new[] { Convert.ToByte(false) }, null);
+
+            socket.Bind(new IPEndPoint(localAddress, 0));
+
+            var multicastIPEndPoint = new IPEndPoint(IPAddress.Parse(MulticastAddresses[addressType]), UPnPMulticastPort);
+            string request = FormattableString.Invariant($"M-SEARCH * HTTP/1.1\r\nHOST: {multicastIPEndPoint}\r\nST: {deviceType}\r\nMAN: \"ssdp:discover\"\r\nMX: 3\r\n\r\n");
+            var buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(request));
+
+            for (int i = 0; i < sendCount; i++)
             {
-                using var socket = new Socket(localAddress.AddressFamily, SocketType.Dgram, ProtocolType.Udp);
-
-                socket.ExclusiveAddressUse = true;
-
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                    socket.IOControl(unchecked((int)SIO_UDP_CONNRESET), new[] { Convert.ToByte(false) }, null);
-
-                socket.Bind(new IPEndPoint(localAddress, 0));
-
-                var multicastIPEndPoint = new IPEndPoint(IPAddress.Parse(MulticastAddresses[addressType]), UPnPMulticastPort);
-                string req = FormattableString.Invariant($"M-SEARCH * HTTP/1.1\r\nHOST: {multicastIPEndPoint}\r\nST: {deviceType}\r\nMAN: \"ssdp:discover\"\r\nMX: 3\r\n\r\n");
-                var buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(req));
-
-                for (int i = 0; i < sendCount; i++)
-                {
-                    await socket.SendToAsync(buffer, SocketFlags.None, multicastIPEndPoint);
-                }
-
-                await ReceiveAsync(socket, new ArraySegment<byte>(new byte[4096]), responses);
+                await socket.SendToAsync(buffer, SocketFlags.None, multicastIPEndPoint);
             }
-            catch (OperationCanceledException)
-            {
-                // Ignore Task cancellation
-            }
+
+            await ReceiveAsync(socket, new ArraySegment<byte>(new byte[4096]), responses);
 
             return responses;
         }
@@ -131,25 +115,36 @@
 
         private static async Task ReceiveAsync(Socket socket, ArraySegment<byte> buffer, ICollection<string> responses)
         {
-            while (true)
-            {
-                var cancellationTokenSource = new CancellationTokenSource();
-                int i;
+            var cancellationTokenSource = new CancellationTokenSource();
 
+            cancellationTokenSource.CancelAfter(ReceiveTimeout);
+
+            while (!cancellationTokenSource.IsCancellationRequested)
+            {
                 try
                 {
-                    cancellationTokenSource.CancelAfter(ReceiveTimeout);
+                    int bytesReceived = await socket.ReceiveAsync(buffer, SocketFlags.None, cancellationTokenSource.Token);
 
-                    i = await socket.ReceiveAsync(buffer, SocketFlags.None, cancellationTokenSource.Token);
+                    if (bytesReceived > 0)
+                        responses.Add(Encoding.UTF8.GetString(buffer.Take(bytesReceived).ToArray()));
                 }
-                finally
+                catch (OperationCanceledException)
                 {
-                    cancellationTokenSource.Dispose();
+                    // Ignore Task cancellation
                 }
-
-                if (i > 0)
-                    responses.Add(Encoding.UTF8.GetString(buffer.Take(i).ToArray()));
             }
+
+            cancellationTokenSource.Dispose();
+        }
+
+        private IEnumerable<IPAddress> GetLocalAddresses()
+        {
+            return NetworkInterface.GetAllNetworkInterfaces()
+                .Select(q => q.GetIPProperties())
+                .Where(q => q.GatewayAddresses?.Any() ?? false)
+                .SelectMany(q => q.UnicastAddresses)
+                .Select(q => q.Address)
+                .Where(q => supportedAddressFamilies.Contains(q.AddressFamily));
         }
 
         private async Task GetUPnPDescription(InternetGatewayDevice internetGatewayDevice)
