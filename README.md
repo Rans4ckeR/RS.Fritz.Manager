@@ -7,6 +7,7 @@ Implemented services:
 * urn:dslforum-org:service:DeviceInfo:1
 * urn:dslforum-org:service:LANConfigSecurity:1
 * urn:dslforum-org:service:WANDSLInterfaceConfig:1
+
 Partially implemented services:
 * urn:dslforum-org:service:Layer3Forwarding:1
 * urn:dslforum-org:service:WANPPPConnection:1
