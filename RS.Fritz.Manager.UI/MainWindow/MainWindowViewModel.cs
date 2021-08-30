@@ -25,6 +25,8 @@
         private readonly DeviceInfoViewModel deviceInfoViewModel;
         private readonly LanConfigSecurityViewModel lanConfigSecurityViewModel;
         private readonly WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel;
+        private readonly Layer3ForwardingViewModel layer3ForwardingViewModel;
+        private readonly WanPppConnectionViewModel wanPppConnectionViewModel;
         private readonly ILogger logger;
 
         private string deviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
@@ -36,7 +38,7 @@
         private DeviceLoginInfo deviceLoginInfo;
         private bool deviceAndLoginControlsEnabled = true;
 
-        public MainWindowViewModel(ILogger logger, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, DeviceLoginInfo deviceLoginInfo, IServiceOperationHandler serviceOperationHandler, IDeviceSearchService deviceSearchService, IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory, IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory)
+        public MainWindowViewModel(ILogger logger, WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, DeviceLoginInfo deviceLoginInfo, IServiceOperationHandler serviceOperationHandler, IDeviceSearchService deviceSearchService, IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory, IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory)
         {
             this.deviceLoginInfo = deviceLoginInfo;
             this.serviceOperationHandler = serviceOperationHandler;
@@ -44,6 +46,8 @@
             this.deviceInfoViewModel = deviceInfoViewModel;
             this.lanConfigSecurityViewModel = lanConfigSecurityViewModel;
             this.wanDslInterfaceConfigViewModel = wanDslInterfaceConfigViewModel;
+            this.layer3ForwardingViewModel = layer3ForwardingViewModel;
+            this.wanPppConnectionViewModel = wanPppConnectionViewModel;
             this.fritzDeviceInfoServiceClientFactory = fritzDeviceInfoServiceClientFactory;
             this.fritzLanConfigSecurityServiceClientFactory = fritzLanConfigSecurityServiceClientFactory;
             this.logger = logger;
@@ -79,6 +83,16 @@
         public WanDslInterfaceConfigViewModel WanDslInterfaceConfigViewModel
         {
             get => wanDslInterfaceConfigViewModel;
+        }
+
+        public Layer3ForwardingViewModel Layer3ForwardingViewModel
+        {
+            get => layer3ForwardingViewModel;
+        }
+
+        public WanPppConnectionViewModel WanPppConnectionViewModel
+        {
+            get => wanPppConnectionViewModel;
         }
 
         public DeviceLoginInfo DeviceLoginInfo

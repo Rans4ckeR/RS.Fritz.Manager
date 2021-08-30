@@ -3,10 +3,13 @@ A Windows .NET app with WPF UI to read information from and manage FritzBox devi
 
 Work in progress, all testing was done with a FritzBox 7530.
 
-Currently implemented services:
+Implemented services:
 * urn:dslforum-org:service:DeviceInfo:1
 * urn:dslforum-org:service:LANConfigSecurity:1
 * urn:dslforum-org:service:WANDSLInterfaceConfig:1
+Partially implemented services:
+* urn:dslforum-org:service:Layer3Forwarding:1
+* urn:dslforum-org:service:WANPPPConnection:1
 
 ![Untitled](https://user-images.githubusercontent.com/25006126/130702690-2dbbd2a7-34c3-488a-bfd8-6e29dea2add2.png)
 

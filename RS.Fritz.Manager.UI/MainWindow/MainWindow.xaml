@@ -74,6 +74,12 @@
                     <RibbonButton Label="WanDslInterfaceConfig" Command="{Binding WanDslInterfaceConfigViewModel.GetWanDslInterfaceConfigCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                     <RibbonCheckBox Label="Auto Refresh" IsChecked="{Binding WanDslInterfaceConfigViewModel.AutoRefresh}" />
                 </RibbonGroup>
+                <RibbonGroup ToolTip="This service allows the handling of the routing and forwarding configuration of the device.">
+                    <RibbonButton Label="Layer3Forwarding" Command="{Binding Layer3ForwardingViewModel.GetDefaultConnectionServiceCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                </RibbonGroup>
+                <RibbonGroup ToolTip="The WANPPPConnection service enables a UPnP control point to configure and control PPP connections on the WAN interface of a UPnP compliant IGD.">
+                    <RibbonButton Label="WanPppConnection" Command="{Binding WanPppConnectionViewModel.GetInfoCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                </RibbonGroup>
             </RibbonTab>
         </Ribbon>
         <ScrollViewer Grid.Row="1" Background="{StaticResource windowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
