@@ -65,20 +65,20 @@
             </RibbonTab>
             <RibbonTab Header="Device Information">
                 <RibbonGroup ToolTip="This service allows the reporting of basic device information, including the current hardware and software versions.">
-                    <RibbonButton Label="DeviceInfo" Command="{Binding DeviceInfoViewModel.GetDeviceInfoCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                    <RibbonButton Label="DeviceInfo" Command="{Binding DeviceInfoViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
                 <RibbonGroup ToolTip="This service enables the ability to set the password that will allow the device to be configured via the xml interface.">
-                    <RibbonButton Label="LanConfigSecurity" Command="{Binding LanConfigSecurityViewModel.GetLanConfigSecurityCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                    <RibbonButton Label="LanConfigSecurity" Command="{Binding LanConfigSecurityViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
                 <RibbonGroup ToolTip="The WANDSLInterfaceConfig service models physical layer properties specific to a single physical connection of a DSL modem used for Internet access on an Internet Gateway Device (IGD).">
-                    <RibbonButton Label="WanDslInterfaceConfig" Command="{Binding WanDslInterfaceConfigViewModel.GetWanDslInterfaceConfigCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                    <RibbonButton Label="WanDslInterfaceConfig" Command="{Binding WanDslInterfaceConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                     <RibbonCheckBox Label="Auto Refresh" IsChecked="{Binding WanDslInterfaceConfigViewModel.AutoRefresh}" />
                 </RibbonGroup>
                 <RibbonGroup ToolTip="This service allows the handling of the routing and forwarding configuration of the device.">
-                    <RibbonButton Label="Layer3Forwarding" Command="{Binding Layer3ForwardingViewModel.GetDefaultConnectionServiceCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                    <RibbonButton Label="Layer3Forwarding" Command="{Binding Layer3ForwardingViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
                 <RibbonGroup ToolTip="The WANPPPConnection service enables a UPnP control point to configure and control PPP connections on the WAN interface of a UPnP compliant IGD.">
-                    <RibbonButton Label="WanPppConnection" Command="{Binding WanPppConnectionViewModel.GetInfoCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                    <RibbonButton Label="WanPppConnection" Command="{Binding WanPppConnectionViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
