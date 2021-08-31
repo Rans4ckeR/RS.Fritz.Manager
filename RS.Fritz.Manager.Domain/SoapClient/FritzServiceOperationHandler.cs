@@ -109,27 +109,27 @@
 
         private IFritzLanConfigSecurityService GetFritzLanConfigSecurityServiceClient()
         {
-            return fritzLanConfigSecurityServiceClientFactory.Build((q, r, t) => new FritzLanConfigSecurityService(q, r, t), InternetGatewayDevice!.PreferredLocation!, true, FritzLanConfigSecurityService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+            return fritzLanConfigSecurityServiceClientFactory.Build((q, r, t) => new FritzLanConfigSecurityService(q, r, t), InternetGatewayDevice!.PreferredLocation, true, FritzLanConfigSecurityService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
         }
 
         private IFritzDeviceInfoService GetFritzDeviceInfoServiceClient(bool secure = false, ushort? port = null, NetworkCredential? networkCredential = null)
         {
-            return fritzDeviceInfoServiceClientFactory.Build((q, r, t) => new FritzDeviceInfoService(q, r, t), InternetGatewayDevice!.PreferredLocation!, secure, FritzDeviceInfoService.ControlUrl, port, networkCredential);
+            return fritzDeviceInfoServiceClientFactory.Build((q, r, t) => new FritzDeviceInfoService(q, r, t), InternetGatewayDevice!.PreferredLocation, secure, FritzDeviceInfoService.ControlUrl, port, networkCredential);
         }
 
         private IFritzLayer3ForwardingService GetFritzLayer3ForwardingServiceClient()
         {
-            return fritzLayer3ForwardingServiceClientFactory.Build((q, r, t) => new FritzLayer3ForwardingService(q, r, t!), InternetGatewayDevice!.PreferredLocation!, true, FritzLayer3ForwardingService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+            return fritzLayer3ForwardingServiceClientFactory.Build((q, r, t) => new FritzLayer3ForwardingService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzLayer3ForwardingService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
         }
 
         private IFritzWanDslInterfaceConfigService GetFritzWanDslInterfaceConfigServiceClient()
         {
-            return fritzWanDslInterfaceConfigServiceClientFactory.Build((q, r, t) => new FritzWanDslInterfaceConfigService(q, r, t!), InternetGatewayDevice!.PreferredLocation!, true, FritzWanDslInterfaceConfigService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+            return fritzWanDslInterfaceConfigServiceClientFactory.Build((q, r, t) => new FritzWanDslInterfaceConfigService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzWanDslInterfaceConfigService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
         }
 
         private IFritzWanPppConnectionService GetFritzWanPppConnectionServiceClient()
         {
-            return fritzWanPppConnectionServiceClientFactory.Build((q, r, t) => new FritzWanPppConnectionService(q, r, t!), InternetGatewayDevice!.PreferredLocation!, true, FritzWanPppConnectionService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+            return fritzWanPppConnectionServiceClientFactory.Build((q, r, t) => new FritzWanPppConnectionService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzWanPppConnectionService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
         }
     }
 }

@@ -14,7 +14,7 @@
 
         private static EndpointAddress GetEndpointAddress(Uri location, bool secure, string controlUrl, int? port = null)
         {
-            return new EndpointAddress(new Uri(FormattableString.Invariant($"{(secure ? "https" : "http")}://{(port is null ? location.Authority : location.Host)}{(port is null ? null : ":" + port.Value)}{controlUrl}")));
+            return new EndpointAddress(new Uri(FormattableString.Invariant($"{(secure ? "https" : "http")}://{(port is null ? location.Authority : $"{location.Host}:{port.Value}")}{controlUrl}")));
         }
 
         private static FritzServiceEndpointConfiguration GetEndpointConfiguration(bool secure)
