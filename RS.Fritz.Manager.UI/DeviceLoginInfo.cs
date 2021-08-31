@@ -7,7 +7,7 @@
 
     internal sealed class DeviceLoginInfo : ObservableObject
     {
-        private InternetGatewayDevice? device;
+        private InternetGatewayDevice? internetGatewayDevice;
         private User? user;
         private string? password;
 
@@ -16,10 +16,10 @@
             PropertyChanged += DeviceLoginInfoPropertyChanged;
         }
 
-        public InternetGatewayDevice? Device
+        public InternetGatewayDevice? InternetGatewayDevice
         {
-            get => device;
-            set => _ = SetProperty(ref device, value);
+            get => internetGatewayDevice;
+            set => _ = SetProperty(ref internetGatewayDevice, value);
         }
 
         public string? Password

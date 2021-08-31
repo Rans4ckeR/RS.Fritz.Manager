@@ -1,13 +1,11 @@
 ﻿namespace RS.Fritz.Manager.UI
 {
-    using System.Net;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
     using RS.Fritz.Manager.Domain;
 
     internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
     {
-        private readonly IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory;
         private readonly LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel;
 
         private LanConfigSecurityGetAnonymousLoginResponse? lanConfigSecurityGetAnonymousLoginResponse;
@@ -15,10 +13,9 @@
         private LanConfigSecurityGetInfoResponse? lanConfigSecurityGetInfoResponse;
         private LanConfigSecurityGetUserListResponse? lanConfigSecurityGetUserListResponse;
 
-        public LanConfigSecurityViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel, IServiceOperationHandler serviceOperationHandler, IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory)
-              : base(logger, deviceLoginInfo, serviceOperationHandler)
+        public LanConfigSecurityViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler)
+            : base(logger, deviceLoginInfo, fritzServiceOperationHandler)
         {
-            this.fritzLanConfigSecurityServiceClientFactory = fritzLanConfigSecurityServiceClientFactory;
             this.lanConfigSecuritySetConfigPasswordViewModel = lanConfigSecuritySetConfigPasswordViewModel;
         }
 
@@ -47,40 +44,35 @@
             get => lanConfigSecurityGetUserListResponse; set { _ = SetProperty(ref lanConfigSecurityGetUserListResponse, value); }
         }
 
-        protected override async Task DoExecuteDefaultCommandAsync(NetworkCredential networkCredential)
+        protected override async Task DoExecuteDefaultCommandAsync()
         {
             await Domain.TaskExtensions.WhenAllSafe(new Task[]
                 {
                     GetLanConfigSecurityGetAnonymousLoginAsync(),
-                    GetLanConfigSecurityGetCurrentUserAsync(networkCredential),
-                    GetLanConfigSecurityGetInfoAsync(networkCredential),
-                    GetLanConfigSecurityGetUserListAsync(networkCredential)
+                    GetLanConfigSecurityGetCurrentUserAsync(),
+                    GetLanConfigSecurityGetInfoAsync(),
+                    GetLanConfigSecurityGetUserListAsync()
                 });
         }
 
         private async Task GetLanConfigSecurityGetAnonymousLoginAsync()
         {
-            LanConfigSecurityGetAnonymousLoginResponse = await ServiceOperationHandler.ExecuteAsync(GetFritzLanConfigSecurityServiceClient(true, DeviceLoginInfo.Device!.SecurityPort), q => q.GetAnonymousLoginAsync(new LanConfigSecurityGetAnonymousLoginRequest()));
+            LanConfigSecurityGetAnonymousLoginResponse = await FritzServiceOperationHandler.LanConfigSecurityGetAnonymousLoginAsync();
         }
 
-        private async Task GetLanConfigSecurityGetCurrentUserAsync(NetworkCredential networkCredential)
+        private async Task GetLanConfigSecurityGetCurrentUserAsync()
         {
-            LanConfigSecurityGetCurrentUserResponse = await ServiceOperationHandler.ExecuteAsync(GetFritzLanConfigSecurityServiceClient(true, DeviceLoginInfo.Device!.SecurityPort, networkCredential), q => q.GetCurrentUserAsync(new LanConfigSecurityGetCurrentUserRequest()));
+            LanConfigSecurityGetCurrentUserResponse = await FritzServiceOperationHandler.LanConfigSecurityGetCurrentUserAsync();
         }
 
-        private async Task GetLanConfigSecurityGetInfoAsync(NetworkCredential networkCredential)
+        private async Task GetLanConfigSecurityGetInfoAsync()
         {
-            LanConfigSecurityGetInfoResponse = await ServiceOperationHandler.ExecuteAsync(GetFritzLanConfigSecurityServiceClient(true, DeviceLoginInfo.Device!.SecurityPort, networkCredential), q => q.GetInfoAsync(new LanConfigSecurityGetInfoRequest()));
+            LanConfigSecurityGetInfoResponse = await FritzServiceOperationHandler.LanConfigSecurityGetInfoAsync();
         }
 
-        private async Task GetLanConfigSecurityGetUserListAsync(NetworkCredential networkCredential)
+        private async Task GetLanConfigSecurityGetUserListAsync()
         {
-            LanConfigSecurityGetUserListResponse = await ServiceOperationHandler.ExecuteAsync(GetFritzLanConfigSecurityServiceClient(true, DeviceLoginInfo.Device!.SecurityPort, networkCredential), q => q.GetUserListAsync(new LanConfigSecurityGetUserListRequest()));
-        }
-
-        private IFritzLanConfigSecurityService GetFritzLanConfigSecurityServiceClient(bool secure = true, ushort? port = null, NetworkCredential? networkCredential = null)
-        {
-            return fritzLanConfigSecurityServiceClientFactory.Build((q, r, t) => new FritzLanConfigSecurityService(q, r, t), DeviceLoginInfo.Device!.PreferredLocation, secure, FritzLanConfigSecurityService.ControlUrl, port, networkCredential);
+            LanConfigSecurityGetUserListResponse = await FritzServiceOperationHandler.LanConfigSecurityGetUserListAsync();
         }
     }
 }

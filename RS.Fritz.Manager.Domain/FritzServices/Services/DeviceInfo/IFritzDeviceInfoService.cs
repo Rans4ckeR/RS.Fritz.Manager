@@ -17,6 +17,6 @@
         public Task<DeviceInfoGetDeviceLogResponse> GetDeviceLogAsync(DeviceInfoGetDeviceLogRequest deviceInfoGetDeviceLogRequest);
 
         [OperationContract(Action = "urn:dslforum-org:service:DeviceInfo:1#SetProvisioningCode")]
-        public Task<SetProvisioningCodeResponse> SetProvisioningCodeAsync(SetProvisioningCodeRequest setProvisioningCodeRequest);
+        public Task<DeviceInfoSetProvisioningCodeResponse> SetProvisioningCodeAsync(DeviceInfoSetProvisioningCodeRequest setProvisioningCodeRequest);
     }
 }

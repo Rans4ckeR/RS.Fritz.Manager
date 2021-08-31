@@ -28,7 +28,7 @@
             return Channel.GetDeviceLogAsync(deviceInfoGetDeviceLogRequest);
         }
 
-        public Task<SetProvisioningCodeResponse> SetProvisioningCodeAsync(SetProvisioningCodeRequest setProvisioningCodeRequest)
+        public Task<DeviceInfoSetProvisioningCodeResponse> SetProvisioningCodeAsync(DeviceInfoSetProvisioningCodeRequest setProvisioningCodeRequest)
         {
             return Channel.SetProvisioningCodeAsync(setProvisioningCodeRequest);
         }

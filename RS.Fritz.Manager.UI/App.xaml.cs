@@ -39,6 +39,7 @@
                     services.AddSingleton<ILogger, UserInterfaceLogService>();
                     services.AddSingleton<IServiceOperationHandler, ServiceOperationHandler>();
                     services.AddSingleton<IDeviceSearchService, DeviceSearchService>();
+                    services.AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>();
                     services.AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>();
                     services.AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>();
                     services.AddSingleton<IClientFactory<IFritzWanDslInterfaceConfigService>, ClientFactory<IFritzWanDslInterfaceConfigService>>();

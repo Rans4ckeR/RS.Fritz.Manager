@@ -2,7 +2,6 @@
 {
     using System;
     using System.ComponentModel;
-    using System.Net;
     using System.Threading.Tasks;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
@@ -12,19 +11,19 @@
 
     internal abstract class FritzServiceViewModel : ObservableObject
     {
-        private readonly IServiceOperationHandler serviceOperationHandler;
+        private readonly IFritzServiceOperationHandler fritzServiceOperationHandler;
         private readonly ILogger logger;
 
         private bool defaultCommandActive = false;
         private bool canExecuteDefaultCommand = false;
         private DeviceLoginInfo deviceLoginInfo;
 
-        protected FritzServiceViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, IServiceOperationHandler serviceOperationHandler)
+        protected FritzServiceViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, IFritzServiceOperationHandler fritzServiceOperationHandler)
         {
             this.deviceLoginInfo = deviceLoginInfo;
-            this.serviceOperationHandler = serviceOperationHandler;
+            this.fritzServiceOperationHandler = fritzServiceOperationHandler;
             this.logger = logger;
-            DefaultCommand = new AsyncRelayCommand(ExecuteDefaultCommandAsync, () => CanExecuteDefaultCommand);
+            DefaultCommand = new AsyncRelayCommand<bool?>(ExecuteDefaultCommandAsync, q => CanExecuteDefaultCommand);
             deviceLoginInfo.PropertyChanged += DeviceLoginInfoPropertyChanged;
             PropertyChanged += FritzServiceViewModelPropertyChanged;
 
@@ -43,8 +42,6 @@
                     DefaultCommand.NotifyCanExecuteChanged();
             }
         }
-
-        public IServiceOperationHandler ServiceOperationHandler { get => serviceOperationHandler; }
 
         public IAsyncRelayCommand DefaultCommand { get; }
 
@@ -68,48 +65,16 @@
             }
         }
 
-        protected abstract Task DoExecuteDefaultCommandAsync(NetworkCredential networkCredential);
+        protected IFritzServiceOperationHandler FritzServiceOperationHandler { get => fritzServiceOperationHandler; }
 
-        protected async Task ExecuteDefaultCommandAsync()
+        protected abstract Task DoExecuteDefaultCommandAsync();
+
+        protected virtual void DeviceLoginInfoPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            try
-            {
-                DefaultCommandActive = true;
-
-                var networkCredential = new NetworkCredential(deviceLoginInfo.User!.Name, deviceLoginInfo.Password);
-
-                await DoExecuteDefaultCommandAsync(networkCredential);
-
-                WeakReferenceMessenger.Default.Send(new ActiveViewValueChangedMessage(this));
-            }
-            catch (Exception ex)
-            {
-                logger.ExceptionThrown(ex);
-            }
-            finally
-            {
-                DefaultCommandActive = false;
-            }
+            UpdateCanExecuteDefaultCommand();
         }
 
-        private void DeviceLoginInfoPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case nameof(deviceLoginInfo.Device):
-                case nameof(deviceLoginInfo.User):
-                case nameof(deviceLoginInfo.Password):
-                    {
-                        UpdateCanExecuteDefaultCommand();
-                        break;
-                    }
-
-                default:
-                    break;
-            }
-        }
-
-        private void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        protected virtual void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -124,9 +89,35 @@
             }
         }
 
-        private void UpdateCanExecuteDefaultCommand()
+        protected virtual bool GetCanExecuteDefaultCommand()
         {
-            CanExecuteDefaultCommand = deviceLoginInfo.Device is not null && deviceLoginInfo.User is not null && !string.IsNullOrWhiteSpace(deviceLoginInfo.Password) && !DefaultCommandActive;
+            return deviceLoginInfo.InternetGatewayDevice is not null && deviceLoginInfo.User is not null && !string.IsNullOrWhiteSpace(deviceLoginInfo.Password) && !DefaultCommandActive;
+        }
+
+        protected void UpdateCanExecuteDefaultCommand()
+        {
+            CanExecuteDefaultCommand = GetCanExecuteDefaultCommand();
+        }
+
+        private async Task ExecuteDefaultCommandAsync(bool? showView)
+        {
+            try
+            {
+                DefaultCommandActive = true;
+
+                await DoExecuteDefaultCommandAsync();
+
+                if (showView ?? true)
+                    WeakReferenceMessenger.Default.Send(new ActiveViewValueChangedMessage(this));
+            }
+            catch (Exception ex)
+            {
+                logger.ExceptionThrown(ex);
+            }
+            finally
+            {
+                DefaultCommandActive = false;
+            }
         }
     }
 }

@@ -32,10 +32,10 @@
             {
                 Uri? location = Locations.SingleOrDefault(r => r.HostNameType is UriHostNameType.IPv6);
 
-                if (location is null)
-                    return Locations.Single(r => r.HostNameType is UriHostNameType.IPv4);
+                if (location is not null)
+                    return location;
 
-                return location;
+                return Locations.Single(r => r.HostNameType is UriHostNameType.IPv4);
             }
         }
 
