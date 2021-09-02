@@ -3,9 +3,8 @@
     using System.Net;
     using System.Threading.Tasks;
 
-    public sealed class FritzServiceOperationHandler : IFritzServiceOperationHandler
+    public sealed class FritzServiceOperationHandler : ServiceOperationHandler, IFritzServiceOperationHandler
     {
-        private readonly IServiceOperationHandler serviceOperationHandler;
         private readonly IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory;
         private readonly IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory;
         private readonly IClientFactory<IFritzLayer3ForwardingService> fritzLayer3ForwardingServiceClientFactory;
@@ -13,14 +12,12 @@
         private readonly IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory;
 
         public FritzServiceOperationHandler(
-            IServiceOperationHandler serviceOperationHandler,
             IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory,
             IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory,
             IClientFactory<IFritzLayer3ForwardingService> fritzLayer3ForwardingServiceClientFactory,
             IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory,
             IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory)
         {
-            this.serviceOperationHandler = serviceOperationHandler;
             this.fritzDeviceInfoServiceClientFactory = fritzDeviceInfoServiceClientFactory;
             this.fritzLanConfigSecurityServiceClientFactory = fritzLanConfigSecurityServiceClientFactory;
             this.fritzLayer3ForwardingServiceClientFactory = fritzLayer3ForwardingServiceClientFactory;
@@ -34,77 +31,77 @@
 
         public Task<DeviceInfoGetInfoResponse> DeviceInfoGetInfoAsync()
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzDeviceInfoServiceClient(true, InternetGatewayDevice!.SecurityPort, NetworkCredential), q => q.GetInfoAsync(new DeviceInfoGetInfoRequest()));
+            return ExecuteAsync(GetFritzDeviceInfoServiceClient(true, InternetGatewayDevice!.SecurityPort, NetworkCredential), q => q.GetInfoAsync(new DeviceInfoGetInfoRequest()));
         }
 
         public Task<DeviceInfoGetDeviceLogResponse> DeviceInfoGetDeviceLogAsync()
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzDeviceInfoServiceClient(true, InternetGatewayDevice!.SecurityPort, NetworkCredential), q => q.GetDeviceLogAsync(new DeviceInfoGetDeviceLogRequest()));
+            return ExecuteAsync(GetFritzDeviceInfoServiceClient(true, InternetGatewayDevice!.SecurityPort, NetworkCredential), q => q.GetDeviceLogAsync(new DeviceInfoGetDeviceLogRequest()));
         }
 
         public Task<DeviceInfoGetSecurityPortResponse> DeviceInfoGetSecurityPortAsync()
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzDeviceInfoServiceClient(), q => q.GetSecurityPortAsync(new DeviceInfoGetSecurityPortRequest()));
+            return ExecuteAsync(GetFritzDeviceInfoServiceClient(), q => q.GetSecurityPortAsync(new DeviceInfoGetSecurityPortRequest()));
         }
 
         public Task<DeviceInfoSetProvisioningCodeResponse> DeviceInfoSetProvisioningCodeAsync(string provisioningCode)
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzDeviceInfoServiceClient(true, InternetGatewayDevice!.SecurityPort, NetworkCredential), q => q.SetProvisioningCodeAsync(new DeviceInfoSetProvisioningCodeRequest { ProvisioningCode = provisioningCode }));
+            return ExecuteAsync(GetFritzDeviceInfoServiceClient(true, InternetGatewayDevice!.SecurityPort, NetworkCredential), q => q.SetProvisioningCodeAsync(new DeviceInfoSetProvisioningCodeRequest { ProvisioningCode = provisioningCode }));
         }
 
         public Task<LanConfigSecurityGetAnonymousLoginResponse> LanConfigSecurityGetAnonymousLoginAsync()
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzLanConfigSecurityServiceClient(), q => q.GetAnonymousLoginAsync(new LanConfigSecurityGetAnonymousLoginRequest()));
+            return ExecuteAsync(GetFritzLanConfigSecurityServiceClient(), q => q.GetAnonymousLoginAsync(new LanConfigSecurityGetAnonymousLoginRequest()));
         }
 
         public Task<LanConfigSecurityGetCurrentUserResponse> LanConfigSecurityGetCurrentUserAsync()
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzLanConfigSecurityServiceClient(), q => q.GetCurrentUserAsync(new LanConfigSecurityGetCurrentUserRequest()));
+            return ExecuteAsync(GetFritzLanConfigSecurityServiceClient(), q => q.GetCurrentUserAsync(new LanConfigSecurityGetCurrentUserRequest()));
         }
 
         public Task<LanConfigSecurityGetInfoResponse> LanConfigSecurityGetInfoAsync()
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzLanConfigSecurityServiceClient(), q => q.GetInfoAsync(new LanConfigSecurityGetInfoRequest()));
+            return ExecuteAsync(GetFritzLanConfigSecurityServiceClient(), q => q.GetInfoAsync(new LanConfigSecurityGetInfoRequest()));
         }
 
         public Task<LanConfigSecurityGetUserListResponse> LanConfigSecurityGetUserListAsync()
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzLanConfigSecurityServiceClient(), q => q.GetUserListAsync(new LanConfigSecurityGetUserListRequest()));
+            return ExecuteAsync(GetFritzLanConfigSecurityServiceClient(), q => q.GetUserListAsync(new LanConfigSecurityGetUserListRequest()));
         }
 
         public Task<LanConfigSecuritySetConfigPasswordResponse> LanConfigSecuritySetConfigPasswordAsync(string password)
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzLanConfigSecurityServiceClient(), q => q.SetConfigPasswordAsync(new LanConfigSecuritySetConfigPasswordRequest { Password = password }));
+            return ExecuteAsync(GetFritzLanConfigSecurityServiceClient(), q => q.SetConfigPasswordAsync(new LanConfigSecuritySetConfigPasswordRequest { Password = password }));
         }
 
         public Task<Layer3ForwardingGetDefaultConnectionServiceResponse> Layer3ForwardingGetDefaultConnectionServiceAsync()
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzLayer3ForwardingServiceClient(), q => q.GetDefaultConnectionServiceAsync(new Layer3ForwardingGetDefaultConnectionServiceRequest()));
+            return ExecuteAsync(GetFritzLayer3ForwardingServiceClient(), q => q.GetDefaultConnectionServiceAsync(new Layer3ForwardingGetDefaultConnectionServiceRequest()));
         }
 
         public Task<WanDslInterfaceConfigGetDSLDiagnoseInfoResponse> WanDslInterfaceConfigGetDSLDiagnoseInfoAsync()
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(), q => q.GetDSLDiagnoseInfoAsync(new WanDslInterfaceConfigGetDSLDiagnoseInfoRequest()));
+            return ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(), q => q.GetDSLDiagnoseInfoAsync(new WanDslInterfaceConfigGetDSLDiagnoseInfoRequest()));
         }
 
         public Task<WanDslInterfaceConfigGetDSLInfoResponse> WanDslInterfaceConfigGetDSLInfoAsync()
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(), q => q.GetDSLInfoAsync(new WanDslInterfaceConfigGetDSLInfoRequest()));
+            return ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(), q => q.GetDSLInfoAsync(new WanDslInterfaceConfigGetDSLInfoRequest()));
         }
 
         public Task<WanDslInterfaceConfigGetInfoResponse> WanDslInterfaceConfigGetInfoAsync()
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(), q => q.GetInfoAsync(new WanDslInterfaceConfigGetInfoRequest()));
+            return ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(), q => q.GetInfoAsync(new WanDslInterfaceConfigGetInfoRequest()));
         }
 
         public Task<WanDslInterfaceConfigGetStatisticsTotalResponse> WanDslInterfaceConfigGetStatisticsTotalAsync()
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(), q => q.GetStatisticsTotalAsync(new WanDslInterfaceConfigGetStatisticsTotalRequest()));
+            return ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(), q => q.GetStatisticsTotalAsync(new WanDslInterfaceConfigGetStatisticsTotalRequest()));
         }
 
         public Task<WanPppConnectionGetInfoResponse> WanPppConnectionGetInfoAsync()
         {
-            return serviceOperationHandler.ExecuteAsync(GetFritzWanPppConnectionServiceClient(), q => q.GetInfoAsync(new WanPppConnectionGetInfoRequest()));
+            return ExecuteAsync(GetFritzWanPppConnectionServiceClient(), q => q.GetInfoAsync(new WanPppConnectionGetInfoRequest()));
         }
 
         private IFritzLanConfigSecurityService GetFritzLanConfigSecurityServiceClient()

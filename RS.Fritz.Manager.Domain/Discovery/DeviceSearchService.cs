@@ -149,7 +149,7 @@
 
         private async Task GetUPnPDescription(InternetGatewayDevice internetGatewayDevice)
         {
-            Uri? uri = internetGatewayDevice.Locations.SingleOrDefault(r => r.HostNameType == UriHostNameType.IPv6) ?? internetGatewayDevice.Locations.Single(r => r.HostNameType == UriHostNameType.IPv4);
+            Uri uri = internetGatewayDevice.Locations.SingleOrDefault(r => r.HostNameType == UriHostNameType.IPv6) ?? internetGatewayDevice.Locations.Single(r => r.HostNameType == UriHostNameType.IPv4);
             string uPnPDescription = await httpClientFactory.CreateClient(Constants.HttpClientName).GetStringAsync(uri);
             using var stringReader = new StringReader(uPnPDescription);
             using var xmlTextReader = new XmlTextReader(stringReader);

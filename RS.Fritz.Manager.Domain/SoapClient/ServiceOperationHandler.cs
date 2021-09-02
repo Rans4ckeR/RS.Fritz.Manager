@@ -4,9 +4,9 @@
     using System.ServiceModel;
     using System.Threading.Tasks;
 
-    public sealed class ServiceOperationHandler : IServiceOperationHandler
+    public abstract class ServiceOperationHandler
     {
-        public async Task ExecuteAsync<T>(T client, Func<T, Task> operation)
+        protected static async Task ExecuteAsync<T>(T client, Func<T, Task> operation)
         {
             try
             {
@@ -18,7 +18,7 @@
             }
         }
 
-        public async Task<TResult> ExecuteAsync<T, TResult>(T client, Func<T, Task<TResult>> operation)
+        protected static async Task<TResult> ExecuteAsync<T, TResult>(T client, Func<T, Task<TResult>> operation)
         {
             try
             {
