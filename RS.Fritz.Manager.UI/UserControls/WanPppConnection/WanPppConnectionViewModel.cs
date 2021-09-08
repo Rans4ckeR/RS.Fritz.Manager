@@ -8,8 +8,8 @@
     {
         private WanPppConnectionGetInfoResponse? wanPppConnectionGetInfoResponse;
 
-        public WanPppConnectionViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(logger, deviceLoginInfo, fritzServiceOperationHandler)
+        public WanPppConnectionViewModel(ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+            : base(logger, fritzServiceOperationHandler)
         {
         }
 

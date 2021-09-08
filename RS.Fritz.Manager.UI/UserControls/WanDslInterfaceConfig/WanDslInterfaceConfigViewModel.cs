@@ -10,13 +10,13 @@
     {
         private readonly DispatcherTimer autoRefreshTimer;
 
-        private bool autoRefresh = false;
+        private bool autoRefresh;
         private WanDslInterfaceConfigGetDSLDiagnoseInfoResponse? wanDslInterfaceConfigGetDSLDiagnoseInfoResponse;
         private WanDslInterfaceConfigGetDSLInfoResponse? wanDslInterfaceConfigGetDSLInfoResponse;
         private WanDslInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
 
-        public WanDslInterfaceConfigViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(logger, deviceLoginInfo, fritzServiceOperationHandler)
+        public WanDslInterfaceConfigViewModel(ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+            : base(logger, fritzServiceOperationHandler)
         {
             WanDslInterfaceConfigInfoControlViewModel = new WanDslInterfaceConfigInfoControlViewModel();
             autoRefreshTimer = new DispatcherTimer
@@ -60,7 +60,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            await Domain.TaskExtensions.WhenAllSafe(new Task[]
+            await Domain.TaskExtensions.WhenAllSafe(new[]
                 {
                     GetWanDslInterfaceConfigGetDSLDiagnoseInfoAsync(),
                     GetWanDslInterfaceConfigGetDSLInfoAsync(),

@@ -12,8 +12,8 @@
         private DeviceInfoGetInfoResponse? deviceInfoGetInfoResponse;
         private DeviceInfoGetDeviceLogResponse? deviceInfoGetDeviceLogResponse;
 
-        public DeviceInfoViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(logger, deviceLoginInfo, fritzServiceOperationHandler)
+        public DeviceInfoViewModel(ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler)
+            : base(logger, fritzServiceOperationHandler)
         {
             this.deviceInfoSetProvisioningCodeViewModel = deviceInfoSetProvisioningCodeViewModel;
         }
@@ -40,7 +40,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            await Domain.TaskExtensions.WhenAllSafe(new Task[]
+            await Domain.TaskExtensions.WhenAllSafe(new[]
                 {
                     GetDeviceInfoGetSecurityPortAsync(),
                     GetDeviceInfoGetInfoAsync(),

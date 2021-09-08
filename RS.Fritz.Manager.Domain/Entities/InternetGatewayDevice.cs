@@ -6,12 +6,22 @@
 
     public sealed record InternetGatewayDevice
     {
+        private IEnumerable<Uri> locations;
+
         public InternetGatewayDevice()
         {
-            Locations = Enumerable.Empty<Uri>();
+            locations = Enumerable.Empty<Uri>();
         }
 
-        public IEnumerable<Uri> Locations { get; set; }
+        public IEnumerable<Uri> Locations
+        {
+            get => locations;
+            set
+            {
+                locations = value;
+                PreferredLocation = GetPreferredLocation();
+            }
+        }
 
         public string? Server { get; set; }
 
@@ -21,24 +31,22 @@
 
         public string? SearchTarget { get; set; }
 
-        // the last 48 bits are the Customer Premises Equipment (CPE)’s LAN MAC address
         public string? UniqueServiceName { get; set; }
 
         public ushort? SecurityPort { get; set; }
 
-        public Uri PreferredLocation
-        {
-            get
-            {
-                Uri? location = Locations.SingleOrDefault(r => r.HostNameType is UriHostNameType.IPv6);
-
-                if (location is not null)
-                    return location;
-
-                return Locations.Single(r => r.HostNameType is UriHostNameType.IPv4);
-            }
-        }
+        public Uri? PreferredLocation { get; set; }
 
         public UPnPDescription? UPnPDescription { get; set; }
+
+        private Uri? GetPreferredLocation()
+        {
+            Uri? location = Locations.SingleOrDefault(r => r.HostNameType is UriHostNameType.IPv6);
+
+            if (location is not null)
+                return location;
+
+            return Locations.SingleOrDefault(r => r.HostNameType is UriHostNameType.IPv4);
+        }
     }
 }

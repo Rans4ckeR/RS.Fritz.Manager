@@ -9,8 +9,8 @@
     {
         private string? password;
 
-        public LanConfigSecuritySetConfigPasswordViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(logger, deviceLoginInfo, fritzServiceOperationHandler)
+        public LanConfigSecuritySetConfigPasswordViewModel(ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+            : base(logger, fritzServiceOperationHandler)
         {
         }
 
@@ -40,9 +40,6 @@
                         UpdateCanExecuteDefaultCommand();
                         break;
                     }
-
-                default:
-                    break;
             }
         }
 

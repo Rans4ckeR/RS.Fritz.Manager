@@ -3,7 +3,5 @@
     using System.ServiceModel;
 
     [MessageContract(WrapperName = "GetInfo")]
-    public sealed record DeviceInfoGetInfoRequest
-    {
-    }
+    public sealed record DeviceInfoGetInfoRequest;
 }

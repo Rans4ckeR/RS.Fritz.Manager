@@ -3,7 +3,5 @@
     using System.ServiceModel;
 
     [MessageContract(WrapperName = "GetDeviceLog")]
-    public sealed record DeviceInfoGetDeviceLogRequest
-    {
-    }
+    public sealed record DeviceInfoGetDeviceLogRequest;
 }

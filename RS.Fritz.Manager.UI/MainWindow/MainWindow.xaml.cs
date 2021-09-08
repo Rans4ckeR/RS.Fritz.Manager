@@ -1,8 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI
 {
-    using System.Windows.Controls.Ribbon;
-
-    internal sealed partial class MainWindow : RibbonWindow
+    internal sealed partial class MainWindow
     {
         public MainWindow(MainWindowViewModel mainWindowViewModel)
         {

@@ -8,8 +8,8 @@
              d:DataContext="{d:DesignInstance Type=ui:WanDslInterfaceConfigInfoControlViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-        <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="Info">
+    <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -44,8 +44,8 @@
                 <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=DownstreamNoiseMargin}" Content="_DownstreamNoiseMargin" ToolTip="Provides a snapshot of the current signal-to-noise ratio (expressed in 0.1 db) of the downstream DSL connection."/>
                 <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=UpstreamAttenuation}" Content="_UpstreamAttenuation" ToolTip="Provides a measurement of the upstream signal loss (expressed in 0.1 dB)."/>
                 <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=DownstreamAttenuation}" Content="_DownstreamAttenuation" ToolTip="Provides a measurement of the downstream signal loss (expressed in 0.1 dB)."/>
-                <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=ATURVendor}" Content="_ATURVendor" ToolTip="ADSL Termination Unit - Remote (ATU-R) vendor identifier as defined in G.994.1 and T1.413."/>
-                <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ATURCountry}" Content="_ATURCountry" ToolTip="T.35 country code of the ADSL Termination Unit - Remote (ATU-R) vendor as defined in G.994.1."/>
+                <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=AturVendor}" Content="_ATURVendor" ToolTip="ADSL Termination Unit - Remote (ATU-R) vendor identifier as defined in G.994.1 and T1.413."/>
+                <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=AturCountry}" Content="_ATURCountry" ToolTip="T.35 country code of the ADSL Termination Unit - Remote (ATU-R) vendor as defined in G.994.1."/>
                 <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=UpstreamPower}" Content="_UpstreamPower" ToolTip="Provides a snapshot of the current output power at the Customer Premises Equipment (CPE)'s DSL interface (expressed in 0.1 dBmV)."/>
                 <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DownstreamPower}" Content="_DownstreamPower" ToolTip="Provides a snapshot of the current received power signal level at the Customer Premises Equipment (CPE)'s DSL interface (expressed in 0.1 dBmV)."/>
                 <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Enable}"/>
@@ -163,8 +163,8 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock x:Name="ATURVendor" Grid.Row="11" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.ATURVendor}"/>
-                <TextBlock x:Name="ATURCountry" Grid.Row="12" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.ATURCountry}"/>
+                <TextBlock x:Name="AturVendor" Grid.Row="11" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.ATURVendor}"/>
+                <TextBlock x:Name="AturCountry" Grid.Row="12" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.ATURCountry}"/>
                 <TextBlock x:Name="UpstreamPower" Grid.Row="13" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.UpstreamPower}"/>
                 <ItemsControl Grid.Row="13" Grid.Column="2" ItemsSource="{Binding UpstreamPowerHistory}">
                     <ItemsControl.ItemsPanel>

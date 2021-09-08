@@ -8,7 +8,7 @@
     using System.ServiceModel.Description;
     using System.Xml;
 
-    public abstract partial class FritzServiceClient<TChannel> : ClientBase<TChannel>
+    public abstract class FritzServiceClient<TChannel> : ClientBase<TChannel>
         where TChannel : class
     {
         protected FritzServiceClient(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential)

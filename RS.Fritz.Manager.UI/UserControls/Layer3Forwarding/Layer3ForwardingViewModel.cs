@@ -8,8 +8,8 @@
     {
         private Layer3ForwardingGetDefaultConnectionServiceResponse? layer3ForwardingGetDefaultConnectionServiceResponse;
 
-        public Layer3ForwardingViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(logger, deviceLoginInfo, fritzServiceOperationHandler)
+        public Layer3ForwardingViewModel(ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+            : base(logger, fritzServiceOperationHandler)
         {
         }
 

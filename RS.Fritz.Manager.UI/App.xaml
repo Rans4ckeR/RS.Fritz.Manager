@@ -6,19 +6,19 @@
              xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
     <Application.Resources>
         <ResourceDictionary>
-            <SolidColorBrush x:Key="windowBackgroundSolidColorBrush" Color="#FF292822"/>
-            <SolidColorBrush x:Key="foregroundSolidColorBrush" Color="#FF121212"/>
-            <SolidColorBrush x:Key="navigationBackgroundSolidColorBrush" Color="#FF266FC3"/>
-            <SolidColorBrush x:Key="titleBackgroundSolidColorBrush" Color="#FF3F8FE2"/>
-            <SolidColorBrush x:Key="labelSolidColorBrush" Color="#FF414446"/>
-            <SolidColorBrush x:Key="titleTextSolidColorBrush" Color="White"/>
-            <SolidColorBrush x:Key="textSolidColorBrush" Color="#FFC3CAD1"/>
-            <Style x:Key="textStyle" TargetType="{x:Type Control}">
-                <Setter Property="Foreground" Value="{StaticResource textSolidColorBrush}"/>
+            <SolidColorBrush x:Key="WindowBackgroundSolidColorBrush" Color="#FF292822"/>
+            <SolidColorBrush x:Key="ForegroundSolidColorBrush" Color="#FF121212"/>
+            <SolidColorBrush x:Key="NavigationBackgroundSolidColorBrush" Color="#FF266FC3"/>
+            <SolidColorBrush x:Key="TitleBackgroundSolidColorBrush" Color="#FF3F8FE2"/>
+            <SolidColorBrush x:Key="LabelSolidColorBrush" Color="#FF414446"/>
+            <SolidColorBrush x:Key="TitleTextSolidColorBrush" Color="White"/>
+            <SolidColorBrush x:Key="TextSolidColorBrush" Color="#FFC3CAD1"/>
+            <Style x:Key="TextStyle" TargetType="{x:Type Control}">
+                <Setter Property="Foreground" Value="{StaticResource TextSolidColorBrush}"/>
                 <Setter Property="FontFamily" Value="Arial"/>
             </Style>
             <Style TargetType="{x:Type Label}">
-                <Setter Property="Foreground" Value="{StaticResource titleBackgroundSolidColorBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource TitleBackgroundSolidColorBrush}"/>
                 <Setter Property="FontFamily" Value="Arial"/>
             </Style>
             <Style TargetType="{x:Type TextBlock}">
@@ -29,18 +29,18 @@
                 <Setter Property="FontFamily" Value="Arial"/>
             </Style>
             <Style TargetType="{x:Type ToolTip}">
-                <Setter Property="Foreground" Value="{StaticResource titleTextSolidColorBrush}"/>
-                <Setter Property="Background" Value="{StaticResource titleBackgroundSolidColorBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource TitleTextSolidColorBrush}"/>
+                <Setter Property="Background" Value="{StaticResource TitleBackgroundSolidColorBrush}"/>
                 <Setter Property="FontFamily" Value="Arial"/>
             </Style>
             <Style TargetType="{x:Type Button}">
-                <Setter Property="Foreground" Value="{StaticResource titleTextSolidColorBrush}"/>
-                <Setter Property="Background" Value="{StaticResource titleBackgroundSolidColorBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource TitleTextSolidColorBrush}"/>
+                <Setter Property="Background" Value="{StaticResource TitleBackgroundSolidColorBrush}"/>
                 <Setter Property="FontFamily" Value="Arial"/>
             </Style>
             <DataTemplate DataType="{x:Type domain:InternetGatewayDevice}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource navigationBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="Selected InternetGatewayDevice">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource NavigationBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Selected InternetGatewayDevice">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -71,7 +71,7 @@
                                 <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Ext}" Content="_Ext" ToolTip="Required for backwards compatibility with UPnP 1.0. (Header field name only; no field value.)"/>
                                 <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=UniqueServiceName}" Content="_UniqueServiceName" ToolTip="Field value contains Unique Service Name. Identifies a unique instance of a device or service. The prefix (before the double colon) shall match the value of the UDN element in the device description OR the lower ST version used in the M-Search request."/>
                                 <TextBlock x:Name="Server" Grid.Row="1" Grid.Column="1" Text="{Binding Server}"/>
-                                <ListView x:Name="Locations" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Locations}" Foreground="{StaticResource textSolidColorBrush}" Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="2">
+                                <ListView x:Name="Locations" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Locations}" Foreground="{StaticResource TextSolidColorBrush}" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="2">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock>
@@ -229,8 +229,8 @@
                 </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:DeviceInfoGetSecurityPortResponse}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="SecurityPort">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SecurityPort">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -262,8 +262,8 @@
                 </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:DeviceInfoGetInfoResponse}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="Info">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -312,8 +312,8 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:DeviceInfoGetDeviceLogResponse}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="DeviceLog">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DeviceLog">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -329,8 +329,8 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:LanConfigSecurityGetAnonymousLoginResponse}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="AnonymousLogin">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="AnonymousLogin">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -346,8 +346,8 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:LanConfigSecurityGetCurrentUserResponse}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="CurrentUser">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="CurrentUser">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -366,8 +366,8 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:LanConfigSecurityGetInfoResponse}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="Info">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -389,8 +389,8 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:LanConfigSecurityGetUserListResponse}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="UserList">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="UserList">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -406,8 +406,8 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:WanDslInterfaceConfigGetDSLDiagnoseInfoResponse}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="DSLDiagnoseInfo">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DSLDiagnoseInfo">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -441,8 +441,8 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:WanDslInterfaceConfigGetDSLInfoResponse}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="DSLInfo">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DSLInfo">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -530,8 +530,8 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:WanDslInterfaceConfigGetStatisticsTotalResponse}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="StatisticsTotal">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="StatisticsTotal">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -589,8 +589,8 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:Layer3ForwardingGetDefaultConnectionServiceResponse}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="DefaultConnectionService">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DefaultConnectionService">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -606,8 +606,8 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:WanPppConnectionGetInfoResponse}">
-                <Border Background="{StaticResource foregroundSolidColorBrush}" BorderBrush="{StaticResource titleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource textSolidColorBrush}" IsExpanded="True" Header="Info">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>

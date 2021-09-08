@@ -12,7 +12,7 @@
     using Microsoft.Extensions.Logging;
     using RS.Fritz.Manager.Domain;
 
-    internal sealed partial class App : Application
+    internal sealed partial class App
     {
         private readonly IHost host;
 

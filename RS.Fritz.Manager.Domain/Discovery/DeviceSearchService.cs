@@ -15,7 +15,7 @@
     using System.Xml;
     using System.Xml.Serialization;
 
-    public sealed partial class DeviceSearchService : IDeviceSearchService
+    public sealed class DeviceSearchService : IDeviceSearchService
     {
         private const int UPnPMulticastPort = 1900;
         private const int ReceiveTimeout = 3000;
@@ -43,9 +43,9 @@
         public async Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string deviceType)
         {
             IEnumerable<string> responses = (await TaskExtensions.WhenAllSafe(GetLocalAddresses().Select(q => SearchDevicesAsync(q, deviceType, 3)))).SelectMany(q => q);
-            IEnumerable<Dictionary<string, string>> dictionaries = responses.Select(q => q.Split(Environment.NewLine)).Select(q => q.Where(q => q.Contains(": ")).ToDictionary(r => r.Split(": ")[0], r => r.Split(": ")[1]));
+            IEnumerable<Dictionary<string, string>> dictionaries = responses.Select(q => q.Split(Environment.NewLine)).Select(q => q.Where(r => r.Contains(": ")).ToDictionary(r => r.Split(": ")[0], r => r.Split(": ")[1]));
 
-            InternetGatewayDevice[]? internetGatewayDevices = dictionaries.Select(q => new InternetGatewayDeviceResponse
+            InternetGatewayDevice[] internetGatewayDevices = dictionaries.Select(q => new InternetGatewayDeviceResponse
             {
                 CacheControl = q.TryGetValue("CACHE-CONTROL", out string? cacheControl) ? cacheControl : default,
                 Ext = q.TryGetValue("EXT", out string? ext) ? ext : default,
@@ -141,7 +141,7 @@
         {
             return NetworkInterface.GetAllNetworkInterfaces()
                 .Select(q => q.GetIPProperties())
-                .Where(q => q.GatewayAddresses?.Any() ?? false)
+                .Where(q => q.GatewayAddresses.Any())
                 .SelectMany(q => q.UnicastAddresses)
                 .Select(q => q.Address)
                 .Where(q => supportedAddressFamilies.Contains(q.AddressFamily));

@@ -13,8 +13,8 @@
         private LanConfigSecurityGetInfoResponse? lanConfigSecurityGetInfoResponse;
         private LanConfigSecurityGetUserListResponse? lanConfigSecurityGetUserListResponse;
 
-        public LanConfigSecurityViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(logger, deviceLoginInfo, fritzServiceOperationHandler)
+        public LanConfigSecurityViewModel(ILogger logger, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler)
+            : base(logger, fritzServiceOperationHandler)
         {
             this.lanConfigSecuritySetConfigPasswordViewModel = lanConfigSecuritySetConfigPasswordViewModel;
         }
@@ -46,7 +46,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            await Domain.TaskExtensions.WhenAllSafe(new Task[]
+            await Domain.TaskExtensions.WhenAllSafe(new[]
                 {
                     GetLanConfigSecurityGetAnonymousLoginAsync(),
                     GetLanConfigSecurityGetCurrentUserAsync(),
