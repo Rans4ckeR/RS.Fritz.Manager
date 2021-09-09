@@ -26,16 +26,16 @@
 #pragma warning restore SA1310 // Field names should not contain underscore
 
         private readonly IHttpClientFactory httpClientFactory;
-        private readonly AddressFamily[] supportedAddressFamilies = new[] { AddressFamily.InterNetwork, AddressFamily.InterNetworkV6 };
+        private readonly AddressFamily[] supportedAddressFamilies = { AddressFamily.InterNetwork, AddressFamily.InterNetworkV6 };
 
         public DeviceSearchService(IHttpClientFactory httpClientFactory)
         {
             this.httpClientFactory = httpClientFactory;
         }
 
-        private static IDictionary<AddressType, string> MulticastAddresses => new Dictionary<AddressType, string>
+        private static IDictionary<AddressType, string> SsdpMulticastAddresses => new Dictionary<AddressType, string>
         {
-            [AddressType.IPv4] = "239.255.255.250",
+            [AddressType.IPv4SiteLocal] = "239.255.255.250",
             [AddressType.IPv6LinkLocal] = "[FF02::C]",
             [AddressType.IPv6SiteLocal] = "[FF05::C]"
         };
@@ -85,7 +85,7 @@
 
             socket.Bind(new IPEndPoint(localAddress, 0));
 
-            var multicastIPEndPoint = new IPEndPoint(IPAddress.Parse(MulticastAddresses[addressType]), UPnPMulticastPort);
+            var multicastIPEndPoint = new IPEndPoint(IPAddress.Parse(SsdpMulticastAddresses[addressType]), UPnPMulticastPort);
             string request = FormattableString.Invariant($"M-SEARCH * HTTP/1.1\r\nHOST: {multicastIPEndPoint}\r\nST: {deviceType}\r\nMAN: \"ssdp:discover\"\r\nMX: 3\r\n\r\n");
             var buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(request));
 
@@ -102,7 +102,7 @@
         private static AddressType GetAddressType(IPAddress localAddress)
         {
             if (localAddress.AddressFamily == AddressFamily.InterNetwork)
-                return AddressType.IPv4;
+                return AddressType.IPv4SiteLocal;
 
             if (localAddress.IsIPv6LinkLocal)
                 return AddressType.IPv6LinkLocal;
@@ -140,6 +140,7 @@
         private IEnumerable<IPAddress> GetLocalAddresses()
         {
             return NetworkInterface.GetAllNetworkInterfaces()
+                .Where(q => q.OperationalStatus is OperationalStatus.Up)
                 .Select(q => q.GetIPProperties())
                 .Where(q => q.GatewayAddresses.Any())
                 .SelectMany(q => q.UnicastAddresses)

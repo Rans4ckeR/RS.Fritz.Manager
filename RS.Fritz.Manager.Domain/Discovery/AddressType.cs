@@ -4,7 +4,7 @@
     {
         Unknown,
 
-        IPv4,
+        IPv4SiteLocal,
 
         IPv6LinkLocal,
 
