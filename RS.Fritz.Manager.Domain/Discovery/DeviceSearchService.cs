@@ -37,7 +37,7 @@
         {
             [AddressType.IPv4] = "239.255.255.250",
             [AddressType.IPv6LinkLocal] = "[FF02::C]",
-            [AddressType.IPv6SiteLocal] = "[FF05::C]",
+            [AddressType.IPv6SiteLocal] = "[FF05::C]"
         };
 
         public async Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string deviceType)

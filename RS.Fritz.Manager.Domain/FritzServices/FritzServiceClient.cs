@@ -15,41 +15,9 @@
             : base(GetBindingForEndpoint(endpointConfiguration), remoteAddress)
         {
             Endpoint.Name = endpointConfiguration.ToString();
-            SslProtocols = SslProtocols.Tls12;
 
-            if (networkCredential is null)
-                return;
-
-            var clientCredentials = (ClientCredentials)Endpoint.EndpointBehaviors[typeof(ClientCredentials)];
-
-            clientCredentials.HttpDigest.ClientCredential = networkCredential;
-        }
-
-        public SslProtocols SslProtocols
-        {
-            get
-            {
-                _ = Endpoint.EndpointBehaviors.TryGetValue(typeof(SslProtocolCertificateEndpointBehavior), out IEndpointBehavior? behavior);
-
-                if (behavior is null)
-                    return SslProtocols.None;
-
-                return ((SslProtocolCertificateEndpointBehavior)behavior).SslProtocols;
-            }
-
-            set
-            {
-                _ = Endpoint.EndpointBehaviors.TryGetValue(typeof(SslProtocolCertificateEndpointBehavior), out IEndpointBehavior? behavior);
-
-                if (behavior is null)
-                {
-                    behavior = new SslProtocolCertificateEndpointBehavior();
-
-                    Endpoint.EndpointBehaviors.Add(behavior);
-                }
-
-                ((SslProtocolCertificateEndpointBehavior)behavior).SslProtocols = value;
-            }
+            SetSslProtocols(SslProtocols.Tls12);
+            SetCredentials(networkCredential);
         }
 
         private static Binding GetBindingForEndpoint(FritzServiceEndpointConfiguration endpointConfiguration)
@@ -78,8 +46,32 @@
                         }
                     }
                 },
-                _ => throw new ArgumentOutOfRangeException(nameof(endpointConfiguration), endpointConfiguration, null),
+                _ => throw new ArgumentOutOfRangeException(nameof(endpointConfiguration), endpointConfiguration, null)
             };
+        }
+
+        private void SetSslProtocols(SslProtocols sslProtocols)
+        {
+            _ = Endpoint.EndpointBehaviors.TryGetValue(typeof(SslProtocolCertificateEndpointBehavior), out IEndpointBehavior? behavior);
+
+            if (behavior is null)
+            {
+                behavior = new SslProtocolCertificateEndpointBehavior();
+
+                Endpoint.EndpointBehaviors.Add(behavior);
+            }
+
+            ((SslProtocolCertificateEndpointBehavior)behavior).SslProtocols = sslProtocols;
+        }
+
+        private void SetCredentials(NetworkCredential? networkCredential)
+        {
+            if (networkCredential is null)
+                return;
+
+            var clientCredentials = (ClientCredentials)Endpoint.EndpointBehaviors[typeof(ClientCredentials)];
+
+            clientCredentials.HttpDigest.ClientCredential = networkCredential;
         }
     }
 }

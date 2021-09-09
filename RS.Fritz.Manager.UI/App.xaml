@@ -676,7 +676,7 @@
                             <Label Grid.Row="27" Grid.Column="0" Target="{Binding ElementName=RemoteIPAddress}" Content="_RemoteIPAddress" ToolTip="The remote IP address of the WANPPPConnection. Not supported, returns '"/>
                             <Label Grid.Row="28" Grid.Column="0" Target="{Binding ElementName=PPPoEACName}" Content="_PPPoEACName" ToolTip="PPPoE Access Concentrator Name."/>
                             <Label Grid.Row="29" Grid.Column="0" Target="{Binding ElementName=DNSEnabled}" Content="_DNSEnabled" ToolTip="Defines whether or not the device should attempt to query a DNS server across this connection."/>
-                            <Label Grid.Row="30" Grid.Column="0" Target="{Binding ElementName=DNSOverrideAllowed}" Content="_DNSOverrideAllowed" ToolTip="Defines wether or not a manually set, 'non-zero' DNS address can be overridden by a DNS entry received from the WAN."/>
+                            <Label Grid.Row="30" Grid.Column="0" Target="{Binding ElementName=DNSOverrideAllowed}" Content="_DNSOverrideAllowed" ToolTip="Defines whether or not a manually set, 'non-zero' DNS address can be overridden by a DNS entry received from the WAN."/>
                             <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
                             <TextBlock x:Name="ConnectionStatus" Grid.Row="1" Grid.Column="1" Text="{Binding ConnectionStatus}"/>
                             <TextBlock x:Name="PossibleConnectionTypes" Grid.Row="2" Grid.Column="1" Text="{Binding PossibleConnectionTypes}"/>
