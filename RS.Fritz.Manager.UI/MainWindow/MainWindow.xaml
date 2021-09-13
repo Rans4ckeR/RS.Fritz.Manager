@@ -10,7 +10,7 @@
         d:DataContext="{d:DesignInstance Type=ui:MainWindowViewModel}"
         mc:Ignorable="d"
         Title="{Binding Title}"
-        Style="{DynamicResource textStyle}">
+        Style="{DynamicResource TextStyle}">
     <RibbonWindow.Resources>
         <system:Boolean x:Key="False">False</system:Boolean>
     </RibbonWindow.Resources>
@@ -26,7 +26,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Ribbon Grid.Row="0" Background="{StaticResource titleBackgroundSolidColorBrush}" Foreground="{StaticResource navigationBackgroundSolidColorBrush}">
+        <Ribbon Grid.Row="0" Background="{StaticResource TitleBackgroundSolidColorBrush}" Foreground="{StaticResource NavigationBackgroundSolidColorBrush}">
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu Visibility="Hidden"/>
             </Ribbon.ApplicationMenu>
@@ -42,7 +42,7 @@
                         <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.InternetGatewayDevice}">
                             <RibbonGalleryCategory ItemsSource="{Binding Devices}">
                                 <RibbonGalleryCategory.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type domain:InternetGatewayDevice}">
+                                    <DataTemplate DataType="{x:Type ui:ObservableInternetGatewayDevice}">
                                         <TextBlock Text="{Binding Server}"/>
                                     </DataTemplate>
                                 </RibbonGalleryCategory.ItemTemplate>
@@ -86,15 +86,15 @@
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
-        <ScrollViewer Grid.Row="1" Background="{StaticResource windowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" Background="{StaticResource WindowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <ContentControl Content="{Binding DeviceLoginInfo.InternetGatewayDevice}"/>
         </ScrollViewer>
-        <Separator Grid.Row="2" Background="{StaticResource windowBackgroundSolidColorBrush}"/>
-        <ScrollViewer Grid.Row="3" Background="{StaticResource windowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Separator Grid.Row="2" Background="{StaticResource WindowBackgroundSolidColorBrush}"/>
+        <ScrollViewer Grid.Row="3" Background="{StaticResource WindowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <ContentControl Content="{Binding ActiveView}"/>
         </ScrollViewer>
-        <Separator Grid.Row="4" Background="{StaticResource windowBackgroundSolidColorBrush}"/>
-        <ScrollViewer Grid.Row="5" Background="{StaticResource windowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <Separator Grid.Row="4" Background="{StaticResource WindowBackgroundSolidColorBrush}"/>
+        <ScrollViewer Grid.Row="5" Background="{StaticResource WindowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <TextBlock Text="{Binding UserMessage}" Foreground="Red"/>
         </ScrollViewer>
     </Grid>

@@ -3,7 +3,5 @@
     using System.ServiceModel;
 
     [MessageContract(WrapperName = "SetProvisioningCodeResponse")]
-    public sealed record DeviceInfoSetProvisioningCodeResponse
-    {
-    }
+    public sealed record DeviceInfoSetProvisioningCodeResponse;
 }

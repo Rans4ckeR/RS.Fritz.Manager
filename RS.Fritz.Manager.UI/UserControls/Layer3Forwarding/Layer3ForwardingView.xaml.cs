@@ -1,8 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI
 {
-    using System.Windows.Controls;
-
-    internal sealed partial class Layer3ForwardingView : UserControl
+    internal sealed partial class Layer3ForwardingView
     {
         public Layer3ForwardingView()
         {

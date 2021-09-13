@@ -9,8 +9,8 @@
     {
         private string provisioningCode = string.Empty;
 
-        public DeviceInfoSetProvisioningCodeViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(logger, deviceLoginInfo, fritzServiceOperationHandler)
+        public DeviceInfoSetProvisioningCodeViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
         }
 
@@ -40,9 +40,6 @@
                         UpdateCanExecuteDefaultCommand();
                         break;
                     }
-
-                default:
-                    break;
             }
         }
     }

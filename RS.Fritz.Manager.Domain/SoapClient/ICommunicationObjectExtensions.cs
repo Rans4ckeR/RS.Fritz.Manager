@@ -7,9 +7,6 @@
     {
         public static void SafeClose(this ICommunicationObject communicationObject)
         {
-            if (communicationObject == null)
-                return;
-
             try
             {
                 if (communicationObject.State == CommunicationState.Faulted)

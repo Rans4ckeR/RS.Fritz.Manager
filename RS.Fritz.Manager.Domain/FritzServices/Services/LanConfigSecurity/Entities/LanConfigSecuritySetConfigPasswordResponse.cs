@@ -3,7 +3,5 @@
     using System.ServiceModel;
 
     [MessageContract(WrapperName = "SetConfigPasswordResponse")]
-    public sealed record LanConfigSecuritySetConfigPasswordResponse
-    {
-    }
+    public sealed record LanConfigSecuritySetConfigPasswordResponse;
 }

@@ -3,7 +3,5 @@
     using System.ServiceModel;
 
     [MessageContract(WrapperName = "GetInfo")]
-    public sealed record WanPppConnectionGetInfoRequest
-    {
-    }
+    public sealed record WanPppConnectionGetInfoRequest;
 }

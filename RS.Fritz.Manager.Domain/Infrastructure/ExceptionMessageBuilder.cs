@@ -62,11 +62,8 @@
             sb.AppendLine(FormattableString.Invariant($"{nameof(Exception)}.{nameof(Exception.StackTrace)}: {ex.StackTrace}"));
         }
 
-        private static string? GetFaultCode(FaultCode faultCode)
+        private static string GetFaultCode(FaultCode faultCode)
         {
-            if (faultCode is null)
-                return null;
-
             var sb = new StringBuilder();
 
             sb.Append(FormattableString.Invariant($"{nameof(FaultException)}.{nameof(FaultException.Code)}:"));

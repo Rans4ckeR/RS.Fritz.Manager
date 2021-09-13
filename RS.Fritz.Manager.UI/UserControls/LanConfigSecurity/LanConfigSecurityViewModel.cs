@@ -6,23 +6,18 @@
 
     internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
     {
-        private readonly LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel;
-
         private LanConfigSecurityGetAnonymousLoginResponse? lanConfigSecurityGetAnonymousLoginResponse;
         private LanConfigSecurityGetCurrentUserResponse? lanConfigSecurityGetCurrentUserResponse;
         private LanConfigSecurityGetInfoResponse? lanConfigSecurityGetInfoResponse;
         private LanConfigSecurityGetUserListResponse? lanConfigSecurityGetUserListResponse;
 
-        public LanConfigSecurityViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(logger, deviceLoginInfo, fritzServiceOperationHandler)
+        public LanConfigSecurityViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler)
+            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
-            this.lanConfigSecuritySetConfigPasswordViewModel = lanConfigSecuritySetConfigPasswordViewModel;
+            LanConfigSecuritySetConfigPasswordViewModel = lanConfigSecuritySetConfigPasswordViewModel;
         }
 
-        public LanConfigSecuritySetConfigPasswordViewModel LanConfigSecuritySetConfigPasswordViewModel
-        {
-            get => lanConfigSecuritySetConfigPasswordViewModel;
-        }
+        public LanConfigSecuritySetConfigPasswordViewModel LanConfigSecuritySetConfigPasswordViewModel { get; }
 
         public LanConfigSecurityGetAnonymousLoginResponse? LanConfigSecurityGetAnonymousLoginResponse
         {
@@ -46,7 +41,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            await Domain.TaskExtensions.WhenAllSafe(new Task[]
+            await Domain.TaskExtensions.WhenAllSafe(new[]
                 {
                     GetLanConfigSecurityGetAnonymousLoginAsync(),
                     GetLanConfigSecurityGetCurrentUserAsync(),

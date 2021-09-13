@@ -3,7 +3,5 @@
     using System.ServiceModel;
 
     [MessageContract(WrapperName = "GetDefaultConnectionService")]
-    public sealed record Layer3ForwardingGetDefaultConnectionServiceRequest
-    {
-    }
+    public sealed record Layer3ForwardingGetDefaultConnectionServiceRequest;
 }

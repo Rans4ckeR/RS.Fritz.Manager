@@ -2,43 +2,11 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
-    public sealed record InternetGatewayDevice
+    public sealed record InternetGatewayDevice(IEnumerable<Uri> Locations, string Server, string CacheControl, string? Ext, string SearchTarget, string UniqueServiceName, Uri PreferredLocation)
     {
-        public InternetGatewayDevice()
-        {
-            Locations = Enumerable.Empty<Uri>();
-        }
-
-        public IEnumerable<Uri> Locations { get; set; }
-
-        public string? Server { get; set; }
-
-        public string? CacheControl { get; set; }
-
-        public string? Ext { get; set; }
-
-        public string? SearchTarget { get; set; }
-
-        // the last 48 bits are the Customer Premises Equipment (CPE)’s LAN MAC address
-        public string? UniqueServiceName { get; set; }
+        public UPnPDescription? UPnPDescription { get; set; }
 
         public ushort? SecurityPort { get; set; }
-
-        public Uri PreferredLocation
-        {
-            get
-            {
-                Uri? location = Locations.SingleOrDefault(r => r.HostNameType is UriHostNameType.IPv6);
-
-                if (location is not null)
-                    return location;
-
-                return Locations.Single(r => r.HostNameType is UriHostNameType.IPv4);
-            }
-        }
-
-        public UPnPDescription? UPnPDescription { get; set; }
     }
 }

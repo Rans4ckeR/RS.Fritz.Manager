@@ -6,49 +6,35 @@
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Input;
     using CommunityToolkit.Mvvm.Messaging;
+    using CommunityToolkit.Mvvm.Messaging.Messages;
     using Microsoft.Extensions.Logging;
     using RS.Fritz.Manager.Domain;
 
-    internal abstract class FritzServiceViewModel : ObservableObject
+    internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<PropertyChangedMessage<bool>>
     {
-        private readonly IFritzServiceOperationHandler fritzServiceOperationHandler;
         private readonly ILogger logger;
 
-        private bool defaultCommandActive = false;
-        private bool canExecuteDefaultCommand = false;
-        private DeviceLoginInfo deviceLoginInfo;
+        private bool defaultCommandActive;
+        private bool canExecuteDefaultCommand;
 
-        protected FritzServiceViewModel(ILogger logger, DeviceLoginInfo deviceLoginInfo, IFritzServiceOperationHandler fritzServiceOperationHandler)
+        protected FritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
         {
-            this.deviceLoginInfo = deviceLoginInfo;
-            this.fritzServiceOperationHandler = fritzServiceOperationHandler;
+            DeviceLoginInfo = deviceLoginInfo;
+            FritzServiceOperationHandler = fritzServiceOperationHandler;
             this.logger = logger;
-            DefaultCommand = new AsyncRelayCommand<bool?>(ExecuteDefaultCommandAsync, q => CanExecuteDefaultCommand);
-            deviceLoginInfo.PropertyChanged += DeviceLoginInfoPropertyChanged;
+            DefaultCommand = new AsyncRelayCommand<bool?>(ExecuteDefaultCommandAsync, _ => CanExecuteDefaultCommand);
             PropertyChanged += FritzServiceViewModelPropertyChanged;
-
-            WeakReferenceMessenger.Default.Register<DeviceLoginInfoValueChangedMessage>(this, (r, m) =>
-            {
-                ((FritzServiceViewModel)r).DeviceLoginInfo = m.Value;
-            });
+            IsActive = true;
         }
 
-        public DeviceLoginInfo DeviceLoginInfo
-        {
-            get => deviceLoginInfo;
-            set
-            {
-                if (SetProperty(ref deviceLoginInfo, value))
-                    DefaultCommand.NotifyCanExecuteChanged();
-            }
-        }
+        public DeviceLoginInfo DeviceLoginInfo { get; }
 
         public IAsyncRelayCommand DefaultCommand { get; }
 
         public bool CanExecuteDefaultCommand
         {
             get => canExecuteDefaultCommand;
-            set
+            private set
             {
                 if (SetProperty(ref canExecuteDefaultCommand, value))
                     DefaultCommand.NotifyCanExecuteChanged();
@@ -65,14 +51,24 @@
             }
         }
 
-        protected IFritzServiceOperationHandler FritzServiceOperationHandler { get => fritzServiceOperationHandler; }
+        protected IFritzServiceOperationHandler FritzServiceOperationHandler { get; }
+
+        public virtual void Receive(PropertyChangedMessage<bool> message)
+        {
+            if (message.Sender != DeviceLoginInfo)
+                return;
+
+            switch (message.PropertyName)
+            {
+                case nameof(DeviceLoginInfo.LoginInfoSet):
+                    {
+                        UpdateCanExecuteDefaultCommand();
+                        break;
+                    }
+            }
+        }
 
         protected abstract Task DoExecuteDefaultCommandAsync();
-
-        protected virtual void DeviceLoginInfoPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            UpdateCanExecuteDefaultCommand();
-        }
 
         protected virtual void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -83,15 +79,12 @@
                         UpdateCanExecuteDefaultCommand();
                         break;
                     }
-
-                default:
-                    break;
             }
         }
 
         protected virtual bool GetCanExecuteDefaultCommand()
         {
-            return deviceLoginInfo.InternetGatewayDevice is not null && deviceLoginInfo.User is not null && !string.IsNullOrWhiteSpace(deviceLoginInfo.Password) && !DefaultCommandActive;
+            return DeviceLoginInfo.LoginInfoSet && !DefaultCommandActive;
         }
 
         protected void UpdateCanExecuteDefaultCommand()

@@ -3,7 +3,5 @@
     using System.ServiceModel;
 
     [MessageContract(WrapperName = "GetUserList")]
-    public sealed record LanConfigSecurityGetUserListRequest
-    {
-    }
+    public sealed record LanConfigSecurityGetUserListRequest;
 }

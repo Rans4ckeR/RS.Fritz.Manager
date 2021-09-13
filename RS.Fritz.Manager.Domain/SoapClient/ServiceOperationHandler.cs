@@ -4,21 +4,9 @@
     using System.ServiceModel;
     using System.Threading.Tasks;
 
-    public sealed class ServiceOperationHandler : IServiceOperationHandler
+    public abstract class ServiceOperationHandler
     {
-        public async Task ExecuteAsync<T>(T client, Func<T, Task> operation)
-        {
-            try
-            {
-                await Execute(client, operation).ConfigureAwait(false);
-            }
-            finally
-            {
-                CloseClient(client);
-            }
-        }
-
-        public async Task<TResult> ExecuteAsync<T, TResult>(T client, Func<T, Task<TResult>> operation)
+        protected static async Task<TResult> ExecuteAsync<T, TResult>(T client, Func<T, Task<TResult>> operation)
         {
             try
             {
@@ -28,11 +16,6 @@
             {
                 CloseClient(client);
             }
-        }
-
-        private static Task Execute<T>(T client, Func<T, Task> operation)
-        {
-            return operation(client);
         }
 
         private static Task<TResult> Execute<T, TResult>(T client, Func<T, Task<TResult>> operation)

@@ -3,7 +3,5 @@
     using System.ServiceModel;
 
     [MessageContract(WrapperName = "GetInfo")]
-    public sealed record WanDslInterfaceConfigGetInfoRequest
-    {
-    }
+    public sealed record WanDslInterfaceConfigGetInfoRequest;
 }

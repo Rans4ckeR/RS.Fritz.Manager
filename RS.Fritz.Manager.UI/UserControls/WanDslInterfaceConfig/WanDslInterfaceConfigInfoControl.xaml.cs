@@ -1,8 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI
 {
-    using System.Windows.Controls;
-
-    internal sealed partial class WanDslInterfaceConfigInfoControl : UserControl
+    internal sealed partial class WanDslInterfaceConfigInfoControl
     {
         public WanDslInterfaceConfigInfoControl()
         {

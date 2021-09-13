@@ -12,7 +12,7 @@
     using Microsoft.Extensions.Logging;
     using RS.Fritz.Manager.Domain;
 
-    internal sealed partial class App : Application
+    internal sealed partial class App
     {
         private readonly IHost host;
 
@@ -37,7 +37,6 @@
                     services.AddSingleton<WanPppConnectionViewModel>();
                     services.AddSingleton<DeviceLoginInfo>();
                     services.AddSingleton<ILogger, UserInterfaceLogService>();
-                    services.AddSingleton<IServiceOperationHandler, ServiceOperationHandler>();
                     services.AddSingleton<IDeviceSearchService, DeviceSearchService>();
                     services.AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>();
                     services.AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>();

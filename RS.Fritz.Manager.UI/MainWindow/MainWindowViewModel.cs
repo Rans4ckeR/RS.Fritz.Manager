@@ -1,43 +1,35 @@
 ﻿namespace RS.Fritz.Manager.UI
 {
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.ComponentModel;
-    using System.IO;
     using System.Linq;
-    using System.Net;
     using System.Threading.Tasks;
-    using System.Xml;
-    using System.Xml.Serialization;
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Messaging;
+    using CommunityToolkit.Mvvm.Messaging.Messages;
     using Microsoft.Extensions.Logging;
     using RS.Fritz.Manager.Domain;
 
-    internal sealed class MainWindowViewModel : FritzServiceViewModel
+    internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<PropertyChangedMessage<IEnumerable<User>>>
     {
+        private const string DeviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
         private readonly IDeviceSearchService deviceSearchService;
-        private readonly DeviceInfoViewModel deviceInfoViewModel;
-        private readonly LanConfigSecurityViewModel lanConfigSecurityViewModel;
-        private readonly WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel;
-        private readonly Layer3ForwardingViewModel layer3ForwardingViewModel;
-        private readonly WanPppConnectionViewModel wanPppConnectionViewModel;
-
-        private string deviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
-        private ObservableCollection<InternetGatewayDevice> devices = new();
+        private ObservableCollection<ObservableInternetGatewayDevice> devices = new();
         private ObservableCollection<User> users = new();
         private ObservableObject? activeView;
         private string? userMessage;
         private bool deviceAndLoginControlsEnabled = true;
 
-        public MainWindowViewModel(ILogger logger, WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, DeviceLoginInfo deviceLoginInfo, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceSearchService deviceSearchService)
-            : base(logger, deviceLoginInfo, fritzServiceOperationHandler)
+        public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceSearchService deviceSearchService)
+            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
             this.deviceSearchService = deviceSearchService;
-            this.deviceInfoViewModel = deviceInfoViewModel;
-            this.lanConfigSecurityViewModel = lanConfigSecurityViewModel;
-            this.wanDslInterfaceConfigViewModel = wanDslInterfaceConfigViewModel;
-            this.layer3ForwardingViewModel = layer3ForwardingViewModel;
-            this.wanPppConnectionViewModel = wanPppConnectionViewModel;
+            DeviceInfoViewModel = deviceInfoViewModel;
+            LanConfigSecurityViewModel = lanConfigSecurityViewModel;
+            WanDslInterfaceConfigViewModel = wanDslInterfaceConfigViewModel;
+            Layer3ForwardingViewModel = layer3ForwardingViewModel;
+            WanPppConnectionViewModel = wanPppConnectionViewModel;
 
             WeakReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) =>
             {
@@ -50,46 +42,21 @@
             UpdateCanExecuteDefaultCommand();
         }
 
-        public static string Title { get => "FritzManager"; }
+        public static string Title => "FritzManager";
 
-        public DeviceInfoViewModel DeviceInfoViewModel
-        {
-            get => deviceInfoViewModel;
-        }
+        public DeviceInfoViewModel DeviceInfoViewModel { get; }
 
-        public LanConfigSecurityViewModel LanConfigSecurityViewModel
-        {
-            get => lanConfigSecurityViewModel;
-        }
+        public LanConfigSecurityViewModel LanConfigSecurityViewModel { get; }
 
-        public WanDslInterfaceConfigViewModel WanDslInterfaceConfigViewModel
-        {
-            get => wanDslInterfaceConfigViewModel;
-        }
+        public WanDslInterfaceConfigViewModel WanDslInterfaceConfigViewModel { get; }
 
-        public Layer3ForwardingViewModel Layer3ForwardingViewModel
-        {
-            get => layer3ForwardingViewModel;
-        }
+        public Layer3ForwardingViewModel Layer3ForwardingViewModel { get; }
 
-        public WanPppConnectionViewModel WanPppConnectionViewModel
-        {
-            get => wanPppConnectionViewModel;
-        }
+        public WanPppConnectionViewModel WanPppConnectionViewModel { get; }
 
         public string? UserMessage
         {
             get => userMessage; set { _ = SetProperty(ref userMessage, value); }
-        }
-
-        public string DeviceType
-        {
-            get => deviceType;
-            set
-            {
-                if (SetProperty(ref deviceType, value))
-                    DefaultCommand.NotifyCanExecuteChanged();
-            }
         }
 
         public bool DeviceAndLoginControlsEnabled
@@ -101,72 +68,34 @@
 
         public ObservableObject? ActiveView { get => activeView; set => _ = SetProperty(ref activeView, value); }
 
-        public ObservableCollection<InternetGatewayDevice> Devices { get => devices; set => _ = SetProperty(ref devices, value); }
+        public ObservableCollection<ObservableInternetGatewayDevice> Devices { get => devices; set => _ = SetProperty(ref devices, value); }
+
+        public void Receive(PropertyChangedMessage<IEnumerable<User>> message)
+        {
+            if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
+                return;
+
+            Users = message.PropertyName switch
+            {
+                nameof(ObservableInternetGatewayDevice.Users) => new ObservableCollection<User>(message.NewValue.OrderByDescending(q => q.LastUser)),
+                _ => Users
+            };
+        }
 
         protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             base.FritzServiceViewModelPropertyChanged(sender, e);
 
-            switch (e.PropertyName)
+            DeviceAndLoginControlsEnabled = e.PropertyName switch
             {
-                case nameof(DefaultCommandActive):
-                    {
-                        DeviceAndLoginControlsEnabled = !DefaultCommandActive;
-                        break;
-                    }
-
-                default:
-                    break;
-            }
+                nameof(DefaultCommandActive) => !DefaultCommandActive,
+                _ => DeviceAndLoginControlsEnabled
+            };
         }
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            Devices = new ObservableCollection<InternetGatewayDevice>(await deviceSearchService.GetDevicesAsync(DeviceType!));
-        }
-
-        protected override async void DeviceLoginInfoPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            base.DeviceLoginInfoPropertyChanged(sender, e);
-
-            switch (e.PropertyName)
-            {
-                case nameof(DeviceLoginInfo.InternetGatewayDevice):
-                    {
-                        if (DeviceLoginInfo.InternetGatewayDevice is null)
-                        {
-                            Users = new ObservableCollection<User>();
-
-                            return;
-                        }
-
-                        FritzServiceOperationHandler.InternetGatewayDevice = DeviceLoginInfo.InternetGatewayDevice;
-
-                        DeviceInfoGetSecurityPortResponse deviceInfoGetSecurityPortResponse = await FritzServiceOperationHandler.DeviceInfoGetSecurityPortAsync();
-
-                        DeviceLoginInfo.InternetGatewayDevice.SecurityPort = deviceInfoGetSecurityPortResponse.SecurityPort;
-
-                        LanConfigSecurityGetUserListResponse lanConfigSecurityGetUserListResponse = await FritzServiceOperationHandler.LanConfigSecurityGetUserListAsync();
-
-                        using var stringReader = new StringReader(lanConfigSecurityGetUserListResponse.UserList);
-                        using var xmlTextReader = new XmlTextReader(stringReader);
-
-                        UserList? userList = (UserList?)new XmlSerializer(typeof(UserList)).Deserialize(xmlTextReader);
-
-                        Users = new ObservableCollection<User>(userList?.Users.OrderByDescending(q => q.LastUser) ?? Enumerable.Empty<User>());
-                        break;
-                    }
-
-                case nameof(DeviceLoginInfo.User):
-                case nameof(DeviceLoginInfo.Password):
-                    {
-                        FritzServiceOperationHandler.NetworkCredential = new NetworkCredential(DeviceLoginInfo.User?.Name, DeviceLoginInfo.Password);
-                        break;
-                    }
-
-                default:
-                    break;
-            }
+            Devices = new ObservableCollection<ObservableInternetGatewayDevice>((await deviceSearchService.GetDevicesAsync(DeviceType)).Select(q => new ObservableInternetGatewayDevice(q)));
         }
 
         protected override bool GetCanExecuteDefaultCommand()

@@ -3,7 +3,5 @@
     using System.ServiceModel;
 
     [MessageContract(WrapperName = "GetInfo")]
-    public sealed record LanConfigSecurityGetInfoRequest
-    {
-    }
+    public sealed record LanConfigSecurityGetInfoRequest;
 }
