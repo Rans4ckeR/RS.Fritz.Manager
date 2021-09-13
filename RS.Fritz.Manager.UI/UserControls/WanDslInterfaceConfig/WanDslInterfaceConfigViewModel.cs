@@ -3,6 +3,7 @@
     using System;
     using System.Threading.Tasks;
     using System.Windows.Threading;
+    using CommunityToolkit.Mvvm.Messaging.Messages;
     using Microsoft.Extensions.Logging;
     using RS.Fritz.Manager.Domain;
 
@@ -15,8 +16,8 @@
         private WanDslInterfaceConfigGetDSLInfoResponse? wanDslInterfaceConfigGetDSLInfoResponse;
         private WanDslInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
 
-        public WanDslInterfaceConfigViewModel(ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(logger, fritzServiceOperationHandler)
+        public WanDslInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
             WanDslInterfaceConfigInfoControlViewModel = new WanDslInterfaceConfigInfoControlViewModel();
             autoRefreshTimer = new DispatcherTimer
@@ -56,6 +57,24 @@
         public WanDslInterfaceConfigGetStatisticsTotalResponse? WanDslInterfaceConfigGetStatisticsTotalResponse
         {
             get => wanDslInterfaceConfigGetStatisticsTotalResponse; set { _ = SetProperty(ref wanDslInterfaceConfigGetStatisticsTotalResponse, value); }
+        }
+
+        public override void Receive(PropertyChangedMessage<bool> message)
+        {
+            base.Receive(message);
+
+            if (message.Sender != DeviceLoginInfo)
+                return;
+
+            switch (message.PropertyName)
+            {
+                case nameof(DeviceLoginInfo.LoginInfoSet):
+                    {
+                        if (!message.NewValue)
+                            AutoRefresh = false;
+                        break;
+                    }
+            }
         }
 
         protected override async Task DoExecuteDefaultCommandAsync()

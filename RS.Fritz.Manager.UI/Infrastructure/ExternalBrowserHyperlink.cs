@@ -11,7 +11,7 @@
             RequestNavigate += OnRequestNavigate;
         }
 
-        private void OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+        private static void OnRequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             Process.Start(new ProcessStartInfo
             {

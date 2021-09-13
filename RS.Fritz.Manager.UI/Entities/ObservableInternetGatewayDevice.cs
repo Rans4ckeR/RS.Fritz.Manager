@@ -1,91 +1,62 @@
 ﻿namespace RS.Fritz.Manager.UI
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using CommunityToolkit.Mvvm.ComponentModel;
-    using CommunityToolkit.Mvvm.Messaging;
-    using CommunityToolkit.Mvvm.Messaging.Messages;
     using RS.Fritz.Manager.Domain;
 
-    internal sealed class ObservableInternetGatewayDevice : ObservableRecipient, IRecipient<PropertyChangedMessage<ObservableInternetGatewayDevice>>
+    internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
     {
-        private readonly InternetGatewayDevice internetGatewayDevice;
-        private readonly IFritzServiceOperationHandler fritzServiceOperationHandler;
+        private IEnumerable<User> users = Enumerable.Empty<User>();
 
-        public ObservableInternetGatewayDevice(InternetGatewayDevice internetGatewayDevice, IFritzServiceOperationHandler fritzServiceOperationHandler)
+        public ObservableInternetGatewayDevice(InternetGatewayDevice internetGatewayDevice)
         {
-            this.internetGatewayDevice = internetGatewayDevice;
-            this.fritzServiceOperationHandler = fritzServiceOperationHandler;
+            this.InternetGatewayDevice = internetGatewayDevice;
         }
 
-        public string? Server
+        public InternetGatewayDevice InternetGatewayDevice { get; }
+
+        public string Server
         {
-            get => internetGatewayDevice.Server;
-            set => _ = SetProperty(internetGatewayDevice.Server, value, internetGatewayDevice, (u, n) => u.Server = n, true);
+            get => InternetGatewayDevice.Server;
         }
 
-        public string? CacheControl
+        public string CacheControl
         {
-            get => internetGatewayDevice.CacheControl;
-            set => _ = SetProperty(internetGatewayDevice.CacheControl, value, internetGatewayDevice, (u, n) => u.CacheControl = n, true);
+            get => InternetGatewayDevice.CacheControl;
         }
 
         public string? Ext
         {
-            get => internetGatewayDevice.Ext;
-            set => _ = SetProperty(internetGatewayDevice.Ext, value, internetGatewayDevice, (u, n) => u.Ext = n, true);
+            get => InternetGatewayDevice.Ext;
         }
 
-        public string? SearchTarget
+        public string SearchTarget
         {
-            get => internetGatewayDevice.SearchTarget;
-            set => _ = SetProperty(internetGatewayDevice.SearchTarget, value, internetGatewayDevice, (u, n) => u.SearchTarget = n, true);
+            get => InternetGatewayDevice.SearchTarget;
         }
 
-        public string? UniqueServiceName
+        public string UniqueServiceName
         {
-            get => internetGatewayDevice.UniqueServiceName;
-            set => _ = SetProperty(internetGatewayDevice.UniqueServiceName, value, internetGatewayDevice, (u, n) => u.UniqueServiceName = n, true);
+            get => InternetGatewayDevice.UniqueServiceName;
         }
 
-        public ushort? SecurityPort
+        public IEnumerable<Uri> Locations
         {
-            get => internetGatewayDevice.SecurityPort;
-            set => _ = SetProperty(internetGatewayDevice.SecurityPort, value, internetGatewayDevice, (u, n) => u.SecurityPort = n, true);
+            get => InternetGatewayDevice.Locations;
         }
 
-        public Uri? PreferredLocation
+        public IEnumerable<User> Users
         {
-            get => internetGatewayDevice.PreferredLocation;
-            set => _ = SetProperty(internetGatewayDevice.PreferredLocation, value, internetGatewayDevice, (u, n) => u.PreferredLocation = n, true);
+            get => users;
+            set => _ = SetProperty(ref users, value, true);
         }
 
         public UPnPDescription? UPnPDescription
         {
-            get => internetGatewayDevice.UPnPDescription;
-            set => _ = SetProperty(internetGatewayDevice.UPnPDescription, value, internetGatewayDevice, (u, n) => u.UPnPDescription = n, true);
-        }
-
-        public async void Receive(PropertyChangedMessage<ObservableInternetGatewayDevice> message)
-        {
-            if (message.NewValue is null)
-            {
-                fritzServiceOperationHandler.InternetGatewayDevice = null;
-
-                return;
-            }
-
-            switch (message.PropertyName)
-            {
-                case nameof(ObservableInternetGatewayDevice.PreferredLocation):
-                    {
-                        fritzServiceOperationHandler.InternetGatewayDevice = internetGatewayDevice;
-
-                        DeviceInfoGetSecurityPortResponse deviceInfoGetSecurityPortResponse = await fritzServiceOperationHandler.DeviceInfoGetSecurityPortAsync();
-
-                        internetGatewayDevice!.SecurityPort = deviceInfoGetSecurityPortResponse.SecurityPort;
-                        break;
-                    }
-            }
+            get => InternetGatewayDevice.UPnPDescription;
+            set => _ = SetProperty(InternetGatewayDevice.UPnPDescription, value, InternetGatewayDevice, (u, n) => u.UPnPDescription = n, true);
         }
     }
 }

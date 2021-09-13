@@ -10,39 +10,31 @@
     using Microsoft.Extensions.Logging;
     using RS.Fritz.Manager.Domain;
 
-    internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<PropertyChangedMessage<DeviceLoginInfo>>
+    internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<PropertyChangedMessage<bool>>
     {
-        private readonly IFritzServiceOperationHandler fritzServiceOperationHandler;
         private readonly ILogger logger;
 
         private bool defaultCommandActive;
         private bool canExecuteDefaultCommand;
-        private DeviceLoginInfo? deviceLoginInfo;
 
-        protected FritzServiceViewModel(ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+        protected FritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
         {
-            this.fritzServiceOperationHandler = fritzServiceOperationHandler;
+            DeviceLoginInfo = deviceLoginInfo;
+            FritzServiceOperationHandler = fritzServiceOperationHandler;
             this.logger = logger;
             DefaultCommand = new AsyncRelayCommand<bool?>(ExecuteDefaultCommandAsync, _ => CanExecuteDefaultCommand);
             PropertyChanged += FritzServiceViewModelPropertyChanged;
+            IsActive = true;
         }
 
-        public DeviceLoginInfo? DeviceLoginInfo
-        {
-            get => deviceLoginInfo;
-            set
-            {
-                if (SetProperty(ref deviceLoginInfo, value))
-                    DefaultCommand.NotifyCanExecuteChanged();
-            }
-        }
+        public DeviceLoginInfo DeviceLoginInfo { get; }
 
         public IAsyncRelayCommand DefaultCommand { get; }
 
         public bool CanExecuteDefaultCommand
         {
             get => canExecuteDefaultCommand;
-            set
+            private set
             {
                 if (SetProperty(ref canExecuteDefaultCommand, value))
                     DefaultCommand.NotifyCanExecuteChanged();
@@ -59,21 +51,24 @@
             }
         }
 
-        protected IFritzServiceOperationHandler FritzServiceOperationHandler { get => fritzServiceOperationHandler; }
+        protected IFritzServiceOperationHandler FritzServiceOperationHandler { get; }
 
-        public void Receive(PropertyChangedMessage<DeviceLoginInfo> message)
+        public virtual void Receive(PropertyChangedMessage<bool> message)
         {
-            DeviceLoginInfo = message.NewValue;
+            if (message.Sender != DeviceLoginInfo)
+                return;
 
-            CanExecuteDefaultCommand = deviceLoginInfo.InternetGatewayDevice is not null && deviceLoginInfo.User is not null && !string.IsNullOrWhiteSpace(deviceLoginInfo.Password) && !DefaultCommandActive;
+            switch (message.PropertyName)
+            {
+                case nameof(DeviceLoginInfo.LoginInfoSet):
+                    {
+                        UpdateCanExecuteDefaultCommand();
+                        break;
+                    }
+            }
         }
 
         protected abstract Task DoExecuteDefaultCommandAsync();
-
-        protected virtual void DeviceLoginInfoPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            UpdateCanExecuteDefaultCommand();
-        }
 
         protected virtual void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
@@ -89,7 +84,7 @@
 
         protected virtual bool GetCanExecuteDefaultCommand()
         {
-            return deviceLoginInfo.InternetGatewayDevice is not null && deviceLoginInfo.User is not null && !string.IsNullOrWhiteSpace(deviceLoginInfo.Password) && !DefaultCommandActive;
+            return DeviceLoginInfo.LoginInfoSet && !DefaultCommandActive;
         }
 
         protected void UpdateCanExecuteDefaultCommand()

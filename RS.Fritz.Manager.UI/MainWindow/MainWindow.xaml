@@ -42,7 +42,7 @@
                         <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.InternetGatewayDevice}">
                             <RibbonGalleryCategory ItemsSource="{Binding Devices}">
                                 <RibbonGalleryCategory.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type domain:InternetGatewayDevice}">
+                                    <DataTemplate DataType="{x:Type ui:ObservableInternetGatewayDevice}">
                                         <TextBlock Text="{Binding Server}"/>
                                     </DataTemplate>
                                 </RibbonGalleryCategory.ItemTemplate>

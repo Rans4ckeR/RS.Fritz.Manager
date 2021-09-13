@@ -9,8 +9,8 @@
     {
         private string? password;
 
-        public LanConfigSecuritySetConfigPasswordViewModel(ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(logger, fritzServiceOperationHandler)
+        public LanConfigSecuritySetConfigPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
         }
 

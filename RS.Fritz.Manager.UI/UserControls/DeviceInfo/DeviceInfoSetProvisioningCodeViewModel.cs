@@ -9,8 +9,8 @@
     {
         private string provisioningCode = string.Empty;
 
-        public DeviceInfoSetProvisioningCodeViewModel(ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(logger, fritzServiceOperationHandler)
+        public DeviceInfoSetProvisioningCodeViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
         }
 

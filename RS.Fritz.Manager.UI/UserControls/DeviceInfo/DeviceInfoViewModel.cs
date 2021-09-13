@@ -6,16 +6,14 @@
 
     internal sealed class DeviceInfoViewModel : FritzServiceViewModel
     {
-        private readonly DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel;
-
         private DeviceInfoGetSecurityPortResponse? deviceInfoGetSecurityPortResponse;
         private DeviceInfoGetInfoResponse? deviceInfoGetInfoResponse;
         private DeviceInfoGetDeviceLogResponse? deviceInfoGetDeviceLogResponse;
 
-        public DeviceInfoViewModel(ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(logger, fritzServiceOperationHandler)
+        public DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler)
+            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
-            this.deviceInfoSetProvisioningCodeViewModel = deviceInfoSetProvisioningCodeViewModel;
+            DeviceInfoSetProvisioningCodeViewModel = deviceInfoSetProvisioningCodeViewModel;
         }
 
         public DeviceInfoGetSecurityPortResponse? DeviceInfoGetSecurityPortResponse
@@ -33,10 +31,7 @@
             get => deviceInfoGetDeviceLogResponse; set { _ = SetProperty(ref deviceInfoGetDeviceLogResponse, value); }
         }
 
-        public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel
-        {
-            get => deviceInfoSetProvisioningCodeViewModel;
-        }
+        public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel { get; }
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
