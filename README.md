@@ -4,8 +4,8 @@ A Windows .NET app with WPF UI to read information from and manage FritzBox devi
 Work in progress, all testing was done with a FritzBox 7530.
 
 Download latest version:
-* [.NET 5](https://github.com/Rans4ckeR/RS.Fritz.Manager/releases/download/v0.1.0-alpha.5/RS.Fritz.Manager-v0.1.0-alpha.5-net5.0-windows.zip)
-* [.NET 6 Preview](https://github.com/Rans4ckeR/RS.Fritz.Manager/releases/download/v0.1.0-alpha.5/RS.Fritz.Manager-v0.1.0-alpha.5-net6.0-windows.zip)
+* [.NET 5](https://github.com/Rans4ckeR/RS.Fritz.Manager/releases/download/v0.1.0-alpha.6/RS.Fritz.Manager-v0.1.0-alpha.6-net5.0-windows.zip)
+* [.NET 6 Preview](https://github.com/Rans4ckeR/RS.Fritz.Manager/releases/download/v0.1.0-alpha.6/RS.Fritz.Manager-v0.1.0-alpha.6-net6.0-windows.zip)
 
 Implemented services:
 * urn:dslforum-org:service:DeviceInfo:1
