@@ -95,7 +95,7 @@
         </ScrollViewer>
         <Separator Grid.Row="4" Background="{StaticResource WindowBackgroundSolidColorBrush}"/>
         <ScrollViewer Grid.Row="5" Background="{StaticResource WindowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <TextBlock Text="{Binding UserMessage}" Foreground="Red"/>
+            <TextBox IsReadOnly="True" TextWrapping="Wrap" Background="Transparent" BorderThickness="0" Text="{Binding UserMessage, Mode=OneWay}" Foreground="Red"/>
         </ScrollViewer>
     </Grid>
 </RibbonWindow>

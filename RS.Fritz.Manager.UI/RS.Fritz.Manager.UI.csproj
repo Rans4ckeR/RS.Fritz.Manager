@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net6.0-windows;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net6.0-windows</TargetFrameworks>
     <AssemblyName>RS.Fritz.Manager.UI</AssemblyName>
     <RootNamespace>RS.Fritz.Manager.UI</RootNamespace>
     <Title>RS.Fritz.Manager.UI</Title>
     <Product>RS.Fritz.Manager.UI</Product>
-    <Copyright>Copyright 2021 (c) RS. All rights reserved.</Copyright>
+    <Copyright>Copyright 2022 (c) RS. All rights reserved.</Copyright>
     <Company>RS</Company>
     <Configuration></Configuration>
     <Trademark></Trademark>
@@ -34,13 +34,13 @@
     <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.0.3" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0-rc.1.21451.13" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.29.0.36737">
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.0" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.33.0.40503">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.376">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
