@@ -84,9 +84,9 @@
             return ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(), q => q.GetDSLDiagnoseInfoAsync(new WanDslInterfaceConfigGetDSLDiagnoseInfoRequest()));
         }
 
-        public Task<WanDslInterfaceConfigGetDSLInfoResponse> WanDslInterfaceConfigGetDSLInfoAsync()
+        public Task<WanCommonInterfaceConfigGetDSLInfoResponse> WanDslInterfaceConfigGetDSLInfoAsync()
         {
-            return ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(), q => q.GetDSLInfoAsync(new WanDslInterfaceConfigGetDSLInfoRequest()));
+            return ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(), q => q.GetDSLInfoAsync(new WanCommonInterfaceConfigGetTotalBytesReceivedRequest()));
         }
 
         public Task<WanDslInterfaceConfigGetInfoResponse> WanDslInterfaceConfigGetInfoAsync()

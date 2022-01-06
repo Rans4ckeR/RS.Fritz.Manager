@@ -4,21 +4,25 @@
     using System.ServiceModel;
     using System.Threading.Tasks;
 
-    public sealed class FritzWanDslInterfaceConfigService : FritzServiceClient<IFritzWanDslInterfaceConfigService>, IFritzWanDslInterfaceConfigService
+    public sealed class FritzWANCommonInterfaceConfigService : FritzServiceClient<IFritzWanCommonInterfaceConfigService>, IFritzWanCommonInterfaceConfigService
     {
-        public const string ControlUrl = "/upnp/control/wandslifconfig1";
+        public const string ControlUrl = "/upnp/control/wancommonifconfig1";
 
-        public FritzWanDslInterfaceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
+        public FritzWANCommonInterfaceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
             : base(endpointConfiguration, remoteAddress, networkCredential)
         {
         }
-
+        public Task<WanCommonInterfaceConfigGetTotalBytesReceivedResponse> GetTotalBytesReceivedAsync(WanCommonInterfaceConfigGetTotalBytesReceivedRequest wanCommonInterfaceConfigGetTotalBytesReceivedRequest)
+        {
+            return Channel.GetTotalBytesReceivedAsync(wanCommonInterfaceConfigGetTotalBytesReceivedRequest);
+        }
+        /*
         public Task<WanDslInterfaceConfigGetDSLDiagnoseInfoResponse> GetDSLDiagnoseInfoAsync(WanDslInterfaceConfigGetDSLDiagnoseInfoRequest wanDslInterfaceConfigGetDSLDiagnoseInfoRequest)
         {
             return Channel.GetDSLDiagnoseInfoAsync(wanDslInterfaceConfigGetDSLDiagnoseInfoRequest);
         }
 
-        public Task<WanCommonInterfaceConfigGetDSLInfoResponse> GetDSLInfoAsync(WanCommonInterfaceConfigGetTotalBytesReceivedRequest wanDslInterfaceConfigGetDSLInfoRequest)
+        public Task<WanDslInterfaceConfigGetDSLInfoResponse> GetDSLInfoAsync(WanDslInterfaceConfigGetDSLInfoRequest wanDslInterfaceConfigGetDSLInfoRequest)
         {
             return Channel.GetDSLInfoAsync(wanDslInterfaceConfigGetDSLInfoRequest);
         }
@@ -32,5 +36,6 @@
         {
             return Channel.GetStatisticsTotalAsync(wanDslInterfaceConfigGetStatisticsTotalRequest);
         }
+        */
     }
 }

@@ -7,19 +7,19 @@
     using Microsoft.Extensions.Logging;
     using RS.Fritz.Manager.Domain;
 
-    internal sealed class WanDslInterfaceConfigViewModel : FritzServiceViewModel
+    internal sealed class WANCommonInterfaceConfigViewModel : FritzServiceViewModel
     {
         private readonly DispatcherTimer autoRefreshTimer;
 
         private bool autoRefresh;
-        private WanDslInterfaceConfigGetDSLDiagnoseInfoResponse? wanDslInterfaceConfigGetDSLDiagnoseInfoResponse;
-        private WanCommonInterfaceConfigGetDSLInfoResponse? wanDslInterfaceConfigGetDSLInfoResponse;
-        private WanDslInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
+        private WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse? wanDslInterfaceConfigGetDSLDiagnoseInfoResponse;
+        private WANCommonInterfaceConfigGetDSLInfoResponse? wanDslInterfaceConfigGetDSLInfoResponse;
+        private WANCommonInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
 
-        public WanDslInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+        public WANCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
-            WanDslInterfaceConfigInfoControlViewModel = new WanDslInterfaceConfigInfoControlViewModel();
+            WANCommonInterfaceConfigInfoControlViewModel = new WANCommonlInterfaceConfigInfoControlViewModel();
             autoRefreshTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(3d)
@@ -42,21 +42,21 @@
             }
         }
 
-        public WanDslInterfaceConfigGetDSLDiagnoseInfoResponse? WanDslInterfaceConfigGetDSLDiagnoseInfoResponse
+        public WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse? WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse
         {
-            get => wanDslInterfaceConfigGetDSLDiagnoseInfoResponse; set { _ = SetProperty(ref wanDslInterfaceConfigGetDSLDiagnoseInfoResponse, value); }
+            get => wanCommonInterfaceConfigGetDSLDiagnoseInfoResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetDSLDiagnoseInfoResponse, value); }
         }
 
-        public WanCommonInterfaceConfigGetDSLInfoResponse? WanDslInterfaceConfigGetDSLInfoResponse
+        public WANCommonInterfaceConfigGetDSLInfoResponse? WANCommonInterfaceConfigGetDSLInfoResponse
         {
-            get => wanDslInterfaceConfigGetDSLInfoResponse; set { _ = SetProperty(ref wanDslInterfaceConfigGetDSLInfoResponse, value); }
+            get => wanCommonInterfaceConfigGetDSLInfoResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetDSLInfoResponse, value); }
         }
 
-        public WanDslInterfaceConfigInfoControlViewModel WanDslInterfaceConfigInfoControlViewModel { get; set; }
+        public WANCommonInterfaceConfigInfoControlViewModel WANCommonInterfaceConfigInfoControlViewModel { get; set; }
 
-        public WanDslInterfaceConfigGetStatisticsTotalResponse? WanDslInterfaceConfigGetStatisticsTotalResponse
+        public WANCommonInterfaceConfigGetStatisticsTotalResponse? WANCommonInterfaceConfigGetStatisticsTotalResponse
         {
-            get => wanDslInterfaceConfigGetStatisticsTotalResponse; set { _ = SetProperty(ref wanDslInterfaceConfigGetStatisticsTotalResponse, value); }
+            get => wanCommonInterfaceConfigGetStatisticsTotalResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetStatisticsTotalResponse, value); }
         }
 
         public override void Receive(PropertyChangedMessage<bool> message)
@@ -91,6 +91,7 @@
                 });
         }
         
+
 
         private async void AutoRefreshTimerTick(object? sender, EventArgs e)
         {

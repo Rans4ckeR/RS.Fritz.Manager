@@ -107,4 +107,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UserControls\WANCommonInterfaceConfig\" />
+  </ItemGroup>
 </Project>
