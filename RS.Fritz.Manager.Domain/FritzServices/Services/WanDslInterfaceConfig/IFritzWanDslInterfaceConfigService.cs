@@ -17,6 +17,7 @@
         public Task<WanDslInterfaceConfigGetDSLDiagnoseInfoResponse> GetDSLDiagnoseInfoAsync(WanDslInterfaceConfigGetDSLDiagnoseInfoRequest wanDslInterfaceConfigGetDSLDiagnoseInfoRequest);
 
         [OperationContract(Action = "urn:dslforum-org:service:WANDSLInterfaceConfig:1#X_AVM-DE_GetDSLInfo")]
-        public Task<WanCommonInterfaceConfigGetDSLInfoResponse> GetDSLInfoAsync(WanCommonInterfaceConfigGetTotalBytesReceivedRequest wanDslInterfaceConfigGetDSLInfoRequest);
+        public Task<WanDslInterfaceConfigGetDSLInfoResponse> GetDSLInfoAsync(WanDslInterfaceConfigGetDSLInfoRequest wanDslInterfaceConfigGetDSLInfoRequest);
+        
     }
 }

@@ -34,7 +34,7 @@
 
         Task<WanDslInterfaceConfigGetDSLDiagnoseInfoResponse> WanDslInterfaceConfigGetDSLDiagnoseInfoAsync();
 
-        Task<WanCommonInterfaceConfigGetDSLInfoResponse> WanDslInterfaceConfigGetDSLInfoAsync();
+        Task<WanDslInterfaceConfigGetDSLInfoResponse> WanDslInterfaceConfigGetDSLInfoAsync();
 
         Task<WanDslInterfaceConfigGetInfoResponse> WanDslInterfaceConfigGetInfoAsync();
 
