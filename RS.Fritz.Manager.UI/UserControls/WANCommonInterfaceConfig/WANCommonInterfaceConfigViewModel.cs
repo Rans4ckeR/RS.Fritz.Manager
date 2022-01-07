@@ -12,15 +12,18 @@
         private readonly DispatcherTimer autoRefreshTimer;
 
         private bool autoRefresh;
+
+        private WanCommonInterfaceConfigGetTotalBytesReceivedResponse? wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
+
         //private WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse? wanDslInterfaceConfigGetDSLDiagnoseInfoResponse;
         //private WANCommonInterfaceConfigGetDSLInfoResponse? wanDslInterfaceConfigGetDSLInfoResponse;
         //private WANCommonInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
 
-        
+
         public WANCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
-            WANCommonInterfaceConfigInfoControlViewModel = new WANCommonInterfaceConfigInfoControlViewModel();
+            // WANCommonInterfaceConfigInfoControlViewModel = new WANCommonInterfaceConfigInfoControlViewModel();
             autoRefreshTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(3d)
@@ -42,7 +45,7 @@
                 }
             }
         }
-        */
+        
         
         /*
         public WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse? WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse
@@ -106,7 +109,7 @@
 
         private async Task GetWanCommonInterfaceConfigGetTotalReceivedBytesAsync()
         {
-            WanCommonInterfaceConfigGetTotalBytesReceivedResponse = await FritzServiceOperationHandler.GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync();
+            wanCommonInterfaceConfigGetTotalBytesReceivedResponse = await FritzServiceOperationHandler.GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync();
         }
 
 
