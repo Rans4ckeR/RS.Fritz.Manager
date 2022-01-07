@@ -8,7 +8,7 @@
     using System.Windows.Shapes;
     using CommunityToolkit.Mvvm.ComponentModel;
     using RS.Fritz.Manager.Domain;
-
+                          WANCommonInterfaceConfigInfoControlViewModel
     internal sealed class WANCommonInterfaceConfigInfoControlViewModel : ObservableObject
     {
         /*

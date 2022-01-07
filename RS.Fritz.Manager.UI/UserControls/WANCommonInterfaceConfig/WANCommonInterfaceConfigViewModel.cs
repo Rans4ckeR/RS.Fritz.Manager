@@ -16,6 +16,7 @@
         //private WANCommonInterfaceConfigGetDSLInfoResponse? wanDslInterfaceConfigGetDSLInfoResponse;
         //private WANCommonInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
 
+        
         public WANCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
@@ -41,6 +42,7 @@
                 }
             }
         }
+        */
         
         /*
         public WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse? WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse
