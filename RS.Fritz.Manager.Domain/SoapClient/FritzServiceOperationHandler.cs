@@ -134,7 +134,7 @@
             NetworkCredential? theNetworkcredential = networkCredential;
 
 
-            return fritzWanCommonlInterfaceConfigServiceClientFactory.Build((q, r, t) => new FritzWanCommonInterfaceConfigService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzWanCommonInterfaceConfigService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+            return fritzWanCommonInterfaceConfigServiceClientFactory.Build((q, r, t) => new FritzWanCommonInterfaceConfigService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzWanCommonInterfaceConfigService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
 
         }
 
