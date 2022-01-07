@@ -33,6 +33,7 @@
                     services.AddSingleton<LanConfigSecurityViewModel>();
                     services.AddSingleton<LanConfigSecuritySetConfigPasswordViewModel>();
                     services.AddSingleton<WanDslInterfaceConfigViewModel>();
+                    services.AddSingleton<WANCommonInterfaceConfigViewModel>();     // RoSchmi added
                     services.AddSingleton<Layer3ForwardingViewModel>();
                     services.AddSingleton<WanPppConnectionViewModel>();
                     services.AddSingleton<DeviceLoginInfo>();
@@ -42,6 +43,7 @@
                     services.AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>();
                     services.AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>();
                     services.AddSingleton<IClientFactory<IFritzWanDslInterfaceConfigService>, ClientFactory<IFritzWanDslInterfaceConfigService>>();
+                    services.AddSingleton<IClientFactory<IFritzWanCommonInterfaceConfigService>, ClientFactory<IFritzWanCommonInterfaceConfigService>>();  // RoSchmi added
                     services.AddSingleton<IClientFactory<IFritzLayer3ForwardingService>, ClientFactory<IFritzLayer3ForwardingService>>();
                     services.AddSingleton<IClientFactory<IFritzWanPppConnectionService>, ClientFactory<IFritzWanPppConnectionService>>();
                     ConfigureHttpClients(services);

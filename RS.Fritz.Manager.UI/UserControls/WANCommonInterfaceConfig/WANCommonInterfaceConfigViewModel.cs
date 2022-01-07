@@ -31,6 +31,9 @@
             autoRefreshTimer.Tick += AutoRefreshTimerTick;
         }
 
+       
+
+        
         public bool AutoRefresh
         {
             get => autoRefresh;
@@ -46,7 +49,8 @@
             }
         }
         
-        
+
+
         /*
         public WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse? WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse
         {
@@ -101,10 +105,12 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
+            
             await Domain.TaskExtensions.WhenAllSafe(new[]
                 {
-                    GetWanCommonInterfaceConfigGetTotalReceivedBytesAsync(),
+                   GetWanCommonInterfaceConfigGetTotalReceivedBytesAsync(),
                 });
+            
         }
 
         private async Task GetWanCommonInterfaceConfigGetTotalReceivedBytesAsync()
