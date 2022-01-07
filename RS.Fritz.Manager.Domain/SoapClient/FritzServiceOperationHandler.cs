@@ -41,7 +41,7 @@
         // RoSchmi
         public Task<WanCommonInterfaceConfigGetTotalBytesReceivedResponse> GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync()
         {
-            return null;
+            //return null;
            
             return ExecuteAsync(GetFritzWanCommonInterfaceConfigServiceClient(true, InternetGatewayDevice!.SecurityPort, NetworkCredential), q => q.GetTotalBytesReceivedAsync(new WanCommonInterfaceConfigGetTotalBytesReceivedRequest()));
 
@@ -131,7 +131,7 @@
         {
             bool theBool = secure;
             ushort? thePort = port;
-            NetworkCredential? theNetwokcredential = networkCredential;
+            NetworkCredential? theNetworkcredential = networkCredential;
 
 
             return fritzWanCommonlInterfaceConfigServiceClientFactory.Build((q, r, t) => new FritzWanCommonInterfaceConfigService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzWanCommonInterfaceConfigService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
