@@ -12,14 +12,14 @@
         private readonly DispatcherTimer autoRefreshTimer;
 
         private bool autoRefresh;
-        private WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse? wanDslInterfaceConfigGetDSLDiagnoseInfoResponse;
-        private WANCommonInterfaceConfigGetDSLInfoResponse? wanDslInterfaceConfigGetDSLInfoResponse;
-        private WANCommonInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
+        //private WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse? wanDslInterfaceConfigGetDSLDiagnoseInfoResponse;
+        //private WANCommonInterfaceConfigGetDSLInfoResponse? wanDslInterfaceConfigGetDSLInfoResponse;
+        //private WANCommonInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
 
         public WANCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
-            WANCommonInterfaceConfigInfoControlViewModel = new WANCommonlInterfaceConfigInfoControlViewModel();
+            WANCommonInterfaceConfigInfoControlViewModel = new WANCommonInterfaceConfigInfoControlViewModel();
             autoRefreshTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(3d)
@@ -41,7 +41,8 @@
                 }
             }
         }
-
+        
+        /*
         public WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse? WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse
         {
             get => wanCommonInterfaceConfigGetDSLDiagnoseInfoResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetDSLDiagnoseInfoResponse, value); }
@@ -58,6 +59,7 @@
         {
             get => wanCommonInterfaceConfigGetStatisticsTotalResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetStatisticsTotalResponse, value); }
         }
+        */
 
         public override void Receive(PropertyChangedMessage<bool> message)
         {
@@ -79,7 +81,7 @@
 
 
         // RoSchmi
-        
+        /*
         protected override async Task DoExecuteDefaultCommandAsync()
         {
             await Domain.TaskExtensions.WhenAllSafe(new[]
@@ -90,7 +92,20 @@
                     GetWanDslInterfaceConfigGetStatisticsTotalAsync()
                 });
         }
-        
+        */
+
+        protected override async Task DoExecuteDefaultCommandAsync()
+        {
+            await Domain.TaskExtensions.WhenAllSafe(new[]
+                {
+                    GetWanCommonInterfaceConfigGetTotalReceivedBytesAsync(),
+                });
+        }
+
+        private async Task GetWanCommonInterfaceConfigGetTotalReceivedBytesAsync()
+        {
+            WanCommonInterfaceConfigGetTotalBytesReceivedResponse = await FritzServiceOperationHandler.GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync();
+        }
 
 
         private async void AutoRefreshTimerTick(object? sender, EventArgs e)
@@ -99,6 +114,7 @@
                 await DefaultCommand.ExecuteAsync(false);
         }
 
+        /*
         private async Task GetWanDslInterfaceConfigGetDSLDiagnoseInfoAsync()
         {
             WanDslInterfaceConfigGetDSLDiagnoseInfoResponse = await FritzServiceOperationHandler.WanDslInterfaceConfigGetDSLDiagnoseInfoAsync();
@@ -118,5 +134,6 @@
         {
             WanDslInterfaceConfigGetStatisticsTotalResponse = await FritzServiceOperationHandler.WanDslInterfaceConfigGetStatisticsTotalAsync();
         }
+        */
     }
 }

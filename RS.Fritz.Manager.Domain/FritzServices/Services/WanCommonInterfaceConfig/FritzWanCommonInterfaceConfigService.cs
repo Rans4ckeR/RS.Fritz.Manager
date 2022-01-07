@@ -4,11 +4,11 @@
     using System.ServiceModel;
     using System.Threading.Tasks;
 
-    public sealed class FritzWANCommonInterfaceConfigService : FritzServiceClient<IFritzWanCommonInterfaceConfigService>, IFritzWanCommonInterfaceConfigService
+    public sealed class FritzWanCommonInterfaceConfigService : FritzServiceClient<IFritzWanCommonInterfaceConfigService>, IFritzWanCommonInterfaceConfigService
     {
         public const string ControlUrl = "/upnp/control/wancommonifconfig1";
 
-        public FritzWANCommonInterfaceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
+        public FritzWanCommonInterfaceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
             : base(endpointConfiguration, remoteAddress, networkCredential)
         {
         }
