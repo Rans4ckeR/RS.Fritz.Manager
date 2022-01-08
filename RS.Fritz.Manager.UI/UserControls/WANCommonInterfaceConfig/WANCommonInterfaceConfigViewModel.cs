@@ -9,7 +9,7 @@
 
     internal sealed class WANCommonInterfaceConfigViewModel : FritzServiceViewModel
     {
-        private readonly DispatcherTimer autoRefreshTimer;
+        // private readonly DispatcherTimer autoRefreshTimer;
 
         private bool autoRefresh;
 
@@ -20,20 +20,28 @@
         //private WANCommonInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
 
 
+        // Constructor
         public WANCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
-            // WANCommonInterfaceConfigInfoControlViewModel = new WANCommonInterfaceConfigInfoControlViewModel();
+
+            int dummy2 = 1;
+            // WANCommonInterfaceConfigViewModel
+
+            //WANCommonInterfaceConfigViewModel = WANCommonInterfaceConfigViewModel();
+
+            //WANCommonInterfaceConfigInfoControlViewModel = new WANCommonInterfaceConfigInfoControlViewModel();
+            /*
             autoRefreshTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(3d)
             };
-            autoRefreshTimer.Tick += AutoRefreshTimerTick;
+            */
         }
 
-       
 
-        
+
+        /*
         public bool AutoRefresh
         {
             get => autoRefresh;
@@ -49,7 +57,7 @@
             }
         }
         
-
+        */
 
         /*
         public WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse? WANCommonInterfaceConfigGetDSLDiagnoseInfoResponse
@@ -70,6 +78,8 @@
         }
         */
 
+
+        
         public override void Receive(PropertyChangedMessage<bool> message)
         {
             base.Receive(message);
@@ -82,12 +92,14 @@
                 case nameof(DeviceLoginInfo.LoginInfoSet):
                     {
                         if (!message.NewValue)
-                            AutoRefresh = false;
+                        {
+                            //AutoRefresh = false;
+                        }
                         break;
                     }
             }
         }
-
+        
 
         // RoSchmi
         /*
@@ -103,6 +115,7 @@
         }
         */
 
+        //protected override async Task DoExecuteDefaultCommandAsync()
         protected override async Task DoExecuteDefaultCommandAsync()
         {
             

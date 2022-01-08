@@ -736,6 +736,9 @@
             <DataTemplate DataType="{x:Type ui:WanPppConnectionViewModel}">
                 <ui:WanPppConnectionView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:WANCommonInterfaceConfigViewModel}">
+                <ui:WANCommonInterfaceConfigView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

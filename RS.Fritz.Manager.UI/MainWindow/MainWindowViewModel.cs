@@ -21,7 +21,7 @@
         private string? userMessage;
         private bool deviceAndLoginControlsEnabled = true;
 
-        public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceSearchService deviceSearchService)
+        public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WANCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel,  WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceSearchService deviceSearchService)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
             this.deviceSearchService = deviceSearchService;
@@ -30,6 +30,7 @@
             WanDslInterfaceConfigViewModel = wanDslInterfaceConfigViewModel;
             Layer3ForwardingViewModel = layer3ForwardingViewModel;
             WanPppConnectionViewModel = wanPppConnectionViewModel;
+            WANCommonInterfaceConfigViewModel = wanCommonInterfaceConfigViewModel;
 
             WeakReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) =>
             {
@@ -53,6 +54,8 @@
         public Layer3ForwardingViewModel Layer3ForwardingViewModel { get; }
 
         public WanPppConnectionViewModel WanPppConnectionViewModel { get; }
+
+        public WANCommonInterfaceConfigViewModel WANCommonInterfaceConfigViewModel { get; }
 
         public string? UserMessage
         {

@@ -10,6 +10,7 @@
         private DeviceInfoGetInfoResponse? deviceInfoGetInfoResponse;
         private DeviceInfoGetDeviceLogResponse? deviceInfoGetDeviceLogResponse;
 
+        // RoSchmi: Constructor
         public DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
