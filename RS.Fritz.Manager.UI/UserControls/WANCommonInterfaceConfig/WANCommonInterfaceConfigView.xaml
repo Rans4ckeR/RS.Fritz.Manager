@@ -18,7 +18,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.Row="0" Content="{Binding WANCommonInterfaceConfigViewModel}"/>
+        <ContentControl Grid.Row="0" Content="{Binding WanCommonInterfaceConfigGetTotalBytesReceivedResponse}"/>
         
     </Grid>
 </UserControl>

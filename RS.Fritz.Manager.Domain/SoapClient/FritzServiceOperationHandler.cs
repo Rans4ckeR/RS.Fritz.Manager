@@ -41,11 +41,8 @@
         // RoSchmi
         public Task<WanCommonInterfaceConfigGetTotalBytesReceivedResponse> GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync()
         {
-            //return null;
-           
             return ExecuteAsync(GetFritzWanCommonInterfaceConfigServiceClient(true, InternetGatewayDevice!.SecurityPort, NetworkCredential), q => q.GetTotalBytesReceivedAsync(new WanCommonInterfaceConfigGetTotalBytesReceivedRequest()));
-
-         }
+        }
 
 
         public Task<DeviceInfoGetInfoResponse> DeviceInfoGetInfoAsync()

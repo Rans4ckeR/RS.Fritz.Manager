@@ -79,7 +79,12 @@
         */
 
 
-        
+        public WanCommonInterfaceConfigGetTotalBytesReceivedResponse? WanCommonInterfaceConfigGetTotalBytesReceivedResponse
+        {
+            get => wanCommonInterfaceConfigGetTotalBytesReceivedResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesReceivedResponse, value); }
+        }
+
+
         public override void Receive(PropertyChangedMessage<bool> message)
         {
             base.Receive(message);
@@ -99,7 +104,7 @@
                     }
             }
         }
-        
+
 
         // RoSchmi
         /*
@@ -116,6 +121,17 @@
         */
 
         //protected override async Task DoExecuteDefaultCommandAsync()
+
+        //public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel { get; }
+
+        //public WANCommonInterfaceConfigViewModel WANCommonInterfaceConfigViewModel { get; }
+
+        //public WanCommonInterfaceConfigGetTotalBytesReceivedResponse wanCommonInterfaceConfigGetTotalBytesReceivedResponse { get; }
+
+
+
+
+
         protected override async Task DoExecuteDefaultCommandAsync()
         {
             
