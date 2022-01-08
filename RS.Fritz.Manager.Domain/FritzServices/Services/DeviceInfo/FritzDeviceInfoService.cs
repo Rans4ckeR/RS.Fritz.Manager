@@ -15,7 +15,10 @@
 
         public Task<DeviceInfoGetSecurityPortResponse> GetSecurityPortAsync(DeviceInfoGetSecurityPortRequest deviceInfoGetSecurityPortRequest)
         {
-            return Channel.GetSecurityPortAsync(deviceInfoGetSecurityPortRequest);
+            // RoSchmi
+            var returnResult = Channel.GetSecurityPortAsync(deviceInfoGetSecurityPortRequest);
+            return returnResult;
+            // return Channel.GetSecurityPortAsync(deviceInfoGetSecurityPortRequest);
         }
 
         public Task<DeviceInfoGetInfoResponse> GetInfoAsync(DeviceInfoGetInfoRequest deviceInfoGetInfoRequest)

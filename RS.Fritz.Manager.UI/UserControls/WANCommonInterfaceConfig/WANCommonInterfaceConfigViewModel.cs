@@ -129,6 +129,7 @@
         private async Task GetWanCommonInterfaceConfigGetTotalReceivedBytesAsync()
         {
             wanCommonInterfaceConfigGetTotalBytesReceivedResponse = await FritzServiceOperationHandler.GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync();
+            var theCopy = wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
         }
 
 

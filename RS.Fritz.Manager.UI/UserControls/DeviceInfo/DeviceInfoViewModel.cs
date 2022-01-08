@@ -47,6 +47,8 @@
         private async Task GetDeviceInfoGetSecurityPortAsync()
         {
             DeviceInfoGetSecurityPortResponse = await FritzServiceOperationHandler.DeviceInfoGetSecurityPortAsync();
+            // RoSchmi
+            var theCopy = DeviceInfoGetSecurityPortResponse;
         }
 
         private async Task GetDeviceInfoGetInfoAsync()
