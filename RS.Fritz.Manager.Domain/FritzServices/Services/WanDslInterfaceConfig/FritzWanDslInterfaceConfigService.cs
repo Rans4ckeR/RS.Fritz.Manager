@@ -15,7 +15,7 @@
 
         public Task<WanDslInterfaceConfigGetDSLDiagnoseInfoResponse> GetDSLDiagnoseInfoAsync(WanDslInterfaceConfigGetDSLDiagnoseInfoRequest wanDslInterfaceConfigGetDSLDiagnoseInfoRequest)
         {
-           return Channel.GetDSLDiagnoseInfoAsync(wanDslInterfaceConfigGetDSLDiagnoseInfoRequest);
+            return Channel.GetDSLDiagnoseInfoAsync(wanDslInterfaceConfigGetDSLDiagnoseInfoRequest);
         }
 
         public Task<WanDslInterfaceConfigGetDSLInfoResponse> GetDSLInfoAsync(WanDslInterfaceConfigGetDSLInfoRequest wanDslInterfaceConfigGetDSLInfoRequest)

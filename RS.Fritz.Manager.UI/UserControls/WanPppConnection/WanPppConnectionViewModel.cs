@@ -7,7 +7,7 @@
     internal sealed class WanPppConnectionViewModel : FritzServiceViewModel
     {
         private WanPppConnectionGetInfoResponse? wanPppConnectionGetInfoResponse;
-        
+
         public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
