@@ -5,5 +5,4 @@
     [MessageContract(WrapperName = "GetCommonLinkProperties")]
 
     public sealed record WanCommonInterfaceConfigGetCommonLinkPropertiesRequest;
-
 }

@@ -30,6 +30,7 @@
             try
             {
                 await whenAllTask;
+
                 return;
             }
             catch
