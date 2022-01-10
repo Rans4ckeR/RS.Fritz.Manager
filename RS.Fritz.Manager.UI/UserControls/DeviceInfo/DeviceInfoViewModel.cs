@@ -54,6 +54,8 @@
         private async Task GetDeviceInfoGetInfoAsync()
         {
             DeviceInfoGetInfoResponse = await FritzServiceOperationHandler.DeviceInfoGetInfoAsync();
+            // RoSchmi
+            var theCopy = DeviceInfoGetInfoResponse;
         }
 
         private async Task GetDeviceInfoGetDeviceLogAsync()

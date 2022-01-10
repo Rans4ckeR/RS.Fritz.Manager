@@ -33,7 +33,7 @@
                     services.AddSingleton<LanConfigSecurityViewModel>();
                     services.AddSingleton<LanConfigSecuritySetConfigPasswordViewModel>();
                     services.AddSingleton<WanDslInterfaceConfigViewModel>();
-                    services.AddSingleton<WANCommonInterfaceConfigViewModel>();     // RoSchmi added
+                    services.AddSingleton<WanCommonInterfaceConfigViewModel>();     // RoSchmi added
                     services.AddSingleton<Layer3ForwardingViewModel>();
                     services.AddSingleton<WanPppConnectionViewModel>();
                     services.AddSingleton<DeviceLoginInfo>();

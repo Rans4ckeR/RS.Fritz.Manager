@@ -12,6 +12,10 @@
 
         // RoSchmi
         Task<WanCommonInterfaceConfigGetTotalBytesReceivedResponse> GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync();
+
+        Task<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse> GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync();
+
+        // *******************************************
         Task<DeviceInfoGetInfoResponse> DeviceInfoGetInfoAsync();
 
         Task<DeviceInfoGetDeviceLogResponse> DeviceInfoGetDeviceLogAsync();

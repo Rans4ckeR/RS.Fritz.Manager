@@ -39,12 +39,17 @@
         public NetworkCredential? NetworkCredential { get; set; }
 
         // RoSchmi
+        public Task<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse> GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
+        {
+            return ExecuteAsync(GetFritzWanCommonInterfaceConfigServiceClient(true, InternetGatewayDevice!.SecurityPort, NetworkCredential), q => q.GetCommonLinkPropertiesAsync(new WanCommonInterfaceConfigGetCommonLinkPropertiesRequest()));
+        }
+
         public Task<WanCommonInterfaceConfigGetTotalBytesReceivedResponse> GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync()
         {
             return ExecuteAsync(GetFritzWanCommonInterfaceConfigServiceClient(true, InternetGatewayDevice!.SecurityPort, NetworkCredential), q => q.GetTotalBytesReceivedAsync(new WanCommonInterfaceConfigGetTotalBytesReceivedRequest()));
         }
 
-
+        // ********************************************************
         public Task<DeviceInfoGetInfoResponse> DeviceInfoGetInfoAsync()
         {
             return ExecuteAsync(GetFritzDeviceInfoServiceClient(true, InternetGatewayDevice!.SecurityPort, NetworkCredential), q => q.GetInfoAsync(new DeviceInfoGetInfoRequest()));

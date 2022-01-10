@@ -18,73 +18,56 @@ namespace RS.Fritz.Manager.UI
     using Microsoft.Extensions.Logging;
     using RS.Fritz.Manager.Domain;
 
-    internal sealed class WANCommonInterfaceConfigViewModel : FritzServiceViewModel
+    internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
     {
         private bool autoRefresh;
 
         private WanCommonInterfaceConfigGetTotalBytesReceivedResponse? wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
+        private WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
 
         // Constructor
-        public WANCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+        public WanCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
             int dummy2 = 1;
-            
         }
-
-        
-
-
 
         public WanCommonInterfaceConfigGetTotalBytesReceivedResponse? WanCommonInterfaceConfigGetTotalBytesReceivedResponse
         {
             get => wanCommonInterfaceConfigGetTotalBytesReceivedResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesReceivedResponse, value); }
         }
 
-        /*
-        public override void Receive(PropertyChangedMessage<bool> message)
+        public WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? WanCommonInterfaceConfigGetCommonLinkPropertiesResponse
         {
-            base.Receive(message);
-
-            if (message.Sender != DeviceLoginInfo)
-                return;
-
-            switch (message.PropertyName)
-            {
-                case nameof(DeviceLoginInfo.LoginInfoSet):
-                    {
-                        if (!message.NewValue)
-                        {
-                            //AutoRefresh = false;
-                        }
-                        break;
-                    }
-            }
+            get => wanCommonInterfaceConfigGetCommonLinkPropertiesResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetCommonLinkPropertiesResponse, value); }
         }
-        */
+
+
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
             await Domain.TaskExtensions.WhenAllSafe(new[]
                 {
-                   GetWanCommonInterfaceConfigGetTotalReceivedBytesAsync(),
+                   GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(),
+                   GetWanCommonInterfaceConfigGetTotalReceivedBytesAsync()
                 });
         }
+
+        
+        private async Task GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
+        {
+            //await Task.Delay(1000);
+             
+            wanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await FritzServiceOperationHandler.GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync();
+            var theCopy = wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
+        }
+        
 
         private async Task GetWanCommonInterfaceConfigGetTotalReceivedBytesAsync()
         {
             wanCommonInterfaceConfigGetTotalBytesReceivedResponse = await FritzServiceOperationHandler.GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync();
-#pragma warning disable S1481 // Unused local variables should be removed
-            var theCopy = wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
-#pragma warning restore S1481 // Unused local variables should be removed
         }
 
-        /*
-        private async void AutoRefreshTimerTick(object? sender, EventArgs e)
-        {
-            if (CanExecuteDefaultCommand)
-                await DefaultCommand.ExecuteAsync(false);
-        }
-        */
+        
     }
 }
