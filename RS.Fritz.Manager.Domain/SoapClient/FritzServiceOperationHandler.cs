@@ -41,12 +41,17 @@
         // RoSchmi
         public Task<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse> GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
         {
-            return ExecuteAsync(GetFritzWanCommonInterfaceConfigServiceClient(true, InternetGatewayDevice!.SecurityPort, NetworkCredential), q => q.GetCommonLinkPropertiesAsync(new WanCommonInterfaceConfigGetCommonLinkPropertiesRequest()));
+            return ExecuteAsync(GetFritzWanCommonInterfaceConfigServiceClient(), q => q.GetCommonLinkPropertiesAsync(new WanCommonInterfaceConfigGetCommonLinkPropertiesRequest()));
         }
 
         public Task<WanCommonInterfaceConfigGetTotalBytesReceivedResponse> GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync()
         {
-            return ExecuteAsync(GetFritzWanCommonInterfaceConfigServiceClient(true, InternetGatewayDevice!.SecurityPort, NetworkCredential), q => q.GetTotalBytesReceivedAsync(new WanCommonInterfaceConfigGetTotalBytesReceivedRequest()));
+            return ExecuteAsync(GetFritzWanCommonInterfaceConfigServiceClient(), q => q.GetTotalBytesReceivedAsync(new WanCommonInterfaceConfigGetTotalBytesReceivedRequest()));
+        }
+
+        public Task<WanCommonInterfaceConfigGetTotalBytesSentResponse> GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
+        {
+            return ExecuteAsync(GetFritzWanCommonInterfaceConfigServiceClient(), q => q.GetTotalBytesSentAsync(new WanCommonInterfaceConfigGetTotalBytesSentRequest()));
         }
 
         // ********************************************************
@@ -127,20 +132,13 @@
 
         // ****************************   here come the interfaces    *************************************
 
-
         // RoSchmi
-        private IFritzWanCommonInterfaceConfigService GetFritzWanCommonInterfaceConfigServiceClient(bool secure = false, ushort? port = null, NetworkCredential? networkCredential = null)
+        private IFritzWanCommonInterfaceConfigService GetFritzWanCommonInterfaceConfigServiceClient()
         {
-            bool theBool = secure;
-            ushort? thePort = port;
-            NetworkCredential? theNetworkcredential = networkCredential;
-
-
             return fritzWanCommonInterfaceConfigServiceClientFactory.Build((q, r, t) => new FritzWanCommonInterfaceConfigService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzWanCommonInterfaceConfigService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
-
         }
 
-
+        // **************************************************
         private IFritzLanConfigSecurityService GetFritzLanConfigSecurityServiceClient()
         {
             return fritzLanConfigSecurityServiceClientFactory.Build((q, r, t) => new FritzLanConfigSecurityService(q, r, t), InternetGatewayDevice!.PreferredLocation, true, FritzLanConfigSecurityService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);

@@ -30,17 +30,15 @@
             try
             {
                 await whenAllTask;
-
                 return;
             }
-            catch (System.Exception ex)
+            catch
             {
-                string exMessage = ex.Message;
                 // Ignore individual task exceptions
             }
 
 #pragma warning disable CS8597 // Thrown value may be null.
-            //throw whenAllTask.Exception;
+            throw whenAllTask.Exception;
 #pragma warning restore CS8597 // Thrown value may be null.
         }
     }

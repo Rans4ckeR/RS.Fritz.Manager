@@ -22,8 +22,9 @@ namespace RS.Fritz.Manager.UI
     {
         private bool autoRefresh;
 
-        private WanCommonInterfaceConfigGetTotalBytesReceivedResponse? wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
         private WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
+        private WanCommonInterfaceConfigGetTotalBytesReceivedResponse? wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
+        private WanCommonInterfaceConfigGetTotalBytesSentResponse? wanCommonInterfaceConfigGetTotalBytesSentResponse;
 
         // Constructor
         public WanCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
@@ -37,37 +38,41 @@ namespace RS.Fritz.Manager.UI
             get => wanCommonInterfaceConfigGetTotalBytesReceivedResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesReceivedResponse, value); }
         }
 
+        public WanCommonInterfaceConfigGetTotalBytesSentResponse? WanCommonInterfaceConfigGetTotalBytesSentResponse
+        {
+            get => wanCommonInterfaceConfigGetTotalBytesSentResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesSentResponse, value); }
+        }
+
         public WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? WanCommonInterfaceConfigGetCommonLinkPropertiesResponse
         {
             get => wanCommonInterfaceConfigGetCommonLinkPropertiesResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetCommonLinkPropertiesResponse, value); }
         }
-
-
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
             await Domain.TaskExtensions.WhenAllSafe(new[]
                 {
                    GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(),
-                   GetWanCommonInterfaceConfigGetTotalReceivedBytesAsync()
+                   GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(),
+                   GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
                 });
         }
 
-        
         private async Task GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
         {
-            //await Task.Delay(1000);
-             
+            // await Task.Delay(1000);
             wanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await FritzServiceOperationHandler.GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync();
-            var theCopy = wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
         }
-        
 
-        private async Task GetWanCommonInterfaceConfigGetTotalReceivedBytesAsync()
+        private async Task GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync()
         {
             wanCommonInterfaceConfigGetTotalBytesReceivedResponse = await FritzServiceOperationHandler.GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync();
         }
 
-        
+        private async Task GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
+        {
+            wanCommonInterfaceConfigGetTotalBytesSentResponse = await FritzServiceOperationHandler.GetWanCommonInterfaceConfigGetTotalBytesSentAsync();
+        }
+
     }
 }
