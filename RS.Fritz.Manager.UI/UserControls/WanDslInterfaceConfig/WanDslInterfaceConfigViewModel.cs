@@ -77,9 +77,6 @@
             }
         }
 
-
-        // RoSchmi
-        
         protected override async Task DoExecuteDefaultCommandAsync()
         {
             await Domain.TaskExtensions.WhenAllSafe(new[]
@@ -90,7 +87,6 @@
                     GetWanDslInterfaceConfigGetStatisticsTotalAsync()
                 });
         }
-        
 
         private async void AutoRefreshTimerTick(object? sender, EventArgs e)
         {

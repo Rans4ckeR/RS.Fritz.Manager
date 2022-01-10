@@ -9,17 +9,11 @@
 
         NetworkCredential? NetworkCredential { get; set; }
 
-
-        // RoSchmi
         Task<WanCommonInterfaceConfigGetTotalBytesReceivedResponse> GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync();
 
         Task<WanCommonInterfaceConfigGetTotalBytesSentResponse> GetWanCommonInterfaceConfigGetTotalBytesSentAsync();
 
         Task<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse> GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync();
-
-
-
-        // *******************************************
         Task<DeviceInfoGetInfoResponse> DeviceInfoGetInfoAsync();
 
         Task<DeviceInfoGetDeviceLogResponse> DeviceInfoGetDeviceLogAsync();

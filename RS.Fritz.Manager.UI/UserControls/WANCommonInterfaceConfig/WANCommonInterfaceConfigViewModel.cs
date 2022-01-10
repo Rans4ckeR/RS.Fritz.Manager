@@ -1,15 +1,4 @@
-﻿//
-// BasicHttpBinding Klasse
-// https://docs.microsoft.com/de-de/dotnet/api/system.servicemodel.basichttpbinding?view=dotnet-plat-ext-6.0
-//
-// Introduction to the MVVM Toolkit
-// https://docs.microsoft.com/en-us/windows/communitytoolkit/mvvm/introduction
-/// <summary>
-/// /
-/// </summary>
-
-
-namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI
 {
     using System;
     using System.Threading.Tasks;
@@ -26,11 +15,9 @@ namespace RS.Fritz.Manager.UI
         private WanCommonInterfaceConfigGetTotalBytesReceivedResponse? wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
         private WanCommonInterfaceConfigGetTotalBytesSentResponse? wanCommonInterfaceConfigGetTotalBytesSentResponse;
 
-        // Constructor
         public WanCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
-            int dummy2 = 1;
         }
 
         public WanCommonInterfaceConfigGetTotalBytesReceivedResponse? WanCommonInterfaceConfigGetTotalBytesReceivedResponse
@@ -60,7 +47,6 @@ namespace RS.Fritz.Manager.UI
 
         private async Task GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
         {
-            // await Task.Delay(1000);
             wanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await FritzServiceOperationHandler.GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync();
         }
 

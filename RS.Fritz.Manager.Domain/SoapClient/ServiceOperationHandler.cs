@@ -10,10 +10,7 @@
         {
             try
             {
-                // RoSchmi
-                var returnResult = await Execute(client, operation).ConfigureAwait(false);
-                return returnResult;
-                //return await Execute(client, operation).ConfigureAwait(false);
+                return await Execute(client, operation).ConfigureAwait(false);
             }
             finally
             {
@@ -23,10 +20,7 @@
 
         private static Task<TResult> Execute<T, TResult>(T client, Func<T, Task<TResult>> operation)
         {
-            // RoSchmi
-            var returnResult = operation(client);
-            return returnResult;
-            //return operation(client);
+            return operation(client);
         }
 
         private static void CloseClient<T>(T client)

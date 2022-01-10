@@ -10,7 +10,6 @@
         private DeviceInfoGetInfoResponse? deviceInfoGetInfoResponse;
         private DeviceInfoGetDeviceLogResponse? deviceInfoGetDeviceLogResponse;
 
-        // RoSchmi: Constructor
         public DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
@@ -47,15 +46,11 @@
         private async Task GetDeviceInfoGetSecurityPortAsync()
         {
             DeviceInfoGetSecurityPortResponse = await FritzServiceOperationHandler.DeviceInfoGetSecurityPortAsync();
-            // RoSchmi
-            var theCopy = DeviceInfoGetSecurityPortResponse;
         }
 
         private async Task GetDeviceInfoGetInfoAsync()
         {
             DeviceInfoGetInfoResponse = await FritzServiceOperationHandler.DeviceInfoGetInfoAsync();
-            // RoSchmi
-            var theCopy = DeviceInfoGetInfoResponse;
         }
 
         private async Task GetDeviceInfoGetDeviceLogAsync()
