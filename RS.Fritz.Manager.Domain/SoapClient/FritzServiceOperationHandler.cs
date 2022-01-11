@@ -5,6 +5,7 @@
 
     public sealed class FritzServiceOperationHandler : ServiceOperationHandler, IFritzServiceOperationHandler
     {
+        private readonly IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory;
         private readonly IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory;
         private readonly IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory;
         private readonly IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory;
@@ -14,6 +15,7 @@
 
 
         public FritzServiceOperationHandler(
+            IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,
             IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory,
             IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory,
             IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory,
@@ -21,6 +23,7 @@
             IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory,
             IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory)
         {
+            this.fritzHostsServiceClientFactory = fritzHostsServiceClientFactory;
             this.fritzWanCommonInterfaceConfigServiceClientFactory = fritzWanCommonInterfaceConfigServiceClientFactory;
             this.fritzDeviceInfoServiceClientFactory = fritzDeviceInfoServiceClientFactory;
             this.fritzLanConfigSecurityServiceClientFactory = fritzLanConfigSecurityServiceClientFactory;
@@ -32,6 +35,11 @@
         public InternetGatewayDevice? InternetGatewayDevice { get; set; }
 
         public NetworkCredential? NetworkCredential { get; set; }
+
+        public Task<HostsGetHostNumberOfEntriesResponse> GetHostsGetHostNumberOfEntriesAsync()
+        {
+            return ExecuteAsync(GetFritzHostsServiceClient(), q => q.GetHostNumberOfEntriesAsync(new HostsGetHostNumberOfEntriesRequest()));
+        }
 
         public Task<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse> GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
         {
@@ -121,6 +129,11 @@
         public Task<WanPppConnectionGetInfoResponse> WanPppConnectionGetInfoAsync()
         {
             return ExecuteAsync(GetFritzWanPppConnectionServiceClient(), q => q.GetInfoAsync(new WanPppConnectionGetInfoRequest()));
+        }
+
+        private IFritzHostsService GetFritzHostsServiceClient()
+        {
+            return fritzHostsServiceClientFactory.Build((q, r, t) => new FritzHostsService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzHostsService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
         }
 
         private IFritzWanCommonInterfaceConfigService GetFritzWanCommonInterfaceConfigServiceClient()

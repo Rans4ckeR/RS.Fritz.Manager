@@ -81,6 +81,9 @@
                 <RibbonGroup ToolTip="The WANCommonInterfaceConfig service.">
                     <RibbonButton Label="WanCommonInterfaceConfig" Command="{Binding WanCommonInterfaceConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
+                <RibbonGroup ToolTip="The Hosts service.">
+                    <RibbonButton Label="Hosts" Command="{Binding HostsViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                </RibbonGroup>
                 <RibbonGroup ToolTip="This service allows the handling of the routing and forwarding configuration of the device.">
                     <RibbonButton Label="Layer3Forwarding" Command="{Binding Layer3ForwardingViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>

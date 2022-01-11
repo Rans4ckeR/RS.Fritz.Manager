@@ -772,6 +772,23 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type domain:HostsGetHostNumberOfEntriesResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="HostNumberOfEntries">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=HostNumberOfEntries}" Content="_HostNumberOfEntries"/>
+                            <TextBlock x:Name="HostNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding HostNumberOfEntries}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type ui:DeviceInfoViewModel}">
                 <ui:DeviceInfoView/>
             </DataTemplate>
@@ -798,6 +815,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigViewModel}">
                 <ui:WanCommonInterfaceConfigView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:HostsViewModel}">
+                <ui:HostsView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

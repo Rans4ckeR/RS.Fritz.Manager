@@ -9,6 +9,8 @@
 
         NetworkCredential? NetworkCredential { get; set; }
 
+        Task<HostsGetHostNumberOfEntriesResponse> GetHostsGetHostNumberOfEntriesAsync();
+
         Task<WanCommonInterfaceConfigGetTotalBytesReceivedResponse> GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync();
 
         Task<WanCommonInterfaceConfigGetTotalBytesSentResponse> GetWanCommonInterfaceConfigGetTotalBytesSentAsync();
