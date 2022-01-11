@@ -16,6 +16,7 @@
         Task<WanCommonInterfaceConfigGetTotalBytesSentResponse> GetWanCommonInterfaceConfigGetTotalBytesSentAsync();
 
         Task<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse> GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync();
+
         Task<DeviceInfoGetInfoResponse> DeviceInfoGetInfoAsync();
 
         Task<DeviceInfoGetDeviceLogResponse> DeviceInfoGetDeviceLogAsync();
