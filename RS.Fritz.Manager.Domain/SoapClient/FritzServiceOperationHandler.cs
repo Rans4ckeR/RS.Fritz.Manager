@@ -13,7 +13,6 @@
         private readonly IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory;
         private readonly IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory;
 
-
         public FritzServiceOperationHandler(
             IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,
             IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory,

@@ -9,8 +9,6 @@ namespace RS.Fritz.Manager.Domain
     {
         public const string ControlUrl = "/upnp/control/hosts";
 
-
-        // Constructor
         public FritzHostsService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
             : base(endpointConfiguration, remoteAddress, networkCredential)
         {
@@ -19,6 +17,6 @@ namespace RS.Fritz.Manager.Domain
         public Task<HostsGetHostNumberOfEntriesResponse> GetHostNumberOfEntriesAsync(HostsGetHostNumberOfEntriesRequest hostsGetHostNumberOfEntriesRequest)
         {
             return Channel.GetHostNumberOfEntriesAsync(hostsGetHostNumberOfEntriesRequest);
-        }      
+        }
     }
 }
