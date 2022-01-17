@@ -712,6 +712,83 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type domain:WanCommonInterfaceConfigGetCommonLinkPropertiesResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="LinkProperties">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=WanAccessType}" Content="_WanAccessType"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PhysicalLinkStatus}" Content="_PhysicalLinkStatus"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Layer1DownstreamMaxBitRate}" Content="_Layer1DownstreamMaxBitRate"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Layer1UpstreamMaxBitRate}" Content="_Layer1UpstreamMaxBitRate"/>
+                            <TextBlock x:Name="WanAccessType" Grid.Row="0" Grid.Column="1" Text="{Binding WanAccessType}"/>
+                            <TextBlock x:Name="PhysicalLinkStatus" Grid.Row="1" Grid.Column="1" Text="{Binding PhysicalLinkStatus}"/>
+                            <TextBlock x:Name="Layer1DownstreamMaxBitRate" Grid.Row="2" Grid.Column="1" Text="{Binding Layer1DownstreamMaxBitRate}"/>
+                            <TextBlock x:Name="Layer1UpstreamMaxBitRate" Grid.Row="3" Grid.Column="1" Text="{Binding Layer1UpstreamMaxBitRate}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type domain:WanCommonInterfaceConfigGetTotalBytesReceivedResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalBytesReceived">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesReceived}" Content="_TotalBytesReceived"/>
+                            <TextBlock x:Name="TotalBytesReceived" Grid.Row="0" Grid.Column="1" Text="{Binding TotalBytesReceived}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type domain:WanCommonInterfaceConfigGetTotalBytesSentResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalBytesSent">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesSent}" Content="_TotalBytesSent"/>
+                            <TextBlock x:Name="TotalBytesSent" Grid.Row="0" Grid.Column="1" Text="{Binding TotalBytesSent}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type domain:HostsGetHostNumberOfEntriesResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="HostNumberOfEntries">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=HostNumberOfEntries}" Content="_HostNumberOfEntries"/>
+                            <TextBlock x:Name="HostNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding HostNumberOfEntries}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type ui:DeviceInfoViewModel}">
                 <ui:DeviceInfoView/>
             </DataTemplate>
@@ -735,6 +812,12 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:WanPppConnectionViewModel}">
                 <ui:WanPppConnectionView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigViewModel}">
+                <ui:WanCommonInterfaceConfigView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:HostsViewModel}">
+                <ui:HostsView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
