@@ -18,5 +18,15 @@ namespace RS.Fritz.Manager.Domain
         {
             return Channel.GetHostNumberOfEntriesAsync(hostsGetHostNumberOfEntriesRequest);
         }
+
+        public Task<HostsGetHostListPathResponse> GetHostListPathAsync(HostsGetHostListPathRequest hostsGetHostListPathRequest)
+        {
+            return Channel.GetHostListPathAsync(hostsGetHostListPathRequest);
+        }
+
+        public Task<HostsGetGenericHostEntryResponse> GetGenericHostEntryAsync(HostsGetGenericHostEntryRequest hostsGetGenericHostEntryRequest)
+        {
+            return Channel.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest);
+        }
     }
 }

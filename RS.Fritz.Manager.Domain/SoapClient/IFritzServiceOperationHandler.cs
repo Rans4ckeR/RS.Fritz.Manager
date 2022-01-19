@@ -11,6 +11,10 @@
 
         Task<HostsGetHostNumberOfEntriesResponse> GetHostsGetHostNumberOfEntriesAsync();
 
+        Task<HostsGetHostListPathResponse> GetHostsGetHostListPathAsync();
+
+        Task<HostsGetGenericHostEntryResponse> GetHostsGetGenericHostEntryAsync(ushort index);
+
         Task<WanCommonInterfaceConfigGetTotalBytesReceivedResponse> GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync();
 
         Task<WanCommonInterfaceConfigGetTotalBytesSentResponse> GetWanCommonInterfaceConfigGetTotalBytesSentAsync();

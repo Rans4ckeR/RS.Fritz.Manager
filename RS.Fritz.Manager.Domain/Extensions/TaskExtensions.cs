@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    
 
     public static class TaskExtensions
     {
@@ -33,10 +34,14 @@
 
                 return;
             }
-            catch
+            catch //(System.Exception ex)
             {
+                // RoSchmi
+                // string? message = ex.Message;
+                // int dummy3 = 1;
                 // Ignore individual task exceptions
             }
+            
 
 #pragma warning disable CS8597 // Thrown value may be null.
             throw whenAllTask.Exception;
