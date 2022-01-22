@@ -26,7 +26,10 @@ namespace RS.Fritz.Manager.Domain
 
         public Task<HostsGetGenericHostEntryResponse> GetGenericHostEntryAsync(HostsGetGenericHostEntryRequest hostsGetGenericHostEntryRequest)
         {
-            return Channel.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest);
+            // RoSchmi
+            var returnResult = Channel.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest);
+            return returnResult;
+            //return Channel.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest);
         }
     }
 }

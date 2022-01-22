@@ -13,7 +13,7 @@
         [OperationContract(Action = "urn:dslforum-org:service:Hosts:1#X_AVM-DE_GetHostListPath")]
         public Task<HostsGetHostListPathResponse> GetHostListPathAsync(HostsGetHostListPathRequest hostsGetHostListPathRequest);
 
-        [OperationContract(Action = "urn:dslforum-org:service:Hosts:1#X_AVM-DE_GetGenericHostEntry")]
+        [OperationContract(Action = "urn:dslforum-org:service:Hosts:1#GetGenericHostEntry")]
         public Task<HostsGetGenericHostEntryResponse> GetGenericHostEntryAsync(HostsGetGenericHostEntryRequest hostsGetGenericHostEntryRequest);
     }
 }

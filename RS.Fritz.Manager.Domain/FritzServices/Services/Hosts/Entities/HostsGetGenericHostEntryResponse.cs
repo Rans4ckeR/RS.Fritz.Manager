@@ -12,11 +12,9 @@
         [MessageBodyMember(Name = "NewIPAddress")]
         public string IPAddress { get; set; }
 
-        /*
         [MessageBodyMember(Name = "NewMACAddress")]
         public string MACAddress { get; set; }
 
-        
         [MessageBodyMember(Name = "NewAddressSource")]
         public string AddressSource { get; set; }
 
@@ -31,6 +29,5 @@
 
         [MessageBodyMember(Name = "NewHostName")]
         public string HostName { get; set; }
-        */
     }
 }

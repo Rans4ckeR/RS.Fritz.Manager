@@ -18,5 +18,6 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ContentControl Grid.Row="0" Content="{Binding HostsGetHostNumberOfEntriesResponse}"/>
+        <ContentControl Grid.Row="1" Content="{Binding HostsGetHostListPathResponse}"/>
     </Grid>
 </UserControl>   
