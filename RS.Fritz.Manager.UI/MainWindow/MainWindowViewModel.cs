@@ -102,6 +102,8 @@
         protected override async Task DoExecuteDefaultCommandAsync()
         {
             Devices = new ObservableCollection<ObservableInternetGatewayDevice>((await deviceSearchService.GetDevicesAsync(DeviceType)).Select(q => new ObservableInternetGatewayDevice(q)));
+            // RoSchmi
+            int dummy3 = 1;
         }
 
         protected override bool GetCanExecuteDefaultCommand()
