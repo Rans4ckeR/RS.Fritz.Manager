@@ -158,6 +158,8 @@
             using var xmlTextReader = new XmlTextReader(stringReader);
 
             internetGatewayDevice.UPnPDescription = (UPnPDescription?)new XmlSerializer(typeof(UPnPDescription)).Deserialize(xmlTextReader);
+            // RoSchmi
+            int dummy3 = 1;
         }
     }
 }

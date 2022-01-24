@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
@@ -14,12 +15,15 @@
         private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
         private HostsGetHostListPathResponse? hostsGetHostListPathResponse;
         private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
+        private readonly IHttpGetService httpGetService;
+        private HostsGetHostListResponse? hostsGetHostListResponse;
 
         private string hostListPathLink = String.Empty;
 
-        public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+        public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler, IHttpGetService httpGetService)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
+            this.httpGetService = httpGetService;
         }
 
         public HostsGetHostNumberOfEntriesResponse? HostsGetHostNumberOfEntriesResponse
@@ -31,6 +35,8 @@
         {
             get => hostsGetHostListPathResponse; set { _ = SetProperty(ref hostsGetHostListPathResponse, value); }
         }
+
+         
 
         public HostsGetGenericHostEntryResponse? HostsGetGenericHostEntryResponse
         {
@@ -83,7 +89,23 @@ private async Task GetAllHostEntriesAsync()
 
             if (HostsGetHostListPathResponse != null && FritzServiceOperationHandler.InternetGatewayDevice != null)
             {
-                HostsGetHostListPathResponse.HostListPathLink = new Uri("https://" + FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host + ":" + FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort + hostsGetHostListPathResponse.HostListPath);
+                HostsGetHostListPathResponse.HostListPathLink = new Uri("http://" + FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host + ":" + "49000" + hostsGetHostListPathResponse.HostListPath);
+                // FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort
+
+                string theResponse = await httpGetService.GetHttpResponse(HostsGetHostListPathResponse.HostListPathLink);
+
+               //hostsGetHostListResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync();
+
+                //ClientFactory<> fritzHostsGetHostListFactory = new ClientFactory();
+
+                //IHttpClientFactory httpClientFactory;
+                //httpClientFactory.
+
+                //   DefaultHttpClientFactory
+
+                // FritzHostListService getHostList = new FritzHostListService(httpClientFactory);
+
+                // string hostList = await httpClientFactory.CreateClient(Constants.HttpClientName).GetStringAsync(HostsGetHostListPathResponse.HostListPathLink);
             }
 
             // For breakpoint:

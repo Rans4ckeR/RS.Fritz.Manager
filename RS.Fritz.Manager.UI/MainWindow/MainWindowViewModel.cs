@@ -15,15 +15,18 @@
     {
         private const string DeviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
         private readonly IDeviceSearchService deviceSearchService;
+        private readonly IHttpGetService httpGetService;
         private ObservableCollection<ObservableInternetGatewayDevice> devices = new();
         private ObservableCollection<User> users = new();
         private ObservableObject? activeView;
         private string? userMessage;
         private bool deviceAndLoginControlsEnabled = true;
 
-        public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, HostsViewModel hostsViewModel, WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel,  WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceSearchService deviceSearchService)
+        public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, HostsViewModel hostsViewModel, WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel,  WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceSearchService deviceSearchService, IHttpGetService httpGetService)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
+            // RoSchmi
+            this.httpGetService = httpGetService;
             this.deviceSearchService = deviceSearchService;
             DeviceInfoViewModel = deviceInfoViewModel;
             LanConfigSecurityViewModel = lanConfigSecurityViewModel;

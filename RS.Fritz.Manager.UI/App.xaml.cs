@@ -40,7 +40,10 @@
                     services.AddSingleton<DeviceLoginInfo>();
                     services.AddSingleton<ILogger, UserInterfaceLogService>();
                     services.AddSingleton<IDeviceSearchService, DeviceSearchService>();
+                    services.AddSingleton<IHttpGetService, HttpGetService>();
                     services.AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>();
+                    services.AddSingleton<IClientFactory<IHttpGetService>, ClientFactory<IHttpGetService>>();
+                    services.AddSingleton<IClientFactory<IFritzHostListService>, ClientFactory<IFritzHostListService>>();
                     services.AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>();
                     services.AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>();
                     services.AddSingleton<IClientFactory<IFritzWanDslInterfaceConfigService>, ClientFactory<IFritzWanDslInterfaceConfigService>>();

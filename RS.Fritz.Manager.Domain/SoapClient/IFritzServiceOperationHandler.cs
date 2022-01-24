@@ -9,6 +9,9 @@
 
         NetworkCredential? NetworkCredential { get; set; }
 
+        
+        Task<HostsGetHostListResponse> GetHostsGetHostListAsync();
+
         Task<HostsGetHostNumberOfEntriesResponse> GetHostsGetHostNumberOfEntriesAsync();
 
         Task<HostsGetHostListPathResponse> GetHostsGetHostListPathAsync();
