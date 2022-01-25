@@ -15,5 +15,10 @@
 
         [OperationContract(Action = "urn:dslforum-org:service:Hosts:1#GetGenericHostEntry")]
         public Task<HostsGetGenericHostEntryResponse> GetGenericHostEntryAsync(HostsGetGenericHostEntryRequest hostsGetGenericHostEntryRequest);
+
+        // RoSchmi
+        public Task<string> GetHttpResponseAsync(HostsHttpGetRequest hostsHttpGetRequest);
+
+        
     }
 }

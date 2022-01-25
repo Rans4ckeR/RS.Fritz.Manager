@@ -31,7 +31,7 @@
         //public FritzHostListService(IHttpClientFactory httpClientFactory)
         //public FritzHostListService()
 
-        public const string ControlUrl = "/tr64desc.xml";
+        public const string ControlUrl = "/tr64____desc.xml";
 
         public FritzHostListService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
             : base(endpointConfiguration, remoteAddress, networkCredential)

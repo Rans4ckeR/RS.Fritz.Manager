@@ -5,6 +5,7 @@
 
     public sealed class FritzServiceOperationHandler : ServiceOperationHandler, IFritzServiceOperationHandler
     {
+        private readonly IClientFactory<IHttpGetService> httpGetServiceClientFactory;
         private readonly IClientFactory<IFritzHostListService> fritzHostListServiceClientFactory;
         private readonly IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory;
         private readonly IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory;
@@ -15,7 +16,8 @@
         private readonly IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory;
 
         public FritzServiceOperationHandler(
-            IClientFactory<IFritzHostListService> fritzHostListServiceClientFactory,
+            IClientFactory<IHttpGetService> httpGetServiceClientFactory,
+            IClientFactory<IFritzHostListService> fritzHostListServiceClientFactory,    
             IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,
             IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory,
             IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory,
@@ -25,6 +27,7 @@
             IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory)
             
         {
+            this.httpGetServiceClientFactory = httpGetServiceClientFactory;
             this.fritzHostListServiceClientFactory = fritzHostListServiceClientFactory;
             this.fritzHostsServiceClientFactory = fritzHostsServiceClientFactory;
             this.fritzWanCommonInterfaceConfigServiceClientFactory = fritzWanCommonInterfaceConfigServiceClientFactory;
@@ -39,13 +42,35 @@
 
         public NetworkCredential? NetworkCredential { get; set; }
 
-        //GetHostsGetHostListPathAsync
+
+        // ******************************************************************
+        public Task<string> GetHttpGetResponseAsync(string controlUrl)
+        {
+            return ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync(new HostsHttpGetRequest()));
+        }
+
+        // RoSchmi
+        private IHttpGetService GetHttpGetServiceClient(string controlUrl)
+        {
+            // RoSchmi set security to true 
+            //return httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzHostListService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+            return httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!), InternetGatewayDevice!.PreferredLocation, false, controlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+        }
+
+        // *******************************************************************************************************
 
         public Task<HostsGetHostListResponse> GetHostsGetHostListAsync()
         {
-            
            return ExecuteAsync(GetFritzHostListServiceClient(), q => q.GetHostListAsync(new HostsGetHostListRequest()));
         }
+
+        private IFritzHostListService GetFritzHostListServiceClient()
+        {
+
+            return fritzHostListServiceClientFactory.Build((q, r, t) => new FritzHostListService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzHostListService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+        }
+
+        // *************************************************************************
 
         public Task<HostsGetHostNumberOfEntriesResponse> GetHostsGetHostNumberOfEntriesAsync()
         {
@@ -156,11 +181,7 @@
             return ExecuteAsync(GetFritzWanPppConnectionServiceClient(), q => q.GetInfoAsync(new WanPppConnectionGetInfoRequest()));
         }
 
-        private IFritzHostListService GetFritzHostListServiceClient()
-        {
-            
-            return fritzHostListServiceClientFactory.Build((q, r, t) => new FritzHostListService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzHostListService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
-        }
+
 
         private IFritzHostsService GetFritzHostsServiceClient()
         {

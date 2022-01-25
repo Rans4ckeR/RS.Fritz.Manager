@@ -61,6 +61,9 @@
 
             var mainWindow = host.Services.GetRequiredService<MainWindow>();
 
+            
+            
+
             mainWindow.Show();
 
             base.OnStartup(e);

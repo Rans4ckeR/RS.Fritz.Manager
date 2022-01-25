@@ -9,7 +9,11 @@
 
         NetworkCredential? NetworkCredential { get; set; }
 
+
         
+
+        Task<string> GetHttpGetResponseAsync(string controlUrl);
+
         Task<HostsGetHostListResponse> GetHostsGetHostListAsync();
 
         Task<HostsGetHostNumberOfEntriesResponse> GetHostsGetHostNumberOfEntriesAsync();

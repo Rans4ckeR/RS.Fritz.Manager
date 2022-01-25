@@ -20,10 +20,12 @@
 
         private string hostListPathLink = String.Empty;
 
-        public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler, IHttpGetService httpGetService)
+        //public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler, IHttpGetService httpGetService)
+         public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
-            this.httpGetService = httpGetService;
+            //this.httpGetService = httpGetService;
         }
 
         public HostsGetHostNumberOfEntriesResponse? HostsGetHostNumberOfEntriesResponse
@@ -52,10 +54,10 @@
 
             await Domain.TaskExtensions.WhenAllSafe(new[]
                 {
-                   GetHostsGetHostNumberOfEntriesAsync(),
+                   //GetHostsGetHostNumberOfEntriesAsync(),
                    GetHostsGetHostListPathAsync(),
                    //GetAllHostEntriesAsync()
-                   GetHostsGetGenericHostEntryAsync(Index)
+                   //GetHostsGetGenericHostEntryAsync(Index)
                 });
         }
 
@@ -92,20 +94,20 @@ private async Task GetAllHostEntriesAsync()
                 HostsGetHostListPathResponse.HostListPathLink = new Uri("http://" + FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host + ":" + "49000" + hostsGetHostListPathResponse.HostListPath);
                 // FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort
 
-                string theResponse = await httpGetService.GetHttpResponse(HostsGetHostListPathResponse.HostListPathLink);
+                //string theResponse = await httpGetService.GetHttpResponseAsync(FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation, true, hostsGetHostListPathResponse.HostListPath, FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort, FritzServiceOperationHandler.NetworkCredential); // NetworkCredential);
 
-               //hostsGetHostListResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync();
+               
 
-                //ClientFactory<> fritzHostsGetHostListFactory = new ClientFactory();
 
-                //IHttpClientFactory httpClientFactory;
-                //httpClientFactory.
+                string theResponse = await FritzServiceOperationHandler.GetHttpGetResponseAsync(hostsGetHostListPathResponse.HostListPath);
 
-                //   DefaultHttpClientFactory
+                //string theResponse = await httpGetService.GetHttpResponseAsync(); // NetworkCredential);
 
-                // FritzHostListService getHostList = new FritzHostListService(httpClientFactory);
 
-                // string hostList = await httpClientFactory.CreateClient(Constants.HttpClientName).GetStringAsync(HostsGetHostListPathResponse.HostListPathLink);
+                //  string theResponse = await httpGetService.GetHttpResponse(HostsGetHostListPathResponse.HostListPathLink);
+
+
+                int dummy4 = 1;
             }
 
             // For breakpoint:
