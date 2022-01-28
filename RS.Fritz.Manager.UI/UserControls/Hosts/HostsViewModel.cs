@@ -99,6 +99,8 @@ private async Task GetAllHostEntriesAsync()
                
 
 
+                
+
                 string theResponse = await FritzServiceOperationHandler.GetHttpGetResponseAsync(hostsGetHostListPathResponse.HostListPath);
 
                 //string theResponse = await httpGetService.GetHttpResponseAsync(); // NetworkCredential);

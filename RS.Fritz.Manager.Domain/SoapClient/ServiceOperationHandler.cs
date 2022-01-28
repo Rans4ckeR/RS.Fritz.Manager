@@ -10,7 +10,7 @@
         {
             try
             {
-                // RoSchmi
+                // RoSchmi hier wird Request ausgeführt
                 var returnResult = await Execute(client, operation).ConfigureAwait(false);
                 return returnResult;
                 //return await Execute(client, operation).ConfigureAwait(false);

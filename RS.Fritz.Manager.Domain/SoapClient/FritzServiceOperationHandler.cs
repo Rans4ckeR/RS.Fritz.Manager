@@ -1,6 +1,7 @@
 ﻿namespace RS.Fritz.Manager.Domain
 {
     using System.Net;
+    using System.Net.Http;
     using System.Threading.Tasks;
 
     public sealed class FritzServiceOperationHandler : ServiceOperationHandler, IFritzServiceOperationHandler
@@ -43,7 +44,7 @@
         public NetworkCredential? NetworkCredential { get; set; }
 
 
-        // ******************************************************************
+        // ****************************************************************** *
         public Task<string> GetHttpGetResponseAsync(string controlUrl)
         {
             return ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync(new HostsHttpGetRequest()));
@@ -53,8 +54,15 @@
         private IHttpGetService GetHttpGetServiceClient(string controlUrl)
         {
             // RoSchmi set security to true 
-            //return httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzHostListService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
-            return httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!), InternetGatewayDevice!.PreferredLocation, false, controlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+
+            IHttpGetService? httpGetServiceClient = null;
+
+
+            
+            httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!, httpGetServiceClient), InternetGatewayDevice!.PreferredLocation, true, controlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+            //var builtClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!, null), InternetGatewayDevice!.PreferredLocation, false, controlUrl, 49000, NetworkCredential);
+
+            return httpGetServiceClient;
         }
 
         // *******************************************************************************************************

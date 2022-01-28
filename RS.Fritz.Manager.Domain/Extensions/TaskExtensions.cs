@@ -34,17 +34,17 @@
 
                 return;
             }
-            catch //(System.Exception ex)
+            catch (System.Exception ex)
             {
                 // RoSchmi
-                // string? message = ex.Message;
-                // int dummy3 = 1;
+                string? message = ex.Message;
+                int dummy3 = 1;
                 // Ignore individual task exceptions
             }
             
 
 #pragma warning disable CS8597 // Thrown value may be null.
-            throw whenAllTask.Exception;
+           // throw whenAllTask.Exception;
 #pragma warning restore CS8597 // Thrown value may be null.
         }
     }

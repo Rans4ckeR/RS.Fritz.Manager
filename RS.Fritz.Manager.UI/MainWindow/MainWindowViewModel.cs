@@ -48,6 +48,8 @@
             UpdateCanExecuteDefaultCommand();
         }
 
+
+
         public static string Title => "FritzManager";
 
         public DeviceInfoViewModel DeviceInfoViewModel { get; }
@@ -66,6 +68,7 @@
 
         public string? UserMessage
         {
+            
             get => userMessage; set { _ = SetProperty(ref userMessage, value); }
         }
 

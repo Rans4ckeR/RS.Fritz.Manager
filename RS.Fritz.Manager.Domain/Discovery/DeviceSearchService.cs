@@ -1,5 +1,6 @@
 ﻿namespace RS.Fritz.Manager.Domain
 {
+    
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -13,6 +14,7 @@
     using System.Threading.Tasks;
     using System.Xml;
     using System.Xml.Serialization;
+    
 
     public sealed class DeviceSearchService : IDeviceSearchService
     {
