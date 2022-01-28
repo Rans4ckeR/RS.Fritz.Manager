@@ -50,7 +50,8 @@
         // ****************************************************************** *
         public Task<string> GetHttpGetResponseAsync(string controlUrl)
         {
-            return ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync(q, new HostsHttpGetRequest()));
+            //return ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync(new HostsHttpGetRequest()));
+            return ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync());
         }
 
         // RoSchmi

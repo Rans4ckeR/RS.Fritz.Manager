@@ -42,6 +42,14 @@
                     services.AddSingleton<ILogger, UserInterfaceLogService>();
                     services.AddSingleton<IDeviceSearchService, DeviceSearchService>();
                     services.AddSingleton<IHttpGetService, HttpGetService>();
+                    services.AddHttpClient(Constants.NonValidatingHttpClientName, c =>
+                        {
+                            c.Timeout = TimeSpan.FromSeconds(10);
+                        }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+                        {
+                            SslProtocols = System.Security.Authentication.SslProtocols.Tls12,
+                            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                        });
                     //services.AddSingleton<IHttpClientFactory;
                     services.AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>();
                     services.AddSingleton<IClientFactory<IHttpGetService>, ClientFactory<IHttpGetService>>();

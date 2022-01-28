@@ -1,161 +1,66 @@
 ﻿namespace RS.Fritz.Manager.Domain
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading.Tasks;
     using System.Net;
     using System.Net.Http;
-    using System.Net.NetworkInformation;
-    using System.Net.Sockets;
     using System.Net.Security;
-    using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
     using System.Xml;
     using System.Xml.Serialization;
     using System.ServiceModel;
     using System.Security.Cryptography.X509Certificates;
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.Http;
-    
-
-    
-    
     using Microsoft.Extensions.DependencyInjection;
     
     using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.Domain;
-
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Net;
-    using System.Net.Http;
+    
     using System.Net.NetworkInformation;
     using System.Net.Sockets;
     using System.Text;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using System.Xml;
-    using System.Xml.Serialization;
-
-
-
-
+    
     public sealed class HttpGetService : FritzServiceClient<IFritzHostsService>, IHttpGetService
     {
-        private readonly IHttpClientFactory? httpGetServiceClientFactory;
-        //private readonly IClientFactory<IHttpGetService>? httpGetServiceClientFactory;
-        private readonly IHttpGetService? httpGetServiceClient;
-
-
+        private readonly IHttpClientFactory httpClientFactory;
+        private readonly EndpointAddress endpointAddress;
+        private readonly NetworkCredential networkCredential;
+        private readonly FritzServiceEndpointConfiguration endpointConfiguration;
 
         public string ControlUrl = "/Hier muss es rein";
 
-        private EndpointAddress endpointAddress;
-        private NetworkCredential networkCredential;
-        private FritzServiceEndpointConfiguration endpointConfiguration;
-
-
-
-        //ServiceProvider myServiceProvider = new ServiceCollection();
-
-        //private readonly IHttpClientFactory httpClientFactory;
-
-        //public IClientFactory<IHttpGetService>? httpGetServiceClientFactory;
-
-
-
-        //private HttpClient? client;
-
-
-
-        //private readonly AddressFamily[] supportedAddressFamilies = { AddressFamily.InterNetwork, AddressFamily.InterNetworkV6 };
-
-
-
-
-        /*
-        public HttpGetService(IHttpClientFactory httpClientFactory) //: IHttpGetService //FritzServiceClient<IFritzHostListService>, IFritzHostListService
-        {
-            this.httpClientFactory = httpClientFactory;    
-        }
-        */
-
-        //   public HttpGetService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential, IHttpClientFactory httpClientFactory)
-        public HttpGetService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential, IHttpClientFactory httpGetServiceClientFactory)
+        public HttpGetService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential, IHttpClientFactory httpClientFactory)
                : base(endpointConfiguration, remoteAddress, networkCredential)
         {
             this.endpointAddress = remoteAddress;
             this.networkCredential = networkCredential;
             this.endpointConfiguration = endpointConfiguration;
-            this.httpGetServiceClientFactory = httpGetServiceClientFactory;
-            //this.httpGetServiceClient = httpGetServiceClient;
-
-            
-
-
-
-            //this.httpClientFactory = httpClientFactory;
-            // this.httpGetServiceClientFactory = httpGetServiceClientFactory;
+            this.httpClientFactory = httpClientFactory;
         }
 
 
-        // public Task<string> GetHttpResponseAsync(HostsHttpGetRequest hostsHttpGetRequest)
-        public async Task<string> GetHttpResponseAsync(IHttpGetService? httpGetServiceClient, HostsHttpGetRequest hostsHttpGetRequest)
+        public async Task<string> GetHttpResponseAsync()
+        //public async Task<string> GetHttpResponseAsync(HostsHttpGetRequest hostsHttpGetRequest)
+
+        //public async Task<string> GetHttpResponseAsync(IHttpGetService? httpGetServiceClient, HostsHttpGetRequest hostsHttpGetRequest)
         {
-            ServiceCollection sc = new ServiceCollection();
-            sc.AddHttpClient("LocalHttpClient")
-                .ConfigureHttpClient((_, httpClient) =>
-                {
-                    httpClient.Timeout = TimeSpan.FromSeconds(60);
-                    httpClient.DefaultRequestVersion = Version.Parse("2.0");
-                })
-                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
-                {
-                    AutomaticDecompression = DecompressionMethods.All,
-                    ClientCertificateOptions = ClientCertificateOption.Manual,
-                    ClientCertificates = { new X509Certificate2("hsly9xxw87vmkybw.myfritz.net") },
-                    SslProtocols = System.Security.Authentication.SslProtocols.Tls12,
 
-                    //ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+            // Configuration is done in App.xaml.cs
+            HttpClient httpClient = httpClientFactory.CreateClient(Constants.NonValidatingHttpClientName);
 
-                    ServerCertificateCustomValidationCallback = (HttpRequestMessage sender, X509Certificate2? certificate, X509Chain? chain, SslPolicyErrors sslPolicyErrors) => true,
-                });
+            HttpResponseMessage? result = await httpClient.GetAsync(endpointAddress.Uri);
 
-            ServiceProvider serviceProvider = sc.BuildServiceProvider();
-
-
-
-            var nonValidatingHttpClient = (HttpClient)serviceProvider.GetService(typeof(HttpClient));
-
-            HttpClientHandler httpClientHandler = new HttpClientHandler
+            string content = string.Empty;
+            if (result.StatusCode == HttpStatusCode.OK)
             {
-                SslProtocols = System.Security.Authentication.SslProtocols.Tls12,
-                ServerCertificateCustomValidationCallback = ServerCertificateCustomValidation,
+                content = await httpClient.GetStringAsync(endpointAddress.Uri);
+            }
 
-
-            };
-
-            nonValidatingHttpClient = new HttpClient(httpClientHandler);
-
-            await GetRequestResultAsync(nonValidatingHttpClient, endpointAddress.Uri);
-
-
-            // HttpClient httpClient = new HttpClient();
-            // var countOfServices = sc.Count;
-
-
-
-            return "Hallo";
+            return content;
 
             // return Channel.GetHttpResponseAsync(hostsHttpGetRequest);
         }
 
-        
         private static bool ServerCertificateCustomValidation(HttpRequestMessage? requestMessage, X509Certificate2? certificate, X509Chain? chain, SslPolicyErrors sslErrors)
         {
             // It is possible inpect the certificate provided by server
@@ -165,46 +70,10 @@
             string issuer = certificate.Issuer;
             string subject = certificate.Subject;
 
-            
-
             // Based on the custom logic it is possible to decide whether the client considers certificate valid or not
-            
             // Don't care NameMismatch and ChainErrors
-            return (sslErrors & SslPolicyErrors. RemoteCertificateNotAvailable) == 0;
+            return (sslErrors & SslPolicyErrors.RemoteCertificateNotAvailable) == 0;
         }
-        
-
-
-
-
-        private async Task<string> GetRequestResultAsync(HttpClient httpClient, Uri url)
-        {
-            //HttpClient httpClient = new HttpClient();
-            //httpClient.BaseAddress = new Uri(this.endpointAddress.ToString());
-
-
-            HttpResponseMessage? result = null;
-            try
-            {
-
-                result = await httpClient.GetAsync(url);
-            }
-            catch (Exception ex)
-            {
-                string mess = ex.Message;    
-            }
-
-            var content = await httpClient.GetStringAsync(url);
-            var message = result.RequestMessage;
-
-            int dummy = 1;
-            //return message;
-            return content;
-        }
-
-
-
-
 
         //public async Task<string> GetHttpResponse(Uri uri)
         public async Task<string> GetHttpResponseAsync(Uri preferredLocation, bool secure, string controlUrl, ushort? securityPort, NetworkCredential? networkCredential) //, FritzServiceOperationHandler networkCredential)
