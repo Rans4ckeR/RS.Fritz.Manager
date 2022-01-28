@@ -47,7 +47,7 @@
         // ****************************************************************** *
         public Task<string> GetHttpGetResponseAsync(string controlUrl)
         {
-            return ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync(new HostsHttpGetRequest()));
+            return ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync(q, new HostsHttpGetRequest()));
         }
 
         // RoSchmi
@@ -59,8 +59,8 @@
 
 
             
-            //httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!, httpGetServiceClient), InternetGatewayDevice!.PreferredLocation, true, controlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
-            httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!, httpGetServiceClient), InternetGatewayDevice!.PreferredLocation, false, controlUrl, 49000, NetworkCredential);
+            httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!, httpGetServiceClient), InternetGatewayDevice!.PreferredLocation, true, controlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+            // httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!, httpGetServiceClient), InternetGatewayDevice!.PreferredLocation, false, controlUrl, 49000, NetworkCredential);
 
             return httpGetServiceClient;
         }

@@ -104,39 +104,48 @@
         }
 
 
-        public Task<string> GetHttpResponseAsync(HostsHttpGetRequest hostsHttpGetRequest)
+        // public Task<string> GetHttpResponseAsync(HostsHttpGetRequest hostsHttpGetRequest)
+        public async Task<string> GetHttpResponseAsync(IHttpGetService? httpGetServiceClient, HostsHttpGetRequest hostsHttpGetRequest)
+
         {
-          
+
             //IHttpClientFactory httpClientFactory = HttpClient(Constants.HttpClientName);
 
-           
             
-            ServiceCollection sc = new ServiceCollection();
+
+             ServiceCollection sc = new ServiceCollection();
             sc.AddHttpClient("LocalHttpClient")
                 .ConfigureHttpClient((_, httpClient) =>
                 {
                     httpClient.Timeout = TimeSpan.FromSeconds(60);
                     httpClient.DefaultRequestVersion = Version.Parse("2.0");
                 })
-
+                
                 .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
                 {
                     AutomaticDecompression = DecompressionMethods.All,
 
+                    ClientCertificateOptions = ClientCertificateOption.Manual,
+                    ClientCertificates = { new X509Certificate2("hsly9xxw87vmkybw.myfritz.net") },
+
+                    SslProtocols = System.Security.Authentication.SslProtocols.Tls12,
 
                     //ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
 
-                    //ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, System.Security.Cryptography.X509Certificates.X509Certificate2?, System.Security.Cryptography.X509Certificates.X509Chain?, System.Net.Security.SslPolicyErrors, bool>  ServerCertificateCustomValidation() => (_, _, _) => true,
+                    ServerCertificateCustomValidationCallback = (HttpRequestMessage sender, X509Certificate2? certificate, X509Chain? chain, SslPolicyErrors sslPolicyErrors) => true,
+                
 
-                    // ServerCertificateCustomValidationCallback = (_, _, _, _) => { return true; },
+            //ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, System.Security.Cryptography.X509Certificates.X509Certificate2?, System.Security.Cryptography.X509Certificates.X509Chain?, System.Net.Security.SslPolicyErrors, bool>  ServerCertificateCustomValidation() => (_, _, _) => true,
 
-                    ServerCertificateCustomValidationCallback = ServerCertificateCustomValidation,
+            // ServerCertificateCustomValidationCallback = (_, _, _, _) => { return true; },
+
+            //ServerCertificateCustomValidationCallback = ServerCertificateCustomValidation,
 
 
 
 
-                    // (()) = (message, cert, chain, errors) => { return true; };
-                });
+            // (()) = (message, cert, chain, errors) => { return true; };
+        });
             
 
             ServiceProvider serviceProvider = sc.BuildServiceProvider();
@@ -145,37 +154,56 @@
 
             var nonValidatingHttpClient = (HttpClient)serviceProvider.GetService(typeof(HttpClient));
 
-            //var nonValidatingHttpClient = httpGetServiceClient;
+            HttpClientHandler httpClientHandler = new HttpClientHandler
+            {
+                SslProtocols = System.Security.Authentication.SslProtocols.Tls12,
+                ServerCertificateCustomValidationCallback = ServerCertificateCustomValidation,
+
+
+            };
+
+            nonValidatingHttpClient = new HttpClient(httpClientHandler);
+
+
+           
+
+
+           //var nonValidatingHttpClient = httpGetServiceClient;
 
            // GetRequestResultAsync((HttpClient)httpGetServiceClient, endpointAddress.Uri);
 
 
-           GetRequestResultAsync(nonValidatingHttpClient, endpointAddress.Uri);
+           await GetRequestResultAsync(nonValidatingHttpClient, endpointAddress.Uri);
 
 
-           // HttpClient httpClient = new HttpClient();
-           // var countOfServices = sc.Count;
-
-
+            // HttpClient httpClient = new HttpClient();
+            // var countOfServices = sc.Count;
 
 
 
-            return Channel.GetHttpResponseAsync(hostsHttpGetRequest);
+            return "Hallo";
+
+            // return Channel.GetHttpResponseAsync(hostsHttpGetRequest);
         }
 
-        private static bool ServerCertificateCustomValidation(HttpRequestMessage requestMessage, X509Certificate2 certificate, X509Chain chain, SslPolicyErrors sslErrors)
+        
+        private static bool ServerCertificateCustomValidation(HttpRequestMessage? requestMessage, X509Certificate2? certificate, X509Chain? chain, SslPolicyErrors sslErrors)
         {
             // It is possible inpect the certificate provided by server
-            Console.WriteLine($"Requested URI: {requestMessage.RequestUri}");
-            Console.WriteLine($"Effective date: {certificate.GetEffectiveDateString()}");
-            Console.WriteLine($"Exp date: {certificate.GetExpirationDateString()}");
-            Console.WriteLine($"Issuer: {certificate.Issuer}");
-            Console.WriteLine($"Subject: {certificate.Subject}");
+            string? requestedUri = requestMessage.RequestUri.AbsoluteUri;
+            string effectivedate = certificate.GetEffectiveDateString();
+            string expDate = certificate.GetExpirationDateString();
+            string issuer = certificate.Issuer;
+            string subject = certificate.Subject;
+
+            
 
             // Based on the custom logic it is possible to decide whether the client considers certificate valid or not
-            Console.WriteLine($"Errors: {sslErrors}");
-            return sslErrors == SslPolicyErrors.None;
+            
+            // Don't care NameMismatch and ChainErrors
+            return (sslErrors & SslPolicyErrors. RemoteCertificateNotAvailable) == 0;
         }
+        
 
 
 
@@ -185,7 +213,17 @@
             //HttpClient httpClient = new HttpClient();
             //httpClient.BaseAddress = new Uri(this.endpointAddress.ToString());
 
-            var result = await httpClient.GetAsync(url);
+
+            HttpResponseMessage? result = null;
+            try
+            {
+
+                result = await httpClient.GetAsync(url);
+            }
+            catch (Exception ex)
+            {
+                string mess = ex.Message;    
+            }
 
             var content = await httpClient.GetStringAsync(url);
             var message = result.RequestMessage;

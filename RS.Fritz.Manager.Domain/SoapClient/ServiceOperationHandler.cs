@@ -11,13 +11,22 @@
             try
             {
                 // RoSchmi hier wird Request ausgeführt
+                /*
+                while (true)
+                {
+                    await Task.Delay(10);
+                }
+                */
+
                 var returnResult = await Execute(client, operation).ConfigureAwait(false);
                 return returnResult;
                 //return await Execute(client, operation).ConfigureAwait(false);
             }
             finally
             {
-                CloseClient(client);
+                // RoSchmi
+
+                //CloseClient(client);
             }
         }
 
