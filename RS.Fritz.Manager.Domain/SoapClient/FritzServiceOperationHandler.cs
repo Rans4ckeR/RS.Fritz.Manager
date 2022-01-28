@@ -6,6 +6,7 @@
 
     public sealed class FritzServiceOperationHandler : ServiceOperationHandler, IFritzServiceOperationHandler
     {
+        private readonly IHttpClientFactory httpClientFactory;
         private readonly IClientFactory<IHttpGetService> httpGetServiceClientFactory;
         private readonly IClientFactory<IFritzHostListService> fritzHostListServiceClientFactory;
         private readonly IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory;
@@ -17,8 +18,9 @@
         private readonly IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory;
 
         public FritzServiceOperationHandler(
+            IHttpClientFactory httpClientFactory,
             IClientFactory<IHttpGetService> httpGetServiceClientFactory,
-            IClientFactory<IFritzHostListService> fritzHostListServiceClientFactory,    
+            IClientFactory<IFritzHostListService> fritzHostListServiceClientFactory,
             IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,
             IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory,
             IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory,
@@ -28,6 +30,7 @@
             IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory)
             
         {
+            this.httpClientFactory = httpClientFactory;
             this.httpGetServiceClientFactory = httpGetServiceClientFactory;
             this.fritzHostListServiceClientFactory = fritzHostListServiceClientFactory;
             this.fritzHostsServiceClientFactory = fritzHostsServiceClientFactory;
@@ -58,9 +61,9 @@
             IHttpGetService? httpGetServiceClient = null;
 
 
-            
-            httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!, httpGetServiceClient), InternetGatewayDevice!.PreferredLocation, true, controlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
-            // httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!, httpGetServiceClient), InternetGatewayDevice!.PreferredLocation, false, controlUrl, 49000, NetworkCredential);
+
+            httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!, httpClientFactory), InternetGatewayDevice!.PreferredLocation, true, controlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential); ; ; ;  ; ;
+            // httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!), InternetGatewayDevice!.PreferredLocation, false, controlUrl, 49000, NetworkCredential);
 
             return httpGetServiceClient;
         }

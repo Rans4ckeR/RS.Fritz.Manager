@@ -47,7 +47,8 @@
 
     public sealed class HttpGetService : FritzServiceClient<IFritzHostsService>, IHttpGetService
     {
-        private readonly IHttpClientFactory? httpClientFactory;
+        private readonly IHttpClientFactory? httpGetServiceClientFactory;
+        //private readonly IClientFactory<IHttpGetService>? httpGetServiceClientFactory;
         private readonly IHttpGetService? httpGetServiceClient;
 
 
@@ -58,7 +59,7 @@
         private NetworkCredential networkCredential;
         private FritzServiceEndpointConfiguration endpointConfiguration;
 
-        
+
 
         //ServiceProvider myServiceProvider = new ServiceCollection();
 
@@ -85,68 +86,45 @@
         */
 
         //   public HttpGetService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential, IHttpClientFactory httpClientFactory)
-        public HttpGetService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential, IHttpGetService httpGetServiceClient)
+        public HttpGetService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential, IHttpClientFactory httpGetServiceClientFactory)
                : base(endpointConfiguration, remoteAddress, networkCredential)
         {
             this.endpointAddress = remoteAddress;
             this.networkCredential = networkCredential;
             this.endpointConfiguration = endpointConfiguration;
-            this.httpClientFactory = httpClientFactory;
-            this.httpGetServiceClient = httpGetServiceClient;
+            this.httpGetServiceClientFactory = httpGetServiceClientFactory;
+            //this.httpGetServiceClient = httpGetServiceClient;
 
-            //IClientFactory<IHttpGetService> httpGetServiceClientFactory;
-            //this.httpGetServiceClientFactory = httpGetServiceClientFactory;
-
+            
 
 
-            this.httpClientFactory = httpClientFactory;
+
+            //this.httpClientFactory = httpClientFactory;
             // this.httpGetServiceClientFactory = httpGetServiceClientFactory;
         }
 
 
         // public Task<string> GetHttpResponseAsync(HostsHttpGetRequest hostsHttpGetRequest)
         public async Task<string> GetHttpResponseAsync(IHttpGetService? httpGetServiceClient, HostsHttpGetRequest hostsHttpGetRequest)
-
         {
-
-            //IHttpClientFactory httpClientFactory = HttpClient(Constants.HttpClientName);
-
-            
-
-             ServiceCollection sc = new ServiceCollection();
+            ServiceCollection sc = new ServiceCollection();
             sc.AddHttpClient("LocalHttpClient")
                 .ConfigureHttpClient((_, httpClient) =>
                 {
                     httpClient.Timeout = TimeSpan.FromSeconds(60);
                     httpClient.DefaultRequestVersion = Version.Parse("2.0");
                 })
-                
                 .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
                 {
                     AutomaticDecompression = DecompressionMethods.All,
-
                     ClientCertificateOptions = ClientCertificateOption.Manual,
                     ClientCertificates = { new X509Certificate2("hsly9xxw87vmkybw.myfritz.net") },
-
                     SslProtocols = System.Security.Authentication.SslProtocols.Tls12,
 
                     //ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
 
                     ServerCertificateCustomValidationCallback = (HttpRequestMessage sender, X509Certificate2? certificate, X509Chain? chain, SslPolicyErrors sslPolicyErrors) => true,
-                
-
-            //ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, System.Security.Cryptography.X509Certificates.X509Certificate2?, System.Security.Cryptography.X509Certificates.X509Chain?, System.Net.Security.SslPolicyErrors, bool>  ServerCertificateCustomValidation() => (_, _, _) => true,
-
-            // ServerCertificateCustomValidationCallback = (_, _, _, _) => { return true; },
-
-            //ServerCertificateCustomValidationCallback = ServerCertificateCustomValidation,
-
-
-
-
-            // (()) = (message, cert, chain, errors) => { return true; };
-        });
-            
+                });
 
             ServiceProvider serviceProvider = sc.BuildServiceProvider();
 
@@ -164,16 +142,7 @@
 
             nonValidatingHttpClient = new HttpClient(httpClientHandler);
 
-
-           
-
-
-           //var nonValidatingHttpClient = httpGetServiceClient;
-
-           // GetRequestResultAsync((HttpClient)httpGetServiceClient, endpointAddress.Uri);
-
-
-           await GetRequestResultAsync(nonValidatingHttpClient, endpointAddress.Uri);
+            await GetRequestResultAsync(nonValidatingHttpClient, endpointAddress.Uri);
 
 
             // HttpClient httpClient = new HttpClient();
@@ -283,7 +252,7 @@
         }
 
 
-        
+        /*
         private async Task GetUPnPDescription(InternetGatewayDevice internetGatewayDevice)
         {
             Uri uri = internetGatewayDevice.Locations.SingleOrDefault(r => r.HostNameType == UriHostNameType.IPv6) ?? internetGatewayDevice.Locations.Single(r => r.HostNameType == UriHostNameType.IPv4);
@@ -295,6 +264,7 @@
             // RoSchmi
             int dummy3 = 1;
         }
+        */
         
     }
 }
