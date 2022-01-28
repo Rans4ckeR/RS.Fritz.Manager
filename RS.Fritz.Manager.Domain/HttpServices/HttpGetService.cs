@@ -141,10 +141,16 @@
 
             ServiceProvider serviceProvider = sc.BuildServiceProvider();
 
+
+
             var nonValidatingHttpClient = (HttpClient)serviceProvider.GetService(typeof(HttpClient));
 
+            //var nonValidatingHttpClient = httpGetServiceClient;
 
-            GetRequestResultAsync(nonValidatingHttpClient, endpointAddress.Uri);
+           // GetRequestResultAsync((HttpClient)httpGetServiceClient, endpointAddress.Uri);
+
+
+           GetRequestResultAsync(nonValidatingHttpClient, endpointAddress.Uri);
 
 
            // HttpClient httpClient = new HttpClient();
