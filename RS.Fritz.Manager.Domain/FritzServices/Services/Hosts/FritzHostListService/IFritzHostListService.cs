@@ -13,8 +13,8 @@
     //[XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
     public interface IFritzHostListService
     {
-        public Task<HostsGetHostListResponse> GetHostListAsync(HostsGetHostListRequest hostsGetHostListRequest);
+        //public Task<HostsGetHostListResponse> GetHostListAsync(HostsGetHostListRequest hostsGetHostListRequest);
+        Task<string> GetHttpResponseAsync();
 
-       
     }
 }

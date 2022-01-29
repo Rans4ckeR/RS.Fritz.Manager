@@ -96,12 +96,12 @@ private async Task GetAllHostEntriesAsync()
 
                 //string theResponse = await httpGetService.GetHttpResponseAsync(FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation, true, hostsGetHostListPathResponse.HostListPath, FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort, FritzServiceOperationHandler.NetworkCredential); // NetworkCredential);
 
-               
 
 
-                
 
-                string theResponse = await FritzServiceOperationHandler.GetHttpGetResponseAsync(hostsGetHostListPathResponse.HostListPath);
+                string theResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
+
+                //string theResponse = await FritzServiceOperationHandler.GetHttpGetResponseAsync(hostsGetHostListPathResponse.HostListPath);
 
                 //string theResponse = await httpGetService.GetHttpResponseAsync(); // NetworkCredential);
 

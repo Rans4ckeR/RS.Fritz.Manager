@@ -24,7 +24,7 @@
 
 
 
-    public class FritzHostListService : FritzServiceClient<IFritzHostListService>, IFritzHostListService
+    public class FritzHostListService // : FritzServiceClient<IFritzHostListService>, IFritzHostListService
     {
         //private readonly IHttpClientFactory httpClientFactory;
 
@@ -33,10 +33,12 @@
 
         public const string ControlUrl = "/tr64____desc.xml";
 
+        /*
         public FritzHostListService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
             : base(endpointConfiguration, remoteAddress, networkCredential)
         {
         }
+        */
 
         /*
         {
@@ -46,10 +48,15 @@
         */
         //public Task<HostsGetHostListPathResponse> GetHostHostListAsync(HostsGetHostListRequest hostsGetHostListRequest);
 
+
+        //Task<string> GetHttpResponseAsync();
+
+        /*
         public Task<HostsGetHostListResponse> GetHostListAsync(HostsGetHostListRequest hostsGetHostListRequest)
         {
             return Channel.GetHostListAsync(hostsGetHostListRequest);
         }
+        */
 
         /*
         private async Task GetHostList(InternetGatewayDevice internetGatewayDevice)

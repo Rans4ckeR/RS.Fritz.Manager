@@ -6,8 +6,6 @@
 
     public interface IHttpGetService
     {
-        //Task<string> GetHttpResponseAsync(IHttpGetService? httpGetServiceClient, HostsHttpGetRequest hostsHttpGetRequest);
-        //Task<string> GetHttpResponseAsync(HostsHttpGetRequest hostsHttpGetRequest);
         Task<string> GetHttpResponseAsync();
     }
 }

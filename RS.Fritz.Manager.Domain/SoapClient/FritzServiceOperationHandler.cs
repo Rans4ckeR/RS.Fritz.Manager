@@ -50,40 +50,43 @@
         // ****************************************************************** *
         public Task<string> GetHttpGetResponseAsync(string controlUrl)
         {
-            //return ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync(new HostsHttpGetRequest()));
             return ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync());
         }
 
         // RoSchmi
+        
         private IHttpGetService GetHttpGetServiceClient(string controlUrl)
         {
             // RoSchmi set security to true 
 
             IHttpGetService? httpGetServiceClient = null;
-
-
-
-            httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!, httpClientFactory), InternetGatewayDevice!.PreferredLocation, true, controlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential); 
+            httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpsNonValGetService(q, r, t!, httpClientFactory), InternetGatewayDevice!.PreferredLocation, true, controlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential); 
             // httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!), InternetGatewayDevice!.PreferredLocation, false, controlUrl, 49000, NetworkCredential);
 
             return httpGetServiceClient;
         }
 
         // *******************************************************************************************************
-
-        public Task<HostsGetHostListResponse> GetHostsGetHostListAsync()
+        public Task<string> GetHostsGetHostListAsync(string controlUrl)
         {
-           return ExecuteAsync(GetFritzHostListServiceClient(), q => q.GetHostListAsync(new HostsGetHostListRequest()));
+            // return ExecuteAsync(GetFritzHostListServiceClient(), q => q.GetHostListAsync(new HostsGetHostListRequest()));
+            // return ExecuteAsync(GetFritzHostsServiceClient(controlUrl), q => q.GetHttpResponseAsync());
+            return ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync());
+
         }
 
-        private IFritzHostListService GetFritzHostListServiceClient()
+        /*
+        private IFritzHostListService GetFritzHostsServiceClient(string controlUrl)
         {
-
-            return fritzHostListServiceClientFactory.Build((q, r, t) => new FritzHostListService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzHostListService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+            //IHttpGetService? httpGetServiceClient = null;
+            IFritzHostListService? fritzHostListServiceClient;
+            fritzHostListServiceClient = fritzHostListServiceClientFactory.Build((q, r, t) => new HttpsNonValGetService(q, r, t!, httpClientFactory), InternetGatewayDevice!.PreferredLocation, true, controlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+            return fritzHostListServiceClient;
+            // return fritzHostListServiceClientFactory.Build((q, r, t) => new FritzHostListService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzHostListService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
         }
+        */
 
         // *************************************************************************
-
         public Task<HostsGetHostNumberOfEntriesResponse> GetHostsGetHostNumberOfEntriesAsync()
         {
             return ExecuteAsync(GetFritzHostsServiceClient(), q => q.GetHostNumberOfEntriesAsync(new HostsGetHostNumberOfEntriesRequest()));

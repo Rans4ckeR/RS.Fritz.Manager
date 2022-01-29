@@ -41,18 +41,19 @@
                     services.AddSingleton<DeviceLoginInfo>();
                     services.AddSingleton<ILogger, UserInterfaceLogService>();
                     services.AddSingleton<IDeviceSearchService, DeviceSearchService>();
-                    services.AddSingleton<IHttpGetService, HttpGetService>();
+                    services.AddSingleton<IHttpGetService, HttpsNonValGetService>();
                     services.AddHttpClient(Constants.NonValidatingHttpClientName, c =>
                         {
                             c.Timeout = TimeSpan.FromSeconds(10);
                         }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
                         {
                             SslProtocols = System.Security.Authentication.SslProtocols.Tls12,
-                            
+
                             // Don't care NameMismatch and ChainErrors
-                            ServerCertificateCustomValidationCallback = (a, b, c, d) => { return (d & System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable) == 0; },
+                            ServerCertificateCustomValidationCallback = (m, crt, chn, err) => { return (err & System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable) == 0; },
+
                             // Alternative
-                            //ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                            // ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
                         });
                     //services.AddSingleton<IHttpClientFactory;
                     services.AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>();

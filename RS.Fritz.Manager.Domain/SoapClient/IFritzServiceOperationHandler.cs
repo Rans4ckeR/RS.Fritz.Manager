@@ -14,7 +14,7 @@
 
         Task<string> GetHttpGetResponseAsync(string controlUrl);
 
-        Task<HostsGetHostListResponse> GetHostsGetHostListAsync();
+        Task<string> GetHostsGetHostListAsync(string controlUrl);
 
         Task<HostsGetHostNumberOfEntriesResponse> GetHostsGetHostNumberOfEntriesAsync();
 
