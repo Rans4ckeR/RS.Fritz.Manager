@@ -14,11 +14,13 @@ namespace RS.Fritz.Manager.Domain
         {
         }
         
+        // RoSchmi
+        /*
         public Task<string> GetHttpResponseAsync(HostsHttpGetRequest hostsHttpGetRequest)
         {
             return Channel.GetHttpResponseAsync(hostsHttpGetRequest); 
         }
-        
+        */
 
         public Task<HostsGetHostNumberOfEntriesResponse> GetHostNumberOfEntriesAsync(HostsGetHostNumberOfEntriesRequest hostsGetHostNumberOfEntriesRequest)
         {

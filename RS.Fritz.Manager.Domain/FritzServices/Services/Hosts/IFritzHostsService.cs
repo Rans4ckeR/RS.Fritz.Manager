@@ -17,7 +17,7 @@
         public Task<HostsGetGenericHostEntryResponse> GetGenericHostEntryAsync(HostsGetGenericHostEntryRequest hostsGetGenericHostEntryRequest);
 
         // RoSchmi
-        public Task<string> GetHttpResponseAsync(HostsHttpGetRequest hostsHttpGetRequest);
+        //public Task<string> GetHttpResponseAsync(HostsHttpGetRequest hostsHttpGetRequest);
 
         
     }
