@@ -58,7 +58,7 @@
 
             return content;
 
-            // return Channel.GetHttpResponseAsync(hostsHttpGetRequest);
+            //return Channel.GetHttpResponseAsync(hostsHttpGetRequest);
         }
 
         private static bool ServerCertificateCustomValidation(HttpRequestMessage? requestMessage, X509Certificate2? certificate, X509Chain? chain, SslPolicyErrors sslErrors)

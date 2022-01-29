@@ -48,7 +48,11 @@
                         }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
                         {
                             SslProtocols = System.Security.Authentication.SslProtocols.Tls12,
-                            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
+                            
+                            // Don't care NameMismatch and ChainErrors
+                            ServerCertificateCustomValidationCallback = (a, b, c, d) => { return (d & System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable) == 0; },
+                            // Alternative
+                            //ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
                         });
                     //services.AddSingleton<IHttpClientFactory;
                     services.AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>();

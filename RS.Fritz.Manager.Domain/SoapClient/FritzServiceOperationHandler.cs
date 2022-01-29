@@ -63,7 +63,7 @@
 
 
 
-            httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!, httpClientFactory), InternetGatewayDevice!.PreferredLocation, true, controlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential); ; ; ;  ; ;
+            httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!, httpClientFactory), InternetGatewayDevice!.PreferredLocation, true, controlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential); 
             // httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpGetService(q, r, t!), InternetGatewayDevice!.PreferredLocation, false, controlUrl, 49000, NetworkCredential);
 
             return httpGetServiceClient;
