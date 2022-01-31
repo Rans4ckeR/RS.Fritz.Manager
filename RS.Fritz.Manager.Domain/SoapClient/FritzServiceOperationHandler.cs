@@ -53,10 +53,22 @@
 
             return httpGetServiceClient;
         }
-  
-        public Task<string> GetHostsGetHostListAsync(string controlUrl)
+
+        //public Task<string> GetHostsGetHostListAsync(string controlUrl)
+        public async Task<HostsGetHostListResponse> GetHostsGetHostListAsync(string controlUrl)
         {
-            return ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync());
+            HostsGetHostListResponse hostsGetHostListResponse = new HostsGetHostListResponse();
+            hostsGetHostListResponse.DeviceHostsList = await ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync());
+
+            //string theResult = ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync());
+
+            // HostsGetHostListResponse hostsGetHostListResponse = new HostsGetHostListResponse() { DeviceHostsList = ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync()) };
+            //HostsGetHostListResponse hostsGetHostListResponse = new HostsGetHostListResponse();
+            //hostsGetHostListResponse.DeviceHostsList = ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync());
+
+            return hostsGetHostListResponse;
+
+            //return ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync());
         }
 
         public Task<HostsGetHostNumberOfEntriesResponse> GetHostsGetHostNumberOfEntriesAsync()

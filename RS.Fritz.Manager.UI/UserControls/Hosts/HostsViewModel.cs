@@ -106,7 +106,9 @@ private async Task GetAllHostEntriesAsync()
 
                 //string theResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
 
-                hostsGetHostListResponse.DeviceHostsList = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
+                //hostsGetHostListResponse.DeviceHostsList = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
+                //hostsGetHostListResponse.DeviceHostsList = FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
+                hostsGetHostListResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
 
                 using var stringReader = new StringReader(hostsGetHostListResponse.DeviceHostsList);
                 using var xmlTextReader = new XmlTextReader(stringReader);
