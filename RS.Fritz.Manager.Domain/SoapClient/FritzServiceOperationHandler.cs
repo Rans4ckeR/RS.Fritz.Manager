@@ -58,7 +58,7 @@
         public async Task<HostsGetHostListResponse> GetHostsGetHostListAsync(string controlUrl)
         {
             HostsGetHostListResponse hostsGetHostListResponse = new HostsGetHostListResponse();
-            hostsGetHostListResponse.DeviceHostsList = await ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync());
+            hostsGetHostListResponse.DeviceHostsListXml = await ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync());
 
             //string theResult = ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync());
 

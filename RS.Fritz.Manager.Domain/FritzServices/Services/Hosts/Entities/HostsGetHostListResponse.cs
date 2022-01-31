@@ -5,6 +5,8 @@
     {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         // [MessageBodyMember(Name = "NewHostNumberOfEntries")]
-        public string DeviceHostsList { get; set; } = string.Empty;
+        public string DeviceHostsListXml { get; set; }
+
+        public DeviceHostsList? DeviceHostsList { get; set; }
     }
 }

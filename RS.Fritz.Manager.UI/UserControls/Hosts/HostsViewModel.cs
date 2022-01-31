@@ -22,7 +22,7 @@
         private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
         private HostsGetHostListPathResponse? hostsGetHostListPathResponse;
         private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
-        private HostsGetHostListResponse? hostsGetHostListResponse = new HostsGetHostListResponse() { DeviceHostsList = string.Empty};
+        private HostsGetHostListResponse? hostsGetHostListResponse; //= new HostsGetHostListResponse() { DeviceHostsList = string.Empty};
 
         private readonly IHttpGetService httpGetService;
         
@@ -108,20 +108,22 @@ private async Task GetAllHostEntriesAsync()
 
                 //hostsGetHostListResponse.DeviceHostsList = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
                 //hostsGetHostListResponse.DeviceHostsList = FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
+
+
                 hostsGetHostListResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
 
-                using var stringReader = new StringReader(hostsGetHostListResponse.DeviceHostsList);
+                using var stringReader = new StringReader(hostsGetHostListResponse.DeviceHostsListXml);
                 using var xmlTextReader = new XmlTextReader(stringReader);
 
                 //HostsGetHostListResponse
                 //DeviceHostsList
 
-                DeviceHostsList deviceHostsList;
+                //DeviceHostsList deviceHostsList;
 
                 
                 try
                 {
-                    deviceHostsList = (DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader);
+                    hostsGetHostListResponse.DeviceHostsList = (DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader);
                     int dummy5 = 1;
                 }
                 catch (Exception ex)
