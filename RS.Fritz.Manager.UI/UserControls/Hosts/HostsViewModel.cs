@@ -8,6 +8,13 @@
     using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
     using RS.Fritz.Manager.Domain;
+
+
+    
+    using System.IO;
+    
+    using System.Xml;
+    using System.Xml.Serialization;
     
 
     internal sealed class HostsViewModel : FritzServiceViewModel
@@ -15,8 +22,10 @@
         private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
         private HostsGetHostListPathResponse? hostsGetHostListPathResponse;
         private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
+        private HostsGetHostListResponse? hostsGetHostListResponse = new HostsGetHostListResponse() { DeviceHostsList = string.Empty};
+
         private readonly IHttpGetService httpGetService;
-        private HostsGetHostListResponse? hostsGetHostListResponse;
+        
 
         private string hostListPathLink = String.Empty;
 
@@ -92,22 +101,34 @@ private async Task GetAllHostEntriesAsync()
             if (HostsGetHostListPathResponse != null && FritzServiceOperationHandler.InternetGatewayDevice != null)
             {
                 HostsGetHostListPathResponse.HostListPathLink = new Uri("http://" + FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host + ":" + "49000" + hostsGetHostListPathResponse.HostListPath);
-                // FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort
 
                 //string theResponse = await httpGetService.GetHttpResponseAsync(FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation, true, hostsGetHostListPathResponse.HostListPath, FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort, FritzServiceOperationHandler.NetworkCredential); // NetworkCredential);
 
+                //string theResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
 
+                hostsGetHostListResponse.DeviceHostsList = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
 
+                using var stringReader = new StringReader(hostsGetHostListResponse.DeviceHostsList);
+                using var xmlTextReader = new XmlTextReader(stringReader);
 
-                string theResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
+                //HostsGetHostListResponse
+                //DeviceHostsList
 
-                //string theResponse = await FritzServiceOperationHandler.GetHttpGetResponseAsync(hostsGetHostListPathResponse.HostListPath);
+                DeviceHostsList deviceHostsList;
 
-                //string theResponse = await httpGetService.GetHttpResponseAsync(); // NetworkCredential);
+                
+                try
+                {
+                    deviceHostsList = (DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader);
+                    int dummy5 = 1;
+                }
+                catch (Exception ex)
+                {
+                    string mess = ex.Message;
+                }
+                
 
-
-                //  string theResponse = await httpGetService.GetHttpResponse(HostsGetHostListPathResponse.HostListPathLink);
-
+              //  internetGatewayDevice.UPnPDescription = (UPnPDescription?)new XmlSerializer(typeof(UPnPDescription)).Deserialize(xmlTextReader);
 
                 int dummy4 = 1;
             }

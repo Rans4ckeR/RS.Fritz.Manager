@@ -42,7 +42,7 @@
                     services.AddSingleton<ILogger, UserInterfaceLogService>();
                     services.AddSingleton<IDeviceSearchService, DeviceSearchService>();
                     services.AddSingleton<IHttpGetService, HttpsNonValGetService>();
-                    services.AddHttpClient(Constants.NonValidatingHttpClientName, c =>
+                    services.AddHttpClient(Constants.NonValidatingHttpsClientName, c =>
                         {
                             c.Timeout = TimeSpan.FromSeconds(10);
                         }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler

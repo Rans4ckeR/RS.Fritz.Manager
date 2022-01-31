@@ -12,7 +12,7 @@
 
         
 
-        Task<string> GetHttpGetResponseAsync(string controlUrl);
+       // Task<string> GetHttpGetResponseAsync(string controlUrl);
 
         Task<string> GetHostsGetHostListAsync(string controlUrl);
 

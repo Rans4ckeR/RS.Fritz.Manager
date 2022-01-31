@@ -27,8 +27,6 @@
         private readonly NetworkCredential networkCredential;
         private readonly FritzServiceEndpointConfiguration endpointConfiguration;
 
-        public string ControlUrl = "/Hier muss es rein";
-
         public HttpsNonValGetService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential, IHttpClientFactory httpClientFactory)
         {
             this.endpointAddress = remoteAddress;
@@ -39,9 +37,8 @@
 
         public async Task<string> GetHttpResponseAsync()
         {
-
             // Configuration is done in App.xaml.cs
-            HttpClient httpClient = httpClientFactory.CreateClient(Constants.NonValidatingHttpClientName);
+            HttpClient httpClient = httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName);
 
             HttpResponseMessage? result = await httpClient.GetAsync(endpointAddress.Uri);
 
@@ -52,8 +49,6 @@
             }
 
             return content;
-
-            //return Channel.GetHttpResponseAsync(hostsHttpGetRequest);
         }
 
         public async Task<string> GetHttpResponseAsync(Uri preferredLocation, bool secure, string controlUrl, ushort? securityPort, NetworkCredential? networkCredential)
