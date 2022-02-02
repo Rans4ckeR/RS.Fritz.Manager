@@ -131,100 +131,43 @@ private async Task GetAllHostEntriesAsync()
             {
                 HostsGetHostListPathResponse.HostListPathLink = new Uri("http://" + FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host + ":" + "49000" + hostsGetHostListPathResponse.HostListPath);
 
-                //string theResponse = await httpGetService.GetHttpResponseAsync(FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation, true, hostsGetHostListPathResponse.HostListPath, FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort, FritzServiceOperationHandler.NetworkCredential); // NetworkCredential);
-
-                //string theResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
-
-                //hostsGetHostListResponse.DeviceHostsList = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
-                //hostsGetHostListResponse.DeviceHostsList = FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
-
-
                 hostsGetHostListResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
 
-                
-
-
-
-
-
                 using var stringReader = new StringReader(hostsGetHostListResponse.DeviceHostsListXml);
-
                 using var xmlTextReader = new XmlTextReader(stringReader);
 
 
-               XDocument document = XDocument.Parse(hostsGetHostListResponse.DeviceHostsListXml);
-
-               IEnumerable<XElement> items = document.Descendants("Item");
-
-                //XmlSerializer serializer = new XmlSerializer(typeof(DeviceHostItem));
-
-
-
-                HostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHostItem>();
-
-
-
-                foreach (XElement item in items)
-                {
-                    using var stringReader2 = new StringReader(item.ToString());
-                    using var xmlTextReader2 = new XmlTextReader(stringReader2);
-
-                    try
-                    {
-                        XmlSerializer serializer = new XmlSerializer(typeof(DeviceHostItem));
-                        //XmlSerializer serializer = new XmlSerializer(item.GetType());
-                        //var buffer = new StringBuilder();
-                        //var writer = XmlWriter.Create(buffer);
-                        //serializer.Serialize(writer, item);
-                        //string xmlString = buffer.ToString();
-
-
-
-
-                       var deviceHostItem = (DeviceHostItem?)serializer.Deserialize(xmlTextReader2);
-
-                        // var deviceHostItem = serializer.Deserialize(xmlTextReader2);
-
-
-                        HostsGetHostListPathResponse.DeviceHostsCollection.Add(deviceHostItem);
-                        int dummy23 = 1;
-                    }
-                    catch (Exception ex)
-                    {
-                        string mess = ex.Message;   
-                    }
-                }
-                
-
                 /*
-                for (int i = 0; i < items.Count(); i++)
-                {
-                    var tgh = items.ToArray();
-
-                    using var stringReader2 = new StringReader(items[i]);
-
-                    //DeviceHostItem item = (DeviceHostItem)serializer.Deserialize(items[i]);
-                    int dummy = 3;
-                }
-                */
+              HostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHostItem>();
 
 
+              XDocument document = XDocument.Parse(hostsGetHostListResponse.DeviceHostsListXml);
 
-                //xmlTextReader.
+              IEnumerable<XElement> items = document.Descendants("Item");
+
+              foreach (XElement item in items)
+              {
+                  using var stringReader2 = new StringReader(item.ToString());
+                  using var xmlTextReader2 = new XmlTextReader(stringReader2);
+
+                  try
+                  {
+                      XmlSerializer serializer = new XmlSerializer(typeof(DeviceHostItem));
+
+                      var deviceHostItem = (DeviceHostItem?)serializer.Deserialize(xmlTextReader2);
+
+                      // var deviceHostItem = serializer.Deserialize(xmlTextReader2);
 
 
-                //var textReader = new TextReader(XmlReader.Create(stringReader));
-
-                //XmlReader xmlreader;
-                //xmlreader.
-
-
-
-                //HostsGetHostListResponse
-                //DeviceHostsList
-
-                //DeviceHostsList deviceHostsList;
-
+                      HostsGetHostListPathResponse.DeviceHostsCollection.Add(deviceHostItem);
+                      int dummy23 = 1;
+                  }
+                  catch (Exception ex)
+                  {
+                      string mess = ex.Message;
+                  }
+              }
+              */
 
                 try
                 {
@@ -232,28 +175,47 @@ private async Task GetAllHostEntriesAsync()
 
                     hostsGetHostListResponse.DeviceHostsList = (DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader);
 
+                    int theCount = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.Count();
+
+                    HostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>();
+
+                    for (int i = 0; i < theCount; i++)
+                    {
+                        var theResult = hostsGetHostListResponse.DeviceHostsList.DeviceHosts[i];
+                        HostsGetHostListPathResponse.DeviceHostsCollection.Add(theResult);
+
+                        int dummy56 = 1;
+                    }
+                    
+
+                   // HostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>();
+
+                   // HostsGetHostListPathResponse.DeviceHostsCollection = hostsGetHostListResponse.DeviceHostsList.DeviceHosts;
+
                     //var deviceHosts = (DeviceHost?)new XmlSerializer(typeof(DeviceHost)).Deserialize(xmlTextReader);
 
 
-                   // var theColl = ObservableCollection<DeviceHost>(hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToList<DeviceHost>());
+                    // var theColl = ObservableCollection<DeviceHost>(hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToList<DeviceHost>());
 
-                   // hostsGetHostListPathResponse.DeviceHostsCollection  ((DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader));
+                    // hostsGetHostListPathResponse.DeviceHostsCollection  ((DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader));
 
 
                     //ObservableCollection<DeviceHost>(yourlist);
 
-                  //  List<DeviceHostsList> theList = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToList<DeviceHost>();
-
-                   
-
-                    int theCount = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.Count();
+                    //  List<DeviceHostsList> theList = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToList<DeviceHost>();
 
 
-                   // hostsGetHostListResponse.DeviceHostsCollection = hostsGetHostListResponse.DeviceHostsList.to
+
+
+
+
+                    // hostsGetHostListResponse.DeviceHostsCollection = hostsGetHostListResponse.DeviceHostsList.to
 
 
                     //System.Xml.Serialization.XmlSerializer xmlSerializer = new System.Xml.Serialization.XmlSerializer(hostsGetHostListResponse.DeviceHostsList[0].GetType());
 
+                    /*
+                    
                     System.Xml.Serialization.XmlSerializer xmlSerializer = new System.Xml.Serialization.XmlSerializer(hostsGetHostListResponse.DeviceHostsList.DeviceHosts[0].GetType());
                     var buffer = new StringBuilder();
                     var writer = XmlWriter.Create(buffer);
@@ -268,17 +230,19 @@ private async Task GetAllHostEntriesAsync()
 
                     var hostProperties = element.Descendants("Item").Elements();
 
+                    */
+
 
                     //var serializeer = new XmlSerializer(typeof(DeviceHostsList)).Serialize
 
-
+                    /*
                     theCount = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.Count();
 
                     for (int i = 0; i < theCount; i++)
                     {
 
                     }
-
+                    */
 
                     //ArrayDeviceHosts = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToArray<DeviceHost>();
 

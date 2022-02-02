@@ -9,7 +9,7 @@
         // [MessageBodyMember(Name = "NewHostNumberOfEntries")]
         public string DeviceHostsListXml { get; set; }
 
-        public DeviceHostsList? DeviceHostsList { get; set; }
+       public DeviceHostsList? DeviceHostsList { get; set; }
 
         
     }
