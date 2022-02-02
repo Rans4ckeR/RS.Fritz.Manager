@@ -1,27 +1,33 @@
 ﻿namespace RS.Fritz.Manager.Domain
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
     using System.Xml.Serialization;
 
-    [XmlRoot(ElementName = "Item")]
-    public sealed record DeviceHost
-    {
-        [XmlElement(ElementName = "Index")]
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
+    [XmlRoot(ElementName = "Item")]
+    public class DeviceHostItem
+    {
+        
+
+        [XmlElement(ElementName = "Index")]
         public string Index { get; set; }
 
-        [XmlElement(ElementName = "IPAddress")]
+        [XmlElement(ElementName = "Active")]
+        public bool Active { get; set; }
 
+        [XmlElement(ElementName = "HostName")]
+        public string HostName { get; set; }
+
+
+        [XmlElement(ElementName = "IPAddress")]
         public string IPAddress { get; set; }
 
         [XmlElement(ElementName = "MACAddress")]
         public string MACAddress { get; set; }
-
-        [XmlElement(ElementName = "Active")]
-        public string Active { get; set; }
-
-        [XmlElement(ElementName = "HostName")]
-        public string HostName { get; set; }
 
         [XmlElement(ElementName = "X_AVM-DE_Port")]
 
@@ -46,7 +52,5 @@
         [XmlElement(ElementName = "X_AVM-DE_Disallow")]
 
         public string X_AVM_DE_Disallow { get; set; }
-
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     }
 }

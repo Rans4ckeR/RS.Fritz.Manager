@@ -1,6 +1,7 @@
 ﻿namespace RS.Fritz.Manager.Domain
 {
     using System;
+    using System.Collections.ObjectModel;
     using System.Collections.Generic;
     using System.Linq;
     using System.ServiceModel;
@@ -17,5 +18,10 @@
         public string HostListPath { get; set; }
 
         public Uri? HostListPathLink { get; set; } = null;
+        public DeviceHostsList? DeviceHostsList { get; set; }
+
+        public DeviceHost[] ArrayDeviceHosts { get; set; }
+
+        public ObservableCollection<DeviceHostItem> DeviceHostsCollection { get; set; }
     }
 }

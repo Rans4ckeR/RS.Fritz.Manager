@@ -796,6 +796,8 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -803,15 +805,35 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=HostListPath}" Content="_HostListPath"/>
                             <TextBlock x:Name="HostListPath" Grid.Row="0" Grid.Column="1" Text="{Binding HostListPath}"/>
-                                <TextBlock x:Name="HostListPathList" Grid.Row="1" Grid.Column="1">
+                            <TextBlock x:Name="HostListPathList" Grid.Row="1" Grid.Column="1">
                                     <ui:ExternalBrowserHyperlink NavigateUri="{Binding HostListPathLink}">
                                 <TextBlock Text="{Binding HostListPathLink}"/>
                             </ui:ExternalBrowserHyperlink>
                             </TextBlock>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=HostListPath}" Content="_HostListPath"/>
+                            <DataGrid Grid.Row="3" Grid.Column="1" Height="200" Width="600"   ItemsSource="{Binding DeviceHostsCollection}">
+                            </DataGrid>
                         </Grid>
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type domain:HostsGetHostListResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="HostList">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            
             <DataTemplate DataType="{x:Type ui:HostsViewModel}">
                 <ui:HostsView/>
             </DataTemplate>

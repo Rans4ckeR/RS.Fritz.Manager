@@ -2,19 +2,33 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Linq;
     using System.Net.Http;
+    using System.Data;
     using System.Text;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
     using RS.Fritz.Manager.Domain;
-
-
+    using System;
+    using System.Runtime.InteropServices;
+    using System.Net;
+    using System.Security;
+    using System.Windows.Input;
+    using System.Xml.Serialization;
+    using System.Xml;
+    using System.Xml.Linq;
     
+    
+    using System.IO;
+
+
+
     using System.IO;
     
     using System.Xml;
     using System.Xml.Serialization;
+    
     
 
     internal sealed class HostsViewModel : FritzServiceViewModel
@@ -23,6 +37,10 @@
         private HostsGetHostListPathResponse? hostsGetHostListPathResponse;
         private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
         private HostsGetHostListResponse? hostsGetHostListResponse; //= new HostsGetHostListResponse() { DeviceHostsList = string.Empty};
+
+        private DataSet hostsDataSet;
+
+        private DeviceHost[] arrayDeviceHosts;
 
         private readonly IHttpGetService httpGetService;
         
@@ -35,6 +53,17 @@
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
             //this.httpGetService = httpGetService;
+        }
+
+        public DeviceHost[] ArrayDeviceHosts
+        {
+            get => arrayDeviceHosts; set { _ = SetProperty(ref arrayDeviceHosts, value); }
+        }
+
+
+        public HostsGetHostListResponse? HostsGetHostListResponse
+        {
+            get => hostsGetHostListResponse; set { _ = SetProperty(ref hostsGetHostListResponse, value); }
         }
 
         public HostsGetHostNumberOfEntriesResponse? HostsGetHostNumberOfEntriesResponse
@@ -112,19 +141,170 @@ private async Task GetAllHostEntriesAsync()
 
                 hostsGetHostListResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
 
+                
+
+
+
+
+
                 using var stringReader = new StringReader(hostsGetHostListResponse.DeviceHostsListXml);
+
                 using var xmlTextReader = new XmlTextReader(stringReader);
+
+
+               XDocument document = XDocument.Parse(hostsGetHostListResponse.DeviceHostsListXml);
+
+               IEnumerable<XElement> items = document.Descendants("Item");
+
+                //XmlSerializer serializer = new XmlSerializer(typeof(DeviceHostItem));
+
+
+
+                HostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHostItem>();
+
+
+
+                foreach (XElement item in items)
+                {
+                    using var stringReader2 = new StringReader(item.ToString());
+                    using var xmlTextReader2 = new XmlTextReader(stringReader2);
+
+                    try
+                    {
+                        XmlSerializer serializer = new XmlSerializer(typeof(DeviceHostItem));
+                        //XmlSerializer serializer = new XmlSerializer(item.GetType());
+                        //var buffer = new StringBuilder();
+                        //var writer = XmlWriter.Create(buffer);
+                        //serializer.Serialize(writer, item);
+                        //string xmlString = buffer.ToString();
+
+
+
+
+                       var deviceHostItem = (DeviceHostItem?)serializer.Deserialize(xmlTextReader2);
+
+                        // var deviceHostItem = serializer.Deserialize(xmlTextReader2);
+
+
+                        HostsGetHostListPathResponse.DeviceHostsCollection.Add(deviceHostItem);
+                        int dummy23 = 1;
+                    }
+                    catch (Exception ex)
+                    {
+                        string mess = ex.Message;   
+                    }
+                }
+                
+
+                /*
+                for (int i = 0; i < items.Count(); i++)
+                {
+                    var tgh = items.ToArray();
+
+                    using var stringReader2 = new StringReader(items[i]);
+
+                    //DeviceHostItem item = (DeviceHostItem)serializer.Deserialize(items[i]);
+                    int dummy = 3;
+                }
+                */
+
+
+
+                //xmlTextReader.
+
+
+                //var textReader = new TextReader(XmlReader.Create(stringReader));
+
+                //XmlReader xmlreader;
+                //xmlreader.
+
+
 
                 //HostsGetHostListResponse
                 //DeviceHostsList
 
                 //DeviceHostsList deviceHostsList;
 
-                
+
                 try
                 {
+
+
                     hostsGetHostListResponse.DeviceHostsList = (DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader);
+
+                    //var deviceHosts = (DeviceHost?)new XmlSerializer(typeof(DeviceHost)).Deserialize(xmlTextReader);
+
+
+                   // var theColl = ObservableCollection<DeviceHost>(hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToList<DeviceHost>());
+
+                   // hostsGetHostListPathResponse.DeviceHostsCollection  ((DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader));
+
+
+                    //ObservableCollection<DeviceHost>(yourlist);
+
+                  //  List<DeviceHostsList> theList = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToList<DeviceHost>();
+
+                   
+
+                    int theCount = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.Count();
+
+
+                   // hostsGetHostListResponse.DeviceHostsCollection = hostsGetHostListResponse.DeviceHostsList.to
+
+
+                    //System.Xml.Serialization.XmlSerializer xmlSerializer = new System.Xml.Serialization.XmlSerializer(hostsGetHostListResponse.DeviceHostsList[0].GetType());
+
+                    System.Xml.Serialization.XmlSerializer xmlSerializer = new System.Xml.Serialization.XmlSerializer(hostsGetHostListResponse.DeviceHostsList.DeviceHosts[0].GetType());
+                    var buffer = new StringBuilder();
+                    var writer = XmlWriter.Create(buffer);
+                    xmlSerializer.Serialize(writer, hostsGetHostListResponse.DeviceHostsList.DeviceHosts[0]);
+                    string xmlString = buffer.ToString();
+
+                    using var stringReader2 = new StringReader(xmlString);
+
+                    using var xmlTextReader2 = new XmlTextReader(stringReader);
+
+                    XElement element = XElement.Load(stringReader);
+
+                    var hostProperties = element.Descendants("Item").Elements();
+
+
+                    //var serializeer = new XmlSerializer(typeof(DeviceHostsList)).Serialize
+
+
+                    theCount = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.Count();
+
+                    for (int i = 0; i < theCount; i++)
+                    {
+
+                    }
+
+
+                    //ArrayDeviceHosts = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToArray<DeviceHost>();
+
+                    ArrayDeviceHosts = hostsGetHostListResponse.DeviceHostsList.DeviceHosts;
+
+                    hostsGetHostListPathResponse.ArrayDeviceHosts = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToArray();
+
+                    //hostsGetHostListPathResponse.ArrayDeviceHosts[0] = 
+
+                    string theLine = hostsGetHostListPathResponse.ArrayDeviceHosts[0].ToString();
+
+
+
+                    //hostsGetHostListPathResponse.DeviceHostsList = hostsGetHostListResponse.DeviceHostsList;
+
+
+
                     int dummy5 = 1;
+
+                    hostsDataSet = new DataSet("Item");
+
+                   // hostsDataSet.ReadXml(textReader);
+
+                    //hostsDataSet.ReadXml(new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader));
+
+                    int dummy6 = 1;
                 }
                 catch (Exception ex)
                 {
@@ -140,6 +320,9 @@ private async Task GetAllHostEntriesAsync()
             // For breakpoint:
             int dummy3 = 1;
         }
+
+
+       // protected void GetSerializationData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context);
 
         private async Task GetHostsGetGenericHostEntryAsync(ushort index)
         {

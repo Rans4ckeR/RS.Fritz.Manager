@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -20,5 +21,6 @@
         <ContentControl Grid.Row="0" Content="{Binding HostsGetHostNumberOfEntriesResponse}"/>
         <ContentControl Grid.Row="1" Content="{Binding HostsGetHostListPathResponse}"/>
         <ContentControl Grid.Row="2" Content="{Binding HostListPathLink}"/>
+        <ContentControl Grid.Row="3" Content="{Binding DeviceHostsList}"/>
     </Grid>
 </UserControl>   

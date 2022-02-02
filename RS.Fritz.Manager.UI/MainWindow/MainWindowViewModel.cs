@@ -27,7 +27,7 @@
         : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
             // RoSchmi
-            this.httpGetService = httpGetService;
+            //this.httpGetService = httpGetService;
             this.deviceSearchService = deviceSearchService;
             DeviceInfoViewModel = deviceInfoViewModel;
             LanConfigSecurityViewModel = lanConfigSecurityViewModel;
