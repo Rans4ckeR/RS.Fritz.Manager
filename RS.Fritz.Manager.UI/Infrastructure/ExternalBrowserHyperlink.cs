@@ -3,6 +3,7 @@
     using System.Diagnostics;
     using System.Windows.Documents;
     using System.Windows.Navigation;
+    using System.Windows.Data;
 
     internal sealed class ExternalBrowserHyperlink : Hyperlink
     {

@@ -2,9 +2,14 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    
     using System.Collections.Generic;
     using System.Linq;
     using System.ServiceModel;
+    
+
+
+    using RS.Fritz.Manager.Domain;
 
 
 
@@ -18,12 +23,26 @@
         public string HostListPath { get; set; }
 
         public Uri? HostListPathLink { get; set; } = null;
+
         public DeviceHostsList? DeviceHostsList { get; set; }
 
         public DeviceHost[] ArrayDeviceHosts { get; set; }
 
-        //public ObservableCollection<DeviceHostItem> DeviceHostsCollection { get; set; }
+        // public System.Windows.Data.CollectionViewSource ViewSource { get; set; }
+
+        //public System.Windows.Data.CollectionViewSource
 
         public ObservableCollection<DeviceHost> DeviceHostsCollection { get; set; }
+
+        /*
+        public ObservableCollection<DeviceHost> DeviceHostsCollection
+        {
+            get => deviceHostsCollection; set
+            {
+                _ = SetProperty(ref deviceHostsCollection, value);
+            }
+        }
+        */
     }
+
 }
