@@ -28,21 +28,7 @@
 
         public DeviceHost[] ArrayDeviceHosts { get; set; }
 
-        // public System.Windows.Data.CollectionViewSource ViewSource { get; set; }
-
-        //public System.Windows.Data.CollectionViewSource
-
         public ObservableCollection<DeviceHost> DeviceHostsCollection { get; set; }
-
-        /*
-        public ObservableCollection<DeviceHost> DeviceHostsCollection
-        {
-            get => deviceHostsCollection; set
-            {
-                _ = SetProperty(ref deviceHostsCollection, value);
-            }
-        }
-        */
     }
 
 }

@@ -796,7 +796,8 @@
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="HostListPath">
                         <Grid>
                             <Grid.Resources>
-                                <CollectionViewSource x:Key="items"  Source="{Binding DeviceHostsCollection}"/>
+                                <CollectionViewSource x:Key="items"  Source="{Binding DeviceHostsCollection}">
+                                </CollectionViewSource>
                             </Grid.Resources>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>

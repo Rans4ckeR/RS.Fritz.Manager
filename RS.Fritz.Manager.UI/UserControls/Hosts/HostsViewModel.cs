@@ -143,51 +143,13 @@ private async Task GetAllHostEntriesAsync()
                 using var stringReader = new StringReader(hostsGetHostListResponse.DeviceHostsListXml);
                 using var xmlTextReader = new XmlTextReader(stringReader);
 
-
-                /*
-              HostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHostItem>();
-
-
-              XDocument document = XDocument.Parse(hostsGetHostListResponse.DeviceHostsListXml);
-
-              IEnumerable<XElement> items = document.Descendants("Item");
-
-              foreach (XElement item in items)
-              {
-                  using var stringReader2 = new StringReader(item.ToString());
-                  using var xmlTextReader2 = new XmlTextReader(stringReader2);
-
-                  try
-                  {
-                      XmlSerializer serializer = new XmlSerializer(typeof(DeviceHostItem));
-
-                      var deviceHostItem = (DeviceHostItem?)serializer.Deserialize(xmlTextReader2);
-
-                      // var deviceHostItem = serializer.Deserialize(xmlTextReader2);
-
-
-                      HostsGetHostListPathResponse.DeviceHostsCollection.Add(deviceHostItem);
-                      int dummy23 = 1;
-                  }
-                  catch (Exception ex)
-                  {
-                      string mess = ex.Message;
-                  }
-              }
-              */
-
                 try
                 {
-                   // CollectionViewSource collectionViewSource = new CollectionViewSource() { Source= HostsGetHostListPathResponse.DeviceHostsCollection, View };
-                       
-
                     hostsGetHostListResponse.DeviceHostsList = (DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader);
-
-
-
                     int theCount = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.Count();
 
-                    //BindingDeviceHostsCollection = new ObservableCollection<DeviceHost>();
+                   
+                    ObservableCollection<DeviceHost> deviceHostsCollection = new ObservableCollection<DeviceHost>();
 
                     HostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>();
 
@@ -199,16 +161,24 @@ private async Task GetAllHostEntriesAsync()
                         var theResult = hostsGetHostListResponse.DeviceHostsList.DeviceHosts[i];
                         
 
+                        
+
+                        //HostsGetHostListPathResponse.DeviceHostsCollection.Add(theResult);
+                        deviceHostsCollection.Add(theResult);
+
+                        /*
                         if (i == theCount - 1)
                         {
-                            HostsGetHostListPathResponse.DeviceHostsCollection.CollectionChanged += DeviceHostsCollection_CollectionChanged;
+                            hostsGetHostListPathResponse.DeviceHostsCollection.CollectionChanged += DeviceHostsCollection_CollectionChanged;
                         }
+                        */
 
-                        HostsGetHostListPathResponse.DeviceHostsCollection.Add(theResult);
                         int dummy56 = 1;
                     }
 
-                  
+
+                    HostsGetHostListPathResponse.DeviceHostsCollection.CollectionChanged += DeviceHostsCollection_CollectionChanged;
+
 
 
 
@@ -216,7 +186,7 @@ private async Task GetAllHostEntriesAsync()
 
 
 
-
+                    HostsGetHostListPathResponse.DeviceHostsCollection = deviceHostsCollection;
 
 
                     // HostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>();
@@ -318,12 +288,13 @@ private async Task GetAllHostEntriesAsync()
 
         private void DeviceHostsCollection_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
+
+            var theView = CollectionViewSource.GetDefaultView(HostsGetHostListPathResponse.DeviceHostsCollection);
+            theView.Refresh();
+
             int dummy543 = 1;
-            CollectionViewSource.GetDefaultView(HostsGetHostListPathResponse.DeviceHostsCollection).Refresh();
 
-            
 
-            
             //throw new NotImplementedException();
         }
 
