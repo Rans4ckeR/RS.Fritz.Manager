@@ -11,7 +11,7 @@ namespace RS.Fritz.Manager.UI
 
     internal sealed class HostsList 
     {
-        public ObservableCollection<DeviceHost> DeviceHostsCollection { get; set; } 
+       // public ObservableCollection<DeviceHost> DeviceHostsCollection { get; set; } 
         
     }
 }
