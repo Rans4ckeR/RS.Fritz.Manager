@@ -97,12 +97,14 @@
         {
             var logInfo = DeviceLoginInfo;
 
+            
+
 
             await Domain.TaskExtensions.WhenAllSafe(new[]
                 {
                    //GetHostsGetHostNumberOfEntriesAsync(),
                    GetHostsGetHostListPathAsync(),
-                   //GetAllHostEntriesAsync()
+                   
                    //GetHostsGetGenericHostEntryAsync(Index)
                 });
         }
@@ -110,6 +112,7 @@
 
         private async Task GetHostsGetHostNumberOfEntriesAsync()
         {
+            
             hostsGetHostNumberOfEntriesResponse = await FritzServiceOperationHandler.GetHostsGetHostNumberOfEntriesAsync();
         }
 
@@ -119,8 +122,8 @@
 
             if (HostsGetHostListPathResponse != null && FritzServiceOperationHandler.InternetGatewayDevice != null)
             {
-                
 
+                HostsGetHostListPathResponse.HostListPathLink = new Uri("http://" + FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host + ":" + "49000" + hostsGetHostListPathResponse.HostListPath);
                 hostsGetHostListResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
 
                 using var stringReader = new StringReader(hostsGetHostListResponse.DeviceHostsListXml);
@@ -158,10 +161,10 @@
                         if (i == theCount - 1)
                         {
 
-                            hostsGetHostListPathResponse.DeviceHostsCollection.CollectionChanged += DeviceHostsCollection_CollectionChanged;
+                            HostsGetHostListPathResponse.DeviceHostsCollection.CollectionChanged += DeviceHostsCollection_CollectionChanged;
                         }
 
-                        hostsGetHostListPathResponse.DeviceHostsCollection.Add(theResult);
+                        HostsGetHostListPathResponse.DeviceHostsCollection.Add(theResult);
 
                         //HostsGetHostListPathResponse.DeviceHostsCollection.Add(theResult);
                        // deviceHostsCollection.Add(theResult);
@@ -175,9 +178,7 @@
 
 
 
-
-
-                    hostsGetHostListPathResponse = new HostsGetHostListPathResponse { HostListPath = hostsGetHostListPathResponse.HostListPath, HostListPathLink = hostsGetHostListPathResponse.HostListPathLink, DeviceHostsCollection = hostsGetHostListPathResponse.DeviceHostsCollection };
+                   // hostsGetHostListPathResponse = new HostsGetHostListPathResponse { HostListPath = hostsGetHostListPathResponse.HostListPath, HostListPathLink = hostsGetHostListPathResponse.HostListPathLink, DeviceHostsCollection = hostsGetHostListPathResponse.DeviceHostsCollection };
 
                    // HostsGetHostListPathResponse = new HostsGetHostListPathResponse { HostListPath = HostsGetHostListPathResponse.HostListPath, HostListPathLink = HostsGetHostListPathResponse.HostListPathLink, DeviceHostsCollection = HostsGetHostListPathResponse.DeviceHostsCollection };
 

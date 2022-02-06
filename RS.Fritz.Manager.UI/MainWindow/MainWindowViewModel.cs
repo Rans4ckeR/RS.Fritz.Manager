@@ -15,19 +15,15 @@
     {
         private const string DeviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
         private readonly IDeviceSearchService deviceSearchService;
-        private readonly IHttpGetService httpGetService;
         private ObservableCollection<ObservableInternetGatewayDevice> devices = new();
         private ObservableCollection<User> users = new();
         private ObservableObject? activeView;
         private string? userMessage;
         private bool deviceAndLoginControlsEnabled = true;
 
-        // public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, HostsViewModel hostsViewModel, WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel,  WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceSearchService deviceSearchService, IHttpGetService httpGetService)
         public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, HostsViewModel hostsViewModel, WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel, WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceSearchService deviceSearchService)
         : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
-            // RoSchmi
-            //this.httpGetService = httpGetService;
             this.deviceSearchService = deviceSearchService;
             DeviceInfoViewModel = deviceInfoViewModel;
             LanConfigSecurityViewModel = lanConfigSecurityViewModel;
@@ -48,8 +44,6 @@
             UpdateCanExecuteDefaultCommand();
         }
 
-
-
         public static string Title => "FritzManager";
 
         public DeviceInfoViewModel DeviceInfoViewModel { get; }
@@ -68,7 +62,6 @@
 
         public string? UserMessage
         {
-            
             get => userMessage; set { _ = SetProperty(ref userMessage, value); }
         }
 
@@ -79,13 +72,15 @@
 
         public ObservableCollection<User> Users { get => users; set => _ = SetProperty(ref users, value); }
 
+        
+
         public ObservableObject? ActiveView { get => activeView; set => _ = SetProperty(ref activeView, value); }
 
         public ObservableCollection<ObservableInternetGatewayDevice> Devices { get => devices; set => _ = SetProperty(ref devices, value); }
 
         public void Receive(PropertyChangedMessage<IEnumerable<User>> message)
         {
-            if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
+            if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)             
                 return;
 
             Users = message.PropertyName switch
@@ -108,9 +103,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            Devices = new ObservableCollection<ObservableInternetGatewayDevice>((await deviceSearchService.GetDevicesAsync(DeviceType)).Select(q => new ObservableInternetGatewayDevice(q)));
-            // RoSchmi
-            int dummy3 = 1;
+            Devices = new ObservableCollection<ObservableInternetGatewayDevice>((await deviceSearchService.GetDevicesAsync(DeviceType)).Select(q => new ObservableInternetGatewayDevice(q)));         
         }
 
         protected override bool GetCanExecuteDefaultCommand()
