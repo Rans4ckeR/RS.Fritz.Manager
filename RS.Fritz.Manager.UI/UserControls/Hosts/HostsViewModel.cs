@@ -36,7 +36,7 @@
         private HostsGetHostListPathResponse? hostsGetHostListPathResponse;
         private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
         private HostsGetHostListResponse? hostsGetHostListResponse; //= new HostsGetHostListResponse() { DeviceHostsList = string.Empty};
-        private ObservableCollection<DeviceHost> bindingDeviceHostsCollection;
+        //private ObservableCollection<DeviceHost> bindingDeviceHostsCollection;
 
         
 
@@ -62,11 +62,12 @@
             get => arrayDeviceHosts; set { _ = SetProperty(ref arrayDeviceHosts, value); }
         }
 
-
+        /*
         public ObservableCollection<DeviceHost> BindingDeviceHostsCollection
         {
             get => bindingDeviceHostsCollection; set { _ = SetProperty(ref bindingDeviceHostsCollection, value); }
         }
+        */
 
         public HostsGetHostListResponse? HostsGetHostListResponse
         {
@@ -107,24 +108,6 @@
         }
 
 
-private async Task GetAllHostEntriesAsync()
-{
-    StringBuilder lineBuffer = new StringBuilder();
-    if (hostsGetHostNumberOfEntriesResponse != null && hostsGetHostNumberOfEntriesResponse.HostNumberOfEntries > 0)
-    {
-        for (ushort i = 0; i < hostsGetHostNumberOfEntriesResponse.HostNumberOfEntries; i++)
-        {
-            await GetHostsGetGenericHostEntryAsync(i);
-            lineBuffer.Append(hostsGetGenericHostEntryResponse.IPAddress + " ");
-            lineBuffer.Append(hostsGetGenericHostEntryResponse.MACAddress + " ");
-            lineBuffer.Append("\r\n");
-        }
-    }
-    string allHostsString = lineBuffer.ToString();
-    int dummy3 = 1;
-
-}
-
         private async Task GetHostsGetHostNumberOfEntriesAsync()
         {
             hostsGetHostNumberOfEntriesResponse = await FritzServiceOperationHandler.GetHostsGetHostNumberOfEntriesAsync();
@@ -136,7 +119,7 @@ private async Task GetAllHostEntriesAsync()
 
             if (HostsGetHostListPathResponse != null && FritzServiceOperationHandler.InternetGatewayDevice != null)
             {
-                HostsGetHostListPathResponse.HostListPathLink = new Uri("http://" + FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host + ":" + "49000" + hostsGetHostListPathResponse.HostListPath);
+                
 
                 hostsGetHostListResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
 
@@ -145,48 +128,62 @@ private async Task GetAllHostEntriesAsync()
 
                 try
                 {
+                    // fill the array with hosts in HostListResponse (not the actual Data Context)
                     hostsGetHostListResponse.DeviceHostsList = (DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader);
+
+                    // get the number of hosts
                     int theCount = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.Count();
 
-                   
-                    ObservableCollection<DeviceHost> deviceHostsCollection = new ObservableCollection<DeviceHost>();
 
-                    HostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>();
+                    // ObservableCollection<DeviceHost> deviceHostsCollection = new ObservableCollection<DeviceHost>();
 
-                    
-                    
+                    //HostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>();
+
+                    //HostsGetHostListPathResponse.DeviceHostsCollection.Clear();
+
+                    //HostsGetHostListPathResponse.DeviceHostsCollection.CollectionChanged += DeviceHostsCollection_CollectionChanged;
+
+                    // Persons persons = (Persons)this.FindResource("Persons");
+
+                    hostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>();
+
 
                     for (int i = 0; i < theCount; i++)
                     {
                         var theResult = hostsGetHostListResponse.DeviceHostsList.DeviceHosts[i];
-                        
 
-                        
 
-                        //HostsGetHostListPathResponse.DeviceHostsCollection.Add(theResult);
-                        deviceHostsCollection.Add(theResult);
 
-                        /*
+
                         if (i == theCount - 1)
                         {
+
                             hostsGetHostListPathResponse.DeviceHostsCollection.CollectionChanged += DeviceHostsCollection_CollectionChanged;
                         }
-                        */
+
+                        hostsGetHostListPathResponse.DeviceHostsCollection.Add(theResult);
+
+                        //HostsGetHostListPathResponse.DeviceHostsCollection.Add(theResult);
+                       // deviceHostsCollection.Add(theResult);
+
+                        
+                        
+                        
 
                         int dummy56 = 1;
                     }
 
 
-                    HostsGetHostListPathResponse.DeviceHostsCollection.CollectionChanged += DeviceHostsCollection_CollectionChanged;
 
 
 
+                    hostsGetHostListPathResponse = new HostsGetHostListPathResponse { HostListPath = hostsGetHostListPathResponse.HostListPath, HostListPathLink = hostsGetHostListPathResponse.HostListPathLink, DeviceHostsCollection = hostsGetHostListPathResponse.DeviceHostsCollection };
 
-                    // HostsGetHostListPathResponse = new HostsGetHostListPathResponse { HostListPath = HostsGetHostListPathResponse.HostListPath, HostListPathLink = HostsGetHostListPathResponse.HostListPathLink, DeviceHostsCollection = HostsGetHostListPathResponse.DeviceHostsCollection };
+                   // HostsGetHostListPathResponse = new HostsGetHostListPathResponse { HostListPath = HostsGetHostListPathResponse.HostListPath, HostListPathLink = HostsGetHostListPathResponse.HostListPathLink, DeviceHostsCollection = HostsGetHostListPathResponse.DeviceHostsCollection };
 
 
 
-                    HostsGetHostListPathResponse.DeviceHostsCollection = deviceHostsCollection;
+                  //  HostsGetHostListPathResponse.DeviceHostsCollection = deviceHostsCollection;
 
 
                     // HostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>();
@@ -289,8 +286,9 @@ private async Task GetAllHostEntriesAsync()
         private void DeviceHostsCollection_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
 
-            var theView = CollectionViewSource.GetDefaultView(HostsGetHostListPathResponse.DeviceHostsCollection);
+            var theView = CollectionViewSource.GetDefaultView(hostsGetHostListPathResponse.DeviceHostsCollection);
             theView.Refresh();
+            
 
             int dummy543 = 1;
 

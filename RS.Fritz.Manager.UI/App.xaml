@@ -6,7 +6,6 @@
              xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
     <Application.Resources>
         <ResourceDictionary>
-            <CollectionViewSource x:Key="MyCVS2"  Source="{Binding Source={x:Reference domain:HostsGetHostListPathResponse.DeviceHostsCollection }}"/>
             <SolidColorBrush x:Key="WindowBackgroundSolidColorBrush" Color="#FF292822"/>
             <SolidColorBrush x:Key="ForegroundSolidColorBrush" Color="#FF121212"/>
             <SolidColorBrush x:Key="NavigationBackgroundSolidColorBrush" Color="#FF266FC3"/>
@@ -791,12 +790,11 @@
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type domain:HostsGetHostListPathResponse}">
-                
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="HostListPath">
                         <Grid>
                             <Grid.Resources>
-                                <CollectionViewSource x:Key="items"  Source="{Binding DeviceHostsCollection}">
+                                <CollectionViewSource x:Key="hostsCvs"  Source="{Binding DeviceHostsCollection}">
                                 </CollectionViewSource>
                             </Grid.Resources>
                                 <Grid.RowDefinitions>
@@ -817,7 +815,7 @@
                             </ui:ExternalBrowserHyperlink>
                             </TextBlock>
                                 <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=HostListPath}" Content="_HostListPath"/>
-                            <DataGrid Grid.Row="3" Grid.Column="1" Height="180" IsReadOnly="true" ItemsSource="{Binding Source={StaticResource items}}">
+                            <DataGrid Grid.Row="3" Grid.Column="1" Height="180" IsReadOnly="true" ItemsSource="{Binding Source={StaticResource hostsCvs}, Mode=Default}">
                             </DataGrid>
                             </Grid>
                     </Expander>

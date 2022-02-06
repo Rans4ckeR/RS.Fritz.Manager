@@ -28,7 +28,7 @@
 
         public DeviceHost[] ArrayDeviceHosts { get; set; }
 
-        public ObservableCollection<DeviceHost> DeviceHostsCollection { get; set; }
+        public ObservableCollection<DeviceHost> DeviceHostsCollection { get; set; } = new ObservableCollection<DeviceHost>();
     }
 
 }
