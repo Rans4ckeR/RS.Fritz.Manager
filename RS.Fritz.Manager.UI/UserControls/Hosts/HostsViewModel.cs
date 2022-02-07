@@ -20,37 +20,10 @@
 
         private ushort index = 0;
 
-        //private DeviceHost[] arrayDeviceHosts;
-
-        //private readonly IHttpGetService httpGetService;
-        
-
-        private string hostListPathLink = String.Empty;
-
-        //public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler, IHttpGetService httpGetService)
-         public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+        public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
 
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
-            //this.httpGetService = httpGetService;
-        }
-
-        /*
-        public DeviceHost[] ArrayDeviceHosts
-        {
-            get => arrayDeviceHosts; set { _ = SetProperty(ref arrayDeviceHosts, value); }
-        }
-        */
-        /*
-        public ObservableCollection<DeviceHost> BindingDeviceHostsCollection
-        {
-            get => bindingDeviceHostsCollection; set { _ = SetProperty(ref bindingDeviceHostsCollection, value); }
-        }
-        */
-
-        public HostsGetHostListResponse? HostsGetHostListResponse
-        {
-            get => hostsGetHostListResponse; set { _ = SetProperty(ref hostsGetHostListResponse, value); }
         }
 
         public HostsGetHostNumberOfEntriesResponse? HostsGetHostNumberOfEntriesResponse
@@ -63,31 +36,27 @@
             get => hostsGetHostListPathResponse; set { _ = SetProperty(ref hostsGetHostListPathResponse, value); }
         }
 
-         
+        public HostsGetHostListResponse? HostsGetHostListResponse
+        {
+            get => hostsGetHostListResponse; set { _ = SetProperty(ref hostsGetHostListResponse, value); }
+        }
 
         public HostsGetGenericHostEntryResponse? HostsGetGenericHostEntryResponse
         {
             get => hostsGetGenericHostEntryResponse; set { _ = SetProperty(ref hostsGetGenericHostEntryResponse, value); }
         }
 
-        
-
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            var logInfo = DeviceLoginInfo;
-
-            
-
+            //var logInfo = DeviceLoginInfo;
 
             await Domain.TaskExtensions.WhenAllSafe(new[]
                 {
-                   //GetHostsGetHostNumberOfEntriesAsync(),
+                   GetHostsGetHostNumberOfEntriesAsync(),
                    GetHostsGetHostListPathAsync(),
-                   
                    GetHostsGetGenericHostEntryAsync(index)
                 });
         }
-
 
         private async Task GetHostsGetHostNumberOfEntriesAsync()
         {
