@@ -1,6 +1,5 @@
 ﻿namespace RS.Fritz.Manager.Domain
 {
-    
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -14,7 +13,6 @@
     using System.Threading.Tasks;
     using System.Xml;
     using System.Xml.Serialization;
-    
 
     public sealed class DeviceSearchService : IDeviceSearchService
     {
@@ -160,8 +158,6 @@
             using var xmlTextReader = new XmlTextReader(stringReader);
 
             internetGatewayDevice.UPnPDescription = (UPnPDescription?)new XmlSerializer(typeof(UPnPDescription)).Deserialize(xmlTextReader);
-            // RoSchmi
-            int dummy3 = 1;
         }
     }
 }

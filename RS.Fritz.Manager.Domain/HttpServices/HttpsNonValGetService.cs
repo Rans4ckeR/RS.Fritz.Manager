@@ -1,25 +1,11 @@
 ﻿namespace RS.Fritz.Manager.Domain
 {
     using System;
-    using System.Threading.Tasks;
     using System.Net;
     using System.Net.Http;
-    using System.Net.Security;
-    using System.Xml;
-    using System.Xml.Serialization;
     using System.ServiceModel;
-    using System.Security.Cryptography.X509Certificates;
-    using Microsoft.Extensions.DependencyInjection;
-    
-    using Microsoft.Extensions.Logging;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    
-    using System.Net.NetworkInformation;
-    using System.Net.Sockets;
-    using System.Text;
-    
+    using System.Threading.Tasks;
+
     public sealed class HttpsNonValGetService : IHttpGetService 
     {
         private readonly IHttpClientFactory httpClientFactory;
@@ -57,20 +43,5 @@
             await Task.Delay(1);
             return string.Empty;
         }
-
-        /*
-        private async Task GetUPnPDescription(InternetGatewayDevice internetGatewayDevice)
-        {
-            Uri uri = internetGatewayDevice.Locations.SingleOrDefault(r => r.HostNameType == UriHostNameType.IPv6) ?? internetGatewayDevice.Locations.Single(r => r.HostNameType == UriHostNameType.IPv4);
-            string uPnPDescription = await httpClientFactory.CreateClient(Constants.HttpClientName).GetStringAsync(uri);
-            using var stringReader = new StringReader(uPnPDescription);
-            using var xmlTextReader = new XmlTextReader(stringReader);
-
-            internetGatewayDevice.UPnPDescription = (UPnPDescription?)new XmlSerializer(typeof(UPnPDescription)).Deserialize(xmlTextReader);
-            // RoSchmi
-            int dummy3 = 1;
-        }
-        */
-        
     }
 }

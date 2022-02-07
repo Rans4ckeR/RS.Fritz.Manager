@@ -15,11 +15,6 @@
 
         public Uri? HostListPathLink { get; set; } = null;
 
-        public DeviceHostsList? DeviceHostsList { get; set; }
-
-       // public DeviceHost[] ArrayDeviceHosts { get; set; }
-
-        public ObservableCollection<DeviceHost> DeviceHostsCollection { get; set; } = new();   //= new ObservableCollection<DeviceHost>();
+        public ObservableCollection<DeviceHost> DeviceHostsCollection { get; set; } = new();
     }
-
 }

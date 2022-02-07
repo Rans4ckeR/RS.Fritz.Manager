@@ -13,14 +13,6 @@ namespace RS.Fritz.Manager.Domain
             : base(endpointConfiguration, remoteAddress, networkCredential)
         {
         }
-        
-        // RoSchmi
-        /*
-        public Task<string> GetHttpResponseAsync(HostsHttpGetRequest hostsHttpGetRequest)
-        {
-            return Channel.GetHttpResponseAsync(hostsHttpGetRequest); 
-        }
-        */
 
         public Task<HostsGetHostNumberOfEntriesResponse> GetHostNumberOfEntriesAsync(HostsGetHostNumberOfEntriesRequest hostsGetHostNumberOfEntriesRequest)
         {
@@ -34,10 +26,7 @@ namespace RS.Fritz.Manager.Domain
 
         public Task<HostsGetGenericHostEntryResponse> GetGenericHostEntryAsync(HostsGetGenericHostEntryRequest hostsGetGenericHostEntryRequest)
         {
-            // RoSchmi
-            var returnResult = Channel.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest);
-            return returnResult;
-            //return Channel.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest);
+            return Channel.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest);
         }
     }
 }

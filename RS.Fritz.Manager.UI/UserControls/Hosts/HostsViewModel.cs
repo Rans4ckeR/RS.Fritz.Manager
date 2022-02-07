@@ -48,13 +48,11 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            //var logInfo = DeviceLoginInfo;
-
             await Domain.TaskExtensions.WhenAllSafe(new[]
                 {
-                   GetHostsGetHostNumberOfEntriesAsync(),
-                   GetHostsGetHostListPathAsync(),
-                   GetHostsGetGenericHostEntryAsync(index)
+                    GetHostsGetHostListPathAsync(),
+                    GetHostsGetHostNumberOfEntriesAsync(),
+                    GetHostsGetGenericHostEntryAsync(index)
                 });
         }
 
@@ -65,7 +63,7 @@
 
         private async Task GetHostsGetGenericHostEntryAsync(ushort index)
         {
-            hostsGetGenericHostEntryResponse = await FritzServiceOperationHandler.GetHostsGetGenericHostEntryAsync(index);
+            hostsGetGenericHostEntryResponse = await FritzServiceOperationHandler.GetHostsGetGenericHostEntryAsync(index);         
         }
 
         private async Task GetHostsGetHostListPathAsync()

@@ -1,6 +1,4 @@
-﻿
-
-namespace RS.Fritz.Manager.Domain
+﻿namespace RS.Fritz.Manager.Domain
 {
     using System.Xml.Serialization;
 

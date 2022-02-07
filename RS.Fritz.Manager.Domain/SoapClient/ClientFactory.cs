@@ -9,8 +9,7 @@
     {
         public TInterface Build(Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, TInterface> createClient, Uri location, bool secure, string controlUrl, ushort? port = null, NetworkCredential? networkCredential = null)
         {
-            var returnClient = createClient(GetEndpointConfiguration(secure), GetEndpointAddress(location, secure, controlUrl, port), networkCredential);
-            return returnClient;   
+            return createClient(GetEndpointConfiguration(secure), GetEndpointAddress(location, secure, controlUrl, port), networkCredential);
         }
 
         private static EndpointAddress GetEndpointAddress(Uri location, bool secure, string controlUrl, int? port = null)
