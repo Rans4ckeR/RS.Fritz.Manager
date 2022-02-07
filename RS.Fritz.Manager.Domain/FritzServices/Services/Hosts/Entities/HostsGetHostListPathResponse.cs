@@ -2,16 +2,7 @@
 {
     using System;
     using System.Collections.ObjectModel;
-    
-    using System.Collections.Generic;
-    using System.Linq;
     using System.ServiceModel;
-    
-
-
-    using RS.Fritz.Manager.Domain;
-
-
 
     [MessageContract(WrapperName = "GetHostListPathResponse")]
 #pragma warning disable S101 // Types should be named in PascalCase
@@ -28,7 +19,7 @@
 
         public DeviceHost[] ArrayDeviceHosts { get; set; }
 
-        public ObservableCollection<DeviceHost> DeviceHostsCollection { get; set; } = new ObservableCollection<DeviceHost>();
+        public ObservableCollection<DeviceHost> DeviceHostsCollection { get; set; } = new();   //= new ObservableCollection<DeviceHost>();
     }
 
 }

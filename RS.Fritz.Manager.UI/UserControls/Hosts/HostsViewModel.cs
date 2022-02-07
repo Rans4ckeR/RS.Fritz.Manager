@@ -36,11 +36,11 @@
         private HostsGetHostListPathResponse? hostsGetHostListPathResponse;
         private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
         private HostsGetHostListResponse? hostsGetHostListResponse; //= new HostsGetHostListResponse() { DeviceHostsList = string.Empty};
-        //private ObservableCollection<DeviceHost> bindingDeviceHostsCollection;
+        private ObservableCollection<DeviceHost> bindingDeviceHostsCollection;
 
         
 
-        private DataSet hostsDataSet;
+        
 
         private DeviceHost[] arrayDeviceHosts;
 
@@ -62,12 +62,12 @@
             get => arrayDeviceHosts; set { _ = SetProperty(ref arrayDeviceHosts, value); }
         }
 
-        /*
+        
         public ObservableCollection<DeviceHost> BindingDeviceHostsCollection
         {
             get => bindingDeviceHostsCollection; set { _ = SetProperty(ref bindingDeviceHostsCollection, value); }
         }
-        */
+        
 
         public HostsGetHostListResponse? HostsGetHostListResponse
         {
@@ -134,138 +134,27 @@
                     // fill the array with hosts in HostListResponse (not the actual Data Context)
                     hostsGetHostListResponse.DeviceHostsList = (DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader);
 
-                    // get the number of hosts
-                    int theCount = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.Count();
-
-
-                    // ObservableCollection<DeviceHost> deviceHostsCollection = new ObservableCollection<DeviceHost>();
-
-                    //HostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>();
-
-                    //HostsGetHostListPathResponse.DeviceHostsCollection.Clear();
-
-                    //HostsGetHostListPathResponse.DeviceHostsCollection.CollectionChanged += DeviceHostsCollection_CollectionChanged;
-
-                    // Persons persons = (Persons)this.FindResource("Persons");
+                    int hostsCount = hostsGetHostListResponse.DeviceHostsList != null ? hostsGetHostListResponse.DeviceHostsList.DeviceHosts.Count() : 0;
 
                     hostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>();
 
-
-                    for (int i = 0; i < theCount; i++)
+                    for (int i = 0; i < hostsCount; i++)
                     {
-                        var theResult = hostsGetHostListResponse.DeviceHostsList.DeviceHosts[i];
+#pragma warning disable CS8602 // Dereferenzierung eines möglichen Nullverweises.
+                        var host = hostsGetHostListResponse.DeviceHostsList.DeviceHosts[i];
+#pragma warning restore CS8602 // Dereferenzierung eines möglichen Nullverweises
 
-
-
-
-                        if (i == theCount - 1)
+                        if (i == hostsCount - 1)
                         {
-
-                            HostsGetHostListPathResponse.DeviceHostsCollection.CollectionChanged += DeviceHostsCollection_CollectionChanged;
+                            hostsGetHostListPathResponse.DeviceHostsCollection.CollectionChanged += DeviceHostsCollection_CollectionChanged;
                         }
 
-                        HostsGetHostListPathResponse.DeviceHostsCollection.Add(theResult);
-
-                        //HostsGetHostListPathResponse.DeviceHostsCollection.Add(theResult);
-                       // deviceHostsCollection.Add(theResult);
-
-                        
-                        
-                        
-
-                        int dummy56 = 1;
+                        hostsGetHostListPathResponse.DeviceHostsCollection.Add(host);
                     }
-
-
-
-                   // hostsGetHostListPathResponse = new HostsGetHostListPathResponse { HostListPath = hostsGetHostListPathResponse.HostListPath, HostListPathLink = hostsGetHostListPathResponse.HostListPathLink, DeviceHostsCollection = hostsGetHostListPathResponse.DeviceHostsCollection };
-
-                   // HostsGetHostListPathResponse = new HostsGetHostListPathResponse { HostListPath = HostsGetHostListPathResponse.HostListPath, HostListPathLink = HostsGetHostListPathResponse.HostListPathLink, DeviceHostsCollection = HostsGetHostListPathResponse.DeviceHostsCollection };
-
-
-
-                  //  HostsGetHostListPathResponse.DeviceHostsCollection = deviceHostsCollection;
-
-
-                    // HostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>();
-
-                    // HostsGetHostListPathResponse.DeviceHostsCollection = hostsGetHostListResponse.DeviceHostsList.DeviceHosts;
-
-                    //var deviceHosts = (DeviceHost?)new XmlSerializer(typeof(DeviceHost)).Deserialize(xmlTextReader);
-
-
-                    // var theColl = ObservableCollection<DeviceHost>(hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToList<DeviceHost>());
-
-                    // hostsGetHostListPathResponse.DeviceHostsCollection  ((DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader));
-
-
-                    //ObservableCollection<DeviceHost>(yourlist);
-
-                    //  List<DeviceHostsList> theList = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToList<DeviceHost>();
-
-
-
-
-
-
-                    // hostsGetHostListResponse.DeviceHostsCollection = hostsGetHostListResponse.DeviceHostsList.to
-
-
-                    //System.Xml.Serialization.XmlSerializer xmlSerializer = new System.Xml.Serialization.XmlSerializer(hostsGetHostListResponse.DeviceHostsList[0].GetType());
-
-                    /*
-                    
-                    System.Xml.Serialization.XmlSerializer xmlSerializer = new System.Xml.Serialization.XmlSerializer(hostsGetHostListResponse.DeviceHostsList.DeviceHosts[0].GetType());
-                    var buffer = new StringBuilder();
-                    var writer = XmlWriter.Create(buffer);
-                    xmlSerializer.Serialize(writer, hostsGetHostListResponse.DeviceHostsList.DeviceHosts[0]);
-                    string xmlString = buffer.ToString();
-
-                    using var stringReader2 = new StringReader(xmlString);
-
-                    using var xmlTextReader2 = new XmlTextReader(stringReader);
-
-                    XElement element = XElement.Load(stringReader);
-
-                    var hostProperties = element.Descendants("Item").Elements();
-
-                    */
-
-
-                    //var serializeer = new XmlSerializer(typeof(DeviceHostsList)).Serialize
-
-                    /*
-                    theCount = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.Count();
-
-                    for (int i = 0; i < theCount; i++)
-                    {
-
-                    }
-                    */
-
-                    //ArrayDeviceHosts = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToArray<DeviceHost>();
 
                     ArrayDeviceHosts = hostsGetHostListResponse.DeviceHostsList.DeviceHosts;
 
                     hostsGetHostListPathResponse.ArrayDeviceHosts = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToArray();
-
-                    //hostsGetHostListPathResponse.ArrayDeviceHosts[0] = 
-
-                    string theLine = hostsGetHostListPathResponse.ArrayDeviceHosts[0].ToString();
-
-
-
-                    //hostsGetHostListPathResponse.DeviceHostsList = hostsGetHostListResponse.DeviceHostsList;
-
-
-
-                    int dummy5 = 1;
-
-                    hostsDataSet = new DataSet("Item");
-
-                   // hostsDataSet.ReadXml(textReader);
-
-                    //hostsDataSet.ReadXml(new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader));
 
                     int dummy6 = 1;
                 }
@@ -286,8 +175,9 @@
 
         private void DeviceHostsCollection_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-
+#pragma warning disable CS8602 // Dereferenzierung eines möglichen Nullverweises.
             var theView = CollectionViewSource.GetDefaultView(hostsGetHostListPathResponse.DeviceHostsCollection);
+#pragma warning restore CS8602 // Dereferenzierung eines möglichen Nullverweises.
             theView.Refresh();
             
 
