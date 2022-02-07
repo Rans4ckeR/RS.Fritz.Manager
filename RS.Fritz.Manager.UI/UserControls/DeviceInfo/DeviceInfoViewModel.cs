@@ -45,23 +45,17 @@
 
         private async Task GetDeviceInfoGetSecurityPortAsync()
         {
-            DeviceInfoGetSecurityPortResponse = await FritzServiceOperationHandler.DeviceInfoGetSecurityPortAsync();
-            // RoSchmi
-            int dummy = 1;
+            DeviceInfoGetSecurityPortResponse = await FritzServiceOperationHandler.DeviceInfoGetSecurityPortAsync();           
         }
 
         private async Task GetDeviceInfoGetInfoAsync()
         {
             DeviceInfoGetInfoResponse = await FritzServiceOperationHandler.DeviceInfoGetInfoAsync();
-            // RoSchmi
-            int dummy = 1;
         }
 
         private async Task GetDeviceInfoGetDeviceLogAsync()
         {
             DeviceInfoGetDeviceLogResponse = await FritzServiceOperationHandler.DeviceInfoGetDeviceLogAsync();
-            // RoSchmi
-            int dummy = 1;
         }
     }
 }

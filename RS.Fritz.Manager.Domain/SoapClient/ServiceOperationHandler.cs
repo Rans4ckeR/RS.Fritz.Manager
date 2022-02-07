@@ -10,31 +10,17 @@
         {
             try
             {
-                // RoSchmi hier wird Request ausgeführt
-                /*
-                while (true)
-                {
-                    await Task.Delay(10);
-                }
-                */
-
-                var returnResult = await Execute(client, operation).ConfigureAwait(false);
-                return returnResult;
-                //return await Execute(client, operation).ConfigureAwait(false);
+                return await Execute(client, operation).ConfigureAwait(false);
             }
             finally
             {
-                // RoSchmi
-
                 //CloseClient(client);
             }
         }
 
         private static Task<TResult> Execute<T, TResult>(T client, Func<T, Task<TResult>> operation)
         {
-            var returnResult = operation(client);
-            return returnResult;
-            //return operation(client);
+            return operation(client);
         }
 
         private static void CloseClient<T>(T client)

@@ -1,7 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI
 {
-    using System;
-    using System.Linq;
+    using System; 
     using System.Net;
     using System.Net.Http;
     using System.Threading.Tasks;
@@ -55,7 +54,6 @@
                             // Alternative
                             // ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
                         });
-                    //services.AddSingleton<IHttpClientFactory;
                     services.AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>();
                     services.AddSingleton<IClientFactory<IHttpGetService>, ClientFactory<IHttpGetService>>();
                     services.AddSingleton<IClientFactory<IFritzHostListService>, ClientFactory<IFritzHostListService>>();
@@ -75,9 +73,6 @@
             await host.StartAsync();
 
             var mainWindow = host.Services.GetRequiredService<MainWindow>();
-
-            
-            
 
             mainWindow.Show();
 
@@ -102,7 +97,7 @@
 
         private static void ConfigureHttpClients(IServiceCollection services)
         {
-            services.AddHttpClient(Constants.HttpClientName)               
+            services.AddHttpClient(Constants.HttpClientName)
                 .ConfigureHttpClient((_, httpClient) =>
                 {
                     httpClient.Timeout = TimeSpan.FromSeconds(60);
@@ -112,16 +107,6 @@
                 {
                     AutomaticDecompression = DecompressionMethods.All
                 });
-            // RoSchmi
-            int count = services.Count;
-            var service = services.First();
-            for (int i = 70; i < count; i++)
-            {
-                var theService = services[i];
-                int dummy2 = 1;
-            }
-            
-            int dummy = 1;
         }
 
         private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

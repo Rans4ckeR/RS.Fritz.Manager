@@ -72,15 +72,13 @@
 
         public ObservableCollection<User> Users { get => users; set => _ = SetProperty(ref users, value); }
 
-        
-
         public ObservableObject? ActiveView { get => activeView; set => _ = SetProperty(ref activeView, value); }
 
         public ObservableCollection<ObservableInternetGatewayDevice> Devices { get => devices; set => _ = SetProperty(ref devices, value); }
 
         public void Receive(PropertyChangedMessage<IEnumerable<User>> message)
         {
-            if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)             
+            if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
                 return;
 
             Users = message.PropertyName switch
