@@ -1,50 +1,28 @@
 ﻿namespace RS.Fritz.Manager.UI
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.IO;
     using System.Linq;
-    using System.Net.Http;
-    using System.Data;
-    using System.Text;
     using System.Threading.Tasks;
+    using System.Windows.Data;
+    using System.Xml;
+    using System.Xml.Serialization;
     using Microsoft.Extensions.Logging;
     using RS.Fritz.Manager.Domain;
-    using System;
-    using System.Runtime.InteropServices;
-    using System.Net;
-    using System.Security;
-    using System.Windows.Input;
-    using System.Windows.Data;
-    using System.Xml.Serialization;
-    using System.Xml;
-    using System.Xml.Linq;
-    
-    
-    using System.IO;
-
-    using System.IO;
-    
-    using System.Xml;
-    using System.Xml.Serialization;
-    
-    
 
     internal sealed class HostsViewModel : FritzServiceViewModel
     {
         private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
         private HostsGetHostListPathResponse? hostsGetHostListPathResponse;
         private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
-        private HostsGetHostListResponse? hostsGetHostListResponse; //= new HostsGetHostListResponse() { DeviceHostsList = string.Empty};
-        private ObservableCollection<DeviceHost> bindingDeviceHostsCollection;
+        private HostsGetHostListResponse? hostsGetHostListResponse;
 
-        
+        private ushort index = 0;
 
-        
+        //private DeviceHost[] arrayDeviceHosts;
 
-        private DeviceHost[] arrayDeviceHosts;
-
-        private readonly IHttpGetService httpGetService;
+        //private readonly IHttpGetService httpGetService;
         
 
         private string hostListPathLink = String.Empty;
@@ -57,17 +35,18 @@
             //this.httpGetService = httpGetService;
         }
 
+        /*
         public DeviceHost[] ArrayDeviceHosts
         {
             get => arrayDeviceHosts; set { _ = SetProperty(ref arrayDeviceHosts, value); }
         }
-
-        
+        */
+        /*
         public ObservableCollection<DeviceHost> BindingDeviceHostsCollection
         {
             get => bindingDeviceHostsCollection; set { _ = SetProperty(ref bindingDeviceHostsCollection, value); }
         }
-        
+        */
 
         public HostsGetHostListResponse? HostsGetHostListResponse
         {
@@ -91,7 +70,7 @@
             get => hostsGetGenericHostEntryResponse; set { _ = SetProperty(ref hostsGetGenericHostEntryResponse, value); }
         }
 
-        public ushort Index = 0;
+        
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
@@ -105,15 +84,19 @@
                    //GetHostsGetHostNumberOfEntriesAsync(),
                    GetHostsGetHostListPathAsync(),
                    
-                   //GetHostsGetGenericHostEntryAsync(Index)
+                   GetHostsGetGenericHostEntryAsync(index)
                 });
         }
 
 
         private async Task GetHostsGetHostNumberOfEntriesAsync()
         {
-            
             hostsGetHostNumberOfEntriesResponse = await FritzServiceOperationHandler.GetHostsGetHostNumberOfEntriesAsync();
+        }
+
+        private async Task GetHostsGetGenericHostEntryAsync(ushort index)
+        {
+            hostsGetGenericHostEntryResponse = await FritzServiceOperationHandler.GetHostsGetGenericHostEntryAsync(index);
         }
 
         private async Task GetHostsGetHostListPathAsync()
@@ -122,7 +105,6 @@
 
             if (HostsGetHostListPathResponse != null && FritzServiceOperationHandler.InternetGatewayDevice != null)
             {
-
                 HostsGetHostListPathResponse.HostListPathLink = new Uri("http://" + FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host + ":" + "49000" + hostsGetHostListPathResponse.HostListPath);
                 hostsGetHostListResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
 
@@ -151,50 +133,20 @@
 
                         hostsGetHostListPathResponse.DeviceHostsCollection.Add(host);
                     }
-
-                    ArrayDeviceHosts = hostsGetHostListResponse.DeviceHostsList.DeviceHosts;
-
-                    hostsGetHostListPathResponse.ArrayDeviceHosts = hostsGetHostListResponse.DeviceHostsList.DeviceHosts.ToArray();
-
-                    int dummy6 = 1;
                 }
                 catch (Exception ex)
                 {
-                    string mess = ex.Message;
+                    throw new ValueUnavailableException(ex.Message);
                 }
-                
-
-              //  internetGatewayDevice.UPnPDescription = (UPnPDescription?)new XmlSerializer(typeof(UPnPDescription)).Deserialize(xmlTextReader);
-
-                int dummy4 = 1;
             }
-
-            // For breakpoint:
-            int dummy3 = 1;
         }
 
         private void DeviceHostsCollection_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-#pragma warning disable CS8602 // Dereferenzierung eines möglichen Nullverweises.
-            var theView = CollectionViewSource.GetDefaultView(hostsGetHostListPathResponse.DeviceHostsCollection);
-#pragma warning restore CS8602 // Dereferenzierung eines möglichen Nullverweises.
-            theView.Refresh();
-            
-
-            int dummy543 = 1;
-
-
-            //throw new NotImplementedException();
-        }
-
-
-        // protected void GetSerializationData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context);
-
-        private async Task GetHostsGetGenericHostEntryAsync(ushort index)
-        {
-            hostsGetGenericHostEntryResponse = await FritzServiceOperationHandler.GetHostsGetGenericHostEntryAsync(index);
-            // For breakpoint:
-            int dummy3 = 1;
+            if (hostsGetHostListPathResponse != null)
+            {
+                CollectionViewSource.GetDefaultView(hostsGetHostListPathResponse.DeviceHostsCollection).Refresh();
+            }
         }
     }
 }
