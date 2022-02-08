@@ -63,7 +63,7 @@
 
         private async Task GetHostsGetGenericHostEntryAsync(ushort index)
         {
-            hostsGetGenericHostEntryResponse = await FritzServiceOperationHandler.GetHostsGetGenericHostEntryAsync(index);         
+            hostsGetGenericHostEntryResponse = await FritzServiceOperationHandler.GetHostsGetGenericHostEntryAsync(index);
         }
 
         private async Task GetHostsGetHostListPathAsync()

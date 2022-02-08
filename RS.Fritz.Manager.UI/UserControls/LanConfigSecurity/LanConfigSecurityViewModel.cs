@@ -68,8 +68,6 @@
         private async Task GetLanConfigSecurityGetUserListAsync()
         {
             LanConfigSecurityGetUserListResponse = await FritzServiceOperationHandler.LanConfigSecurityGetUserListAsync();
-            // RoSchmi
-            int dummy = 1;
         }
     }
 }

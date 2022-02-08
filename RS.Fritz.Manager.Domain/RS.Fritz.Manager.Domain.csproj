@@ -38,4 +38,7 @@
     <PackageReference Include="System.Security.Cryptography.Xml" Version="6.0.0" />
     <PackageReference Include="System.ServiceModel.Http" Version="4.9.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="System\Windows\" />
+  </ItemGroup>
 </Project>

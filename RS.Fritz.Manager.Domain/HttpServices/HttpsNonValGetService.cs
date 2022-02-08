@@ -6,7 +6,7 @@
     using System.ServiceModel;
     using System.Threading.Tasks;
 
-    public sealed class HttpsNonValGetService : IHttpGetService 
+    public sealed class HttpsNonValGetService : IHttpGetService
     {
         private readonly IHttpClientFactory httpClientFactory;
         private readonly EndpointAddress endpointAddress;

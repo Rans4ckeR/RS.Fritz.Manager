@@ -7,7 +7,7 @@
     public sealed class FritzServiceOperationHandler : ServiceOperationHandler, IFritzServiceOperationHandler
     {
         private readonly IHttpClientFactory httpClientFactory;
-        private readonly IClientFactory<IHttpGetService> httpGetServiceClientFactory; 
+        private readonly IClientFactory<IHttpGetService> httpGetServiceClientFactory;
         private readonly IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory;
         private readonly IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory;
         private readonly IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory;

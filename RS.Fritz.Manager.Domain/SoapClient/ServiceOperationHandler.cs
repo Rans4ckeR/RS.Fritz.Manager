@@ -14,7 +14,7 @@
             }
             finally
             {
-                //CloseClient(client);
+                CloseClient(client);
             }
         }
 

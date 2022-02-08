@@ -45,7 +45,7 @@
 
         private async Task GetDeviceInfoGetSecurityPortAsync()
         {
-            DeviceInfoGetSecurityPortResponse = await FritzServiceOperationHandler.DeviceInfoGetSecurityPortAsync();           
+            DeviceInfoGetSecurityPortResponse = await FritzServiceOperationHandler.DeviceInfoGetSecurityPortAsync();
         }
 
         private async Task GetDeviceInfoGetInfoAsync()

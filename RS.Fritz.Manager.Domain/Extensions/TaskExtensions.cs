@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    
 
     public static class TaskExtensions
     {
@@ -34,7 +33,7 @@
 
                 return;
             }
-            catch (System.Exception ex)
+            catch
             {
                 // Ignore individual task exceptions
             }

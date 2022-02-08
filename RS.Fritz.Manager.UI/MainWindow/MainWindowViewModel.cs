@@ -101,7 +101,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            Devices = new ObservableCollection<ObservableInternetGatewayDevice>((await deviceSearchService.GetDevicesAsync(DeviceType)).Select(q => new ObservableInternetGatewayDevice(q)));         
+            Devices = new ObservableCollection<ObservableInternetGatewayDevice>((await deviceSearchService.GetDevicesAsync(DeviceType)).Select(q => new ObservableInternetGatewayDevice(q)));
         }
 
         protected override bool GetCanExecuteDefaultCommand()
