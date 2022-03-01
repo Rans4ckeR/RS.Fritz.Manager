@@ -1,7 +1,6 @@
 ﻿namespace RS.Fritz.Manager.Domain
 {
     using System.Net;
-    using System.Net.Http;
     using System.Threading.Tasks;
 
     public sealed class FritzServiceOperationHandler : ServiceOperationHandler, IFritzServiceOperationHandler
@@ -14,7 +13,6 @@
         private readonly IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory;
         private readonly IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory;
 
-        
         public FritzServiceOperationHandler(
             IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,
             IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory,
