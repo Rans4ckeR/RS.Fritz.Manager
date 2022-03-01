@@ -793,11 +793,7 @@
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="HostListPath">
                         <Grid>
-                            <Grid.Resources>
-                                <CollectionViewSource x:Key="hostsCvs"  Source="{Binding DeviceHostsCollection}">
-                                </CollectionViewSource>
-                            </Grid.Resources>
-                                <Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -815,7 +811,7 @@
                             </ui:ExternalBrowserHyperlink>
                             </TextBlock>
                                 <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=HostListPath}" Content="_HostList"/>
-                            <DataGrid Grid.Row = "3" Grid.Column = "1" Height="150" IsReadOnly="true" ItemsSource="{Binding Source={StaticResource hostsCvs}}">
+                            <DataGrid Grid.Row = "3" Grid.Column = "1" Height="150" IsReadOnly="true" ItemsSource="{Binding DeviceHostsCollection}">
                             </DataGrid>
                         </Grid>
                     </Expander>

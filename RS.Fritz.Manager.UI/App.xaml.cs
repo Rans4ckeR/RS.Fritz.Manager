@@ -41,22 +41,9 @@
                     services.AddSingleton<ILogger, UserInterfaceLogService>();
                     services.AddSingleton<IDeviceSearchService, DeviceSearchService>();
                     services.AddSingleton<IHttpGetService, HttpsNonValGetService>();
-                    services.AddHttpClient(Constants.NonValidatingHttpsClientName, c =>
-                        {
-                            c.Timeout = TimeSpan.FromSeconds(10);
-                        }).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
-                        {
-                            SslProtocols = System.Security.Authentication.SslProtocols.Tls12,
-
-                            // Don't care NameMismatch and ChainErrors
-                            ServerCertificateCustomValidationCallback = (m, crt, chn, err) => { return (err & System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable) == 0; },
-
-                            // Alternative
-                            // ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator,
-                        });
+                    services.AddSingleton<IFritzHttpOperationHandler, FritzHttpOperationHandler>();
                     services.AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>();
                     services.AddSingleton<IClientFactory<IHttpGetService>, ClientFactory<IHttpGetService>>();
-                    services.AddSingleton<IClientFactory<IFritzHostListService>, ClientFactory<IFritzHostListService>>();
                     services.AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>();
                     services.AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>();
                     services.AddSingleton<IClientFactory<IFritzWanDslInterfaceConfigService>, ClientFactory<IFritzWanDslInterfaceConfigService>>();
@@ -105,6 +92,17 @@
                 })
                 .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
                 {
+                    AutomaticDecompression = DecompressionMethods.All
+                });
+            services.AddHttpClient(Constants.NonValidatingHttpsClientName)
+                .ConfigureHttpClient((_, httpClient) =>
+                {
+                    httpClient.Timeout = TimeSpan.FromSeconds(10);
+                })
+                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
+                {
+                    SslProtocols = System.Security.Authentication.SslProtocols.Tls12,
+                    ServerCertificateCustomValidationCallback = (m, crt, chn, err) => { return (err & System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable) == 0; },
                     AutomaticDecompression = DecompressionMethods.All
                 });
         }

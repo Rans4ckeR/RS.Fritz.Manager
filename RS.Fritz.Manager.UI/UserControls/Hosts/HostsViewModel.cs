@@ -16,14 +16,14 @@
         private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
         private HostsGetHostListPathResponse? hostsGetHostListPathResponse;
         private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
-        private HostsGetHostListResponse? hostsGetHostListResponse;
 
         private ushort index = 0;
 
-        public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+        public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler, IFritzHttpOperationHandler fritzHttpOperationHandler)
 
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
+            FritzHttpOperationHandler = fritzHttpOperationHandler;
         }
 
         public HostsGetHostNumberOfEntriesResponse? HostsGetHostNumberOfEntriesResponse
@@ -36,15 +36,12 @@
             get => hostsGetHostListPathResponse; set { _ = SetProperty(ref hostsGetHostListPathResponse, value); }
         }
 
-        public HostsGetHostListResponse? HostsGetHostListResponse
-        {
-            get => hostsGetHostListResponse; set { _ = SetProperty(ref hostsGetHostListResponse, value); }
-        }
-
         public HostsGetGenericHostEntryResponse? HostsGetGenericHostEntryResponse
         {
             get => hostsGetGenericHostEntryResponse; set { _ = SetProperty(ref hostsGetGenericHostEntryResponse, value); }
         }
+
+        private IFritzHttpOperationHandler FritzHttpOperationHandler { get; }
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
@@ -68,51 +65,23 @@
 
         private async Task GetHostsGetHostListPathAsync()
         {
-            hostsGetHostListPathResponse = await FritzServiceOperationHandler.GetHostsGetHostListPathAsync();
+            HostsGetHostListPathResponse newHostsGetHostListPathResponse = await FritzServiceOperationHandler.GetHostsGetHostListPathAsync();
 
-            if (HostsGetHostListPathResponse != null && FritzServiceOperationHandler.InternetGatewayDevice != null)
+            if (FritzServiceOperationHandler.InternetGatewayDevice is not null)
             {
-                HostsGetHostListPathResponse.HostListPathLink = new Uri("http://" + FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host + ":" + "49000" + hostsGetHostListPathResponse.HostListPath);
-                hostsGetHostListResponse = await FritzServiceOperationHandler.GetHostsGetHostListAsync(hostsGetHostListPathResponse.HostListPath);
+                newHostsGetHostListPathResponse.HostListPathLink = new Uri(string.Format("{0}://{1}{2}", FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Scheme, FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Authority, newHostsGetHostListPathResponse.HostListPath));
 
-                using var stringReader = new StringReader(hostsGetHostListResponse.DeviceHostsListXml);
+                string deviceHostsListXml = await FritzHttpOperationHandler.GetHostsGetHostListAsync(newHostsGetHostListPathResponse.HostListPathLink);
+
+                using var stringReader = new StringReader(deviceHostsListXml);
                 using var xmlTextReader = new XmlTextReader(stringReader);
 
-                try
-                {
-                    // fill the array with hosts in HostListResponse (not the actual Data Context)
-                    hostsGetHostListResponse.DeviceHostsList = (DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader);
+                DeviceHostsList? deviceHostsList = (DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader);
 
-                    int hostsCount = hostsGetHostListResponse.DeviceHostsList != null ? hostsGetHostListResponse.DeviceHostsList.DeviceHosts.Count() : 0;
+                if (deviceHostsList is not null)
+                    newHostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>(deviceHostsList.DeviceHosts);
 
-                    hostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>();
-
-                    for (int i = 0; i < hostsCount; i++)
-                    {
-#pragma warning disable CS8602 // Dereferenzierung eines möglichen Nullverweises.
-                        var host = hostsGetHostListResponse.DeviceHostsList.DeviceHosts[i];
-#pragma warning restore CS8602 // Dereferenzierung eines möglichen Nullverweises
-
-                        if (i == hostsCount - 1)
-                        {
-                            hostsGetHostListPathResponse.DeviceHostsCollection.CollectionChanged += DeviceHostsCollection_CollectionChanged;
-                        }
-
-                        hostsGetHostListPathResponse.DeviceHostsCollection.Add(host);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new ValueUnavailableException(ex.Message);
-                }
-            }
-        }
-
-        private void DeviceHostsCollection_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (hostsGetHostListPathResponse != null)
-            {
-                CollectionViewSource.GetDefaultView(hostsGetHostListPathResponse.DeviceHostsCollection).Refresh();
+                HostsGetHostListPathResponse = newHostsGetHostListPathResponse;
             }
         }
     }

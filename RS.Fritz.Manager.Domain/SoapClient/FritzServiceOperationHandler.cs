@@ -42,13 +42,6 @@
 
         public NetworkCredential? NetworkCredential { get; set; }
 
-        public async Task<HostsGetHostListResponse> GetHostsGetHostListAsync(string controlUrl)
-        {
-            HostsGetHostListResponse hostsGetHostListResponse = new HostsGetHostListResponse();
-            hostsGetHostListResponse.DeviceHostsListXml = await ExecuteAsync(GetHttpGetServiceClient(controlUrl), q => q.GetHttpResponseAsync());
-            return hostsGetHostListResponse;
-        }
-
         public Task<HostsGetHostNumberOfEntriesResponse> GetHostsGetHostNumberOfEntriesAsync()
         {
             return ExecuteAsync(GetFritzHostsServiceClient(), q => q.GetHostNumberOfEntriesAsync(new HostsGetHostNumberOfEntriesRequest()));
@@ -152,13 +145,6 @@
         public Task<WanPppConnectionGetInfoResponse> WanPppConnectionGetInfoAsync()
         {
             return ExecuteAsync(GetFritzWanPppConnectionServiceClient(), q => q.GetInfoAsync(new WanPppConnectionGetInfoRequest()));
-        }
-
-        private IHttpGetService GetHttpGetServiceClient(string controlUrl)
-        {
-            IHttpGetService? httpGetServiceClient = null;
-            httpGetServiceClient = httpGetServiceClientFactory.Build((q, r, t) => new HttpsNonValGetService(q, r, t!, httpClientFactory), InternetGatewayDevice!.PreferredLocation, true, controlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
-            return httpGetServiceClient;
         }
 
         private IFritzHostsService GetFritzHostsServiceClient()
