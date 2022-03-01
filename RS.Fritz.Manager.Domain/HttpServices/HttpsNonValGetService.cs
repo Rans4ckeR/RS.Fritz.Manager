@@ -25,6 +25,13 @@
             HttpClient httpClient = httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName);
 
             HttpResponseMessage? result = await httpClient.GetAsync(endpointAddress.Uri);
+            result = result.EnsureSuccessStatusCode();
+
+            return result.Content.ReadAsStringAsync().Result.ToString();
+
+            //return await httpClient.GetStringAsync(endpointAddress.Uri);
+            /*
+            HttpResponseMessage? result = await httpClient.GetAsync(endpointAddress.Uri);
 
             string content = string.Empty;
             if (result.StatusCode == HttpStatusCode.OK)
@@ -33,6 +40,7 @@
             }
 
             return content;
+            */
         }
     }
 }
