@@ -6,8 +6,6 @@
 
     public sealed class FritzServiceOperationHandler : ServiceOperationHandler, IFritzServiceOperationHandler
     {
-        private readonly IHttpClientFactory httpClientFactory;
-        private readonly IClientFactory<IHttpGetService> httpGetServiceClientFactory;
         private readonly IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory;
         private readonly IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory;
         private readonly IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory;
@@ -16,9 +14,8 @@
         private readonly IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory;
         private readonly IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory;
 
+        
         public FritzServiceOperationHandler(
-            IHttpClientFactory httpClientFactory,
-            IClientFactory<IHttpGetService> httpGetServiceClientFactory,
             IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,
             IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory,
             IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory,
@@ -27,8 +24,6 @@
             IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory,
             IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory)
         {
-            this.httpClientFactory = httpClientFactory;
-            this.httpGetServiceClientFactory = httpGetServiceClientFactory;
             this.fritzHostsServiceClientFactory = fritzHostsServiceClientFactory;
             this.fritzWanCommonInterfaceConfigServiceClientFactory = fritzWanCommonInterfaceConfigServiceClientFactory;
             this.fritzDeviceInfoServiceClientFactory = fritzDeviceInfoServiceClientFactory;
