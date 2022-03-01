@@ -1,6 +1,5 @@
 ﻿namespace RS.Fritz.Manager.Domain
 {
-    using System;
     using System.Net;
     using System.Net.Http;
     using System.ServiceModel;
@@ -35,14 +34,5 @@
 
             return content;
         }
-
-        /*
-        public async Task<string> GetHttpResponseAsync(Uri preferredLocation, bool secure, string controlUrl, ushort? securityPort, NetworkCredential? networkCredential)
-        {
-            // Overload not implemented
-            await Task.Delay(1);
-            return string.Empty;
-        }
-        */
     }
 }
