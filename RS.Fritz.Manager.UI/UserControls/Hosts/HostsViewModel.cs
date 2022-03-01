@@ -55,12 +55,14 @@
 
         private async Task GetHostsGetHostNumberOfEntriesAsync()
         {
-            hostsGetHostNumberOfEntriesResponse = await FritzServiceOperationHandler.GetHostsGetHostNumberOfEntriesAsync();
+            HostsGetHostNumberOfEntriesResponse newHostsGetHostNumberOfEntriesResponse = await FritzServiceOperationHandler.GetHostsGetHostNumberOfEntriesAsync();
+            HostsGetHostNumberOfEntriesResponse = newHostsGetHostNumberOfEntriesResponse;
         }
 
         private async Task GetHostsGetGenericHostEntryAsync(ushort index)
         {
-            hostsGetGenericHostEntryResponse = await FritzServiceOperationHandler.GetHostsGetGenericHostEntryAsync(index);
+            HostsGetGenericHostEntryResponse newHostsGetGenericHostEntryResponse = await FritzServiceOperationHandler.GetHostsGetGenericHostEntryAsync(index);
+            HostsGetGenericHostEntryResponse = newHostsGetGenericHostEntryResponse;
         }
 
         private async Task GetHostsGetHostListPathAsync()
@@ -71,7 +73,8 @@
             {
                 newHostsGetHostListPathResponse.HostListPathLink = new Uri(string.Format("{0}://{1}{2}", FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Scheme, FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Authority, newHostsGetHostListPathResponse.HostListPath));
 
-                string deviceHostsListXml = await FritzHttpOperationHandler.GetHostsGetHostListAsync(newHostsGetHostListPathResponse.HostListPathLink);
+                Uri hostListPathLink = new Uri(string.Format("{0}://{1}{2}{3}{4}", "https", FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host, ":", FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort, newHostsGetHostListPathResponse.HostListPath));
+                string deviceHostsListXml = await FritzHttpOperationHandler.GetHostsGetHostListAsync(hostListPathLink);
 
                 using var stringReader = new StringReader(deviceHostsListXml);
                 using var xmlTextReader = new XmlTextReader(stringReader);
