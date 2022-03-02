@@ -40,6 +40,7 @@
                     services.AddSingleton<DeviceLoginInfo>();
                     services.AddSingleton<ILogger, UserInterfaceLogService>();
                     services.AddSingleton<IDeviceSearchService, DeviceSearchService>();
+                    services.AddSingleton<IFritzHttpOperationHandler, FritzHttpOperationHandler>();
                     services.AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>();
                     services.AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>();
                     services.AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>();
@@ -89,6 +90,17 @@
                 })
                 .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
                 {
+                    AutomaticDecompression = DecompressionMethods.All
+                });
+            services.AddHttpClient(Constants.NonValidatingHttpsClientName)
+                .ConfigureHttpClient((_, httpClient) =>
+                {
+                    httpClient.Timeout = TimeSpan.FromSeconds(10);
+                })
+                .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
+                {
+                    SslProtocols = System.Security.Authentication.SslProtocols.Tls12,
+                    ServerCertificateCustomValidationCallback = (m, crt, chn, err) => { return (err & System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable) == 0; },
                     AutomaticDecompression = DecompressionMethods.All
                 });
         }

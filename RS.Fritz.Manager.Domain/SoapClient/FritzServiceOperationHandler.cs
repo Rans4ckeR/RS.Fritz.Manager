@@ -40,6 +40,16 @@
             return ExecuteAsync(GetFritzHostsServiceClient(), q => q.GetHostNumberOfEntriesAsync(new HostsGetHostNumberOfEntriesRequest()));
         }
 
+        public Task<HostsGetHostListPathResponse> GetHostsGetHostListPathAsync()
+        {
+            return ExecuteAsync(GetFritzHostsServiceClient(), q => q.GetHostListPathAsync(new HostsGetHostListPathRequest()));
+        }
+
+        public Task<HostsGetGenericHostEntryResponse> GetHostsGetGenericHostEntryAsync(ushort index)
+        {
+            return ExecuteAsync(GetFritzHostsServiceClient(), q => q.GetGenericHostEntryAsync(new HostsGetGenericHostEntryRequest { Index = index }));
+        }
+
         public Task<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse> GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
         {
             return ExecuteAsync(GetFritzWanCommonInterfaceConfigServiceClient(), q => q.GetCommonLinkPropertiesAsync(new WanCommonInterfaceConfigGetCommonLinkPropertiesRequest()));

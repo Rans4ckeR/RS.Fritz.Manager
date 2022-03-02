@@ -1,5 +1,4 @@
-﻿
-namespace RS.Fritz.Manager.Domain
+﻿namespace RS.Fritz.Manager.Domain
 {
     using System.Net;
     using System.ServiceModel;
@@ -17,6 +16,16 @@ namespace RS.Fritz.Manager.Domain
         public Task<HostsGetHostNumberOfEntriesResponse> GetHostNumberOfEntriesAsync(HostsGetHostNumberOfEntriesRequest hostsGetHostNumberOfEntriesRequest)
         {
             return Channel.GetHostNumberOfEntriesAsync(hostsGetHostNumberOfEntriesRequest);
+        }
+
+        public Task<HostsGetHostListPathResponse> GetHostListPathAsync(HostsGetHostListPathRequest hostsGetHostListPathRequest)
+        {
+            return Channel.GetHostListPathAsync(hostsGetHostListPathRequest);
+        }
+
+        public Task<HostsGetGenericHostEntryResponse> GetGenericHostEntryAsync(HostsGetGenericHostEntryRequest hostsGetGenericHostEntryRequest)
+        {
+            return Channel.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest);
         }
     }
 }

@@ -21,8 +21,8 @@
         private string? userMessage;
         private bool deviceAndLoginControlsEnabled = true;
 
-        public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, HostsViewModel hostsViewModel, WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel,  WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceSearchService deviceSearchService)
-            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
+        public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, HostsViewModel hostsViewModel, WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel, WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceSearchService deviceSearchService)
+        : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
             this.deviceSearchService = deviceSearchService;
             DeviceInfoViewModel = deviceInfoViewModel;

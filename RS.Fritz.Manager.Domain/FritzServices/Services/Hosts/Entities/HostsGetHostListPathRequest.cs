@@ -2,8 +2,8 @@
 {
     using System.ServiceModel;
 
-    [MessageContract(WrapperName = "GetHostNumberOfEntries")]
+    [MessageContract(WrapperName = "GetHostListPath")]
 #pragma warning disable S101 // Types should be named in PascalCase
-    public sealed record HostsGetHostNumberOfEntriesRequest;
+    public sealed record HostsGetHostListPathRequest;
 #pragma warning restore S101 // Types should be named in PascalCase
 }

@@ -10,7 +10,6 @@
         [MessageBodyMember(Name = "NewWANAccessType")]
         public string WanAccessType { get; set; }
 
-
         [MessageBodyMember(Name = "NewLayer1UpstreamMaxBitRate")]
         public uint Layer1UpstreamMaxBitRate { get; set; }
 
