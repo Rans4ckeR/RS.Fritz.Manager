@@ -3,6 +3,7 @@
     using System;
     using System.Net;
     using System.Net.Http;
+    using System.Net.Security;
     using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Input;
@@ -40,7 +41,6 @@
                     services.AddSingleton<DeviceLoginInfo>();
                     services.AddSingleton<ILogger, UserInterfaceLogService>();
                     services.AddSingleton<IDeviceSearchService, DeviceSearchService>();
-                    services.AddSingleton<IFritzHttpOperationHandler, FritzHttpOperationHandler>();
                     services.AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>();
                     services.AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>();
                     services.AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>();
@@ -96,11 +96,11 @@
                 .ConfigureHttpClient((_, httpClient) =>
                 {
                     httpClient.Timeout = TimeSpan.FromSeconds(10);
+                    httpClient.DefaultRequestVersion = Version.Parse("2.0");
                 })
                 .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
                 {
-                    SslProtocols = System.Security.Authentication.SslProtocols.Tls12,
-                    ServerCertificateCustomValidationCallback = (m, crt, chn, err) => { return (err & System.Net.Security.SslPolicyErrors.RemoteCertificateNotAvailable) == 0; },
+                    ServerCertificateCustomValidationCallback = (_, _, _, sslPolicyErrors) => (sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) == 0,
                     AutomaticDecompression = DecompressionMethods.All
                 });
         }

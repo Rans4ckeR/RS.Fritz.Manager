@@ -3,9 +3,8 @@
     using System;
     using System.Collections.ObjectModel;
     using System.IO;
-    using System.Linq;
+    using System.Net.Http;
     using System.Threading.Tasks;
-    using System.Windows.Data;
     using System.Xml;
     using System.Xml.Serialization;
     using Microsoft.Extensions.Logging;
@@ -13,17 +12,19 @@
 
     internal sealed class HostsViewModel : FritzServiceViewModel
     {
+        private const ushort GetHostsGetGenericHostEntryIndex = 0;
+
+        private readonly IHttpClientFactory httpClientFactory;
+
         private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
         private HostsGetHostListPathResponse? hostsGetHostListPathResponse;
         private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
 
-        private ushort index = 0;
-
-        public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler, IFritzHttpOperationHandler fritzHttpOperationHandler)
+        public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler, IHttpClientFactory httpClientFactory)
 
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
-            FritzHttpOperationHandler = fritzHttpOperationHandler;
+            this.httpClientFactory = httpClientFactory;
         }
 
         public HostsGetHostNumberOfEntriesResponse? HostsGetHostNumberOfEntriesResponse
@@ -41,15 +42,13 @@
             get => hostsGetGenericHostEntryResponse; set { _ = SetProperty(ref hostsGetGenericHostEntryResponse, value); }
         }
 
-        private IFritzHttpOperationHandler FritzHttpOperationHandler { get; }
-
         protected override async Task DoExecuteDefaultCommandAsync()
         {
             await Domain.TaskExtensions.WhenAllSafe(new[]
                 {
                     GetHostsGetHostListPathAsync(),
                     GetHostsGetHostNumberOfEntriesAsync(),
-                    GetHostsGetGenericHostEntryAsync(index)
+                    GetHostsGetGenericHostEntryAsync()
                 });
         }
 
@@ -59,9 +58,9 @@
             HostsGetHostNumberOfEntriesResponse = newHostsGetHostNumberOfEntriesResponse;
         }
 
-        private async Task GetHostsGetGenericHostEntryAsync(ushort index)
+        private async Task GetHostsGetGenericHostEntryAsync()
         {
-            HostsGetGenericHostEntryResponse newHostsGetGenericHostEntryResponse = await FritzServiceOperationHandler.GetHostsGetGenericHostEntryAsync(index);
+            HostsGetGenericHostEntryResponse newHostsGetGenericHostEntryResponse = await FritzServiceOperationHandler.GetHostsGetGenericHostEntryAsync(GetHostsGetGenericHostEntryIndex);
             HostsGetGenericHostEntryResponse = newHostsGetGenericHostEntryResponse;
         }
 
@@ -71,10 +70,10 @@
 
             if (FritzServiceOperationHandler.InternetGatewayDevice is not null)
             {
-                newHostsGetHostListPathResponse.HostListPathLink = new Uri(string.Format("{0}://{1}{2}", FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Scheme, FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Authority, newHostsGetHostListPathResponse.HostListPath));
+                newHostsGetHostListPathResponse.HostListPathLink = new Uri(FormattableString.Invariant($"{FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Scheme}://{FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Authority}{newHostsGetHostListPathResponse.HostListPath}"));
 
-                Uri hostListPathLink = new Uri(string.Format("{0}://{1}{2}{3}{4}", "https", FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host, ":", FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort, newHostsGetHostListPathResponse.HostListPath));
-                string deviceHostsListXml = await FritzHttpOperationHandler.GetHostsGetHostListAsync(hostListPathLink);
+                Uri hostListPathLink = new Uri(FormattableString.Invariant($"https://{FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host}:{FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort}{newHostsGetHostListPathResponse.HostListPath}"));
+                string deviceHostsListXml = await GetHostsGetHostListAsync(hostListPathLink);
 
                 using var stringReader = new StringReader(deviceHostsListXml);
                 using var xmlTextReader = new XmlTextReader(stringReader);
@@ -86,6 +85,11 @@
 
                 HostsGetHostListPathResponse = newHostsGetHostListPathResponse;
             }
+        }
+
+        private async Task<string> GetHostsGetHostListAsync(Uri uri)
+        {
+            return await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStringAsync(uri);
         }
     }
 }

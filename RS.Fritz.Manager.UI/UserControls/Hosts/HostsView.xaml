@@ -19,4 +19,4 @@
         <ContentControl Grid.Row="0" Content="{Binding HostsGetHostListPathResponse}"/>
         <ContentControl Grid.Row="1" Content="{Binding HostsGetHostNumberOfEntriesResponse}"/>
     </Grid>
-</UserControl>   
+</UserControl>
