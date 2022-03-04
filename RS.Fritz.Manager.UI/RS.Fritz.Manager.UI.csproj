@@ -21,8 +21,10 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <Version>0.1.0.0</Version>
-    <FileVersion>0.1.0.0</FileVersion>
+    <Version>0.0.0.1</Version>
+    <FileVersion>0.0.0.1</FileVersion>
+    <InformationalVersion>0.0.0.1</InformationalVersion>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Images\Device.png" />
@@ -42,7 +44,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.36.0.43782">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.36.1.44192">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -52,7 +54,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RS.Fritz.Manager.Domain\RS.Fritz.Manager.Domain.csproj" />
+    <ProjectReference Include="..\RS.Fritz.Manager.API\RS.Fritz.Manager.API.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Device.png" />

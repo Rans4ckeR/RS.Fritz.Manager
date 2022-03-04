@@ -7,7 +7,7 @@
     using System.Windows.Media;
     using System.Windows.Shapes;
     using CommunityToolkit.Mvvm.ComponentModel;
-    using RS.Fritz.Manager.Domain;
+    using RS.Fritz.Manager.API;
 
     internal sealed class WanDslInterfaceConfigInfoControlViewModel : ObservableObject
     {

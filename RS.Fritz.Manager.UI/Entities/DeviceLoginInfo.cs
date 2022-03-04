@@ -8,7 +8,7 @@
     using CommunityToolkit.Mvvm.ComponentModel;
     using CommunityToolkit.Mvvm.Messaging;
     using CommunityToolkit.Mvvm.Messaging.Messages;
-    using RS.Fritz.Manager.Domain;
+    using RS.Fritz.Manager.API;
 
     internal sealed class DeviceLoginInfo : ObservableRecipient, IRecipient<PropertyChangedMessage<ObservableInternetGatewayDevice?>>, IRecipient<PropertyChangedMessage<string?>>, IRecipient<PropertyChangedMessage<User?>>
     {

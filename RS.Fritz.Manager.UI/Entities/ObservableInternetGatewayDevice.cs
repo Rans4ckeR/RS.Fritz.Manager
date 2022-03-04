@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using CommunityToolkit.Mvvm.ComponentModel;
-    using RS.Fritz.Manager.Domain;
+    using RS.Fritz.Manager.API;
 
     internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
     {

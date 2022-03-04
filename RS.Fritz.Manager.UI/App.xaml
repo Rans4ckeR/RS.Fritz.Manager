@@ -2,7 +2,7 @@
              x:ClassModifier="internal"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:domain="clr-namespace:RS.Fritz.Manager.Domain;assembly=RS.Fritz.Manager.Domain"
+             xmlns:domain="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
              xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
     <Application.Resources>
         <ResourceDictionary>

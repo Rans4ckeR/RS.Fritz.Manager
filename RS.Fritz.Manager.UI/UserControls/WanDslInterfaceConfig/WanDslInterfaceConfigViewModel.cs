@@ -5,7 +5,7 @@
     using System.Windows.Threading;
     using CommunityToolkit.Mvvm.Messaging.Messages;
     using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.Domain;
+    using RS.Fritz.Manager.API;
 
     internal sealed class WanDslInterfaceConfigViewModel : FritzServiceViewModel
     {
@@ -79,7 +79,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            await Domain.TaskExtensions.WhenAllSafe(new[]
+            await API.TaskExtensions.WhenAllSafe(new[]
                 {
                     GetWanDslInterfaceConfigGetDSLDiagnoseInfoAsync(),
                     GetWanDslInterfaceConfigGetDSLInfoAsync(),

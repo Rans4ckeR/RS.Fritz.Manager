@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.Domain;
+    using RS.Fritz.Manager.API;
 
     internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
     {
@@ -32,7 +32,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            await Domain.TaskExtensions.WhenAllSafe(new[]
+            await API.TaskExtensions.WhenAllSafe(new[]
                 {
                    GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(),
                    GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(),

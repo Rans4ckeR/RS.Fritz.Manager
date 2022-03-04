@@ -3,7 +3,7 @@
     using System.ComponentModel;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.Domain;
+    using RS.Fritz.Manager.API;
 
     internal sealed class DeviceInfoSetProvisioningCodeViewModel : FritzServiceViewModel
     {

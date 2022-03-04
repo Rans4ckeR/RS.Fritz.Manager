@@ -8,7 +8,7 @@
     using System.Xml;
     using System.Xml.Serialization;
     using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.Domain;
+    using RS.Fritz.Manager.API;
 
     internal sealed class HostsViewModel : FritzServiceViewModel
     {
@@ -44,7 +44,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            await Domain.TaskExtensions.WhenAllSafe(new[]
+            await API.TaskExtensions.WhenAllSafe(new[]
                 {
                     GetHostsGetHostListPathAsync(),
                     GetHostsGetHostNumberOfEntriesAsync(),
