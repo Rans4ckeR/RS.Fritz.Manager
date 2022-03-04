@@ -32,6 +32,6 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
     - name: Package
-      run: dotnet pack **/RS.Fritz.Manager.API.csproj --no-restore --no-build --configuration Release --include-symbols -p:PackageVersion=$env:GitVersion_SemVer
+      run: dotnet pack ~/RS.Fritz.Manager.API/RS.Fritz.Manager.API.csproj --no-restore --no-build --configuration Release --include-symbols -p:PackageVersion=$env:GitVersion_SemVer
     - name: NuGet Push
       run: dotnet nuget push "*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
