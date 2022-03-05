@@ -21,7 +21,7 @@
             IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory,
             IClientFactory<IFritzLayer3ForwardingService> fritzLayer3ForwardingServiceClientFactory,
             IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory,
-            IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory),
+            IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory,
             IClientFactory<IFritzWanIpConnectionService> fritzWanIpConnectionServiceClientFactory)
         {
             this.fritzHostsServiceClientFactory = fritzHostsServiceClientFactory;
@@ -143,7 +143,7 @@
             return ExecuteAsync(GetFritzWanIpConnectionServiceClient(), q => q.GetInfoAsync(new WanIpConnectionGetInfoRequest()));
         }
 
-    public Task<WanPppConnectionGetInfoResponse> WanPppConnectionGetInfoAsync()
+        public Task<WanPppConnectionGetInfoResponse> WanPppConnectionGetInfoAsync()
         {
             return ExecuteAsync(GetFritzWanPppConnectionServiceClient(), q => q.GetInfoAsync(new WanPppConnectionGetInfoRequest()));
         }
@@ -177,7 +177,7 @@
         {
             return fritzWanDslInterfaceConfigServiceClientFactory.Build((q, r, t) => new FritzWanDslInterfaceConfigService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzWanDslInterfaceConfigService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
         }
-        publicprivate IFritzWanIpConnectionService GetFritzWanIpConnectionServiceClient()
+        private IFritzWanIpConnectionService GetFritzWanIpConnectionServiceClient()
         {
             return fritzWanIpConnectionServiceClientFactory.Build((q, r, t) => new FritzWanIpConnectionService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzWanIpConnectionService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
         }
