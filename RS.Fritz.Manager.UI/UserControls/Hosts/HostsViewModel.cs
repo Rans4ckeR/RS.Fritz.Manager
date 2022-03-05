@@ -12,7 +12,7 @@
         private readonly IDeviceHostsService deviceHostsService;
 
         private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
-        private HostsGetHostListPathResponse? hostsGetHostListPathResponse;
+        private DeviceHostInfo? deviceHostInfo;
         private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
 
         public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceHostsService deviceHostsService)
@@ -26,9 +26,9 @@
             get => hostsGetHostNumberOfEntriesResponse; set { _ = SetProperty(ref hostsGetHostNumberOfEntriesResponse, value); }
         }
 
-        public HostsGetHostListPathResponse? HostsGetHostListPathResponse
+        public DeviceHostInfo? DeviceHostInfo
         {
-            get => hostsGetHostListPathResponse; set { _ = SetProperty(ref hostsGetHostListPathResponse, value); }
+            get => deviceHostInfo; set { _ = SetProperty(ref deviceHostInfo, value); }
         }
 
         public HostsGetGenericHostEntryResponse? HostsGetGenericHostEntryResponse
@@ -61,17 +61,11 @@
         private async Task GetHostsGetHostListPathAsync()
         {
             HostsGetHostListPathResponse newHostsGetHostListPathResponse = await FritzServiceOperationHandler.GetHostsGetHostListPathAsync();
+            string hostListPath = newHostsGetHostListPathResponse.HostListPath;
+            Uri hostListPathUri = new Uri(FormattableString.Invariant($"https://{FritzServiceOperationHandler.InternetGatewayDevice!.PreferredLocation.Host}:{FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort}{hostListPath}"));
+            IEnumerable<DeviceHost> deviceHosts = await deviceHostsService.GetDeviceHostsAsync(hostListPathUri);
 
-            if (FritzServiceOperationHandler.InternetGatewayDevice is not null)
-            {
-                Uri hostListPathUri = new Uri(FormattableString.Invariant($"https://{FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host}:{FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort}{newHostsGetHostListPathResponse.HostListPath}"));
-                IEnumerable<DeviceHost> deviceHosts = await deviceHostsService.GetDeviceHostsAsync(hostListPathUri);
-
-                newHostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>(deviceHosts);
-                newHostsGetHostListPathResponse.HostListPathLink = hostListPathUri;
-
-                HostsGetHostListPathResponse = newHostsGetHostListPathResponse;
-            }
+            DeviceHostInfo = new DeviceHostInfo(hostListPath, hostListPathUri, new ObservableCollection<DeviceHost>(deviceHosts));
         }
     }
 }
