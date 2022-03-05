@@ -22,7 +22,6 @@
     <Version>0.0.0.1</Version>
     <FileVersion>0.0.0.1</FileVersion>
     <InformationalVersion>0.0.0.1</InformationalVersion>
-    <Platforms>x64</Platforms>
     <Description>A FritzBox API library to read information from and manage FritzBox devices using pure WCF calls.</Description>
     <PackageId>RS.Fritz.Manager.API</PackageId>
     <Authors>Rans4ckeR</Authors>
