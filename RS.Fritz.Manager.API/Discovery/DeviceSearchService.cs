@@ -121,7 +121,7 @@
 
         private static async Task ReceiveAsync(Socket socket, ArraySegment<byte> buffer, ICollection<string> responses)
         {
-            var cancellationTokenSource = new CancellationTokenSource();
+            using var cancellationTokenSource = new CancellationTokenSource();
 
             cancellationTokenSource.CancelAfter(ReceiveTimeout);
 
@@ -139,8 +139,6 @@
                     // Ignore Task cancellation
                 }
             }
-
-            cancellationTokenSource.Dispose();
         }
 
         private IEnumerable<IPAddress> GetLocalAddresses()
