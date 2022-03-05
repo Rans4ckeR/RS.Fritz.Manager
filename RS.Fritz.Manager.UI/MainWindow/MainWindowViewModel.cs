@@ -13,7 +13,6 @@
 
     internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<PropertyChangedMessage<IEnumerable<User>>>
     {
-        private const string DeviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
         private readonly IDeviceSearchService deviceSearchService;
         private ObservableCollection<ObservableInternetGatewayDevice> devices = new();
         private ObservableCollection<User> users = new();
@@ -101,12 +100,12 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            Devices = new ObservableCollection<ObservableInternetGatewayDevice>((await deviceSearchService.GetDevicesAsync(DeviceType)).Select(q => new ObservableInternetGatewayDevice(q)));
+            Devices = new ObservableCollection<ObservableInternetGatewayDevice>((await deviceSearchService.GetDevicesAsync()).Select(q => new ObservableInternetGatewayDevice(q)));
         }
 
         protected override bool GetCanExecuteDefaultCommand()
         {
-            return !string.IsNullOrWhiteSpace(DeviceType) && !DefaultCommandActive;
+            return !DefaultCommandActive;
         }
     }
 }

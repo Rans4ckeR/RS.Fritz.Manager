@@ -14,8 +14,9 @@
     using System.Xml;
     using System.Xml.Serialization;
 
-    public sealed class DeviceSearchService : IDeviceSearchService
+    internal sealed class DeviceSearchService : IDeviceSearchService
     {
+        private const string InternetGatewayDeviceDeviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
         private const int UPnPMulticastPort = 1900;
         private const int ReceiveTimeout = 3000;
 #pragma warning disable SA1310 // Field names should not contain underscore
@@ -39,8 +40,11 @@
             [AddressType.IPv6SiteLocal] = IPAddress.Parse("[FF05::C]")
         };
 
-        public async Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string deviceType)
+        public async Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null)
         {
+            if (deviceType is null)
+                deviceType = InternetGatewayDeviceDeviceType;
+
             IEnumerable<string> deviceResponses = (await TaskExtensions.WhenAllSafe(GetLocalAddresses().Select(q => SearchDevicesAsync(q, deviceType, 3)))).SelectMany(q => q);
             IEnumerable<Dictionary<string, string>> deviceDictionaries = GetDeviceDictionaries(deviceResponses);
 

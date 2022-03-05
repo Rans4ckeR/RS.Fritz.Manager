@@ -3,7 +3,7 @@
     using System.Net;
     using System.Threading.Tasks;
 
-    public sealed class FritzServiceOperationHandler : ServiceOperationHandler, IFritzServiceOperationHandler
+    internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IFritzServiceOperationHandler
     {
         private readonly IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory;
         private readonly IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory;

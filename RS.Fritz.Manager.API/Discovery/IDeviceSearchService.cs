@@ -5,6 +5,6 @@
 
     public interface IDeviceSearchService
     {
-        Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string deviceType);
+        Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null);
     }
 }

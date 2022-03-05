@@ -4,7 +4,7 @@
     using System.Net;
     using System.ServiceModel;
 
-    public sealed class ClientFactory<TInterface> : IClientFactory<TInterface>
+    internal sealed class ClientFactory<TInterface> : IClientFactory<TInterface>
         where TInterface : class
     {
         public TInterface Build(Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, TInterface> createClient, Uri location, bool secure, string controlUrl, ushort? port = null, NetworkCredential? networkCredential = null)
