@@ -38,6 +38,7 @@
                     services.AddSingleton<HostsViewModel>();
                     services.AddSingleton<Layer3ForwardingViewModel>();
                     services.AddSingleton<WanPppConnectionViewModel>();
+                    services.AddSingleton<WanIpConnectionViewModel>();
                     services.AddSingleton<DeviceLoginInfo>();
                     services.AddSingleton<ILogger, UserInterfaceLogService>();
                     services.AddSingleton<IDeviceSearchService, DeviceSearchService>();
@@ -49,6 +50,7 @@
                     services.AddSingleton<IClientFactory<IFritzWanCommonInterfaceConfigService>, ClientFactory<IFritzWanCommonInterfaceConfigService>>();
                     services.AddSingleton<IClientFactory<IFritzLayer3ForwardingService>, ClientFactory<IFritzLayer3ForwardingService>>();
                     services.AddSingleton<IClientFactory<IFritzWanPppConnectionService>, ClientFactory<IFritzWanPppConnectionService>>();
+                    services.AddSingleton<IClientFactory<IFritzWanIpConnectionService>, ClientFactory<IFritzWanIpConnectionService>>();
                     ConfigureHttpClients(services);
                 }).Build();
         }

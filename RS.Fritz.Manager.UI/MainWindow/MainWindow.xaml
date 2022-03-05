@@ -90,6 +90,9 @@
                 <RibbonGroup ToolTip="The WANPPPConnection service enables a UPnP control point to configure and control PPP connections on the WAN interface of a UPnP compliant IGD.">
                     <RibbonButton Label="WanPppConnection" Command="{Binding WanPppConnectionViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
+                <RibbonGroup ToolTip="The WANIPConnection service enables a UPnP control point to configure and control IP connections on the WAN interface of a UPnP compliant IGD.">
+                    <RibbonButton Label="WanIpConnection" Command="{Binding WanIpConnectionViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                </RibbonGroup>
             </RibbonTab>
         </Ribbon>
         <ScrollViewer Grid.Row="1" Background="{StaticResource WindowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">

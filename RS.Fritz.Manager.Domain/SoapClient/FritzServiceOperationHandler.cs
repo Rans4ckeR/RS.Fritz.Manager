@@ -12,6 +12,7 @@
         private readonly IClientFactory<IFritzLayer3ForwardingService> fritzLayer3ForwardingServiceClientFactory;
         private readonly IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory;
         private readonly IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory;
+        private readonly IClientFactory<IFritzWanIpConnectionService> fritzWanIpConnectionServiceClientFactory;
 
         public FritzServiceOperationHandler(
             IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,
@@ -20,7 +21,8 @@
             IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory,
             IClientFactory<IFritzLayer3ForwardingService> fritzLayer3ForwardingServiceClientFactory,
             IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory,
-            IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory)
+            IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory),
+            IClientFactory<IFritzWanIpConnectionService> fritzWanIpConnectionServiceClientFactory)
         {
             this.fritzHostsServiceClientFactory = fritzHostsServiceClientFactory;
             this.fritzWanCommonInterfaceConfigServiceClientFactory = fritzWanCommonInterfaceConfigServiceClientFactory;
@@ -29,6 +31,7 @@
             this.fritzLayer3ForwardingServiceClientFactory = fritzLayer3ForwardingServiceClientFactory;
             this.fritzWanDslInterfaceConfigServiceClientFactory = fritzWanDslInterfaceConfigServiceClientFactory;
             this.fritzWanPppConnectionServiceClientFactory = fritzWanPppConnectionServiceClientFactory;
+            this.fritzWanIpConnectionServiceClientFactory = fritzWanIpConnectionServiceClientFactory;
         }
 
         public InternetGatewayDevice? InternetGatewayDevice { get; set; }
@@ -135,7 +138,12 @@
             return ExecuteAsync(GetFritzWanDslInterfaceConfigServiceClient(), q => q.GetStatisticsTotalAsync(new WanDslInterfaceConfigGetStatisticsTotalRequest()));
         }
 
-        public Task<WanPppConnectionGetInfoResponse> WanPppConnectionGetInfoAsync()
+        public Task<WanIpConnectionGetInfoResponse> WanIpConnectionGetInfoAsync()
+        {
+            return ExecuteAsync(GetFritzWanIpConnectionServiceClient(), q => q.GetInfoAsync(new WanIpConnectionGetInfoRequest()));
+        }
+
+    public Task<WanPppConnectionGetInfoResponse> WanPppConnectionGetInfoAsync()
         {
             return ExecuteAsync(GetFritzWanPppConnectionServiceClient(), q => q.GetInfoAsync(new WanPppConnectionGetInfoRequest()));
         }
@@ -168,6 +176,10 @@
         private IFritzWanDslInterfaceConfigService GetFritzWanDslInterfaceConfigServiceClient()
         {
             return fritzWanDslInterfaceConfigServiceClientFactory.Build((q, r, t) => new FritzWanDslInterfaceConfigService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzWanDslInterfaceConfigService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
+        }
+        publicprivate IFritzWanIpConnectionService GetFritzWanIpConnectionServiceClient()
+        {
+            return fritzWanIpConnectionServiceClientFactory.Build((q, r, t) => new FritzWanIpConnectionService(q, r, t!), InternetGatewayDevice!.PreferredLocation, true, FritzWanIpConnectionService.ControlUrl, InternetGatewayDevice!.SecurityPort, NetworkCredential);
         }
 
         private IFritzWanPppConnectionService GetFritzWanPppConnectionServiceClient()
