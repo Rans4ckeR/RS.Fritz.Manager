@@ -1,30 +1,24 @@
 ﻿namespace RS.Fritz.Manager.UI
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using System.IO;
-    using System.Net.Http;
     using System.Threading.Tasks;
-    using System.Xml;
-    using System.Xml.Serialization;
     using Microsoft.Extensions.Logging;
     using RS.Fritz.Manager.API;
 
     internal sealed class HostsViewModel : FritzServiceViewModel
     {
-        private const ushort GetHostsGetGenericHostEntryIndex = 0;
-
-        private readonly IHttpClientFactory httpClientFactory;
+        private readonly IDeviceHostsService deviceHostsService;
 
         private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
         private HostsGetHostListPathResponse? hostsGetHostListPathResponse;
         private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
 
-        public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler, IHttpClientFactory httpClientFactory)
-
+        public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceHostsService deviceHostsService)
             : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
         {
-            this.httpClientFactory = httpClientFactory;
+            this.deviceHostsService = deviceHostsService;
         }
 
         public HostsGetHostNumberOfEntriesResponse? HostsGetHostNumberOfEntriesResponse
@@ -54,14 +48,14 @@
 
         private async Task GetHostsGetHostNumberOfEntriesAsync()
         {
-            HostsGetHostNumberOfEntriesResponse newHostsGetHostNumberOfEntriesResponse = await FritzServiceOperationHandler.GetHostsGetHostNumberOfEntriesAsync();
-            HostsGetHostNumberOfEntriesResponse = newHostsGetHostNumberOfEntriesResponse;
+            HostsGetHostNumberOfEntriesResponse = await FritzServiceOperationHandler.GetHostsGetHostNumberOfEntriesAsync();
         }
 
         private async Task GetHostsGetGenericHostEntryAsync()
         {
-            HostsGetGenericHostEntryResponse newHostsGetGenericHostEntryResponse = await FritzServiceOperationHandler.GetHostsGetGenericHostEntryAsync(GetHostsGetGenericHostEntryIndex);
-            HostsGetGenericHostEntryResponse = newHostsGetGenericHostEntryResponse;
+            const ushort getHostsGetGenericHostEntryIndex = 0;
+
+            HostsGetGenericHostEntryResponse = await FritzServiceOperationHandler.GetHostsGetGenericHostEntryAsync(getHostsGetGenericHostEntryIndex);
         }
 
         private async Task GetHostsGetHostListPathAsync()
@@ -70,26 +64,14 @@
 
             if (FritzServiceOperationHandler.InternetGatewayDevice is not null)
             {
-                newHostsGetHostListPathResponse.HostListPathLink = new Uri(FormattableString.Invariant($"{FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Scheme}://{FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Authority}{newHostsGetHostListPathResponse.HostListPath}"));
+                Uri hostListPathUri = new Uri(FormattableString.Invariant($"https://{FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host}:{FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort}{newHostsGetHostListPathResponse.HostListPath}"));
+                IEnumerable<DeviceHost> deviceHosts = await deviceHostsService.GetDeviceHostsAsync(hostListPathUri);
 
-                Uri hostListPathLink = new Uri(FormattableString.Invariant($"https://{FritzServiceOperationHandler.InternetGatewayDevice.PreferredLocation.Host}:{FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort}{newHostsGetHostListPathResponse.HostListPath}"));
-                string deviceHostsListXml = await GetHostsGetHostListAsync(hostListPathLink);
-
-                using var stringReader = new StringReader(deviceHostsListXml);
-                using var xmlTextReader = new XmlTextReader(stringReader);
-
-                DeviceHostsList? deviceHostsList = (DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader);
-
-                if (deviceHostsList is not null)
-                    newHostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>(deviceHostsList.DeviceHosts);
+                newHostsGetHostListPathResponse.DeviceHostsCollection = new ObservableCollection<DeviceHost>(deviceHosts);
+                newHostsGetHostListPathResponse.HostListPathLink = hostListPathUri;
 
                 HostsGetHostListPathResponse = newHostsGetHostListPathResponse;
             }
-        }
-
-        private async Task<string> GetHostsGetHostListAsync(Uri uri)
-        {
-            return await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStringAsync(uri);
         }
     }
 }
