@@ -50,5 +50,7 @@
         Task<WanDslInterfaceConfigGetStatisticsTotalResponse> WanDslInterfaceConfigGetStatisticsTotalAsync();
 
         Task<WanPppConnectionGetInfoResponse> WanPppConnectionGetInfoAsync();
+
+        Task<WanIpConnectionGetInfoResponse> WanIpConnectionGetInfoAsync();
     }
 }
