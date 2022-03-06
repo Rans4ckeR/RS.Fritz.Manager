@@ -34,6 +34,7 @@
                     services.AddSingleton<HostsViewModel>();
                     services.AddSingleton<Layer3ForwardingViewModel>();
                     services.AddSingleton<WanPppConnectionViewModel>();
+                    services.AddSingleton<WanIpConnectionViewModel>();
                     services.AddSingleton<DeviceLoginInfo>();
                     services.AddSingleton<ILogger, UserInterfaceLogService>();
                     services.AddFritzApi();
