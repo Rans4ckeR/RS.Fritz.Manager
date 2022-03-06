@@ -3,7 +3,6 @@
     using System;
     using CommunityToolkit.Mvvm.Messaging;
     using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.API;
 
     public sealed class UserInterfaceLogService : ILogger
     {

@@ -2,7 +2,7 @@
              x:ClassModifier="internal"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:domain="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
+             xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
              xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
     <Application.Resources>
         <ResourceDictionary>
@@ -102,7 +102,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:UPnPDescription}">
+            <DataTemplate DataType="{x:Type api:UPnPDescription}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -126,7 +126,7 @@
                     <ContentControl Grid.Row="0" Grid.Column="1" Content="{Binding Device}"/>
                 </Grid>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:SpecVersion}">
+            <DataTemplate DataType="{x:Type api:SpecVersion}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -144,7 +144,7 @@
                     <TextBlock x:Name="Minor" Grid.Row="2" Grid.Column="1" Text="{Binding Minor}"/>
                 </Grid>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:SystemVersion}">
+            <DataTemplate DataType="{x:Type api:SystemVersion}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -174,7 +174,7 @@
                     <TextBlock x:Name="Display" Grid.Row="6" Grid.Column="1" Text="{Binding Display}"/>
                 </Grid>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:Device}">
+            <DataTemplate DataType="{x:Type api:Device}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -228,7 +228,7 @@
                     </TextBlock>
                 </Grid>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:DeviceInfoGetSecurityPortResponse}">
+            <DataTemplate DataType="{x:Type api:DeviceInfoGetSecurityPortResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SecurityPort">
                         <Grid>
@@ -245,7 +245,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:User}">
+            <DataTemplate DataType="{x:Type api:User}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -261,7 +261,7 @@
                     <TextBlock x:Name="LastUser" Grid.Row="1" Grid.Column="1" Text="{Binding LastUser}"/>
                 </Grid>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:DeviceInfoGetInfoResponse}">
+            <DataTemplate DataType="{x:Type api:DeviceInfoGetInfoResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
                         <Grid>
@@ -311,7 +311,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:DeviceInfoGetDeviceLogResponse}">
+            <DataTemplate DataType="{x:Type api:DeviceInfoGetDeviceLogResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DeviceLog">
                         <Grid>
@@ -328,7 +328,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:LanConfigSecurityGetAnonymousLoginResponse}">
+            <DataTemplate DataType="{x:Type api:LanConfigSecurityGetAnonymousLoginResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="AnonymousLogin">
                         <Grid>
@@ -345,7 +345,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:LanConfigSecurityGetCurrentUserResponse}">
+            <DataTemplate DataType="{x:Type api:LanConfigSecurityGetCurrentUserResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="CurrentUser">
                         <Grid>
@@ -365,7 +365,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:LanConfigSecurityGetInfoResponse}">
+            <DataTemplate DataType="{x:Type api:LanConfigSecurityGetInfoResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
                         <Grid>
@@ -388,7 +388,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:LanConfigSecurityGetUserListResponse}">
+            <DataTemplate DataType="{x:Type api:LanConfigSecurityGetUserListResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="UserList">
                         <Grid>
@@ -405,7 +405,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:WanDslInterfaceConfigGetDSLDiagnoseInfoResponse}">
+            <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetDSLDiagnoseInfoResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DSLDiagnoseInfo">
                         <Grid>
@@ -440,7 +440,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:WanDslInterfaceConfigGetDSLInfoResponse}">
+            <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetDSLInfoResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DSLInfo">
                         <Grid>
@@ -529,7 +529,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:WanDslInterfaceConfigGetStatisticsTotalResponse}">
+            <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetStatisticsTotalResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="StatisticsTotal">
                         <Grid>
@@ -588,7 +588,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:Layer3ForwardingGetDefaultConnectionServiceResponse}">
+            <DataTemplate DataType="{x:Type api:Layer3ForwardingGetDefaultConnectionServiceResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DefaultConnectionService">
                         <Grid>
@@ -605,7 +605,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:WanIpConnectionGetInfoResponse}">
+            <DataTemplate DataType="{x:Type api:WanIpConnectionGetInfoResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WanIpConnection Info">
                         <Grid>
@@ -667,7 +667,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:WanPppConnectionGetInfoResponse}">
+            <DataTemplate DataType="{x:Type api:WanPppConnectionGetInfoResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
                         <Grid>
@@ -774,7 +774,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:WanCommonInterfaceConfigGetCommonLinkPropertiesResponse}">
+            <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetCommonLinkPropertiesResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="LinkProperties">
                         <Grid>
@@ -800,7 +800,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:WanCommonInterfaceConfigGetTotalBytesReceivedResponse}">
+            <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetTotalBytesReceivedResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalBytesReceived">
                         <Grid>
@@ -817,7 +817,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:WanCommonInterfaceConfigGetTotalBytesSentResponse}">
+            <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetTotalBytesSentResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalBytesSent">
                         <Grid>
@@ -834,7 +834,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type domain:HostsGetHostNumberOfEntriesResponse}">
+            <DataTemplate DataType="{x:Type api:HostsGetHostNumberOfEntriesResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="HostNumberOfEntries">
                         <Grid>
