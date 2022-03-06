@@ -66,7 +66,6 @@
         {
             var sb = new StringBuilder();
 
-            sb.Append(FormattableString.Invariant($"{nameof(FaultException)}.{nameof(FaultException.Code)}:"));
             sb.AppendLine(FormattableString.Invariant($"{nameof(FaultCode)}.{nameof(FaultCode.IsPredefinedFault)}: {faultCode.IsPredefinedFault}"));
             sb.AppendLine(FormattableString.Invariant($"{nameof(FaultCode)}.{nameof(FaultCode.IsReceiverFault)}: {faultCode.IsReceiverFault}"));
             sb.AppendLine(FormattableString.Invariant($"{nameof(FaultCode)}.{nameof(FaultCode.IsSenderFault)}: {faultCode.IsSenderFault}"));

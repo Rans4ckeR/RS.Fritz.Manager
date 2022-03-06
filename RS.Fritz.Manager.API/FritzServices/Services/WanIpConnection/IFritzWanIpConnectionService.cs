@@ -1,5 +1,4 @@
-﻿using System;
-namespace RS.Fritz.Manager.API
+﻿namespace RS.Fritz.Manager.API
 {
     using System.ServiceModel;
     using System.Threading.Tasks;

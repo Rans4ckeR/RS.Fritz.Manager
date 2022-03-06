@@ -17,7 +17,25 @@ Download latest version:
 ## Service implementation status
 
 ### WAN
-* ❌ urn:dslforum-org:service:WANIPConnection:1
+* 🔶 urn:dslforum-org:service:WANIPConnection:1
+  * ✅ GetInfo
+  * ❌ GetConnectionTypeInfo
+  * ❌ SetConnectionType
+  * ❌ GetStatusInfo
+  * ❌ GetNATRSIPStatus
+  * ❌ SetConnectionTrigger
+  * ❌ ForceTermination
+  * ❌ RequestConnection
+  * ❌ X_GetDNSServers
+  * ❌ X_SetDNSServers
+  * ❌ GetPortMappingNumberOfEntries
+  * ❌ GetGenericPortMappingEntry
+  * ❌ GetSpecificPortMappingEntry
+  * ❌ AddPortMapping
+  * ❌ DeletePortMapping
+  * ❌ GetExternalIPAddress
+  * ❌ SetRouteProtocolRx
+  * ❌ SetIdleDisconnectTime
 * ❌ urn:dslforum-org:service:WANPPPConnection:1
 * 🔶 urn:dslforum-org:service:WANCommonInterfaceConfig:1
   * ✅ GetCommonLinkProperties

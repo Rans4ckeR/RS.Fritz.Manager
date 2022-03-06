@@ -55,4 +55,3 @@
         public bool DNSOverrideAllowed { get; set; }
     }
 }
-
