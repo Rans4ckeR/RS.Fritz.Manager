@@ -52,22 +52,22 @@
 
         private async Task GetLanConfigSecurityGetAnonymousLoginAsync()
         {
-            LanConfigSecurityGetAnonymousLoginResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.LanConfigSecurityGetAnonymousLoginAsync(d));
+            LanConfigSecurityGetAnonymousLoginResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecurityGetAnonymousLoginAsync(d));
         }
 
         private async Task GetLanConfigSecurityGetCurrentUserAsync()
         {
-            LanConfigSecurityGetCurrentUserResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.LanConfigSecurityGetCurrentUserAsync(d));
+            LanConfigSecurityGetCurrentUserResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecurityGetCurrentUserAsync(d));
         }
 
         private async Task GetLanConfigSecurityGetInfoAsync()
         {
-            LanConfigSecurityGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.LanConfigSecurityGetInfoAsync(d));
+            LanConfigSecurityGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecurityGetInfoAsync(d));
         }
 
         private async Task GetLanConfigSecurityGetUserListAsync()
         {
-            LanConfigSecurityGetUserListResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.LanConfigSecurityGetUserListAsync(d));
+            LanConfigSecurityGetUserListResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecurityGetUserListAsync(d));
         }
     }
 }

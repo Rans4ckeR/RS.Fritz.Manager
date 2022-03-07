@@ -42,17 +42,17 @@
 
         private async Task GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
         {
-            WanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(d));
+            WanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(d));
         }
 
         private async Task GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync()
         {
-            WanCommonInterfaceConfigGetTotalBytesReceivedResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(d));
+            WanCommonInterfaceConfigGetTotalBytesReceivedResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(d));
         }
 
         private async Task GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
         {
-            WanCommonInterfaceConfigGetTotalBytesSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalBytesSentAsync(d));
+            WanCommonInterfaceConfigGetTotalBytesSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalBytesSentAsync(d));
         }
     }
 }

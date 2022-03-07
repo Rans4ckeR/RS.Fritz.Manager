@@ -25,7 +25,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            _ = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.LanConfigSecuritySetConfigPasswordAsync(d, Password!));
+            _ = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecuritySetConfigPasswordAsync(d, Password!));
         }
 
         protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

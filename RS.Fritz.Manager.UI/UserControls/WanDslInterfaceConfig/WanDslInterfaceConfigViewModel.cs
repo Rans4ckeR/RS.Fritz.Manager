@@ -96,22 +96,22 @@
 
         private async Task GetWanDslInterfaceConfigGetDSLDiagnoseInfoAsync()
         {
-            WanDslInterfaceConfigGetDSLDiagnoseInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDSLDiagnoseInfoAsync(d));
+            WanDslInterfaceConfigGetDSLDiagnoseInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDSLDiagnoseInfoAsync(d));
         }
 
         private async Task GetWanDslInterfaceConfigGetDSLInfoAsync()
         {
-            WanDslInterfaceConfigGetDSLInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDSLInfoAsync(d));
+            WanDslInterfaceConfigGetDSLInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDSLInfoAsync(d));
         }
 
         private async Task GetWanDslInterfaceConfigGetInfoAsync()
         {
-            WanDslInterfaceConfigInfoControlViewModel.WanDslInterfaceConfigGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetInfoAsync(d));
+            WanDslInterfaceConfigInfoControlViewModel.WanDslInterfaceConfigGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetInfoAsync(d));
         }
 
         private async Task GetWanDslInterfaceConfigGetStatisticsTotalAsync()
         {
-            WanDslInterfaceConfigGetStatisticsTotalResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetStatisticsTotalAsync(d));
+            WanDslInterfaceConfigGetStatisticsTotalResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetStatisticsTotalAsync(d));
         }
     }
 }

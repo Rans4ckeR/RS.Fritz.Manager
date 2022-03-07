@@ -48,19 +48,19 @@
 
         private async Task GetHostsGetHostNumberOfEntriesAsync()
         {
-            HostsGetHostNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.GetHostsGetHostNumberOfEntriesAsync(d));
+            HostsGetHostNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetHostNumberOfEntriesAsync(d));
         }
 
         private async Task GetHostsGetGenericHostEntryAsync()
         {
             const ushort getHostsGetGenericHostEntryIndex = 0;
 
-            HostsGetGenericHostEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.GetHostsGetGenericHostEntryAsync(d, getHostsGetGenericHostEntryIndex));
+            HostsGetGenericHostEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetGenericHostEntryAsync(d, getHostsGetGenericHostEntryIndex));
         }
 
         private async Task GetHostsGetHostListPathAsync()
         {
-            HostsGetHostListPathResponse newHostsGetHostListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.GetHostsGetHostListPathAsync(d));
+            HostsGetHostListPathResponse newHostsGetHostListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetHostListPathAsync(d));
             string hostListPath = newHostsGetHostListPathResponse.HostListPath;
             Uri hostListPathUri = new Uri(FormattableString.Invariant($"https://{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice!.PreferredLocation.Host}:{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice.SecurityPort}{hostListPath}"));
             IEnumerable<DeviceHost> deviceHosts = await deviceHostsService.GetDeviceHostsAsync(hostListPathUri);

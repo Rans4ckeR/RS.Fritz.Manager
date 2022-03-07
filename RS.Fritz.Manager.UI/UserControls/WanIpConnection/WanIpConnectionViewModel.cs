@@ -20,7 +20,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            WanIpConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.WanIpConnectionGetInfoAsync(d));
+            WanIpConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanIpConnectionGetInfoAsync(d));
         }
     }
 }

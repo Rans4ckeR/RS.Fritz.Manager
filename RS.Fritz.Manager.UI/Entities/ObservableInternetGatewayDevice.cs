@@ -60,9 +60,9 @@
             set => _ = SetProperty(InternetGatewayDevice.UPnPDescription, value, InternetGatewayDevice, (u, n) => u.UPnPDescription = n, true);
         }
 
-        public async Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
+        public Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
         {
-            return await operation(InternetGatewayDevice.FritzServiceOperationHandler, InternetGatewayDevice);
+            return InternetGatewayDevice.ExecuteAsync(operation);
         }
     }
 }
