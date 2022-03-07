@@ -3,14 +3,13 @@
     using System.ComponentModel;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.API;
 
     internal sealed class LanConfigSecuritySetConfigPasswordViewModel : FritzServiceViewModel
     {
         private string? password;
 
-        public LanConfigSecuritySetConfigPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
+        public LanConfigSecuritySetConfigPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+            : base(deviceLoginInfo, logger)
         {
         }
 
@@ -26,7 +25,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            _ = await FritzServiceOperationHandler.LanConfigSecuritySetConfigPasswordAsync(Password!);
+            _ = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.LanConfigSecuritySetConfigPasswordAsync(d, Password!));
         }
 
         protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

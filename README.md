@@ -1,5 +1,5 @@
-# RS.Fritz.Manager
-A Windows .NET app with WPF UI to read information from and manage FritzBox devices using pure WCF calls.
+# RS.Fritz.Manager.UI
+A Windows .NET app with WPF UI to manage FritzBox devices using pure WCF calls.
 
 Download latest version:
 * [.NET 6](https://github.com/Rans4ckeR/RS.Fritz.Manager/releases/download/v0.1.0-alpha.7/RS.Fritz.Manager-v0.1.0-alpha.7-net6.0-windows.zip)
@@ -13,6 +13,42 @@ Download latest version:
 3. Select a device user
 4. Enter the selected user's password
 5. Use the Device Information tab to see device details
+
+# RS.Fritz.Manager.API
+A NuGet package to manage FritzBox devices using pure WCF calls.
+
+## Usage Example
+
+```C#
+using System.Net;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using RS.Fritz.Manager.API;
+
+// Initialize and add services to container using AddFritzApi()
+using var host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices((_, services) => services.AddFritzApi())
+    .Build();
+using IServiceScope serviceScope = host.Services.CreateScope();
+var deviceSearchService = serviceScope.ServiceProvider.GetRequiredService<IDeviceSearchService>();
+
+// Search for devices on the network
+InternetGatewayDevice device = (await deviceSearchService.GetDevicesAsync()).First();
+
+// Initialize device
+await device.InitializeAsync();
+
+// Authenticate with password
+string lastUsedUserName = device.Users.First(q => q.LastUser).Name;
+Console.WriteLine($"Enter password for {lastUsedUserName}:");
+device.NetworkCredential = new NetworkCredential(lastUsedUserName, Console.ReadLine());
+
+// Show device UpTime
+DeviceInfoGetInfoResponse deviceInfo = await device.ExecuteAsync((h, d) => h.DeviceInfoGetInfoAsync(d));
+Console.WriteLine(TimeSpan.FromSeconds(deviceInfo.UpTime));
+
+await host.RunAsync();
+```
 
 ## Service implementation status
 

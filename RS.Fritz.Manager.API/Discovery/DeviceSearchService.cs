@@ -26,11 +26,13 @@
 #pragma warning restore SA1310 // Field names should not contain underscore
 
         private readonly IHttpClientFactory httpClientFactory;
+        private readonly IFritzServiceOperationHandler fritzServiceOperationHandler;
         private readonly AddressFamily[] supportedAddressFamilies = { AddressFamily.InterNetwork, AddressFamily.InterNetworkV6 };
 
-        public DeviceSearchService(IHttpClientFactory httpClientFactory)
+        public DeviceSearchService(IHttpClientFactory httpClientFactory, IFritzServiceOperationHandler fritzServiceOperationHandler)
         {
             this.httpClientFactory = httpClientFactory;
+            this.fritzServiceOperationHandler = fritzServiceOperationHandler;
         }
 
         private static IDictionary<AddressType, IPAddress> SsdpMulticastAddresses => new Dictionary<AddressType, IPAddress>
@@ -51,7 +53,7 @@
             InternetGatewayDevice[] internetGatewayDevices = deviceDictionaries
                 .Select(q => new InternetGatewayDeviceResponse(new Uri(q["LOCATION"]), q["SERVER"], q["CACHE-CONTROL"], q["EXT"], q["ST"], q["USN"]))
                 .GroupBy(q => q.Usn)
-                .Select(q => new InternetGatewayDevice(q.Select(r => r.Location).Distinct(), q.Select(r => r.Server).Distinct().Single(), q.Select(r => r.CacheControl).Distinct().Single(), q.Select(r => r.Ext).Distinct().Single(), q.Select(r => r.SearchTarget).Distinct().Single(), q.Key, q.Select(r => r.Location).Distinct().SingleOrDefault(r => r.HostNameType is UriHostNameType.IPv6) ?? q.Select(r => r.Location).Distinct().Single(r => r.HostNameType is UriHostNameType.IPv4)))
+                .Select(q => new InternetGatewayDevice(fritzServiceOperationHandler, q.Select(r => r.Location).Distinct(), q.Select(r => r.Server).Distinct().Single(), q.Select(r => r.CacheControl).Distinct().Single(), q.Select(r => r.Ext).Distinct().Single(), q.Select(r => r.SearchTarget).Distinct().Single(), q.Key, q.Select(r => r.Location).Distinct().SingleOrDefault(r => r.HostNameType is UriHostNameType.IPv6) ?? q.Select(r => r.Location).Distinct().Single(r => r.HostNameType is UriHostNameType.IPv4)))
                 .ToArray();
 
             await TaskExtensions.WhenAllSafe(internetGatewayDevices.Select(GetUPnPDescription));

@@ -4,7 +4,7 @@
     using System.Net;
     using System.ServiceModel;
 
-    public interface IClientFactory<TInterface>
+    internal interface IClientFactory<TInterface>
     {
         TInterface Build(Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, TInterface> createClient, Uri location, bool secure, string controlUrl, ushort? port = null, NetworkCredential? networkCredential = null);
     }

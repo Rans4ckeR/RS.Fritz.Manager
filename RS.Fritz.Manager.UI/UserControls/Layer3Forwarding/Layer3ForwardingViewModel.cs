@@ -8,8 +8,8 @@
     {
         private Layer3ForwardingGetDefaultConnectionServiceResponse? layer3ForwardingGetDefaultConnectionServiceResponse;
 
-        public Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
+        public Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+            : base(deviceLoginInfo, logger)
         {
         }
 
@@ -20,7 +20,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            Layer3ForwardingGetDefaultConnectionServiceResponse = await FritzServiceOperationHandler.Layer3ForwardingGetDefaultConnectionServiceAsync();
+            Layer3ForwardingGetDefaultConnectionServiceResponse = await DeviceLoginInfo.InternetGatewayDevice!.InternetGatewayDevice.ExecuteAsync((h, d) => h.Layer3ForwardingGetDefaultConnectionServiceAsync(d));
         }
     }
 }
