@@ -8,11 +8,11 @@
     using System.Net.Http;
     using System.Net.NetworkInformation;
     using System.Net.Sockets;
+    using System.Runtime.Serialization;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Xml;
-    using System.Xml.Serialization;
 
     internal sealed class DeviceSearchService : IDeviceSearchService
     {
@@ -161,7 +161,7 @@
             using var stringReader = new StringReader(uPnPDescription);
             using var xmlTextReader = new XmlTextReader(stringReader);
 
-            internetGatewayDevice.UPnPDescription = (UPnPDescription?)new XmlSerializer(typeof(UPnPDescription)).Deserialize(xmlTextReader);
+            internetGatewayDevice.UPnPDescription = (UPnPDescription?)new DataContractSerializer(typeof(UPnPDescription)).ReadObject(xmlTextReader);
         }
     }
 }
