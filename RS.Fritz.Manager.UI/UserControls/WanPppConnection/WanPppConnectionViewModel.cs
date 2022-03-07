@@ -2,14 +2,14 @@
 {
     using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.Domain;
+    using RS.Fritz.Manager.API;
 
     internal sealed class WanPppConnectionViewModel : FritzServiceViewModel
     {
         private WanPppConnectionGetInfoResponse? wanPppConnectionGetInfoResponse;
 
-        public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
+        public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+            : base(deviceLoginInfo, logger)
         {
         }
 
@@ -20,7 +20,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            WanPppConnectionGetInfoResponse = await FritzServiceOperationHandler.WanPppConnectionGetInfoAsync();
+            WanPppConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanPppConnectionGetInfoAsync(d));
         }
     }
 }

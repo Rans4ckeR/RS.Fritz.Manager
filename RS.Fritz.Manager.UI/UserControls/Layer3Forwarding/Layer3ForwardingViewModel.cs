@@ -2,14 +2,14 @@
 {
     using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.Domain;
+    using RS.Fritz.Manager.API;
 
     internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
     {
         private Layer3ForwardingGetDefaultConnectionServiceResponse? layer3ForwardingGetDefaultConnectionServiceResponse;
 
-        public Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
+        public Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+            : base(deviceLoginInfo, logger)
         {
         }
 
@@ -20,7 +20,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            Layer3ForwardingGetDefaultConnectionServiceResponse = await FritzServiceOperationHandler.Layer3ForwardingGetDefaultConnectionServiceAsync();
+            Layer3ForwardingGetDefaultConnectionServiceResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.Layer3ForwardingGetDefaultConnectionServiceAsync(d));
         }
     }
 }

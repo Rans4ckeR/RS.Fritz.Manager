@@ -9,11 +9,10 @@
     using CommunityToolkit.Mvvm.Messaging;
     using CommunityToolkit.Mvvm.Messaging.Messages;
     using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.Domain;
+    using RS.Fritz.Manager.API;
 
     internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<PropertyChangedMessage<IEnumerable<User>>>
     {
-        private const string DeviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
         private readonly IDeviceSearchService deviceSearchService;
         private ObservableCollection<ObservableInternetGatewayDevice> devices = new();
         private ObservableCollection<User> users = new();
@@ -21,8 +20,8 @@
         private string? userMessage;
         private bool deviceAndLoginControlsEnabled = true;
 
-        public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, HostsViewModel hostsViewModel, WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel, WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceSearchService deviceSearchService)
-        : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
+        public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanIpConnectionViewModel wanIpConnectionViewModel, HostsViewModel hostsViewModel, WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel, WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, IDeviceSearchService deviceSearchService)
+            : base(deviceLoginInfo, logger)
         {
             this.deviceSearchService = deviceSearchService;
             DeviceInfoViewModel = deviceInfoViewModel;
@@ -30,6 +29,7 @@
             WanDslInterfaceConfigViewModel = wanDslInterfaceConfigViewModel;
             Layer3ForwardingViewModel = layer3ForwardingViewModel;
             WanPppConnectionViewModel = wanPppConnectionViewModel;
+            WanIpConnectionViewModel = wanIpConnectionViewModel;
             WanCommonInterfaceConfigViewModel = wanCommonInterfaceConfigViewModel;
             HostsViewModel = hostsViewModel;
 
@@ -53,6 +53,8 @@
         public WanDslInterfaceConfigViewModel WanDslInterfaceConfigViewModel { get; }
 
         public Layer3ForwardingViewModel Layer3ForwardingViewModel { get; }
+
+        public WanIpConnectionViewModel WanIpConnectionViewModel { get; }
 
         public WanPppConnectionViewModel WanPppConnectionViewModel { get; }
 
@@ -101,12 +103,12 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            Devices = new ObservableCollection<ObservableInternetGatewayDevice>((await deviceSearchService.GetDevicesAsync(DeviceType)).Select(q => new ObservableInternetGatewayDevice(q)));
+            Devices = new ObservableCollection<ObservableInternetGatewayDevice>((await deviceSearchService.GetDevicesAsync()).Select(q => new ObservableInternetGatewayDevice(q)));
         }
 
         protected override bool GetCanExecuteDefaultCommand()
         {
-            return !string.IsNullOrWhiteSpace(DeviceType) && !DefaultCommandActive;
+            return !DefaultCommandActive;
         }
     }
 }

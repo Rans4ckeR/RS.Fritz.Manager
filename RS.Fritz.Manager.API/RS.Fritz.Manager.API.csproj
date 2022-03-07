@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+    <AssemblyName>RS.Fritz.Manager.API</AssemblyName>
+    <RootNamespace>RS.Fritz.Manager.API</RootNamespace>
+    <Title>RS.Fritz.Manager.API</Title>
+    <Product>RS.Fritz.Manager.API</Product>
+    <Copyright>Copyright 2022 (c) RS. All rights reserved.</Copyright>
+    <Company>RS</Company>
+    <Configuration></Configuration>
+    <Trademark></Trademark>
+    <Culture></Culture>
+    <Authors>RS</Authors>
+    <DebugType>pdbonly</DebugType>
+    <ComVisible>false</ComVisible>
+    <CLSCompliant>false</CLSCompliant>
+    <AnalysisLevel>preview</AnalysisLevel>
+    <LangVersion>preview</LangVersion>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <Nullable>enable</Nullable>
+    <Version>0.0.0.1</Version>
+    <FileVersion>0.0.0.1</FileVersion>
+    <InformationalVersion>0.0.0.1</InformationalVersion>
+    <Description>A FritzBox API library to read information from and manage FritzBox devices using pure WCF calls.</Description>
+    <PackageId>RS.Fritz.Manager.API</PackageId>
+    <Authors>Rans4ckeR</Authors>
+    <PackageTags>Fritz FritzBox Fritz!Box TR064</PackageTags>
+    <PackageProjectUrl>https://github.com/Rans4ckeR/RS.Fritz.Manager</PackageProjectUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0-preview.1.22076.8" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="7.0.0-preview.1.22076.8" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.36.1.44192">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.ServiceModel.Http" Version="4.9.0" />
+  </ItemGroup>
+</Project>

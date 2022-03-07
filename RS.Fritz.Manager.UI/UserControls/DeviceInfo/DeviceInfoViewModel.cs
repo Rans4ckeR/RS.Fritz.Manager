@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.Domain;
+    using RS.Fritz.Manager.API;
 
     internal sealed class DeviceInfoViewModel : FritzServiceViewModel
     {
@@ -10,8 +10,8 @@
         private DeviceInfoGetInfoResponse? deviceInfoGetInfoResponse;
         private DeviceInfoGetDeviceLogResponse? deviceInfoGetDeviceLogResponse;
 
-        public DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
+        public DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel)
+            : base(deviceLoginInfo, logger)
         {
             DeviceInfoSetProvisioningCodeViewModel = deviceInfoSetProvisioningCodeViewModel;
         }
@@ -35,7 +35,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            await Domain.TaskExtensions.WhenAllSafe(new[]
+            await API.TaskExtensions.WhenAllSafe(new[]
                 {
                     GetDeviceInfoGetSecurityPortAsync(),
                     GetDeviceInfoGetInfoAsync(),
@@ -45,17 +45,17 @@
 
         private async Task GetDeviceInfoGetSecurityPortAsync()
         {
-            DeviceInfoGetSecurityPortResponse = await FritzServiceOperationHandler.DeviceInfoGetSecurityPortAsync();
+            DeviceInfoGetSecurityPortResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetSecurityPortAsync(d));
         }
 
         private async Task GetDeviceInfoGetInfoAsync()
         {
-            DeviceInfoGetInfoResponse = await FritzServiceOperationHandler.DeviceInfoGetInfoAsync();
+            DeviceInfoGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetInfoAsync(d));
         }
 
         private async Task GetDeviceInfoGetDeviceLogAsync()
         {
-            DeviceInfoGetDeviceLogResponse = await FritzServiceOperationHandler.DeviceInfoGetDeviceLogAsync();
+            DeviceInfoGetDeviceLogResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetDeviceLogAsync(d));
         }
     }
 }

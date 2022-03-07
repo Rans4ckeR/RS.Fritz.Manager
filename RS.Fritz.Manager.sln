@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31423.177
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RS.Fritz.Manager.Domain", "RS.Fritz.Manager.Domain\RS.Fritz.Manager.Domain.csproj", "{A87058FD-AB04-415B-A953-64D31C305493}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RS.Fritz.Manager.API", "RS.Fritz.Manager.API\RS.Fritz.Manager.API.csproj", "{A87058FD-AB04-415B-A953-64D31C305493}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RS.Fritz.Manager.UI", "RS.Fritz.Manager.UI\RS.Fritz.Manager.UI.csproj", "{9E666BC5-190E-4507-8441-5553FECFD1F1}"
 EndProject

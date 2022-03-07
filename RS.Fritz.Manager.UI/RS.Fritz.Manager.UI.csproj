@@ -21,8 +21,9 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <Version>0.1.0.0</Version>
-    <FileVersion>0.1.0.0</FileVersion>
+    <Version>0.0.0.1</Version>
+    <FileVersion>0.0.0.1</FileVersion>
+    <InformationalVersion>0.0.0.1</InformationalVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Images\Device.png" />
@@ -34,15 +35,14 @@
     <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-windows'">
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview1" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0-preview.1.22076.8" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.36.0.43782">
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview1" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.36.1.44192">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -52,7 +52,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RS.Fritz.Manager.Domain\RS.Fritz.Manager.Domain.csproj" />
+    <ProjectReference Include="..\RS.Fritz.Manager.API\RS.Fritz.Manager.API.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Device.png" />

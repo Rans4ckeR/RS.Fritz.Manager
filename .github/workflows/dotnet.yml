@@ -1,0 +1,32 @@
+name: .NET
+on:
+  push:
+    branches: [ master, develop ]
+jobs:
+  build:
+    if: github.repository == 'Rans4ckeR/RS.Fritz.Manager'
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3.0.0
+      with:
+        fetch-depth: 0
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v2.0.0
+      with:
+        dotnet-version: '7.x.x'
+        include-prerelease: true
+    - name: Restore Dependencies
+      run: dotnet restore
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.7
+      with:
+        versionSpec: '5.x'
+    - name: Determine Version
+      uses: gittools/actions/gitversion/execute@v0.9.11 
+    - name: Build
+      run: dotnet build --no-restore --configuration Release -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
+    - name: Package
+      run: dotnet pack RS.Fritz.Manager.API/RS.Fritz.Manager.API.csproj --no-restore --no-build --configuration Release -p:PackageVersion=$env:GitVersion_SemVer
+    - name: NuGet Push
+      run: dotnet nuget push ${{ format('RS.Fritz.Manager.API/bin/Release/RS.Fritz.Manager.API.{0}.nupkg', env.GitVersion_SemVer) }} --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

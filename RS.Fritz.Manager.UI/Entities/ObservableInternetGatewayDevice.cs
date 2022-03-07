@@ -3,8 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
     using CommunityToolkit.Mvvm.ComponentModel;
-    using RS.Fritz.Manager.Domain;
+    using RS.Fritz.Manager.API;
 
     internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
     {
@@ -12,7 +13,7 @@
 
         public ObservableInternetGatewayDevice(InternetGatewayDevice internetGatewayDevice)
         {
-            this.InternetGatewayDevice = internetGatewayDevice;
+            InternetGatewayDevice = internetGatewayDevice;
         }
 
         public InternetGatewayDevice InternetGatewayDevice { get; }
@@ -57,6 +58,11 @@
         {
             get => InternetGatewayDevice.UPnPDescription;
             set => _ = SetProperty(InternetGatewayDevice.UPnPDescription, value, InternetGatewayDevice, (u, n) => u.UPnPDescription = n, true);
+        }
+
+        public Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
+        {
+            return InternetGatewayDevice.ExecuteAsync(operation);
         }
     }
 }

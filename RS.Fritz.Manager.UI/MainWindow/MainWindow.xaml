@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="clr-namespace:RS.Fritz.Manager.UI"
-        xmlns:domain="clr-namespace:RS.Fritz.Manager.Domain;assembly=RS.Fritz.Manager.Domain"
+        xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
         xmlns:system="clr-namespace:System;assembly=netstandard"
         d:DataContext="{d:DesignInstance Type=ui:MainWindowViewModel}"
         mc:Ignorable="d"
@@ -55,7 +55,7 @@
                         <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.User}">
                             <RibbonGalleryCategory ItemsSource="{Binding Users}">
                                 <RibbonGalleryCategory.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type domain:User}">
+                                    <DataTemplate DataType="{x:Type api:User}">
                                         <TextBlock Text="{Binding Name}"/>
                                     </DataTemplate>
                                 </RibbonGalleryCategory.ItemTemplate>
@@ -89,6 +89,9 @@
                 </RibbonGroup>
                 <RibbonGroup ToolTip="The WANPPPConnection service enables a UPnP control point to configure and control PPP connections on the WAN interface of a UPnP compliant IGD.">
                     <RibbonButton Label="WanPppConnection" Command="{Binding WanPppConnectionViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                </RibbonGroup>
+                <RibbonGroup ToolTip="The WANIpConnection service enables a UPnP control point to configure and control IP connections on the WAN interface of a UPnP compliant IGD.">
+                    <RibbonButton Label="WanIpConnection" Command="{Binding WanIpConnectionViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
