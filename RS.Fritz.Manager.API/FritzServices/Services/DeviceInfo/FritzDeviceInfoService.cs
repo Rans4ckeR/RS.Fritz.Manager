@@ -4,7 +4,7 @@
     using System.ServiceModel;
     using System.Threading.Tasks;
 
-    public sealed class FritzDeviceInfoService : FritzServiceClient<IFritzDeviceInfoService>, IFritzDeviceInfoService
+    internal sealed class FritzDeviceInfoService : FritzServiceClient<IFritzDeviceInfoService>, IFritzDeviceInfoService
     {
         public const string ControlUrl = "/upnp/control/deviceinfo";
 

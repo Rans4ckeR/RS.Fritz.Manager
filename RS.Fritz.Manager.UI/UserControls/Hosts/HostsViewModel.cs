@@ -15,8 +15,8 @@
         private DeviceHostInfo? deviceHostInfo;
         private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
 
-        public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler, IDeviceHostsService deviceHostsService)
-            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
+        public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IDeviceHostsService deviceHostsService)
+            : base(deviceLoginInfo, logger)
         {
             this.deviceHostsService = deviceHostsService;
         }
@@ -48,21 +48,21 @@
 
         private async Task GetHostsGetHostNumberOfEntriesAsync()
         {
-            HostsGetHostNumberOfEntriesResponse = await FritzServiceOperationHandler.GetHostsGetHostNumberOfEntriesAsync();
+            HostsGetHostNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetHostNumberOfEntriesAsync(d));
         }
 
         private async Task GetHostsGetGenericHostEntryAsync()
         {
             const ushort getHostsGetGenericHostEntryIndex = 0;
 
-            HostsGetGenericHostEntryResponse = await FritzServiceOperationHandler.GetHostsGetGenericHostEntryAsync(getHostsGetGenericHostEntryIndex);
+            HostsGetGenericHostEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetGenericHostEntryAsync(d, getHostsGetGenericHostEntryIndex));
         }
 
         private async Task GetHostsGetHostListPathAsync()
         {
-            HostsGetHostListPathResponse newHostsGetHostListPathResponse = await FritzServiceOperationHandler.GetHostsGetHostListPathAsync();
+            HostsGetHostListPathResponse newHostsGetHostListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetHostListPathAsync(d));
             string hostListPath = newHostsGetHostListPathResponse.HostListPath;
-            Uri hostListPathUri = new Uri(FormattableString.Invariant($"https://{FritzServiceOperationHandler.InternetGatewayDevice!.PreferredLocation.Host}:{FritzServiceOperationHandler.InternetGatewayDevice.SecurityPort}{hostListPath}"));
+            Uri hostListPathUri = new Uri(FormattableString.Invariant($"https://{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice!.PreferredLocation.Host}:{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice.SecurityPort}{hostListPath}"));
             IEnumerable<DeviceHost> deviceHosts = await deviceHostsService.GetDeviceHostsAsync(hostListPathUri);
 
             DeviceHostInfo = new DeviceHostInfo(hostListPath, hostListPathUri, new ObservableCollection<DeviceHost>(deviceHosts));

@@ -4,7 +4,7 @@
     using System.ServiceModel;
     using System.Threading.Tasks;
 
-    public sealed class FritzLanConfigSecurityService : FritzServiceClient<IFritzLanConfigSecurityService>, IFritzLanConfigSecurityService
+    internal sealed class FritzLanConfigSecurityService : FritzServiceClient<IFritzLanConfigSecurityService>, IFritzLanConfigSecurityService
     {
         public const string ControlUrl = "/upnp/control/lanconfigsecurity";
 

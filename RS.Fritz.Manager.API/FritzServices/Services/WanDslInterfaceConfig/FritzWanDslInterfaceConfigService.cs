@@ -4,7 +4,7 @@
     using System.ServiceModel;
     using System.Threading.Tasks;
 
-    public sealed class FritzWanDslInterfaceConfigService : FritzServiceClient<IFritzWanDslInterfaceConfigService>, IFritzWanDslInterfaceConfigService
+    internal sealed class FritzWanDslInterfaceConfigService : FritzServiceClient<IFritzWanDslInterfaceConfigService>, IFritzWanDslInterfaceConfigService
     {
         public const string ControlUrl = "/upnp/control/wandslifconfig1";
 

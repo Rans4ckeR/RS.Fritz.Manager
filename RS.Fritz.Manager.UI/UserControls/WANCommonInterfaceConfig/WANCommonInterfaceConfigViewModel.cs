@@ -10,8 +10,8 @@
         private WanCommonInterfaceConfigGetTotalBytesReceivedResponse? wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
         private WanCommonInterfaceConfigGetTotalBytesSentResponse? wanCommonInterfaceConfigGetTotalBytesSentResponse;
 
-        public WanCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
+        public WanCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+            : base(deviceLoginInfo, logger)
         {
         }
 
@@ -42,17 +42,17 @@
 
         private async Task GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
         {
-            wanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await FritzServiceOperationHandler.GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync();
+            WanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(d));
         }
 
         private async Task GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync()
         {
-            wanCommonInterfaceConfigGetTotalBytesReceivedResponse = await FritzServiceOperationHandler.GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync();
+            WanCommonInterfaceConfigGetTotalBytesReceivedResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(d));
         }
 
         private async Task GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
         {
-            wanCommonInterfaceConfigGetTotalBytesSentResponse = await FritzServiceOperationHandler.GetWanCommonInterfaceConfigGetTotalBytesSentAsync();
+            WanCommonInterfaceConfigGetTotalBytesSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalBytesSentAsync(d));
         }
     }
 }

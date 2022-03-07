@@ -1,51 +1,61 @@
 ﻿namespace RS.Fritz.Manager.API
 {
-    using System.Xml.Serialization;
+    using System.Runtime.Serialization;
 
-    [XmlRoot(ElementName = "Item")]
+    [DataContract(Namespace = "")]
     public sealed record DeviceHost
     {
-        [XmlElement(ElementName = "Index")]
+        [DataMember(Name = "Index", Order = 0)]
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-
         public int Index { get; set; }
 
-        [XmlElement(ElementName = "IPAddress")]
+        [DataMember(Name = "IPAddress", Order = 1)]
+        public string IpAddress { get; set; }
 
-        public string IPAddress { get; set; }
+        [DataMember(Name = "MACAddress", Order = 2)]
+        public string MacAddress { get; set; }
 
-        [XmlElement(ElementName = "MACAddress")]
-        public string MACAddress { get; set; }
+        [DataMember(Name = "Active", Order = 3)]
+        public bool Active { get; set; }
 
-        [XmlElement(ElementName = "Active")]
-        public string Active { get; set; }
-
-        [XmlElement(ElementName = "HostName")]
+        [DataMember(Name = "HostName", Order = 4)]
         public string HostName { get; set; }
 
-        [XmlElement(ElementName = "X_AVM-DE_Port")]
+        [DataMember(Name = "InterfaceType", Order = 5)]
+        public string InterfaceType { get; set; }
 
-        public string X_AVM_DE_Port { get; set; }
+        [DataMember(Name = "X_AVM-DE_Port", Order = 6)]
+        public ushort Port { get; set; }
 
-        [XmlElement(ElementName = "X_AVM-DE_Speed")]
+        [DataMember(Name = "X_AVM-DE_Speed", Order = 7)]
+        public ushort Speed { get; set; }
 
-        public string X_AVM_DE_Speed { get; set; }
+        [DataMember(Name = "X_AVM-DE_UpdateAvailable", Order = 8)]
+        public bool UpdateAvailable { get; set; }
 
-        [XmlElement(ElementName = "X_AVM-DE_Guest")]
+        [DataMember(Name = "X_AVM-DE_UpdateSuccessful", Order = 9)]
+        public string UpdateSuccessful { get; set; }
 
-        public string X_AVM_DE_Guest { get; set; }
+        [DataMember(Name = "X_AVM-DE_InfoURL", Order = 10)]
+        public string InfoUrl { get; set; }
 
-        [XmlElement(ElementName = "X_AVM-DE_VPN")]
+        [DataMember(Name = "X_AVM-DE_Model", Order = 11)]
+        public string Model { get; set; }
 
-        public string X_AVM_DE_VPN { get; set; }
+        [DataMember(Name = "X_AVM-DE_URL", Order = 12)]
+        public string Url { get; set; }
 
-        [XmlElement(ElementName = "X_AVM-DE_WANAccess")]
+        [DataMember(Name = "X_AVM-DE_Guest", Order = 13)]
+        public bool Guest { get; set; }
 
-        public string X_AVM_DE_WANAccess { get; set; }
+        [DataMember(Name = "X_AVM-DE_VPN", Order = 14)]
+        public bool Vpn { get; set; }
 
-        [XmlElement(ElementName = "X_AVM-DE_Disallow")]
+        [DataMember(Name = "X_AVM-DE_WANAccess", Order = 15)]
+        public string WanAccess { get; set; }
 
-        public string X_AVM_DE_Disallow { get; set; }
+        [DataMember(Name = "X_AVM-DE_Disallow", Order = 16)]
+        public bool Disallow { get; set; }
 
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     }

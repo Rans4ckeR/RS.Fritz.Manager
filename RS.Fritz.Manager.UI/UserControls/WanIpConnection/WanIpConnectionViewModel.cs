@@ -8,8 +8,8 @@
     {
         private WanIpConnectionGetInfoResponse? wanIpConnectionGetInfoResponse;
 
-        public WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
-            : base(deviceLoginInfo, logger, fritzServiceOperationHandler)
+        public WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+            : base(deviceLoginInfo, logger)
         {
         }
 
@@ -20,7 +20,7 @@
 
         protected override async Task DoExecuteDefaultCommandAsync()
         {
-            WanIpConnectionGetInfoResponse = await FritzServiceOperationHandler.WanIpConnectionGetInfoAsync();
+            WanIpConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanIpConnectionGetInfoAsync(d));
         }
     }
 }

@@ -17,10 +17,9 @@
         private bool defaultCommandActive;
         private bool canExecuteDefaultCommand;
 
-        protected FritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IFritzServiceOperationHandler fritzServiceOperationHandler)
+        protected FritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         {
             DeviceLoginInfo = deviceLoginInfo;
-            FritzServiceOperationHandler = fritzServiceOperationHandler;
             this.logger = logger;
             DefaultCommand = new AsyncRelayCommand<bool?>(ExecuteDefaultCommandAsync, _ => CanExecuteDefaultCommand);
             PropertyChanged += FritzServiceViewModelPropertyChanged;
@@ -50,8 +49,6 @@
                     DefaultCommand.NotifyCanExecuteChanged();
             }
         }
-
-        protected IFritzServiceOperationHandler FritzServiceOperationHandler { get; }
 
         public virtual void Receive(PropertyChangedMessage<bool> message)
         {

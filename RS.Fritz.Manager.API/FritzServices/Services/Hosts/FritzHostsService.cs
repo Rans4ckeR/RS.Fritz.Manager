@@ -4,7 +4,7 @@
     using System.ServiceModel;
     using System.Threading.Tasks;
 
-    public sealed class FritzHostsService : FritzServiceClient<IFritzHostsService>, IFritzHostsService
+    internal sealed class FritzHostsService : FritzServiceClient<IFritzHostsService>, IFritzHostsService
     {
         public const string ControlUrl = "/upnp/control/hosts";
 

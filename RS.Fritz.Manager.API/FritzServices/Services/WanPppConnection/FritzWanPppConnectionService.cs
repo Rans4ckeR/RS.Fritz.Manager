@@ -4,7 +4,7 @@
     using System.ServiceModel;
     using System.Threading.Tasks;
 
-    public sealed class FritzWanPppConnectionService : FritzServiceClient<IFritzWanPppConnectionService>, IFritzWanPppConnectionService
+    internal sealed class FritzWanPppConnectionService : FritzServiceClient<IFritzWanPppConnectionService>, IFritzWanPppConnectionService
     {
         public const string ControlUrl = "/upnp/control/wanpppconn1";
 

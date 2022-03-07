@@ -4,7 +4,7 @@
     using System.ServiceModel;
     using System.Threading.Tasks;
 
-    public abstract class ServiceOperationHandler
+    internal abstract class ServiceOperationHandler
     {
         protected static async Task<TResult> ExecuteAsync<T, TResult>(T client, Func<T, Task<TResult>> operation)
         {

@@ -3,7 +3,7 @@
     using System;
     using System.ServiceModel;
 
-    public static class ICommunicationObjectExtensions
+    internal static class ICommunicationObjectExtensions
     {
         public static void SafeClose(this ICommunicationObject communicationObject)
         {

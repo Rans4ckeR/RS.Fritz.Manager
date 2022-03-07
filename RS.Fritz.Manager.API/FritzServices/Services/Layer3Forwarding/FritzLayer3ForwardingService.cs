@@ -4,7 +4,7 @@
     using System.ServiceModel;
     using System.Threading.Tasks;
 
-    public sealed class FritzLayer3ForwardingService : FritzServiceClient<IFritzLayer3ForwardingService>, IFritzLayer3ForwardingService
+    internal sealed class FritzLayer3ForwardingService : FritzServiceClient<IFritzLayer3ForwardingService>, IFritzLayer3ForwardingService
     {
         public const string ControlUrl = "/upnp/control/layer3forwarding";
 

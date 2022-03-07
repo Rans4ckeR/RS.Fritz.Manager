@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Net.Http;
+    using System.Runtime.Serialization;
     using System.Threading.Tasks;
     using System.Xml;
-    using System.Xml.Serialization;
 
     internal sealed class DeviceHostsService : IDeviceHostsService
     {
@@ -24,9 +24,9 @@
             using var stringReader = new StringReader(deviceHostsListXml);
             using var xmlTextReader = new XmlTextReader(stringReader);
 
-            DeviceHostsList? deviceHostsList = (DeviceHostsList?)new XmlSerializer(typeof(DeviceHostsList)).Deserialize(xmlTextReader);
+            DeviceHostsList? deviceHostsList = (DeviceHostsList?)new DataContractSerializer(typeof(DeviceHostsList)).ReadObject(xmlTextReader);
 
-            return deviceHostsList?.DeviceHosts ?? Array.Empty<DeviceHost>();
+            return deviceHostsList ?? new DeviceHostsList();
         }
     }
 }

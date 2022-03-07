@@ -1,56 +1,51 @@
 ﻿namespace RS.Fritz.Manager.API
 {
-    using System.Net;
     using System.Threading.Tasks;
 
     public interface IFritzServiceOperationHandler
     {
-        InternetGatewayDevice? InternetGatewayDevice { get; set; }
+        Task<HostsGetHostNumberOfEntriesResponse> GetHostsGetHostNumberOfEntriesAsync(InternetGatewayDevice internetGatewayDevice);
 
-        NetworkCredential? NetworkCredential { get; set; }
+        Task<HostsGetHostListPathResponse> GetHostsGetHostListPathAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<HostsGetHostNumberOfEntriesResponse> GetHostsGetHostNumberOfEntriesAsync();
+        Task<HostsGetGenericHostEntryResponse> GetHostsGetGenericHostEntryAsync(InternetGatewayDevice internetGatewayDevice, ushort index);
 
-        Task<HostsGetHostListPathResponse> GetHostsGetHostListPathAsync();
+        Task<WanCommonInterfaceConfigGetTotalBytesReceivedResponse> GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<HostsGetGenericHostEntryResponse> GetHostsGetGenericHostEntryAsync(ushort index);
+        Task<WanCommonInterfaceConfigGetTotalBytesSentResponse> GetWanCommonInterfaceConfigGetTotalBytesSentAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<WanCommonInterfaceConfigGetTotalBytesReceivedResponse> GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync();
+        Task<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse> GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<WanCommonInterfaceConfigGetTotalBytesSentResponse> GetWanCommonInterfaceConfigGetTotalBytesSentAsync();
+        Task<DeviceInfoGetInfoResponse> DeviceInfoGetInfoAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse> GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync();
+        Task<DeviceInfoGetDeviceLogResponse> DeviceInfoGetDeviceLogAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<DeviceInfoGetInfoResponse> DeviceInfoGetInfoAsync();
+        Task<DeviceInfoGetSecurityPortResponse> DeviceInfoGetSecurityPortAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<DeviceInfoGetDeviceLogResponse> DeviceInfoGetDeviceLogAsync();
+        Task<DeviceInfoSetProvisioningCodeResponse> DeviceInfoSetProvisioningCodeAsync(InternetGatewayDevice internetGatewayDevice, string provisioningCode);
 
-        Task<DeviceInfoGetSecurityPortResponse> DeviceInfoGetSecurityPortAsync();
+        Task<LanConfigSecurityGetAnonymousLoginResponse> LanConfigSecurityGetAnonymousLoginAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<DeviceInfoSetProvisioningCodeResponse> DeviceInfoSetProvisioningCodeAsync(string provisioningCode);
+        Task<LanConfigSecurityGetCurrentUserResponse> LanConfigSecurityGetCurrentUserAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<LanConfigSecurityGetAnonymousLoginResponse> LanConfigSecurityGetAnonymousLoginAsync();
+        Task<LanConfigSecurityGetInfoResponse> LanConfigSecurityGetInfoAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<LanConfigSecurityGetCurrentUserResponse> LanConfigSecurityGetCurrentUserAsync();
+        Task<LanConfigSecurityGetUserListResponse> LanConfigSecurityGetUserListAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<LanConfigSecurityGetInfoResponse> LanConfigSecurityGetInfoAsync();
+        Task<LanConfigSecuritySetConfigPasswordResponse> LanConfigSecuritySetConfigPasswordAsync(InternetGatewayDevice internetGatewayDevice, string password);
 
-        Task<LanConfigSecurityGetUserListResponse> LanConfigSecurityGetUserListAsync();
+        Task<Layer3ForwardingGetDefaultConnectionServiceResponse> Layer3ForwardingGetDefaultConnectionServiceAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<LanConfigSecuritySetConfigPasswordResponse> LanConfigSecuritySetConfigPasswordAsync(string password);
+        Task<WanDslInterfaceConfigGetDSLDiagnoseInfoResponse> WanDslInterfaceConfigGetDSLDiagnoseInfoAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<Layer3ForwardingGetDefaultConnectionServiceResponse> Layer3ForwardingGetDefaultConnectionServiceAsync();
+        Task<WanDslInterfaceConfigGetDSLInfoResponse> WanDslInterfaceConfigGetDSLInfoAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<WanDslInterfaceConfigGetDSLDiagnoseInfoResponse> WanDslInterfaceConfigGetDSLDiagnoseInfoAsync();
+        Task<WanDslInterfaceConfigGetInfoResponse> WanDslInterfaceConfigGetInfoAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<WanDslInterfaceConfigGetDSLInfoResponse> WanDslInterfaceConfigGetDSLInfoAsync();
+        Task<WanDslInterfaceConfigGetStatisticsTotalResponse> WanDslInterfaceConfigGetStatisticsTotalAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<WanDslInterfaceConfigGetInfoResponse> WanDslInterfaceConfigGetInfoAsync();
+        Task<WanPppConnectionGetInfoResponse> WanPppConnectionGetInfoAsync(InternetGatewayDevice internetGatewayDevice);
 
-        Task<WanDslInterfaceConfigGetStatisticsTotalResponse> WanDslInterfaceConfigGetStatisticsTotalAsync();
-
-        Task<WanPppConnectionGetInfoResponse> WanPppConnectionGetInfoAsync();
-
-        Task<WanIpConnectionGetInfoResponse> WanIpConnectionGetInfoAsync();
+        Task<WanIpConnectionGetInfoResponse> WanIpConnectionGetInfoAsync(InternetGatewayDevice internetGatewayDevice);
     }
 }
