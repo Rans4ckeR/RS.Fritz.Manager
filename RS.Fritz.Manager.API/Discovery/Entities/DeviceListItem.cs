@@ -3,7 +3,7 @@
     using System.Runtime.Serialization;
 
     [DataContract(Name = "device", Namespace = "urn:dslforum-org:device-1-0")]
-    public sealed record Device
+    public sealed record DeviceListItem
     {
         [DataMember(Name = "deviceType", Order = 0)]
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -31,18 +31,12 @@
         public string ModelUrl { get; set; }
 
         [DataMember(Name = "UDN", Order = 8)]
-        public string UniqueDeviceName { get; set; }
+        public string Udn { get; set; }
 
-        [DataMember(Name = "iconList", Order = 9)]
-        public IconListItem[] IconList { get; set; }
+        [DataMember(Name = "UPC", Order = 9)]
+        public string Upc { get; set; }
 
-        [DataMember(Name = "serviceList", Order = 10)]
+        [DataMember(Name = "serviceList", Order = 9)]
         public ServiceListItem[] ServiceList { get; set; }
-
-        [DataMember(Name = "deviceList", Order = 11)]
-        public DeviceListItem[] DeviceList { get; set; }
-
-        [DataMember(Name = "presentationURL", Order = 12)]
-        public string PresentationUrl { get; set; }
     }
 }
