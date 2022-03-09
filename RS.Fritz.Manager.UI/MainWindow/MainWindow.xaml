@@ -64,7 +64,11 @@
                     </RibbonComboBox>
                 </RibbonGroup>
                 <RibbonGroup>
-                    <RibbonTextBox Label="Enter User Password:" Text="{Binding DeviceLoginInfo.Password, UpdateSourceTrigger=PropertyChanged}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Password.png"/>
+                    <RibbonTextBox Label="Enter User Password:" Text="{Binding DeviceLoginInfo.Password, UpdateSourceTrigger=PropertyChanged}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Password.png">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding LoginCommand}" Key="Return" />
+                        </TextBox.InputBindings>
+                    </RibbonTextBox>
                 </RibbonGroup>
                 <RibbonGroup>
                     <RibbonButton Label="Login" LargeImageSource="{Binding LoginButtonImage }" Command="{Binding LoginCommand}"/>
