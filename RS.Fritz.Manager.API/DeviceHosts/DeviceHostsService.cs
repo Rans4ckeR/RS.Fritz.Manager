@@ -1,32 +1,31 @@
-﻿namespace RS.Fritz.Manager.API
+﻿namespace RS.Fritz.Manager.API;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
+using System.Runtime.Serialization;
+using System.Threading.Tasks;
+using System.Xml;
+
+internal sealed class DeviceHostsService : IDeviceHostsService
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Net.Http;
-    using System.Runtime.Serialization;
-    using System.Threading.Tasks;
-    using System.Xml;
+    private readonly IHttpClientFactory httpClientFactory;
 
-    internal sealed class DeviceHostsService : IDeviceHostsService
+    public DeviceHostsService(IHttpClientFactory httpClientFactory)
     {
-        private readonly IHttpClientFactory httpClientFactory;
+        this.httpClientFactory = httpClientFactory;
+    }
 
-        public DeviceHostsService(IHttpClientFactory httpClientFactory)
-        {
-            this.httpClientFactory = httpClientFactory;
-        }
+    public async Task<IEnumerable<DeviceHost>> GetDeviceHostsAsync(Uri hostListPathUri)
+    {
+        string deviceHostsListXml = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStringAsync(hostListPathUri);
 
-        public async Task<IEnumerable<DeviceHost>> GetDeviceHostsAsync(Uri hostListPathUri)
-        {
-            string deviceHostsListXml = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStringAsync(hostListPathUri);
+        using var stringReader = new StringReader(deviceHostsListXml);
+        using var xmlTextReader = new XmlTextReader(stringReader);
 
-            using var stringReader = new StringReader(deviceHostsListXml);
-            using var xmlTextReader = new XmlTextReader(stringReader);
+        DeviceHostsList? deviceHostsList = (DeviceHostsList?)new DataContractSerializer(typeof(DeviceHostsList)).ReadObject(xmlTextReader);
 
-            DeviceHostsList? deviceHostsList = (DeviceHostsList?)new DataContractSerializer(typeof(DeviceHostsList)).ReadObject(xmlTextReader);
-
-            return deviceHostsList ?? new DeviceHostsList();
-        }
+        return deviceHostsList ?? new DeviceHostsList();
     }
 }

@@ -1,12 +1,11 @@
-﻿namespace RS.Fritz.Manager.UI
-{
-    internal sealed partial class MainWindow
-    {
-        public MainWindow(MainWindowViewModel mainWindowViewModel)
-        {
-            InitializeComponent();
+﻿namespace RS.Fritz.Manager.UI;
 
-            DataContext = mainWindowViewModel;
-        }
+internal sealed partial class MainWindow
+{
+    public MainWindow(MainWindowViewModel mainWindowViewModel)
+    {
+        InitializeComponent();
+
+        DataContext = mainWindowViewModel;
     }
 }

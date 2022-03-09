@@ -1,14 +1,13 @@
-﻿namespace RS.Fritz.Manager.API
+﻿namespace RS.Fritz.Manager.API;
+
+using System.Runtime.Serialization;
+
+[DataContract(Name = "specVersion", Namespace = "urn:dslforum-org:device-1-0")]
+public sealed record SpecVersion
 {
-    using System.Xml.Serialization;
+    [DataMember(Name = "major", Order = 0)]
+    public int Major { get; set; }
 
-    public sealed record SpecVersion
-    {
-        [XmlElement(ElementName = "major")]
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public string Major { get; set; }
-
-        [XmlElement(ElementName = "minor")]
-        public string Minor { get; set; }
-    }
+    [DataMember(Name = "minor", Order = 1)]
+    public int Minor { get; set; }
 }

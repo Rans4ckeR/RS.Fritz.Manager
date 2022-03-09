@@ -1,11 +1,10 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+﻿namespace RS.Fritz.Manager.API;
 
-    public interface IDeviceHostsService
-    {
-        Task<IEnumerable<DeviceHost>> GetDeviceHostsAsync(Uri hostListPathUri);
-    }
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public interface IDeviceHostsService
+{
+    Task<IEnumerable<DeviceHost>> GetDeviceHostsAsync(Uri hostListPathUri);
 }

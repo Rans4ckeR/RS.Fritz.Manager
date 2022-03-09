@@ -1,46 +1,45 @@
-﻿namespace RS.Fritz.Manager.API
+﻿namespace RS.Fritz.Manager.API;
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public static class TaskExtensions
 {
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-
-    public static class TaskExtensions
+    public static async Task<TResult[]> WhenAllSafe<TResult>(IEnumerable<Task<TResult>> tasks)
     {
-        public static async Task<TResult[]> WhenAllSafe<TResult>(IEnumerable<Task<TResult>> tasks)
+        Task<TResult[]> whenAllTask = Task.WhenAll(tasks);
+
+        try
         {
-            Task<TResult[]> whenAllTask = Task.WhenAll(tasks);
-
-            try
-            {
-                return await whenAllTask;
-            }
-            catch
-            {
-                // Ignore individual task exceptions
-            }
-
-#pragma warning disable CS8597 // Thrown value may be null.
-            throw whenAllTask.Exception;
-#pragma warning restore CS8597 // Thrown value may be null.
+            return await whenAllTask;
+        }
+        catch
+        {
+            // Ignore individual task exceptions
         }
 
-        public static async Task WhenAllSafe(IEnumerable<Task> tasks)
+#pragma warning disable CS8597 // Thrown value may be null.
+        throw whenAllTask.Exception;
+#pragma warning restore CS8597 // Thrown value may be null.
+    }
+
+    public static async Task WhenAllSafe(IEnumerable<Task> tasks)
+    {
+        Task whenAllTask = Task.WhenAll(tasks);
+
+        try
         {
-            Task whenAllTask = Task.WhenAll(tasks);
+            await whenAllTask;
 
-            try
-            {
-                await whenAllTask;
-
-                return;
-            }
-            catch
-            {
-                // Ignore individual task exceptions
-            }
+            return;
+        }
+        catch
+        {
+            // Ignore individual task exceptions
+        }
 
 #pragma warning disable CS8597 // Thrown value may be null.
-            throw whenAllTask.Exception;
+        throw whenAllTask.Exception;
 #pragma warning restore CS8597 // Thrown value may be null.
-        }
     }
 }

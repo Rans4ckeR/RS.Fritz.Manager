@@ -1,36 +1,35 @@
-﻿namespace RS.Fritz.Manager.API
+﻿namespace RS.Fritz.Manager.API;
+
+using System.Net;
+using System.ServiceModel;
+using System.Threading.Tasks;
+
+internal sealed class FritzDeviceInfoService : FritzServiceClient<IFritzDeviceInfoService>, IFritzDeviceInfoService
 {
-    using System.Net;
-    using System.ServiceModel;
-    using System.Threading.Tasks;
+    public const string ControlUrl = "/upnp/control/deviceinfo";
 
-    internal sealed class FritzDeviceInfoService : FritzServiceClient<IFritzDeviceInfoService>, IFritzDeviceInfoService
+    public FritzDeviceInfoService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential = null)
+        : base(endpointConfiguration, remoteAddress, networkCredential)
     {
-        public const string ControlUrl = "/upnp/control/deviceinfo";
+    }
 
-        public FritzDeviceInfoService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential = null)
-            : base(endpointConfiguration, remoteAddress, networkCredential)
-        {
-        }
+    public Task<DeviceInfoGetSecurityPortResponse> GetSecurityPortAsync(DeviceInfoGetSecurityPortRequest deviceInfoGetSecurityPortRequest)
+    {
+        return Channel.GetSecurityPortAsync(deviceInfoGetSecurityPortRequest);
+    }
 
-        public Task<DeviceInfoGetSecurityPortResponse> GetSecurityPortAsync(DeviceInfoGetSecurityPortRequest deviceInfoGetSecurityPortRequest)
-        {
-            return Channel.GetSecurityPortAsync(deviceInfoGetSecurityPortRequest);
-        }
+    public Task<DeviceInfoGetInfoResponse> GetInfoAsync(DeviceInfoGetInfoRequest deviceInfoGetInfoRequest)
+    {
+        return Channel.GetInfoAsync(deviceInfoGetInfoRequest);
+    }
 
-        public Task<DeviceInfoGetInfoResponse> GetInfoAsync(DeviceInfoGetInfoRequest deviceInfoGetInfoRequest)
-        {
-            return Channel.GetInfoAsync(deviceInfoGetInfoRequest);
-        }
+    public Task<DeviceInfoGetDeviceLogResponse> GetDeviceLogAsync(DeviceInfoGetDeviceLogRequest deviceInfoGetDeviceLogRequest)
+    {
+        return Channel.GetDeviceLogAsync(deviceInfoGetDeviceLogRequest);
+    }
 
-        public Task<DeviceInfoGetDeviceLogResponse> GetDeviceLogAsync(DeviceInfoGetDeviceLogRequest deviceInfoGetDeviceLogRequest)
-        {
-            return Channel.GetDeviceLogAsync(deviceInfoGetDeviceLogRequest);
-        }
-
-        public Task<DeviceInfoSetProvisioningCodeResponse> SetProvisioningCodeAsync(DeviceInfoSetProvisioningCodeRequest setProvisioningCodeRequest)
-        {
-            return Channel.SetProvisioningCodeAsync(setProvisioningCodeRequest);
-        }
+    public Task<DeviceInfoSetProvisioningCodeResponse> SetProvisioningCodeAsync(DeviceInfoSetProvisioningCodeRequest setProvisioningCodeRequest)
+    {
+        return Channel.SetProvisioningCodeAsync(setProvisioningCodeRequest);
     }
 }

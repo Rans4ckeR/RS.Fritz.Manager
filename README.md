@@ -1,9 +1,7 @@
 # RS.Fritz.Manager.UI
 A Windows .NET app with WPF UI to manage FritzBox devices using pure WCF calls.
 
-Download latest version:
-* [.NET 6](https://github.com/Rans4ckeR/RS.Fritz.Manager/releases/download/v0.1.0-alpha.7/RS.Fritz.Manager-v0.1.0-alpha.7-net6.0-windows.zip)
-* [.NET 7 Preview](https://github.com/Rans4ckeR/RS.Fritz.Manager/releases/download/v0.1.0-alpha.7/RS.Fritz.Manager-v0.1.0-alpha.7-net7.0-windows.zip)
+* [Releases](https://github.com/Rans4ckeR/RS.Fritz.Manager/releases)
 
 ![Untitled](https://user-images.githubusercontent.com/25006126/130702690-2dbbd2a7-34c3-488a-bfd8-6e29dea2add2.png)
 
@@ -12,10 +10,13 @@ Download latest version:
 2. Select a device from the list
 3. Select a device user
 4. Enter the selected user's password
-5. Use the Device Information tab to see device details
+5. Click Login
+6. Use the Device Information tab to see device details
 
 # RS.Fritz.Manager.API
 A NuGet package to manage FritzBox devices using pure WCF calls.
+
+* [NuGet](https://www.nuget.org/packages/RS.Fritz.Manager.API)
 
 ## Usage Example
 

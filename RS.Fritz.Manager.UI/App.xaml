@@ -64,7 +64,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="_SSDP Information"/>
-                                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Server}" Content="_Server" ToolTip="Field value shall begin with the following 'product tokens' (defined by HTTP/1.1). The first product token identifes the operating system in the form OS name/OS version, the second token represents the UPnP version, and the third token identifes the product using the form product name/product version."/>
+                                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Server}" Content="_Server" ToolTip="Field value shall begin with the following 'product tokens' (defined by HTTP/1.1). The first product token identifies the operating system in the form OS name/OS version, the second token represents the UPnP version, and the third token identifies the product using the form product name/product version."/>
                                 <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Locations}" Content="_Locations" ToolTip="Field value contains a URL to the UPnP description of the root device. Normally the host portion contains a literal IP address rather than a domain name in unmanaged networks (see RFC 3986)."/>
                                 <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=SearchTarget}" Content="_SearchTarget" ToolTip="Field value contains Search Target. The response sent by the device depends on the field value of the ST header field that was sent in the request."/>
                                 <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=CacheControl}" Content="_CacheControl" ToolTip="Field value shall have the max-age directive ('max-age=') followed by an integer that specifies the number of seconds the advertisement is valid. After this duration, control points should assume the device (or service) is no longer available; as long as a control point has received at least one advertisement that is still valid from a root device, any of its embedded devices or any of its services, then the control point can assume that all are available. The number of seconds should be greater than or equal to 1800 seconds (30 minutes)."/>
@@ -555,12 +555,12 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ATUCCRCErrors}" Content="_ATUCCRCErrors" ToolTip="Total number of Cyclic Redundancy Check (CRC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ATUCFECErrors}" Content="_ATUCFECErrors" ToolTip="Total number of Foward Error Correction (FEC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ATUCFECErrors}" Content="_ATUCFECErrors" ToolTip="Total number of Forward Error Correction (FEC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
                             <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=ATUCHECErrors}" Content="_ATUCHECErrors" ToolTip="Total number of Header Error Checksum (HEC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
                             <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CellDelin}" Content="_CellDelin" ToolTip="Number of cell-delineation errors since the most recent DSL Showtime."/>
                             <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=CRCErrors}" Content="_CRCErrors" ToolTip="Total number of Cyclic Redundancy Check (CRC) errors detected."/>
                             <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=ErroredSecs}" Content="_ErroredSecs" ToolTip="Total number of errored seconds."/>
-                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=FECErrors}" Content="_FECErrors" ToolTip="Total number of Foward Error Correction (FEC) errors detected."/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=FECErrors}" Content="_FECErrors" ToolTip="Total number of Forward Error Correction (FEC) errors detected."/>
                             <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=HECErrors}" Content="_HECErrors" ToolTip="Total number of Header Error Checksum (HEC) errors detected."/>
                             <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=InitErrors}" Content="_InitErrors" ToolTip="Total number of initialization errors."/>
                             <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=InitTimeouts}" Content="_InitTimeouts" ToolTip="Total number of initialization timeout errors."/>
@@ -859,7 +859,6 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -867,13 +866,49 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=HostListPath}" Content="_HostListPath"/>
                             <TextBlock x:Name="HostListPath" Grid.Row="0" Grid.Column="1" Text="{Binding HostListPath}"/>
-                            <TextBlock x:Name="HostListPathList" Grid.Row="1" Grid.Column="1">
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=HostListPathLink}" Content="_HostListPathLink"/>
+                            <TextBlock x:Name="HostListPathLink" Grid.Row="1" Grid.Column="1">
                                 <ui:ExternalBrowserHyperlink NavigateUri="{Binding HostListPathLink}">
                                     <TextBlock Text="{Binding HostListPathLink}"/>
                                 </ui:ExternalBrowserHyperlink>
                             </TextBlock>
                             <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DeviceHosts}" Content="_DeviceHosts"/>
-                            <DataGrid x:Name="DeviceHosts" Grid.Row="3" Grid.Column="1" Height="150" IsReadOnly="true" ItemsSource="{Binding DeviceHosts}"/>
+                            <DataGrid x:Name="DeviceHosts" Grid.Row="2" Grid.Column="1" Height="150" IsReadOnly="true" ItemsSource="{Binding DeviceHosts}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:HostsGetGenericHostEntryResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="GenericHostEntry">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IPAddress}" Content="_IPAddress"/>
+                            <TextBlock x:Name="IPAddress" Grid.Row="0" Grid.Column="1" Text="{Binding IPAddress}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress"/>
+                            <TextBlock x:Name="MACAddress" Grid.Row="1" Grid.Column="1" Text="{Binding MACAddress}"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AddressSource}" Content="_AddressSource"/>
+                            <TextBlock x:Name="AddressSource" Grid.Row="2" Grid.Column="1" Text="{Binding AddressSource}"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LeaseTimeRemaining}" Content="_LeaseTimeRemaining"/>
+                            <TextBlock x:Name="LeaseTimeRemaining" Grid.Row="3" Grid.Column="1" Text="{Binding LeaseTimeRemaining}"/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=InterfaceType}" Content="_InterfaceType"/>
+                            <TextBlock x:Name="InterfaceType" Grid.Row="4" Grid.Column="1" Text="{Binding InterfaceType}"/>
+                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Active}" Content="_Active"/>
+                            <TextBlock x:Name="Active" Grid.Row="5" Grid.Column="1" Text="{Binding Active}"/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=HostName}" Content="_HostName"/>
+                            <TextBlock x:Name="HostName" Grid.Row="6" Grid.Column="1" Text="{Binding HostName}"/>
                         </Grid>
                     </Expander>
                 </Border>

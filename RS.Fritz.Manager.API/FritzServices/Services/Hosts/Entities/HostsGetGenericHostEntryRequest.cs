@@ -1,11 +1,10 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetGenericHostEntry")]
-    public sealed record HostsGetGenericHostEntryRequest
-    {
-        [MessageBodyMember(Name = "NewIndex")]
-        public ushort Index { get; set; }
-    }
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetGenericHostEntry")]
+public sealed record HostsGetGenericHostEntryRequest
+{
+    [MessageBodyMember(Name = "NewIndex")]
+    public ushort Index { get; set; }
 }

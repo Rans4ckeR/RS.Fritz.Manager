@@ -1,10 +1,9 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+internal sealed partial class HostsView
 {
-    internal sealed partial class HostsView
+    public HostsView()
     {
-        public HostsView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

@@ -1,73 +1,72 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using RS.Fritz.Manager.API;
+
+internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
 {
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.API;
+    private LanConfigSecurityGetAnonymousLoginResponse? lanConfigSecurityGetAnonymousLoginResponse;
+    private LanConfigSecurityGetCurrentUserResponse? lanConfigSecurityGetCurrentUserResponse;
+    private LanConfigSecurityGetInfoResponse? lanConfigSecurityGetInfoResponse;
+    private LanConfigSecurityGetUserListResponse? lanConfigSecurityGetUserListResponse;
 
-    internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
+    public LanConfigSecurityViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel)
+        : base(deviceLoginInfo, logger)
     {
-        private LanConfigSecurityGetAnonymousLoginResponse? lanConfigSecurityGetAnonymousLoginResponse;
-        private LanConfigSecurityGetCurrentUserResponse? lanConfigSecurityGetCurrentUserResponse;
-        private LanConfigSecurityGetInfoResponse? lanConfigSecurityGetInfoResponse;
-        private LanConfigSecurityGetUserListResponse? lanConfigSecurityGetUserListResponse;
+        LanConfigSecuritySetConfigPasswordViewModel = lanConfigSecuritySetConfigPasswordViewModel;
+    }
 
-        public LanConfigSecurityViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel)
-            : base(deviceLoginInfo, logger)
-        {
-            LanConfigSecuritySetConfigPasswordViewModel = lanConfigSecuritySetConfigPasswordViewModel;
-        }
+    public LanConfigSecuritySetConfigPasswordViewModel LanConfigSecuritySetConfigPasswordViewModel { get; }
 
-        public LanConfigSecuritySetConfigPasswordViewModel LanConfigSecuritySetConfigPasswordViewModel { get; }
+    public LanConfigSecurityGetAnonymousLoginResponse? LanConfigSecurityGetAnonymousLoginResponse
+    {
+        get => lanConfigSecurityGetAnonymousLoginResponse; set { _ = SetProperty(ref lanConfigSecurityGetAnonymousLoginResponse, value); }
+    }
 
-        public LanConfigSecurityGetAnonymousLoginResponse? LanConfigSecurityGetAnonymousLoginResponse
-        {
-            get => lanConfigSecurityGetAnonymousLoginResponse; set { _ = SetProperty(ref lanConfigSecurityGetAnonymousLoginResponse, value); }
-        }
+    public LanConfigSecurityGetCurrentUserResponse? LanConfigSecurityGetCurrentUserResponse
+    {
+        get => lanConfigSecurityGetCurrentUserResponse; set { _ = SetProperty(ref lanConfigSecurityGetCurrentUserResponse, value); }
+    }
 
-        public LanConfigSecurityGetCurrentUserResponse? LanConfigSecurityGetCurrentUserResponse
-        {
-            get => lanConfigSecurityGetCurrentUserResponse; set { _ = SetProperty(ref lanConfigSecurityGetCurrentUserResponse, value); }
-        }
+    public LanConfigSecurityGetInfoResponse? LanConfigSecurityGetInfoResponse
+    {
+        get => lanConfigSecurityGetInfoResponse; set { _ = SetProperty(ref lanConfigSecurityGetInfoResponse, value); }
+    }
 
-        public LanConfigSecurityGetInfoResponse? LanConfigSecurityGetInfoResponse
-        {
-            get => lanConfigSecurityGetInfoResponse; set { _ = SetProperty(ref lanConfigSecurityGetInfoResponse, value); }
-        }
+    public LanConfigSecurityGetUserListResponse? LanConfigSecurityGetUserListResponse
+    {
+        get => lanConfigSecurityGetUserListResponse; set { _ = SetProperty(ref lanConfigSecurityGetUserListResponse, value); }
+    }
 
-        public LanConfigSecurityGetUserListResponse? LanConfigSecurityGetUserListResponse
-        {
-            get => lanConfigSecurityGetUserListResponse; set { _ = SetProperty(ref lanConfigSecurityGetUserListResponse, value); }
-        }
+    protected override async Task DoExecuteDefaultCommandAsync()
+    {
+        await API.TaskExtensions.WhenAllSafe(new[]
+            {
+                GetLanConfigSecurityGetAnonymousLoginAsync(),
+                GetLanConfigSecurityGetCurrentUserAsync(),
+                GetLanConfigSecurityGetInfoAsync(),
+                GetLanConfigSecurityGetUserListAsync()
+            });
+    }
 
-        protected override async Task DoExecuteDefaultCommandAsync()
-        {
-            await API.TaskExtensions.WhenAllSafe(new[]
-                {
-                    GetLanConfigSecurityGetAnonymousLoginAsync(),
-                    GetLanConfigSecurityGetCurrentUserAsync(),
-                    GetLanConfigSecurityGetInfoAsync(),
-                    GetLanConfigSecurityGetUserListAsync()
-                });
-        }
+    private async Task GetLanConfigSecurityGetAnonymousLoginAsync()
+    {
+        LanConfigSecurityGetAnonymousLoginResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecurityGetAnonymousLoginAsync(d));
+    }
 
-        private async Task GetLanConfigSecurityGetAnonymousLoginAsync()
-        {
-            LanConfigSecurityGetAnonymousLoginResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecurityGetAnonymousLoginAsync(d));
-        }
+    private async Task GetLanConfigSecurityGetCurrentUserAsync()
+    {
+        LanConfigSecurityGetCurrentUserResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecurityGetCurrentUserAsync(d));
+    }
 
-        private async Task GetLanConfigSecurityGetCurrentUserAsync()
-        {
-            LanConfigSecurityGetCurrentUserResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecurityGetCurrentUserAsync(d));
-        }
+    private async Task GetLanConfigSecurityGetInfoAsync()
+    {
+        LanConfigSecurityGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecurityGetInfoAsync(d));
+    }
 
-        private async Task GetLanConfigSecurityGetInfoAsync()
-        {
-            LanConfigSecurityGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecurityGetInfoAsync(d));
-        }
-
-        private async Task GetLanConfigSecurityGetUserListAsync()
-        {
-            LanConfigSecurityGetUserListResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecurityGetUserListAsync(d));
-        }
+    private async Task GetLanConfigSecurityGetUserListAsync()
+    {
+        LanConfigSecurityGetUserListResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecurityGetUserListAsync(d));
     }
 }

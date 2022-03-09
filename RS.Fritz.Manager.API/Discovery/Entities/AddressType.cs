@@ -1,13 +1,12 @@
-﻿namespace RS.Fritz.Manager.API
+﻿namespace RS.Fritz.Manager.API;
+
+internal enum AddressType
 {
-    internal enum AddressType
-    {
-        Unknown,
+    Unknown,
 
-        IPv4SiteLocal,
+    IPv4SiteLocal,
 
-        IPv6LinkLocal,
+    IPv6LinkLocal,
 
-        IPv6SiteLocal
-    }
+    IPv6SiteLocal
 }

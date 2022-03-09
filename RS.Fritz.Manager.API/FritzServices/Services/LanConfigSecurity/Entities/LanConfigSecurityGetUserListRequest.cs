@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetUserList")]
-    public sealed record LanConfigSecurityGetUserListRequest;
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetUserList")]
+public sealed record LanConfigSecurityGetUserListRequest;

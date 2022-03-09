@@ -1,12 +1,11 @@
-﻿namespace RS.Fritz.Manager.UI
-{
-    using CommunityToolkit.Mvvm.Messaging.Messages;
+﻿namespace RS.Fritz.Manager.UI;
 
-    internal sealed class DeviceLoginInfoValueChangedMessage : ValueChangedMessage<DeviceLoginInfo>
+using CommunityToolkit.Mvvm.Messaging.Messages;
+
+internal sealed class DeviceLoginInfoValueChangedMessage : ValueChangedMessage<DeviceLoginInfo>
+{
+    public DeviceLoginInfoValueChangedMessage(DeviceLoginInfo userMessage)
+        : base(userMessage)
     {
-        public DeviceLoginInfoValueChangedMessage(DeviceLoginInfo userMessage)
-            : base(userMessage)
-        {
-        }
     }
 }

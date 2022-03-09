@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetInfo")]
-    public sealed record WanPppConnectionGetInfoRequest;
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetInfo")]
+public sealed record WanPppConnectionGetInfoRequest;

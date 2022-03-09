@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetStatisticsTotal")]
-    public sealed record WanDslInterfaceConfigGetStatisticsTotalRequest;
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetStatisticsTotal")]
+public sealed record WanDslInterfaceConfigGetStatisticsTotalRequest;

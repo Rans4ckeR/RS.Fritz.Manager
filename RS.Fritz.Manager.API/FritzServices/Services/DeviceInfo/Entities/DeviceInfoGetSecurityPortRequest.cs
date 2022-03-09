@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetSecurityPort")]
-    public sealed record DeviceInfoGetSecurityPortRequest;
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetSecurityPort")]
+public sealed record DeviceInfoGetSecurityPortRequest;

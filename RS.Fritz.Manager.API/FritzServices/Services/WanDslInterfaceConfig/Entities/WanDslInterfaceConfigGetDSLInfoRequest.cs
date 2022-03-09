@@ -1,9 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetDSLInfo")]
-#pragma warning disable S101 // Types should be named in PascalCase
-    public sealed record WanDslInterfaceConfigGetDSLInfoRequest;
-#pragma warning restore S101 // Types should be named in PascalCase
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetDSLInfo")]
+public sealed record WanDslInterfaceConfigGetDSLInfoRequest;
