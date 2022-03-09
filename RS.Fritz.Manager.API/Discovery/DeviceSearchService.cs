@@ -18,7 +18,8 @@ internal sealed class DeviceSearchService : IDeviceSearchService
 {
     private const string InternetGatewayDeviceDeviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
     private const int UPnPMulticastPort = 1900;
-    private const int ReceiveTimeout = 500;
+    private const int DefaultReceiveTimeout = 500;
+    private const int DefaultSendCount = 3;
 #pragma warning disable SA1310 // Field names should not contain underscore
     private const uint IOC_IN = 0x80000000;
     private const uint IOC_VENDOR = 0x18000000;
@@ -42,12 +43,13 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         [AddressType.IPv6SiteLocal] = IPAddress.Parse("[FF05::C]")
     };
 
-    public async Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null)
+    public async Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null, int? sendCount = null, int? timeout = null)
     {
-        if (deviceType is null)
-            deviceType = InternetGatewayDeviceDeviceType;
+        deviceType ??= InternetGatewayDeviceDeviceType;
+        timeout ??= DefaultReceiveTimeout;
+        sendCount ??= DefaultSendCount;
 
-        IEnumerable<string> deviceResponses = (await TaskExtensions.WhenAllSafe(GetLocalAddresses().Select(q => SearchDevicesAsync(q, deviceType, 3)))).SelectMany(q => q);
+        IEnumerable<string> deviceResponses = (await TaskExtensions.WhenAllSafe(GetLocalAddresses().Select(q => SearchDevicesAsync(q, deviceType, sendCount.Value, timeout.Value)))).SelectMany(q => q);
         IEnumerable<Dictionary<string, string>> deviceDictionaries = GetDeviceDictionaries(deviceResponses);
 
         InternetGatewayDevice[] internetGatewayDevices = deviceDictionaries
@@ -76,7 +78,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
             }));
     }
 
-    private static async Task<IEnumerable<string>> SearchDevicesAsync(IPAddress localAddress, string deviceType, int sendCount)
+    private static async Task<IEnumerable<string>> SearchDevicesAsync(IPAddress localAddress, string deviceType, int sendCount, int receiveTimeout)
     {
         var responses = new List<string>();
         AddressType addressType = GetAddressType(localAddress);
@@ -102,7 +104,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
             await socket.SendToAsync(buffer, SocketFlags.None, multicastIPEndPoint);
         }
 
-        await ReceiveAsync(socket, new ArraySegment<byte>(new byte[4096]), responses);
+        await ReceiveAsync(socket, new ArraySegment<byte>(new byte[4096]), responses, receiveTimeout);
 
         return responses;
     }
@@ -121,11 +123,11 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         return AddressType.Unknown;
     }
 
-    private static async Task ReceiveAsync(Socket socket, ArraySegment<byte> buffer, ICollection<string> responses)
+    private static async Task ReceiveAsync(Socket socket, ArraySegment<byte> buffer, ICollection<string> responses, int receiveTimeout)
     {
         using var cancellationTokenSource = new CancellationTokenSource();
 
-        cancellationTokenSource.CancelAfter(ReceiveTimeout);
+        cancellationTokenSource.CancelAfter(receiveTimeout);
 
         while (!cancellationTokenSource.IsCancellationRequested)
         {

@@ -5,5 +5,5 @@ using System.Threading.Tasks;
 
 public interface IDeviceSearchService
 {
-    Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null);
+    Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null, int? sendCount = null, int? timeout = null);
 }
