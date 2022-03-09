@@ -18,7 +18,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
 {
     private const string InternetGatewayDeviceDeviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
     private const int UPnPMulticastPort = 1900;
-    private const int ReceiveTimeout = 3000;
+    private const int ReceiveTimeout = 500;
 #pragma warning disable SA1310 // Field names should not contain underscore
     private const uint IOC_IN = 0x80000000;
     private const uint IOC_VENDOR = 0x18000000;
