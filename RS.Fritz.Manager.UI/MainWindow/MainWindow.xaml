@@ -67,7 +67,7 @@
                     <RibbonTextBox Label="Enter User Password:" Text="{Binding DeviceLoginInfo.Password, UpdateSourceTrigger=PropertyChanged}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Password.png"/>
                 </RibbonGroup>
                 <RibbonGroup>
-                    <RibbonButton Label="Login" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Login.png" Command="{Binding LoginCommand}"/>
+                    <RibbonButton Label="Login" LargeImageSource="{Binding LoginButtonImage }" Command="{Binding LoginCommand}"/>
                 </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="Device Information">

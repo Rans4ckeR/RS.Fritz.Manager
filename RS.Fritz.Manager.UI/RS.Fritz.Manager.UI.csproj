@@ -31,6 +31,8 @@
     <None Remove="Images\Search.png" />
     <None Remove="Images\User.png" />
     <None Remove="Images\Login.png" />
+    <None Remove="Images\Fail.png" />
+    <None Remove="Images\Success.png" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
@@ -57,6 +59,8 @@
     <Resource Include="Images\Search.png" />
     <Resource Include="Images\User.png" />
     <Resource Include="Images\Login.png" />
+    <Resource Include="Images\Fail.png" />
+    <Resource Include="Images\Success.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="UserControls\DeviceInfo\DeviceInfoSetProvisioningCodeView.xaml.cs">

@@ -12,13 +12,14 @@ using RS.Fritz.Manager.API;
 
 internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<PropertyChangedMessage<bool>>
 {
+    private readonly ILogger logger;
     private bool defaultCommandActive;
     private bool canExecuteDefaultCommand;
 
     protected FritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     {
+        this.logger = logger;
         DeviceLoginInfo = deviceLoginInfo;
-        Logger = logger;
         DefaultCommand = new AsyncRelayCommand<bool?>(ExecuteDefaultCommandAsync, _ => CanExecuteDefaultCommand);
         PropertyChanged += FritzServiceViewModelPropertyChanged;
         IsActive = true;
@@ -27,16 +28,6 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
     public DeviceLoginInfo DeviceLoginInfo { get; }
 
     public IAsyncRelayCommand DefaultCommand { get; }
-
-    public bool CanExecuteDefaultCommand
-    {
-        get => canExecuteDefaultCommand;
-        private set
-        {
-            if (SetProperty(ref canExecuteDefaultCommand, value))
-                DefaultCommand.NotifyCanExecuteChanged();
-        }
-    }
 
     public bool DefaultCommandActive
     {
@@ -48,7 +39,15 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
         }
     }
 
-    protected ILogger Logger { get; }
+    protected bool CanExecuteDefaultCommand
+    {
+        get => canExecuteDefaultCommand;
+        private set
+        {
+            if (SetProperty(ref canExecuteDefaultCommand, value))
+                DefaultCommand.NotifyCanExecuteChanged();
+        }
+    }
 
     public virtual void Receive(PropertyChangedMessage<bool> message)
     {
@@ -92,7 +91,7 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
 
     protected virtual bool GetCanExecuteDefaultCommand()
     {
-        return DeviceLoginInfo.InternetGatewayDevice?.Authenticated ?? false && !DefaultCommandActive;
+        return (DeviceLoginInfo.InternetGatewayDevice?.Authenticated ?? false) && !DefaultCommandActive;
     }
 
     protected void UpdateCanExecuteDefaultCommand()
@@ -113,7 +112,7 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
         }
         catch (Exception ex)
         {
-            Logger.ExceptionThrown(ex);
+            logger.ExceptionThrown(ex);
         }
         finally
         {

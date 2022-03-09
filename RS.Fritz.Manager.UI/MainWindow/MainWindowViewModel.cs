@@ -1,11 +1,14 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.ServiceModel.Security;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -23,6 +26,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     private bool deviceAndLoginControlsEnabled = true;
     private bool loginCommandActive;
     private bool canExecuteLoginCommand;
+    private ImageSource loginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Login.png"));
 
     public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanIpConnectionViewModel wanIpConnectionViewModel, HostsViewModel hostsViewModel, WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel, WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, IDeviceSearchService deviceSearchService)
         : base(deviceLoginInfo, logger)
@@ -94,6 +98,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
                 LoginCommand.NotifyCanExecuteChanged();
         }
     }
+
+    public ImageSource LoginButtonImage { get => loginButtonImage; set => _ = SetProperty(ref loginButtonImage, value); }
 
     private bool CanExecuteLoginCommand
     {
@@ -179,10 +185,12 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         try
         {
             await DeviceLoginInfo.InternetGatewayDevice!.GetDeviceTypeAsync();
+
+            LoginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Success.png"));
         }
         catch (MessageSecurityException)
         {
-            Logger.LogWarning("Invalid password");
+            LoginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Fail.png"));
         }
         finally
         {
