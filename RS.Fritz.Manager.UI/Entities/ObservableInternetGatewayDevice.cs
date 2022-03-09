@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.ServiceModel.Security;
     using System.Threading.Tasks;
     using CommunityToolkit.Mvvm.ComponentModel;
     using RS.Fritz.Manager.API;
@@ -10,6 +11,8 @@
     internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
     {
         private IEnumerable<User> users = Enumerable.Empty<User>();
+        private WanAccessType? wanAccessType;
+        private bool authenticated;
 
         public ObservableInternetGatewayDevice(InternetGatewayDevice internetGatewayDevice)
         {
@@ -54,6 +57,18 @@
             set => _ = SetProperty(ref users, value, true);
         }
 
+        public bool Authenticated
+        {
+            get => authenticated;
+            private set => _ = SetProperty(ref authenticated, value, true);
+        }
+
+        public WanAccessType? WanAccessType
+        {
+            get => wanAccessType;
+            set => _ = SetProperty(ref wanAccessType, value, true);
+        }
+
         public UPnPDescription? UPnPDescription
         {
             get => InternetGatewayDevice.UPnPDescription;
@@ -63,6 +78,30 @@
         public Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
         {
             return InternetGatewayDevice.ExecuteAsync(operation);
+        }
+
+        public async Task GetDeviceTypeAsync()
+        {
+            WanCommonInterfaceConfigGetCommonLinkPropertiesResponse wanCommonInterfaceConfigGetCommonLinkProperties;
+
+            try
+            {
+                wanCommonInterfaceConfigGetCommonLinkProperties = await InternetGatewayDevice.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(d));
+            }
+            catch (MessageSecurityException)
+            {
+                Authenticated = false;
+
+                throw;
+            }
+
+            Authenticated = true;
+            WanAccessType = wanCommonInterfaceConfigGetCommonLinkProperties.WanAccessType switch
+            {
+                "DSL" => UI.WanAccessType.Dsl,
+                "Ethernet" => UI.WanAccessType.Ethernet,
+                _ => throw new ArgumentOutOfRangeException(nameof(WanCommonInterfaceConfigGetCommonLinkPropertiesResponse.WanAccessType), wanCommonInterfaceConfigGetCommonLinkProperties.WanAccessType, null)
+            };
         }
     }
 }

@@ -10,7 +10,8 @@ A Windows .NET app with WPF UI to manage FritzBox devices using pure WCF calls.
 2. Select a device from the list
 3. Select a device user
 4. Enter the selected user's password
-5. Use the Device Information tab to see device details
+5. Click Login
+6. Use the Device Information tab to see device details
 
 # RS.Fritz.Manager.API
 A NuGet package to manage FritzBox devices using pure WCF calls.

@@ -12,15 +12,13 @@
 
     internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<PropertyChangedMessage<bool>>
     {
-        private readonly ILogger logger;
-
         private bool defaultCommandActive;
         private bool canExecuteDefaultCommand;
 
         protected FritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         {
             DeviceLoginInfo = deviceLoginInfo;
-            this.logger = logger;
+            Logger = logger;
             DefaultCommand = new AsyncRelayCommand<bool?>(ExecuteDefaultCommandAsync, _ => CanExecuteDefaultCommand);
             PropertyChanged += FritzServiceViewModelPropertyChanged;
             IsActive = true;
@@ -50,18 +48,31 @@
             }
         }
 
+        protected ILogger Logger { get; }
+
         public virtual void Receive(PropertyChangedMessage<bool> message)
         {
-            if (message.Sender != DeviceLoginInfo)
-                return;
-
-            switch (message.PropertyName)
+            if (message.Sender == DeviceLoginInfo)
             {
-                case nameof(DeviceLoginInfo.LoginInfoSet):
-                    {
-                        UpdateCanExecuteDefaultCommand();
-                        break;
-                    }
+                switch (message.PropertyName)
+                {
+                    case nameof(DeviceLoginInfo.LoginInfoSet):
+                        {
+                            UpdateCanExecuteDefaultCommand();
+                            break;
+                        }
+                }
+            }
+            else if (message.Sender == DeviceLoginInfo.InternetGatewayDevice)
+            {
+                switch (message.PropertyName)
+                {
+                    case nameof(DeviceLoginInfo.InternetGatewayDevice.Authenticated):
+                        {
+                            UpdateCanExecuteDefaultCommand();
+                            break;
+                        }
+                }
             }
         }
 
@@ -81,7 +92,7 @@
 
         protected virtual bool GetCanExecuteDefaultCommand()
         {
-            return DeviceLoginInfo.LoginInfoSet && !DefaultCommandActive;
+            return DeviceLoginInfo.InternetGatewayDevice?.Authenticated ?? false && !DefaultCommandActive;
         }
 
         protected void UpdateCanExecuteDefaultCommand()
@@ -102,7 +113,7 @@
             }
             catch (Exception ex)
             {
-                logger.ExceptionThrown(ex);
+                Logger.ExceptionThrown(ex);
             }
             finally
             {

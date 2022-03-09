@@ -16,7 +16,7 @@
             WeakReferenceMessenger.Default.Send(new UserMessageValueChangedMessage(new UserMessage(message)));
         }
 
-        public bool IsEnabled(LogLevel logLevel) => logLevel >= LogLevel.Error;
+        public bool IsEnabled(LogLevel logLevel) => logLevel >= LogLevel.Warning;
 
         public IDisposable BeginScope<TState>(TState state) => throw new NotSupportedException();
     }

@@ -27,11 +27,20 @@
 
         public async Task InitializeAsync()
         {
-            if (SecurityPort is not null)
-                return;
+            if (SecurityPort is null)
+                await GetSecurityPortAsync();
 
+            if (Users is null)
+                await GetUsersAsync();
+        }
+
+        private async Task GetSecurityPortAsync()
+        {
             SecurityPort = (await FritzServiceOperationHandler.DeviceInfoGetSecurityPortAsync(this)).SecurityPort;
+        }
 
+        private async Task GetUsersAsync()
+        {
             LanConfigSecurityGetUserListResponse lanConfigSecurityGetUserListResponse = await FritzServiceOperationHandler.LanConfigSecurityGetUserListAsync(this);
 
             using var stringReader = new StringReader(lanConfigSecurityGetUserListResponse.UserList);

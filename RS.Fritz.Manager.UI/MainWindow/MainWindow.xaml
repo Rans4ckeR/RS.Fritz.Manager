@@ -66,6 +66,9 @@
                 <RibbonGroup>
                     <RibbonTextBox Label="Enter User Password:" Text="{Binding DeviceLoginInfo.Password, UpdateSourceTrigger=PropertyChanged}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Password.png"/>
                 </RibbonGroup>
+                <RibbonGroup>
+                    <RibbonButton Label="Login" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Login.png" Command="{Binding LoginCommand}"/>
+                </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="Device Information">
                 <RibbonGroup ToolTip="This service allows the reporting of basic device information, including the current hardware and software versions.">

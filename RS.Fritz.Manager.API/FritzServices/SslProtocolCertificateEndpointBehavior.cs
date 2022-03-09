@@ -16,9 +16,7 @@
             bindingParameters.Add(new Func<HttpClientHandler, HttpMessageHandler>(q =>
             {
                 q.SslProtocols = SslProtocols;
-#pragma warning disable S4830 // Server certificates should be verified during SSL/TLS connections
                 q.ServerCertificateCustomValidationCallback = (_, _, _, _) => true;
-#pragma warning restore S4830 // Server certificates should be verified during SSL/TLS connections
 
                 return q;
             }));

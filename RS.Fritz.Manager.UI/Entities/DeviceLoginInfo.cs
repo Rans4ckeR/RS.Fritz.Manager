@@ -78,7 +78,8 @@
             switch (message.PropertyName)
             {
                 case nameof(Password):
-                    InternetGatewayDevice!.InternetGatewayDevice.NetworkCredential = new NetworkCredential(User?.Name, Password);
+                    if (InternetGatewayDevice is not null)
+                        InternetGatewayDevice!.InternetGatewayDevice.NetworkCredential = new NetworkCredential(User?.Name, Password);
 
                     SetLoginInfo();
                     break;
@@ -93,7 +94,8 @@
             switch (message.PropertyName)
             {
                 case nameof(User):
-                    InternetGatewayDevice!.InternetGatewayDevice.NetworkCredential = new NetworkCredential(User?.Name, Password);
+                    if (InternetGatewayDevice is not null)
+                        InternetGatewayDevice.InternetGatewayDevice.NetworkCredential = new NetworkCredential(User?.Name, Password);
 
                     SetLoginInfo();
                     break;
