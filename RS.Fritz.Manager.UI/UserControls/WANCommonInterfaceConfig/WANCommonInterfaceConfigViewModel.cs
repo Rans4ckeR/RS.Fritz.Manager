@@ -1,58 +1,57 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using RS.Fritz.Manager.API;
+
+internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 {
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.API;
+    private WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
+    private WanCommonInterfaceConfigGetTotalBytesReceivedResponse? wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
+    private WanCommonInterfaceConfigGetTotalBytesSentResponse? wanCommonInterfaceConfigGetTotalBytesSentResponse;
 
-    internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
+    public WanCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+        : base(deviceLoginInfo, logger)
     {
-        private WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
-        private WanCommonInterfaceConfigGetTotalBytesReceivedResponse? wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
-        private WanCommonInterfaceConfigGetTotalBytesSentResponse? wanCommonInterfaceConfigGetTotalBytesSentResponse;
+    }
 
-        public WanCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-            : base(deviceLoginInfo, logger)
-        {
-        }
+    public WanCommonInterfaceConfigGetTotalBytesReceivedResponse? WanCommonInterfaceConfigGetTotalBytesReceivedResponse
+    {
+        get => wanCommonInterfaceConfigGetTotalBytesReceivedResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesReceivedResponse, value); }
+    }
 
-        public WanCommonInterfaceConfigGetTotalBytesReceivedResponse? WanCommonInterfaceConfigGetTotalBytesReceivedResponse
-        {
-            get => wanCommonInterfaceConfigGetTotalBytesReceivedResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesReceivedResponse, value); }
-        }
+    public WanCommonInterfaceConfigGetTotalBytesSentResponse? WanCommonInterfaceConfigGetTotalBytesSentResponse
+    {
+        get => wanCommonInterfaceConfigGetTotalBytesSentResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesSentResponse, value); }
+    }
 
-        public WanCommonInterfaceConfigGetTotalBytesSentResponse? WanCommonInterfaceConfigGetTotalBytesSentResponse
-        {
-            get => wanCommonInterfaceConfigGetTotalBytesSentResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesSentResponse, value); }
-        }
+    public WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? WanCommonInterfaceConfigGetCommonLinkPropertiesResponse
+    {
+        get => wanCommonInterfaceConfigGetCommonLinkPropertiesResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetCommonLinkPropertiesResponse, value); }
+    }
 
-        public WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? WanCommonInterfaceConfigGetCommonLinkPropertiesResponse
-        {
-            get => wanCommonInterfaceConfigGetCommonLinkPropertiesResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetCommonLinkPropertiesResponse, value); }
-        }
+    protected override async Task DoExecuteDefaultCommandAsync()
+    {
+        await API.TaskExtensions.WhenAllSafe(new[]
+            {
+               GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(),
+               GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(),
+               GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
+            });
+    }
 
-        protected override async Task DoExecuteDefaultCommandAsync()
-        {
-            await API.TaskExtensions.WhenAllSafe(new[]
-                {
-                   GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(),
-                   GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(),
-                   GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
-                });
-        }
+    private async Task GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
+    {
+        WanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(d));
+    }
 
-        private async Task GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
-        {
-            WanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(d));
-        }
+    private async Task GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync()
+    {
+        WanCommonInterfaceConfigGetTotalBytesReceivedResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(d));
+    }
 
-        private async Task GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync()
-        {
-            WanCommonInterfaceConfigGetTotalBytesReceivedResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(d));
-        }
-
-        private async Task GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
-        {
-            WanCommonInterfaceConfigGetTotalBytesSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalBytesSentAsync(d));
-        }
+    private async Task GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
+    {
+        WanCommonInterfaceConfigGetTotalBytesSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalBytesSentAsync(d));
     }
 }

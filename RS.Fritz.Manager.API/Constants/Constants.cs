@@ -1,8 +1,7 @@
-﻿namespace RS.Fritz.Manager.API
+﻿namespace RS.Fritz.Manager.API;
+
+internal static class Constants
 {
-    internal static class Constants
-    {
-        public const string HttpClientName = "HttpClientName";
-        public const string NonValidatingHttpsClientName = "NonValidatingHttpsClient";
-    }
+    public const string HttpClientName = "HttpClientName";
+    public const string NonValidatingHttpsClientName = "NonValidatingHttpsClient";
 }

@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetTotalBytesReceived")]
-    public sealed record WanCommonInterfaceConfigGetTotalBytesReceivedRequest;
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetTotalBytesReceived")]
+public sealed record WanCommonInterfaceConfigGetTotalBytesReceivedRequest;

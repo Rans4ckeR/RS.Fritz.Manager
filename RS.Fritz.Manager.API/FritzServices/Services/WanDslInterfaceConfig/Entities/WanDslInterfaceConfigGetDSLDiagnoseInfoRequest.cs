@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetDSLDiagnoseInfo")]
-    public sealed record WanDslInterfaceConfigGetDSLDiagnoseInfoRequest;
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetDSLDiagnoseInfo")]
+public sealed record WanDslInterfaceConfigGetDSLDiagnoseInfoRequest;

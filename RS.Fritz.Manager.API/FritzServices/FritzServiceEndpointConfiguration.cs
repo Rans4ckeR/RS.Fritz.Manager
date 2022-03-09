@@ -1,9 +1,8 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    internal enum FritzServiceEndpointConfiguration
-    {
-        BasicHttpBinding_IFritzService,
+﻿namespace RS.Fritz.Manager.API;
 
-        BasicHttpsBinding_IFritzService
-    }
+internal enum FritzServiceEndpointConfiguration
+{
+    BasicHttpBinding_IFritzService,
+
+    BasicHttpsBinding_IFritzService
 }

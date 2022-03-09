@@ -1,10 +1,9 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+internal sealed partial class WanCommonInterfaceConfigView
 {
-    internal sealed partial class WanCommonInterfaceConfigView
+    public WanCommonInterfaceConfigView()
     {
-        public WanCommonInterfaceConfigView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

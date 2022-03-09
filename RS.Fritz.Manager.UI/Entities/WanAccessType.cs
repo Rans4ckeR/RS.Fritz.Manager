@@ -1,9 +1,8 @@
-﻿namespace RS.Fritz.Manager.UI
-{
-    internal enum WanAccessType
-    {
-        Dsl,
+﻿namespace RS.Fritz.Manager.UI;
 
-        Ethernet
-    }
+internal enum WanAccessType
+{
+    Dsl,
+
+    Ethernet
 }

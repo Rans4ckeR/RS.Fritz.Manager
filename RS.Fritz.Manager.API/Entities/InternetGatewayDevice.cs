@@ -1,54 +1,53 @@
-﻿namespace RS.Fritz.Manager.API
+﻿namespace RS.Fritz.Manager.API;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
+
+public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzServiceOperationHandler, IEnumerable<Uri> Locations, string Server, string CacheControl, string? Ext, string SearchTarget, string UniqueServiceName, Uri PreferredLocation)
 {
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Net;
-    using System.Threading.Tasks;
-    using System.Xml;
-    using System.Xml.Serialization;
+    public UPnPDescription? UPnPDescription { get; set; }
 
-    public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzServiceOperationHandler, IEnumerable<Uri> Locations, string Server, string CacheControl, string? Ext, string SearchTarget, string UniqueServiceName, Uri PreferredLocation)
+    public ushort? SecurityPort { get; set; }
+
+    public User[]? Users { get; set; }
+
+    public NetworkCredential? NetworkCredential { get; set; }
+
+    public async Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
     {
-        public UPnPDescription? UPnPDescription { get; set; }
+        await InitializeAsync();
 
-        public ushort? SecurityPort { get; set; }
+        return await operation(FritzServiceOperationHandler, this);
+    }
 
-        public User[]? Users { get; set; }
+    public async Task InitializeAsync()
+    {
+        if (SecurityPort is null)
+            await GetSecurityPortAsync();
 
-        public NetworkCredential? NetworkCredential { get; set; }
+        if (Users is null)
+            await GetUsersAsync();
+    }
 
-        public async Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
-        {
-            await InitializeAsync();
+    private async Task GetSecurityPortAsync()
+    {
+        SecurityPort = (await FritzServiceOperationHandler.DeviceInfoGetSecurityPortAsync(this)).SecurityPort;
+    }
 
-            return await operation(FritzServiceOperationHandler, this);
-        }
+    private async Task GetUsersAsync()
+    {
+        LanConfigSecurityGetUserListResponse lanConfigSecurityGetUserListResponse = await FritzServiceOperationHandler.LanConfigSecurityGetUserListAsync(this);
 
-        public async Task InitializeAsync()
-        {
-            if (SecurityPort is null)
-                await GetSecurityPortAsync();
+        using var stringReader = new StringReader(lanConfigSecurityGetUserListResponse.UserList);
+        using var xmlTextReader = new XmlTextReader(stringReader);
 
-            if (Users is null)
-                await GetUsersAsync();
-        }
+        UserList? userList = (UserList?)new XmlSerializer(typeof(UserList)).Deserialize(xmlTextReader);
 
-        private async Task GetSecurityPortAsync()
-        {
-            SecurityPort = (await FritzServiceOperationHandler.DeviceInfoGetSecurityPortAsync(this)).SecurityPort;
-        }
-
-        private async Task GetUsersAsync()
-        {
-            LanConfigSecurityGetUserListResponse lanConfigSecurityGetUserListResponse = await FritzServiceOperationHandler.LanConfigSecurityGetUserListAsync(this);
-
-            using var stringReader = new StringReader(lanConfigSecurityGetUserListResponse.UserList);
-            using var xmlTextReader = new XmlTextReader(stringReader);
-
-            UserList? userList = (UserList?)new XmlSerializer(typeof(UserList)).Deserialize(xmlTextReader);
-
-            Users = userList?.Users ?? Array.Empty<User>();
-        }
+        Users = userList?.Users ?? Array.Empty<User>();
     }
 }

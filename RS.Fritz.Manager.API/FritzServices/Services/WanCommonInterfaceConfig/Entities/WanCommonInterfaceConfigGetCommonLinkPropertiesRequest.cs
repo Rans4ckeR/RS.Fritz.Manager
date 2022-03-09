@@ -1,8 +1,7 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetCommonLinkProperties")]
+using System.ServiceModel;
 
-    public sealed record WanCommonInterfaceConfigGetCommonLinkPropertiesRequest;
-}
+[MessageContract(WrapperName = "GetCommonLinkProperties")]
+
+public sealed record WanCommonInterfaceConfigGetCommonLinkPropertiesRequest;

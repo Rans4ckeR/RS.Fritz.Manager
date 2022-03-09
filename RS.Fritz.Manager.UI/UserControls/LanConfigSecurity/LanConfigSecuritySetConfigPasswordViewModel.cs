@@ -1,50 +1,49 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+using System.ComponentModel;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+
+internal sealed class LanConfigSecuritySetConfigPasswordViewModel : FritzServiceViewModel
 {
-    using System.ComponentModel;
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.Logging;
+    private string? password;
 
-    internal sealed class LanConfigSecuritySetConfigPasswordViewModel : FritzServiceViewModel
+    public LanConfigSecuritySetConfigPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+        : base(deviceLoginInfo, logger)
     {
-        private string? password;
+    }
 
-        public LanConfigSecuritySetConfigPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-            : base(deviceLoginInfo, logger)
+    public string? Password
+    {
+        get => password;
+        set
         {
+            if (SetProperty(ref password, value))
+                DefaultCommand.NotifyCanExecuteChanged();
         }
+    }
 
-        public string? Password
+    protected override async Task DoExecuteDefaultCommandAsync()
+    {
+        _ = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecuritySetConfigPasswordAsync(d, Password!));
+    }
+
+    protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        base.FritzServiceViewModelPropertyChanged(sender, e);
+
+        switch (e.PropertyName)
         {
-            get => password;
-            set
-            {
-                if (SetProperty(ref password, value))
-                    DefaultCommand.NotifyCanExecuteChanged();
-            }
+            case nameof(Password):
+                {
+                    UpdateCanExecuteDefaultCommand();
+                    break;
+                }
         }
+    }
 
-        protected override async Task DoExecuteDefaultCommandAsync()
-        {
-            _ = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.LanConfigSecuritySetConfigPasswordAsync(d, Password!));
-        }
-
-        protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            base.FritzServiceViewModelPropertyChanged(sender, e);
-
-            switch (e.PropertyName)
-            {
-                case nameof(Password):
-                    {
-                        UpdateCanExecuteDefaultCommand();
-                        break;
-                    }
-            }
-        }
-
-        protected override bool GetCanExecuteDefaultCommand()
-        {
-            return base.GetCanExecuteDefaultCommand() && !string.IsNullOrWhiteSpace(Password);
-        }
+    protected override bool GetCanExecuteDefaultCommand()
+    {
+        return base.GetCanExecuteDefaultCommand() && !string.IsNullOrWhiteSpace(Password);
     }
 }

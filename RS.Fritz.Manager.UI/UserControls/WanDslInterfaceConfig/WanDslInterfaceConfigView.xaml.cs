@@ -1,10 +1,9 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+internal sealed partial class WanDslInterfaceConfigView
 {
-    internal sealed partial class WanDslInterfaceConfigView
+    public WanDslInterfaceConfigView()
     {
-        public WanDslInterfaceConfigView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

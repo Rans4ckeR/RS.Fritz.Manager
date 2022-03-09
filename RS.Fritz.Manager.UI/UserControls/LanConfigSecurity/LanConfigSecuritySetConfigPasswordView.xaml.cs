@@ -1,10 +1,9 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+internal sealed partial class LanConfigSecuritySetConfigPasswordView
 {
-    internal sealed partial class LanConfigSecuritySetConfigPasswordView
+    public LanConfigSecuritySetConfigPasswordView()
     {
-        public LanConfigSecuritySetConfigPasswordView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

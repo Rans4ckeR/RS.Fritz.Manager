@@ -1,25 +1,24 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+using System.Diagnostics;
+using System.Windows.Documents;
+using System.Windows.Navigation;
+
+internal sealed class ExternalBrowserHyperlink : Hyperlink
 {
-    using System.Diagnostics;
-    using System.Windows.Documents;
-    using System.Windows.Navigation;
-
-    internal sealed class ExternalBrowserHyperlink : Hyperlink
+    public ExternalBrowserHyperlink()
     {
-        public ExternalBrowserHyperlink()
-        {
-            RequestNavigate += OnRequestNavigate;
-        }
+        RequestNavigate += OnRequestNavigate;
+    }
 
-        private static void OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+    private static void OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+    {
+        Process.Start(new ProcessStartInfo
         {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = e.Uri.OriginalString,
-                UseShellExecute = true
-            });
+            FileName = e.Uri.OriginalString,
+            UseShellExecute = true
+        });
 
-            e.Handled = true;
-        }
+        e.Handled = true;
     }
 }

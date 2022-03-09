@@ -1,117 +1,116 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+using System;
+using System.Threading.Tasks;
+using System.Windows.Threading;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using Microsoft.Extensions.Logging;
+using RS.Fritz.Manager.API;
+
+internal sealed class WanDslInterfaceConfigViewModel : FritzServiceViewModel
 {
-    using System;
-    using System.Threading.Tasks;
-    using System.Windows.Threading;
-    using CommunityToolkit.Mvvm.Messaging.Messages;
-    using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.API;
+    private readonly DispatcherTimer autoRefreshTimer;
 
-    internal sealed class WanDslInterfaceConfigViewModel : FritzServiceViewModel
+    private bool autoRefresh;
+    private WanDslInterfaceConfigGetDSLDiagnoseInfoResponse? wanDslInterfaceConfigGetDSLDiagnoseInfoResponse;
+    private WanDslInterfaceConfigGetDSLInfoResponse? wanDslInterfaceConfigGetDSLInfoResponse;
+    private WanDslInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
+
+    public WanDslInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+        : base(deviceLoginInfo, logger)
     {
-        private readonly DispatcherTimer autoRefreshTimer;
-
-        private bool autoRefresh;
-        private WanDslInterfaceConfigGetDSLDiagnoseInfoResponse? wanDslInterfaceConfigGetDSLDiagnoseInfoResponse;
-        private WanDslInterfaceConfigGetDSLInfoResponse? wanDslInterfaceConfigGetDSLInfoResponse;
-        private WanDslInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
-
-        public WanDslInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-            : base(deviceLoginInfo, logger)
+        WanDslInterfaceConfigInfoControlViewModel = new WanDslInterfaceConfigInfoControlViewModel();
+        autoRefreshTimer = new DispatcherTimer
         {
-            WanDslInterfaceConfigInfoControlViewModel = new WanDslInterfaceConfigInfoControlViewModel();
-            autoRefreshTimer = new DispatcherTimer
+            Interval = TimeSpan.FromSeconds(3d)
+        };
+        autoRefreshTimer.Tick += AutoRefreshTimerTick;
+    }
+
+    public bool AutoRefresh
+    {
+        get => autoRefresh;
+        set
+        {
+            if (SetProperty(ref autoRefresh, value))
             {
-                Interval = TimeSpan.FromSeconds(3d)
-            };
-            autoRefreshTimer.Tick += AutoRefreshTimerTick;
+                if (value)
+                    autoRefreshTimer.Start();
+                else
+                    autoRefreshTimer.Stop();
+            }
         }
+    }
 
-        public bool AutoRefresh
+    public WanDslInterfaceConfigGetDSLDiagnoseInfoResponse? WanDslInterfaceConfigGetDSLDiagnoseInfoResponse
+    {
+        get => wanDslInterfaceConfigGetDSLDiagnoseInfoResponse; set { _ = SetProperty(ref wanDslInterfaceConfigGetDSLDiagnoseInfoResponse, value); }
+    }
+
+    public WanDslInterfaceConfigGetDSLInfoResponse? WanDslInterfaceConfigGetDSLInfoResponse
+    {
+        get => wanDslInterfaceConfigGetDSLInfoResponse; set { _ = SetProperty(ref wanDslInterfaceConfigGetDSLInfoResponse, value); }
+    }
+
+    public WanDslInterfaceConfigInfoControlViewModel WanDslInterfaceConfigInfoControlViewModel { get; set; }
+
+    public WanDslInterfaceConfigGetStatisticsTotalResponse? WanDslInterfaceConfigGetStatisticsTotalResponse
+    {
+        get => wanDslInterfaceConfigGetStatisticsTotalResponse; set { _ = SetProperty(ref wanDslInterfaceConfigGetStatisticsTotalResponse, value); }
+    }
+
+    public override void Receive(PropertyChangedMessage<bool> message)
+    {
+        base.Receive(message);
+
+        if (message.Sender != DeviceLoginInfo)
+            return;
+
+        switch (message.PropertyName)
         {
-            get => autoRefresh;
-            set
-            {
-                if (SetProperty(ref autoRefresh, value))
+            case nameof(DeviceLoginInfo.LoginInfoSet):
                 {
-                    if (value)
-                        autoRefreshTimer.Start();
-                    else
-                        autoRefreshTimer.Stop();
+                    if (!message.NewValue)
+                        AutoRefresh = false;
+                    break;
                 }
-            }
         }
+    }
 
-        public WanDslInterfaceConfigGetDSLDiagnoseInfoResponse? WanDslInterfaceConfigGetDSLDiagnoseInfoResponse
-        {
-            get => wanDslInterfaceConfigGetDSLDiagnoseInfoResponse; set { _ = SetProperty(ref wanDslInterfaceConfigGetDSLDiagnoseInfoResponse, value); }
-        }
-
-        public WanDslInterfaceConfigGetDSLInfoResponse? WanDslInterfaceConfigGetDSLInfoResponse
-        {
-            get => wanDslInterfaceConfigGetDSLInfoResponse; set { _ = SetProperty(ref wanDslInterfaceConfigGetDSLInfoResponse, value); }
-        }
-
-        public WanDslInterfaceConfigInfoControlViewModel WanDslInterfaceConfigInfoControlViewModel { get; set; }
-
-        public WanDslInterfaceConfigGetStatisticsTotalResponse? WanDslInterfaceConfigGetStatisticsTotalResponse
-        {
-            get => wanDslInterfaceConfigGetStatisticsTotalResponse; set { _ = SetProperty(ref wanDslInterfaceConfigGetStatisticsTotalResponse, value); }
-        }
-
-        public override void Receive(PropertyChangedMessage<bool> message)
-        {
-            base.Receive(message);
-
-            if (message.Sender != DeviceLoginInfo)
-                return;
-
-            switch (message.PropertyName)
+    protected override async Task DoExecuteDefaultCommandAsync()
+    {
+        await API.TaskExtensions.WhenAllSafe(new[]
             {
-                case nameof(DeviceLoginInfo.LoginInfoSet):
-                    {
-                        if (!message.NewValue)
-                            AutoRefresh = false;
-                        break;
-                    }
-            }
-        }
+                GetWanDslInterfaceConfigGetDSLDiagnoseInfoAsync(),
+                GetWanDslInterfaceConfigGetDSLInfoAsync(),
+                GetWanDslInterfaceConfigGetInfoAsync(),
+                GetWanDslInterfaceConfigGetStatisticsTotalAsync()
+            });
+    }
 
-        protected override async Task DoExecuteDefaultCommandAsync()
-        {
-            await API.TaskExtensions.WhenAllSafe(new[]
-                {
-                    GetWanDslInterfaceConfigGetDSLDiagnoseInfoAsync(),
-                    GetWanDslInterfaceConfigGetDSLInfoAsync(),
-                    GetWanDslInterfaceConfigGetInfoAsync(),
-                    GetWanDslInterfaceConfigGetStatisticsTotalAsync()
-                });
-        }
+    private async void AutoRefreshTimerTick(object? sender, EventArgs e)
+    {
+        if (CanExecuteDefaultCommand)
+            await DefaultCommand.ExecuteAsync(false);
+    }
 
-        private async void AutoRefreshTimerTick(object? sender, EventArgs e)
-        {
-            if (CanExecuteDefaultCommand)
-                await DefaultCommand.ExecuteAsync(false);
-        }
+    private async Task GetWanDslInterfaceConfigGetDSLDiagnoseInfoAsync()
+    {
+        WanDslInterfaceConfigGetDSLDiagnoseInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDSLDiagnoseInfoAsync(d));
+    }
 
-        private async Task GetWanDslInterfaceConfigGetDSLDiagnoseInfoAsync()
-        {
-            WanDslInterfaceConfigGetDSLDiagnoseInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDSLDiagnoseInfoAsync(d));
-        }
+    private async Task GetWanDslInterfaceConfigGetDSLInfoAsync()
+    {
+        WanDslInterfaceConfigGetDSLInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDSLInfoAsync(d));
+    }
 
-        private async Task GetWanDslInterfaceConfigGetDSLInfoAsync()
-        {
-            WanDslInterfaceConfigGetDSLInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDSLInfoAsync(d));
-        }
+    private async Task GetWanDslInterfaceConfigGetInfoAsync()
+    {
+        WanDslInterfaceConfigInfoControlViewModel.WanDslInterfaceConfigGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetInfoAsync(d));
+    }
 
-        private async Task GetWanDslInterfaceConfigGetInfoAsync()
-        {
-            WanDslInterfaceConfigInfoControlViewModel.WanDslInterfaceConfigGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetInfoAsync(d));
-        }
-
-        private async Task GetWanDslInterfaceConfigGetStatisticsTotalAsync()
-        {
-            WanDslInterfaceConfigGetStatisticsTotalResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetStatisticsTotalAsync(d));
-        }
+    private async Task GetWanDslInterfaceConfigGetStatisticsTotalAsync()
+    {
+        WanDslInterfaceConfigGetStatisticsTotalResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetStatisticsTotalAsync(d));
     }
 }

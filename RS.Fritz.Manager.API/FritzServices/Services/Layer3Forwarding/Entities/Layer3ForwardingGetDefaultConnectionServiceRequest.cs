@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetDefaultConnectionService")]
-    public sealed record Layer3ForwardingGetDefaultConnectionServiceRequest;
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetDefaultConnectionService")]
+public sealed record Layer3ForwardingGetDefaultConnectionServiceRequest;

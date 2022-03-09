@@ -1,124 +1,123 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
+using Microsoft.Extensions.Logging;
+using RS.Fritz.Manager.API;
+
+internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<PropertyChangedMessage<bool>>
 {
-    using System;
-    using System.ComponentModel;
-    using System.Threading.Tasks;
-    using CommunityToolkit.Mvvm.ComponentModel;
-    using CommunityToolkit.Mvvm.Input;
-    using CommunityToolkit.Mvvm.Messaging;
-    using CommunityToolkit.Mvvm.Messaging.Messages;
-    using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.API;
+    private bool defaultCommandActive;
+    private bool canExecuteDefaultCommand;
 
-    internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<PropertyChangedMessage<bool>>
+    protected FritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     {
-        private bool defaultCommandActive;
-        private bool canExecuteDefaultCommand;
+        DeviceLoginInfo = deviceLoginInfo;
+        Logger = logger;
+        DefaultCommand = new AsyncRelayCommand<bool?>(ExecuteDefaultCommandAsync, _ => CanExecuteDefaultCommand);
+        PropertyChanged += FritzServiceViewModelPropertyChanged;
+        IsActive = true;
+    }
 
-        protected FritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    public DeviceLoginInfo DeviceLoginInfo { get; }
+
+    public IAsyncRelayCommand DefaultCommand { get; }
+
+    public bool CanExecuteDefaultCommand
+    {
+        get => canExecuteDefaultCommand;
+        private set
         {
-            DeviceLoginInfo = deviceLoginInfo;
-            Logger = logger;
-            DefaultCommand = new AsyncRelayCommand<bool?>(ExecuteDefaultCommandAsync, _ => CanExecuteDefaultCommand);
-            PropertyChanged += FritzServiceViewModelPropertyChanged;
-            IsActive = true;
+            if (SetProperty(ref canExecuteDefaultCommand, value))
+                DefaultCommand.NotifyCanExecuteChanged();
         }
+    }
 
-        public DeviceLoginInfo DeviceLoginInfo { get; }
-
-        public IAsyncRelayCommand DefaultCommand { get; }
-
-        public bool CanExecuteDefaultCommand
+    public bool DefaultCommandActive
+    {
+        get => defaultCommandActive;
+        set
         {
-            get => canExecuteDefaultCommand;
-            private set
-            {
-                if (SetProperty(ref canExecuteDefaultCommand, value))
-                    DefaultCommand.NotifyCanExecuteChanged();
-            }
+            if (SetProperty(ref defaultCommandActive, value))
+                DefaultCommand.NotifyCanExecuteChanged();
         }
+    }
 
-        public bool DefaultCommandActive
+    protected ILogger Logger { get; }
+
+    public virtual void Receive(PropertyChangedMessage<bool> message)
+    {
+        if (message.Sender == DeviceLoginInfo)
         {
-            get => defaultCommandActive;
-            set
+            switch (message.PropertyName)
             {
-                if (SetProperty(ref defaultCommandActive, value))
-                    DefaultCommand.NotifyCanExecuteChanged();
-            }
-        }
-
-        protected ILogger Logger { get; }
-
-        public virtual void Receive(PropertyChangedMessage<bool> message)
-        {
-            if (message.Sender == DeviceLoginInfo)
-            {
-                switch (message.PropertyName)
-                {
-                    case nameof(DeviceLoginInfo.LoginInfoSet):
-                        {
-                            UpdateCanExecuteDefaultCommand();
-                            break;
-                        }
-                }
-            }
-            else if (message.Sender == DeviceLoginInfo.InternetGatewayDevice)
-            {
-                switch (message.PropertyName)
-                {
-                    case nameof(DeviceLoginInfo.InternetGatewayDevice.Authenticated):
-                        {
-                            UpdateCanExecuteDefaultCommand();
-                            break;
-                        }
-                }
-            }
-        }
-
-        protected abstract Task DoExecuteDefaultCommandAsync();
-
-        protected virtual void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            switch (e.PropertyName)
-            {
-                case nameof(DefaultCommandActive):
+                case nameof(DeviceLoginInfo.LoginInfoSet):
                     {
                         UpdateCanExecuteDefaultCommand();
                         break;
                     }
             }
         }
-
-        protected virtual bool GetCanExecuteDefaultCommand()
+        else if (message.Sender == DeviceLoginInfo.InternetGatewayDevice)
         {
-            return DeviceLoginInfo.InternetGatewayDevice?.Authenticated ?? false && !DefaultCommandActive;
+            switch (message.PropertyName)
+            {
+                case nameof(DeviceLoginInfo.InternetGatewayDevice.Authenticated):
+                    {
+                        UpdateCanExecuteDefaultCommand();
+                        break;
+                    }
+            }
         }
+    }
 
-        protected void UpdateCanExecuteDefaultCommand()
+    protected abstract Task DoExecuteDefaultCommandAsync();
+
+    protected virtual void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        switch (e.PropertyName)
         {
-            CanExecuteDefaultCommand = GetCanExecuteDefaultCommand();
+            case nameof(DefaultCommandActive):
+                {
+                    UpdateCanExecuteDefaultCommand();
+                    break;
+                }
         }
+    }
 
-        private async Task ExecuteDefaultCommandAsync(bool? showView)
+    protected virtual bool GetCanExecuteDefaultCommand()
+    {
+        return DeviceLoginInfo.InternetGatewayDevice?.Authenticated ?? false && !DefaultCommandActive;
+    }
+
+    protected void UpdateCanExecuteDefaultCommand()
+    {
+        CanExecuteDefaultCommand = GetCanExecuteDefaultCommand();
+    }
+
+    private async Task ExecuteDefaultCommandAsync(bool? showView)
+    {
+        try
         {
-            try
-            {
-                DefaultCommandActive = true;
+            DefaultCommandActive = true;
 
-                await DoExecuteDefaultCommandAsync();
+            await DoExecuteDefaultCommandAsync();
 
-                if (showView ?? true)
-                    WeakReferenceMessenger.Default.Send(new ActiveViewValueChangedMessage(this));
-            }
-            catch (Exception ex)
-            {
-                Logger.ExceptionThrown(ex);
-            }
-            finally
-            {
-                DefaultCommandActive = false;
-            }
+            if (showView ?? true)
+                WeakReferenceMessenger.Default.Send(new ActiveViewValueChangedMessage(this));
+        }
+        catch (Exception ex)
+        {
+            Logger.ExceptionThrown(ex);
+        }
+        finally
+        {
+            DefaultCommandActive = false;
         }
     }
 }

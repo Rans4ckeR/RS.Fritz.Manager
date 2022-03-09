@@ -1,71 +1,70 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using RS.Fritz.Manager.API;
+
+internal sealed class HostsViewModel : FritzServiceViewModel
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.API;
+    private readonly IDeviceHostsService deviceHostsService;
 
-    internal sealed class HostsViewModel : FritzServiceViewModel
+    private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
+    private DeviceHostInfo? deviceHostInfo;
+    private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
+
+    public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IDeviceHostsService deviceHostsService)
+        : base(deviceLoginInfo, logger)
     {
-        private readonly IDeviceHostsService deviceHostsService;
+        this.deviceHostsService = deviceHostsService;
+    }
 
-        private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
-        private DeviceHostInfo? deviceHostInfo;
-        private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
+    public HostsGetHostNumberOfEntriesResponse? HostsGetHostNumberOfEntriesResponse
+    {
+        get => hostsGetHostNumberOfEntriesResponse; set { _ = SetProperty(ref hostsGetHostNumberOfEntriesResponse, value); }
+    }
 
-        public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IDeviceHostsService deviceHostsService)
-            : base(deviceLoginInfo, logger)
-        {
-            this.deviceHostsService = deviceHostsService;
-        }
+    public DeviceHostInfo? DeviceHostInfo
+    {
+        get => deviceHostInfo; set { _ = SetProperty(ref deviceHostInfo, value); }
+    }
 
-        public HostsGetHostNumberOfEntriesResponse? HostsGetHostNumberOfEntriesResponse
-        {
-            get => hostsGetHostNumberOfEntriesResponse; set { _ = SetProperty(ref hostsGetHostNumberOfEntriesResponse, value); }
-        }
+    public HostsGetGenericHostEntryResponse? HostsGetGenericHostEntryResponse
+    {
+        get => hostsGetGenericHostEntryResponse; set { _ = SetProperty(ref hostsGetGenericHostEntryResponse, value); }
+    }
 
-        public DeviceHostInfo? DeviceHostInfo
-        {
-            get => deviceHostInfo; set { _ = SetProperty(ref deviceHostInfo, value); }
-        }
+    protected override async Task DoExecuteDefaultCommandAsync()
+    {
+        await API.TaskExtensions.WhenAllSafe(new[]
+            {
+                GetHostsGetHostListPathAsync(),
+                GetHostsGetHostNumberOfEntriesAsync(),
+                GetHostsGetGenericHostEntryAsync()
+            });
+    }
 
-        public HostsGetGenericHostEntryResponse? HostsGetGenericHostEntryResponse
-        {
-            get => hostsGetGenericHostEntryResponse; set { _ = SetProperty(ref hostsGetGenericHostEntryResponse, value); }
-        }
+    private async Task GetHostsGetHostNumberOfEntriesAsync()
+    {
+        HostsGetHostNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetHostNumberOfEntriesAsync(d));
+    }
 
-        protected override async Task DoExecuteDefaultCommandAsync()
-        {
-            await API.TaskExtensions.WhenAllSafe(new[]
-                {
-                    GetHostsGetHostListPathAsync(),
-                    GetHostsGetHostNumberOfEntriesAsync(),
-                    GetHostsGetGenericHostEntryAsync()
-                });
-        }
+    private async Task GetHostsGetGenericHostEntryAsync()
+    {
+        const ushort getHostsGetGenericHostEntryIndex = 0;
 
-        private async Task GetHostsGetHostNumberOfEntriesAsync()
-        {
-            HostsGetHostNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetHostNumberOfEntriesAsync(d));
-        }
+        HostsGetGenericHostEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetGenericHostEntryAsync(d, getHostsGetGenericHostEntryIndex));
+    }
 
-        private async Task GetHostsGetGenericHostEntryAsync()
-        {
-            const ushort getHostsGetGenericHostEntryIndex = 0;
+    private async Task GetHostsGetHostListPathAsync()
+    {
+        HostsGetHostListPathResponse newHostsGetHostListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetHostListPathAsync(d));
+        string hostListPath = newHostsGetHostListPathResponse.HostListPath;
+        Uri hostListPathUri = new Uri(FormattableString.Invariant($"https://{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice!.PreferredLocation.Host}:{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice.SecurityPort}{hostListPath}"));
+        IEnumerable<DeviceHost> deviceHosts = await deviceHostsService.GetDeviceHostsAsync(hostListPathUri);
 
-            HostsGetGenericHostEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetGenericHostEntryAsync(d, getHostsGetGenericHostEntryIndex));
-        }
-
-        private async Task GetHostsGetHostListPathAsync()
-        {
-            HostsGetHostListPathResponse newHostsGetHostListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetHostListPathAsync(d));
-            string hostListPath = newHostsGetHostListPathResponse.HostListPath;
-            Uri hostListPathUri = new Uri(FormattableString.Invariant($"https://{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice!.PreferredLocation.Host}:{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice.SecurityPort}{hostListPath}"));
-            IEnumerable<DeviceHost> deviceHosts = await deviceHostsService.GetDeviceHostsAsync(hostListPathUri);
-
-            DeviceHostInfo = new DeviceHostInfo(hostListPath, hostListPathUri, new ObservableCollection<DeviceHost>(deviceHosts));
-        }
+        DeviceHostInfo = new DeviceHostInfo(hostListPath, hostListPathUri, new ObservableCollection<DeviceHost>(deviceHosts));
     }
 }

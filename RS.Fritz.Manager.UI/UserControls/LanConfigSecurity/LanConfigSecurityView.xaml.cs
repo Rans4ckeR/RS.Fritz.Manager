@@ -1,10 +1,9 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+internal sealed partial class LanConfigSecurityView
 {
-    internal sealed partial class LanConfigSecurityView
+    public LanConfigSecurityView()
     {
-        public LanConfigSecurityView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

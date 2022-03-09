@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "SetConfigPasswordResponse")]
-    public sealed record LanConfigSecuritySetConfigPasswordResponse;
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "SetConfigPasswordResponse")]
+public sealed record LanConfigSecuritySetConfigPasswordResponse;

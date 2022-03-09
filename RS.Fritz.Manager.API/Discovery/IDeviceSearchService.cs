@@ -1,10 +1,9 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+﻿namespace RS.Fritz.Manager.API;
 
-    public interface IDeviceSearchService
-    {
-        Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null);
-    }
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+public interface IDeviceSearchService
+{
+    Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null);
 }

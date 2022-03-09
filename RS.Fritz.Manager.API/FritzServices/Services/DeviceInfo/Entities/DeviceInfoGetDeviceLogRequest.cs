@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetDeviceLog")]
-    public sealed record DeviceInfoGetDeviceLogRequest;
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetDeviceLog")]
+public sealed record DeviceInfoGetDeviceLogRequest;

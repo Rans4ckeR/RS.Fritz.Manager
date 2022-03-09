@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetAnonymousLogin")]
-    public sealed record LanConfigSecurityGetAnonymousLoginRequest;
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetAnonymousLogin")]
+public sealed record LanConfigSecurityGetAnonymousLoginRequest;

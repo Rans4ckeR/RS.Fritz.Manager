@@ -1,15 +1,14 @@
-﻿namespace RS.Fritz.Manager.API
+﻿namespace RS.Fritz.Manager.API;
+
+using System;
+using Microsoft.Extensions.Logging;
+
+public static class LoggerExtensions
 {
-    using System;
-    using Microsoft.Extensions.Logging;
+    private static readonly Action<ILogger, string, Exception?> ExceptionDetails = LoggerMessage.Define<string>(LogLevel.Error, new EventId(1, nameof(ExceptionThrown)), "Exception thrown (Exception = '{Exception}')");
 
-    public static class LoggerExtensions
+    public static void ExceptionThrown(this ILogger logger, Exception exception)
     {
-        private static readonly Action<ILogger, string, Exception?> ExceptionDetails = LoggerMessage.Define<string>(LogLevel.Error, new EventId(1, nameof(ExceptionThrown)), "Exception thrown (Exception = '{Exception}')");
-
-        public static void ExceptionThrown(this ILogger logger, Exception exception)
-        {
-            ExceptionDetails(logger, exception.GetDetailedExceptionInfo(), null);
-        }
+        ExceptionDetails(logger, exception.GetDetailedExceptionInfo(), null);
     }
 }

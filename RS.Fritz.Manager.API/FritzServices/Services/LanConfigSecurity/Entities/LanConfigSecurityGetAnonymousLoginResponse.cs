@@ -1,11 +1,10 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetAnonymousLoginResponse")]
-    public sealed record LanConfigSecurityGetAnonymousLoginResponse
-    {
-        [MessageBodyMember(Name = "NewX_AVM-DE_AnonymousLoginEnabled")]
-        public bool AnonymousLoginEnabled { get; set; }
-    }
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetAnonymousLoginResponse")]
+public sealed record LanConfigSecurityGetAnonymousLoginResponse
+{
+    [MessageBodyMember(Name = "NewX_AVM-DE_AnonymousLoginEnabled")]
+    public bool AnonymousLoginEnabled { get; set; }
 }

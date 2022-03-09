@@ -1,10 +1,9 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+internal sealed partial class WanIpConnectionView
 {
-    internal sealed partial class WanIpConnectionView
+    public WanIpConnectionView()
     {
-        public WanIpConnectionView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

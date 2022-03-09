@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetHostListPath")]
-    public sealed record HostsGetHostListPathRequest;
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetHostListPath")]
+public sealed record HostsGetHostListPathRequest;

@@ -1,6 +1,5 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System;
+﻿namespace RS.Fritz.Manager.API;
 
-    internal sealed record InternetGatewayDeviceResponse(Uri Location, string Server, string CacheControl, string Ext, string SearchTarget, string Usn);
-}
+using System;
+
+internal sealed record InternetGatewayDeviceResponse(Uri Location, string Server, string CacheControl, string Ext, string SearchTarget, string Usn);

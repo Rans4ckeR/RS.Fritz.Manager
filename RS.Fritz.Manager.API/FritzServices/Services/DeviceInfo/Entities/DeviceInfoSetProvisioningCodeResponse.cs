@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "SetProvisioningCodeResponse")]
-    public sealed record DeviceInfoSetProvisioningCodeResponse;
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "SetProvisioningCodeResponse")]
+public sealed record DeviceInfoSetProvisioningCodeResponse;

@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetCurrentUser")]
-    public sealed record LanConfigSecurityGetCurrentUserRequest;
-}
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetCurrentUser")]
+public sealed record LanConfigSecurityGetCurrentUserRequest;

@@ -1,11 +1,10 @@
-﻿namespace RS.Fritz.Manager.API
-{
-    using System.ServiceModel;
+﻿namespace RS.Fritz.Manager.API;
 
-    [MessageContract(WrapperName = "GetHostNumberOfEntriesResponse")]
-    public sealed record HostsGetHostNumberOfEntriesResponse
-    {
-        [MessageBodyMember(Name = "NewHostNumberOfEntries")]
-        public uint HostNumberOfEntries { get; set; }
-    }
+using System.ServiceModel;
+
+[MessageContract(WrapperName = "GetHostNumberOfEntriesResponse")]
+public sealed record HostsGetHostNumberOfEntriesResponse
+{
+    [MessageBodyMember(Name = "NewHostNumberOfEntries")]
+    public uint HostNumberOfEntries { get; set; }
 }

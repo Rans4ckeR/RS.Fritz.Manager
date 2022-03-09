@@ -1,61 +1,60 @@
-﻿namespace RS.Fritz.Manager.UI
+﻿namespace RS.Fritz.Manager.UI;
+
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using RS.Fritz.Manager.API;
+
+internal sealed class DeviceInfoViewModel : FritzServiceViewModel
 {
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.Logging;
-    using RS.Fritz.Manager.API;
+    private DeviceInfoGetSecurityPortResponse? deviceInfoGetSecurityPortResponse;
+    private DeviceInfoGetInfoResponse? deviceInfoGetInfoResponse;
+    private DeviceInfoGetDeviceLogResponse? deviceInfoGetDeviceLogResponse;
 
-    internal sealed class DeviceInfoViewModel : FritzServiceViewModel
+    public DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel)
+        : base(deviceLoginInfo, logger)
     {
-        private DeviceInfoGetSecurityPortResponse? deviceInfoGetSecurityPortResponse;
-        private DeviceInfoGetInfoResponse? deviceInfoGetInfoResponse;
-        private DeviceInfoGetDeviceLogResponse? deviceInfoGetDeviceLogResponse;
+        DeviceInfoSetProvisioningCodeViewModel = deviceInfoSetProvisioningCodeViewModel;
+    }
 
-        public DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel)
-            : base(deviceLoginInfo, logger)
-        {
-            DeviceInfoSetProvisioningCodeViewModel = deviceInfoSetProvisioningCodeViewModel;
-        }
+    public DeviceInfoGetSecurityPortResponse? DeviceInfoGetSecurityPortResponse
+    {
+        get => deviceInfoGetSecurityPortResponse; set { _ = SetProperty(ref deviceInfoGetSecurityPortResponse, value); }
+    }
 
-        public DeviceInfoGetSecurityPortResponse? DeviceInfoGetSecurityPortResponse
-        {
-            get => deviceInfoGetSecurityPortResponse; set { _ = SetProperty(ref deviceInfoGetSecurityPortResponse, value); }
-        }
+    public DeviceInfoGetInfoResponse? DeviceInfoGetInfoResponse
+    {
+        get => deviceInfoGetInfoResponse; set { _ = SetProperty(ref deviceInfoGetInfoResponse, value); }
+    }
 
-        public DeviceInfoGetInfoResponse? DeviceInfoGetInfoResponse
-        {
-            get => deviceInfoGetInfoResponse; set { _ = SetProperty(ref deviceInfoGetInfoResponse, value); }
-        }
+    public DeviceInfoGetDeviceLogResponse? DeviceInfoGetDeviceLogResponse
+    {
+        get => deviceInfoGetDeviceLogResponse; set { _ = SetProperty(ref deviceInfoGetDeviceLogResponse, value); }
+    }
 
-        public DeviceInfoGetDeviceLogResponse? DeviceInfoGetDeviceLogResponse
-        {
-            get => deviceInfoGetDeviceLogResponse; set { _ = SetProperty(ref deviceInfoGetDeviceLogResponse, value); }
-        }
+    public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel { get; }
 
-        public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel { get; }
+    protected override async Task DoExecuteDefaultCommandAsync()
+    {
+        await API.TaskExtensions.WhenAllSafe(new[]
+            {
+                GetDeviceInfoGetSecurityPortAsync(),
+                GetDeviceInfoGetInfoAsync(),
+                GetDeviceInfoGetDeviceLogAsync()
+            });
+    }
 
-        protected override async Task DoExecuteDefaultCommandAsync()
-        {
-            await API.TaskExtensions.WhenAllSafe(new[]
-                {
-                    GetDeviceInfoGetSecurityPortAsync(),
-                    GetDeviceInfoGetInfoAsync(),
-                    GetDeviceInfoGetDeviceLogAsync()
-                });
-        }
+    private async Task GetDeviceInfoGetSecurityPortAsync()
+    {
+        DeviceInfoGetSecurityPortResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetSecurityPortAsync(d));
+    }
 
-        private async Task GetDeviceInfoGetSecurityPortAsync()
-        {
-            DeviceInfoGetSecurityPortResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetSecurityPortAsync(d));
-        }
+    private async Task GetDeviceInfoGetInfoAsync()
+    {
+        DeviceInfoGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetInfoAsync(d));
+    }
 
-        private async Task GetDeviceInfoGetInfoAsync()
-        {
-            DeviceInfoGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetInfoAsync(d));
-        }
-
-        private async Task GetDeviceInfoGetDeviceLogAsync()
-        {
-            DeviceInfoGetDeviceLogResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetDeviceLogAsync(d));
-        }
+    private async Task GetDeviceInfoGetDeviceLogAsync()
+    {
+        DeviceInfoGetDeviceLogResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetDeviceLogAsync(d));
     }
 }
