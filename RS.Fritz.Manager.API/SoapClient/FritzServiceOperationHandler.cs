@@ -63,6 +63,16 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzWanCommonInterfaceConfigServiceClient(internetGatewayDevice), q => q.GetTotalBytesSentAsync(new WanCommonInterfaceConfigGetTotalBytesSentRequest()));
     }
 
+    public Task<WanCommonInterfaceConfigGetTotalPacketsReceivedResponse> GetWanCommonInterfaceConfigGetTotalPacketsReceivedAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzWanCommonInterfaceConfigServiceClient(internetGatewayDevice), q => q.GetTotalPacketsReceivedAsync(new WanCommonInterfaceConfigGetTotalPacketsReceivedRequest()));
+    }
+
+    public Task<WanCommonInterfaceConfigGetTotalPacketsSentResponse> GetWanCommonInterfaceConfigGetTotalPacketsSentAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzWanCommonInterfaceConfigServiceClient(internetGatewayDevice), q => q.GetTotalPacketsSentAsync(new WanCommonInterfaceConfigGetTotalPacketsSentRequest()));
+    }
+
     public Task<DeviceInfoGetInfoResponse> DeviceInfoGetInfoAsync(InternetGatewayDevice internetGatewayDevice)
     {
         return ExecuteAsync(GetFritzDeviceInfoServiceClient(internetGatewayDevice, true), q => q.GetInfoAsync(new DeviceInfoGetInfoRequest()));

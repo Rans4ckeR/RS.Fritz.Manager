@@ -15,4 +15,10 @@ public interface IFritzWanCommonInterfaceConfigService
 
     [OperationContract(Action = "urn:dslforum-org:service:WANCommonInterfaceConfig:1#GetCommonLinkProperties")]
     public Task<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse> GetCommonLinkPropertiesAsync(WanCommonInterfaceConfigGetCommonLinkPropertiesRequest wanCommonInterfaceConfigGetCommonLinkPropertiesRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANCommonInterfaceConfig:1#GetTotalPacketsSent")]
+    public Task<WanCommonInterfaceConfigGetTotalPacketsSentResponse> GetTotalPacketsSentAsync(WanCommonInterfaceConfigGetTotalPacketsSentRequest wanCommonInterfaceConfigGetTotalPacketsSentRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANCommonInterfaceConfig:1#GetTotalPacketsReceived")]
+    public Task<WanCommonInterfaceConfigGetTotalPacketsReceivedResponse> GetTotalPacketsReceivedAsync(WanCommonInterfaceConfigGetTotalPacketsReceivedRequest wanCommonInterfaceConfigGetTotalPacketsReceivedRequest);
 }

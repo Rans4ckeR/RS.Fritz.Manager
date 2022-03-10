@@ -78,8 +78,8 @@ await host.RunAsync();
   * ✅ GetCommonLinkProperties
   * ✅ GetTotalBytesSent
   * ✅ GetTotalBytesReceived
-  * ❌ GetTotalPacketsSent
-  * ❌ GetTotalPacketsReceived
+  * ✅ GetTotalPacketsSent
+  * ✅ GetTotalPacketsReceived
   * ❌ X_AVM-DE_SetWANAccessType
   * ❌ X_AVM-DE_GetOnlineMonitor
 * ❌ urn:dslforum-org:service:WANEthernetLinkConfig:1

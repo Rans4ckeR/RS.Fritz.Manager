@@ -9,6 +9,8 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
     private WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
     private WanCommonInterfaceConfigGetTotalBytesReceivedResponse? wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
     private WanCommonInterfaceConfigGetTotalBytesSentResponse? wanCommonInterfaceConfigGetTotalBytesSentResponse;
+    private WanCommonInterfaceConfigGetTotalPacketsReceivedResponse? wanCommonInterfaceConfigGetTotalPacketsReceivedResponse;
+    private WanCommonInterfaceConfigGetTotalPacketsSentResponse? wanCommonInterfaceConfigGetTotalPacketsSentResponse;
 
     public WanCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -27,6 +29,18 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesSentResponse, value); }
     }
 
+    public WanCommonInterfaceConfigGetTotalPacketsReceivedResponse? WanCommonInterfaceConfigGetTotalPacketsReceivedResponse
+    {
+        get => wanCommonInterfaceConfigGetTotalPacketsReceivedResponse;
+        private set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalPacketsReceivedResponse, value); }
+    }
+
+    public WanCommonInterfaceConfigGetTotalPacketsSentResponse? WanCommonInterfaceConfigGetTotalPacketsSentResponse
+    {
+        get => wanCommonInterfaceConfigGetTotalPacketsSentResponse;
+        private set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalPacketsSentResponse, value); }
+    }
+
     public WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? WanCommonInterfaceConfigGetCommonLinkPropertiesResponse
     {
         get => wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
@@ -39,7 +53,9 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
             {
                GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(),
                GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(),
-               GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
+               GetWanCommonInterfaceConfigGetTotalBytesSentAsync(),
+               GetWanCommonInterfaceConfigGetTotalPacketsReceivedAsync(),
+               GetWanCommonInterfaceConfigGetTotalPacketsSentAsync()
             });
     }
 
@@ -56,5 +72,15 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
     private async Task GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
     {
         WanCommonInterfaceConfigGetTotalBytesSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalBytesSentAsync(d));
+    }
+
+    private async Task GetWanCommonInterfaceConfigGetTotalPacketsReceivedAsync()
+    {
+        WanCommonInterfaceConfigGetTotalPacketsReceivedResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalPacketsReceivedAsync(d));
+    }
+
+    private async Task GetWanCommonInterfaceConfigGetTotalPacketsSentAsync()
+    {
+        WanCommonInterfaceConfigGetTotalPacketsSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalPacketsSentAsync(d));
     }
 }

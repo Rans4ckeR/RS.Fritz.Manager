@@ -599,7 +599,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DefaultConnectionService}" Content="_DefaultConnectionService"/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DefaultConnectionService}" Content="_DefaultConnectionService" ToolTip="Specifies a connection service instance in a WANConnectionDevice. See UPnP Layer3Forwarding:1 v1.01 for more details. Max length = 256 characters."/>
                             <TextBlock x:Name="DefaultConnectionService" Grid.Row="0" Grid.Column="1" Text="{Binding DefaultConnectionService}"/>
                         </Grid>
                     </Expander>
@@ -788,10 +788,10 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=WanAccessType}" Content="_WanAccessType"/>
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PhysicalLinkStatus}" Content="_PhysicalLinkStatus"/>
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Layer1DownstreamMaxBitRate}" Content="_Layer1DownstreamMaxBitRate"/>
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Layer1UpstreamMaxBitRate}" Content="_Layer1UpstreamMaxBitRate"/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=WanAccessType}" Content="_WanAccessType" ToolTip="Specifies the WAN access (modem) between the residential network and the ISP. Possible values are DSL, POTS, Cable, Ethernet."/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PhysicalLinkStatus}" Content="_PhysicalLinkStatus" ToolTip="Indicates the state of the physical connection (link) from WANDevice to a connected entity. Possible values are Up, Down, Initializing, Unavailable."/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Layer1DownstreamMaxBitRate}" Content="_Layer1DownstreamMaxBitRate" ToolTip="Specifies the maximum downstream theoretical bit rate for the WAN device."/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Layer1UpstreamMaxBitRate}" Content="_Layer1UpstreamMaxBitRate" ToolTip="Specifies the maximum upstream theoretical bit rate for the WAN device."/>
                             <TextBlock x:Name="WanAccessType" Grid.Row="0" Grid.Column="1" Text="{Binding WanAccessType}"/>
                             <TextBlock x:Name="PhysicalLinkStatus" Grid.Row="1" Grid.Column="1" Text="{Binding PhysicalLinkStatus}"/>
                             <TextBlock x:Name="Layer1DownstreamMaxBitRate" Grid.Row="2" Grid.Column="1" Text="{Binding Layer1DownstreamMaxBitRate}"/>
@@ -811,7 +811,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesReceived}" Content="_TotalBytesReceived"/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesReceived}" Content="_TotalBytesReceived" ToolTip="Represents the cumulative counter for total number of bytes received downstream across all connection service instances on the WANDevice."/>
                             <TextBlock x:Name="TotalBytesReceived" Grid.Row="0" Grid.Column="1" Text="{Binding TotalBytesReceived}"/>
                         </Grid>
                     </Expander>
@@ -828,8 +828,42 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesSent}" Content="_TotalBytesSent"/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesSent}" Content="_TotalBytesSent" ToolTip="Represents the cumulative counter for total number of bytes sent upstream across all connection service instances on the WANDevice."/>
                             <TextBlock x:Name="TotalBytesSent" Grid.Row="0" Grid.Column="1" Text="{Binding TotalBytesSent}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetTotalPacketsReceivedResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalPacketsReceived">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalPacketsReceived}" Content="_TotalPacketsReceived" ToolTip="Represents the cumulative counter for total number of packets (IP or PPP) received downstream across all connection service instances on the WANDevice."/>
+                            <TextBlock x:Name="TotalPacketsReceived" Grid.Row="0" Grid.Column="1" Text="{Binding TotalPacketsReceived}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetTotalPacketsSentResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalPacketsSent">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalPacketsSent}" Content="_TotalPacketsSent" ToolTip="Represents the cumulative counter for total number of packets (IP or PPP) sent upstream across all connection service instances on the WANDevice."/>
+                            <TextBlock x:Name="TotalPacketsSent" Grid.Row="0" Grid.Column="1" Text="{Binding TotalPacketsSent}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -845,7 +879,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=HostNumberOfEntries}" Content="_HostNumberOfEntries"/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=HostNumberOfEntries}" Content="_HostNumberOfEntries" ToolTip="Number of entries in the Host table."/>
                             <TextBlock x:Name="HostNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding HostNumberOfEntries}"/>
                         </Grid>
                     </Expander>
@@ -895,19 +929,19 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IPAddress}" Content="_IPAddress"/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IPAddress}" Content="_IPAddress" ToolTip="Current IP Address of the host."/>
                             <TextBlock x:Name="IPAddress" Grid.Row="0" Grid.Column="1" Text="{Binding IPAddress}"/>
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="MAC address of the host."/>
                             <TextBlock x:Name="MACAddress" Grid.Row="1" Grid.Column="1" Text="{Binding MACAddress}"/>
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AddressSource}" Content="_AddressSource"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AddressSource}" Content="_AddressSource" ToolTip="Indicates whether the IP address of the host was allocated by the CPE using DHCP or was assigned to the host statically. Possible values are DHCP, Static, AutoIP."/>
                             <TextBlock x:Name="AddressSource" Grid.Row="2" Grid.Column="1" Text="{Binding AddressSource}"/>
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LeaseTimeRemaining}" Content="_LeaseTimeRemaining"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LeaseTimeRemaining}" Content="_LeaseTimeRemaining" ToolTip="DHCP lease time remaining in seconds. The value must be 0 (zero) if the AddressSource is not DHCP. -1 = Infinite lease."/>
                             <TextBlock x:Name="LeaseTimeRemaining" Grid.Row="3" Grid.Column="1" Text="{Binding LeaseTimeRemaining}"/>
-                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=InterfaceType}" Content="_InterfaceType"/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=InterfaceType}" Content="_InterfaceType" ToolTip="Type of physical interface through which the host is connected to the CPE. Possible values are Ethernet, USB, 802.11, HomePNA, HomePlug, Other."/>
                             <TextBlock x:Name="InterfaceType" Grid.Row="4" Grid.Column="1" Text="{Binding InterfaceType}"/>
-                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Active}" Content="_Active"/>
+                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Active}" Content="_Active" ToolTip="Whether or not the host is currently present on the LAN. The method of presence detection is a local matter to the CPE."/>
                             <TextBlock x:Name="Active" Grid.Row="5" Grid.Column="1" Text="{Binding Active}"/>
-                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=HostName}" Content="_HostName"/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=HostName}" Content="_HostName" ToolTip="The device's host name or empty string if unknown. Max length = 64 characters."/>
                             <TextBlock x:Name="HostName" Grid.Row="6" Grid.Column="1" Text="{Binding HostName}"/>
                         </Grid>
                     </Expander>
