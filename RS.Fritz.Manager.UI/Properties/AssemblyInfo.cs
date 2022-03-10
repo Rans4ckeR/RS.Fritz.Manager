@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 
-[assembly: ThemeInfo(
-    ResourceDictionaryLocation.None,
-    ResourceDictionaryLocation.SourceAssembly)
-]
+#pragma warning disable format
+[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
+#pragma warning restore format

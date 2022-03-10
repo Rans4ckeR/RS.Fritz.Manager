@@ -17,17 +17,20 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 
     public WanCommonInterfaceConfigGetTotalBytesReceivedResponse? WanCommonInterfaceConfigGetTotalBytesReceivedResponse
     {
-        get => wanCommonInterfaceConfigGetTotalBytesReceivedResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesReceivedResponse, value); }
+        get => wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
+        private set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesReceivedResponse, value); }
     }
 
     public WanCommonInterfaceConfigGetTotalBytesSentResponse? WanCommonInterfaceConfigGetTotalBytesSentResponse
     {
-        get => wanCommonInterfaceConfigGetTotalBytesSentResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesSentResponse, value); }
+        get => wanCommonInterfaceConfigGetTotalBytesSentResponse;
+        private set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesSentResponse, value); }
     }
 
     public WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? WanCommonInterfaceConfigGetCommonLinkPropertiesResponse
     {
-        get => wanCommonInterfaceConfigGetCommonLinkPropertiesResponse; set { _ = SetProperty(ref wanCommonInterfaceConfigGetCommonLinkPropertiesResponse, value); }
+        get => wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
+        private set { _ = SetProperty(ref wanCommonInterfaceConfigGetCommonLinkPropertiesResponse, value); }
     }
 
     protected override async Task DoExecuteDefaultCommandAsync()

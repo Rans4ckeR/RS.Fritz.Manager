@@ -72,7 +72,6 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
     public UPnPDescription? UPnPDescription
     {
         get => InternetGatewayDevice.UPnPDescription;
-        set => _ = SetProperty(InternetGatewayDevice.UPnPDescription, value, InternetGatewayDevice, (u, n) => u.UPnPDescription = n, true);
     }
 
     public Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)

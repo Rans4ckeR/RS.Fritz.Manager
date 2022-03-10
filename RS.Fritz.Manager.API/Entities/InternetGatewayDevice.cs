@@ -12,9 +12,9 @@ public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzSe
 {
     public UPnPDescription? UPnPDescription { get; set; }
 
-    public ushort? SecurityPort { get; set; }
+    public ushort? SecurityPort { get; private set; }
 
-    public User[]? Users { get; set; }
+    public User[]? Users { get; private set; }
 
     public NetworkCredential? NetworkCredential { get; set; }
 
@@ -46,7 +46,7 @@ public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzSe
         using var stringReader = new StringReader(lanConfigSecurityGetUserListResponse.UserList);
         using var xmlTextReader = new XmlTextReader(stringReader);
 
-        UserList? userList = (UserList?)new XmlSerializer(typeof(UserList)).Deserialize(xmlTextReader);
+        var userList = (UserList?)new XmlSerializer(typeof(UserList)).Deserialize(xmlTextReader);
 
         Users = userList?.Users ?? Array.Empty<User>();
     }

@@ -18,17 +18,20 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
 
     public DeviceInfoGetSecurityPortResponse? DeviceInfoGetSecurityPortResponse
     {
-        get => deviceInfoGetSecurityPortResponse; set { _ = SetProperty(ref deviceInfoGetSecurityPortResponse, value); }
+        get => deviceInfoGetSecurityPortResponse;
+        private set { _ = SetProperty(ref deviceInfoGetSecurityPortResponse, value); }
     }
 
     public DeviceInfoGetInfoResponse? DeviceInfoGetInfoResponse
     {
-        get => deviceInfoGetInfoResponse; set { _ = SetProperty(ref deviceInfoGetInfoResponse, value); }
+        get => deviceInfoGetInfoResponse;
+        private set { _ = SetProperty(ref deviceInfoGetInfoResponse, value); }
     }
 
     public DeviceInfoGetDeviceLogResponse? DeviceInfoGetDeviceLogResponse
     {
-        get => deviceInfoGetDeviceLogResponse; set { _ = SetProperty(ref deviceInfoGetDeviceLogResponse, value); }
+        get => deviceInfoGetDeviceLogResponse;
+        private set { _ = SetProperty(ref deviceInfoGetDeviceLogResponse, value); }
     }
 
     public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel { get; }

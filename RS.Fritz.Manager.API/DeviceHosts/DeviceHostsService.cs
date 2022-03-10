@@ -24,7 +24,7 @@ internal sealed class DeviceHostsService : IDeviceHostsService
         using var stringReader = new StringReader(deviceHostsListXml);
         using var xmlTextReader = new XmlTextReader(stringReader);
 
-        DeviceHostsList? deviceHostsList = (DeviceHostsList?)new DataContractSerializer(typeof(DeviceHostsList)).ReadObject(xmlTextReader);
+        var deviceHostsList = (DeviceHostsList?)new DataContractSerializer(typeof(DeviceHostsList)).ReadObject(xmlTextReader);
 
         return deviceHostsList ?? new DeviceHostsList();
     }

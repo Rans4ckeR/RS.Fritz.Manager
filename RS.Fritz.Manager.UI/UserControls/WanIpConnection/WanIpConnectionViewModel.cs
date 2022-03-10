@@ -17,7 +17,8 @@ internal sealed class WanIpConnectionViewModel : FritzServiceViewModel, IRecipie
 
     public WanIpConnectionGetInfoResponse? WanIpConnectionGetInfoResponse
     {
-        get => wanIpConnectionGetInfoResponse; set { _ = SetProperty(ref wanIpConnectionGetInfoResponse, value); }
+        get => wanIpConnectionGetInfoResponse;
+        private set { _ = SetProperty(ref wanIpConnectionGetInfoResponse, value); }
     }
 
     public void Receive(PropertyChangedMessage<WanAccessType?> message)

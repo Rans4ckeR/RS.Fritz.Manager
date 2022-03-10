@@ -23,21 +23,21 @@ internal sealed partial class App
         host = Host.CreateDefaultBuilder()
             .ConfigureServices((_, services) =>
             {
-                services.AddSingleton<MainWindow>();
-                services.AddSingleton<MainWindowViewModel>();
-                services.AddSingleton<DeviceInfoViewModel>();
-                services.AddSingleton<DeviceInfoSetProvisioningCodeViewModel>();
-                services.AddSingleton<LanConfigSecurityViewModel>();
-                services.AddSingleton<LanConfigSecuritySetConfigPasswordViewModel>();
-                services.AddSingleton<WanDslInterfaceConfigViewModel>();
-                services.AddSingleton<WanCommonInterfaceConfigViewModel>();
-                services.AddSingleton<HostsViewModel>();
-                services.AddSingleton<Layer3ForwardingViewModel>();
-                services.AddSingleton<WanPppConnectionViewModel>();
-                services.AddSingleton<WanIpConnectionViewModel>();
-                services.AddSingleton<DeviceLoginInfo>();
-                services.AddSingleton<ILogger, UserInterfaceLogService>();
-                services.AddFritzApi();
+                services.AddSingleton<MainWindow>()
+                    .AddSingleton<MainWindowViewModel>()
+                    .AddSingleton<DeviceInfoViewModel>()
+                    .AddSingleton<DeviceInfoSetProvisioningCodeViewModel>()
+                    .AddSingleton<LanConfigSecurityViewModel>()
+                    .AddSingleton<LanConfigSecuritySetConfigPasswordViewModel>()
+                    .AddSingleton<WanDslInterfaceConfigViewModel>()
+                    .AddSingleton<WanCommonInterfaceConfigViewModel>()
+                    .AddSingleton<HostsViewModel>()
+                    .AddSingleton<Layer3ForwardingViewModel>()
+                    .AddSingleton<WanPppConnectionViewModel>()
+                    .AddSingleton<WanIpConnectionViewModel>()
+                    .AddSingleton<DeviceLoginInfo>()
+                    .AddSingleton<ILogger, UserInterfaceLogService>()
+                    .AddFritzApi();
             }).Build();
     }
 
@@ -45,7 +45,7 @@ internal sealed partial class App
     {
         await host.StartAsync();
 
-        var mainWindow = host.Services.GetRequiredService<MainWindow>();
+        MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
 
         mainWindow.Show();
 
@@ -70,7 +70,7 @@ internal sealed partial class App
 
     private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
-        var logger = host.Services.GetRequiredService<ILogger>();
+        ILogger logger = host.Services.GetRequiredService<ILogger>();
 
         e.Handled = true;
 
@@ -79,7 +79,7 @@ internal sealed partial class App
 
     private void HandleTaskSchedulerUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
     {
-        var logger = host.Services.GetRequiredService<ILogger>();
+        ILogger logger = host.Services.GetRequiredService<ILogger>();
 
         logger.ExceptionThrown(e.Exception);
     }

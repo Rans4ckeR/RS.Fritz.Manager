@@ -29,17 +29,20 @@ internal sealed class HostsViewModel : FritzServiceViewModel
 
     public HostsGetHostNumberOfEntriesResponse? HostsGetHostNumberOfEntriesResponse
     {
-        get => hostsGetHostNumberOfEntriesResponse; set { _ = SetProperty(ref hostsGetHostNumberOfEntriesResponse, value); }
+        get => hostsGetHostNumberOfEntriesResponse;
+        private set { _ = SetProperty(ref hostsGetHostNumberOfEntriesResponse, value); }
     }
 
     public DeviceHostInfo? DeviceHostInfo
     {
-        get => deviceHostInfo; set { _ = SetProperty(ref deviceHostInfo, value); }
+        get => deviceHostInfo;
+        private set { _ = SetProperty(ref deviceHostInfo, value); }
     }
 
     public HostsGetGenericHostEntryResponse? HostsGetGenericHostEntryResponse
     {
-        get => hostsGetGenericHostEntryResponse; set { _ = SetProperty(ref hostsGetGenericHostEntryResponse, value); }
+        get => hostsGetGenericHostEntryResponse;
+        private set { _ = SetProperty(ref hostsGetGenericHostEntryResponse, value); }
     }
 
     public IAsyncRelayCommand GetHostsGetGenericHostEntryCommand { get; }
@@ -135,7 +138,7 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     {
         HostsGetHostListPathResponse newHostsGetHostListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetHostListPathAsync(d));
         string hostListPath = newHostsGetHostListPathResponse.HostListPath;
-        Uri hostListPathUri = new Uri(FormattableString.Invariant($"https://{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice.PreferredLocation.Host}:{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice.SecurityPort}{hostListPath}"));
+        var hostListPathUri = new Uri(FormattableString.Invariant($"https://{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice.PreferredLocation.Host}:{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice.SecurityPort}{hostListPath}"));
         IEnumerable<DeviceHost> deviceHosts = await deviceHostsService.GetDeviceHostsAsync(hostListPathUri);
 
         DeviceHostInfo = new DeviceHostInfo(hostListPath, hostListPathUri, new ObservableCollection<DeviceHost>(deviceHosts));
