@@ -43,6 +43,6 @@ internal sealed class WanIpConnectionViewModel : FritzServiceViewModel, IRecipie
 
     protected override bool GetCanExecuteDefaultCommand()
     {
-        return base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType! == WanAccessType.Ethernet;
+        return base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType == WanAccessType.Ethernet;
     }
 }
