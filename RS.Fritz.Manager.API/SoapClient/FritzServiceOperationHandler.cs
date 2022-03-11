@@ -156,7 +156,7 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanPppConnectionServiceClientFactory, (q, r, t) => new FritzWanPppConnectionService(q, r, t!), FritzWanPppConnectionService.ControlUrl), q => q.GetInfoAsync(new WanPppConnectionGetInfoRequest()));
     }
 
-    private static TServiceInterface GetFritzServiceClient<TServiceInterface>(InternetGatewayDevice internetGatewayDevice, IClientFactory<TServiceInterface> clientFactory, Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, TServiceInterface> createService, string controlUrl, bool secure = true)
+    private static T GetFritzServiceClient<T>(InternetGatewayDevice internetGatewayDevice, IClientFactory<T> clientFactory, Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createService, string controlUrl, bool secure = true)
     {
         return clientFactory.Build(createService, internetGatewayDevice.PreferredLocation, secure, controlUrl, secure ? internetGatewayDevice.SecurityPort : null, internetGatewayDevice.NetworkCredential);
     }
