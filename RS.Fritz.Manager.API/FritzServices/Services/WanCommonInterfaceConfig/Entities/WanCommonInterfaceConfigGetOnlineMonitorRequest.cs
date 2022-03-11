@@ -6,5 +6,5 @@ using System.ServiceModel;
 public sealed record WanCommonInterfaceConfigGetOnlineMonitorRequest
 {
     [MessageBodyMember(Name = "NewSyncGroupIndex")]
-    public ushort SyncGroupIndex { get; set; }
+    public uint SyncGroupIndex { get; set; }
 }

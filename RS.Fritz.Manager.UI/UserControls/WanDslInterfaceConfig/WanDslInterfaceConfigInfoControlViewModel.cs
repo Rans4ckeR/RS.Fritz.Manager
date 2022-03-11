@@ -46,7 +46,7 @@ internal sealed class WanDslInterfaceConfigInfoControlViewModel : ObservableObje
 
             if (wanDslInterfaceConfigGetInfoResponses.Count > 1)
             {
-                UpstreamCurrRateHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => q.UpstreamCurrRate).ToList());
+                UpstreamCurrRateHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => (uint)(q.UpstreamCurrRate < 0 ? 0 : q.UpstreamCurrRate)).ToList());
                 DownstreamCurrRateHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamCurrRate).ToList());
                 UpstreamMaxRateHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => q.UpstreamMaxRate).ToList());
                 DownstreamMaxRateHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamMaxRate).ToList());

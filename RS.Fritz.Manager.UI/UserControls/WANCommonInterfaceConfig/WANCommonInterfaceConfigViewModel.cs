@@ -1,25 +1,52 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
+using System;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using Microsoft.Extensions.Logging;
 using RS.Fritz.Manager.API;
 
 internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 {
+    private readonly DispatcherTimer autoRefreshTimer;
+
+    private bool autoRefresh;
     private WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
     private WanCommonInterfaceConfigGetTotalBytesReceivedResponse? wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
     private WanCommonInterfaceConfigGetTotalBytesSentResponse? wanCommonInterfaceConfigGetTotalBytesSentResponse;
     private WanCommonInterfaceConfigGetTotalPacketsReceivedResponse? wanCommonInterfaceConfigGetTotalPacketsReceivedResponse;
     private WanCommonInterfaceConfigGetTotalPacketsSentResponse? wanCommonInterfaceConfigGetTotalPacketsSentResponse;
-    private WanCommonInterfaceConfigGetOnlineMonitorResponse? wanCommonInterfaceConfigGetOnlineMonitorResponse;
 
-    public WanCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, WanCommonInterfaceConfigSetWanAccessTypeViewModel wanCommonInterfaceConfigSetWanAccessTypeViewModel, ILogger logger)
+    public WanCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, WanCommonInterfaceConfigSetWanAccessTypeViewModel wanCommonInterfaceConfigSetWanAccessTypeViewModel, WanCommonInterfaceConfigGetOnlineMonitorViewModel wanCommonInterfaceConfigGetOnlineMonitorViewModel, ILogger logger)
         : base(deviceLoginInfo, logger)
     {
         WanCommonInterfaceConfigSetWanAccessTypeViewModel = wanCommonInterfaceConfigSetWanAccessTypeViewModel;
+        WanCommonInterfaceConfigGetOnlineMonitorViewModel = wanCommonInterfaceConfigGetOnlineMonitorViewModel;
+        autoRefreshTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(3d)
+        };
+        autoRefreshTimer.Tick += AutoRefreshTimerTick;
+    }
+
+    public bool AutoRefresh
+    {
+        get => autoRefresh;
+        set
+        {
+            if (SetProperty(ref autoRefresh, value))
+            {
+                if (value)
+                    autoRefreshTimer.Start();
+                else
+                    autoRefreshTimer.Stop();
+            }
+        }
     }
 
     public WanCommonInterfaceConfigSetWanAccessTypeViewModel WanCommonInterfaceConfigSetWanAccessTypeViewModel { get; }
+
+    public WanCommonInterfaceConfigGetOnlineMonitorViewModel WanCommonInterfaceConfigGetOnlineMonitorViewModel { get; }
 
     public WanCommonInterfaceConfigGetTotalBytesReceivedResponse? WanCommonInterfaceConfigGetTotalBytesReceivedResponse
     {
@@ -51,12 +78,6 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref wanCommonInterfaceConfigGetCommonLinkPropertiesResponse, value); }
     }
 
-    public WanCommonInterfaceConfigGetOnlineMonitorResponse? WanCommonInterfaceConfigGetOnlineMonitorResponse
-    {
-        get => wanCommonInterfaceConfigGetOnlineMonitorResponse;
-        private set { _ = SetProperty(ref wanCommonInterfaceConfigGetOnlineMonitorResponse, value); }
-    }
-
     protected override async Task DoExecuteDefaultCommandAsync()
     {
         await API.TaskExtensions.WhenAllSafe(new[]
@@ -65,8 +86,15 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
                GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(),
                GetWanCommonInterfaceConfigGetTotalBytesSentAsync(),
                GetWanCommonInterfaceConfigGetTotalPacketsReceivedAsync(),
-               GetWanCommonInterfaceConfigGetTotalPacketsSentAsync()
+               GetWanCommonInterfaceConfigGetTotalPacketsSentAsync(),
+               GetWanCommonInterfaceConfigGetOnlineMonitorAsync()
             });
+    }
+
+    private async void AutoRefreshTimerTick(object? sender, EventArgs e)
+    {
+        if (CanExecuteDefaultCommand)
+            await DefaultCommand.ExecuteAsync(false);
     }
 
     private async Task GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
@@ -94,8 +122,8 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
         WanCommonInterfaceConfigGetTotalPacketsSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanCommonInterfaceConfigGetTotalPacketsSentAsync(d));
     }
 
-    private async Task GetWanCommonInterfaceConfigGetOnlineMonitorAsync(ushort syncGroupIndex)
+    private async Task GetWanCommonInterfaceConfigGetOnlineMonitorAsync()
     {
-        WanCommonInterfaceConfigGetOnlineMonitorResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanCommonInterfaceConfigGetOnlineMonitorAsync(d, syncGroupIndex));
+        WanCommonInterfaceConfigGetOnlineMonitorViewModel.WanCommonInterfaceConfigGetOnlineMonitorResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanCommonInterfaceConfigGetOnlineMonitorAsync(d, 0));
     }
 }

@@ -77,23 +77,24 @@
                 <RibbonGroup ToolTip="This service enables the ability to set the password that will allow the device to be configured via the xml interface.">
                     <RibbonButton Label="LanConfigSecurity" Command="{Binding LanConfigSecurityViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
-                <RibbonGroup ToolTip="The WANDSLInterfaceConfig service models physical layer properties specific to a single physical connection of a DSL modem used for Internet access on an Internet Gateway Device (IGD).">
+                <RibbonGroup ToolTip="This service models physical layer properties specific to a single physical connection of a DSL modem used for Internet access on an Internet Gateway Device (IGD).">
                     <RibbonButton Label="WanDslInterfaceConfig" Command="{Binding WanDslInterfaceConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                     <RibbonCheckBox Label="Auto Refresh" IsChecked="{Binding WanDslInterfaceConfigViewModel.AutoRefresh}" />
                 </RibbonGroup>
-                <RibbonGroup ToolTip="The WANCommonInterfaceConfig service.">
+                <RibbonGroup ToolTip="This service is a standard UPnP service that models WAN interface properties common across all connection service instances.">
                     <RibbonButton Label="WanCommonInterfaceConfig" Command="{Binding WanCommonInterfaceConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                    <RibbonCheckBox Label="Auto Refresh" IsChecked="{Binding WanCommonInterfaceConfigViewModel.AutoRefresh}" />
                 </RibbonGroup>
-                <RibbonGroup ToolTip="The Hosts service.">
+                <RibbonGroup ToolTip="This service provides information about each of the hosts on this LAN, including those whose IP address was allocated by the CPE using DHCP as well as hosts with statically allocated IP addresses. It also allows the IP address of a particular host to be re-allocated by removing it from this table.">
                     <RibbonButton Label="Hosts" Command="{Binding HostsViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
                 <RibbonGroup ToolTip="This service allows the handling of the routing and forwarding configuration of the device.">
                     <RibbonButton Label="Layer3Forwarding" Command="{Binding Layer3ForwardingViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
-                <RibbonGroup ToolTip="The WANPPPConnection service enables a UPnP control point to configure and control PPP connections on the WAN interface of a UPnP compliant IGD.">
+                <RibbonGroup ToolTip="This service enables a UPnP control point to configure and control PPP connections on the WAN interface of a UPnP compliant IGD.">
                     <RibbonButton Label="WanPppConnection" Command="{Binding WanPppConnectionViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
-                <RibbonGroup ToolTip="The WANIpConnection service enables a UPnP control point to configure and control IP connections on the WAN interface of a UPnP compliant IGD.">
+                <RibbonGroup ToolTip="This service enables a UPnP control point to configure and control IP connections on the WAN interface of a UPnP compliant IGD.">
                     <RibbonButton Label="WanIpConnection" Command="{Binding WanIpConnectionViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
             </RibbonTab>

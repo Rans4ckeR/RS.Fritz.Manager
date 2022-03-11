@@ -5,10 +5,10 @@ using System.ServiceModel;
 [MessageContract(WrapperName = "GetOnlineMonitorResponse")]
 public sealed record WanCommonInterfaceConfigGetOnlineMonitorResponse
 {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     [MessageBodyMember(Name = "NewTotalNumberSyncGroups")]
-    public string TotalNumberSyncGroups { get; set; }
+    public uint TotalNumberSyncGroups { get; set; }
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     [MessageBodyMember(Name = "NewSyncGroupName")]
     public string SyncGroupName { get; set; }
 
@@ -16,10 +16,10 @@ public sealed record WanCommonInterfaceConfigGetOnlineMonitorResponse
     public string SyncGroupMode { get; set; }
 
     [MessageBodyMember(Name = "Newmax_ds")]
-    public ushort MaxDownstream { get; set; }
+    public uint MaxDownstream { get; set; }
 
     [MessageBodyMember(Name = "Newmax_us")]
-    public ushort MaxUpstream { get; set; }
+    public uint MaxUpstream { get; set; }
 
     [MessageBodyMember(Name = "Newds_current_bps")]
     public string DownstreamInternetBps { get; set; }

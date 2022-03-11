@@ -16,6 +16,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -25,6 +26,7 @@
         <ContentControl Grid.Row="2" Content="{Binding WanCommonInterfaceConfigGetTotalBytesSentResponse}"/>
         <ContentControl Grid.Row="3" Content="{Binding WanCommonInterfaceConfigGetTotalPacketsReceivedResponse}"/>
         <ContentControl Grid.Row="4" Content="{Binding WanCommonInterfaceConfigGetTotalPacketsSentResponse}"/>
-        <ContentControl Grid.Row="5" Content="{Binding WanCommonInterfaceConfigSetWanAccessTypeViewModel}"/>
+        <ContentControl Grid.Row="5" Content="{Binding WanCommonInterfaceConfigGetOnlineMonitorViewModel}"/>
+        <ContentControl Grid.Row="6" Content="{Binding WanCommonInterfaceConfigSetWanAccessTypeViewModel}"/>
     </Grid>
 </UserControl>

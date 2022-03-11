@@ -32,6 +32,7 @@ internal sealed partial class App
                     .AddSingleton<WanDslInterfaceConfigViewModel>()
                     .AddSingleton<WanCommonInterfaceConfigViewModel>()
                     .AddSingleton<WanCommonInterfaceConfigSetWanAccessTypeViewModel>()
+                    .AddSingleton<WanCommonInterfaceConfigGetOnlineMonitorViewModel>()
                     .AddSingleton<HostsViewModel>()
                     .AddSingleton<HostsGetGenericHostEntryViewModel>()
                     .AddSingleton<Layer3ForwardingViewModel>()

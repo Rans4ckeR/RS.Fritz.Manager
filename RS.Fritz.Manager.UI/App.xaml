@@ -790,7 +790,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=WanAccessType}" Content="_WanAccessType" ToolTip="Specifies the WAN access (modem) between the residential network and the ISP. Possible values are DSL, POTS, Cable, Ethernet."/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=WanAccessType}" Content="_WanAccessType" ToolTip="Specifies the WAN access (modem) between the residential network and the ISP. Possible values are DSL, Ethernet, X_AVM-DE_Fiber, X_AVM-DE_UMTS, X_AVM-DE_Cable, X_AVM-DE_LTE."/>
                             <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PhysicalLinkStatus}" Content="_PhysicalLinkStatus" ToolTip="Indicates the state of the physical connection (link) from WANDevice to a connected entity. Possible values are Up, Down, Initializing, Unavailable."/>
                             <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Layer1DownstreamMaxBitRate}" Content="_Layer1DownstreamMaxBitRate" ToolTip="Specifies the maximum downstream theoretical bit rate for the WAN device."/>
                             <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Layer1UpstreamMaxBitRate}" Content="_Layer1UpstreamMaxBitRate" ToolTip="Specifies the maximum upstream theoretical bit rate for the WAN device."/>
@@ -985,6 +985,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigSetWanAccessTypeViewModel}">
                 <ui:WanCommonInterfaceConfigSetWanAccessTypeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigGetOnlineMonitorViewModel}">
+                <ui:WanCommonInterfaceConfigGetOnlineMonitorView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

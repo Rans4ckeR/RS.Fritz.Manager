@@ -9,7 +9,7 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="GetGenericHostEntry">
+        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="GenericHostEntry">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
