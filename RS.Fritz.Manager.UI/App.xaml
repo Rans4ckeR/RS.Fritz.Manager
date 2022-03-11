@@ -3,9 +3,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
-             xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
+             xmlns:ui="clr-namespace:RS.Fritz.Manager.UI"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <Application.Resources>
         <ResourceDictionary>
+            <system:Boolean x:Key="False">False</system:Boolean>
             <SolidColorBrush x:Key="WindowBackgroundSolidColorBrush" Color="#FF292822"/>
             <SolidColorBrush x:Key="ForegroundSolidColorBrush" Color="#FF121212"/>
             <SolidColorBrush x:Key="NavigationBackgroundSolidColorBrush" Color="#FF266FC3"/>
@@ -914,41 +916,42 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type api:HostsGetGenericHostEntryResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="GenericHostEntry">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IPAddress}" Content="_IPAddress" ToolTip="Current IP Address of the host."/>
-                            <TextBlock x:Name="IPAddress" Grid.Row="0" Grid.Column="1" Text="{Binding IPAddress}"/>
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="MAC address of the host."/>
-                            <TextBlock x:Name="MACAddress" Grid.Row="1" Grid.Column="1" Text="{Binding MACAddress}"/>
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AddressSource}" Content="_AddressSource" ToolTip="Indicates whether the IP address of the host was allocated by the CPE using DHCP or was assigned to the host statically. Possible values are DHCP, Static, AutoIP."/>
-                            <TextBlock x:Name="AddressSource" Grid.Row="2" Grid.Column="1" Text="{Binding AddressSource}"/>
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LeaseTimeRemaining}" Content="_LeaseTimeRemaining" ToolTip="DHCP lease time remaining in seconds. The value must be 0 (zero) if the AddressSource is not DHCP. -1 = Infinite lease."/>
-                            <TextBlock x:Name="LeaseTimeRemaining" Grid.Row="3" Grid.Column="1" Text="{Binding LeaseTimeRemaining}"/>
-                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=InterfaceType}" Content="_InterfaceType" ToolTip="Type of physical interface through which the host is connected to the CPE. Possible values are Ethernet, USB, 802.11, HomePNA, HomePlug, Other."/>
-                            <TextBlock x:Name="InterfaceType" Grid.Row="4" Grid.Column="1" Text="{Binding InterfaceType}"/>
-                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Active}" Content="_Active" ToolTip="Whether or not the host is currently present on the LAN. The method of presence detection is a local matter to the CPE."/>
-                            <TextBlock x:Name="Active" Grid.Row="5" Grid.Column="1" Text="{Binding Active}"/>
-                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=HostName}" Content="_HostName" ToolTip="The device's host name or empty string if unknown. Max length = 64 characters."/>
-                            <TextBlock x:Name="HostName" Grid.Row="6" Grid.Column="1" Text="{Binding HostName}"/>
-                        </Grid>
-                    </Expander>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IPAddress}" Content="_IPAddress" ToolTip="Current IP Address of the host."/>
+                        <TextBlock x:Name="IPAddress" Grid.Row="0" Grid.Column="1" Text="{Binding IPAddress}"/>
+                        <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="MAC address of the host."/>
+                        <TextBlock x:Name="MACAddress" Grid.Row="1" Grid.Column="1" Text="{Binding MACAddress}"/>
+                        <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AddressSource}" Content="_AddressSource" ToolTip="Indicates whether the IP address of the host was allocated by the CPE using DHCP or was assigned to the host statically. Possible values are DHCP, Static, AutoIP."/>
+                        <TextBlock x:Name="AddressSource" Grid.Row="2" Grid.Column="1" Text="{Binding AddressSource}"/>
+                        <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LeaseTimeRemaining}" Content="_LeaseTimeRemaining" ToolTip="DHCP lease time remaining in seconds. The value must be 0 (zero) if the AddressSource is not DHCP. -1 = Infinite lease."/>
+                        <TextBlock x:Name="LeaseTimeRemaining" Grid.Row="3" Grid.Column="1" Text="{Binding LeaseTimeRemaining}"/>
+                        <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=InterfaceType}" Content="_InterfaceType" ToolTip="Type of physical interface through which the host is connected to the CPE. Possible values are Ethernet, USB, 802.11, HomePNA, HomePlug, Other."/>
+                        <TextBlock x:Name="InterfaceType" Grid.Row="4" Grid.Column="1" Text="{Binding InterfaceType}"/>
+                        <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Active}" Content="_Active" ToolTip="Whether or not the host is currently present on the LAN. The method of presence detection is a local matter to the CPE."/>
+                        <TextBlock x:Name="Active" Grid.Row="5" Grid.Column="1" Text="{Binding Active}"/>
+                        <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=HostName}" Content="_HostName" ToolTip="The device's host name or empty string if unknown. Max length = 64 characters."/>
+                        <TextBlock x:Name="HostName" Grid.Row="6" Grid.Column="1" Text="{Binding HostName}"/>
+                    </Grid>
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:HostsViewModel}">
                 <ui:HostsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:HostsGetGenericHostEntryViewModel}">
+                <ui:HostsGetGenericHostEntryView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:DeviceInfoViewModel}">
                 <ui:DeviceInfoView/>
@@ -979,6 +982,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigViewModel}">
                 <ui:WanCommonInterfaceConfigView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigSetWanAccessTypeViewModel}">
+                <ui:WanCommonInterfaceConfigSetWanAccessTypeView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

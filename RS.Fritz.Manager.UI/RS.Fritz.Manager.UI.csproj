@@ -66,7 +66,13 @@
     <Compile Update="UserControls\DeviceInfo\DeviceInfoSetProvisioningCodeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\Hosts\HostsGetGenericHostEntryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\LanConfigSecurity\LanConfigSecuritySetConfigPasswordView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\WanCommonInterfaceConfig\WanCommonInterfaceConfigSetWanAccessTypeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\WanPppConnection\WanPppConnectionView.xaml.cs">
@@ -90,7 +96,15 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UserControls\Hosts\HostsGetGenericHostEntryView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControls\LanConfigSecurity\LanConfigSecuritySetConfigPasswordView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\WanCommonInterfaceConfig\WanCommonInterfaceConfigSetWanAccessTypeView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

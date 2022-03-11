@@ -6,5 +6,5 @@ using System.ServiceModel;
 public sealed record HostsGetHostNumberOfEntriesResponse
 {
     [MessageBodyMember(Name = "NewHostNumberOfEntries")]
-    public uint HostNumberOfEntries { get; set; }
+    public ushort HostNumberOfEntries { get; set; }
 }

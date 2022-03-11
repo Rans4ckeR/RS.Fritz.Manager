@@ -17,7 +17,7 @@ public sealed record HostsGetGenericHostEntryResponse
     public string AddressSource { get; set; }
 
     [MessageBodyMember(Name = "NewLeaseTimeRemaining")]
-    public uint LeaseTimeRemaining { get; set; }
+    public int LeaseTimeRemaining { get; set; }
 
     [MessageBodyMember(Name = "NewInterfaceType")]
     public string InterfaceType { get; set; }
