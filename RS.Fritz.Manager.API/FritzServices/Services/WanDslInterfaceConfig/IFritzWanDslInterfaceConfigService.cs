@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:WANDSLInterfaceConfig:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-public interface IFritzWanDslInterfaceConfigService
+internal interface IFritzWanDslInterfaceConfigService
 {
     [OperationContract(Action = "urn:dslforum-org:service:WANDSLInterfaceConfig:1#GetInfo")]
     public Task<WanDslInterfaceConfigGetInfoResponse> GetInfoAsync(WanDslInterfaceConfigGetInfoRequest wanDslInterfaceConfigGetInfo);

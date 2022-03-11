@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:WANCommonInterfaceConfig:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-public interface IFritzWanCommonInterfaceConfigService
+internal interface IFritzWanCommonInterfaceConfigService
 {
     [OperationContract(Action = "urn:dslforum-org:service:WANCommonInterfaceConfig:1#GetTotalBytesReceived")]
     public Task<WanCommonInterfaceConfigGetTotalBytesReceivedResponse> GetTotalBytesReceivedAsync(WanCommonInterfaceConfigGetTotalBytesReceivedRequest wanCommonInterfaceConfigGetTotalBytesReceivedRequest);

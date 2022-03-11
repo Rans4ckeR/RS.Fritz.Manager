@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:WANPPPConnection:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-public interface IFritzWanPppConnectionService
+internal interface IFritzWanPppConnectionService
 {
     [OperationContract(Action = "urn:dslforum-org:service:WANPPPConnection:1#GetInfo")]
     public Task<WanPppConnectionGetInfoResponse> GetInfoAsync(WanPppConnectionGetInfoRequest wanPppConnectionGetInfoRequest);
