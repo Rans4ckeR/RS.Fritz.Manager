@@ -21,4 +21,10 @@ internal interface IFritzWanCommonInterfaceConfigService
 
     [OperationContract(Action = "urn:dslforum-org:service:WANCommonInterfaceConfig:1#GetTotalPacketsReceived")]
     public Task<WanCommonInterfaceConfigGetTotalPacketsReceivedResponse> GetTotalPacketsReceivedAsync(WanCommonInterfaceConfigGetTotalPacketsReceivedRequest wanCommonInterfaceConfigGetTotalPacketsReceivedRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANCommonInterfaceConfig:1#X_AVM-DE_SetWANAccessType")]
+    public Task<WanCommonInterfaceConfigSetWanAccessTypeResponse> SetWanAccessTypeAsync(WanCommonInterfaceConfigSetWanAccessTypeRequest wanCommonInterfaceConfigSetWanAccessTypeRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANCommonInterfaceConfig:1#X_AVM-DE_GetOnlineMonitor")]
+    public Task<WanCommonInterfaceConfigGetOnlineMonitorResponse> GetOnlineMonitorAsync(WanCommonInterfaceConfigGetOnlineMonitorRequest wanCommonInterfaceConfigGetOnlineMonitorRequest);
 }

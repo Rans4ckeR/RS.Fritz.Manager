@@ -2,5 +2,5 @@
 
 using System.ServiceModel;
 
-[MessageContract(WrapperName = "GetDSLInfo")]
-public sealed record WanDslInterfaceConfigGetDSLInfoRequest;
+[MessageContract(WrapperName = "GetDslInfo")]
+public sealed record WanDslInterfaceConfigGetDslInfoRequest;

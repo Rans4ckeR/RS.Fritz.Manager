@@ -85,7 +85,7 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
 
         try
         {
-            wanCommonInterfaceConfigGetCommonLinkProperties = await InternetGatewayDevice.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(d));
+            wanCommonInterfaceConfigGetCommonLinkProperties = await InternetGatewayDevice.ExecuteAsync((h, d) => h.WanCommonInterfaceConfigGetCommonLinkPropertiesAsync(d));
         }
         catch (MessageSecurityException)
         {

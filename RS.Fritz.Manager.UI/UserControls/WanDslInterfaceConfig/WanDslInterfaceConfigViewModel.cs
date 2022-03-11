@@ -12,8 +12,8 @@ internal sealed class WanDslInterfaceConfigViewModel : FritzServiceViewModel
     private readonly DispatcherTimer autoRefreshTimer;
 
     private bool autoRefresh;
-    private WanDslInterfaceConfigGetDSLDiagnoseInfoResponse? wanDslInterfaceConfigGetDSLDiagnoseInfoResponse;
-    private WanDslInterfaceConfigGetDSLInfoResponse? wanDslInterfaceConfigGetDSLInfoResponse;
+    private WanDslInterfaceConfigGetDslDiagnoseInfoResponse? wanDslInterfaceConfigGetDslDiagnoseInfoResponse;
+    private WanDslInterfaceConfigGetDslInfoResponse? wanDslInterfaceConfigGetDslInfoResponse;
     private WanDslInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
 
     public WanDslInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
@@ -42,16 +42,16 @@ internal sealed class WanDslInterfaceConfigViewModel : FritzServiceViewModel
         }
     }
 
-    public WanDslInterfaceConfigGetDSLDiagnoseInfoResponse? WanDslInterfaceConfigGetDSLDiagnoseInfoResponse
+    public WanDslInterfaceConfigGetDslDiagnoseInfoResponse? WanDslInterfaceConfigGetDslDiagnoseInfoResponse
     {
-        get => wanDslInterfaceConfigGetDSLDiagnoseInfoResponse;
-        private set { _ = SetProperty(ref wanDslInterfaceConfigGetDSLDiagnoseInfoResponse, value); }
+        get => wanDslInterfaceConfigGetDslDiagnoseInfoResponse;
+        private set { _ = SetProperty(ref wanDslInterfaceConfigGetDslDiagnoseInfoResponse, value); }
     }
 
-    public WanDslInterfaceConfigGetDSLInfoResponse? WanDslInterfaceConfigGetDSLInfoResponse
+    public WanDslInterfaceConfigGetDslInfoResponse? WanDslInterfaceConfigGetDslInfoResponse
     {
-        get => wanDslInterfaceConfigGetDSLInfoResponse;
-        private set { _ = SetProperty(ref wanDslInterfaceConfigGetDSLInfoResponse, value); }
+        get => wanDslInterfaceConfigGetDslInfoResponse;
+        private set { _ = SetProperty(ref wanDslInterfaceConfigGetDslInfoResponse, value); }
     }
 
     public WanDslInterfaceConfigInfoControlViewModel WanDslInterfaceConfigInfoControlViewModel { get; set; }
@@ -99,12 +99,12 @@ internal sealed class WanDslInterfaceConfigViewModel : FritzServiceViewModel
 
     private async Task GetWanDslInterfaceConfigGetDslDiagnoseInfoAsync()
     {
-        WanDslInterfaceConfigGetDSLDiagnoseInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDSLDiagnoseInfoAsync(d));
+        WanDslInterfaceConfigGetDslDiagnoseInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDslDiagnoseInfoAsync(d));
     }
 
     private async Task GetWanDslInterfaceConfigGetDslInfoAsync()
     {
-        WanDslInterfaceConfigGetDSLInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDSLInfoAsync(d));
+        WanDslInterfaceConfigGetDslInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDslInfoAsync(d));
     }
 
     private async Task GetWanDslInterfaceConfigGetInfoAsync()

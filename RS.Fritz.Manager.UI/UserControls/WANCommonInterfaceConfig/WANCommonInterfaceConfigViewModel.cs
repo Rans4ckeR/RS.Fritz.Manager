@@ -61,26 +61,26 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 
     private async Task GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
     {
-        WanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(d));
+        WanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanCommonInterfaceConfigGetCommonLinkPropertiesAsync(d));
     }
 
     private async Task GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync()
     {
-        WanCommonInterfaceConfigGetTotalBytesReceivedResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(d));
+        WanCommonInterfaceConfigGetTotalBytesReceivedResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanCommonInterfaceConfigGetTotalBytesReceivedAsync(d));
     }
 
     private async Task GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
     {
-        WanCommonInterfaceConfigGetTotalBytesSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalBytesSentAsync(d));
+        WanCommonInterfaceConfigGetTotalBytesSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanCommonInterfaceConfigGetTotalBytesSentAsync(d));
     }
 
     private async Task GetWanCommonInterfaceConfigGetTotalPacketsReceivedAsync()
     {
-        WanCommonInterfaceConfigGetTotalPacketsReceivedResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalPacketsReceivedAsync(d));
+        WanCommonInterfaceConfigGetTotalPacketsReceivedResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanCommonInterfaceConfigGetTotalPacketsReceivedAsync(d));
     }
 
     private async Task GetWanCommonInterfaceConfigGetTotalPacketsSentAsync()
     {
-        WanCommonInterfaceConfigGetTotalPacketsSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetWanCommonInterfaceConfigGetTotalPacketsSentAsync(d));
+        WanCommonInterfaceConfigGetTotalPacketsSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanCommonInterfaceConfigGetTotalPacketsSentAsync(d));
     }
 }

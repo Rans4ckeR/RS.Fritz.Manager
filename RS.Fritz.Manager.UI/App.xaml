@@ -405,7 +405,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetDSLDiagnoseInfoResponse}">
+            <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetDslDiagnoseInfoResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DSLDiagnoseInfo">
                         <Grid>
@@ -440,7 +440,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetDSLInfoResponse}">
+            <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetDslInfoResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DSLInfo">
                         <Grid>

@@ -126,17 +126,17 @@ internal sealed class HostsViewModel : FritzServiceViewModel
 
     private async Task GetHostsGetHostNumberOfEntriesAsync()
     {
-        HostsGetHostNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetHostNumberOfEntriesAsync(d));
+        HostsGetHostNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.HostsGetHostNumberOfEntriesAsync(d));
     }
 
     private async Task DoExecuteGetHostsGetGenericHostEntryCommandAsync()
     {
-        HostsGetGenericHostEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetGenericHostEntryAsync(d, GetHostsGetGenericHostEntryIndex!.Value));
+        HostsGetGenericHostEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.HostsGetGenericHostEntryAsync(d, GetHostsGetGenericHostEntryIndex!.Value));
     }
 
     private async Task GetHostsGetHostListPathAsync()
     {
-        HostsGetHostListPathResponse newHostsGetHostListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.GetHostsGetHostListPathAsync(d));
+        HostsGetHostListPathResponse newHostsGetHostListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.HostsGetHostListPathAsync(d));
         string hostListPath = newHostsGetHostListPathResponse.HostListPath;
         var hostListPathUri = new Uri(FormattableString.Invariant($"https://{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice.PreferredLocation.Host}:{DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevice.SecurityPort}{hostListPath}"));
         IEnumerable<DeviceHost> deviceHosts = await deviceHostsService.GetDeviceHostsAsync(hostListPathUri);

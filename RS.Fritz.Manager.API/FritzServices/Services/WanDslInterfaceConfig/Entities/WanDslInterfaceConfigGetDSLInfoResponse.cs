@@ -2,8 +2,8 @@
 
 using System.ServiceModel;
 
-[MessageContract(WrapperName = "GetDSLInfoResponse")]
-public sealed record WanDslInterfaceConfigGetDSLInfoResponse
+[MessageContract(WrapperName = "GetDslInfoResponse")]
+public sealed record WanDslInterfaceConfigGetDslInfoResponse
 {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     [MessageBodyMember(Name = "NewSNRGds")]

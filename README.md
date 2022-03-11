@@ -74,14 +74,14 @@ await host.RunAsync();
   * ❌ SetRouteProtocolRx
   * ❌ SetIdleDisconnectTime
 * ❌ urn:dslforum-org:service:WANPPPConnection:1
-* 🔶 urn:dslforum-org:service:WANCommonInterfaceConfig:1
+* ✅ urn:dslforum-org:service:WANCommonInterfaceConfig:1
   * ✅ GetCommonLinkProperties
   * ✅ GetTotalBytesSent
   * ✅ GetTotalBytesReceived
   * ✅ GetTotalPacketsSent
   * ✅ GetTotalPacketsReceived
-  * ❌ X_AVM-DE_SetWANAccessType
-  * ❌ X_AVM-DE_GetOnlineMonitor
+  * ✅ X_AVM-DE_SetWANAccessType
+  * ✅ X_AVM-DE_GetOnlineMonitor
 * ❌ urn:dslforum-org:service:WANEthernetLinkConfig:1
 * ✅ urn:dslforum-org:service:WANDSLInterfaceConfig:1
   * ✅ GetInfo
