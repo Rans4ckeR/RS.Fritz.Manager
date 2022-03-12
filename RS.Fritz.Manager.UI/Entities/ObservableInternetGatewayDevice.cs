@@ -16,39 +16,39 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
 
     public ObservableInternetGatewayDevice(InternetGatewayDevice internetGatewayDevice)
     {
-        InternetGatewayDevice = internetGatewayDevice;
+        ApiDevice = internetGatewayDevice;
     }
 
-    public InternetGatewayDevice InternetGatewayDevice { get; }
+    public InternetGatewayDevice ApiDevice { get; }
 
     public string Server
     {
-        get => InternetGatewayDevice.Server;
+        get => ApiDevice.Server;
     }
 
     public string CacheControl
     {
-        get => InternetGatewayDevice.CacheControl;
+        get => ApiDevice.CacheControl;
     }
 
     public string? Ext
     {
-        get => InternetGatewayDevice.Ext;
+        get => ApiDevice.Ext;
     }
 
     public string SearchTarget
     {
-        get => InternetGatewayDevice.SearchTarget;
+        get => ApiDevice.SearchTarget;
     }
 
     public string UniqueServiceName
     {
-        get => InternetGatewayDevice.UniqueServiceName;
+        get => ApiDevice.UniqueServiceName;
     }
 
     public IEnumerable<Uri> Locations
     {
-        get => InternetGatewayDevice.Locations;
+        get => ApiDevice.Locations;
     }
 
     public IEnumerable<User> Users
@@ -71,12 +71,7 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
 
     public UPnPDescription? UPnPDescription
     {
-        get => InternetGatewayDevice.UPnPDescription;
-    }
-
-    public Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
-    {
-        return InternetGatewayDevice.ExecuteAsync(operation);
+        get => ApiDevice.UPnPDescription;
     }
 
     public async Task GetDeviceTypeAsync()
@@ -85,7 +80,7 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
 
         try
         {
-            wanCommonInterfaceConfigGetCommonLinkProperties = await InternetGatewayDevice.ExecuteAsync((h, d) => h.WanCommonInterfaceConfigGetCommonLinkPropertiesAsync(d));
+            wanCommonInterfaceConfigGetCommonLinkProperties = await ApiDevice.WanCommonInterfaceConfigGetCommonLinkPropertiesAsync();
         }
         catch (MessageSecurityException)
         {

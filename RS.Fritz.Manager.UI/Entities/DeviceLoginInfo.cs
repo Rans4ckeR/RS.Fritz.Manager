@@ -58,9 +58,9 @@ internal sealed class DeviceLoginInfo : ObservableRecipient, IRecipient<Property
                     }
                     else
                     {
-                        await message.NewValue.InternetGatewayDevice.InitializeAsync();
+                        await message.NewValue.ApiDevice.InitializeAsync();
 
-                        message.NewValue.Users = message.NewValue.InternetGatewayDevice.Users!;
+                        message.NewValue.Users = message.NewValue.ApiDevice.Users!;
                     }
 
                     SetLoginInfo();
@@ -79,7 +79,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient, IRecipient<Property
         {
             case nameof(Password):
                 if (InternetGatewayDevice is not null)
-                    InternetGatewayDevice!.InternetGatewayDevice.NetworkCredential = new NetworkCredential(User?.Name, Password);
+                    InternetGatewayDevice!.ApiDevice.NetworkCredential = new NetworkCredential(User?.Name, Password);
 
                 SetLoginInfo();
                 break;
@@ -95,7 +95,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient, IRecipient<Property
         {
             case nameof(User):
                 if (InternetGatewayDevice is not null)
-                    InternetGatewayDevice.InternetGatewayDevice.NetworkCredential = new NetworkCredential(User?.Name, Password);
+                    InternetGatewayDevice.ApiDevice.NetworkCredential = new NetworkCredential(User?.Name, Password);
 
                 SetLoginInfo();
                 break;

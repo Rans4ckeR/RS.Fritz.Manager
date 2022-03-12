@@ -38,7 +38,7 @@ internal sealed class WanIpConnectionViewModel : FritzServiceViewModel, IRecipie
 
     protected override async Task DoExecuteDefaultCommandAsync()
     {
-        WanIpConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanIpConnectionGetInfoAsync(d));
+        WanIpConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetInfoAsync();
     }
 
     protected override bool GetCanExecuteDefaultCommand()

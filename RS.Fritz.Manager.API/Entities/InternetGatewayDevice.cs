@@ -18,7 +18,7 @@ public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzSe
 
     public NetworkCredential? NetworkCredential { get; set; }
 
-    public async Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
+    internal async Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
     {
         await InitializeAsync();
 

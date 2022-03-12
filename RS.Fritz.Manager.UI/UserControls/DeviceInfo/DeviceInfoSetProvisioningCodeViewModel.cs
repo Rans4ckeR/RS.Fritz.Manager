@@ -2,6 +2,7 @@
 
 using System.ComponentModel;
 using System.Threading.Tasks;
+using RS.Fritz.Manager.API;
 using Microsoft.Extensions.Logging;
 
 internal sealed class DeviceInfoSetProvisioningCodeViewModel : FritzServiceViewModel
@@ -25,7 +26,7 @@ internal sealed class DeviceInfoSetProvisioningCodeViewModel : FritzServiceViewM
 
     protected override async Task DoExecuteDefaultCommandAsync()
     {
-        _ = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoSetProvisioningCodeAsync(d, ProvisioningCode));
+        _ = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoSetProvisioningCodeAsync(ProvisioningCode);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

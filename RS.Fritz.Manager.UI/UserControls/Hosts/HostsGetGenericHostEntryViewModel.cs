@@ -44,7 +44,7 @@ internal sealed class HostsGetGenericHostEntryViewModel : FritzServiceViewModel
 
     protected override async Task DoExecuteDefaultCommandAsync()
     {
-        HostsGetGenericHostEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.HostsGetGenericHostEntryAsync(d, Index!.Value));
+        HostsGetGenericHostEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetGenericHostEntryAsync(Index!.Value);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

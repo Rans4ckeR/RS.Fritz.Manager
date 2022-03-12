@@ -48,16 +48,16 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
 
     private async Task GetDeviceInfoGetSecurityPortAsync()
     {
-        DeviceInfoGetSecurityPortResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetSecurityPortAsync(d));
+        DeviceInfoGetSecurityPortResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoGetSecurityPortAsync();
     }
 
     private async Task GetDeviceInfoGetInfoAsync()
     {
-        DeviceInfoGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetInfoAsync(d));
+        DeviceInfoGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoGetInfoAsync();
     }
 
     private async Task GetDeviceInfoGetDeviceLogAsync()
     {
-        DeviceInfoGetDeviceLogResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetDeviceLogAsync(d));
+        DeviceInfoGetDeviceLogResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoGetDeviceLogAsync();
     }
 }

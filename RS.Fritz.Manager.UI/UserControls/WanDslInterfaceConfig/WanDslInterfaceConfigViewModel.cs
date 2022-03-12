@@ -54,7 +54,7 @@ internal sealed class WanDslInterfaceConfigViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref wanDslInterfaceConfigGetDslInfoResponse, value); }
     }
 
-    public WanDslInterfaceConfigInfoControlViewModel WanDslInterfaceConfigInfoControlViewModel { get; set; }
+    public WanDslInterfaceConfigInfoControlViewModel WanDslInterfaceConfigInfoControlViewModel { get; }
 
     public WanDslInterfaceConfigGetStatisticsTotalResponse? WanDslInterfaceConfigGetStatisticsTotalResponse
     {
@@ -99,21 +99,21 @@ internal sealed class WanDslInterfaceConfigViewModel : FritzServiceViewModel
 
     private async Task GetWanDslInterfaceConfigGetDslDiagnoseInfoAsync()
     {
-        WanDslInterfaceConfigGetDslDiagnoseInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDslDiagnoseInfoAsync(d));
+        WanDslInterfaceConfigGetDslDiagnoseInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslInterfaceConfigGetDslDiagnoseInfoAsync();
     }
 
     private async Task GetWanDslInterfaceConfigGetDslInfoAsync()
     {
-        WanDslInterfaceConfigGetDslInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDslInfoAsync(d));
+        WanDslInterfaceConfigGetDslInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslInterfaceConfigGetDslInfoAsync();
     }
 
     private async Task GetWanDslInterfaceConfigGetInfoAsync()
     {
-        WanDslInterfaceConfigInfoControlViewModel.WanDslInterfaceConfigGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetInfoAsync(d));
+        WanDslInterfaceConfigInfoControlViewModel.WanDslInterfaceConfigGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslInterfaceConfigGetInfoAsync();
     }
 
     private async Task GetWanDslInterfaceConfigGetStatisticsTotalAsync()
     {
-        WanDslInterfaceConfigGetStatisticsTotalResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetStatisticsTotalAsync(d));
+        WanDslInterfaceConfigGetStatisticsTotalResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslInterfaceConfigGetStatisticsTotalAsync();
     }
 }

@@ -21,6 +21,6 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
 
     protected override async Task DoExecuteDefaultCommandAsync()
     {
-        Layer3ForwardingGetDefaultConnectionServiceResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.Layer3ForwardingGetDefaultConnectionServiceAsync(d));
+        Layer3ForwardingGetDefaultConnectionServiceResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.Layer3ForwardingGetDefaultConnectionServiceAsync();
     }
 }
