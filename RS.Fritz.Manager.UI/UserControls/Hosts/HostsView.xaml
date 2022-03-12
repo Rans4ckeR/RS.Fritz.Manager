@@ -17,8 +17,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.Row="0" Content="{Binding DeviceHostInfo}"/>
-        <ContentControl Grid.Row="1" Content="{Binding HostsGetHostNumberOfEntriesResponse}"/>
-        <ContentControl Grid.Row="2" Content="{Binding HostsGetGenericHostEntryViewModel}"/>
+        <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding DeviceHostInfo}"/>
+        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding HostsGetHostNumberOfEntriesResponse}"/>
+        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding HostsGetGenericHostEntryViewModel}"/>
     </Grid>
 </UserControl>

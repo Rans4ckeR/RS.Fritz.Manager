@@ -73,7 +73,30 @@ await host.RunAsync();
   * ❌ GetExternalIPAddress
   * ❌ SetRouteProtocolRx
   * ❌ SetIdleDisconnectTime
-* ❌ urn:dslforum-org:service:WANPPPConnection:1
+* 🔶 urn:dslforum-org:service:WANPPPConnection:1
+  * ✅ GetInfo
+  * ✅ GetConnectionTypeInfo
+  * ❌ SetConnectionType
+  * ❌ GetStatusInfo
+  * ❌ GetLinkLayerMaxBitRates
+  * ❌ GetUserName
+  * ❌ SetUserName
+  * ❌ SetPassword
+  * ❌ GetNATRSIPStatus
+  * ❌ SetConnectionTrigger
+  * ❌ ForceTermination
+  * ❌ RequestConnection
+  * ❌ X_GetDNSServers
+  * ❌ GetPortMappingNumberOfEntries
+  * ❌ GetGenericPortMappingEntry
+  * ❌ GetSpecificPortMappingEntry
+  * ❌ AddPortMapping
+  * ❌ DeletePortMapping
+  * ❌ GetExternalIPAddress
+  * ❌ SetRouteProtocolRx
+  * ❌ SetIdleDisconnectTime
+  * ❌ X_AVM_DE_GetAutoDisconnectTimeSpan
+  * ❌ X_AVM_DE_SetAutoDisconnectTimeSpan
 * ✅ urn:dslforum-org:service:WANCommonInterfaceConfig:1
   * ✅ GetCommonLinkProperties
   * ✅ GetTotalBytesSent

@@ -15,6 +15,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Content="{Binding WanIpConnectionGetInfoResponse}"/>
+        <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WanIpConnectionGetInfoResponse}"/>
     </Grid>
 </UserControl>

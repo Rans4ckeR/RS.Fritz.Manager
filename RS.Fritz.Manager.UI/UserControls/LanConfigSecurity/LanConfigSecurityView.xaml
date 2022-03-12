@@ -19,10 +19,10 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.Row="0" Content="{Binding LanConfigSecurityGetAnonymousLoginResponse}"/>
-        <ContentControl Grid.Row="1" Content="{Binding LanConfigSecurityGetCurrentUserResponse}"/>
-        <ContentControl Grid.Row="2" Content="{Binding LanConfigSecurityGetInfoResponse}"/>
-        <ContentControl Grid.Row="3" Content="{Binding LanConfigSecurityGetUserListResponse}"/>
-        <ContentControl Grid.Row="4" Content="{Binding LanConfigSecuritySetConfigPasswordViewModel}"/>
+        <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanConfigSecurityGetAnonymousLoginResponse}"/>
+        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding LanConfigSecurityGetCurrentUserResponse}"/>
+        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding LanConfigSecurityGetInfoResponse}"/>
+        <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding LanConfigSecurityGetUserListResponse}"/>
+        <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding LanConfigSecuritySetConfigPasswordViewModel}"/>
     </Grid>
 </UserControl>

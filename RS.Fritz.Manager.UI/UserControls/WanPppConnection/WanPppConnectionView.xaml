@@ -11,10 +11,12 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Content="{Binding WanPppConnectionGetInfoResponse}"/>
+        <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WanPppConnectionGetInfoResponse}"/>
+        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding WanPppConnectionGetConnectionTypeInfoResponse}"/>
     </Grid>
 </UserControl>

@@ -776,6 +776,26 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanPppConnectionGetConnectionTypeInfoResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ConnectionTypeInfo">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ConnectionType}" Content="_ConnectionType" ToolTip="The connection type for a specific active connection."/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ConnectionStatus}" Content="_PossibleConnectionTypes" ToolTip="The types of connections possible in the context of a specific modem and link type. Possible values are Unconfigured, IP_Routed, IP_Bridged, DHCP_Spoofed, PPPoE_Bridged, PPTP_Relay, L2TP_Relay, PPPoE_Relay."/>
+                            <TextBlock x:Name="ConnectionType" Grid.Row="0" Grid.Column="1" Text="{Binding ConnectionType}"/>
+                            <TextBlock x:Name="PossibleConnectionTypes" Grid.Row="1" Grid.Column="1" Text="{Binding PossibleConnectionTypes}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetCommonLinkPropertiesResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="LinkProperties">

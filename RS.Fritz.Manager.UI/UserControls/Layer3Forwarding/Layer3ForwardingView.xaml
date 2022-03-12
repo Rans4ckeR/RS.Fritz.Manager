@@ -15,6 +15,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Content="{Binding Layer3ForwardingGetDefaultConnectionServiceResponse}"/>
+        <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetDefaultConnectionServiceResponse}"/>
     </Grid>
 </UserControl>
