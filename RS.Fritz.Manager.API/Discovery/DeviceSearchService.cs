@@ -125,9 +125,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
 
     private static async Task ReceiveAsync(Socket socket, ArraySegment<byte> buffer, ICollection<string> responses, int receiveTimeout)
     {
-        using var cancellationTokenSource = new CancellationTokenSource();
-
-        cancellationTokenSource.CancelAfter(receiveTimeout);
+        using var cancellationTokenSource = new CancellationTokenSource(receiveTimeout);
 
         while (!cancellationTokenSource.IsCancellationRequested)
         {
