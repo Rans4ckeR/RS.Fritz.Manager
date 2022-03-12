@@ -4,10 +4,10 @@ using System;
 using System.Net;
 using System.ServiceModel;
 
-internal sealed class ClientFactory<TInterface> : IClientFactory<TInterface>
-    where TInterface : class
+internal sealed class ClientFactory<T> : IClientFactory<T>
+    where T : class
 {
-    public TInterface Build(Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, TInterface> createClient, Uri location, bool secure, string controlUrl, ushort? port = null, NetworkCredential? networkCredential = null)
+    public T Build(Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createClient, Uri location, bool secure, string controlUrl, ushort? port, NetworkCredential? networkCredential)
     {
         return createClient(GetEndpointConfiguration(secure), GetEndpointAddress(location, secure, controlUrl, port), networkCredential);
     }

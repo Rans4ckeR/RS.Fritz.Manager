@@ -13,7 +13,7 @@ public sealed class UserInterfaceLogService : ILogger
 
         string message = formatter(state, exception);
 
-        WeakReferenceMessenger.Default.Send(new UserMessageValueChangedMessage(new UserMessage(message)));
+        _ = WeakReferenceMessenger.Default.Send(new UserMessageValueChangedMessage(new UserMessage(message)));
     }
 
     public bool IsEnabled(LogLevel logLevel) => logLevel >= LogLevel.Warning;

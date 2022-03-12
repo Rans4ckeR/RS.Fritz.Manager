@@ -17,7 +17,8 @@ internal sealed class WanIpConnectionViewModel : FritzServiceViewModel, IRecipie
 
     public WanIpConnectionGetInfoResponse? WanIpConnectionGetInfoResponse
     {
-        get => wanIpConnectionGetInfoResponse; set { _ = SetProperty(ref wanIpConnectionGetInfoResponse, value); }
+        get => wanIpConnectionGetInfoResponse;
+        private set { _ = SetProperty(ref wanIpConnectionGetInfoResponse, value); }
     }
 
     public void Receive(PropertyChangedMessage<WanAccessType?> message)
@@ -37,11 +38,11 @@ internal sealed class WanIpConnectionViewModel : FritzServiceViewModel, IRecipie
 
     protected override async Task DoExecuteDefaultCommandAsync()
     {
-        WanIpConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanIpConnectionGetInfoAsync(d));
+        WanIpConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetInfoAsync();
     }
 
     protected override bool GetCanExecuteDefaultCommand()
     {
-        return base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType! == WanAccessType.Ethernet;
+        return base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType == WanAccessType.Ethernet;
     }
 }

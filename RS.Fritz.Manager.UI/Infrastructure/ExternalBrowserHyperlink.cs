@@ -13,7 +13,7 @@ internal sealed class ExternalBrowserHyperlink : Hyperlink
 
     private static void OnRequestNavigate(object sender, RequestNavigateEventArgs e)
     {
-        Process.Start(new ProcessStartInfo
+        _ = Process.Start(new ProcessStartInfo
         {
             FileName = e.Uri.OriginalString,
             UseShellExecute = true

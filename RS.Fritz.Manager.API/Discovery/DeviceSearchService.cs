@@ -17,7 +17,7 @@ using System.Xml;
 internal sealed class DeviceSearchService : IDeviceSearchService
 {
     private const string InternetGatewayDeviceDeviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
-    private const int UPnPMulticastPort = 1900;
+    private const int UPnPMultiCastPort = 1900;
     private const int DefaultReceiveTimeout = 500;
     private const int DefaultSendCount = 3;
 #pragma warning disable SA1310 // Field names should not contain underscore
@@ -36,7 +36,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         this.fritzServiceOperationHandler = fritzServiceOperationHandler;
     }
 
-    private static IDictionary<AddressType, IPAddress> SsdpMulticastAddresses => new Dictionary<AddressType, IPAddress>
+    private static IDictionary<AddressType, IPAddress> SsdpMultiCastAddresses => new Dictionary<AddressType, IPAddress>
     {
         [AddressType.IPv4SiteLocal] = IPAddress.Parse("239.255.255.250"),
         [AddressType.IPv6LinkLocal] = IPAddress.Parse("[FF02::C]"),
@@ -91,17 +91,17 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         socket.ExclusiveAddressUse = true;
 
         if (OperatingSystem.IsWindows())
-            socket.IOControl(unchecked((int)SIO_UDP_CONNRESET), new byte[] { 0 }, null); // Disables ICMP errors to be propagated to the socket.
+            _ = socket.IOControl(unchecked((int)SIO_UDP_CONNRESET), new byte[] { 0 }, null); // Disables ICMP errors to be propagated to the socket.
 
         socket.Bind(new IPEndPoint(localAddress, 0));
 
-        var multicastIPEndPoint = new IPEndPoint(SsdpMulticastAddresses[addressType], UPnPMulticastPort);
-        string request = FormattableString.Invariant($"M-SEARCH * HTTP/1.1\r\nHOST: {multicastIPEndPoint}\r\nST: {deviceType}\r\nMAN: \"ssdp:discover\"\r\nMX: 3\r\n\r\n");
+        var multiCastIpEndPoint = new IPEndPoint(SsdpMultiCastAddresses[addressType], UPnPMultiCastPort);
+        string request = FormattableString.Invariant($"M-SEARCH * HTTP/1.1\r\nHOST: {multiCastIpEndPoint}\r\nST: {deviceType}\r\nMAN: \"ssdp:discover\"\r\nMX: 3\r\n\r\n");
         var buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(request));
 
         for (int i = 0; i < sendCount; i++)
         {
-            await socket.SendToAsync(buffer, SocketFlags.None, multicastIPEndPoint);
+            _ = await socket.SendToAsync(buffer, SocketFlags.None, multiCastIpEndPoint);
         }
 
         await ReceiveAsync(socket, new ArraySegment<byte>(new byte[4096]), responses, receiveTimeout);
@@ -125,9 +125,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
 
     private static async Task ReceiveAsync(Socket socket, ArraySegment<byte> buffer, ICollection<string> responses, int receiveTimeout)
     {
-        using var cancellationTokenSource = new CancellationTokenSource();
-
-        cancellationTokenSource.CancelAfter(receiveTimeout);
+        using var cancellationTokenSource = new CancellationTokenSource(receiveTimeout);
 
         while (!cancellationTokenSource.IsCancellationRequested)
         {

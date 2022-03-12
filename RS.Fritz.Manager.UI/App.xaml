@@ -3,16 +3,21 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
-             xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
+             xmlns:ui="clr-namespace:RS.Fritz.Manager.UI"
+             xmlns:presentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="presentationOptions"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <Application.Resources>
         <ResourceDictionary>
-            <SolidColorBrush x:Key="WindowBackgroundSolidColorBrush" Color="#FF292822"/>
-            <SolidColorBrush x:Key="ForegroundSolidColorBrush" Color="#FF121212"/>
-            <SolidColorBrush x:Key="NavigationBackgroundSolidColorBrush" Color="#FF266FC3"/>
-            <SolidColorBrush x:Key="TitleBackgroundSolidColorBrush" Color="#FF3F8FE2"/>
-            <SolidColorBrush x:Key="LabelSolidColorBrush" Color="#FF414446"/>
-            <SolidColorBrush x:Key="TitleTextSolidColorBrush" Color="White"/>
-            <SolidColorBrush x:Key="TextSolidColorBrush" Color="#FFC3CAD1"/>
+            <system:Boolean x:Key="False">False</system:Boolean>
+            <SolidColorBrush x:Key="WindowBackgroundSolidColorBrush" Color="#FF292822" presentationOptions:Freeze="True"/>
+            <SolidColorBrush x:Key="ForegroundSolidColorBrush" Color="#FF121212" presentationOptions:Freeze="True"/>
+            <SolidColorBrush x:Key="NavigationBackgroundSolidColorBrush" Color="#FF266FC3" presentationOptions:Freeze="True"/>
+            <SolidColorBrush x:Key="TitleBackgroundSolidColorBrush" Color="#FF3F8FE2" presentationOptions:Freeze="True"/>
+            <SolidColorBrush x:Key="LabelSolidColorBrush" Color="#FF414446" presentationOptions:Freeze="True"/>
+            <SolidColorBrush x:Key="TitleTextSolidColorBrush" Color="White" presentationOptions:Freeze="True"/>
+            <SolidColorBrush x:Key="TextSolidColorBrush" Color="#FFC3CAD1" presentationOptions:Freeze="True"/>
             <Style x:Key="TextStyle" TargetType="{x:Type Control}">
                 <Setter Property="Foreground" Value="{StaticResource TextSolidColorBrush}"/>
                 <Setter Property="FontFamily" Value="Arial"/>
@@ -405,7 +410,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetDSLDiagnoseInfoResponse}">
+            <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetDslDiagnoseInfoResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DSLDiagnoseInfo">
                         <Grid>
@@ -440,7 +445,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetDSLInfoResponse}">
+            <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetDslInfoResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DSLInfo">
                         <Grid>
@@ -599,7 +604,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DefaultConnectionService}" Content="_DefaultConnectionService"/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DefaultConnectionService}" Content="_DefaultConnectionService" ToolTip="Specifies a connection service instance in a WANConnectionDevice. See UPnP Layer3Forwarding:1 v1.01 for more details. Max length = 256 characters."/>
                             <TextBlock x:Name="DefaultConnectionService" Grid.Row="0" Grid.Column="1" Text="{Binding DefaultConnectionService}"/>
                         </Grid>
                     </Expander>
@@ -774,6 +779,26 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanPppConnectionGetConnectionTypeInfoResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ConnectionTypeInfo">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ConnectionType}" Content="_ConnectionType" ToolTip="The connection type for a specific active connection."/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ConnectionStatus}" Content="_PossibleConnectionTypes" ToolTip="The types of connections possible in the context of a specific modem and link type. Possible values are Unconfigured, IP_Routed, IP_Bridged, DHCP_Spoofed, PPPoE_Bridged, PPTP_Relay, L2TP_Relay, PPPoE_Relay."/>
+                            <TextBlock x:Name="ConnectionType" Grid.Row="0" Grid.Column="1" Text="{Binding ConnectionType}"/>
+                            <TextBlock x:Name="PossibleConnectionTypes" Grid.Row="1" Grid.Column="1" Text="{Binding PossibleConnectionTypes}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetCommonLinkPropertiesResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="LinkProperties">
@@ -788,10 +813,10 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=WanAccessType}" Content="_WanAccessType"/>
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PhysicalLinkStatus}" Content="_PhysicalLinkStatus"/>
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Layer1DownstreamMaxBitRate}" Content="_Layer1DownstreamMaxBitRate"/>
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Layer1UpstreamMaxBitRate}" Content="_Layer1UpstreamMaxBitRate"/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=WanAccessType}" Content="_WanAccessType" ToolTip="Specifies the WAN access (modem) between the residential network and the ISP. Possible values are DSL, Ethernet, X_AVM-DE_Fiber, X_AVM-DE_UMTS, X_AVM-DE_Cable, X_AVM-DE_LTE."/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PhysicalLinkStatus}" Content="_PhysicalLinkStatus" ToolTip="Indicates the state of the physical connection (link) from WANDevice to a connected entity. Possible values are Up, Down, Initializing, Unavailable."/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Layer1DownstreamMaxBitRate}" Content="_Layer1DownstreamMaxBitRate" ToolTip="Specifies the maximum downstream theoretical bit rate for the WAN device."/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Layer1UpstreamMaxBitRate}" Content="_Layer1UpstreamMaxBitRate" ToolTip="Specifies the maximum upstream theoretical bit rate for the WAN device."/>
                             <TextBlock x:Name="WanAccessType" Grid.Row="0" Grid.Column="1" Text="{Binding WanAccessType}"/>
                             <TextBlock x:Name="PhysicalLinkStatus" Grid.Row="1" Grid.Column="1" Text="{Binding PhysicalLinkStatus}"/>
                             <TextBlock x:Name="Layer1DownstreamMaxBitRate" Grid.Row="2" Grid.Column="1" Text="{Binding Layer1DownstreamMaxBitRate}"/>
@@ -811,7 +836,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesReceived}" Content="_TotalBytesReceived"/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesReceived}" Content="_TotalBytesReceived" ToolTip="Represents the cumulative counter for total number of bytes received downstream across all connection service instances on the WANDevice."/>
                             <TextBlock x:Name="TotalBytesReceived" Grid.Row="0" Grid.Column="1" Text="{Binding TotalBytesReceived}"/>
                         </Grid>
                     </Expander>
@@ -828,8 +853,42 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesSent}" Content="_TotalBytesSent"/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesSent}" Content="_TotalBytesSent" ToolTip="Represents the cumulative counter for total number of bytes sent upstream across all connection service instances on the WANDevice."/>
                             <TextBlock x:Name="TotalBytesSent" Grid.Row="0" Grid.Column="1" Text="{Binding TotalBytesSent}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetTotalPacketsReceivedResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalPacketsReceived">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalPacketsReceived}" Content="_TotalPacketsReceived" ToolTip="Represents the cumulative counter for total number of packets (IP or PPP) received downstream across all connection service instances on the WANDevice."/>
+                            <TextBlock x:Name="TotalPacketsReceived" Grid.Row="0" Grid.Column="1" Text="{Binding TotalPacketsReceived}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetTotalPacketsSentResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalPacketsSent">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalPacketsSent}" Content="_TotalPacketsSent" ToolTip="Represents the cumulative counter for total number of packets (IP or PPP) sent upstream across all connection service instances on the WANDevice."/>
+                            <TextBlock x:Name="TotalPacketsSent" Grid.Row="0" Grid.Column="1" Text="{Binding TotalPacketsSent}"/>
                         </Grid>
                     </Expander>
                 </Border>
@@ -845,7 +904,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=HostNumberOfEntries}" Content="_HostNumberOfEntries"/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=HostNumberOfEntries}" Content="_HostNumberOfEntries" ToolTip="Number of entries in the Host table."/>
                             <TextBlock x:Name="HostNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding HostNumberOfEntries}"/>
                         </Grid>
                     </Expander>
@@ -880,41 +939,42 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type api:HostsGetGenericHostEntryResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="GenericHostEntry">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IPAddress}" Content="_IPAddress"/>
-                            <TextBlock x:Name="IPAddress" Grid.Row="0" Grid.Column="1" Text="{Binding IPAddress}"/>
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress"/>
-                            <TextBlock x:Name="MACAddress" Grid.Row="1" Grid.Column="1" Text="{Binding MACAddress}"/>
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AddressSource}" Content="_AddressSource"/>
-                            <TextBlock x:Name="AddressSource" Grid.Row="2" Grid.Column="1" Text="{Binding AddressSource}"/>
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LeaseTimeRemaining}" Content="_LeaseTimeRemaining"/>
-                            <TextBlock x:Name="LeaseTimeRemaining" Grid.Row="3" Grid.Column="1" Text="{Binding LeaseTimeRemaining}"/>
-                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=InterfaceType}" Content="_InterfaceType"/>
-                            <TextBlock x:Name="InterfaceType" Grid.Row="4" Grid.Column="1" Text="{Binding InterfaceType}"/>
-                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Active}" Content="_Active"/>
-                            <TextBlock x:Name="Active" Grid.Row="5" Grid.Column="1" Text="{Binding Active}"/>
-                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=HostName}" Content="_HostName"/>
-                            <TextBlock x:Name="HostName" Grid.Row="6" Grid.Column="1" Text="{Binding HostName}"/>
-                        </Grid>
-                    </Expander>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IPAddress}" Content="_IPAddress" ToolTip="Current IP Address of the host."/>
+                        <TextBlock x:Name="IPAddress" Grid.Row="0" Grid.Column="1" Text="{Binding IPAddress}"/>
+                        <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="MAC address of the host."/>
+                        <TextBlock x:Name="MACAddress" Grid.Row="1" Grid.Column="1" Text="{Binding MACAddress}"/>
+                        <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AddressSource}" Content="_AddressSource" ToolTip="Indicates whether the IP address of the host was allocated by the CPE using DHCP or was assigned to the host statically. Possible values are DHCP, Static, AutoIP."/>
+                        <TextBlock x:Name="AddressSource" Grid.Row="2" Grid.Column="1" Text="{Binding AddressSource}"/>
+                        <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LeaseTimeRemaining}" Content="_LeaseTimeRemaining" ToolTip="DHCP lease time remaining in seconds. The value must be 0 (zero) if the AddressSource is not DHCP. -1 = Infinite lease."/>
+                        <TextBlock x:Name="LeaseTimeRemaining" Grid.Row="3" Grid.Column="1" Text="{Binding LeaseTimeRemaining}"/>
+                        <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=InterfaceType}" Content="_InterfaceType" ToolTip="Type of physical interface through which the host is connected to the CPE. Possible values are Ethernet, USB, 802.11, HomePNA, HomePlug, Other."/>
+                        <TextBlock x:Name="InterfaceType" Grid.Row="4" Grid.Column="1" Text="{Binding InterfaceType}"/>
+                        <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Active}" Content="_Active" ToolTip="Whether or not the host is currently present on the LAN. The method of presence detection is a local matter to the CPE."/>
+                        <TextBlock x:Name="Active" Grid.Row="5" Grid.Column="1" Text="{Binding Active}"/>
+                        <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=HostName}" Content="_HostName" ToolTip="The device's host name or empty string if unknown. Max length = 64 characters."/>
+                        <TextBlock x:Name="HostName" Grid.Row="6" Grid.Column="1" Text="{Binding HostName}"/>
+                    </Grid>
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:HostsViewModel}">
                 <ui:HostsView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:HostsGetGenericHostEntryViewModel}">
+                <ui:HostsGetGenericHostEntryView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:DeviceInfoViewModel}">
                 <ui:DeviceInfoView/>
@@ -945,6 +1005,12 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigViewModel}">
                 <ui:WanCommonInterfaceConfigView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigSetWanAccessTypeViewModel}">
+                <ui:WanCommonInterfaceConfigSetWanAccessTypeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigGetOnlineMonitorViewModel}">
+                <ui:WanCommonInterfaceConfigGetOnlineMonitorView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

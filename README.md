@@ -26,26 +26,26 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RS.Fritz.Manager.API;
 
-// Initialize and add services to container using AddFritzApi()
-using var host = Host.CreateDefaultBuilder(args)
+// Register Fritz services in container using AddFritzApi()
+using IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((_, services) => services.AddFritzApi())
     .Build();
 using IServiceScope serviceScope = host.Services.CreateScope();
-var deviceSearchService = serviceScope.ServiceProvider.GetRequiredService<IDeviceSearchService>();
+IDeviceSearchService deviceSearchService = serviceScope.ServiceProvider.GetRequiredService<IDeviceSearchService>();
 
-// Search for devices on the network
+// Search for routers and take the first one
 InternetGatewayDevice device = (await deviceSearchService.GetDevicesAsync()).First();
 
 // Initialize device
 await device.InitializeAsync();
 
-// Authenticate with password
-string lastUsedUserName = device.Users.First(q => q.LastUser).Name;
+// Provide password for last logged on user
+string lastUsedUserName = device.Users.Single(q => q.LastUser).Name;
 Console.WriteLine($"Enter password for {lastUsedUserName}:");
 device.NetworkCredential = new NetworkCredential(lastUsedUserName, Console.ReadLine());
 
 // Show device UpTime
-DeviceInfoGetInfoResponse deviceInfo = await device.ExecuteAsync((h, d) => h.DeviceInfoGetInfoAsync(d));
+DeviceInfoGetInfoResponse deviceInfo = await device.DeviceInfoGetInfoAsync();
 Console.WriteLine(TimeSpan.FromSeconds(deviceInfo.UpTime));
 
 await host.RunAsync();
@@ -73,15 +73,38 @@ await host.RunAsync();
   * ❌ GetExternalIPAddress
   * ❌ SetRouteProtocolRx
   * ❌ SetIdleDisconnectTime
-* ❌ urn:dslforum-org:service:WANPPPConnection:1
-* 🔶 urn:dslforum-org:service:WANCommonInterfaceConfig:1
+* 🔶 urn:dslforum-org:service:WANPPPConnection:1
+  * ✅ GetInfo
+  * ✅ GetConnectionTypeInfo
+  * ❌ SetConnectionType
+  * ❌ GetStatusInfo
+  * ❌ GetLinkLayerMaxBitRates
+  * ❌ GetUserName
+  * ❌ SetUserName
+  * ❌ SetPassword
+  * ❌ GetNATRSIPStatus
+  * ❌ SetConnectionTrigger
+  * ❌ ForceTermination
+  * ❌ RequestConnection
+  * ❌ X_GetDNSServers
+  * ❌ GetPortMappingNumberOfEntries
+  * ❌ GetGenericPortMappingEntry
+  * ❌ GetSpecificPortMappingEntry
+  * ❌ AddPortMapping
+  * ❌ DeletePortMapping
+  * ❌ GetExternalIPAddress
+  * ❌ SetRouteProtocolRx
+  * ❌ SetIdleDisconnectTime
+  * ❌ X_AVM_DE_GetAutoDisconnectTimeSpan
+  * ❌ X_AVM_DE_SetAutoDisconnectTimeSpan
+* ✅ urn:dslforum-org:service:WANCommonInterfaceConfig:1
   * ✅ GetCommonLinkProperties
   * ✅ GetTotalBytesSent
   * ✅ GetTotalBytesReceived
-  * ❌ GetTotalPacketsSent
-  * ❌ GetTotalPacketsReceived
-  * ❌ X_AVM-DE_SetWANAccessType
-  * ❌ X_AVM-DE_GetOnlineMonitor
+  * ✅ GetTotalPacketsSent
+  * ✅ GetTotalPacketsReceived
+  * ✅ X_AVM-DE_SetWANAccessType
+  * ✅ X_AVM-DE_GetOnlineMonitor
 * ❌ urn:dslforum-org:service:WANEthernetLinkConfig:1
 * ✅ urn:dslforum-org:service:WANDSLInterfaceConfig:1
   * ✅ GetInfo

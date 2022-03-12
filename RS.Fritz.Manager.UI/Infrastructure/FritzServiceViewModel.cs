@@ -108,7 +108,7 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
             await DoExecuteDefaultCommandAsync();
 
             if (showView ?? true)
-                WeakReferenceMessenger.Default.Send(new ActiveViewValueChangedMessage(this));
+                _ = WeakReferenceMessenger.Default.Send(new ActiveViewValueChangedMessage(this));
         }
         catch (Exception ex)
         {

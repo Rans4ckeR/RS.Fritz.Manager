@@ -81,11 +81,23 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         get => deviceAndLoginControlsEnabled; set { _ = SetProperty(ref deviceAndLoginControlsEnabled, value); }
     }
 
-    public ObservableCollection<User> Users { get => users; set => _ = SetProperty(ref users, value); }
+    public ObservableCollection<User> Users
+    {
+        get => users;
+        private set => _ = SetProperty(ref users, value);
+    }
 
-    public ObservableObject? ActiveView { get => activeView; set => _ = SetProperty(ref activeView, value); }
+    public ObservableObject? ActiveView
+    {
+        get => activeView;
+        private set => _ = SetProperty(ref activeView, value);
+    }
 
-    public ObservableCollection<ObservableInternetGatewayDevice> Devices { get => devices; set => _ = SetProperty(ref devices, value); }
+    public ObservableCollection<ObservableInternetGatewayDevice> Devices
+    {
+        get => devices;
+        private set => _ = SetProperty(ref devices, value);
+    }
 
     public IAsyncRelayCommand LoginCommand { get; }
 

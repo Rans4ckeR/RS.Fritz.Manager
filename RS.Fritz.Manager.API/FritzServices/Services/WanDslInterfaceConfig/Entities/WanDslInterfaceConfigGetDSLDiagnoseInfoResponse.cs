@@ -3,8 +3,8 @@
 using System;
 using System.ServiceModel;
 
-[MessageContract(WrapperName = "GetDSLDiagnoseInfoResponse")]
-public sealed record WanDslInterfaceConfigGetDSLDiagnoseInfoResponse
+[MessageContract(WrapperName = "GetDslDiagnoseInfoResponse")]
+public sealed record WanDslInterfaceConfigGetDslDiagnoseInfoResponse
 {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     [MessageBodyMember(Name = "NewX_AVM-DE_DSLDiagnoseState")]

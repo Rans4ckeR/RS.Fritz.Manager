@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:DeviceInfo:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-public interface IFritzDeviceInfoService
+internal interface IFritzDeviceInfoService
 {
     [OperationContract(Action = "urn:dslforum-org:service:DeviceInfo:1#GetSecurityPort")]
     public Task<DeviceInfoGetSecurityPortResponse> GetSecurityPortAsync(DeviceInfoGetSecurityPortRequest deviceInfoGetSecurityPortRequest);

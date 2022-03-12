@@ -18,17 +18,20 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
 
     public DeviceInfoGetSecurityPortResponse? DeviceInfoGetSecurityPortResponse
     {
-        get => deviceInfoGetSecurityPortResponse; set { _ = SetProperty(ref deviceInfoGetSecurityPortResponse, value); }
+        get => deviceInfoGetSecurityPortResponse;
+        private set { _ = SetProperty(ref deviceInfoGetSecurityPortResponse, value); }
     }
 
     public DeviceInfoGetInfoResponse? DeviceInfoGetInfoResponse
     {
-        get => deviceInfoGetInfoResponse; set { _ = SetProperty(ref deviceInfoGetInfoResponse, value); }
+        get => deviceInfoGetInfoResponse;
+        private set { _ = SetProperty(ref deviceInfoGetInfoResponse, value); }
     }
 
     public DeviceInfoGetDeviceLogResponse? DeviceInfoGetDeviceLogResponse
     {
-        get => deviceInfoGetDeviceLogResponse; set { _ = SetProperty(ref deviceInfoGetDeviceLogResponse, value); }
+        get => deviceInfoGetDeviceLogResponse;
+        private set { _ = SetProperty(ref deviceInfoGetDeviceLogResponse, value); }
     }
 
     public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel { get; }
@@ -45,16 +48,16 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
 
     private async Task GetDeviceInfoGetSecurityPortAsync()
     {
-        DeviceInfoGetSecurityPortResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetSecurityPortAsync(d));
+        DeviceInfoGetSecurityPortResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoGetSecurityPortAsync();
     }
 
     private async Task GetDeviceInfoGetInfoAsync()
     {
-        DeviceInfoGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetInfoAsync(d));
+        DeviceInfoGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoGetInfoAsync();
     }
 
     private async Task GetDeviceInfoGetDeviceLogAsync()
     {
-        DeviceInfoGetDeviceLogResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.DeviceInfoGetDeviceLogAsync(d));
+        DeviceInfoGetDeviceLogResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoGetDeviceLogAsync();
     }
 }

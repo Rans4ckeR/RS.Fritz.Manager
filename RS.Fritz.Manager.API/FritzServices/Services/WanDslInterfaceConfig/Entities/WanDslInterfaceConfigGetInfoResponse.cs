@@ -16,7 +16,7 @@ public sealed record WanDslInterfaceConfigGetInfoResponse
     public string DataPath { get; set; }
 
     [MessageBodyMember(Name = "NewUpstreamCurrRate")]
-    public uint UpstreamCurrRate { get; set; }
+    public int UpstreamCurrRate { get; set; }
 
     [MessageBodyMember(Name = "NewDownstreamCurrRate")]
     public uint DownstreamCurrRate { get; set; }

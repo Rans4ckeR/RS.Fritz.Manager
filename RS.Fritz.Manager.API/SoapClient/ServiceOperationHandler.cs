@@ -23,7 +23,7 @@ internal abstract class ServiceOperationHandler
         return operation(client);
     }
 
-    private static void CloseClient<T>(T client)
+    private static void CloseClient<T>(T? client)
     {
         (client as ICommunicationObject)?.SafeClose();
     }

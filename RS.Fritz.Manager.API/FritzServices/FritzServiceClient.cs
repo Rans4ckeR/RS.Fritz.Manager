@@ -8,8 +8,8 @@ using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.Xml;
 
-internal abstract class FritzServiceClient<TChannel> : ClientBase<TChannel>
-    where TChannel : class
+internal abstract class FritzServiceClient<T> : ClientBase<T>
+    where T : class
 {
     protected FritzServiceClient(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential)
         : base(GetBindingForEndpoint(endpointConfiguration), remoteAddress)

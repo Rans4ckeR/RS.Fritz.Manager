@@ -9,6 +9,7 @@ using RS.Fritz.Manager.API;
 internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipient<PropertyChangedMessage<WanAccessType?>>
 {
     private WanPppConnectionGetInfoResponse? wanPppConnectionGetInfoResponse;
+    private WanPppConnectionGetConnectionTypeInfoResponse? wanPppConnectionGetConnectionTypeInfoResponse;
 
     public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -17,7 +18,14 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
 
     public WanPppConnectionGetInfoResponse? WanPppConnectionGetInfoResponse
     {
-        get => wanPppConnectionGetInfoResponse; set { _ = SetProperty(ref wanPppConnectionGetInfoResponse, value); }
+        get => wanPppConnectionGetInfoResponse;
+        private set { _ = SetProperty(ref wanPppConnectionGetInfoResponse, value); }
+    }
+
+    public WanPppConnectionGetConnectionTypeInfoResponse? WanPppConnectionGetConnectionTypeInfoResponse
+    {
+        get => wanPppConnectionGetConnectionTypeInfoResponse;
+        private set { _ = SetProperty(ref wanPppConnectionGetConnectionTypeInfoResponse, value); }
     }
 
     public void Receive(PropertyChangedMessage<WanAccessType?> message)
@@ -37,11 +45,25 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
 
     protected override async Task DoExecuteDefaultCommandAsync()
     {
-        WanPppConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ExecuteAsync((h, d) => h.WanPppConnectionGetInfoAsync(d));
+        await API.TaskExtensions.WhenAllSafe(new[]
+          {
+                GetWanPppConnectionGetInfoAsync(),
+                GetWanPppConnectionGetConnectionTypeInfoAsync()
+          });
     }
 
     protected override bool GetCanExecuteDefaultCommand()
     {
-        return base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType! == WanAccessType.Dsl;
+        return base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType == WanAccessType.Dsl;
+    }
+
+    private async Task GetWanPppConnectionGetInfoAsync()
+    {
+        WanPppConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetInfoAsync();
+    }
+
+    private async Task GetWanPppConnectionGetConnectionTypeInfoAsync()
+    {
+        WanPppConnectionGetConnectionTypeInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetConnectionTypeInfoAsync();
     }
 }

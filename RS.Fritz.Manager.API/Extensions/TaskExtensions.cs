@@ -7,7 +7,7 @@ public static class TaskExtensions
 {
     public static async Task<TResult[]> WhenAllSafe<TResult>(IEnumerable<Task<TResult>> tasks)
     {
-        Task<TResult[]> whenAllTask = Task.WhenAll(tasks);
+        var whenAllTask = Task.WhenAll(tasks);
 
         try
         {
@@ -25,7 +25,7 @@ public static class TaskExtensions
 
     public static async Task WhenAllSafe(IEnumerable<Task> tasks)
     {
-        Task whenAllTask = Task.WhenAll(tasks);
+        var whenAllTask = Task.WhenAll(tasks);
 
         try
         {
