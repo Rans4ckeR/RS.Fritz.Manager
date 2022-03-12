@@ -11,7 +11,12 @@ using RS.Fritz.Manager.API;
 
 internal sealed class WanDslInterfaceConfigInfoControlViewModel : ObservableObject
 {
+    private readonly Brush maxBrush = Brushes.LightGreen;
+    private readonly Brush minBrush = Brushes.Orange;
+    private readonly Brush lineBrush = Brushes.Green;
+    private readonly ScaleTransform scaleYTransform = new() { ScaleY = -1d };
     private readonly List<WanDslInterfaceConfigGetInfoResponse> wanDslInterfaceConfigGetInfoResponses = new();
+
     private WanDslInterfaceConfigGetInfoResponse? wanDslInterfaceConfigGetInfoResponse;
     private List<UIElement>? downstreamMaxRateHistory;
     private List<UIElement>? upstreamCurrRateHistory;
@@ -35,6 +40,11 @@ internal sealed class WanDslInterfaceConfigInfoControlViewModel : ObservableObje
         DownstreamAttenuationHistory = new List<UIElement>();
         UpstreamPowerHistory = new List<UIElement>();
         DownstreamPowerHistory = new List<UIElement>();
+
+        maxBrush.Freeze();
+        minBrush.Freeze();
+        lineBrush.Freeze();
+        scaleYTransform.Freeze();
     }
 
     public WanDslInterfaceConfigGetInfoResponse? WanDslInterfaceConfigGetInfoResponse
@@ -122,7 +132,7 @@ internal sealed class WanDslInterfaceConfigInfoControlViewModel : ObservableObje
         private set { _ = SetProperty(ref downstreamPowerHistory, value); }
     }
 
-    private static List<UIElement> UpdateHistory(List<uint> values)
+    private List<UIElement> UpdateHistory(IReadOnlyList<uint> values)
     {
         const double yScale = 30d;
         const double xScale = 5d;
@@ -148,15 +158,15 @@ internal sealed class WanDslInterfaceConfigInfoControlViewModel : ObservableObje
                 Y1 = (values[i - 1] - min) / (double)range * yScale,
                 X2 = (i - startIndex) * xScale,
                 Y2 = (value - min) / (double)range * yScale,
-                Fill = Brushes.Green,
-                Stroke = Brushes.Green
+                Fill = lineBrush,
+                Stroke = lineBrush
             };
 
             uiElements.Add(line);
         }
 
-        var labelMax = new Label { Content = labelMaxValue, Foreground = Brushes.LightGreen, LayoutTransform = new ScaleTransform { ScaleY = -1d } };
-        var labelMin = new Label { Content = labelMinValue, Foreground = Brushes.Orange, LayoutTransform = new ScaleTransform { ScaleY = -1d } };
+        var labelMax = new Label { Content = labelMaxValue, Foreground = maxBrush, LayoutTransform = scaleYTransform };
+        var labelMin = new Label { Content = labelMinValue, Foreground = minBrush, LayoutTransform = scaleYTransform };
 
         Canvas.SetLeft(labelMax, uiElements.OfType<Line>().Last().X2);
         Canvas.SetTop(labelMax, 0.5);

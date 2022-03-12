@@ -4,17 +4,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
              xmlns:ui="clr-namespace:RS.Fritz.Manager.UI"
+             xmlns:presentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="presentationOptions"
              xmlns:system="clr-namespace:System;assembly=System.Runtime">
     <Application.Resources>
         <ResourceDictionary>
             <system:Boolean x:Key="False">False</system:Boolean>
-            <SolidColorBrush x:Key="WindowBackgroundSolidColorBrush" Color="#FF292822"/>
-            <SolidColorBrush x:Key="ForegroundSolidColorBrush" Color="#FF121212"/>
-            <SolidColorBrush x:Key="NavigationBackgroundSolidColorBrush" Color="#FF266FC3"/>
-            <SolidColorBrush x:Key="TitleBackgroundSolidColorBrush" Color="#FF3F8FE2"/>
-            <SolidColorBrush x:Key="LabelSolidColorBrush" Color="#FF414446"/>
-            <SolidColorBrush x:Key="TitleTextSolidColorBrush" Color="White"/>
-            <SolidColorBrush x:Key="TextSolidColorBrush" Color="#FFC3CAD1"/>
+            <SolidColorBrush x:Key="WindowBackgroundSolidColorBrush" Color="#FF292822" presentationOptions:Freeze="True"/>
+            <SolidColorBrush x:Key="ForegroundSolidColorBrush" Color="#FF121212" presentationOptions:Freeze="True"/>
+            <SolidColorBrush x:Key="NavigationBackgroundSolidColorBrush" Color="#FF266FC3" presentationOptions:Freeze="True"/>
+            <SolidColorBrush x:Key="TitleBackgroundSolidColorBrush" Color="#FF3F8FE2" presentationOptions:Freeze="True"/>
+            <SolidColorBrush x:Key="LabelSolidColorBrush" Color="#FF414446" presentationOptions:Freeze="True"/>
+            <SolidColorBrush x:Key="TitleTextSolidColorBrush" Color="White" presentationOptions:Freeze="True"/>
+            <SolidColorBrush x:Key="TextSolidColorBrush" Color="#FFC3CAD1" presentationOptions:Freeze="True"/>
             <Style x:Key="TextStyle" TargetType="{x:Type Control}">
                 <Setter Property="Foreground" Value="{StaticResource TextSolidColorBrush}"/>
                 <Setter Property="FontFamily" Value="Arial"/>
