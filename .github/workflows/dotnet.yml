@@ -38,7 +38,7 @@ jobs:
         7z a ${{ format('RS.Fritz.Manager-v{0}-net6.0-windows.zip', env.GitVersion_SemVer) }} RS.Fritz.Manager.UI/bin/Release/net6.0-windows/publish/*.*
         7z a ${{ format('RS.Fritz.Manager-v{0}-net7.0-windows.zip', env.GitVersion_SemVer) }} RS.Fritz.Manager.UI/bin/Release/net7.0-windows/publish/*.*
     - name: Release
-      run: gh release create ${{ format('v{0}', env.GitVersion_SemVer) }} ${{ format('RS.Fritz.Manager-v{0}-net6.0-windows.zip', env.GitVersion_SemVer) }},${{ format('RS.Fritz.Manager-v{0}-net7.0-windows.zip', env.GitVersion_SemVer) }} --generate-notes --target ${{ github.sha }}
+      run: gh release create ${{ format('v{0}', env.GitVersion_SemVer) }} ${{ format('RS.Fritz.Manager-v{0}-net6.0-windows.zip', env.GitVersion_SemVer) }};${{ format('RS.Fritz.Manager-v{0}-net7.0-windows.zip', env.GitVersion_SemVer) }} --generate-notes --target ${{ github.sha }}
       env:
         GH_TOKEN: ${{ github.token }}
     - name: Package
