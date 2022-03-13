@@ -26,11 +26,15 @@ jobs:
       with:
         versionSpec: '5.x'
     - name: Determine Version
-      uses: gittools/actions/gitversion/execute@v0.9.11 
+      run: dotnet-gitversion
     - name: Build
       run: dotnet build --no-restore --configuration Release -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
+    - name: Publish
+      run: |
+        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --no-restore --no-build --configuration Release --framework net6.0
+        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --no-restore --no-build --configuration Release --framework net7.0
     - name: Release
-      run: gh release create ${{ env.GitVersion_SemVer }} --generate-notes
+      run: gh release create ${{ env.GitVersion_SemVer }} RS.Fritz.Manager.UI/bin/Release/**/*.zip --generate-notes --target ${{ github.sha }}
       env:
           GITHUB_TOKEN: ${{ github.token }}
     - name: Package
