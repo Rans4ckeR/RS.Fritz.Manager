@@ -29,6 +29,8 @@ jobs:
       run: dotnet build --no-restore --configuration Release -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
     - name: Release
       run: gh release create env.GitVersion_SemVer --generate-notes
+      env:
+          GITHUB_TOKEN: ${{ github.token }}
     - name: Package
       run: dotnet pack RS.Fritz.Manager.API/RS.Fritz.Manager.API.csproj --no-restore --no-build --configuration Release -p:PackageVersion=$env:GitVersion_SemVer
     - name: NuGet Push
