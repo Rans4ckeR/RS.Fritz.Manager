@@ -26,7 +26,9 @@ jobs:
       with:
         versionSpec: '5.x'
     - name: Determine Version
-      run: dotnet-gitversion
+      run: |
+        dotnet-gitversion
+        env
     - name: Build
       run: dotnet build --no-restore --configuration Release -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
     - name: Publish
@@ -34,9 +36,11 @@ jobs:
         dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --no-restore --no-build --configuration Release --framework net6.0-windows
         dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --no-restore --no-build --configuration Release --framework net7.0-windows
     - name: Release
-      run: gh release create $env:GitVersion_SemVer RS.Fritz.Manager.UI/bin/Release/**/*.zip --generate-notes --target ${{ github.sha }}
+      run: |
+        env
+        gh release create $env:GitVersion_SemVer RS.Fritz.Manager.UI/bin/Release/**/*.zip --generate-notes --target ${{ github.sha }}
       env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
     - name: Package
       run: dotnet pack RS.Fritz.Manager.API/RS.Fritz.Manager.API.csproj --no-restore --no-build --configuration Release -p:PackageVersion=$env:GitVersion_SemVer
     - name: NuGet Push
