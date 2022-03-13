@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  packages: write
 jobs:
   build:
     if: github.repository == 'Rans4ckeR/RS.Fritz.Manager'
