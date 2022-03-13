@@ -30,7 +30,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
     - name: Release
-      run: gh release create env.GitVersion_SemVer --generate-notes
+      run: gh release create ${{ env.GitVersion_SemVer }} --generate-notes
       env:
           GITHUB_TOKEN: ${{ github.token }}
     - name: Package
