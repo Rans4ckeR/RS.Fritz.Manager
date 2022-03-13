@@ -11,7 +11,6 @@
     <Trademark></Trademark>
     <Culture></Culture>
     <Authors>RS</Authors>
-    <DebugType>portable</DebugType>
     <ComVisible>false</ComVisible>
     <CLSCompliant>false</CLSCompliant>
     <AnalysisLevel>preview</AnalysisLevel>
@@ -22,7 +21,7 @@
     <Version>0.0.0.1</Version>
     <FileVersion>0.0.0.1</FileVersion>
     <InformationalVersion>0.0.0.1</InformationalVersion>
-    <Description>A FritzBox API library to read information from and manage FritzBox devices using pure WCF calls.</Description>
+    <Description>A .NET library for FritzBox devices using WCF.</Description>
     <PackageId>RS.Fritz.Manager.API</PackageId>
     <Authors>Rans4ckeR</Authors>
     <PackageTags>Fritz FritzBox Fritz!Box TR064 AVM</PackageTags>
@@ -34,6 +33,7 @@
     <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
     <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <EnablePackageValidation>true</EnablePackageValidation>
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />

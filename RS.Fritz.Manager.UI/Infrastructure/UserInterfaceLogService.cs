@@ -4,7 +4,7 @@ using System;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
 
-public sealed class UserInterfaceLogService : ILogger
+internal sealed class UserInterfaceLogService : ILogger
 {
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
     {
