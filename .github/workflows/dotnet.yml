@@ -34,7 +34,7 @@ jobs:
         dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --no-restore --no-build --configuration Release --framework net6.0-windows
         dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --no-restore --no-build --configuration Release --framework net7.0-windows
     - name: Release
-      run: gh release create '${{ $env:GitVersion_SemVer }}' RS.Fritz.Manager.UI/bin/Release/**/*.zip --generate-notes --target ${{ github.sha }}
+      run: gh release create "${{ $env:GitVersion_SemVer }}" RS.Fritz.Manager.UI/bin/Release/**/*.zip --generate-notes --target ${{ github.sha }}
       env:
         GH_TOKEN: ${{ github.token }}
     - name: Package
