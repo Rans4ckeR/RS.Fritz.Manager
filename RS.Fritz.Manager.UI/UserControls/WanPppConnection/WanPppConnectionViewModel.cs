@@ -10,6 +10,7 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
 {
     private WanPppConnectionGetInfoResponse? wanPppConnectionGetInfoResponse;
     private WanPppConnectionGetConnectionTypeInfoResponse? wanPppConnectionGetConnectionTypeInfoResponse;
+    private WanPppConnectionGetStatusInfoResponse? wanPppConnectionGetStatusInfoResponse;
 
     public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -26,6 +27,12 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
     {
         get => wanPppConnectionGetConnectionTypeInfoResponse;
         private set { _ = SetProperty(ref wanPppConnectionGetConnectionTypeInfoResponse, value); }
+    }
+
+    public WanPppConnectionGetStatusInfoResponse? WanPppConnectionGetStatusInfoResponse
+    {
+        get => wanPppConnectionGetStatusInfoResponse;
+        private set { _ = SetProperty(ref wanPppConnectionGetStatusInfoResponse, value); }
     }
 
     public void Receive(PropertyChangedMessage<WanAccessType?> message)
@@ -48,7 +55,8 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
         await API.TaskExtensions.WhenAllSafe(new[]
           {
                 GetWanPppConnectionGetInfoAsync(),
-                GetWanPppConnectionGetConnectionTypeInfoAsync()
+                GetWanPppConnectionGetConnectionTypeInfoAsync(),
+                GetWanPppConnectionGetStatusInfoAsync()
           });
     }
 
@@ -65,5 +73,10 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
     private async Task GetWanPppConnectionGetConnectionTypeInfoAsync()
     {
         WanPppConnectionGetConnectionTypeInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetConnectionTypeInfoAsync();
+    }
+
+    private async Task GetWanPppConnectionGetStatusInfoAsync()
+    {
+        WanPppConnectionGetStatusInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetStatusInfoAsync();
     }
 }

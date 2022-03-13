@@ -792,9 +792,32 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ConnectionType}" Content="_ConnectionType" ToolTip="The connection type for a specific active connection."/>
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ConnectionStatus}" Content="_PossibleConnectionTypes" ToolTip="The types of connections possible in the context of a specific modem and link type. Possible values are Unconfigured, IP_Routed, IP_Bridged, DHCP_Spoofed, PPPoE_Bridged, PPTP_Relay, L2TP_Relay, PPPoE_Relay."/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PossibleConnectionTypes}" Content="_PossibleConnectionTypes" ToolTip="The types of connections possible in the context of a specific modem and link type. Possible values are Unconfigured, IP_Routed, IP_Bridged, DHCP_Spoofed, PPPoE_Bridged, PPTP_Relay, L2TP_Relay, PPPoE_Relay."/>
                             <TextBlock x:Name="ConnectionType" Grid.Row="0" Grid.Column="1" Text="{Binding ConnectionType}"/>
                             <TextBlock x:Name="PossibleConnectionTypes" Grid.Row="1" Grid.Column="1" Text="{Binding PossibleConnectionTypes}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanPppConnectionGetStatusInfoResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="StatusInfo">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ConnectionStatus}" Content="_ConnectionStatus" ToolTip="Current status of an Internet connection. Possible values are Unconfigured, Connecting, Authenticating, Connected, PendingDisconnect, Disconnecting, Disconnected."/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=LastConnectionError}" Content="_LastConnectionError" ToolTip="Provides information about the cause of failure for the last connection setup attempt. Possible values are ERROR_NONE, ERROR_ISP_TIME_OUT, ERROR_COMMAND_ABORTED, ERROR_NOT_ENABLED_FOR_INTERNET, ERROR_BAD_PHONE_NUMBER, ERROR_USER_DISCONNECT, ERROR_ISP_DISCONNECT, ERROR_IDLE_DISCONNECT, ERROR_FORCED_DISCONNECT, ERROR_SERVER_OUT_OF_RESOURCES, ERROR_RESTRICTED_LOGON_HOURS, ERROR_ACCOUNT_DISABLED, ERROR_ACCOUNT_EXPIRED, ERROR_PASSWORD_EXPIRED, ERROR_AUTHENTICATION_FAILURE, ERROR_NO_DIALTONE, ERROR_NO_CARRIER, ERROR_NO_ANSWER, ERROR_LINE_BUSY, ERROR_UNSUPPORTED_BITSPERSECOND, ERROR_TOO_MANY_LINE_ERRORS, ERROR_IP_CONFIGURATION, ERROR_UNKNOWN."/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Uptime}" Content="_Uptime" ToolTip="The time in seconds that this connection has stayed up."/>
+                            <TextBlock x:Name="ConnectionStatus" Grid.Row="0" Grid.Column="1" Text="{Binding ConnectionStatus}"/>
+                            <TextBlock x:Name="LastConnectionError" Grid.Row="1" Grid.Column="1" Text="{Binding LastConnectionError}"/>
+                            <TextBlock x:Name="Uptime" Grid.Row="2" Grid.Column="1" Text="{Binding Uptime}"/>
                         </Grid>
                     </Expander>
                 </Border>

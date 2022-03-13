@@ -12,4 +12,7 @@ internal interface IFritzWanPppConnectionService
 
     [OperationContract(Action = "urn:dslforum-org:service:WANPPPConnection:1#GetConnectionTypeInfo")]
     public Task<WanPppConnectionGetConnectionTypeInfoResponse> GetConnectionTypeInfoAsync(WanPppConnectionGetConnectionTypeInfoRequest wanPppConnectionGetConnectionTypeInfoRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANPPPConnection:1#GetStatusInfo")]
+    public Task<WanPppConnectionGetStatusInfoResponse> GetStatusInfoAsync(WanPppConnectionGetStatusInfoRequest wanPppConnectionGetStatusInfoRequest);
 }

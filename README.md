@@ -77,7 +77,7 @@ await host.RunAsync();
   * ✅ GetInfo
   * ✅ GetConnectionTypeInfo
   * ❌ SetConnectionType
-  * ❌ GetStatusInfo
+  * ✅ GetStatusInfo
   * ❌ GetLinkLayerMaxBitRates
   * ❌ GetUserName
   * ❌ SetUserName
