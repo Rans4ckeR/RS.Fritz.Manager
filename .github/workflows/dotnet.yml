@@ -3,6 +3,8 @@ on:
   push:
     branches: [ master, release/*, develop ]
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   build:
     if: github.repository == 'Rans4ckeR/RS.Fritz.Manager'
