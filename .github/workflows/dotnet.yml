@@ -26,19 +26,19 @@ jobs:
       with:
         versionSpec: '5.x'
     - name: Determine Version
-      id: gitversion
       uses: gittools/actions/gitversion/execute@v0.9.11
     - name: Build
-      run: dotnet build --no-restore --configuration Release -p:AssemblyVersion=$steps.gitversion.outputs.assemblySemVer -p:FileVersion=$steps.gitversion.outputs.assemblySemFileVer -p:InformationalVersion=$steps.gitversion.outputs.informationalVersion
+      run: dotnet build --no-restore --configuration Release -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
     - name: Publish
       run: |
         dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --no-restore --no-build --configuration Release --framework net6.0-windows
         dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --no-restore --no-build --configuration Release --framework net7.0-windows
     - name: Release
-      run: gh release create $steps.gitversion.outputs.semVer RS.Fritz.Manager.UI/bin/Release/**/*.zip --generate-notes --target ${{ github.sha }}
+      run: gh release create '${{ $env:GitVersion_SemVer }}' RS.Fritz.Manager.UI/bin/Release/**/*.zip --generate-notes --target ${{ github.sha }}
       env:
-          GH_TOKEN: ${{ github.token }}
+        GH_TOKEN: ${{ github.token }}
     - name: Package
-      run: dotnet pack RS.Fritz.Manager.API/RS.Fritz.Manager.API.csproj --no-restore --no-build --configuration Release -p:PackageVersion=$steps.gitversion.outputs.semVer
+      run: dotnet pack RS.Fritz.Manager.API/RS.Fritz.Manager.API.csproj --no-restore --no-build --configuration Release -p:PackageVersion=$env:GitVersion_SemVer
     - name: NuGet Push
-      run: dotnet nuget push ${{ format('RS.Fritz.Manager.API/bin/Release/RS.Fritz.Manager.API.{0}.nupkg', steps.gitversion.outputs.semVer) }} --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ${{ format('RS.Fritz.Manager.API/bin/Release/RS.Fritz.Manager.API.{0}.nupkg', env.GitVersion_SemVer) }} --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+
