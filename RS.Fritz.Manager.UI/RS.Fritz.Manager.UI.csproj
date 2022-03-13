@@ -12,7 +12,7 @@
     <Trademark></Trademark>
     <Culture></Culture>
     <Authors>RS</Authors>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>portable</DebugType>
     <ComVisible>false</ComVisible>
     <CLSCompliant>false</CLSCompliant>
     <AnalysisLevel>preview</AnalysisLevel>
