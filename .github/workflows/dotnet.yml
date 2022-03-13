@@ -33,8 +33,12 @@ jobs:
       run: |
         dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --no-restore --no-build --configuration Release --framework net6.0-windows
         dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --no-restore --no-build --configuration Release --framework net7.0-windows
+    - name: Zip
+      run: |
+        7z a RS.Fritz.Manager.UI/bin/Release/net6.0-windows/publish/*.* ${{ format('RS.Fritz.Manager-v{0}-net6.0-windows.zip', env.GitVersion_SemVer) }}
+        7z a RS.Fritz.Manager.UI/bin/Release/net7.0-windows/publish/*.* ${{ format('RS.Fritz.Manager-v{0}-net7.0-windows.zip', env.GitVersion_SemVer) }}
     - name: Release
-      run: gh release create ${{ format('v{0}', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/**/*.zip --generate-notes --target ${{ github.sha }}
+      run: gh release create ${{ format('v{0}', env.GitVersion_SemVer) }} ${{ format('RS.Fritz.Manager-v{0}-net6.0-windows.zip', env.GitVersion_SemVer) }},${{ format('RS.Fritz.Manager-v{0}-net7.0-windows.zip', env.GitVersion_SemVer) }} --generate-notes --target ${{ github.sha }}
       env:
         GH_TOKEN: ${{ github.token }}
     - name: Package
