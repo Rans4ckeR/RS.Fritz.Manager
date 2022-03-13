@@ -40,9 +40,9 @@ jobs:
     - name: Release
       run: |
         echo "1"
-        get-item ./**/*.zip
+        get-item ./**/*
         echo "2"
-        gh release create ${{ format('v{0}', env.GitVersion_SemVer) }} (get-item ./**/RS.Fritz.Manager-v*.zip) --generate-notes
+        gh release create ${{ format('v{0}', env.GitVersion_SemVer) }} (get-item ./**/RS.Fritz.Manager-v*.zip) --generate-notes ${{ env.GitVersion_PreReleaseTag == '' && '' || '--prerelease' }}
       env:
         GH_TOKEN: ${{ github.token }}
     - name: Package
