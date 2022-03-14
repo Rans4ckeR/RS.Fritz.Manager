@@ -64,7 +64,6 @@ await host.RunAsync();
   * ❌ ForceTermination
   * ❌ RequestConnection
   * ❌ X_GetDNSServers
-  * ❌ X_SetDNSServers
   * ❌ GetPortMappingNumberOfEntries
   * ❌ GetGenericPortMappingEntry
   * ❌ GetSpecificPortMappingEntry
@@ -87,7 +86,7 @@ await host.RunAsync();
   * ❌ ForceTermination
   * ❌ RequestConnection
   * ✅ X_GetDNSServers
-  * ❌ GetPortMappingNumberOfEntries
+  * ✅ GetPortMappingNumberOfEntries
   * ❌ GetGenericPortMappingEntry
   * ❌ GetSpecificPortMappingEntry
   * ❌ AddPortMapping

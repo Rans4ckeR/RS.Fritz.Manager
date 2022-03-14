@@ -47,4 +47,9 @@ internal sealed class FritzWanPppConnectionService : FritzServiceClient<IFritzWa
     {
         return Channel.GetDnsServersAsync(wanPppConnectionGetDnsServersRequest);
     }
+
+    public Task<WanPppConnectionGetPortMappingNumberOfEntriesResponse> GetPortMappingNumberOfEntriesAsync(WanPppConnectionGetPortMappingNumberOfEntriesRequest wanPppConnectionGetPortMappingNumberOfEntriesRequest)
+    {
+        return Channel.GetPortMappingNumberOfEntriesAsync(wanPppConnectionGetPortMappingNumberOfEntriesRequest);
+    }
 }

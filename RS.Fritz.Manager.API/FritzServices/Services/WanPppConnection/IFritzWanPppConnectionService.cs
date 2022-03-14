@@ -27,4 +27,7 @@ internal interface IFritzWanPppConnectionService
 
     [OperationContract(Action = "urn:dslforum-org:service:WANPPPConnection:1#X_GetDNSServers")]
     public Task<WanPppConnectionGetDnsServersResponse> GetDnsServersAsync(WanPppConnectionGetDnsServersRequest wanPppConnectionGetDnsServersRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANPPPConnection:1#GetPortMappingNumberOfEntries")]
+    public Task<WanPppConnectionGetPortMappingNumberOfEntriesResponse> GetPortMappingNumberOfEntriesAsync(WanPppConnectionGetPortMappingNumberOfEntriesRequest wanPppConnectionGetPortMappingNumberOfEntriesRequest);
 }

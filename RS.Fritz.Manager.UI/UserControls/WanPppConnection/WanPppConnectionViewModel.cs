@@ -15,6 +15,7 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
     private WanPppConnectionGetUserNameResponse? wanPppConnectionGetUserNameResponse;
     private WanPppConnectionGetNatRsipStatusResponse? wanPppConnectionGetNatRsipStatusResponse;
     private WanPppConnectionGetDnsServersResponse? wanPppConnectionGetDnsServersResponse;
+    private WanPppConnectionGetPortMappingNumberOfEntriesResponse? wanPppConnectionGetPortMappingNumberOfEntriesResponse;
 
     public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -63,6 +64,12 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
         private set { _ = SetProperty(ref wanPppConnectionGetDnsServersResponse, value); }
     }
 
+    public WanPppConnectionGetPortMappingNumberOfEntriesResponse? WanPppConnectionGetPortMappingNumberOfEntriesResponse
+    {
+        get => wanPppConnectionGetPortMappingNumberOfEntriesResponse;
+        private set { _ = SetProperty(ref wanPppConnectionGetPortMappingNumberOfEntriesResponse, value); }
+    }
+
     public void Receive(PropertyChangedMessage<WanAccessType?> message)
     {
         if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
@@ -88,7 +95,8 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
                 GetWanPppConnectionGetLinkLayerMaxBitRatesAsync(),
                 GetWanPppConnectionGetUserNameAsync(),
                 GetWanPppConnectionGetNatRsipStatusAsync(),
-                GetWanPppConnectionGetDnsServersAsync()
+                GetWanPppConnectionGetDnsServersAsync(),
+                GetWanPppConnectionGetPortMappingNumberOfEntriesAsync()
           });
     }
 
@@ -130,5 +138,10 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
     private async Task GetWanPppConnectionGetDnsServersAsync()
     {
         WanPppConnectionGetDnsServersResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetDnsServersAsync();
+    }
+
+    private async Task GetWanPppConnectionGetPortMappingNumberOfEntriesAsync()
+    {
+        WanPppConnectionGetPortMappingNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetPortMappingNumberOfEntriesAsync();
     }
 }
