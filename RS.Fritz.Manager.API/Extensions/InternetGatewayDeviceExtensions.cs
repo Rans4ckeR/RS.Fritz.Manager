@@ -148,4 +148,9 @@ public static class InternetGatewayDeviceExtensions
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.WanPppConnectionGetLinkLayerMaxBitRatesAsync(d));
     }
+
+    public static Task<WanPppConnectionGetUserNameResponse> WanPppConnectionGetUserNameAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.WanPppConnectionGetUserNameAsync(d));
+    }
 }
