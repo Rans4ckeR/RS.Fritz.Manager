@@ -55,7 +55,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         InternetGatewayDevice[] internetGatewayDevices = deviceDictionaries
             .Select(q => new InternetGatewayDeviceResponse(new Uri(q["LOCATION"]), q["SERVER"], q["CACHE-CONTROL"], q["EXT"], q["ST"], q["USN"]))
             .GroupBy(q => q.Usn)
-            .Select(q => new InternetGatewayDevice(fritzServiceOperationHandler, q.Select(r => r.Location).Distinct(), q.Select(r => r.Server).Distinct().Single(), q.Select(r => r.CacheControl).Distinct().Single(), q.Select(r => r.Ext).Distinct().Single(), q.Select(r => r.SearchTarget).Distinct().Single(), q.Key, q.Select(r => r.Location).Distinct().SingleOrDefault(r => r.HostNameType is UriHostNameType.IPv6) ?? q.Select(r => r.Location).Distinct().Single(r => r.HostNameType is UriHostNameType.IPv4)))
+            .Select(GetInternetGatewayDevice)
             .ToArray();
 
         await TaskExtensions.WhenAllSafe(internetGatewayDevices.Select(q => GetUPnPDescription(q, cancellationToken)));
@@ -63,18 +63,23 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         return internetGatewayDevices;
     }
 
+    private static Uri GetPreferredLocation(IGrouping<string, InternetGatewayDeviceResponse> internetGatewayDeviceResponses)
+    {
+        return internetGatewayDeviceResponses.Select(q => q.Location).Distinct().SingleOrDefault(q => q.HostNameType is UriHostNameType.IPv6) ?? internetGatewayDeviceResponses.Select(q => q.Location).Distinct().Single(q => q.HostNameType is UriHostNameType.IPv4);
+    }
+
     private static IEnumerable<Dictionary<string, string>> GetDeviceDictionaries(IEnumerable<string> responses)
     {
-        return responses.Select(q => q.Split(Environment.NewLine)).Select(q => q.Where(r => r.Contains(':')).ToDictionary(
-            s => s[..s.IndexOf(':')],
+        return responses.Select(q => q.Split(Environment.NewLine)).Select(q => q.Where(r => r.Contains(':', StringComparison.OrdinalIgnoreCase)).ToDictionary(
+            s => s[..s.IndexOf(':', StringComparison.OrdinalIgnoreCase)],
             s =>
             {
-                string value = s[s.IndexOf(':')..];
+                string value = s[s.IndexOf(':', StringComparison.OrdinalIgnoreCase)..];
 
-                if (value.EndsWith(':'))
-                    return value.Replace(":", null);
+                if (value.EndsWith(":", StringComparison.OrdinalIgnoreCase))
+                    return value.Replace(":", null, StringComparison.OrdinalIgnoreCase);
 
-                return value.Replace(": ", null);
+                return value.Replace(": ", null, StringComparison.OrdinalIgnoreCase);
             }));
     }
 
@@ -163,5 +168,18 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         using var xmlTextReader = new XmlTextReader(stringReader);
 
         internetGatewayDevice.UPnPDescription = (UPnPDescription?)new DataContractSerializer(typeof(UPnPDescription)).ReadObject(xmlTextReader);
+    }
+
+    private InternetGatewayDevice GetInternetGatewayDevice(IGrouping<string, InternetGatewayDeviceResponse> internetGatewayDeviceResponses)
+    {
+        return new InternetGatewayDevice(
+            fritzServiceOperationHandler,
+            internetGatewayDeviceResponses.Select(r => r.Location).Distinct(),
+            internetGatewayDeviceResponses.Select(r => r.Server).Distinct().Single(),
+            internetGatewayDeviceResponses.Select(r => r.CacheControl).Distinct().Single(),
+            internetGatewayDeviceResponses.Select(r => r.Ext).Distinct().Single(),
+            internetGatewayDeviceResponses.Select(r => r.SearchTarget).Distinct().Single(),
+            internetGatewayDeviceResponses.Key,
+            GetPreferredLocation(internetGatewayDeviceResponses));
     }
 }
