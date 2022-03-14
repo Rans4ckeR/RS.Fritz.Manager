@@ -158,4 +158,9 @@ public static class InternetGatewayDeviceExtensions
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.WanPppConnectionGetNatRsipStatusAsync(d));
     }
+
+    public static Task<WanPppConnectionGetDnsServersResponse> WanPppConnectionGetDnsServersAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.WanPppConnectionGetDnsServersAsync(d));
+    }
 }

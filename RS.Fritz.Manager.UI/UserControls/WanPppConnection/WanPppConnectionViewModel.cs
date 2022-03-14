@@ -14,6 +14,7 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
     private WanPppConnectionGetLinkLayerMaxBitRatesResponse? wanPppConnectionGetLinkLayerMaxBitRatesResponse;
     private WanPppConnectionGetUserNameResponse? wanPppConnectionGetUserNameResponse;
     private WanPppConnectionGetNatRsipStatusResponse? wanPppConnectionGetNatRsipStatusResponse;
+    private WanPppConnectionGetDnsServersResponse? wanPppConnectionGetDnsServersResponse;
 
     public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -56,6 +57,12 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
         private set { _ = SetProperty(ref wanPppConnectionGetNatRsipStatusResponse, value); }
     }
 
+    public WanPppConnectionGetDnsServersResponse? WanPppConnectionGetDnsServersResponse
+    {
+        get => wanPppConnectionGetDnsServersResponse;
+        private set { _ = SetProperty(ref wanPppConnectionGetDnsServersResponse, value); }
+    }
+
     public void Receive(PropertyChangedMessage<WanAccessType?> message)
     {
         if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
@@ -79,8 +86,9 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
                 GetWanPppConnectionGetConnectionTypeInfoAsync(),
                 GetWanPppConnectionGetStatusInfoAsync(),
                 GetWanPppConnectionGetLinkLayerMaxBitRatesAsync(),
-                GetWanPppConnectionGetUserNameResponseAsync(),
-                GetWanPppConnectionGetNatRsipStatusResponseAsync()
+                GetWanPppConnectionGetUserNameAsync(),
+                GetWanPppConnectionGetNatRsipStatusAsync(),
+                GetWanPppConnectionGetDnsServersAsync()
           });
     }
 
@@ -109,13 +117,18 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
         WanPppConnectionGetLinkLayerMaxBitRatesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetLinkLayerMaxBitRatesAsync();
     }
 
-    private async Task GetWanPppConnectionGetUserNameResponseAsync()
+    private async Task GetWanPppConnectionGetUserNameAsync()
     {
         WanPppConnectionGetUserNameResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetUserNameAsync();
     }
 
-    private async Task GetWanPppConnectionGetNatRsipStatusResponseAsync()
+    private async Task GetWanPppConnectionGetNatRsipStatusAsync()
     {
         WanPppConnectionGetNatRsipStatusResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetNatRsipStatusAsync();
+    }
+
+    private async Task GetWanPppConnectionGetDnsServersAsync()
+    {
+        WanPppConnectionGetDnsServersResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetDnsServersAsync();
     }
 }

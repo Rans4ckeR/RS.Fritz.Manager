@@ -647,7 +647,7 @@
                             <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=NATEnabled}" Content="_NATEnabled" ToolTip="Indicates if Network Address Translation (NAT) is enabled for this connection."/>
                             <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=ExternalIPAddress}" Content="_ExternalIPAddress" ToolTip="This is the external IP address used by NAT for the connection."/>
                             <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=DNSServers}" Content="_DNSServers" ToolTip="Comma separated list of DNS servers configured on the WANIPConnection."/>
-                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="The physical address of the WANPPPConnection if applicable"/>
+                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="The physical address of the WANPIPConnection if applicable"/>
                             <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ConnectionTrigger}" Content="_ConnectionTrigger" ToolTip="Defines the trigger used to establish the PPP connection."/>
                             <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=RouteProtocolRx}" Content="_RouteProtocolRx" ToolTip="Defines the Rx protocol to be used."/>
                             <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DNSEnabled}" Content="_DNSEnabled" ToolTip="Defines whether or not the device should attempt to query a DNS server across this connection."/>
@@ -727,7 +727,7 @@
                             <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=UserName}" Content="_UserName" ToolTip="The User name used to login to the Internet Service Provider."/>
                             <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=NATEnabled}" Content="_NATEnabled" ToolTip="Indicates if Network Address Translation (NAT) is enabled for this connection."/>
                             <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=ExternalIPAddress}" Content="_ExternalIPAddress" ToolTip="This is the external IP address used by NAT for the connection."/>
-                            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DNSServers}" Content="_DNSServers" ToolTip="Comma separated list of DNS servers configured on the WANIPConnection."/>
+                            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DNSServers}" Content="_DNSServers" ToolTip="Comma separated list of DNS servers configured on the WANPPPConnection."/>
                             <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="The physical address of the WANPPPConnection if applicable"/>
                             <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=ConnectionTrigger}" Content="_ConnectionTrigger" ToolTip="Defines the trigger used to establish the PPP connection."/>
                             <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=LastAuthErrorInfo}" Content="_LastAuthErrorInfo"/>
@@ -875,6 +875,23 @@
                             <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=NatEnabled}" Content="_NatEnabled" ToolTip="Indicates if Network Address Translation (NAT) is enabled for this connection."/>
                             <TextBlock x:Name="RsipAvailable" Grid.Row="0" Grid.Column="1" Text="{Binding RsipAvailable}"/>
                             <TextBlock x:Name="NatEnabled" Grid.Row="1" Grid.Column="1" Text="{Binding NatEnabled}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanPppConnectionGetDnsServersResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DnsServers">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DnsServers}" Content="_DnsServers" ToolTip="Comma separated list of DNS servers configured on the WANPPPConnection."/>
+                            <TextBlock x:Name="DnsServers" Grid.Row="0" Grid.Column="1" Text="{Binding DnsServers}"/>
                         </Grid>
                     </Expander>
                 </Border>

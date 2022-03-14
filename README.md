@@ -86,7 +86,7 @@ await host.RunAsync();
   * ❌ SetConnectionTrigger
   * ❌ ForceTermination
   * ❌ RequestConnection
-  * ❌ X_GetDNSServers
+  * ✅ X_GetDNSServers
   * ❌ GetPortMappingNumberOfEntries
   * ❌ GetGenericPortMappingEntry
   * ❌ GetSpecificPortMappingEntry
