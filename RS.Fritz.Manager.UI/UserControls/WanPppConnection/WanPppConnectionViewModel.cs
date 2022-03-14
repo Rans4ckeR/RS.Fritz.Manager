@@ -13,6 +13,7 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
     private WanPppConnectionGetStatusInfoResponse? wanPppConnectionGetStatusInfoResponse;
     private WanPppConnectionGetLinkLayerMaxBitRatesResponse? wanPppConnectionGetLinkLayerMaxBitRatesResponse;
     private WanPppConnectionGetUserNameResponse? wanPppConnectionGetUserNameResponse;
+    private WanPppConnectionGetNatRsipStatusResponse? wanPppConnectionGetNatRsipStatusResponse;
 
     public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -49,6 +50,12 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
         private set { _ = SetProperty(ref wanPppConnectionGetUserNameResponse, value); }
     }
 
+    public WanPppConnectionGetNatRsipStatusResponse? WanPppConnectionGetNatRsipStatusResponse
+    {
+        get => wanPppConnectionGetNatRsipStatusResponse;
+        private set { _ = SetProperty(ref wanPppConnectionGetNatRsipStatusResponse, value); }
+    }
+
     public void Receive(PropertyChangedMessage<WanAccessType?> message)
     {
         if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
@@ -72,7 +79,8 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
                 GetWanPppConnectionGetConnectionTypeInfoAsync(),
                 GetWanPppConnectionGetStatusInfoAsync(),
                 GetWanPppConnectionGetLinkLayerMaxBitRatesAsync(),
-                GetWanPppConnectionGetUserNameResponseAsync()
+                GetWanPppConnectionGetUserNameResponseAsync(),
+                GetWanPppConnectionGetNatRsipStatusResponseAsync()
           });
     }
 
@@ -104,5 +112,10 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
     private async Task GetWanPppConnectionGetUserNameResponseAsync()
     {
         WanPppConnectionGetUserNameResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetUserNameAsync();
+    }
+
+    private async Task GetWanPppConnectionGetNatRsipStatusResponseAsync()
+    {
+        WanPppConnectionGetNatRsipStatusResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetNatRsipStatusAsync();
     }
 }

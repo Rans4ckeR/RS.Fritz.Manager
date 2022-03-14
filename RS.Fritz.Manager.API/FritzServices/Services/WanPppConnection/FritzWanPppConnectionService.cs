@@ -37,4 +37,9 @@ internal sealed class FritzWanPppConnectionService : FritzServiceClient<IFritzWa
     {
         return Channel.GetUserNameAsync(wanPppConnectionGetUserNameRequest);
     }
+
+    public Task<WanPppConnectionGetNatRsipStatusResponse> GetNatRsipStatusAsync(WanPppConnectionGetNatRsipStatusRequest wanPppConnectionGetNatRsipStatusRequest)
+    {
+        return Channel.GetNatRsipStatusAsync(wanPppConnectionGetNatRsipStatusRequest);
+    }
 }

@@ -21,4 +21,7 @@ internal interface IFritzWanPppConnectionService
 
     [OperationContract(Action = "urn:dslforum-org:service:WANPPPConnection:1#GetUserName")]
     public Task<WanPppConnectionGetUserNameResponse> GetUserNameAsync(WanPppConnectionGetUserNameRequest wanPppConnectionGetUserNameRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANPPPConnection:1#GetNATRSIPStatus")]
+    public Task<WanPppConnectionGetNatRsipStatusResponse> GetNatRsipStatusAsync(WanPppConnectionGetNatRsipStatusRequest wanPppConnectionGetNatRsipStatusRequest);
 }

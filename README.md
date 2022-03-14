@@ -82,7 +82,7 @@ await host.RunAsync();
   * ✅ GetUserName
   * ❌ SetUserName
   * ❌ SetPassword
-  * ❌ GetNATRSIPStatus
+  * ✅ GetNATRSIPStatus
   * ❌ SetConnectionTrigger
   * ❌ ForceTermination
   * ❌ RequestConnection
