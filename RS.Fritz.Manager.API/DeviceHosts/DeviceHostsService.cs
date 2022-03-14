@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Runtime.Serialization;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -17,9 +18,9 @@ internal sealed class DeviceHostsService : IDeviceHostsService
         this.httpClientFactory = httpClientFactory;
     }
 
-    public async Task<IEnumerable<DeviceHost>> GetDeviceHostsAsync(Uri hostListPathUri)
+    public async Task<IEnumerable<DeviceHost>> GetDeviceHostsAsync(Uri hostListPathUri, CancellationToken cancellationToken = default)
     {
-        string deviceHostsListXml = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStringAsync(hostListPathUri);
+        string deviceHostsListXml = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStringAsync(hostListPathUri, cancellationToken);
 
         using var stringReader = new StringReader(deviceHostsListXml);
         using var xmlTextReader = new XmlTextReader(stringReader);

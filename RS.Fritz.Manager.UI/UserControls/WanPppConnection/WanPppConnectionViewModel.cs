@@ -1,5 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
+using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
@@ -85,7 +86,7 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync()
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
           {

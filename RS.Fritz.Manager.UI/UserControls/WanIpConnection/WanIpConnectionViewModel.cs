@@ -1,5 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
+using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
@@ -36,7 +37,7 @@ internal sealed class WanIpConnectionViewModel : FritzServiceViewModel, IRecipie
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync()
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         WanIpConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetInfoAsync();
     }

@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.ServiceModel.Security;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -173,11 +174,11 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync()
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         ActiveView = null;
         DeviceLoginInfo.InternetGatewayDevice = null;
-        Devices = new ObservableCollection<ObservableInternetGatewayDevice>((await deviceSearchService.GetDevicesAsync()).Select(q => new ObservableInternetGatewayDevice(q)));
+        Devices = new ObservableCollection<ObservableInternetGatewayDevice>((await deviceSearchService.GetDevicesAsync(cancellationToken: cancellationToken)).Select(q => new ObservableInternetGatewayDevice(q)));
     }
 
     protected override bool GetCanExecuteDefaultCommand()

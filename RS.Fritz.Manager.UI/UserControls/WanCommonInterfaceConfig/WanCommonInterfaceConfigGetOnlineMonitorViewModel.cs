@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -157,7 +158,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync()
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         WanCommonInterfaceConfigGetOnlineMonitorResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanCommonInterfaceConfigGetOnlineMonitorAsync(SyncGroupIndex);
     }
