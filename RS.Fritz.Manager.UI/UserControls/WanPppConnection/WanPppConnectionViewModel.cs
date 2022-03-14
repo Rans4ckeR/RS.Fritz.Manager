@@ -11,6 +11,7 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
     private WanPppConnectionGetInfoResponse? wanPppConnectionGetInfoResponse;
     private WanPppConnectionGetConnectionTypeInfoResponse? wanPppConnectionGetConnectionTypeInfoResponse;
     private WanPppConnectionGetStatusInfoResponse? wanPppConnectionGetStatusInfoResponse;
+    private WanPppConnectionGetLinkLayerMaxBitRatesResponse? wanPppConnectionGetLinkLayerMaxBitRatesResponse;
 
     public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -35,6 +36,12 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
         private set { _ = SetProperty(ref wanPppConnectionGetStatusInfoResponse, value); }
     }
 
+    public WanPppConnectionGetLinkLayerMaxBitRatesResponse? WanPppConnectionGetLinkLayerMaxBitRatesResponse
+    {
+        get => wanPppConnectionGetLinkLayerMaxBitRatesResponse;
+        private set { _ = SetProperty(ref wanPppConnectionGetLinkLayerMaxBitRatesResponse, value); }
+    }
+
     public void Receive(PropertyChangedMessage<WanAccessType?> message)
     {
         if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
@@ -56,7 +63,8 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
           {
                 GetWanPppConnectionGetInfoAsync(),
                 GetWanPppConnectionGetConnectionTypeInfoAsync(),
-                GetWanPppConnectionGetStatusInfoAsync()
+                GetWanPppConnectionGetStatusInfoAsync(),
+                GeWanPppConnectionGetLinkLayerMaxBitRatesAsync()
           });
     }
 
@@ -78,5 +86,10 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
     private async Task GetWanPppConnectionGetStatusInfoAsync()
     {
         WanPppConnectionGetStatusInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetStatusInfoAsync();
+    }
+
+    private async Task GeWanPppConnectionGetLinkLayerMaxBitRatesAsync()
+    {
+        WanPppConnectionGetLinkLayerMaxBitRatesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetLinkLayerMaxBitRatesAsync();
     }
 }

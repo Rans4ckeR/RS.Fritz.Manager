@@ -15,4 +15,7 @@ internal interface IFritzWanPppConnectionService
 
     [OperationContract(Action = "urn:dslforum-org:service:WANPPPConnection:1#GetStatusInfo")]
     public Task<WanPppConnectionGetStatusInfoResponse> GetStatusInfoAsync(WanPppConnectionGetStatusInfoRequest wanPppConnectionGetStatusInfoRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANPPPConnection:1#GetLinkLayerMaxBitRates")]
+    public Task<WanPppConnectionGetLinkLayerMaxBitRatesResponse> GetLinkLayerMaxBitRatesAsync(WanPppConnectionGetLinkLayerMaxBitRatesRequest wanPppConnectionGetLinkLayerMaxBitRatesRequest);
 }

@@ -27,4 +27,9 @@ internal sealed class FritzWanPppConnectionService : FritzServiceClient<IFritzWa
     {
         return Channel.GetStatusInfoAsync(wanPppConnectionGetStatusInfoRequest);
     }
+
+    public Task<WanPppConnectionGetLinkLayerMaxBitRatesResponse> GetLinkLayerMaxBitRatesAsync(WanPppConnectionGetLinkLayerMaxBitRatesRequest wanPppConnectionGetLinkLayerMaxBitRatesRequest)
+    {
+        return Channel.GetLinkLayerMaxBitRatesAsync(wanPppConnectionGetLinkLayerMaxBitRatesRequest);
+    }
 }

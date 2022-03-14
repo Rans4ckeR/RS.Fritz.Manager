@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -20,5 +21,6 @@
         <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WanPppConnectionGetInfoResponse}"/>
         <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding WanPppConnectionGetConnectionTypeInfoResponse}"/>
         <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding WanPppConnectionGetStatusInfoResponse}"/>
+        <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding WanPppConnectionGetLinkLayerMaxBitRatesResponse}"/>
     </Grid>
 </UserControl>
