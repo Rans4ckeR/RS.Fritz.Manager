@@ -76,7 +76,7 @@
                                 <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Ext}" Content="_Ext" ToolTip="Required for backwards compatibility with UPnP 1.0. (Header field name only; no field value.)"/>
                                 <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=UniqueServiceName}" Content="_UniqueServiceName" ToolTip="Field value contains Unique Service Name. Identifies a unique instance of a device or service. The prefix (before the double colon) shall match the value of the UDN element in the device description OR the lower ST version used in the M-Search request."/>
                                 <TextBlock x:Name="Server" Grid.Row="1" Grid.Column="1" Text="{Binding Server}"/>
-                                <ListView x:Name="Locations" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding   Locations}" Foreground="{StaticResource TextSolidColorBrush}" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="2">
+                                <ListView x:Name="Locations" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Locations}" Foreground="{StaticResource TextSolidColorBrush}" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="2">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock>
@@ -169,13 +169,13 @@
                     <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Major}" Content="_Major"/>
                     <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Minor}" Content="_Minor"/>
                     <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Patch}" Content="_Patch"/>
-                    <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Buildnumber}" Content="_Buildnumber"/>
+                    <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=BuildNumber}" Content="_BuildNumber"/>
                     <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=Display}" Content="_Display"/>
                     <TextBlock x:Name="HW" Grid.Row="1" Grid.Column="1" Text="{Binding HW}"/>
                     <TextBlock x:Name="Major" Grid.Row="2" Grid.Column="1" Text="{Binding Major}"/>
                     <TextBlock x:Name="Minor" Grid.Row="3" Grid.Column="1" Text="{Binding Minor}"/>
                     <TextBlock x:Name="Patch" Grid.Row="4" Grid.Column="1" Text="{Binding Patch}"/>
-                    <TextBlock x:Name="Buildnumber" Grid.Row="5" Grid.Column="1" Text="{Binding Buildnumber}"/>
+                    <TextBlock x:Name="BuildNumber" Grid.Row="5" Grid.Column="1" Text="{Binding BuildNumber}"/>
                     <TextBlock x:Name="Display" Grid.Row="6" Grid.Column="1" Text="{Binding Display}"/>
                 </Grid>
             </DataTemplate>
@@ -298,7 +298,7 @@
                             <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=SerialNumber}" Content="_SerialNumber" ToolTip="Serial number of the Customer Premises Equipment (CPE)."/>
                             <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=SoftwareVersion}" Content="_SoftwareVersion" ToolTip="Represents the current firmware version. It should be in the syntax used by the individual vendor to identify software versions."/>
                             <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=SpecVersion}" Content="_SpecVersion" ToolTip="Represents the version of the specification implemented by the device. Currently 1.0 is the only available version."/>
-                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=UpTime}" Content="_UpTime" ToolTip="Time in seconds since the Customer Premises Equipment (CPE) was last restarted."/>
+                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=Uptime}" Content="_Uptime" ToolTip="Time in seconds since the Customer Premises Equipment (CPE) was last restarted."/>
                             <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=DeviceLog}" Content="_DeviceLog" ToolTip="Vendor specific content containing the contents of all logs."/>
                             <TextBlock x:Name="Description" Grid.Row="0" Grid.Column="1" Text="{Binding Description}"/>
                             <TextBlock x:Name="HardwareVersion" Grid.Row="1" Grid.Column="1" Text="{Binding HardwareVersion}"/>
@@ -310,7 +310,7 @@
                             <TextBlock x:Name="SerialNumber" Grid.Row="7" Grid.Column="1" Text="{Binding SerialNumber}"/>
                             <TextBlock x:Name="SoftwareVersion" Grid.Row="8" Grid.Column="1" Text="{Binding SoftwareVersion}"/>
                             <TextBlock x:Name="SpecVersion" Grid.Row="9" Grid.Column="1" Text="{Binding SpecVersion}"/>
-                            <TextBlock x:Name="UpTime" Grid.Row="10" Grid.Column="1" Text="{Binding UpTime}"/>
+                            <TextBlock x:Name="Uptime" Grid.Row="10" Grid.Column="1" Text="{Binding Uptime}"/>
                             <TextBlock x:Name="DeviceLog" Grid.Row="11" Grid.Column="1" Text="{Binding DeviceLog}"/>
                         </Grid>
                     </Expander>

@@ -19,7 +19,7 @@ public sealed record SystemVersion
     public int Patch { get; set; }
 
     [DataMember(Name = "Buildnumber", Order = 4)]
-    public int Buildnumber { get; set; }
+    public int BuildNumber { get; set; }
 
     [DataMember(Name = "Display", Order = 5)]
     public string Display { get; set; }
