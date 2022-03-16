@@ -13,9 +13,8 @@
     <Authors>RS</Authors>
     <ComVisible>false</ComVisible>
     <CLSCompliant>false</CLSCompliant>
-    <AnalysisLevel>preview</AnalysisLevel>
+    <AnalysisLevel>preview-all</AnalysisLevel>
     <LangVersion>preview</LangVersion>
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <Nullable>enable</Nullable>
     <Version>0.0.0.1</Version>
@@ -34,10 +33,11 @@
     <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <EnablePackageValidation>true</EnablePackageValidation>
+    <Platform>AnyCPU</Platform>
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
-    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0-preview.2.22152.2" />
@@ -53,6 +53,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.ServiceModel.Http" Version="4.9.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 </Project>
