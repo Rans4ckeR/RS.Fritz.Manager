@@ -17,6 +17,8 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
     private WanPppConnectionGetNatRsipStatusResponse? wanPppConnectionGetNatRsipStatusResponse;
     private WanPppConnectionGetDnsServersResponse? wanPppConnectionGetDnsServersResponse;
     private WanPppConnectionGetPortMappingNumberOfEntriesResponse? wanPppConnectionGetPortMappingNumberOfEntriesResponse;
+    private WanPppConnectionGetExternalIpAddressResponse? wanPppConnectionGetExternalIpAddressResponse;
+    private WanPppConnectionGetAutoDisconnectTimeSpanResponse? wanPppConnectionGetAutoDisconnectTimeSpanResponse;
 
     public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -71,6 +73,18 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
         private set { _ = SetProperty(ref wanPppConnectionGetPortMappingNumberOfEntriesResponse, value); }
     }
 
+    public WanPppConnectionGetExternalIpAddressResponse? WanPppConnectionGetExternalIpAddressResponse
+    {
+        get => wanPppConnectionGetExternalIpAddressResponse;
+        private set { _ = SetProperty(ref wanPppConnectionGetExternalIpAddressResponse, value); }
+    }
+
+    public WanPppConnectionGetAutoDisconnectTimeSpanResponse? WanPppConnectionGetAutoDisconnectTimeSpanResponse
+    {
+        get => wanPppConnectionGetAutoDisconnectTimeSpanResponse;
+        private set { _ = SetProperty(ref wanPppConnectionGetAutoDisconnectTimeSpanResponse, value); }
+    }
+
     public void Receive(PropertyChangedMessage<WanAccessType?> message)
     {
         if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
@@ -97,7 +111,9 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
                 GetWanPppConnectionGetUserNameAsync(),
                 GetWanPppConnectionGetNatRsipStatusAsync(),
                 GetWanPppConnectionGetDnsServersAsync(),
-                GetWanPppConnectionGetPortMappingNumberOfEntriesAsync()
+                GetWanPppConnectionGetPortMappingNumberOfEntriesAsync(),
+                GetWanPppConnectionGetExternalIpAddressAsync(),
+                GetWanPppConnectionGetAutoDisconnectTimeSpanAsync()
           });
     }
 
@@ -144,5 +160,15 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
     private async Task GetWanPppConnectionGetPortMappingNumberOfEntriesAsync()
     {
         WanPppConnectionGetPortMappingNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetPortMappingNumberOfEntriesAsync();
+    }
+
+    private async Task GetWanPppConnectionGetExternalIpAddressAsync()
+    {
+        WanPppConnectionGetExternalIpAddressResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetExternalIpAddressAsync();
+    }
+
+    private async Task GetWanPppConnectionGetAutoDisconnectTimeSpanAsync()
+    {
+        WanPppConnectionGetAutoDisconnectTimeSpanResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetAutoDisconnectTimeSpanAsync();
     }
 }

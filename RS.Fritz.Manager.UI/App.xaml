@@ -907,8 +907,45 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DnsServers}" Content="_PortMappingNumberOfEntries" ToolTip="Retrieves the value of the PortMappingNumberOfEntries state variable."/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=PortMappingNumberOfEntries}" Content="_PortMappingNumberOfEntries" ToolTip="Retrieves the value of the PortMappingNumberOfEntries state variable."/>
                             <TextBlock x:Name="PortMappingNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding PortMappingNumberOfEntries}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanPppConnectionGetExternalIpAddressResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ExternalIpAddress">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ExternalIpAddress}" Content="_ExternalIpAddress" ToolTip="Retrieves the value of the ExternalIpAddress state variable."/>
+                            <TextBlock x:Name="ExternalIpAddress" Grid.Row="0" Grid.Column="1" Text="{Binding ExternalIpAddress}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanPppConnectionGetAutoDisconnectTimeSpanResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="AutoDisconnectTimeSpan">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DisconnectPreventionEnable}" Content="_DisconnectPreventionEnable" ToolTip="Retrieves the value of the DisconnectPreventionEnable state variable."/>
+                            <TextBlock x:Name="DisconnectPreventionEnable" Grid.Row="0" Grid.Column="1" Text="{Binding DisconnectPreventionEnable}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DisconnectPreventionHour}" Content="_DisconnectPreventionHour" ToolTip="Retrieves the value of the DisconnectPreventionHour state variable (0-23)."/>
+                            <TextBlock x:Name="DisconnectPreventionHour" Grid.Row="1" Grid.Column="1" Text="{Binding DisconnectPreventionHour}"/>
                         </Grid>
                     </Expander>
                 </Border>

@@ -91,10 +91,10 @@ await host.RunAsync();
   * ❌ GetSpecificPortMappingEntry
   * ❌ AddPortMapping
   * ❌ DeletePortMapping
-  * ❌ GetExternalIPAddress
+  * ✅ GetExternalIPAddress
   * ❌ SetRouteProtocolRx
   * ❌ SetIdleDisconnectTime
-  * ❌ X_AVM_DE_GetAutoDisconnectTimeSpan
+  * ✅ X_AVM_DE_GetAutoDisconnectTimeSpan
   * ❌ X_AVM_DE_SetAutoDisconnectTimeSpan
 * ✅ urn:dslforum-org:service:WANCommonInterfaceConfig:1
   * ✅ GetCommonLinkProperties

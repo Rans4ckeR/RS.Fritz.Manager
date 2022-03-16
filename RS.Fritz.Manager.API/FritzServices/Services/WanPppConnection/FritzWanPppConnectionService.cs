@@ -52,4 +52,14 @@ internal sealed class FritzWanPppConnectionService : FritzServiceClient<IFritzWa
     {
         return Channel.GetPortMappingNumberOfEntriesAsync(wanPppConnectionGetPortMappingNumberOfEntriesRequest);
     }
+
+    public Task<WanPppConnectionGetExternalIpAddressResponse> GetExternalIpAddressAsync(WanPppConnectionGetExternalIpAddressRequest wanPppConnectionGetExternalIpAddressRequest)
+    {
+        return Channel.GetExternalIpAddressAsync(wanPppConnectionGetExternalIpAddressRequest);
+    }
+
+    public Task<WanPppConnectionGetAutoDisconnectTimeSpanResponse> GetAutoDisconnectTimeSpanAsync(WanPppConnectionGetAutoDisconnectTimeSpanRequest wanPppConnectionGetAutoDisconnectTimeSpanRequest)
+    {
+        return Channel.GetAutoDisconnectTimeSpanAsync(wanPppConnectionGetAutoDisconnectTimeSpanRequest);
+    }
 }

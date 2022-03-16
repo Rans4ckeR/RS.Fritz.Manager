@@ -30,4 +30,10 @@ internal interface IFritzWanPppConnectionService
 
     [OperationContract(Action = "urn:dslforum-org:service:WANPPPConnection:1#GetPortMappingNumberOfEntries")]
     public Task<WanPppConnectionGetPortMappingNumberOfEntriesResponse> GetPortMappingNumberOfEntriesAsync(WanPppConnectionGetPortMappingNumberOfEntriesRequest wanPppConnectionGetPortMappingNumberOfEntriesRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANPPPConnection:1#GetExternalIPAddress")]
+    public Task<WanPppConnectionGetExternalIpAddressResponse> GetExternalIpAddressAsync(WanPppConnectionGetExternalIpAddressRequest wanPppConnectionGetExternalIpAddressRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANPPPConnection:1#X_AVM-DE_GetAutoDisconnectTimeSpan")]
+    public Task<WanPppConnectionGetAutoDisconnectTimeSpanResponse> GetAutoDisconnectTimeSpanAsync(WanPppConnectionGetAutoDisconnectTimeSpanRequest wanPppConnectionGetAutoDisconnectTimeSpanRequest);
 }
