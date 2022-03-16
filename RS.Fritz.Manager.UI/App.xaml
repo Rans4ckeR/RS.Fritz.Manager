@@ -1121,6 +1121,23 @@
                     </Grid>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanEthernetLinkConfigGetEthernetLinkStatusResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="EthernetLinkStatus">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=EthernetLinkStatus}" Content="_EthernetLinkStatus" ToolTip="Retrieves the value of the EthernetLinkStatus state variable. Possible values are Up, Down, Unavailable"/>
+                            <TextBlock x:Name="EthernetLinkStatus" Grid.Row="0" Grid.Column="1" Text="{Binding EthernetLinkStatus}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type ui:HostsViewModel}">
                 <ui:HostsView/>
             </DataTemplate>
@@ -1162,6 +1179,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigGetOnlineMonitorViewModel}">
                 <ui:WanCommonInterfaceConfigGetOnlineMonitorView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:WanEthernetLinkConfigViewModel}">
+                <ui:WanEthernetLinkConfigView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

@@ -104,7 +104,8 @@ await host.RunAsync();
   * ✅ GetTotalPacketsReceived
   * ✅ X_AVM-DE_SetWANAccessType
   * ✅ X_AVM-DE_GetOnlineMonitor
-* ❌ urn:dslforum-org:service:WANEthernetLinkConfig:1
+* ✅ urn:dslforum-org:service:WANEthernetLinkConfig:1
+  * ✅ GetEthernetLinkStatus
 * ✅ urn:dslforum-org:service:WANDSLInterfaceConfig:1
   * ✅ GetInfo
   * ✅ GetStatisticsTotal

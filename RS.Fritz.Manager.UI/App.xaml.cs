@@ -38,6 +38,7 @@ internal sealed partial class App
                     .AddSingleton<Layer3ForwardingViewModel>()
                     .AddSingleton<WanPppConnectionViewModel>()
                     .AddSingleton<WanIpConnectionViewModel>()
+                    .AddSingleton<WanEthernetLinkConfigViewModel>()
                     .AddSingleton<DeviceLoginInfo>()
                     .AddSingleton<ILogger, UserInterfaceLogService>()
                     .AddFritzApi();
