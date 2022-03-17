@@ -445,95 +445,6 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetDslInfoResponse}">
-                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DSLInfo">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ATURCountry}" Content="_ATURCountry"/>
-                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ATURVendor}" Content="_ATURVendor"/>
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=CRCErrors}" Content="_CRCErrors"/>
-                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CurrentProfile}" Content="_CurrentProfile"/>
-                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DownstreamAttenuation}" Content="_DownstreamAttenuation"/>
-                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=DownstreamCurrRate}" Content="_DownstreamCurrRate"/>
-                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=DownstreamMaxRate}" Content="_DownstreamMaxRate"/>
-                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=DownstreamNoiseMargin}" Content="_DownstreamNoiseMargin"/>
-                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=DownstreamPower}" Content="_DownstreamPower"/>
-                            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=FECErrors}" Content="_FECErrors"/>
-                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=LATNds}" Content="_LATNds" ToolTip="Comma-separated list (maximum list length 24) of strings. Indicates the downstream line attenuation per usable band, as computed during initialization. Number of elements is dependent on the number of downstream bands but will exceed one only for G.993.2. Interpretation of LATNds is as defined in ITU-T Rec. G.997.1."/>
-                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=LATNus}" Content="_LATNus" ToolTip="Comma-separated list (maximum list length 24) of strings. Indicates the upstream line attenuation per usable band, as computed during initialization. Number of elements is dependent on the number of upstream bands but will exceed one only for G.993.2. Interpretation of LATNus is as defined in ITU-T Rec. G.997.1."/>
-                            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=LinkStatus}" Content="_LinkStatus" ToolTip="Possible values are Up, Down, Initializing, Unavailable."/>
-                            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=ModulationType}" Content="_ModulationType" ToolTip="Possible values are ADSL G.lite, G.shdsl, IDSL, HDSL, SDSL, VDSL."/>
-                            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=SNRGds}" Content="_SNRGds" ToolTip="Number of sub-carriers per sub-carrier group in the downstream direction for SNRpsds. Valid values are 1, 2, 4, and 8."/>
-                            <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=SNRGus}" Content="_SNRGus" ToolTip="Number of sub-carriers per sub-carrier group in the upstream direction for SNRpsus. Valid values are 1, 2, 4, and 8. Always returns 1."/>
-                            <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=SNRMTds}" Content="_SNRMTds" ToolTip="Indicates the number of symbols over which SNRpsds was measured."/>
-                            <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=SNRMTus}" Content="_SNRMTus" ToolTip="Indicates the number of symbols over which SNRpsus was measured."/>
-                            <Label Grid.Row="18" Grid.Column="0" Target="{Binding ElementName=SNRpsds}" Content="_SNRpsds" ToolTip="Comma-separated list (maximum list length 2047) of integers. Indicates the downstream SNR per subcarrier group. The maximum number of elements is 256 for G.992.3, and 512 for G.992.5. For G.993.2, the number of elements will depend on the value of SNRGds but will not exceed 512. Interpretation of the values is as defined in ITU-T Rec. G.997.1."/>
-                            <Label Grid.Row="19" Grid.Column="0" Target="{Binding ElementName=SNRpsus}" Content="_SNRpsus" ToolTip="Comma-separated list (maximum list length 2047) of strings. Indicates the upstream SNR per subcarrier group. The maximum number of elements is 64 for G.992.3 and G.992.5. For G.993.2, the number of elements will depend on the value of SNRGus but will not exceed 512. Interpretation of the values is as defined in ITU-T Rec. G.997.1."/>
-                            <Label Grid.Row="20" Grid.Column="0" Target="{Binding ElementName=UpstreamAttenuation}" Content="_UpstreamAttenuation"/>
-                            <Label Grid.Row="21" Grid.Column="0" Target="{Binding ElementName=UpstreamCurrRate}" Content="_UpstreamCurrRate"/>
-                            <Label Grid.Row="22" Grid.Column="0" Target="{Binding ElementName=UpstreamMaxRate}" Content="_UpstreamMaxRate"/>
-                            <Label Grid.Row="23" Grid.Column="0" Target="{Binding ElementName=UpstreamNoiseMargin}" Content="_UpstreamNoiseMargin"/>
-                            <Label Grid.Row="24" Grid.Column="0" Target="{Binding ElementName=UpstreamPower}" Content="_UpstreamPower"/>
-                            <TextBlock x:Name="ATURCountry" Grid.Row="0" Grid.Column="1" Text="{Binding ATURCountry}"/>
-                            <TextBlock x:Name="ATURVendor" Grid.Row="1" Grid.Column="1" Text="{Binding ATURVendor}"/>
-                            <TextBlock x:Name="CRCErrors" Grid.Row="2" Grid.Column="1" Text="{Binding CRCErrors}"/>
-                            <TextBlock x:Name="CurrentProfile" Grid.Row="3" Grid.Column="1" Text="{Binding CurrentProfile}"/>
-                            <TextBlock x:Name="DownstreamAttenuation" Grid.Row="4" Grid.Column="1" Text="{Binding DownstreamAttenuation}"/>
-                            <TextBlock x:Name="DownstreamCurrRate" Grid.Row="5" Grid.Column="1" Text="{Binding DownstreamCurrRate}"/>
-                            <TextBlock x:Name="DownstreamMaxRate" Grid.Row="6" Grid.Column="1" Text="{Binding DownstreamMaxRate}"/>
-                            <TextBlock x:Name="DownstreamNoiseMargin" Grid.Row="7" Grid.Column="1" Text="{Binding DownstreamNoiseMargin}"/>
-                            <TextBlock x:Name="DownstreamPower" Grid.Row="8" Grid.Column="1" Text="{Binding DownstreamPower}"/>
-                            <TextBlock x:Name="FECErrors" Grid.Row="9" Grid.Column="1" Text="{Binding FECErrors}"/>
-                            <TextBlock x:Name="LATNds" Grid.Row="10" Grid.Column="1" Text="{Binding LATNds}"/>
-                            <TextBlock x:Name="LATNus" Grid.Row="11" Grid.Column="1" Text="{Binding LATNus}"/>
-                            <TextBlock x:Name="LinkStatus" Grid.Row="12" Grid.Column="1" Text="{Binding LinkStatus}"/>
-                            <TextBlock x:Name="ModulationType" Grid.Row="13" Grid.Column="1" Text="{Binding ModulationType}"/>
-                            <TextBlock x:Name="SNRGds" Grid.Row="14" Grid.Column="1" Text="{Binding SNRGds}"/>
-                            <TextBlock x:Name="SNRGus" Grid.Row="15" Grid.Column="1" Text="{Binding SNRGus}"/>
-                            <TextBlock x:Name="SNRMTds" Grid.Row="16" Grid.Column="1" Text="{Binding SNRMTds}"/>
-                            <TextBlock x:Name="SNRMTus" Grid.Row="17" Grid.Column="1" Text="{Binding SNRMTus}"/>
-                            <TextBlock x:Name="SNRpsds" Grid.Row="18" Grid.Column="1" Text="{Binding SNRpsds}"/>
-                            <TextBlock x:Name="SNRpsus" Grid.Row="19" Grid.Column="1" Text="{Binding SNRpsus}"/>
-                            <TextBlock x:Name="UpstreamAttenuation" Grid.Row="20" Grid.Column="1" Text="{Binding UpstreamAttenuation}"/>
-                            <TextBlock x:Name="UpstreamCurrRate" Grid.Row="21" Grid.Column="1" Text="{Binding UpstreamCurrRate}"/>
-                            <TextBlock x:Name="UpstreamMaxRate" Grid.Row="22" Grid.Column="1" Text="{Binding UpstreamMaxRate}"/>
-                            <TextBlock x:Name="UpstreamNoiseMargin" Grid.Row="23" Grid.Column="1" Text="{Binding UpstreamNoiseMargin}"/>
-                            <TextBlock x:Name="UpstreamPower" Grid.Row="24" Grid.Column="1" Text="{Binding UpstreamPower}"/>
-                        </Grid>
-                    </Expander>
-                </Border>
-            </DataTemplate>
             <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetStatisticsTotalResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="StatisticsTotal">
@@ -1153,8 +1064,11 @@
             <DataTemplate DataType="{x:Type ui:WanDslInterfaceConfigViewModel}">
                 <ui:WanDslInterfaceConfigView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type ui:WanDslInterfaceConfigInfoControlViewModel}">
-                <ui:WanDslInterfaceConfigInfoControl/>
+            <DataTemplate DataType="{x:Type ui:WanDslInterfaceConfigDslInfoViewModel}">
+                <ui:WanDslInterfaceConfigDslInfoView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:WanDslInterfaceConfigInfoViewModel}">
+                <ui:WanDslInterfaceConfigInfoView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:LanConfigSecuritySetConfigPasswordViewModel}">
                 <ui:LanConfigSecuritySetConfigPasswordView/>

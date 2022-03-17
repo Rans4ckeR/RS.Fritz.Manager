@@ -9,7 +9,7 @@ using System.Windows.Shapes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using RS.Fritz.Manager.API;
 
-internal sealed class WanDslInterfaceConfigInfoControlViewModel : ObservableObject
+internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
 {
     private readonly Brush maxBrush = Brushes.LightGreen;
     private readonly Brush minBrush = Brushes.Orange;
@@ -28,7 +28,7 @@ internal sealed class WanDslInterfaceConfigInfoControlViewModel : ObservableObje
     private List<UIElement>? upstreamPowerHistory;
     private List<UIElement>? downstreamPowerHistory;
 
-    public WanDslInterfaceConfigInfoControlViewModel()
+    public WanDslInterfaceConfigInfoViewModel()
     {
         UpstreamCurrRateHistory = new List<UIElement>();
         DownstreamCurrRateHistory = new List<UIElement>();

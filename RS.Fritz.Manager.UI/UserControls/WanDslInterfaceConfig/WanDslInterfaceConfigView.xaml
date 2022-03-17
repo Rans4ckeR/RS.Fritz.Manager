@@ -19,8 +19,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WanDslInterfaceConfigGetDslDiagnoseInfoResponse}"/>
-        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding WanDslInterfaceConfigGetDslInfoResponse}"/>
-        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding WanDslInterfaceConfigInfoControlViewModel}"/>
+        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding WanDslInterfaceConfigDslInfoViewModel}"/>
+        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding WanDslInterfaceConfigInfoViewModel}"/>
         <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding WanDslInterfaceConfigGetStatisticsTotalResponse}"/>
     </Grid>
 </UserControl>
