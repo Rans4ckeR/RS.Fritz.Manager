@@ -79,9 +79,6 @@
     <Compile Update="UserControls\WanCommonInterfaceConfig\WanCommonInterfaceConfigSetWanAccessTypeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigDslInfoView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="UserControls\WanEthernetLinkConfig\WanEthernetLinkConfigView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -91,7 +88,7 @@
     <Compile Update="UserControls\Layer3Forwarding\Layer3ForwardingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigInfoView.xaml.cs">
+    <Compile Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigInfoControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigView.xaml.cs">
@@ -122,10 +119,6 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigDslInfoView.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="UserControls\WanEthernetLinkConfig\WanEthernetLinkConfigView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -138,7 +131,7 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigInfoView.xaml">
+    <Page Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigInfoControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
