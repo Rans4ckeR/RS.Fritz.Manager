@@ -1,5 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using RS.Fritz.Manager.API;
@@ -43,7 +44,7 @@ internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref lanConfigSecurityGetUserListResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync()
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
             {

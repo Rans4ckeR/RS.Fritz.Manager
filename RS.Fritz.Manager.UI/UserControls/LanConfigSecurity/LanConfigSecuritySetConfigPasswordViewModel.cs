@@ -1,6 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 using RS.Fritz.Manager.API;
 using Microsoft.Extensions.Logging;
@@ -24,7 +25,7 @@ internal sealed class LanConfigSecuritySetConfigPasswordViewModel : FritzService
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync()
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         _ = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanConfigSecuritySetConfigPasswordAsync(Password!);
     }

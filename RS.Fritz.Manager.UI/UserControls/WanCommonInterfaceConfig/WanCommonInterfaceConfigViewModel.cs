@@ -1,6 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using Microsoft.Extensions.Logging;
@@ -78,7 +79,7 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref wanCommonInterfaceConfigGetCommonLinkPropertiesResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync()
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
             {

@@ -56,46 +56,45 @@ await host.RunAsync();
 ### WAN
 * 🔶 urn:dslforum-org:service:WANIPConnection:1
   * ✅ GetInfo
-  * ❌ GetConnectionTypeInfo
+  * ✅ GetConnectionTypeInfo
   * ❌ SetConnectionType
-  * ❌ GetStatusInfo
-  * ❌ GetNATRSIPStatus
+  * ✅ GetStatusInfo
+  * ✅ GetNATRSIPStatus
   * ❌ SetConnectionTrigger
   * ❌ ForceTermination
   * ❌ RequestConnection
-  * ❌ X_GetDNSServers
-  * ❌ X_SetDNSServers
-  * ❌ GetPortMappingNumberOfEntries
+  * ✅ X_GetDNSServers
+  * ✅ GetPortMappingNumberOfEntries
   * ❌ GetGenericPortMappingEntry
   * ❌ GetSpecificPortMappingEntry
   * ❌ AddPortMapping
   * ❌ DeletePortMapping
-  * ❌ GetExternalIPAddress
+  * ✅ GetExternalIPAddress
   * ❌ SetRouteProtocolRx
   * ❌ SetIdleDisconnectTime
 * 🔶 urn:dslforum-org:service:WANPPPConnection:1
   * ✅ GetInfo
   * ✅ GetConnectionTypeInfo
   * ❌ SetConnectionType
-  * ❌ GetStatusInfo
-  * ❌ GetLinkLayerMaxBitRates
-  * ❌ GetUserName
+  * ✅ GetStatusInfo
+  * ✅ GetLinkLayerMaxBitRates
+  * ✅ GetUserName
   * ❌ SetUserName
   * ❌ SetPassword
-  * ❌ GetNATRSIPStatus
+  * ✅ GetNATRSIPStatus
   * ❌ SetConnectionTrigger
   * ❌ ForceTermination
   * ❌ RequestConnection
-  * ❌ X_GetDNSServers
-  * ❌ GetPortMappingNumberOfEntries
+  * ✅ X_GetDNSServers
+  * ✅ GetPortMappingNumberOfEntries
   * ❌ GetGenericPortMappingEntry
   * ❌ GetSpecificPortMappingEntry
   * ❌ AddPortMapping
   * ❌ DeletePortMapping
-  * ❌ GetExternalIPAddress
+  * ✅ GetExternalIPAddress
   * ❌ SetRouteProtocolRx
   * ❌ SetIdleDisconnectTime
-  * ❌ X_AVM_DE_GetAutoDisconnectTimeSpan
+  * ✅ X_AVM_DE_GetAutoDisconnectTimeSpan
   * ❌ X_AVM_DE_SetAutoDisconnectTimeSpan
 * ✅ urn:dslforum-org:service:WANCommonInterfaceConfig:1
   * ✅ GetCommonLinkProperties
@@ -105,7 +104,8 @@ await host.RunAsync();
   * ✅ GetTotalPacketsReceived
   * ✅ X_AVM-DE_SetWANAccessType
   * ✅ X_AVM-DE_GetOnlineMonitor
-* ❌ urn:dslforum-org:service:WANEthernetLinkConfig:1
+* ✅ urn:dslforum-org:service:WANEthernetLinkConfig:1
+  * ✅ GetEthernetLinkStatus
 * ✅ urn:dslforum-org:service:WANDSLInterfaceConfig:1
   * ✅ GetInfo
   * ✅ GetStatisticsTotal

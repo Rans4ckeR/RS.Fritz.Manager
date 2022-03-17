@@ -1,6 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using RS.Fritz.Manager.API;
@@ -42,7 +43,7 @@ internal sealed class HostsGetGenericHostEntryViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref hostsGetGenericHostEntryResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync()
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         HostsGetGenericHostEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetGenericHostEntryAsync(Index!.Value);
     }

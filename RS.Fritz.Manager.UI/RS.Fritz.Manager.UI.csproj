@@ -12,18 +12,19 @@
     <Trademark></Trademark>
     <Culture></Culture>
     <Authors>RS</Authors>
-    <DebugType>pdbonly</DebugType>
     <ComVisible>false</ComVisible>
     <CLSCompliant>false</CLSCompliant>
-    <AnalysisLevel>preview</AnalysisLevel>
+    <AnalysisLevel>preview-all</AnalysisLevel>
     <LangVersion>preview</LangVersion>
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <Version>0.0.0.1</Version>
     <FileVersion>0.0.0.1</FileVersion>
     <InformationalVersion>0.0.0.1</InformationalVersion>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+    <Platforms>x64;ARM64</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Images\Device.png" />
@@ -38,7 +39,7 @@
     <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-windows'">
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0-preview.1.22076.8" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0-preview.2.22152.2" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
@@ -78,13 +79,19 @@
     <Compile Update="UserControls\WanCommonInterfaceConfig\WanCommonInterfaceConfigSetWanAccessTypeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigDslInfoView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\WanEthernetLinkConfig\WanEthernetLinkConfigView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\WanPppConnection\WanPppConnectionView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\Layer3Forwarding\Layer3ForwardingView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigInfoControl.xaml.cs">
+    <Compile Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigInfoView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigView.xaml.cs">
@@ -115,6 +122,14 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigDslInfoView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\WanEthernetLinkConfig\WanEthernetLinkConfigView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControls\WanPppConnection\WanPppConnectionView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -123,7 +138,7 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigInfoControl.xaml">
+    <Page Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigInfoView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

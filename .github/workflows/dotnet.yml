@@ -1,32 +1,50 @@
 name: .NET
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ master, release/*, develop ]
+  workflow_dispatch:
+permissions:
+  contents: write
+  packages: write
 jobs:
   build:
     if: github.repository == 'Rans4ckeR/RS.Fritz.Manager'
     runs-on: windows-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3.0.0
+      uses: actions/checkout@main
       with:
         fetch-depth: 0
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v2.0.0
+      uses: actions/setup-dotnet@main
       with:
         dotnet-version: '7.x.x'
         include-prerelease: true
-    - name: Restore Dependencies
-      run: dotnet restore
     - name: Install GitVersion
-      uses: gittools/actions/gitversion/setup@v0.9.7
+      uses: gittools/actions/gitversion/setup@main
       with:
         versionSpec: '5.x'
     - name: Determine Version
-      uses: gittools/actions/gitversion/execute@v0.9.11 
-    - name: Build
-      run: dotnet build --no-restore --configuration Release -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
+      uses: gittools/actions/gitversion/execute@main
+    - name: Publish
+      run: |
+        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net6.0-windows --runtime win-x64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
+        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net7.0-windows --runtime win-x64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
+        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net6.0-windows --runtime win-arm64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
+        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net7.0-windows --runtime win-arm64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
+    - name: Zip
+      run: |
+        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net6.0-windows-x64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net6.0-windows/win-x64/publish/*.*
+        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net7.0-windows-x64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net7.0-windows/win-x64/publish/*.*
+        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net6.0-windows-ARM64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net6.0-windows/win-arm64/publish/*.*
+        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net7.0-windows-ARM64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net7.0-windows/win-arm64/publish/*.*
+    - name: Release
+      run: gh release create ${{ format('v{0}', env.GitVersion_SemVer) }} (get-item *.zip) --generate-notes --target ${{ github.sha }} ${{ env.GitVersion_PreReleaseTag == '' && '' || '--prerelease' }}
+      env:
+        GH_TOKEN: ${{ github.token }}
     - name: Package
-      run: dotnet pack RS.Fritz.Manager.API/RS.Fritz.Manager.API.csproj --no-restore --no-build --configuration Release -p:PackageVersion=$env:GitVersion_SemVer
+      run: dotnet pack RS.Fritz.Manager.API/RS.Fritz.Manager.API.csproj --no-restore --no-build --configuration Release -p:PackageVersion=$env:GitVersion_NuGetVersionV2
     - name: NuGet Push
-      run: dotnet nuget push ${{ format('RS.Fritz.Manager.API/bin/Release/RS.Fritz.Manager.API.{0}.nupkg', env.GitVersion_SemVer) }} --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push ${{ format('RS.Fritz.Manager.API/bin/Release/RS.Fritz.Manager.API.{0}.nupkg', env.GitVersion_NuGetVersionV2) }} --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+    - name: GitHub Push
+      run: dotnet nuget push ${{ format('RS.Fritz.Manager.API/bin/Release/RS.Fritz.Manager.API.{0}.nupkg', env.GitVersion_NuGetVersionV2) }} --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/Rans4ckeR/index.json

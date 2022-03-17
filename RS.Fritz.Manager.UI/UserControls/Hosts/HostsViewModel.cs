@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using RS.Fritz.Manager.API;
@@ -39,11 +40,11 @@ internal sealed class HostsViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref deviceHostInfo, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync()
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
             {
-                GetHostsGetHostListPathAsync(),
+                GetHostsGetHostListPathAsync(cancellationToken),
                 GetHostsGetHostNumberOfEntriesAsync()
             });
     }
@@ -53,12 +54,12 @@ internal sealed class HostsViewModel : FritzServiceViewModel
         HostsGetHostNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetHostNumberOfEntriesAsync();
     }
 
-    private async Task GetHostsGetHostListPathAsync()
+    private async Task GetHostsGetHostListPathAsync(CancellationToken cancellationToken)
     {
         HostsGetHostListPathResponse newHostsGetHostListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetHostListPathAsync();
         string hostListPath = newHostsGetHostListPathResponse.HostListPath;
         var hostListPathUri = new Uri(FormattableString.Invariant($"https://{DeviceLoginInfo.InternetGatewayDevice.ApiDevice.PreferredLocation.Host}:{DeviceLoginInfo.InternetGatewayDevice.ApiDevice.SecurityPort}{hostListPath}"));
-        IEnumerable<DeviceHost> deviceHosts = await deviceHostsService.GetDeviceHostsAsync(hostListPathUri);
+        IEnumerable<DeviceHost> deviceHosts = await deviceHostsService.GetDeviceHostsAsync(hostListPathUri, cancellationToken);
 
         DeviceHostInfo = new DeviceHostInfo(hostListPath, hostListPathUri, new ObservableCollection<DeviceHost>(deviceHosts));
     }

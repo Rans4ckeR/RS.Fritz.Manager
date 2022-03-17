@@ -1,5 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using RS.Fritz.Manager.API;
@@ -36,7 +37,7 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
 
     public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel { get; }
 
-    protected override async Task DoExecuteDefaultCommandAsync()
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
             {

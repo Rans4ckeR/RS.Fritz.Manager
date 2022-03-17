@@ -30,6 +30,8 @@ internal sealed partial class App
                     .AddSingleton<LanConfigSecurityViewModel>()
                     .AddSingleton<LanConfigSecuritySetConfigPasswordViewModel>()
                     .AddSingleton<WanDslInterfaceConfigViewModel>()
+                    .AddSingleton<WanDslInterfaceConfigInfoViewModel>()
+                    .AddSingleton<WanDslInterfaceConfigDslInfoViewModel>()
                     .AddSingleton<WanCommonInterfaceConfigViewModel>()
                     .AddSingleton<WanCommonInterfaceConfigSetWanAccessTypeViewModel>()
                     .AddSingleton<WanCommonInterfaceConfigGetOnlineMonitorViewModel>()
@@ -38,6 +40,7 @@ internal sealed partial class App
                     .AddSingleton<Layer3ForwardingViewModel>()
                     .AddSingleton<WanPppConnectionViewModel>()
                     .AddSingleton<WanIpConnectionViewModel>()
+                    .AddSingleton<WanEthernetLinkConfigViewModel>()
                     .AddSingleton<DeviceLoginInfo>()
                     .AddSingleton<ILogger, UserInterfaceLogService>()
                     .AddFritzApi();

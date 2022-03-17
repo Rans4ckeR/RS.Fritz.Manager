@@ -37,7 +37,7 @@ public sealed record DeviceInfoGetInfoResponse
     public string ProvisioningCode { get; set; }
 
     [MessageBodyMember(Name = "NewUpTime")]
-    public uint UpTime { get; set; }
+    public uint Uptime { get; set; }
 
     [MessageBodyMember(Name = "NewDeviceLog")]
     public string DeviceLog { get; set; }

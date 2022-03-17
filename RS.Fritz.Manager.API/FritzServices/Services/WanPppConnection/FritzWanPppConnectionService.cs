@@ -22,4 +22,44 @@ internal sealed class FritzWanPppConnectionService : FritzServiceClient<IFritzWa
     {
         return Channel.GetConnectionTypeInfoAsync(wanPppConnectionGetConnectionTypeInfoRequest);
     }
+
+    public Task<WanPppConnectionGetStatusInfoResponse> GetStatusInfoAsync(WanPppConnectionGetStatusInfoRequest wanPppConnectionGetStatusInfoRequest)
+    {
+        return Channel.GetStatusInfoAsync(wanPppConnectionGetStatusInfoRequest);
+    }
+
+    public Task<WanPppConnectionGetLinkLayerMaxBitRatesResponse> GetLinkLayerMaxBitRatesAsync(WanPppConnectionGetLinkLayerMaxBitRatesRequest wanPppConnectionGetLinkLayerMaxBitRatesRequest)
+    {
+        return Channel.GetLinkLayerMaxBitRatesAsync(wanPppConnectionGetLinkLayerMaxBitRatesRequest);
+    }
+
+    public Task<WanPppConnectionGetUserNameResponse> GetUserNameAsync(WanPppConnectionGetUserNameRequest wanPppConnectionGetUserNameRequest)
+    {
+        return Channel.GetUserNameAsync(wanPppConnectionGetUserNameRequest);
+    }
+
+    public Task<WanPppConnectionGetNatRsipStatusResponse> GetNatRsipStatusAsync(WanPppConnectionGetNatRsipStatusRequest wanPppConnectionGetNatRsipStatusRequest)
+    {
+        return Channel.GetNatRsipStatusAsync(wanPppConnectionGetNatRsipStatusRequest);
+    }
+
+    public Task<WanPppConnectionGetDnsServersResponse> GetDnsServersAsync(WanPppConnectionGetDnsServersRequest wanPppConnectionGetDnsServersRequest)
+    {
+        return Channel.GetDnsServersAsync(wanPppConnectionGetDnsServersRequest);
+    }
+
+    public Task<WanPppConnectionGetPortMappingNumberOfEntriesResponse> GetPortMappingNumberOfEntriesAsync(WanPppConnectionGetPortMappingNumberOfEntriesRequest wanPppConnectionGetPortMappingNumberOfEntriesRequest)
+    {
+        return Channel.GetPortMappingNumberOfEntriesAsync(wanPppConnectionGetPortMappingNumberOfEntriesRequest);
+    }
+
+    public Task<WanPppConnectionGetExternalIpAddressResponse> GetExternalIpAddressAsync(WanPppConnectionGetExternalIpAddressRequest wanPppConnectionGetExternalIpAddressRequest)
+    {
+        return Channel.GetExternalIpAddressAsync(wanPppConnectionGetExternalIpAddressRequest);
+    }
+
+    public Task<WanPppConnectionGetAutoDisconnectTimeSpanResponse> GetAutoDisconnectTimeSpanAsync(WanPppConnectionGetAutoDisconnectTimeSpanRequest wanPppConnectionGetAutoDisconnectTimeSpanRequest)
+    {
+        return Channel.GetAutoDisconnectTimeSpanAsync(wanPppConnectionGetAutoDisconnectTimeSpanRequest);
+    }
 }

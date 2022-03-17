@@ -43,42 +43,47 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         [AddressType.IPv6SiteLocal] = IPAddress.Parse("[FF05::C]")
     };
 
-    public async Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null, int? sendCount = null, int? timeout = null)
+    public async Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null, int? sendCount = null, int? timeout = null, CancellationToken cancellationToken = default)
     {
         deviceType ??= InternetGatewayDeviceDeviceType;
         timeout ??= DefaultReceiveTimeout;
         sendCount ??= DefaultSendCount;
 
-        IEnumerable<string> deviceResponses = (await TaskExtensions.WhenAllSafe(GetLocalAddresses().Select(q => SearchDevicesAsync(q, deviceType, sendCount.Value, timeout.Value)))).SelectMany(q => q);
+        IEnumerable<string> deviceResponses = (await TaskExtensions.WhenAllSafe(GetLocalAddresses().Select(q => SearchDevicesAsync(q, deviceType, sendCount.Value, timeout.Value, cancellationToken)))).SelectMany(q => q);
         IEnumerable<Dictionary<string, string>> deviceDictionaries = GetDeviceDictionaries(deviceResponses);
 
         InternetGatewayDevice[] internetGatewayDevices = deviceDictionaries
             .Select(q => new InternetGatewayDeviceResponse(new Uri(q["LOCATION"]), q["SERVER"], q["CACHE-CONTROL"], q["EXT"], q["ST"], q["USN"]))
             .GroupBy(q => q.Usn)
-            .Select(q => new InternetGatewayDevice(fritzServiceOperationHandler, q.Select(r => r.Location).Distinct(), q.Select(r => r.Server).Distinct().Single(), q.Select(r => r.CacheControl).Distinct().Single(), q.Select(r => r.Ext).Distinct().Single(), q.Select(r => r.SearchTarget).Distinct().Single(), q.Key, q.Select(r => r.Location).Distinct().SingleOrDefault(r => r.HostNameType is UriHostNameType.IPv6) ?? q.Select(r => r.Location).Distinct().Single(r => r.HostNameType is UriHostNameType.IPv4)))
+            .Select(GetInternetGatewayDevice)
             .ToArray();
 
-        await TaskExtensions.WhenAllSafe(internetGatewayDevices.Select(GetUPnPDescription));
+        await TaskExtensions.WhenAllSafe(internetGatewayDevices.Select(q => GetUPnPDescription(q, cancellationToken)));
 
         return internetGatewayDevices;
     }
 
+    private static Uri GetPreferredLocation(IGrouping<string, InternetGatewayDeviceResponse> internetGatewayDeviceResponses)
+    {
+        return internetGatewayDeviceResponses.Select(q => q.Location).Distinct().SingleOrDefault(q => q.HostNameType is UriHostNameType.IPv6) ?? internetGatewayDeviceResponses.Select(q => q.Location).Distinct().Single(q => q.HostNameType is UriHostNameType.IPv4);
+    }
+
     private static IEnumerable<Dictionary<string, string>> GetDeviceDictionaries(IEnumerable<string> responses)
     {
-        return responses.Select(q => q.Split(Environment.NewLine)).Select(q => q.Where(r => r.Contains(':')).ToDictionary(
-            s => s[..s.IndexOf(':')],
+        return responses.Select(q => q.Split(Environment.NewLine)).Select(q => q.Where(r => r.Contains(':', StringComparison.OrdinalIgnoreCase)).ToDictionary(
+            s => s[..s.IndexOf(':', StringComparison.OrdinalIgnoreCase)],
             s =>
             {
-                string value = s[s.IndexOf(':')..];
+                string value = s[s.IndexOf(':', StringComparison.OrdinalIgnoreCase)..];
 
-                if (value.EndsWith(':'))
-                    return value.Replace(":", null);
+                if (value.EndsWith(":", StringComparison.OrdinalIgnoreCase))
+                    return value.Replace(":", null, StringComparison.OrdinalIgnoreCase);
 
-                return value.Replace(": ", null);
+                return value.Replace(": ", null, StringComparison.OrdinalIgnoreCase);
             }));
     }
 
-    private static async Task<IEnumerable<string>> SearchDevicesAsync(IPAddress localAddress, string deviceType, int sendCount, int receiveTimeout)
+    private static async Task<IEnumerable<string>> SearchDevicesAsync(IPAddress localAddress, string deviceType, int sendCount, int receiveTimeout, CancellationToken cancellationToken)
     {
         var responses = new List<string>();
         AddressType addressType = GetAddressType(localAddress);
@@ -104,7 +109,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
             _ = await socket.SendToAsync(buffer, SocketFlags.None, multiCastIpEndPoint);
         }
 
-        await ReceiveAsync(socket, new ArraySegment<byte>(new byte[4096]), responses, receiveTimeout);
+        await ReceiveAsync(socket, new ArraySegment<byte>(new byte[4096]), responses, receiveTimeout, cancellationToken);
 
         return responses;
     }
@@ -123,15 +128,16 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         return AddressType.Unknown;
     }
 
-    private static async Task ReceiveAsync(Socket socket, ArraySegment<byte> buffer, ICollection<string> responses, int receiveTimeout)
+    private static async Task ReceiveAsync(Socket socket, ArraySegment<byte> buffer, ICollection<string> responses, int receiveTimeout, CancellationToken cancellationToken)
     {
-        using var cancellationTokenSource = new CancellationTokenSource(receiveTimeout);
+        using var timeoutCancellationTokenSource = new CancellationTokenSource(receiveTimeout);
+        using var linkedCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(timeoutCancellationTokenSource.Token, cancellationToken);
 
-        while (!cancellationTokenSource.IsCancellationRequested)
+        while (!linkedCancellationTokenSource.IsCancellationRequested)
         {
             try
             {
-                int bytesReceived = await socket.ReceiveAsync(buffer, SocketFlags.None, cancellationTokenSource.Token);
+                int bytesReceived = await socket.ReceiveAsync(buffer, SocketFlags.None, linkedCancellationTokenSource.Token);
 
                 if (bytesReceived > 0)
                     responses.Add(Encoding.UTF8.GetString(buffer.Take(bytesReceived).ToArray()));
@@ -154,13 +160,26 @@ internal sealed class DeviceSearchService : IDeviceSearchService
             .Where(q => supportedAddressFamilies.Contains(q.AddressFamily));
     }
 
-    private async Task GetUPnPDescription(InternetGatewayDevice internetGatewayDevice)
+    private async Task GetUPnPDescription(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken)
     {
         Uri uri = internetGatewayDevice.Locations.SingleOrDefault(r => r.HostNameType == UriHostNameType.IPv6) ?? internetGatewayDevice.Locations.Single(r => r.HostNameType == UriHostNameType.IPv4);
-        string uPnPDescription = await httpClientFactory.CreateClient(Constants.HttpClientName).GetStringAsync(uri);
+        string uPnPDescription = await httpClientFactory.CreateClient(Constants.HttpClientName).GetStringAsync(uri, cancellationToken);
         using var stringReader = new StringReader(uPnPDescription);
         using var xmlTextReader = new XmlTextReader(stringReader);
 
         internetGatewayDevice.UPnPDescription = (UPnPDescription?)new DataContractSerializer(typeof(UPnPDescription)).ReadObject(xmlTextReader);
+    }
+
+    private InternetGatewayDevice GetInternetGatewayDevice(IGrouping<string, InternetGatewayDeviceResponse> internetGatewayDeviceResponses)
+    {
+        return new InternetGatewayDevice(
+            fritzServiceOperationHandler,
+            internetGatewayDeviceResponses.Select(r => r.Location).Distinct(),
+            internetGatewayDeviceResponses.Select(r => r.Server).Distinct().Single(),
+            internetGatewayDeviceResponses.Select(r => r.CacheControl).Distinct().Single(),
+            internetGatewayDeviceResponses.Select(r => r.Ext).Distinct().Single(),
+            internetGatewayDeviceResponses.Select(r => r.SearchTarget).Distinct().Single(),
+            internetGatewayDeviceResponses.Key,
+            GetPreferredLocation(internetGatewayDeviceResponses));
     }
 }

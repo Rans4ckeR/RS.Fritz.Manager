@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Threading;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -75,7 +76,7 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
         }
     }
 
-    protected abstract Task DoExecuteDefaultCommandAsync();
+    protected abstract Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default);
 
     protected virtual void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -99,16 +100,19 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
         CanExecuteDefaultCommand = GetCanExecuteDefaultCommand();
     }
 
-    private async Task ExecuteDefaultCommandAsync(bool? showView)
+    private async Task ExecuteDefaultCommandAsync(bool? showView, CancellationToken cancellationToken)
     {
         try
         {
             DefaultCommandActive = true;
 
-            await DoExecuteDefaultCommandAsync();
+            await DoExecuteDefaultCommandAsync(cancellationToken);
 
             if (showView ?? true)
                 _ = WeakReferenceMessenger.Default.Send(new ActiveViewValueChangedMessage(this));
+        }
+        catch (OperationCanceledException)
+        {
         }
         catch (Exception ex)
         {

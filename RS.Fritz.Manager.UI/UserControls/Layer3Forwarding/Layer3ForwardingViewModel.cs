@@ -1,5 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using RS.Fritz.Manager.API;
@@ -19,7 +20,7 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref layer3ForwardingGetDefaultConnectionServiceResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync()
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         Layer3ForwardingGetDefaultConnectionServiceResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.Layer3ForwardingGetDefaultConnectionServiceAsync();
     }
