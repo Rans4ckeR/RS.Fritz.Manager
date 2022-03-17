@@ -28,10 +28,10 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Content="Capture interface 2-1"/>
-                <Button Grid.Row="4" Grid.Column="1" Content="Start" Margin="10" Command="{Binding Start_1_Command}"/>
+                <Button Grid.Row="4" Grid.Column="1" Content="Start" IsEnabled="{Binding StartButtonIsEnabled01}"  Margin="10" Command="{Binding Start_1_Command}"/>
                 <Button Grid.Row="4" Grid.Column="2" Content=" Stop" Margin="10" Command="{Binding Stop_1_Command}"/>
                 <ProgressBar Grid.Row="4" Grid.Column="3" Margin="10" Width="100" Minimum="0" Maximum="9" Visibility="{Binding ProgBarVisibility01, UpdateSourceTrigger=PropertyChanged}" Value="{Binding ProgBarPercent01, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Grid.Row="1" Grid.Column="4" Margin="20,0,0,0" VerticalAlignment="Center" Content="CapturreTimeLimit (minutes)"/>
+                <Label Grid.Row="1" Grid.Column="4" Margin="20,0,0,0" VerticalAlignment="Center" Content="CaptureTimeLimit (minutes)"/>
                 <Label Grid.Row="2" Grid.Column="4" Margin="20,0,0,0" VerticalAlignment="Center" Content="FilenamePrefix"/>
                 <Label Grid.Row="3" Grid.Column="4" Margin="20,0,0,0" VerticalAlignment="Center" Content="TargetFolder"/>
                 <TextBox Grid.Row="1" Width="60" Grid.Column="5" Text="{Binding CaptureTimeLimitMinutes}" TextAlignment="Right" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>

@@ -12,6 +12,7 @@ public static class ServiceCollectionExtensions
     {
         _ = services.AddSingleton<IDeviceSearchService, DeviceSearchService>()
             .AddSingleton<IDeviceHostsService, DeviceHostsService>()
+            .AddSingleton<ICaptureControlService, CaptureControlService>()
             .AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>()
             .AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>()
             .AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>()
