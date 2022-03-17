@@ -79,7 +79,7 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
 
         var uiElements = new List<UIElement>();
 
-        CreateUiElements(yScale, xScale, min, range, uiElements, downstreamSnrValues!, lineBrush);
+        CreateUiElements(yScale, xScale, min, range, uiElements, downstreamSnrValues, lineBrush);
 
         var labelMax = new Label { Content = max, Foreground = maxBrush, LayoutTransform = scaleYTransform };
         var labelMin = new Label { Content = min, Foreground = minBrush, LayoutTransform = scaleYTransform };

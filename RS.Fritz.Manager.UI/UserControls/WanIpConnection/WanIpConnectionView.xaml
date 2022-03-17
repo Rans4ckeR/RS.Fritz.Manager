@@ -24,9 +24,9 @@
         <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WanIpConnectionGetInfoResponse}"/>
         <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding WanIpConnectionGetConnectionTypeInfoResponse}"/>
         <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding WanIpConnectionGetStatusInfoResponse}"/>
-        <ContentControl Grid.Row="5" Grid.Column="0" Content="{Binding WanIpConnectionGetNatRsipStatusResponse}"/>
-        <ContentControl Grid.Row="6" Grid.Column="0" Content="{Binding WanIpConnectionGetDnsServersResponse}"/>
-        <ContentControl Grid.Row="7" Grid.Column="0" Content="{Binding WanIpConnectionGetPortMappingNumberOfEntriesResponse}"/>
-        <ContentControl Grid.Row="8" Grid.Column="0" Content="{Binding WanIpConnectionGetExternalIpAddressResponse}"/>
+        <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding WanIpConnectionGetNatRsipStatusResponse}"/>
+        <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding WanIpConnectionGetDnsServersResponse}"/>
+        <ContentControl Grid.Row="5" Grid.Column="0" Content="{Binding WanIpConnectionGetPortMappingNumberOfEntriesResponse}"/>
+        <ContentControl Grid.Row="6" Grid.Column="0" Content="{Binding WanIpConnectionGetExternalIpAddressResponse}"/>
     </Grid>
 </UserControl>
