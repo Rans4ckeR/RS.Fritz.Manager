@@ -56,20 +56,20 @@ await host.RunAsync();
 ### WAN
 * 🔶 urn:dslforum-org:service:WANIPConnection:1
   * ✅ GetInfo
-  * ❌ GetConnectionTypeInfo
+  * ✅ GetConnectionTypeInfo
   * ❌ SetConnectionType
-  * ❌ GetStatusInfo
-  * ❌ GetNATRSIPStatus
+  * ✅ GetStatusInfo
+  * ✅ GetNATRSIPStatus
   * ❌ SetConnectionTrigger
   * ❌ ForceTermination
   * ❌ RequestConnection
-  * ❌ X_GetDNSServers
-  * ❌ GetPortMappingNumberOfEntries
+  * ✅ X_GetDNSServers
+  * ✅ GetPortMappingNumberOfEntries
   * ❌ GetGenericPortMappingEntry
   * ❌ GetSpecificPortMappingEntry
   * ❌ AddPortMapping
   * ❌ DeletePortMapping
-  * ❌ GetExternalIPAddress
+  * ✅ GetExternalIPAddress
   * ❌ SetRouteProtocolRx
   * ❌ SetIdleDisconnectTime
 * 🔶 urn:dslforum-org:service:WANPPPConnection:1
