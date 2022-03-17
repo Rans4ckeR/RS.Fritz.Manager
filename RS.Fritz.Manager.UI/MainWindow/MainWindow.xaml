@@ -100,6 +100,9 @@
                 <RibbonGroup ToolTip="This service is a standard UPnP service that models the Ethernet link layer properties specific to a single physical Ethernet connection of a GW used for Internet access on an IGD.">
                     <RibbonButton Label="WanEthernetLinkConfig" Command="{Binding WanEthernetLinkConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
+                <RibbonGroup ToolTip="The Capture funcion enables packet sniffing to be analized with e.g. wireshark">
+                    <RibbonButton Label="Sniffer" Command="{Binding CaptureControlCaptureViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                </RibbonGroup>
             </RibbonTab>
         </Ribbon>
         <ScrollViewer Grid.Row="1" Background="{StaticResource WindowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">

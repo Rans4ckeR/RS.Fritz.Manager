@@ -41,6 +41,7 @@ internal sealed partial class App
                     .AddSingleton<WanEthernetLinkConfigViewModel>()
                     .AddSingleton<DeviceLoginInfo>()
                     .AddSingleton<ILogger, UserInterfaceLogService>()
+                    .AddSingleton<CaptureControlCaptureViewModel>()
                     .AddFritzApi();
             }).Build();
     }
