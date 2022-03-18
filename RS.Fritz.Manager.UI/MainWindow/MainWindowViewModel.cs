@@ -91,7 +91,11 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     public ObservableCollection<User> Users
     {
         get => users;
-        private set => _ = SetProperty(ref users, value);
+        private set
+        {
+            if (SetProperty(ref users, value))
+                DeviceLoginInfo.User = Users.SingleOrDefault(q => q.LastUser);
+        }
     }
 
     public ObservableObject? ActiveView
@@ -103,7 +107,11 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     public ObservableCollection<ObservableInternetGatewayDevice> Devices
     {
         get => devices;
-        private set => _ = SetProperty(ref devices, value);
+        private set
+        {
+            if (SetProperty(ref devices, value) && value.Count is 1)
+                DeviceLoginInfo.InternetGatewayDevice = Devices.Single();
+        }
     }
 
     public IAsyncRelayCommand LoginCommand { get; }
