@@ -17,4 +17,9 @@ internal sealed class FritzWanDslLinkConfigService : FritzServiceClient<IFritzWa
     {
         return Channel.GetInfoAsync(wanDslLinkConfigGetInfoRequest);
     }
+
+    public Task<WanDslLinkConfigGetDslLinkInfoResponse> GetDslLinkInfoAsync(WanDslLinkConfigGetDslLinkInfoRequest wanDslLinkConfigGetDslLinkInfoRequest)
+    {
+        return Channel.GetDslLinkInfoAsync(wanDslLinkConfigGetDslLinkInfoRequest);
+    }
 }

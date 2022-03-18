@@ -545,6 +545,26 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetDslLinkInfoResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="GetDslLinkInfo">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=LinkType}" Content="_LinkType" ToolTip="Indicates the type of DSL connection and refers to the complete stack of protocol used for this connection. Possible values are EoA, PPPoA (intern PPPoA with LLC), PPPoE, Unconfigured."/>
+                            <TextBlock x:Name="LinkType" Grid.Row="0" Grid.Column="1" Text="{Binding LinkType}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=LinkStatus}" Content="_LinkStatus" ToolTip="Status of the link. This parameter has been duplicated to WANDSLInterfaceConfig which models the DSL connection outside the WANConnectionDevice (this is required for multiple VP/VC support over one DSL link). Possible values are Up, Down, Initializing, Unavailable."/>
+                            <TextBlock x:Name="LinkStatus" Grid.Row="1" Grid.Column="1" Text="{Binding LinkStatus}"/>
+                          </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type api:Layer3ForwardingGetDefaultConnectionServiceResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DefaultConnectionService">

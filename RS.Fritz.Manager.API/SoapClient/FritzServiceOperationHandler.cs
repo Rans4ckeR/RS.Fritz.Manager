@@ -257,6 +257,11 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanDslLinkConfigServiceClientFactory, (q, r, t) => new FritzWanDslLinkConfigService(q, r, t!), FritzWanDslLinkConfigService.ControlUrl), q => q.GetInfoAsync(new WanDslLinkConfigGetInfoRequest()));
     }
 
+    public Task<WanDslLinkConfigGetDslLinkInfoResponse> WanDslLinkConfigGetDslLinkInfoAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanDslLinkConfigServiceClientFactory, (q, r, t) => new FritzWanDslLinkConfigService(q, r, t!), FritzWanDslLinkConfigService.ControlUrl), q => q.GetDslLinkInfoAsync(new WanDslLinkConfigGetDslLinkInfoRequest()));
+    }
+
     private static T GetFritzServiceClient<T>(InternetGatewayDevice internetGatewayDevice, IClientFactory<T> clientFactory, Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createService, string controlUrl, bool secure = true)
     {
         return clientFactory.Build(createService, internetGatewayDevice.PreferredLocation, secure, controlUrl, secure ? internetGatewayDevice.SecurityPort : null, internetGatewayDevice.NetworkCredential);

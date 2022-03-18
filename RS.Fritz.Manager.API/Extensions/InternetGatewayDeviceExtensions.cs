@@ -218,4 +218,9 @@ public static class InternetGatewayDeviceExtensions
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.WanDslLinkConfigGetInfoAsync(d));
     }
+
+    public static Task<WanDslLinkConfigGetDslLinkInfoResponse> WanDslLinkConfigGetDslLinkInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.WanDslLinkConfigGetDslLinkInfoAsync(d));
+    }
 }

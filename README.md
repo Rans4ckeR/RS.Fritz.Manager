@@ -115,7 +115,7 @@ await host.RunAsync();
   * ✅ GetInfo
   * ❌ SetEnable
   * ❌ SetDSLLinkType
-  * ❌ GetDSLLinkInfo
+  * ✅ GetDSLLinkInfo
   * ❌ SetDestinationAddress
   * ❌ GetDestinationAddress
   * ❌ SetATMEncapsulation
