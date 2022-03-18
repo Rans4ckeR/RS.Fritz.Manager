@@ -32,4 +32,9 @@ internal sealed class FritzWanDslLinkConfigService : FritzServiceClient<IFritzWa
     {
         return Channel.GetAtmEncapsulationAsync(wanDslLinkConfigGetAtmEncapsulationRequest);
     }
+
+    public Task<WanDslLinkConfigGetAutoConfigResponse> GetAutoConfigAsync(WanDslLinkConfigGetAutoConfigRequest wanDslLinkConfigGetAutoConfigRequest)
+    {
+        return Channel.GetAutoConfigAsync(wanDslLinkConfigGetAutoConfigRequest);
+    }
 }

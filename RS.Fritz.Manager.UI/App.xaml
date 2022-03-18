@@ -584,7 +584,7 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetAtmEncapsulationResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="AtmEncapsulation">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="GetAtmEncapsulation">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -595,6 +595,23 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AtmEncapsulation}" Content="_AtmEncapsulation" ToolTip="Identifies the connection encapsulation that will be used. Possible values are LLC, VCMUX."/>
                             <TextBlock x:Name="AtmEncapsulation" Grid.Row="0" Grid.Column="1" Text="{Binding AtmEncapsulation}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetAutoConfigResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="GetAutoConfig">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AutoConfig}" Content="_AutoConfig" ToolTip="Indicates if the CPE is currently using some auto configuration mechanisms for this connection."/>
+                            <TextBlock x:Name="AutoConfig" Grid.Row="0" Grid.Column="1" Text="{Binding AutoConfig}"/>
                         </Grid>
                     </Expander>
                 </Border>
