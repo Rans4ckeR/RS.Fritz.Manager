@@ -12,6 +12,7 @@ internal sealed class WanDslLinkConfigViewModel : FritzServiceViewModel
     private WanDslLinkConfigGetDestinationAddressResponse? wanDslLinkConfigGetDestinationAddressResponse;
     private WanDslLinkConfigGetAtmEncapsulationResponse? wanDslLinkConfigGetAtmEncapsulationResponse;
     private WanDslLinkConfigGetAutoConfigResponse? wanDslLinkConfigGetAutoConfigResponse;
+    private WanDslLinkConfigGetStatisticsResponse? wanDslLinkConfigGetStatisticsResponse;
 
     public WanDslLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -48,6 +49,12 @@ internal sealed class WanDslLinkConfigViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref wanDslLinkConfigGetAutoConfigResponse, value); }
     }
 
+    public WanDslLinkConfigGetStatisticsResponse? WanDslLinkConfigGetStatisticsResponse
+    {
+        get => wanDslLinkConfigGetStatisticsResponse;
+        private set { _ = SetProperty(ref wanDslLinkConfigGetStatisticsResponse, value); }
+    }
+
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
@@ -56,7 +63,8 @@ internal sealed class WanDslLinkConfigViewModel : FritzServiceViewModel
                 GetWanDslLinkConfigGetDslLinkInfoAsync(),
                 GetWanDslLinkConfigGetDestinationAddressAsync(),
                 GetWanDslLinkConfigGetAtmEncapsulationAsync(),
-                GetWanDslLinkConfigGetAutoConfigAsync()
+                GetWanDslLinkConfigGetAutoConfigAsync(),
+                GetWanDslLinkConfigGetStatisticsAsync()
           });
     }
 
@@ -83,5 +91,10 @@ internal sealed class WanDslLinkConfigViewModel : FritzServiceViewModel
     private async Task GetWanDslLinkConfigGetAutoConfigAsync()
     {
         WanDslLinkConfigGetAutoConfigResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslLinkConfigGetAutoConfigAsync();
+    }
+
+    private async Task GetWanDslLinkConfigGetStatisticsAsync()
+    {
+        WanDslLinkConfigGetStatisticsResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslLinkConfigGetStatisticsAsync();
     }
 }

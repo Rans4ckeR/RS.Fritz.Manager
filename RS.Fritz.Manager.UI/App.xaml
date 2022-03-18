@@ -616,6 +616,32 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetStatisticsResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="GetStatistics">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AtmTransmittedBlocks}" Content="_AtmTransmittedBlocks" ToolTip="The current count of successfully transmitted blocks."/>
+                            <TextBlock x:Name="AtmTransmittedBlocks" Grid.Row="0" Grid.Column="1" Text="{Binding AtmTransmittedBlocks}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=AtmReceivedBlocks}" Content="_AtmReceivedBlocks" ToolTip="The current count of successfully received blocks."/>
+                            <TextBlock x:Name="AtmReceivedBlocks" Grid.Row="1" Grid.Column="1" Text="{Binding AtmReceivedBlocks}"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Aal5CrcErrors}" Content="_Aal5CrcErrors" ToolTip="Count of the AAL5 layer cyclic redundancy check errors."/>
+                            <TextBlock x:Name="Aal5CrcErrors" Grid.Row="2" Grid.Column="1" Text="{Binding Aal5CrcErrors}"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=AtmCrcErrors}" Content="_AtmCrcErrors" ToolTip="Count of the ATM layer cyclic redundancy check errors."/>
+                            <TextBlock x:Name="AtmCrcErrors" Grid.Row="3" Grid.Column="1" Text="{Binding AtmCrcErrors}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type api:Layer3ForwardingGetDefaultConnectionServiceResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DefaultConnectionService">

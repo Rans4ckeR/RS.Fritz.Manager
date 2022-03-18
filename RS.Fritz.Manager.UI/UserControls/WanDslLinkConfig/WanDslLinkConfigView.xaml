@@ -15,6 +15,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -24,5 +25,6 @@
         <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding WanDslLinkConfigGetDestinationAddressResponse}"/>
         <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding WanDslLinkConfigGetAtmEncapsulationResponse}"/>
         <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding WanDslLinkConfigGetAutoConfigResponse}"/>
+        <ContentControl Grid.Row="5" Grid.Column="0" Content="{Binding WanDslLinkConfigGetStatisticsResponse}"/>
     </Grid>
 </UserControl>

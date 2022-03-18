@@ -21,4 +21,7 @@ internal interface IFritzWanDslLinkConfigService
 
     [OperationContract(Action = "urn:dslforum-org:service:WANDSLLinkConfig:1#GetAutoConfig")]
     public Task<WanDslLinkConfigGetAutoConfigResponse> GetAutoConfigAsync(WanDslLinkConfigGetAutoConfigRequest wanDslLinkConfigGetAutoConfigRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANDSLLinkConfig:1#GetStatistics")]
+    public Task<WanDslLinkConfigGetStatisticsResponse> GetStatisticsAsync(WanDslLinkConfigGetStatisticsRequest wanDslLinkConfigGetStatisticsRequest);
 }
