@@ -119,7 +119,7 @@ await host.RunAsync();
   * ❌ SetDestinationAddress
   * ✅ GetDestinationAddress
   * ❌ SetATMEncapsulation
-  * ❌ GetATMEncapsulation
+  * ✅ GetATMEncapsulation
   * ❌ GetAutoConfig
   * ❌ GetStatistics
 * ❌ urn:dslforum-org:service:X_AVM-DE_Speedtest:1

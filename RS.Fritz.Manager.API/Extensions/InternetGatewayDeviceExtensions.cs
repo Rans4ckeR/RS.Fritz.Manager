@@ -228,4 +228,9 @@ public static class InternetGatewayDeviceExtensions
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.WanDslLinkConfigGetDestinationAddressAsync(d));
     }
+
+    public static Task<WanDslLinkConfigGetAtmEncapsulationResponse> WanDslLinkConfigGetAtmEncapsulationAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.WanDslLinkConfigGetAtmEncapsulationAsync(d));
+    }
 }

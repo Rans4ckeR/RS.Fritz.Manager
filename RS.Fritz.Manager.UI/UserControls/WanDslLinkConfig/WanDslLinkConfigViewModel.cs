@@ -10,6 +10,7 @@ internal sealed class WanDslLinkConfigViewModel : FritzServiceViewModel
     private WanDslLinkConfigGetInfoResponse? wanDslLinkConfigGetInfoResponse;
     private WanDslLinkConfigGetDslLinkInfoResponse? wanDslLinkConfigGetDslLinkInfoResponse;
     private WanDslLinkConfigGetDestinationAddressResponse? wanDslLinkConfigGetDestinationAddressResponse;
+    private WanDslLinkConfigGetAtmEncapsulationResponse? wanDslLinkConfigGetAtmEncapsulationResponse;
 
     public WanDslLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -34,13 +35,20 @@ internal sealed class WanDslLinkConfigViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref wanDslLinkConfigGetDestinationAddressResponse, value); }
     }
 
+    public WanDslLinkConfigGetAtmEncapsulationResponse? WanDslLinkConfigGetAtmEncapsulationResponse
+    {
+        get => wanDslLinkConfigGetAtmEncapsulationResponse;
+        private set { _ = SetProperty(ref wanDslLinkConfigGetAtmEncapsulationResponse, value); }
+    }
+
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
           {
                 GetWanDslLinkConfigGetInfoAsync(),
                 GetWanDslLinkConfigGetDslLinkInfoAsync(),
-                GetWanDslLinkConfigGetDestinationAddressAsync()
+                GetWanDslLinkConfigGetDestinationAddressAsync(),
+                GetWanDslLinkConfigGetAtmEncapsulationAsync()
           });
     }
 
@@ -57,5 +65,10 @@ internal sealed class WanDslLinkConfigViewModel : FritzServiceViewModel
     private async Task GetWanDslLinkConfigGetDestinationAddressAsync()
     {
         WanDslLinkConfigGetDestinationAddressResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslLinkConfigGetDestinationAddressAsync();
+    }
+
+    private async Task GetWanDslLinkConfigGetAtmEncapsulationAsync()
+    {
+        WanDslLinkConfigGetAtmEncapsulationResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslLinkConfigGetAtmEncapsulationAsync();
     }
 }

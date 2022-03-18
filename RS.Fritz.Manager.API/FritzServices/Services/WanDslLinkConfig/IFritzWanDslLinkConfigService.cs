@@ -15,4 +15,7 @@ internal interface IFritzWanDslLinkConfigService
 
     [OperationContract(Action = "urn:dslforum-org:service:WANDSLLinkConfig:1#GetDestinationAddress")]
     public Task<WanDslLinkConfigGetDestinationAddressResponse> GetDestinationAddressAsync(WanDslLinkConfigGetDestinationAddressRequest wanDslLinkConfigGetDestinationAddressRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANDSLLinkConfig:1#GetATMEncapsulation")]
+    public Task<WanDslLinkConfigGetAtmEncapsulationResponse> GetAtmEncapsulationAsync(WanDslLinkConfigGetAtmEncapsulationRequest wanDslLinkConfigGetAtmEncapsulationRequest);
 }

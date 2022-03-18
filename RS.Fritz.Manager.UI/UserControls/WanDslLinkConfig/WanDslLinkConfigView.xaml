@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -20,5 +21,6 @@
         <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WanDslLinkConfigGetInfoResponse}"/>
         <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding WanDslLinkConfigGetDslLinkInfoResponse}"/>
         <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding WanDslLinkConfigGetDestinationAddressResponse}"/>
+        <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding WanDslLinkConfigGetAtmEncapsulationResponse}"/>
     </Grid>
 </UserControl>
