@@ -22,4 +22,9 @@ internal sealed class FritzWanDslLinkConfigService : FritzServiceClient<IFritzWa
     {
         return Channel.GetDslLinkInfoAsync(wanDslLinkConfigGetDslLinkInfoRequest);
     }
+
+    public Task<WanDslLinkConfigGetDestinationAddressResponse> GetDestinationAddressAsync(WanDslLinkConfigGetDestinationAddressRequest wanDslLinkConfigGetDestinationAddressRequest)
+    {
+        return Channel.GetDestinationAddressAsync(wanDslLinkConfigGetDestinationAddressRequest);
+    }
 }

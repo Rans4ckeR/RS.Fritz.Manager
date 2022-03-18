@@ -561,7 +561,24 @@
                             <TextBlock x:Name="LinkType" Grid.Row="0" Grid.Column="1" Text="{Binding LinkType}"/>
                             <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=LinkStatus}" Content="_LinkStatus" ToolTip="Status of the link. This parameter has been duplicated to WANDSLInterfaceConfig which models the DSL connection outside the WANConnectionDevice (this is required for multiple VP/VC support over one DSL link). Possible values are Up, Down, Initializing, Unavailable."/>
                             <TextBlock x:Name="LinkStatus" Grid.Row="1" Grid.Column="1" Text="{Binding LinkStatus}"/>
-                          </Grid>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetDestinationAddressResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="GetDestinationAddress">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DestinationAddress}" Content="_DestinationAddress" ToolTip="Destination address of this link. For PVC: VPI/VCI, for SVC: ATM connection name or ATM address."/>
+                            <TextBlock x:Name="DestinationAddress" Grid.Row="0" Grid.Column="1" Text="{Binding DestinationAddress}"/>
+                        </Grid>
                     </Expander>
                 </Border>
             </DataTemplate>

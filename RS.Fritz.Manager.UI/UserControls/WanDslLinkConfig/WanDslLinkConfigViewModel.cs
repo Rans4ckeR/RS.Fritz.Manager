@@ -9,6 +9,7 @@ internal sealed class WanDslLinkConfigViewModel : FritzServiceViewModel
 {
     private WanDslLinkConfigGetInfoResponse? wanDslLinkConfigGetInfoResponse;
     private WanDslLinkConfigGetDslLinkInfoResponse? wanDslLinkConfigGetDslLinkInfoResponse;
+    private WanDslLinkConfigGetDestinationAddressResponse? wanDslLinkConfigGetDestinationAddressResponse;
 
     public WanDslLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -27,12 +28,19 @@ internal sealed class WanDslLinkConfigViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref wanDslLinkConfigGetDslLinkInfoResponse, value); }
     }
 
+    public WanDslLinkConfigGetDestinationAddressResponse? WanDslLinkConfigGetDestinationAddressResponse
+    {
+        get => wanDslLinkConfigGetDestinationAddressResponse;
+        private set { _ = SetProperty(ref wanDslLinkConfigGetDestinationAddressResponse, value); }
+    }
+
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
           {
                 GetWanDslLinkConfigGetInfoAsync(),
-                GetWanDslLinkConfigGetDslLinkInfoAsync()
+                GetWanDslLinkConfigGetDslLinkInfoAsync(),
+                GetWanDslLinkConfigGetDestinationAddressAsync()
           });
     }
 
@@ -44,5 +52,10 @@ internal sealed class WanDslLinkConfigViewModel : FritzServiceViewModel
     private async Task GetWanDslLinkConfigGetDslLinkInfoAsync()
     {
         WanDslLinkConfigGetDslLinkInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslLinkConfigGetDslLinkInfoAsync();
+    }
+
+    private async Task GetWanDslLinkConfigGetDestinationAddressAsync()
+    {
+        WanDslLinkConfigGetDestinationAddressResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslLinkConfigGetDestinationAddressAsync();
     }
 }

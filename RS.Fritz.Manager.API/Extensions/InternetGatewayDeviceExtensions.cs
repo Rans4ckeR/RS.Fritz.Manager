@@ -223,4 +223,9 @@ public static class InternetGatewayDeviceExtensions
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.WanDslLinkConfigGetDslLinkInfoAsync(d));
     }
+
+    public static Task<WanDslLinkConfigGetDestinationAddressResponse> WanDslLinkConfigGetDestinationAddressAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.WanDslLinkConfigGetDestinationAddressAsync(d));
+    }
 }
