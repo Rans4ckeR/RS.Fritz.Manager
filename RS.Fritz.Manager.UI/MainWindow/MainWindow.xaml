@@ -100,6 +100,9 @@
                 <RibbonGroup ToolTip="This service is a standard UPnP service that models the Ethernet link layer properties specific to a single physical Ethernet connection of a GW used for Internet access on an IGD.">
                     <RibbonButton Label="WanEthernetLinkConfig" Command="{Binding WanEthernetLinkConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
+                <RibbonGroup ToolTip="This service is a service which allows for the operation of an explicit DSL diagnostic test, and the ability to examine the results of the last such test.">
+                    <RibbonButton Label="WanDslLinkConfig" Command="{Binding WanDslLinkConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                </RibbonGroup>
             </RibbonTab>
         </Ribbon>
         <ScrollViewer Grid.Row="1" Background="{StaticResource WindowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">

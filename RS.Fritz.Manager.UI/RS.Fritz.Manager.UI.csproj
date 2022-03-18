@@ -82,6 +82,9 @@
     <Compile Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigDslInfoView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\WanDslLinkConfig\WanDslLinkConfigView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\WanEthernetLinkConfig\WanEthernetLinkConfigView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -123,6 +126,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigDslInfoView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\WanDslLinkConfig\WanDslLinkConfigView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

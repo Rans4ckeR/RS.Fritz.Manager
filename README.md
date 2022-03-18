@@ -111,7 +111,17 @@ await host.RunAsync();
   * ✅ GetStatisticsTotal
   * ✅ X_AVM-DE_GetDSLDiagnoseInfo
   * ✅ X_AVM-DE_GetDSLInfo
-* ❌ urn:dslforum-org:service:WANDSLLinkConfig:1
+* 🔶 urn:dslforum-org:service:WANDSLLinkConfig:1
+  * ✅ GetInfo
+  * ❌ SetEnable
+  * ❌ SetDSLLinkType
+  * ❌ GetDSLLinkInfo
+  * ❌ SetDestinationAddress
+  * ❌ GetDestinationAddress
+  * ❌ SetATMEncapsulation
+  * ❌ GetATMEncapsulation
+  * ❌ GetAutoConfig
+  * ❌ GetStatistics
 * ❌ urn:dslforum-org:service:X_AVM-DE_Speedtest:1
 * ❌ urn:dslforum-org:service:X_AVM-DE_RemoteAccess:1
 * ❌ urn:dslforum-org:service:X_AVM-DE_MyFritz:1

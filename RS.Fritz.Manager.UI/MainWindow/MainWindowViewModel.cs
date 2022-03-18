@@ -29,7 +29,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     private bool canExecuteLoginCommand;
     private ImageSource loginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Login.png"));
 
-    public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanIpConnectionViewModel wanIpConnectionViewModel, HostsViewModel hostsViewModel, WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel, WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, WanEthernetLinkConfigViewModel wanEthernetLinkConfigViewModel, IDeviceSearchService deviceSearchService)
+    public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanIpConnectionViewModel wanIpConnectionViewModel, HostsViewModel hostsViewModel, WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel, WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, WanEthernetLinkConfigViewModel wanEthernetLinkConfigViewModel, WanDslLinkConfigViewModel wanDslLinkConfigViewModel, IDeviceSearchService deviceSearchService)
         : base(deviceLoginInfo, logger)
     {
         this.deviceSearchService = deviceSearchService;
@@ -42,6 +42,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         WanCommonInterfaceConfigViewModel = wanCommonInterfaceConfigViewModel;
         HostsViewModel = hostsViewModel;
         WanEthernetLinkConfigViewModel = wanEthernetLinkConfigViewModel;
+        WanDslLinkConfigViewModel = wanDslLinkConfigViewModel;
         LoginCommand = new AsyncRelayCommand<bool?>(ExecuteLoginCommandAsync, _ => CanExecuteLoginCommand);
 
         WeakReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) =>
@@ -74,6 +75,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     public HostsViewModel HostsViewModel { get; }
 
     public WanEthernetLinkConfigViewModel WanEthernetLinkConfigViewModel { get; }
+
+    public WanDslLinkConfigViewModel WanDslLinkConfigViewModel { get; }
 
     public string? UserMessage
     {
