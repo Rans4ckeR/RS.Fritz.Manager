@@ -207,10 +207,10 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
 
     private async Task ExecuteLoginCommandAsync(bool? showView)
     {
-        LoginCommandActive = true;
-
         try
         {
+            LoginCommandActive = true;
+
             await DeviceLoginInfo.InternetGatewayDevice!.GetDeviceTypeAsync();
 
             LoginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Success.png"));
@@ -218,6 +218,10 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         catch (MessageSecurityException)
         {
             LoginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Fail.png"));
+        }
+        catch (Exception ex)
+        {
+            Logger.ExceptionThrown(ex);
         }
         finally
         {

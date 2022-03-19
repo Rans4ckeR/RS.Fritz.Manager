@@ -13,13 +13,12 @@ using RS.Fritz.Manager.API;
 
 internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<PropertyChangedMessage<bool>>
 {
-    private readonly ILogger logger;
     private bool defaultCommandActive;
     private bool canExecuteDefaultCommand;
 
     protected FritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     {
-        this.logger = logger;
+        Logger = logger;
         DeviceLoginInfo = deviceLoginInfo;
         DefaultCommand = new AsyncRelayCommand<bool?>(ExecuteDefaultCommandAsync, _ => CanExecuteDefaultCommand);
         PropertyChanged += FritzServiceViewModelPropertyChanged;
@@ -39,6 +38,8 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
                 DefaultCommand.NotifyCanExecuteChanged();
         }
     }
+
+    protected ILogger Logger { get; }
 
     protected bool CanExecuteDefaultCommand
     {
@@ -116,7 +117,7 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
         }
         catch (Exception ex)
         {
-            logger.ExceptionThrown(ex);
+            Logger.ExceptionThrown(ex);
         }
         finally
         {
