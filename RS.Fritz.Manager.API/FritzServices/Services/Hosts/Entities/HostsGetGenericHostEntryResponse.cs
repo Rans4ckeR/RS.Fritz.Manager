@@ -6,7 +6,6 @@ using System.ServiceModel;
 public sealed record HostsGetGenericHostEntryResponse
 {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-
     [MessageBodyMember(Name = "NewIPAddress")]
     public string IPAddress { get; set; }
 

@@ -18,12 +18,12 @@ internal sealed class CaptureControlService : ICaptureControlService
     {
         HttpClient httpClient = httpClientFactory.CreateClient(Constants.HttpClientName);
         var file = new FileInfo(FormattableString.Invariant($"{folderPath}\\{filePrefix}_{DateTime.Now.ToString("s").Replace(":", string.Empty)}.eth"));
-        HttpResponseMessage? response = await httpClient.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead);
+        HttpResponseMessage response = await httpClient.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead);
 
         _ = response.EnsureSuccessStatusCode();
 
-        await using Stream? downloadStream = await response.Content.ReadAsStreamAsync();
-        await using FileStream? fileStream = file.Create();
+        await using Stream downloadStream = await response.Content.ReadAsStreamAsync();
+        await using FileStream fileStream = file.Create();
 
         await downloadStream.CopyToAsync(fileStream);
     }
@@ -31,7 +31,7 @@ internal sealed class CaptureControlService : ICaptureControlService
     public async Task GetStopCaptureResponseAsync(Uri uri)
     {
         HttpClient httpClient = httpClientFactory.CreateClient(Constants.HttpClientName);
-        HttpResponseMessage? response = await httpClient.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead);
+        HttpResponseMessage response = await httpClient.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead);
 
         _ = response.EnsureSuccessStatusCode();
     }

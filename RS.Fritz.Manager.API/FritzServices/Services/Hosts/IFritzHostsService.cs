@@ -15,4 +15,7 @@ internal interface IFritzHostsService
 
     [OperationContract(Action = "urn:dslforum-org:service:Hosts:1#GetGenericHostEntry")]
     public Task<HostsGetGenericHostEntryResponse> GetGenericHostEntryAsync(HostsGetGenericHostEntryRequest hostsGetGenericHostEntryRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:Hosts:1#X_AVM-DE_GetChangeCounter")]
+    public Task<HostsGetChangeCounterResponse> GetChangeCounterAsync(HostsGetChangeCounterRequest hostsGetChangeCounterRequest);
 }
