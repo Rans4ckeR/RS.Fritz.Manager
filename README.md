@@ -157,7 +157,7 @@ await host.RunAsync();
   * ✅ GetHostNumberOfEntries
   * ❌ GetSpecificHostEntry
   * ✅ GetGenericHostEntry
-  * ❌ X_AVM-DE_GetChangeCounter
+  * ✅ X_AVM-DE_GetChangeCounter
   * ❌ X_AVM-DE_GetAutoWakeOnLANByMACAddress
   * ❌ X_AVM-DE_SetAutoWakeOnLANByMACAddress
   * ❌ X_AVM-DE_SetHostNameByMACAddress

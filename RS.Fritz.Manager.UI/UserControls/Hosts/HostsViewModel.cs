@@ -13,6 +13,7 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     private readonly IDeviceHostsService deviceHostsService;
 
     private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
+    private HostsGetChangeCounterResponse? hostsGetChangeCounterResponse;
     private DeviceHostInfo? deviceHostInfo;
 
     public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IDeviceHostsService deviceHostsService, HostsGetGenericHostEntryViewModel hostsGetGenericHostEntryViewModel)
@@ -34,6 +35,12 @@ internal sealed class HostsViewModel : FritzServiceViewModel
         }
     }
 
+    public HostsGetChangeCounterResponse? HostsGetChangeCounterResponse
+    {
+        get => hostsGetChangeCounterResponse;
+        private set { _ = SetProperty(ref hostsGetChangeCounterResponse, value); }
+    }
+
     public DeviceHostInfo? DeviceHostInfo
     {
         get => deviceHostInfo;
@@ -45,13 +52,19 @@ internal sealed class HostsViewModel : FritzServiceViewModel
         await API.TaskExtensions.WhenAllSafe(new[]
             {
                 GetHostsGetHostListPathAsync(cancellationToken),
-                GetHostsGetHostNumberOfEntriesAsync()
+                GetHostsGetHostNumberOfEntriesAsync(),
+                GetHostsGetChangeCounterAsync()
             });
     }
 
     private async Task GetHostsGetHostNumberOfEntriesAsync()
     {
         HostsGetHostNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetHostNumberOfEntriesAsync();
+    }
+
+    private async Task GetHostsGetChangeCounterAsync()
+    {
+        HostsGetChangeCounterResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetChangeCounterAsync();
     }
 
     private async Task GetHostsGetHostListPathAsync(CancellationToken cancellationToken)
