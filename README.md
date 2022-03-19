@@ -1,24 +1,33 @@
-# RS.Fritz.Manager.UI
-A Windows .NET app with WPF UI to manage FritzBox devices using pure WCF calls.
+# RS.Fritz.Manager
+Allows FritzBox device detection, monitoring, configuring and network traffic capturing. The TR-064 implementation is using pure WCF Soap calls.
+
+Available as a standalone Windows application ([UI](#rsfritzmanagerui)) and as a NuGet package ([API](#rsfritzmanagerapi)).
+
+For a list of implemented services check the [Service implementation status](#service-implementation-status)
+
+
+## RS.Fritz.Manager.UI
+A Windows .NET WPF application for x64 and ARM64.
 
 * [Releases](https://github.com/Rans4ckeR/RS.Fritz.Manager/releases)
 
 ![Screenshot 2022-03-19 210434](https://user-images.githubusercontent.com/25006126/159136777-0ab554b3-e196-45e0-ac98-b19e03fcbf87.png)
 
-## Usage Instructions
+### Usage Instructions
 1. Click Discover Internet Gateway Devices
-2. Select a device from the list
-3. Select a device user
+2. Select a detected device
+3. Select a detected user
 4. Enter the selected user's password
 5. Click Login
 6. Use the Device Information tab to see device details
 
-# RS.Fritz.Manager.API
+## RS.Fritz.Manager.API
 A NuGet package to manage FritzBox devices using pure WCF calls.
 
 * [NuGet](https://www.nuget.org/packages/RS.Fritz.Manager.API)
+* [GitHub](https://github.com/Rans4ckeR/RS.Fritz.Manager/packages/1302526)
 
-## Usage Example
+### Usage Example
 
 ```C#
 using System.Net;
