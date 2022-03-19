@@ -18,7 +18,6 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
     private const int TimerTickIntervalMs = 200;
     private const string CapturePath = $"/cgi-bin/capture_notimeout";
     private const string Scheme = "http";
-    private const string Host = "fritz.box";
 
     private readonly ICaptureControlService captureControlService;
     private readonly DispatcherTimer animationTimer;
@@ -89,10 +88,9 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
-        // do nothing
-        await Task.Delay(1, CancellationToken.None);
+        return Task.CompletedTask;
     }
 
     private static string UpdateFolderPath(string folderPath)
@@ -170,7 +168,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         string sid = await GetSidAsync();
         const string iface = "2-1";
         string query = FormattableString.Invariant($"sid={sid}&capture=Start&snaplen=1600&ifaceorminor={iface}");
-        var captureUri = new Uri(FormattableString.Invariant($"{Scheme}://{Host}{CapturePath}?{query}"));
+        var captureUri = new Uri(FormattableString.Invariant($"{Scheme}://{DeviceLoginInfo.InternetGatewayDevice.ApiDevice.PreferredLocation.Host}{CapturePath}?{query}"));
 
         if (await InvalidTargetPath(targetFolder, FilenamePrefix))
         {
@@ -195,7 +193,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         string iface = "eth_udma0";
         string timeString20 = DateTime.UtcNow.Ticks.ToString("D20", CultureInfo.InvariantCulture);
         string timeId = FormattableString.Invariant($"t{timeString20[^13..]}");
-        var captureUri = new Uri(FormattableString.Invariant($"{Scheme}://{Host}{CapturePath}?iface={iface}&minor=1&type=2&capture=Stop&sid={sid}&useajax=1&xhr=1&{timeId}=nocache"));
+        var captureUri = new Uri(FormattableString.Invariant($"{Scheme}://{DeviceLoginInfo.InternetGatewayDevice.ApiDevice.PreferredLocation.Host}{CapturePath}?iface={iface}&minor=1&type=2&capture=Stop&sid={sid}&useajax=1&xhr=1&{timeId}=nocache"));
         await captureControlService.GetStopCaptureResponseAsync(captureUri);
         StartButtonIsEnabled01 = true;
     }
@@ -217,7 +215,6 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         HostsGetHostListPathResponse newHostsGetHostListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetHostListPathAsync();
         string hostListPath = newHostsGetHostListPathResponse.HostListPath;
 
-        //string returnString = hostListPath.Substring((hostListPath.LastIndexOf("sid=") != -1) ? hostListPath.LastIndexOf("sid=") : hostListPath.Length - 1);
         string returnString = hostListPath[((hostListPath.LastIndexOf("sid=", StringComparison.InvariantCulture) != -1) ? hostListPath.LastIndexOf("sid=", StringComparison.InvariantCulture) : hostListPath.Length - 1)..];
 
         returnString = returnString.Length >= 4 ? returnString.Remove(0, 4) : string.Empty;
