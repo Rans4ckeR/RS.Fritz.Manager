@@ -104,6 +104,11 @@ public static class InternetGatewayDeviceExtensions
         return internetGatewayDevice.ExecuteAsync((h, d) => h.Layer3ForwardingGetDefaultConnectionServiceAsync(d));
     }
 
+    public static Task<Layer3ForwardingGetForwardNumberOfEntriesResponse> Layer3ForwardingGetForwardNumberOfEntriesAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.Layer3ForwardingGetForwardNumberOfEntriesAsync(d));
+    }
+
     public static Task<WanDslInterfaceConfigGetDslDiagnoseInfoResponse> WanDslInterfaceConfigGetDslDiagnoseInfoAsync(this InternetGatewayDevice internetGatewayDevice)
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.WanDslInterfaceConfigGetDslDiagnoseInfoAsync(d));

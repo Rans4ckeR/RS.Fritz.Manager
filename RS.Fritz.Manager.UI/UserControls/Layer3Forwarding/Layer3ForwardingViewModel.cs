@@ -8,6 +8,7 @@ using RS.Fritz.Manager.API;
 internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
 {
     private Layer3ForwardingGetDefaultConnectionServiceResponse? layer3ForwardingGetDefaultConnectionServiceResponse;
+    private Layer3ForwardingGetForwardNumberOfEntriesResponse? layer3ForwardingGetForwardNumberOfEntriesResponse;
 
     public Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -20,8 +21,28 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref layer3ForwardingGetDefaultConnectionServiceResponse, value); }
     }
 
+    public Layer3ForwardingGetForwardNumberOfEntriesResponse? Layer3ForwardingGetForwardNumberOfEntriesResponse
+    {
+        get => layer3ForwardingGetForwardNumberOfEntriesResponse;
+        private set { _ = SetProperty(ref layer3ForwardingGetForwardNumberOfEntriesResponse, value); }
+    }
+
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
+        await API.TaskExtensions.WhenAllSafe(new[]
+            {
+                GetLayer3ForwardingGetDefaultConnectionServiceAsync(),
+                GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
+            });
+    }
+
+    private async Task GetLayer3ForwardingGetDefaultConnectionServiceAsync()
+    {
         Layer3ForwardingGetDefaultConnectionServiceResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.Layer3ForwardingGetDefaultConnectionServiceAsync();
+    }
+
+    private async Task GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
+    {
+        Layer3ForwardingGetForwardNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.Layer3ForwardingGetForwardNumberOfEntriesAsync();
     }
 }

@@ -129,7 +129,7 @@ await host.RunAsync();
 * 🔶 urn:dslforum-org:service:Layer3Forwarding:1
   * ❌ SetDefaultConnectionService
   * ✅ GetDefaultConnectionService
-  * ❌ GetForwardNumberOfEntries
+  * ✅ GetForwardNumberOfEntries
   * ❌ AddForwardingEntry
   * ❌ DeleteForwardingEntry
   * ❌ GetSpecificForwardingEntry
