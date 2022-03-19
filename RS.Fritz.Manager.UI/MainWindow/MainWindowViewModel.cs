@@ -43,7 +43,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         WanEthernetLinkConfigViewModel wanEthernetLinkConfigViewModel,
         WanDslLinkConfigViewModel wanDslLinkConfigViewModel,
         AvmSpeedtestViewModel avmSpeedtestViewModel,
-        IDeviceSearchService deviceSearchService)
+        IDeviceSearchService deviceSearchService,
+        CaptureControlCaptureViewModel captureControlCaptureViewModel)
         : base(deviceLoginInfo, logger)
     {
         this.deviceSearchService = deviceSearchService;
@@ -58,6 +59,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         WanEthernetLinkConfigViewModel = wanEthernetLinkConfigViewModel;
         WanDslLinkConfigViewModel = wanDslLinkConfigViewModel;
         AvmSpeedtestViewModel = avmSpeedtestViewModel;
+        CaptureControlCaptureViewModel = captureControlCaptureViewModel;
         LoginCommand = new AsyncRelayCommand<bool?>(ExecuteLoginCommandAsync, _ => CanExecuteLoginCommand);
 
         WeakReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) =>
@@ -94,6 +96,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     public WanDslLinkConfigViewModel WanDslLinkConfigViewModel { get; }
 
     public AvmSpeedtestViewModel AvmSpeedtestViewModel { get; }
+
+    public CaptureControlCaptureViewModel? CaptureControlCaptureViewModel { get; }
 
     public string? UserMessage
     {

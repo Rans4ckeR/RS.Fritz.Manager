@@ -45,6 +45,7 @@ internal sealed partial class App
                     .AddSingleton<AvmSpeedtestViewModel>()
                     .AddSingleton<DeviceLoginInfo>()
                     .AddSingleton<ILogger, UserInterfaceLogService>()
+                    .AddSingleton<CaptureControlCaptureViewModel>()
                     .AddFritzApi();
             }).Build();
     }

@@ -1356,6 +1356,9 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:CaptureControlCaptureViewModel}">
+                <ui:CaptureControlCaptureView/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type ui:HostsViewModel}">
                 <ui:HostsView/>
             </DataTemplate>
