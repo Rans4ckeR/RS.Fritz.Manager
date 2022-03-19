@@ -3,7 +3,7 @@ A Windows .NET app with WPF UI to manage FritzBox devices using pure WCF calls.
 
 * [Releases](https://github.com/Rans4ckeR/RS.Fritz.Manager/releases)
 
-![Untitled](https://user-images.githubusercontent.com/25006126/130702690-2dbbd2a7-34c3-488a-bfd8-6e29dea2add2.png)
+![Screenshot 2022-03-19 210434](https://user-images.githubusercontent.com/25006126/159136777-0ab554b3-e196-45e0-ac98-b19e03fcbf87.png)
 
 ## Usage Instructions
 1. Click Discover Internet Gateway Devices
