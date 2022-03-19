@@ -248,4 +248,9 @@ public static class InternetGatewayDeviceExtensions
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.WanDslLinkConfigGetStatisticsAsync(d));
     }
+
+    public static Task<AvmSpeedtestGetInfoResponse> AvmSpeedtestGetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.AvmSpeedtestGetInfoAsync(d));
+    }
 }

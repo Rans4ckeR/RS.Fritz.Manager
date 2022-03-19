@@ -42,6 +42,7 @@ internal sealed partial class App
                     .AddSingleton<WanPppConnectionViewModel>()
                     .AddSingleton<WanIpConnectionViewModel>()
                     .AddSingleton<WanEthernetLinkConfigViewModel>()
+                    .AddSingleton<AvmSpeedtestViewModel>()
                     .AddSingleton<DeviceLoginInfo>()
                     .AddSingleton<ILogger, UserInterfaceLogService>()
                     .AddFritzApi();

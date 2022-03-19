@@ -122,7 +122,9 @@ await host.RunAsync();
   * ✅ GetATMEncapsulation
   * ✅ GetAutoConfig
   * ✅ GetStatistics
-* ❌ urn:dslforum-org:service:X_AVM-DE_Speedtest:1
+* 🔶 urn:dslforum-org:service:X_AVM-DE_Speedtest:1
+  * ✅ GetInfo
+  * ❌ SetConfig
 * ❌ urn:dslforum-org:service:X_AVM-DE_RemoteAccess:1
 * ❌ urn:dslforum-org:service:X_AVM-DE_MyFritz:1
 * ❌ urn:dslforum-org:service:X_AVM-DE_HostFilter:1
