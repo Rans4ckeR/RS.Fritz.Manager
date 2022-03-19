@@ -15,35 +15,25 @@ public static class ExceptionMessageBuilder
         return exceptionStringBuilder.ToString();
     }
 
-    public static string GetUserFriendlyExceptionInfo(this Exception ex)
-    {
-        var exceptionStringBuilder = new StringBuilder();
-
-        GetExceptionInfo(ex, exceptionStringBuilder, false);
-
-        return exceptionStringBuilder.ToString();
-    }
-
-    private static void GetExceptionInfo(Exception ex, StringBuilder sb, bool includeDetails = true)
+    private static void GetExceptionInfo(Exception ex, StringBuilder sb)
     {
         _ = sb.AppendLine(FormattableString.Invariant($"{nameof(Exception)}.{nameof(Exception.GetType)}: {ex.GetType()}"))
             .AppendLine(FormattableString.Invariant($"{nameof(Exception)}.{nameof(Exception.Message)}: {ex.Message}"));
 
-        if (includeDetails)
-            GetExceptionDetails(ex, sb);
+        GetExceptionDetails(ex, sb);
 
         if (ex is AggregateException aggregateException)
         {
             foreach (Exception innerException in aggregateException.InnerExceptions)
             {
                 _ = sb.AppendLine(FormattableString.Invariant($"{nameof(AggregateException)}.{nameof(AggregateException.InnerExceptions)}:"));
-                GetExceptionInfo(innerException, sb, includeDetails);
+                GetExceptionInfo(innerException, sb);
             }
         }
         else if (ex.InnerException is not null)
         {
             _ = sb.AppendLine(FormattableString.Invariant($"{nameof(Exception)}.{nameof(Exception.InnerException)}:"));
-            GetExceptionInfo(ex.InnerException, sb, includeDetails);
+            GetExceptionInfo(ex.InnerException, sb);
         }
     }
 

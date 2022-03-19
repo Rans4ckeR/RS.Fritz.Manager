@@ -114,6 +114,7 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
         }
         catch (OperationCanceledException)
         {
+            // Ignore Task cancellation
         }
         catch (Exception ex)
         {
