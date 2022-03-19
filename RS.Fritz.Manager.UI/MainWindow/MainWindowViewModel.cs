@@ -29,7 +29,22 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     private bool canExecuteLoginCommand;
     private ImageSource loginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Login.png"));
 
-    public MainWindowViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanIpConnectionViewModel wanIpConnectionViewModel, HostsViewModel hostsViewModel, WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel, WanPppConnectionViewModel wanPppConnectionViewModel, Layer3ForwardingViewModel layer3ForwardingViewModel, DeviceInfoViewModel deviceInfoViewModel, LanConfigSecurityViewModel lanConfigSecurityViewModel, WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel, WanEthernetLinkConfigViewModel wanEthernetLinkConfigViewModel, IDeviceSearchService deviceSearchService)
+    public MainWindowViewModel(
+        DeviceLoginInfo deviceLoginInfo,
+        ILogger logger,
+        WanIpConnectionViewModel wanIpConnectionViewModel,
+        HostsViewModel hostsViewModel,
+        WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel,
+        WanPppConnectionViewModel wanPppConnectionViewModel,
+        Layer3ForwardingViewModel layer3ForwardingViewModel,
+        DeviceInfoViewModel deviceInfoViewModel,
+        LanConfigSecurityViewModel lanConfigSecurityViewModel,
+        WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel,
+        WanEthernetLinkConfigViewModel wanEthernetLinkConfigViewModel,
+        WanDslLinkConfigViewModel wanDslLinkConfigViewModel,
+        AvmSpeedtestViewModel avmSpeedtestViewModel,
+        IDeviceSearchService deviceSearchService,
+        CaptureControlCaptureViewModel captureControlCaptureViewModel)
         : base(deviceLoginInfo, logger)
     {
         this.deviceSearchService = deviceSearchService;
@@ -42,6 +57,9 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         WanCommonInterfaceConfigViewModel = wanCommonInterfaceConfigViewModel;
         HostsViewModel = hostsViewModel;
         WanEthernetLinkConfigViewModel = wanEthernetLinkConfigViewModel;
+        WanDslLinkConfigViewModel = wanDslLinkConfigViewModel;
+        AvmSpeedtestViewModel = avmSpeedtestViewModel;
+        CaptureControlCaptureViewModel = captureControlCaptureViewModel;
         LoginCommand = new AsyncRelayCommand<bool?>(ExecuteLoginCommandAsync, _ => CanExecuteLoginCommand);
 
         WeakReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) =>
@@ -75,6 +93,12 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
 
     public WanEthernetLinkConfigViewModel WanEthernetLinkConfigViewModel { get; }
 
+    public WanDslLinkConfigViewModel WanDslLinkConfigViewModel { get; }
+
+    public AvmSpeedtestViewModel AvmSpeedtestViewModel { get; }
+
+    public CaptureControlCaptureViewModel? CaptureControlCaptureViewModel { get; }
+
     public string? UserMessage
     {
         get => userMessage; private set { _ = SetProperty(ref userMessage, value); }
@@ -88,7 +112,11 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     public ObservableCollection<User> Users
     {
         get => users;
-        private set => _ = SetProperty(ref users, value);
+        private set
+        {
+            if (SetProperty(ref users, value))
+                DeviceLoginInfo.User = Users.SingleOrDefault(q => q.LastUser);
+        }
     }
 
     public ObservableObject? ActiveView
@@ -100,7 +128,11 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     public ObservableCollection<ObservableInternetGatewayDevice> Devices
     {
         get => devices;
-        private set => _ = SetProperty(ref devices, value);
+        private set
+        {
+            if (SetProperty(ref devices, value) && value.Count is 1)
+                DeviceLoginInfo.InternetGatewayDevice = Devices.Single();
+        }
     }
 
     public IAsyncRelayCommand LoginCommand { get; }
@@ -196,10 +228,10 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
 
     private async Task ExecuteLoginCommandAsync(bool? showView)
     {
-        LoginCommandActive = true;
-
         try
         {
+            LoginCommandActive = true;
+
             await DeviceLoginInfo.InternetGatewayDevice!.GetDeviceTypeAsync();
 
             LoginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Success.png"));
@@ -207,6 +239,10 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         catch (MessageSecurityException)
         {
             LoginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Fail.png"));
+        }
+        catch (Exception ex)
+        {
+            Logger.ExceptionThrown(ex);
         }
         finally
         {

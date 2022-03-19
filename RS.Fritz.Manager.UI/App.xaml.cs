@@ -32,6 +32,7 @@ internal sealed partial class App
                     .AddSingleton<WanDslInterfaceConfigViewModel>()
                     .AddSingleton<WanDslInterfaceConfigInfoViewModel>()
                     .AddSingleton<WanDslInterfaceConfigDslInfoViewModel>()
+                    .AddSingleton<WanDslLinkConfigViewModel>()
                     .AddSingleton<WanCommonInterfaceConfigViewModel>()
                     .AddSingleton<WanCommonInterfaceConfigSetWanAccessTypeViewModel>()
                     .AddSingleton<WanCommonInterfaceConfigGetOnlineMonitorViewModel>()
@@ -41,8 +42,10 @@ internal sealed partial class App
                     .AddSingleton<WanPppConnectionViewModel>()
                     .AddSingleton<WanIpConnectionViewModel>()
                     .AddSingleton<WanEthernetLinkConfigViewModel>()
+                    .AddSingleton<AvmSpeedtestViewModel>()
                     .AddSingleton<DeviceLoginInfo>()
                     .AddSingleton<ILogger, UserInterfaceLogService>()
+                    .AddSingleton<CaptureControlCaptureViewModel>()
                     .AddFritzApi();
             }).Build();
     }
@@ -53,8 +56,8 @@ internal sealed partial class App
 
         MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
 
+        PreventWpfFlashbang(mainWindow);
         mainWindow.Show();
-
         base.OnStartup(e);
 
         Mouse.OverrideCursor = null;
@@ -72,6 +75,12 @@ internal sealed partial class App
         base.OnExit(e);
 
         Mouse.OverrideCursor = null;
+    }
+
+    private static void PreventWpfFlashbang(Window window)
+    {
+        window.Loaded += (s, _) => ((Window)s).WindowState = WindowState.Normal;
+        window.WindowState = WindowState.Minimized;
     }
 
     private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)

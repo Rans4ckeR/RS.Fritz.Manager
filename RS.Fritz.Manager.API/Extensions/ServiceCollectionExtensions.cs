@@ -12,6 +12,7 @@ public static class ServiceCollectionExtensions
     {
         _ = services.AddSingleton<IDeviceSearchService, DeviceSearchService>()
             .AddSingleton<IDeviceHostsService, DeviceHostsService>()
+            .AddSingleton<ICaptureControlService, CaptureControlService>()
             .AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>()
             .AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>()
             .AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>()
@@ -21,7 +22,9 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IClientFactory<IFritzLayer3ForwardingService>, ClientFactory<IFritzLayer3ForwardingService>>()
             .AddSingleton<IClientFactory<IFritzWanPppConnectionService>, ClientFactory<IFritzWanPppConnectionService>>()
             .AddSingleton<IClientFactory<IFritzWanIpConnectionService>, ClientFactory<IFritzWanIpConnectionService>>()
-            .AddSingleton<IClientFactory<IFritzWanEthernetLinkConfigService>, ClientFactory<IFritzWanEthernetLinkConfigService>>();
+            .AddSingleton<IClientFactory<IFritzWanEthernetLinkConfigService>, ClientFactory<IFritzWanEthernetLinkConfigService>>()
+            .AddSingleton<IClientFactory<IFritzWanDslLinkConfigService>, ClientFactory<IFritzWanDslLinkConfigService>>()
+            .AddSingleton<IClientFactory<IFritzAvmSpeedtestService>, ClientFactory<IFritzAvmSpeedtestService>>();
         ConfigureHttpClients(services);
     }
 

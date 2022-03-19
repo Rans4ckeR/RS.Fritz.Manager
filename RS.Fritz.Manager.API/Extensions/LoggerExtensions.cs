@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 public static class LoggerExtensions
 {
-    private static readonly Action<ILogger, string, Exception?> ExceptionDetails = LoggerMessage.Define<string>(LogLevel.Error, new EventId(1, nameof(ExceptionThrown)), "Exception thrown (Exception = '{Exception}')");
+    private static readonly Action<ILogger, string, Exception?> ExceptionDetails = LoggerMessage.Define<string>(LogLevel.Error, new EventId(1, nameof(ExceptionThrown)), "{Exception}");
 
     public static void ExceptionThrown(this ILogger logger, Exception exception)
     {

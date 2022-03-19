@@ -504,6 +504,144 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetInfoResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Enable}" Content="_Enable" ToolTip="Enables or disables the link. Returns always 'true'."/>
+                            <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=LinkStatus}" Content="_LinkStatus" ToolTip="Status of the link. This parameter has been duplicated to WANDSLInterfaceConfig which models the DSL connection outside the WANConnectionDevice (this is required for multiple VP/VC support over one DSL link). Possible values are Up, Down, Initializing, Unavailable."/>
+                            <TextBlock x:Name="LinkStatus" Grid.Row="1" Grid.Column="1" Text="{Binding LinkStatus}"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=LinkType}" Content="_LinkType" ToolTip="Indicates the type of DSL connection and refers to the complete stack of protocol used for this connection. Possible values are EoA, PPPoA (intern PPPoA with LLC), PPPoE, Unconfigured."/>
+                            <TextBlock x:Name="LinkType" Grid.Row="2" Grid.Column="1" Text="{Binding LinkType}"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=DestinationAddress}" Content="_DestinationAddress" ToolTip="Destination address of this link. For PVC: VPI/VCI, for SVC: ATM connection name or ATM address."/>
+                            <TextBlock x:Name="DestinationAddress" Grid.Row="3" Grid.Column="1" Text="{Binding DestinationAddress}"/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=AtmEncapsulation}" Content="_AtmEncapsulation" ToolTip="Identifies the connection encapsulation that will be used. Possible values are LLC, VCMUX."/>
+                            <TextBlock x:Name="AtmEncapsulation" Grid.Row="4" Grid.Column="1" Text="{Binding AtmEncapsulation}"/>
+                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=AutoConfig}" Content="_AutoConfig" ToolTip="Indicates if the CPE is currently using some auto configuration mechanisms for this connection."/>
+                            <TextBlock x:Name="AutoConfig" Grid.Row="5" Grid.Column="1" Text="{Binding AutoConfig}"/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=AtmQos}" Content="_AtmQos" ToolTip="Describes the ATM Quality Of Service (QoS) being used on the PVC. Possible values are UBR, CBR, GFR, VBR-nrt, VBR-rt, UBR+, ABR."/>
+                            <TextBlock x:Name="AtmQos" Grid.Row="6" Grid.Column="1" Text="{Binding AtmQos}"/>
+                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=AtmPeakCellRate}" Content="_AtmPeakCellRate" ToolTip="Specifies the upstream peak cell rate in cells per second."/>
+                            <TextBlock x:Name="AtmPeakCellRate" Grid.Row="7" Grid.Column="1" Text="{Binding AtmPeakCellRate}"/>
+                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=AtmSustainableCellRate}" Content="_AtmSustainableCellRate" ToolTip="Specifies the upstream sustainable cell rate, in cells per second, used for traffic shaping."/>
+                            <TextBlock x:Name="AtmSustainableCellRate" Grid.Row="8" Grid.Column="1" Text="{Binding AtmSustainableCellRate}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetDslLinkInfoResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DslLinkInfo">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=LinkType}" Content="_LinkType" ToolTip="Indicates the type of DSL connection and refers to the complete stack of protocol used for this connection. Possible values are EoA, PPPoA (intern PPPoA with LLC), PPPoE, Unconfigured."/>
+                            <TextBlock x:Name="LinkType" Grid.Row="0" Grid.Column="1" Text="{Binding LinkType}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=LinkStatus}" Content="_LinkStatus" ToolTip="Status of the link. This parameter has been duplicated to WANDSLInterfaceConfig which models the DSL connection outside the WANConnectionDevice (this is required for multiple VP/VC support over one DSL link). Possible values are Up, Down, Initializing, Unavailable."/>
+                            <TextBlock x:Name="LinkStatus" Grid.Row="1" Grid.Column="1" Text="{Binding LinkStatus}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetDestinationAddressResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DestinationAddress">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DestinationAddress}" Content="_DestinationAddress" ToolTip="Destination address of this link. For PVC: VPI/VCI, for SVC: ATM connection name or ATM address."/>
+                            <TextBlock x:Name="DestinationAddress" Grid.Row="0" Grid.Column="1" Text="{Binding DestinationAddress}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetAtmEncapsulationResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="AtmEncapsulation">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AtmEncapsulation}" Content="_AtmEncapsulation" ToolTip="Identifies the connection encapsulation that will be used. Possible values are LLC, VCMUX."/>
+                            <TextBlock x:Name="AtmEncapsulation" Grid.Row="0" Grid.Column="1" Text="{Binding AtmEncapsulation}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetAutoConfigResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="AutoConfig">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AutoConfig}" Content="_AutoConfig" ToolTip="Indicates if the CPE is currently using some auto configuration mechanisms for this connection."/>
+                            <TextBlock x:Name="AutoConfig" Grid.Row="0" Grid.Column="1" Text="{Binding AutoConfig}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetStatisticsResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Statistics">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AtmTransmittedBlocks}" Content="_AtmTransmittedBlocks" ToolTip="The current count of successfully transmitted blocks."/>
+                            <TextBlock x:Name="AtmTransmittedBlocks" Grid.Row="0" Grid.Column="1" Text="{Binding AtmTransmittedBlocks}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=AtmReceivedBlocks}" Content="_AtmReceivedBlocks" ToolTip="The current count of successfully received blocks."/>
+                            <TextBlock x:Name="AtmReceivedBlocks" Grid.Row="1" Grid.Column="1" Text="{Binding AtmReceivedBlocks}"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Aal5CrcErrors}" Content="_Aal5CrcErrors" ToolTip="Count of the AAL5 layer cyclic redundancy check errors."/>
+                            <TextBlock x:Name="Aal5CrcErrors" Grid.Row="2" Grid.Column="1" Text="{Binding Aal5CrcErrors}"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=AtmCrcErrors}" Content="_AtmCrcErrors" ToolTip="Count of the ATM layer cyclic redundancy check errors."/>
+                            <TextBlock x:Name="AtmCrcErrors" Grid.Row="3" Grid.Column="1" Text="{Binding AtmCrcErrors}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type api:Layer3ForwardingGetDefaultConnectionServiceResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DefaultConnectionService">
@@ -515,15 +653,32 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DefaultConnectionService}" Content="_DefaultConnectionService" ToolTip="Specifies a connection service instance in a WANConnectionDevice. See UPnP Layer3Forwarding:1 v1.01 for more details. Max length = 256 characters."/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DefaultConnectionService}" Content="_DefaultConnectionService" ToolTip="Specifies the default WAN interface. The content is the full hierarchical parameter name of the default layer-3 connection object."/>
                             <TextBlock x:Name="DefaultConnectionService" Grid.Row="0" Grid.Column="1" Text="{Binding DefaultConnectionService}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:Layer3ForwardingGetForwardNumberOfEntriesResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ForwardNumberOfEntries">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ForwardNumberOfEntries}" Content="_ForwardNumberOfEntries" ToolTip="Number of forwarding instances."/>
+                            <TextBlock x:Name="ForwardNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding ForwardNumberOfEntries}"/>
                         </Grid>
                     </Expander>
                 </Border>
             </DataTemplate>
             <DataTemplate DataType="{x:Type api:WanIpConnectionGetInfoResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WanIpConnection Info">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -674,7 +829,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=PortMappingNumberOfEntries}" Content="_PortMappingNumberOfEntries" ToolTip="Retrieves the value of the PortMappingNumberOfEntries state variable."/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=PortMappingNumberOfEntries}" Content="_PortMappingNumberOfEntries" ToolTip="Total number of port mapping entries."/>
                             <TextBlock x:Name="PortMappingNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding PortMappingNumberOfEntries}"/>
                         </Grid>
                     </Expander>
@@ -691,7 +846,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ExternalIpAddress}" Content="_ExternalIpAddress" ToolTip="Retrieves the value of the ExternalIpAddress state variable."/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ExternalIpAddress}" Content="_ExternalIpAddress" ToolTip="This is the external IP address used by NAT for this connection."/>
                             <TextBlock x:Name="ExternalIpAddress" Grid.Row="0" Grid.Column="1" Text="{Binding ExternalIpAddress}"/>
                         </Grid>
                     </Expander>
@@ -932,7 +1087,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=PortMappingNumberOfEntries}" Content="_PortMappingNumberOfEntries" ToolTip="Retrieves the value of the PortMappingNumberOfEntries state variable."/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=PortMappingNumberOfEntries}" Content="_PortMappingNumberOfEntries" ToolTip="Total number of port mapping entries."/>
                             <TextBlock x:Name="PortMappingNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding PortMappingNumberOfEntries}"/>
                         </Grid>
                     </Expander>
@@ -949,7 +1104,7 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ExternalIpAddress}" Content="_ExternalIpAddress" ToolTip="Retrieves the value of the ExternalIpAddress state variable."/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ExternalIpAddress}" Content="_ExternalIpAddress" ToolTip="This is the external IP address used by NAT for this connection."/>
                             <TextBlock x:Name="ExternalIpAddress" Grid.Row="0" Grid.Column="1" Text="{Binding ExternalIpAddress}"/>
                         </Grid>
                     </Expander>
@@ -1157,11 +1312,52 @@
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=EthernetLinkStatus}" Content="_EthernetLinkStatus" ToolTip="Retrieves the value of the EthernetLinkStatus state variable. Possible values are Up, Down, Unavailable"/>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=EthernetLinkStatus}" Content="_EthernetLinkStatus" ToolTip="Status of the Ethernet link. Possible values are Up, Down, Unavailable."/>
                             <TextBlock x:Name="EthernetLinkStatus" Grid.Row="0" Grid.Column="1" Text="{Binding EthernetLinkStatus}"/>
                         </Grid>
                     </Expander>
                 </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:AvmSpeedtestGetInfoResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=EnableTcp}" Content="_EnableTcp" ToolTip="Status of measuring point for an Iperf client in the home network for TCP."/>
+                            <TextBlock x:Name="EnableTcp" Grid.Row="0" Grid.Column="1" Text="{Binding EnableTcp}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=EnableUdp}" Content="_EnableUdp" ToolTip="Status of measuring point for an Iperf client in the home network for UDP."/>
+                            <TextBlock x:Name="EnableUdp" Grid.Row="1" Grid.Column="1" Text="{Binding EnableUdp}"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=EnableUdpBidirect}" Content="_EnableUdpBidirect" ToolTip="Status of measuring point for a bidirectional Iperf-UDP test."/>
+                            <TextBlock x:Name="EnableUdpBidirect" Grid.Row="2" Grid.Column="1" Text="{Binding EnableUdpBidirect}"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=WanEnableTcp}" Content="_WanEnableTcp" ToolTip="Status of measuring point for an Iperf client on the firewall for TCP."/>
+                            <TextBlock x:Name="WanEnableTcp" Grid.Row="3" Grid.Column="1" Text="{Binding WanEnableTcp}"/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=WanEnableUdp}" Content="_WanEnableUdp" ToolTip="Status of measuring point for an Iperf client on the firewall for UDP."/>
+                            <TextBlock x:Name="WanEnableUdp" Grid.Row="4" Grid.Column="1" Text="{Binding WanEnableUdp}"/>
+                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=PortTcp}" Content="_PortTcp" ToolTip="TCP port."/>
+                            <TextBlock x:Name="PortTcp" Grid.Row="5" Grid.Column="1" Text="{Binding PortTcp}"/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=PortUdp}" Content="_PortUdp" ToolTip="UDP port."/>
+                            <TextBlock x:Name="PortUdp" Grid.Row="6" Grid.Column="1" Text="{Binding PortUdp}"/>
+                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=PortUdpBidirect}" Content="_PortUdpBidirect" ToolTip="UDP bidirectional port."/>
+                            <TextBlock x:Name="PortUdpBidirect" Grid.Row="7" Grid.Column="1" Text="{Binding PortUdpBidirect}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:CaptureControlCaptureViewModel}">
+                <ui:CaptureControlCaptureView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:HostsViewModel}">
                 <ui:HostsView/>
@@ -1183,6 +1379,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:WanDslInterfaceConfigInfoViewModel}">
                 <ui:WanDslInterfaceConfigInfoView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:WanDslLinkConfigViewModel}">
+                <ui:WanDslLinkConfigView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:LanConfigSecuritySetConfigPasswordViewModel}">
                 <ui:LanConfigSecuritySetConfigPasswordView/>
@@ -1210,6 +1409,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:WanEthernetLinkConfigViewModel}">
                 <ui:WanEthernetLinkConfigView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:AvmSpeedtestViewModel}">
+                <ui:AvmSpeedtestView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

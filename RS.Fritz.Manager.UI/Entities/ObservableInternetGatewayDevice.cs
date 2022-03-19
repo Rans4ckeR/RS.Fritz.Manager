@@ -94,6 +94,10 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
         {
             "DSL" => UI.WanAccessType.Dsl,
             "Ethernet" => UI.WanAccessType.Ethernet,
+            "X_AVM-DE_Fiber" => UI.WanAccessType.Ethernet,
+            "X_AVM-DE_UMTS" => UI.WanAccessType.Ethernet,
+            "X_AVM-DE_Cable" => UI.WanAccessType.Ethernet,
+            "X_AVM-DE_LTE" => UI.WanAccessType.Ethernet,
             _ => throw new ArgumentOutOfRangeException(nameof(WanCommonInterfaceConfigGetCommonLinkPropertiesResponse.WanAccessType), wanCommonInterfaceConfigGetCommonLinkProperties.WanAccessType, null)
         };
     }
