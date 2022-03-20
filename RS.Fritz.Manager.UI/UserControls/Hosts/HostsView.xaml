@@ -14,6 +14,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -22,5 +23,6 @@
         <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding HostsGetHostNumberOfEntriesResponse}"/>
         <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding HostsGetGenericHostEntryViewModel}"/>
         <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding HostsGetChangeCounterResponse}"/>
+        <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding DeviceMeshInfo}"/>
     </Grid>
 </UserControl>
