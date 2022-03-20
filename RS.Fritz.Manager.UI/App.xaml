@@ -1373,6 +1373,258 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:DeviceMeshInfo}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="MeshListPath">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=MeshListPath}" Content="_MeshListPath"/>
+                            <TextBlock x:Name="MeshListPath" Grid.Row="0" Grid.Column="1" Text="{Binding MeshListPath}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MeshListPathLink}" Content="_MeshListPathLink"/>
+                            <TextBlock x:Name="MeshListPathLink" Grid.Row="1" Grid.Column="1">
+                                <ui:ExternalBrowserHyperlink NavigateUri="{Binding MeshListPathLink}">
+                                    <TextBlock Text="{Binding MeshListPathLink}"/>
+                                </ui:ExternalBrowserHyperlink>
+                            </TextBlock>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DeviceMesh}" Content="_DeviceMesh"/>
+                            <ContentControl x:Name="DeviceMesh" Grid.Row="2" Grid.Column="1" Content="{Binding DeviceMesh}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:DeviceMesh}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=SchemaVersion}" Content="_SchemaVersion" ToolTip="Schema Version used for the FRITZ!OS topology JSON dump."/>
+                    <TextBlock x:Name="SchemaVersion" Grid.Row="0" Grid.Column="1" Text="{Binding SchemaVersion}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Nodes}" Content="_Nodes" ToolTip="List of all involved devices."/>
+                    <ItemsControl x:Name="Nodes" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Nodes}"/>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:DeviceMeshNode}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Node">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Uid}" Content="_Uid" ToolTip="Unique identifier of the device."/>
+                            <TextBlock x:Name="Uid" Grid.Row="0" Grid.Column="1" Text="{Binding Uid}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DeviceName}" Content="_DeviceName" ToolTip="Name of the device."/>
+                            <TextBlock x:Name="DeviceName" Grid.Row="1" Grid.Column="1" Text="{Binding DeviceName}"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DeviceModel}" Content="_DeviceModel" ToolTip="Device model, e.g. FRITZ!Box 7590."/>
+                            <TextBlock x:Name="DeviceModel" Grid.Row="2" Grid.Column="1" Text="{Binding DeviceModel}"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=DeviceManufacturer}" Content="_DeviceManufacturer" ToolTip="Device manufacturer, e.g. AVM."/>
+                            <TextBlock x:Name="DeviceManufacturer" Grid.Row="3" Grid.Column="1" Text="{Binding DeviceManufacturer}"/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DeviceFirmwareVersion}" Content="_DeviceFirmwareVersion" ToolTip="Device firmware version, e.g. 154.06.92-57341."/>
+                            <TextBlock x:Name="DeviceFirmwareVersion" Grid.Row="4" Grid.Column="1" Text="{Binding DeviceFirmwareVersion}"/>
+                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=DeviceMacAddress}" Content="_DeviceMacAddress" ToolTip="MAC address of the device."/>
+                            <TextBlock x:Name="DeviceMacAddress" Grid.Row="5" Grid.Column="1" Text="{Binding DeviceMacAddress}"/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=IsMeshed}" Content="_IsMeshed" ToolTip="Indicates the device is part of AVM mesh."/>
+                            <TextBlock x:Name="IsMeshed" Grid.Row="6" Grid.Column="1" Text="{Binding IsMeshed}"/>
+                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=MeshRole}" Content="_MeshRole" ToolTip="The AVM mesh role of the device. Possible values are unknown, master, slave."/>
+                            <TextBlock x:Name="MeshRole" Grid.Row="7" Grid.Column="1" Text="{Binding MeshRole}"/>
+                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=MeshdVersion}" Content="_MeshdVersion" ToolTip="The version of the meshd on this device; 0.0 if unknown."/>
+                            <TextBlock x:Name="MeshdVersion" Grid.Row="8" Grid.Column="1" Text="{Binding MeshdVersion}"/>
+                            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=NodeInterfaces}" Content="_NodeInterfaces" ToolTip="List of all available interfaces of this device."/>
+                            <ItemsControl x:Name="NodeInterfaces" Grid.Row="9" Grid.Column="1" ItemsSource="{Binding NodeInterfaces}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:DeviceMeshNodeInterface}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="NodeInterface">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Uid}" Content="_Uid" ToolTip="Unique identifier of this interface."/>
+                            <TextBlock x:Name="Uid" Grid.Row="0" Grid.Column="1" Text="{Binding Uid}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Name}" Content="_Name" ToolTip="Interface name."/>
+                            <TextBlock x:Name="Name" Grid.Row="1" Grid.Column="1" Text="{Binding Name}"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Type}" Content="_Type" ToolTip="Interface type, e.g. LAN or WLAN. Possible values are unknown, LAN, WLAN, PLC, DECT."/>
+                            <TextBlock x:Name="Type" Grid.Row="2" Grid.Column="1" Text="{Binding Type}"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=MacAddress}" Content="_MacAddress" ToolTip="Interface MAC address. Might be zero for unconfigured interfaces."/>
+                            <TextBlock x:Name="MacAddress" Grid.Row="3" Grid.Column="1" Text="{Binding MacAddress}"/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=BlockingState}" Content="_BlockingState" ToolTip="Indicates if this interface has been blocked for traffic flow to prevent a network loop. Possible values are UNKNOWN, NOT_BLOCKED, BLOCKED."/>
+                            <TextBlock x:Name="BlockingState" Grid.Row="4" Grid.Column="1" Text="{Binding BlockingState}"/>
+                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Ssid}" Content="_Ssid" ToolTip="WLAN: SSID name. Might be empty for unconfigured interfaces."/>
+                            <TextBlock x:Name="Ssid" Grid.Row="5" Grid.Column="1" Text="{Binding Ssid}"/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=Opmode}" Content="_Opmode" ToolTip="WLAN: Operation mode of this interface, e.g. AP, WDS_REPEATER."/>
+                            <TextBlock x:Name="Opmode" Grid.Row="6" Grid.Column="1" Text="{Binding Opmode}"/>
+                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=Security}" Content="_Security" ToolTip="WLAN: Security algorithm, e.g. NONE, WPA2PSK."/>
+                            <TextBlock x:Name="Security" Grid.Row="7" Grid.Column="1" Text="{Binding Security}"/>
+                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=CurrentChannel}" Content="_CurrentChannel" ToolTip="WLAN: Currently used WLAN center channel."/>
+                            <TextBlock x:Name="CurrentChannel" Grid.Row="8" Grid.Column="1" Text="{Binding CurrentChannel}"/>
+                            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=ChannelUtilization}" Content="_ChannelUtilization" ToolTip="WLAN: Percentage value of current channel utilization."/>
+                            <TextBlock x:Name="ChannelUtilization" Grid.Row="9" Grid.Column="1" Text="{Binding ChannelUtilization}"/>
+                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=Anpi}" Content="_Anpi" ToolTip="WLAN: Average noise and interference power indicator in dBm [NOTE: 255 - indicates value is unknown!]."/>
+                            <TextBlock x:Name="Anpi" Grid.Row="10" Grid.Column="1" Text="{Binding Anpi}"/>
+                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=SteeringEnabled}" Content="_SteeringEnabled" ToolTip="WLAN: Steering of this interface is enabled."/>
+                            <TextBlock x:Name="SteeringEnabled" Grid.Row="11" Grid.Column="1" Text="{Binding SteeringEnabled}"/>
+                            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=Is11kFriendly}" Content="_Is11kFriendly" ToolTip="WLAN: Beacon Reporting seems to work with this interface and client is capable of it."/>
+                            <TextBlock x:Name="Is11kFriendly" Grid.Row="12" Grid.Column="1" Text="{Binding Is11kFriendly}"/>
+                            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=Is11vFriendly}" Content="_Is11vFriendly" ToolTip="WLAN: BSS Transition Management seems to work with this interface and client is capable of it."/>
+                            <TextBlock x:Name="Is11vFriendly" Grid.Row="13" Grid.Column="1" Text="{Binding Is11vFriendly}"/>
+                            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=LegacyFriendly}" Content="_LegacyFriendly" ToolTip="WLAN: Legacy Steering seems to work with this interface."/>
+                            <TextBlock x:Name="LegacyFriendly" Grid.Row="14" Grid.Column="1" Text="{Binding LegacyFriendly}"/>
+                            <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=RrmCompliant}" Content="_RrmCompliant" ToolTip="WLAN: Beacon report RCPI measurements seem to be encoded as described in Table 9-154 of IEEE802.11 (2016)."/>
+                            <TextBlock x:Name="RrmCompliant" Grid.Row="15" Grid.Column="1" Text="{Binding RrmCompliant}"/>
+                            <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=ClientPosition}" Content="_ClientPosition" ToolTip="WLAN: Rating of the connected uplink rcpi. Possible values are too_close, too_far, ok, unknown."/>
+                            <TextBlock x:Name="ClientPosition" Grid.Row="16" Grid.Column="1" Text="{Binding ClientPosition}"/>
+                            <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=SupportedStreamsTx}" Content="_SupportedStreamsTx" ToolTip="WLAN: Tx properties. Table representing possible stream configurations for a certain channel width."/>
+                            <ItemsControl x:Name="SupportedStreamsTx" Grid.Row="17" Grid.Column="1" ItemsSource="{Binding SupportedStreamsTx}"/>
+                            <Label Grid.Row="18" Grid.Column="0" Target="{Binding ElementName=SupportedStreamsRx}" Content="_SupportedStreamsRx" ToolTip="WLAN: Rx properties. Table representing possible stream configurations for a certain channel width."/>
+                            <ItemsControl x:Name="SupportedStreamsRx" Grid.Row="18" Grid.Column="1" ItemsSource="{Binding SupportedStreamsRx}"/>
+                            <Label Grid.Row="19" Grid.Column="0" Target="{Binding ElementName=Phymodes}" Content="_Phymodes" ToolTip="WLAN: Currently selected Phymodes, e.g. a, ac, n. Might be empty for unconfigured interfaces."/>
+                            <ItemsControl x:Name="Phymodes" Grid.Row="19" Grid.Column="1" ItemsSource="{Binding Phymodes}"/>
+                            <Label Grid.Row="20" Grid.Column="0" Target="{Binding ElementName=Channels}" Content="_Channels" ToolTip="WLAN: List of all channels this interface can operate on."/>
+                            <ItemsControl x:Name="Channels" Grid.Row="20" Grid.Column="1" ItemsSource="{Binding Channels}"/>
+                            <Label Grid.Row="21" Grid.Column="0" Target="{Binding ElementName=NodeLinks}" Content="_NodeLinks" ToolTip="Connection links."/>
+                            <ItemsControl x:Name="NodeLinks" Grid.Row="21" Grid.Column="1" ItemsSource="{Binding NodeLinks}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:DeviceMeshNodeLink}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="NodeLink">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Uid}" Content="_Uid" ToolTip="Unique identifier of this link."/>
+                            <TextBlock x:Name="Uid" Grid.Row="0" Grid.Column="1" Text="{Binding Uid}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Type}" Content="_Type" ToolTip="Link type, e.g. LAN or WLAN. Possible values are unknown, LAN, WLAN, PLC, DECT."/>
+                            <TextBlock x:Name="Type" Grid.Row="1" Grid.Column="1" Text="{Binding Type}"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=State}" Content="_State" ToolTip="Connection state. Possible values are DISCONNECTED, CONNECTED."/>
+                            <TextBlock x:Name="State" Grid.Row="2" Grid.Column="1" Text="{Binding State}"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LastConnected}" Content="_LastConnected" ToolTip="UNIX timestamp when this link was last connected."/>
+                            <TextBlock x:Name="LastConnected" Grid.Row="3" Grid.Column="1" Text="{Binding LastConnected}"/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Node1Uid}" Content="_Node1Uid" ToolTip="First endpoint node uid of this link."/>
+                            <TextBlock x:Name="Node1Uid" Grid.Row="4" Grid.Column="1" Text="{Binding Node1Uid}"/>
+                            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Node2Uid}" Content="_Node2Uid" ToolTip="Second endpoint node uid of this link."/>
+                            <TextBlock x:Name="Node2Uid" Grid.Row="5" Grid.Column="1" Text="{Binding Node2Uid}"/>
+                            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=NodeInterface1Uid}" Content="_NodeInterface1Uid" ToolTip="First endpoint node interface uid of this link."/>
+                            <TextBlock x:Name="NodeInterface1Uid" Grid.Row="6" Grid.Column="1" Text="{Binding NodeInterface1Uid}"/>
+                            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=NodeInterface2Uid}" Content="_NodeInterface2Uid" ToolTip="Second endpoint node interface uid of this link."/>
+                            <TextBlock x:Name="NodeInterface2Uid" Grid.Row="7" Grid.Column="1" Text="{Binding NodeInterface2Uid}"/>
+                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=MaxDataRateRx}" Content="_MaxDataRateRx" ToolTip="Maximum rx data rate in kbit/s from node 2 to node 1."/>
+                            <TextBlock x:Name="MaxDataRateRx" Grid.Row="8" Grid.Column="1" Text="{Binding MaxDataRateRx}"/>
+                            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=MaxDataRateTx}" Content="_MaxDataRateTx" ToolTip="Maximum tx data rate in kbit/s from node 1 to node 2."/>
+                            <TextBlock x:Name="MaxDataRateTx" Grid.Row="9" Grid.Column="1" Text="{Binding MaxDataRateTx}"/>
+                            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=CurDataRateRx}" Content="_CurDataRateRx" ToolTip="Current rx data rate in kbit/s from node 2 to node 1."/>
+                            <TextBlock x:Name="CurDataRateRx" Grid.Row="10" Grid.Column="1" Text="{Binding CurDataRateRx}"/>
+                            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=CurDataRateTx}" Content="_CurDataRateTx" ToolTip="Current tx data rate in kbit/s from node 1 to node 2."/>
+                            <TextBlock x:Name="CurDataRateTx" Grid.Row="11" Grid.Column="1" Text="{Binding CurDataRateTx}"/>
+                            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=CurAvailabilityRx}" Content="_CurAvailabilityRx" ToolTip="Current rx link availability in percent from node 1 to node 2 [NOTE: 255 - indicates value is unknown!]."/>
+                            <TextBlock x:Name="CurAvailabilityRx" Grid.Row="12" Grid.Column="1" Text="{Binding CurAvailabilityRx}"/>
+                            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=CurAvailabilityTx}" Content="_CurAvailabilityTx" ToolTip="Current tx link availability in percent from node 1 to node 2 [NOTE: 255 - indicates value is unknown!]."/>
+                            <TextBlock x:Name="CurAvailabilityTx" Grid.Row="13" Grid.Column="1" Text="{Binding CurAvailabilityTx}"/>
+                            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=RxRsni}" Content="_RxRsni" ToolTip="WLAN: Receive signal to noise indicator in dB measured at node 1 [NOTE: 255 - indicates value is unknown!]."/>
+                            <TextBlock x:Name="RxRsni" Grid.Row="14" Grid.Column="1" Text="{Binding RxRsni}"/>
+                            <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=TxRsni}" Content="_TxRsni" ToolTip="WLAN: Receive signal to noise indicator in dB measured at node 2 [NOTE: 255 - indicates value is unknown!]."/>
+                            <TextBlock x:Name="TxRsni" Grid.Row="15" Grid.Column="1" Text="{Binding TxRsni}"/>
+                            <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=RxRcpi}" Content="_RxRcpi" ToolTip="WLAN: Receive channel power indicator in dBm measured at node 1 [NOTE: 255 - indicates value is unknown!]."/>
+                            <TextBlock x:Name="RxRcpi" Grid.Row="16" Grid.Column="1" Text="{Binding RxRcpi}"/>
+                            <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=TxRcpi}" Content="_TxRcpi" ToolTip="WLAN: Receive channel power indicator in dBm measured at node 2 [NOTE: 255 - indicates value is unknown!]."/>
+                            <TextBlock x:Name="TxRcpi" Grid.Row="17" Grid.Column="1" Text="{Binding TxRcpi}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:DeviceMeshChannel}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Channel">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ChannelNumber}" Content="_ChannelNumber" ToolTip="Channel ID for this entry."/>
+                            <TextBlock x:Name="ChannelNumber" Grid.Row="0" Grid.Column="1" Text="{Binding ChannelNumber}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type ui:CaptureControlCaptureViewModel}">
                 <ui:CaptureControlCaptureView/>
             </DataTemplate>

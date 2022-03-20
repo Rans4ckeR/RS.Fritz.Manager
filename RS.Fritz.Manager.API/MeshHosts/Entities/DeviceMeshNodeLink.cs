@@ -2,7 +2,7 @@
 
 using System.Text.Json.Serialization;
 
-public readonly record struct NodeLinks(
+public readonly record struct DeviceMeshNodeLink(
     [property: JsonPropertyName("uid")] string Uid,
     [property: JsonPropertyName("type")] string Type,
     [property: JsonPropertyName("state")] string State,

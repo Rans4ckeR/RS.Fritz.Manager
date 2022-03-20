@@ -2,13 +2,13 @@
 
 using System.Text.Json.Serialization;
 
-public readonly record struct NodeInterfaces(
+public readonly record struct DeviceMeshNodeInterface(
     [property: JsonPropertyName("uid")] string Uid,
     [property: JsonPropertyName("name")] string? Name,
     [property: JsonPropertyName("type")] string Type,
     [property: JsonPropertyName("mac_address")] string MacAddress,
     [property: JsonPropertyName("blocking_state")] string? BlockingState,
-    [property: JsonPropertyName("node_links")] NodeLinks[]? NodeLinks,
+    [property: JsonPropertyName("node_links")] DeviceMeshNodeLink[]? NodeLinks,
     [property: JsonPropertyName("ssid")] string? Ssid,
     [property: JsonPropertyName("opmode")] string? Opmode,
     [property: JsonPropertyName("security")] string? Security,
@@ -24,4 +24,4 @@ public readonly record struct NodeInterfaces(
     [property: JsonPropertyName("legacy_friendly")] bool? LegacyFriendly,
     [property: JsonPropertyName("rrm_compliant")] bool? RrmCompliant,
     [property: JsonPropertyName("client_position")] string? ClientPosition,
-    [property: JsonPropertyName("channel_list")] ChannelList[]? ChannelList);
+    [property: JsonPropertyName("channel_list")] DeviceMeshChannel[]? Channels);

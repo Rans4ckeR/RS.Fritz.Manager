@@ -2,7 +2,7 @@
 
 using System.Text.Json.Serialization;
 
-public readonly record struct Node(
+public readonly record struct DeviceMeshNode(
     [property: JsonPropertyName("uid")] string Uid,
     [property: JsonPropertyName("device_name")] string? DeviceName,
     [property: JsonPropertyName("device_model")] string? DeviceModel,
@@ -12,4 +12,4 @@ public readonly record struct Node(
     [property: JsonPropertyName("is_meshed")] bool? IsMeshed,
     [property: JsonPropertyName("mesh_role")] string? MeshRole,
     [property: JsonPropertyName("meshd_version")] string? MeshdVersion,
-    [property: JsonPropertyName("node_interfaces")] NodeInterfaces[]? NodeInterfaces);
+    [property: JsonPropertyName("node_interfaces")] DeviceMeshNodeInterface[]? NodeInterfaces);
