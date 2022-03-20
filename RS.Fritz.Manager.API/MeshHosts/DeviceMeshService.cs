@@ -20,8 +20,6 @@ internal sealed class DeviceMeshService : IDeviceMeshService
     {
         await using Stream deviceMeshJsonStream = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStreamAsync(meshListPathUri, cancellationToken);
 
-        var deviceMesh = (DeviceMesh?)await JsonSerializer.DeserializeAsync(deviceMeshJsonStream, typeof(DeviceMesh), cancellationToken: cancellationToken);
-
-        return deviceMesh!;
+        return (DeviceMesh)(await JsonSerializer.DeserializeAsync(deviceMeshJsonStream, typeof(DeviceMesh), cancellationToken: cancellationToken))!;
     }
 }
