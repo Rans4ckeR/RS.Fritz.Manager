@@ -24,34 +24,25 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 
     private int progBarPercent01;
     private Visibility progBarVisibility01 = Visibility.Hidden;
-    private bool startButtonIsEnabled01;
-    private int captureTimeLimitMinutes;
+    private bool startButtonIsEnabled01 = true;
+    private int captureTimeLimitMinutes = 5;
     private string filenamePrefix = "FritzboxCapture";
     private string selectedTargetFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
     private string targetFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
     private int milliSecondsCaptured;
-    private ObservableCollection<string> targetFolders = new() { string.Empty };
 
     public CaptureControlCaptureViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, ICaptureControlService captureControlService)
            : base(deviceLoginInfo, logger)
     {
         this.captureControlService = captureControlService;
-        Start_1_Command = new AsyncRelayCommand(DoExecute_Start_1_Command_Async);
-        Stop_1_Command = new AsyncRelayCommand(DoExecute_Stop_1_Command_Async);
+        Start1Command = new AsyncRelayCommand(DoExecuteStart1CommandAsync);
+        Stop1Command = new AsyncRelayCommand(DoExecuteStop1CommandAsync);
         animationTimer = new DispatcherTimer()
         {
             Interval = TimeSpan.FromMilliseconds(TimerTickIntervalMs)
         };
         animationTimer.Tick += AnimationTimer_Tick;
-        CaptureTimeLimitMinutes = 5;
-        TargetFolders = new ObservableCollection<string>()
-            {
-                "Downloads",
-                "Documents",
-                "Desktop"
-            };
         SelectedTargetFolder = TargetFolders[0];
-        StartButtonIsEnabled01 = true;
     }
 
     public int ProgBarPercent01 { get => progBarPercent01; set => _ = SetProperty(ref progBarPercent01, value); }
@@ -62,11 +53,16 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 
     public string FilenamePrefix { get => filenamePrefix; set => _ = SetProperty(ref filenamePrefix, value); }
 
-    public ObservableCollection<string> TargetFolders { get => targetFolders; set => _ = SetProperty(ref targetFolders, value); }
+    public ObservableCollection<string> TargetFolders { get; } = new ObservableCollection<string>()
+        {
+            "Downloads",
+            "Documents",
+            "Desktop"
+        };
 
-    public IAsyncRelayCommand? Start_1_Command { get; }
+    public IAsyncRelayCommand? Start1Command { get; }
 
-    public IAsyncRelayCommand? Stop_1_Command { get; }
+    public IAsyncRelayCommand? Stop1Command { get; }
 
     public int CaptureTimeLimitMinutes
     {
@@ -74,6 +70,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         set
         {
             value = value == 100 ? 9999 : value;
+
             _ = SetProperty(ref captureTimeLimitMinutes, value);
         }
     }
@@ -83,8 +80,8 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         get => selectedTargetFolder;
         set
         {
-            _ = SetProperty(ref selectedTargetFolder, value);
-            targetFolder = UpdateFolderPath(value);
+            if (SetProperty(ref selectedTargetFolder, value))
+                targetFolder = UpdateFolderPath(value);
         }
     }
 
@@ -93,49 +90,21 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         return Task.CompletedTask;
     }
 
-    private static string UpdateFolderPath(string folderPath)
+    private static string UpdateFolderPath(string folderPath) => folderPath switch
     {
-        string returnPath;
-        switch (folderPath)
-        {
-            case "Documents":
-                {
-                    returnPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    break;
-                }
-
-            case "Downloads":
-                {
-                    returnPath = SpecialFolder.Downloads;
-                    break;
-                }
-
-            case "Desktop":
-                {
-                    returnPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                    break;
-                }
-
-            default:
-                {
-                    returnPath = FormattableString.Invariant($"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\{folderPath}");
-                    break;
-                }
-        }
-
-        return returnPath;
-    }
+        "Documents" => Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+        "Downloads" => SpecialFolder.Downloads,
+        "Desktop" => Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+        _ => FormattableString.Invariant($"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\{folderPath}")
+    };
 
     private static async Task<bool> InvalidTargetPath(string targetFolder, string filenamePrefix)
     {
         char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
-
         bool invalidFilename = false;
 
         if (filenamePrefix.IndexOfAny(invalidFileNameChars) != -1)
-        {
             invalidFilename = true;
-        }
 
         targetFolder = invalidFilename ? "ThisIsAnInvalidPath::::" : targetFolder;
 
@@ -149,13 +118,16 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         catch
         {
             _ = WeakReferenceMessenger.Default.Send(new UserMessageValueChangedMessage(new UserMessage("Invalid character in TargetFolder or FilenamePrefix")));
+
             await Task.Delay(3000);
+
             _ = WeakReferenceMessenger.Default.Send(new UserMessageValueChangedMessage(new UserMessage(string.Empty)));
+
             return true;
         }
     }
 
-    private async Task DoExecute_Start_1_Command_Async()
+    private async Task DoExecuteStart1CommandAsync()
     {
         string sid = await GetSidAsync();
         const string iface = "2-1";
@@ -163,9 +135,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         var captureUri = new Uri(FormattableString.Invariant($"{Scheme}://{DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.PreferredLocation.Host}{CapturePath}?{query}"));
 
         if (await InvalidTargetPath(targetFolder, FilenamePrefix))
-        {
             return;
-        }
 
         ProgBarVisibility01 = Visibility.Visible;
         animationTimer.Start();
@@ -179,14 +149,16 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         StartButtonIsEnabled01 = true;
     }
 
-    private async Task DoExecute_Stop_1_Command_Async()
+    private async Task DoExecuteStop1CommandAsync()
     {
         string sid = await GetSidAsync();
-        string iface = "eth_udma0";
+        const string iface = "eth_udma0";
         string timeString20 = DateTime.UtcNow.Ticks.ToString("D20", CultureInfo.InvariantCulture);
         string timeId = FormattableString.Invariant($"t{timeString20[^13..]}");
         var captureUri = new Uri(FormattableString.Invariant($"{Scheme}://{DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.PreferredLocation.Host}{CapturePath}?iface={iface}&minor=1&type=2&capture=Stop&sid={sid}&useajax=1&xhr=1&{timeId}=nocache"));
+
         await captureControlService.GetStopCaptureResponseAsync(captureUri);
+
         StartButtonIsEnabled01 = true;
     }
 
@@ -194,11 +166,11 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
     {
         ProgBarPercent01 = (progBarPercent01 + 1) % 10;
         milliSecondsCaptured += TimerTickIntervalMs;
+
         if (milliSecondsCaptured > CaptureTimeLimitMinutes * 60 * 1000)
         {
             animationTimer.Stop();
-
-            await DoExecute_Stop_1_Command_Async();
+            await DoExecuteStop1CommandAsync();
         }
     }
 
@@ -206,10 +178,10 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
     {
         HostsGetHostListPathResponse newHostsGetHostListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetHostListPathAsync();
         string hostListPath = newHostsGetHostListPathResponse.HostListPath;
-
-        string returnString = hostListPath[((hostListPath.LastIndexOf("sid=", StringComparison.InvariantCulture) != -1) ? hostListPath.LastIndexOf("sid=", StringComparison.InvariantCulture) : hostListPath.Length - 1)..];
+        string returnString = hostListPath[(hostListPath.LastIndexOf("sid=", StringComparison.InvariantCulture) != -1 ? hostListPath.LastIndexOf("sid=", StringComparison.InvariantCulture) : hostListPath.Length - 1)..];
 
         returnString = returnString.Length >= 4 ? returnString.Remove(0, 4) : string.Empty;
+
         return returnString;
     }
 }
