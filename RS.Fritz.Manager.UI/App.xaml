@@ -1625,6 +1625,26 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type api:DeviceMeshStreamConfiguration}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="StreamConfiguration">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ChannelWidth}" Content="_ChannelWidth" ToolTip="Channel width."/>
+                            <TextBlock x:Name="ChannelWidth" Grid.Row="0" Grid.Column="1" Text="{Binding ChannelWidth}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=SupportedStreamCount}" Content="_SupportedStreamCount" ToolTip="Supported stream count."/>
+                            <TextBlock x:Name="SupportedStreamCount" Grid.Row="1" Grid.Column="1" Text="{Binding SupportedStreamCount}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type ui:CaptureControlCaptureViewModel}">
                 <ui:CaptureControlCaptureView/>
             </DataTemplate>
