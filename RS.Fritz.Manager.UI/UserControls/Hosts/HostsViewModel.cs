@@ -11,16 +11,18 @@ using RS.Fritz.Manager.API;
 internal sealed class HostsViewModel : FritzServiceViewModel
 {
     private readonly IDeviceHostsService deviceHostsService;
+    private readonly IDeviceMeshService deviceMeshService;
 
     private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
     private HostsGetChangeCounterResponse? hostsGetChangeCounterResponse;
     private DeviceHostInfo? deviceHostInfo;
 
-    public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IDeviceHostsService deviceHostsService, HostsGetGenericHostEntryViewModel hostsGetGenericHostEntryViewModel)
+    public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IDeviceHostsService deviceHostsService, IDeviceMeshService deviceMeshService, HostsGetGenericHostEntryViewModel hostsGetGenericHostEntryViewModel)
         : base(deviceLoginInfo, logger)
     {
         HostsGetGenericHostEntryViewModel = hostsGetGenericHostEntryViewModel;
         this.deviceHostsService = deviceHostsService;
+        this.deviceMeshService = deviceMeshService;
     }
 
     public HostsGetGenericHostEntryViewModel HostsGetGenericHostEntryViewModel { get; }
@@ -52,6 +54,7 @@ internal sealed class HostsViewModel : FritzServiceViewModel
         await API.TaskExtensions.WhenAllSafe(new[]
             {
                 GetHostsGetHostListPathAsync(cancellationToken),
+                GetHostsGetMeshListPathAsync(cancellationToken),
                 GetHostsGetHostNumberOfEntriesAsync(),
                 GetHostsGetChangeCounterAsync()
             });
@@ -75,5 +78,13 @@ internal sealed class HostsViewModel : FritzServiceViewModel
         IEnumerable<DeviceHost> deviceHosts = await deviceHostsService.GetDeviceHostsAsync(hostListPathUri, cancellationToken);
 
         DeviceHostInfo = new DeviceHostInfo(hostListPath, hostListPathUri, new ObservableCollection<DeviceHost>(deviceHosts));
+    }
+
+    private async Task GetHostsGetMeshListPathAsync(CancellationToken cancellationToken)
+    {
+        HostsGetMeshListPathResponse newHostsGetMeshListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetMeshListPathAsync();
+        string meshListPath = newHostsGetMeshListPathResponse.MeshListPath;
+        var meshListPathUri = new Uri(FormattableString.Invariant($"https://{DeviceLoginInfo.InternetGatewayDevice.ApiDevice.PreferredLocation.Host}:{DeviceLoginInfo.InternetGatewayDevice.ApiDevice.SecurityPort}{meshListPath}"));
+        DeviceMesh deviceMesh = await deviceMeshService.GetDeviceMeshAsync(meshListPathUri, cancellationToken);
     }
 }
