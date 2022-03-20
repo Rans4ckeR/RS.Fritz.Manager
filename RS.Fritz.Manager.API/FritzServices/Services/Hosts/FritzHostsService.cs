@@ -32,4 +32,9 @@ internal sealed class FritzHostsService : FritzServiceClient<IFritzHostsService>
     {
         return Channel.GetChangeCounterAsync(hostsGetChangeCounterRequest);
     }
+
+    public Task<HostsGetMeshListPathResponse> GetMeshListPathAsync(HostsGetMeshListPathRequest hostsGetMeshListPathRequest)
+    {
+        return Channel.GetMeshListPathAsync(hostsGetMeshListPathRequest);
+    }
 }

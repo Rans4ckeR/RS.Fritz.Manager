@@ -166,7 +166,7 @@ await host.RunAsync();
   * ❌ X_AVM-DE_HostsCheckUpdate
   * ❌ X_AVM-DE_HostDoUpdate
   * ✅ X_AVM-DE_GetHostListPath
-  * ❌ X_AVM-DE_GetMeshListPath
+  * ✅ X_AVM-DE_GetMeshListPath
 * ❌ urn:dslforum-org:service:WLANConfiguration:1
 * ❌ urn:dslforum-org:service:LANHostConfigManagement:1
 * ❌ urn:dslforum-org:service:LANEthernetInterfaceConfig:1
