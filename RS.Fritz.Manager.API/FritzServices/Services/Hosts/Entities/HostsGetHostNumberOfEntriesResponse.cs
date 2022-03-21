@@ -3,8 +3,5 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetHostNumberOfEntriesResponse")]
-public sealed record HostsGetHostNumberOfEntriesResponse
-{
-    [MessageBodyMember(Name = "NewHostNumberOfEntries")]
-    public ushort HostNumberOfEntries { get; set; }
-}
+public readonly record struct HostsGetHostNumberOfEntriesResponse(
+    [property: MessageBodyMember(Name = "NewHostNumberOfEntries")] ushort HostNumberOfEntries);

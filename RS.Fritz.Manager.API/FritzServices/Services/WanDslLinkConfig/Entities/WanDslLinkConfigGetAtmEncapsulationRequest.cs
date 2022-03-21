@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetAtmEncapsulation")]
-public sealed record WanDslLinkConfigGetAtmEncapsulationRequest;
+public readonly record struct WanDslLinkConfigGetAtmEncapsulationRequest;

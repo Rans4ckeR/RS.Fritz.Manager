@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetDnsServers")]
-public sealed record WanPppConnectionGetDnsServersRequest;
+public readonly record struct WanPppConnectionGetDnsServersRequest;

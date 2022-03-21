@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetTotalPacketsReceived")]
-public sealed record WanCommonInterfaceConfigGetTotalPacketsReceivedRequest;
+public readonly record struct WanCommonInterfaceConfigGetTotalPacketsReceivedRequest;

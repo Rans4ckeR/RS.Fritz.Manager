@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetMeshListPath")]
-public sealed record HostsGetMeshListPathRequest;
+public readonly record struct HostsGetMeshListPathRequest;

@@ -3,17 +3,8 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetStatisticsResponse")]
-public sealed record WanDslLinkConfigGetStatisticsResponse
-{
-    [MessageBodyMember(Name = "NewATMTransmittedBlocks")]
-    public uint AtmTransmittedBlocks { get; set; }
-
-    [MessageBodyMember(Name = "NewATMReceivedBlocks")]
-    public uint AtmReceivedBlocks { get; set; }
-
-    [MessageBodyMember(Name = "NewAAL5CRCErrors")]
-    public uint Aal5CrcErrors { get; set; }
-
-    [MessageBodyMember(Name = "NewATMCRCErrors")]
-    public uint AtmCrcErrors { get; set; }
-}
+public readonly record struct WanDslLinkConfigGetStatisticsResponse(
+    [property: MessageBodyMember(Name = "NewATMTransmittedBlocks")] uint AtmTransmittedBlocks,
+    [property: MessageBodyMember(Name = "NewATMReceivedBlocks")] uint AtmReceivedBlocks,
+    [property: MessageBodyMember(Name = "NewAAL5CRCErrors")] uint Aal5CrcErrors,
+    [property: MessageBodyMember(Name = "NewATMCRCErrors")] uint AtmCrcErrors);

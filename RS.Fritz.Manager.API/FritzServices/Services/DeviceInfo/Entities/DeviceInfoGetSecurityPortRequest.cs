@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetSecurityPort")]
-public sealed record DeviceInfoGetSecurityPortRequest;
+public readonly record struct DeviceInfoGetSecurityPortRequest;

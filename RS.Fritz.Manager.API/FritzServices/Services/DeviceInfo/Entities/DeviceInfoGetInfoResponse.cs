@@ -3,42 +3,16 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetInfoResponse")]
-public sealed record DeviceInfoGetInfoResponse
-{
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    [MessageBodyMember(Name = "NewManufacturerName")]
-    public string ManufacturerName { get; set; }
-
-    [MessageBodyMember(Name = "NewManufacturerOUI")]
-    public string ManufacturerOUI { get; set; }
-
-    [MessageBodyMember(Name = "NewModelName")]
-    public string ModelName { get; set; }
-
-    [MessageBodyMember(Name = "NewDescription")]
-    public string Description { get; set; }
-
-    [MessageBodyMember(Name = "NewProductClass")]
-    public string ProductClass { get; set; }
-
-    [MessageBodyMember(Name = "NewSerialNumber")]
-    public string SerialNumber { get; set; }
-
-    [MessageBodyMember(Name = "NewSoftwareVersion")]
-    public string SoftwareVersion { get; set; }
-
-    [MessageBodyMember(Name = "NewHardwareVersion")]
-    public string HardwareVersion { get; set; }
-
-    [MessageBodyMember(Name = "NewSpecVersion")]
-    public string SpecVersion { get; set; }
-
-    [MessageBodyMember(Name = "NewProvisioningCode")]
-    public string ProvisioningCode { get; set; }
-
-    [MessageBodyMember(Name = "NewUpTime")]
-    public uint Uptime { get; set; }
-
-    [MessageBodyMember(Name = "NewDeviceLog")]
-    public string DeviceLog { get; set; }
-}
+public readonly record struct DeviceInfoGetInfoResponse(
+    [property: MessageBodyMember(Name = "NewManufacturerName")] string ManufacturerName,
+    [property: MessageBodyMember(Name = "NewManufacturerOUI")] string ManufacturerOUI,
+    [property: MessageBodyMember(Name = "NewModelName")] string ModelName,
+    [property: MessageBodyMember(Name = "NewDescription")] string Description,
+    [property: MessageBodyMember(Name = "NewProductClass")] string ProductClass,
+    [property: MessageBodyMember(Name = "NewSerialNumber")] string SerialNumber,
+    [property: MessageBodyMember(Name = "NewSoftwareVersion")] string SoftwareVersion,
+    [property: MessageBodyMember(Name = "NewHardwareVersion")] string HardwareVersion,
+    [property: MessageBodyMember(Name = "NewSpecVersion")] string SpecVersion,
+    [property: MessageBodyMember(Name = "NewProvisioningCode")] string ProvisioningCode,
+    [property: MessageBodyMember(Name = "NewUpTime")] uint Uptime,
+    [property: MessageBodyMember(Name = "NewDeviceLog")] string DeviceLog);

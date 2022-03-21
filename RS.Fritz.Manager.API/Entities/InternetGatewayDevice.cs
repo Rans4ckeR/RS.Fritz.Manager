@@ -42,10 +42,8 @@ public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzSe
     private async Task GetUsersAsync()
     {
         LanConfigSecurityGetUserListResponse lanConfigSecurityGetUserListResponse = await FritzServiceOperationHandler.LanConfigSecurityGetUserListAsync(this);
-
         using var stringReader = new StringReader(lanConfigSecurityGetUserListResponse.UserList);
         using var xmlTextReader = new XmlTextReader(stringReader);
-
         var userList = (UserList?)new XmlSerializer(typeof(UserList)).Deserialize(xmlTextReader);
 
         Users = userList?.Users ?? Array.Empty<User>();

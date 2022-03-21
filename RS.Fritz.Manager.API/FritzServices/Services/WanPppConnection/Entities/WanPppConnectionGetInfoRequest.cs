@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetInfo")]
-public sealed record WanPppConnectionGetInfoRequest;
+public readonly record struct WanPppConnectionGetInfoRequest;

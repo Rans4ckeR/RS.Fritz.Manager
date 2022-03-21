@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetDslLinkInfo")]
-public sealed record WanDslLinkConfigGetDslLinkInfoRequest;
+public readonly record struct WanDslLinkConfigGetDslLinkInfoRequest;

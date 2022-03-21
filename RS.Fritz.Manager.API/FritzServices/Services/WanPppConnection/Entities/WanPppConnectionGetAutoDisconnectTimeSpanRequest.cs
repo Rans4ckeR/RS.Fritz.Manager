@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetAutoDisconnectTimeSpan")]
-public sealed record WanPppConnectionGetAutoDisconnectTimeSpanRequest;
+public readonly record struct WanPppConnectionGetAutoDisconnectTimeSpanRequest;
