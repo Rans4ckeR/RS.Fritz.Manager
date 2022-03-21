@@ -31,7 +31,7 @@ public readonly record struct WanPppConnectionGetInfoResponse(
     [property: MessageBodyMember(Name = "NewTransportType")] string TransportType,
     [property: MessageBodyMember(Name = "NewRouteProtocolRx")] string RouteProtocolRx,
     [property: MessageBodyMember(Name = "NewPPPoEServiceName")] string PPPoEServiceName,
-    [property: MessageBodyMember(Name = "RemoteIPAddress")] string RemoteIPAddress,
+    [property: MessageBodyMember(Name = "NewRemoteIPAddress")] string RemoteIPAddress,
     [property: MessageBodyMember(Name = "NewPPPoEACName")] string PPPoEACName,
     [property: MessageBodyMember(Name = "NewDNSEnabled")] bool DNSEnabled,
     [property: MessageBodyMember(Name = "NewDNSOverrideAllowed")] bool DNSOverrideAllowed);

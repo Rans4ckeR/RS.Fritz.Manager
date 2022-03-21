@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetPortMappingNumberOfEntries")]
-public readonly record struct WanIpConnectionGetPortMappingNumberOfEntriesRequest;
+public readonly record struct WanConnectionGetPortMappingNumberOfEntriesRequest;
