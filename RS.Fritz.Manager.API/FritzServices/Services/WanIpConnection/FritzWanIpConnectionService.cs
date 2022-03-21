@@ -13,38 +13,38 @@ internal sealed class FritzWanIpConnectionService : FritzServiceClient<IFritzWan
     {
     }
 
-    public Task<WanIpConnectionGetInfoResponse> GetInfoAsync(WanIpConnectionGetInfoRequest wanIpConnectionGetInfoRequest)
+    public Task<WanIpConnectionGetInfoResponse> GetInfoAsync(WanConnectionGetInfoRequest wanConnectionGetInfoRequest)
     {
-        return Channel.GetInfoAsync(wanIpConnectionGetInfoRequest);
+        return Channel.GetInfoAsync(wanConnectionGetInfoRequest);
     }
 
-    public Task<WanIpConnectionGetConnectionTypeInfoResponse> GetConnectionTypeInfoAsync(WanIpConnectionGetConnectionTypeInfoRequest wanIpConnectionGetConnectionTypeInfoRequest)
+    public Task<WanConnectionGetConnectionTypeInfoResponse> GetConnectionTypeInfoAsync(WanConnectionGetConnectionTypeInfoRequest wanConnectionGetConnectionTypeInfoRequest)
     {
-        return Channel.GetConnectionTypeInfoAsync(wanIpConnectionGetConnectionTypeInfoRequest);
+        return Channel.GetConnectionTypeInfoAsync(wanConnectionGetConnectionTypeInfoRequest);
     }
 
-    public Task<WanIpConnectionGetStatusInfoResponse> GetStatusInfoAsync(WanIpConnectionGetStatusInfoRequest wanIpConnectionGetStatusInfoRequest)
+    public Task<WanConnectionGetStatusInfoResponse> GetStatusInfoAsync(WanConnectionGetStatusInfoRequest wanConnectionGetStatusInfoRequest)
     {
-        return Channel.GetStatusInfoAsync(wanIpConnectionGetStatusInfoRequest);
+        return Channel.GetStatusInfoAsync(wanConnectionGetStatusInfoRequest);
     }
 
-    public Task<WanIpConnectionGetNatRsipStatusResponse> GetNatRsipStatusAsync(WanIpConnectionGetNatRsipStatusRequest wanIpConnectionGetNatRsipStatusRequest)
+    public Task<WanConnectionGetNatRsipStatusResponse> GetNatRsipStatusAsync(WanConnectionGetNatRsipStatusRequest wanConnectionGetNatRsipStatusRequest)
     {
-        return Channel.GetNatRsipStatusAsync(wanIpConnectionGetNatRsipStatusRequest);
+        return Channel.GetNatRsipStatusAsync(wanConnectionGetNatRsipStatusRequest);
     }
 
-    public Task<WanIpConnectionGetDnsServersResponse> GetDnsServersAsync(WanIpConnectionGetDnsServersRequest wanIpConnectionGetDnsServersRequest)
+    public Task<WanConnectionGetDnsServersResponse> GetDnsServersAsync(WanConnectionGetDnsServersRequest wanConnectionGetDnsServersRequest)
     {
-        return Channel.GetDnsServersAsync(wanIpConnectionGetDnsServersRequest);
+        return Channel.GetDnsServersAsync(wanConnectionGetDnsServersRequest);
     }
 
-    public Task<WanIpConnectionGetPortMappingNumberOfEntriesResponse> GetPortMappingNumberOfEntriesAsync(WanIpConnectionGetPortMappingNumberOfEntriesRequest wanIpConnectionGetPortMappingNumberOfEntriesRequest)
+    public Task<WanConnectionGetPortMappingNumberOfEntriesResponse> GetPortMappingNumberOfEntriesAsync(WanConnectionGetPortMappingNumberOfEntriesRequest wanConnectionGetPortMappingNumberOfEntriesRequest)
     {
-        return Channel.GetPortMappingNumberOfEntriesAsync(wanIpConnectionGetPortMappingNumberOfEntriesRequest);
+        return Channel.GetPortMappingNumberOfEntriesAsync(wanConnectionGetPortMappingNumberOfEntriesRequest);
     }
 
-    public Task<WanIpConnectionGetExternalIpAddressResponse> GetExternalIpAddressAsync(WanIpConnectionGetExternalIpAddressRequest wanIpConnectionGetExternalIpAddressRequest)
+    public Task<WanConnectionGetExternalIpAddressResponse> GetExternalIpAddressAsync(WanConnectionGetExternalIpAddressRequest wanConnectionGetExternalIpAddressRequest)
     {
-        return Channel.GetExternalIpAddressAsync(wanIpConnectionGetExternalIpAddressRequest);
+        return Channel.GetExternalIpAddressAsync(wanConnectionGetExternalIpAddressRequest);
     }
 }

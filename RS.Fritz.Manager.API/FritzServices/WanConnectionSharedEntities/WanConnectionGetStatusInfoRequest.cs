@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetStatusInfo")]
-public readonly record struct WanPppConnectionGetStatusInfoRequest;
+public readonly record struct WanConnectionGetStatusInfoRequest;
