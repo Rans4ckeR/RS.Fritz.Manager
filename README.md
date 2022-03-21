@@ -144,7 +144,7 @@ await host.RunAsync();
   * ❌ AddForwardingEntry
   * ❌ DeleteForwardingEntry
   * ❌ GetSpecificForwardingEntry
-  * ❌ GetGenericForwardingEntry
+  * ✅ GetGenericForwardingEntry
   * ❌ SetForwardingEntryEnable
 
 ### Telephony

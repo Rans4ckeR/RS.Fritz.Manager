@@ -12,4 +12,7 @@ internal interface IFritzLayer3ForwardingService
 
     [OperationContract(Action = "urn:dslforum-org:service:Layer3Forwarding:1#GetForwardNumberOfEntries")]
     public Task<Layer3ForwardingGetForwardNumberOfEntriesResponse> GetForwardNumberOfEntriesAsync(Layer3ForwardingGetForwardNumberOfEntriesRequest layer3ForwardingGetForwardNumberOfEntriesRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:Layer3Forwarding:1#GetGenericForwardingEntry")]
+    public Task<Layer3ForwardingGetGenericForwardingEntryResponse> GetGenericForwardingEntryAsync(Layer3ForwardingGetGenericForwardingEntryRequest layer3ForwardingGetGenericForwardingEntryRequest);
 }
