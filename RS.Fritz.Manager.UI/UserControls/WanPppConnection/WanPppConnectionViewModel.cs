@@ -2,12 +2,10 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.Extensions.Logging;
 using RS.Fritz.Manager.API;
 
-internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipient<PropertyChangedMessage<WanAccessType?>>
+internal sealed class WanPppConnectionViewModel : WanAccessTypeAwareFritzServiceViewModel
 {
     private WanPppConnectionGetInfoResponse? wanPppConnectionGetInfoResponse;
     private WanPppConnectionGetConnectionTypeInfoResponse? wanPppConnectionGetConnectionTypeInfoResponse;
@@ -21,7 +19,7 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
     private WanPppConnectionGetAutoDisconnectTimeSpanResponse? wanPppConnectionGetAutoDisconnectTimeSpanResponse;
 
     public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, WanAccessType.Dsl)
     {
     }
 
@@ -85,21 +83,6 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
         private set { _ = SetProperty(ref wanPppConnectionGetAutoDisconnectTimeSpanResponse, value); }
     }
 
-    public void Receive(PropertyChangedMessage<WanAccessType?> message)
-    {
-        if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
-            return;
-
-        switch (message.PropertyName)
-        {
-            case nameof(ObservableInternetGatewayDevice.WanAccessType):
-                {
-                    UpdateCanExecuteDefaultCommand();
-                    break;
-                }
-        }
-    }
-
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
@@ -115,11 +98,6 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
                 GetWanPppConnectionGetExternalIpAddressAsync(),
                 GetWanPppConnectionGetAutoDisconnectTimeSpanAsync()
           });
-    }
-
-    protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType is WanAccessType.Dsl;
     }
 
     private async Task GetWanPppConnectionGetInfoAsync()
