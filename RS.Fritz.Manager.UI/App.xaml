@@ -852,6 +852,42 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WanConnectionGetGenericPortMappingEntryResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=RemoteHost}" Content="_RemoteHost" ToolTip="This parameter is the IP address of the source of inbound packets. An empty string indicates a 'wildcard' (this will be a wildcard in most cases). CPE are required only to support wildcards."/>
+                        <TextBlock x:Name="RemoteHost" Grid.Row="0" Grid.Column="1" Text="{Binding RemoteHost}"/>
+                        <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ExternalPort}" Content="_ExternalPort" ToolTip="The external port that the NAT gateway would listen on for connection requests to a corresponding InternalPort. Inbound packets to this external port on the WAN interface should be forwarded to InternalClient on the InternalPort."/>
+                        <TextBlock x:Name="ExternalPort" Grid.Row="1" Grid.Column="1" Text="{Binding ExternalPort}"/>
+                        <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Protocol}" Content="_Protocol" ToolTip="Indicates whether the IP address of the host was allocated by the CPE using DHCP or was assigned to the host statically. Possible values are DHCP, Static, AutoIP."/>
+                        <TextBlock x:Name="Protocol" Grid.Row="2" Grid.Column="1" Text="{Binding Protocol}"/>
+                        <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=InternalPort}" Content="_InternalPort" ToolTip="The port on InternalClient that the gateway should forward connection requests to. A value of zero (0) is not allowed."/>
+                        <TextBlock x:Name="InternalPort" Grid.Row="3" Grid.Column="1" Text="{Binding InternalPort}"/>
+                        <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=InternalClient}" Content="_InternalClient" ToolTip="The IP address or DNS host name of an internal client (on the LAN)."/>
+                        <TextBlock x:Name="InternalClient" Grid.Row="4" Grid.Column="1" Text="{Binding InternalClient}"/>
+                        <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Enabled}" Content="_Enabled" ToolTip="Enables or disables the port mapping instance. On creation, an entry is disabled by default."/>
+                        <TextBlock x:Name="Enabled" Grid.Row="5" Grid.Column="1" Text="{Binding Enabled}"/>
+                        <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=PortMappingDescription}" Content="_PortMappingDescription" ToolTip="User-readable description of this port mapping."/>
+                        <TextBlock x:Name="PortMappingDescription" Grid.Row="6" Grid.Column="1" Text="{Binding PortMappingDescription}"/>
+                        <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=LeaseDuration}" Content="_LeaseDuration" ToolTip="Determines the time to live, in seconds, of a port-mapping lease. A value of 0 means the port mapping is static. Static port mappings do not necessarily mean persistence of these mappings across device resets or reboots."/>
+                        <TextBlock x:Name="LeaseDuration" Grid.Row="7" Grid.Column="1" Text="{Binding LeaseDuration}"/>
+                    </Grid>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type api:WanPppConnectionGetInfoResponse}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
@@ -1572,6 +1608,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:WanIpConnectionViewModel}">
                 <ui:WanIpConnectionView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:WanConnectionGetGenericPortMappingEntryViewModel}">
+                <ui:WanConnectionGetGenericPortMappingEntryView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigViewModel}">
                 <ui:WanCommonInterfaceConfigView/>

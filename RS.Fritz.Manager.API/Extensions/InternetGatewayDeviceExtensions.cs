@@ -174,6 +174,11 @@ public static class InternetGatewayDeviceExtensions
         return internetGatewayDevice.ExecuteAsync((h, d) => h.WanIpConnectionGetExternalIpAddressAsync(d));
     }
 
+    public static Task<WanConnectionGetGenericPortMappingEntryResponse> WanIpConnectionGetGenericPortMappingEntryAsync(this InternetGatewayDevice internetGatewayDevice, ushort portMappingIndex)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.WanIpConnectionGetGenericPortMappingEntryAsync(d, portMappingIndex));
+    }
+
     public static Task<WanPppConnectionGetInfoResponse> WanPppConnectionGetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.WanPppConnectionGetInfoAsync(d));
@@ -222,6 +227,11 @@ public static class InternetGatewayDeviceExtensions
     public static Task<WanPppConnectionGetAutoDisconnectTimeSpanResponse> WanPppConnectionGetAutoDisconnectTimeSpanAsync(this InternetGatewayDevice internetGatewayDevice)
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.WanPppConnectionGetAutoDisconnectTimeSpanAsync(d));
+    }
+
+    public static Task<WanConnectionGetGenericPortMappingEntryResponse> WanPppConnectionGetGenericPortMappingEntryAsync(this InternetGatewayDevice internetGatewayDevice, ushort portMappingIndex)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.WanPppConnectionGetGenericPortMappingEntryAsync(d, portMappingIndex));
     }
 
     public static Task<WanEthernetLinkConfigGetEthernetLinkStatusResponse> WanEthernetLinkConfigGetEthernetLinkStatusAsync(this InternetGatewayDevice internetGatewayDevice)

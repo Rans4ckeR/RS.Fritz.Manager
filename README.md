@@ -55,12 +55,12 @@ device.NetworkCredential = new NetworkCredential(lastUsedUserName, Console.ReadL
 
 // Show device UpTime
 DeviceInfoGetInfoResponse deviceInfo = await device.DeviceInfoGetInfoAsync();
-Console.WriteLine(TimeSpan.FromSeconds(deviceInfo.UpTime));
+Console.WriteLine(TimeSpan.FromSeconds(deviceInfo.Uptime));
 
 await host.RunAsync();
 ```
 
-## Service implementation status
+## TR-064 Service implementation status
 
 ### WAN
 * 🔶 urn:dslforum-org:service:WANIPConnection:1
@@ -74,7 +74,7 @@ await host.RunAsync();
   * ❌ RequestConnection
   * ✅ X_GetDNSServers
   * ✅ GetPortMappingNumberOfEntries
-  * ❌ GetGenericPortMappingEntry
+  * ✅ GetGenericPortMappingEntry
   * ❌ GetSpecificPortMappingEntry
   * ❌ AddPortMapping
   * ❌ DeletePortMapping
@@ -96,7 +96,7 @@ await host.RunAsync();
   * ❌ RequestConnection
   * ✅ X_GetDNSServers
   * ✅ GetPortMappingNumberOfEntries
-  * ❌ GetGenericPortMappingEntry
+  * ✅ GetGenericPortMappingEntry
   * ❌ GetSpecificPortMappingEntry
   * ❌ AddPortMapping
   * ❌ DeletePortMapping

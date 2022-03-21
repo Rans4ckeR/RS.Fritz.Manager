@@ -47,4 +47,9 @@ internal sealed class FritzWanIpConnectionService : FritzServiceClient<IFritzWan
     {
         return Channel.GetExternalIpAddressAsync(wanConnectionGetExternalIpAddressRequest);
     }
+
+    public Task<WanConnectionGetGenericPortMappingEntryResponse> GetGenericPortMappingEntryAsync(WanConnectionGetGenericPortMappingEntryRequest wanConnectionGetGenericPortMappingEntryRequest)
+    {
+        return Channel.GetGenericPortMappingEntryAsync(wanConnectionGetGenericPortMappingEntryRequest);
+    }
 }

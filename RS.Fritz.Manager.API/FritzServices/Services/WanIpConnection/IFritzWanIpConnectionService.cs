@@ -27,4 +27,7 @@ internal interface IFritzWanIpConnectionService
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetExternalIPAddress")]
     public Task<WanConnectionGetExternalIpAddressResponse> GetExternalIpAddressAsync(WanConnectionGetExternalIpAddressRequest wanConnectionGetExternalIpAddressRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetGenericPortMappingEntry")]
+    public Task<WanConnectionGetGenericPortMappingEntryResponse> GetGenericPortMappingEntryAsync(WanConnectionGetGenericPortMappingEntryRequest wanConnectionGetGenericPortMappingEntryRequest);
 }

@@ -18,10 +18,13 @@ internal sealed class WanPppConnectionViewModel : WanAccessTypeAwareFritzService
     private WanConnectionGetExternalIpAddressResponse? wanConnectionGetExternalIpAddressResponse;
     private WanPppConnectionGetAutoDisconnectTimeSpanResponse? wanPppConnectionGetAutoDisconnectTimeSpanResponse;
 
-    public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanPppConnectionGetGenericPortMappingEntryViewModel wanPppConnectionGetGenericPortMappingEntryViewModel)
         : base(deviceLoginInfo, logger, WanAccessType.Dsl)
     {
+        WanPppConnectionGetGenericPortMappingEntryViewModel = wanPppConnectionGetGenericPortMappingEntryViewModel;
     }
+
+    public WanPppConnectionGetGenericPortMappingEntryViewModel WanPppConnectionGetGenericPortMappingEntryViewModel { get; }
 
     public WanPppConnectionGetInfoResponse? WanPppConnectionGetInfoResponse
     {
@@ -68,7 +71,11 @@ internal sealed class WanPppConnectionViewModel : WanAccessTypeAwareFritzService
     public WanConnectionGetPortMappingNumberOfEntriesResponse? WanConnectionGetPortMappingNumberOfEntriesResponse
     {
         get => wanConnectionGetPortMappingNumberOfEntriesResponse;
-        private set { _ = SetProperty(ref wanConnectionGetPortMappingNumberOfEntriesResponse, value); }
+        private set
+        {
+            if (SetProperty(ref wanConnectionGetPortMappingNumberOfEntriesResponse, value))
+                WanPppConnectionGetGenericPortMappingEntryViewModel.PortMappingNumberOfEntries = WanConnectionGetPortMappingNumberOfEntriesResponse?.PortMappingNumberOfEntries;
+        }
     }
 
     public WanConnectionGetExternalIpAddressResponse? WanConnectionGetExternalIpAddressResponse

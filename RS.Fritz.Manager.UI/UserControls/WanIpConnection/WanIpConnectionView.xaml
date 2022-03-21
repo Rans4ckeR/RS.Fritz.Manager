@@ -17,6 +17,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -27,6 +28,7 @@
         <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding WanConnectionGetNatRsipStatusResponse}"/>
         <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding WanConnectionGetDnsServersResponse}"/>
         <ContentControl Grid.Row="5" Grid.Column="0" Content="{Binding WanConnectionGetPortMappingNumberOfEntriesResponse}"/>
-        <ContentControl Grid.Row="6" Grid.Column="0" Content="{Binding WanConnectionGetExternalIpAddressResponse}"/>
+        <ContentControl Grid.Row="6" Grid.Column="0" Content="{Binding WanIpConnectionGetGenericPortMappingEntryViewModel}"/>
+        <ContentControl Grid.Row="7" Grid.Column="0" Content="{Binding WanConnectionGetExternalIpAddressResponse}"/>
     </Grid>
 </UserControl>
