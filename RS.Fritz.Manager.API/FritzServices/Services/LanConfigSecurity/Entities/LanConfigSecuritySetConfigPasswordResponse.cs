@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "SetConfigPasswordResponse")]
-public sealed record LanConfigSecuritySetConfigPasswordResponse;
+public readonly record struct LanConfigSecuritySetConfigPasswordResponse;

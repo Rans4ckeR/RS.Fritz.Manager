@@ -3,8 +3,5 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetPortMappingNumberOfEntriesResponse")]
-public sealed record WanPppConnectionGetPortMappingNumberOfEntriesResponse
-{
-    [MessageBodyMember(Name = "NewPortMappingNumberOfEntries")]
-    public ushort PortMappingNumberOfEntries { get; set; }
-}
+public readonly record struct WanPppConnectionGetPortMappingNumberOfEntriesResponse(
+    [property: MessageBodyMember(Name = "NewPortMappingNumberOfEntries")] ushort PortMappingNumberOfEntries);

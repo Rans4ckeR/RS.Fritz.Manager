@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetExternalIpAddress")]
-public sealed record WanIpConnectionGetExternalIpAddressRequest;
+public readonly record struct WanIpConnectionGetExternalIpAddressRequest;

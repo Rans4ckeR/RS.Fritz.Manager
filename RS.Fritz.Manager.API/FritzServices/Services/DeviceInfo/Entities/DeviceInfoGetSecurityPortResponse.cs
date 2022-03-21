@@ -3,8 +3,5 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetSecurityPortResponse")]
-public sealed record DeviceInfoGetSecurityPortResponse
-{
-    [MessageBodyMember(Name = "NewSecurityPort")]
-    public ushort SecurityPort { get; set; }
-}
+public readonly record struct DeviceInfoGetSecurityPortResponse(
+    [property: MessageBodyMember(Name = "NewSecurityPort")] ushort SecurityPort);

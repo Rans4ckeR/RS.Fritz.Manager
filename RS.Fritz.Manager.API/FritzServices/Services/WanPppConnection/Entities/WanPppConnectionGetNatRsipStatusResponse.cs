@@ -3,11 +3,6 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetNatRsipStatusResponse")]
-public sealed record WanPppConnectionGetNatRsipStatusResponse
-{
-    [MessageBodyMember(Name = "NewRSIPAvailable")]
-    public bool RsipAvailable { get; set; }
-
-    [MessageBodyMember(Name = "NewNATEnabled")]
-    public bool NatEnabled { get; set; }
-}
+public readonly record struct WanPppConnectionGetNatRsipStatusResponse(
+    [property: MessageBodyMember(Name = "NewRSIPAvailable")] bool RsipAvailable,
+    [property: MessageBodyMember(Name = "NewNATEnabled")] bool NatEnabled);

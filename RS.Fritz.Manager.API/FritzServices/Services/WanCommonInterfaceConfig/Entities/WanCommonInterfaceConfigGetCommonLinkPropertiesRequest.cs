@@ -4,4 +4,4 @@ using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetCommonLinkProperties")]
 
-public sealed record WanCommonInterfaceConfigGetCommonLinkPropertiesRequest;
+public readonly record struct WanCommonInterfaceConfigGetCommonLinkPropertiesRequest;

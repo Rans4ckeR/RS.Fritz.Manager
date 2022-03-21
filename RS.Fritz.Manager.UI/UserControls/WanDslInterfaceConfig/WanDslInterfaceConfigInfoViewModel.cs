@@ -52,7 +52,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
         get => wanDslInterfaceConfigGetInfoResponse;
         set
         {
-            wanDslInterfaceConfigGetInfoResponses.Add(value!);
+            wanDslInterfaceConfigGetInfoResponses.Add(value!.Value);
 
             if (wanDslInterfaceConfigGetInfoResponses.Count > 1)
             {

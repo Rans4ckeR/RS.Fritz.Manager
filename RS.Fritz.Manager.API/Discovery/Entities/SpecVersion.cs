@@ -3,11 +3,6 @@
 using System.Runtime.Serialization;
 
 [DataContract(Name = "specVersion", Namespace = "urn:dslforum-org:device-1-0")]
-public sealed record SpecVersion
-{
-    [DataMember(Name = "major", Order = 0)]
-    public int Major { get; set; }
-
-    [DataMember(Name = "minor", Order = 1)]
-    public int Minor { get; set; }
-}
+public readonly record struct SpecVersion(
+    [property: DataMember(Name = "major", Order = 0)] int Major,
+    [property: DataMember(Name = "minor", Order = 1)] int Minor);

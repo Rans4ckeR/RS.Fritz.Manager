@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetInfo")]
-public sealed record LanConfigSecurityGetInfoRequest;
+public readonly record struct LanConfigSecurityGetInfoRequest;

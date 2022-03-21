@@ -3,12 +3,6 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetCurrentUserResponse")]
-public sealed record LanConfigSecurityGetCurrentUserResponse
-{
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    [MessageBodyMember(Name = "NewX_AVM-DE_CurrentUsername")]
-    public string CurrentUsername { get; set; }
-
-    [MessageBodyMember(Name = "NewX_AVM-DE_CurrentUserRights")]
-    public string CurrentUserRights { get; set; }
-}
+public readonly record struct LanConfigSecurityGetCurrentUserResponse(
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_CurrentUsername")] string CurrentUsername,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_CurrentUserRights")] string CurrentUserRights);

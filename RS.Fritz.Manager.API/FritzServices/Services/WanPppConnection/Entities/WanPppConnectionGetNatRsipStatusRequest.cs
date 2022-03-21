@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetNatRsipStatus")]
-public sealed record WanPppConnectionGetNatRsipStatusRequest;
+public readonly record struct WanPppConnectionGetNatRsipStatusRequest;

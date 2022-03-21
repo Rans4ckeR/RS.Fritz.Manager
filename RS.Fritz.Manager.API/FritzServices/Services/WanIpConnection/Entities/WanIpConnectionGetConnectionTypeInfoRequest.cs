@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetConnectionTypeInfo")]
-public sealed record WanIpConnectionGetConnectionTypeInfoRequest;
+public readonly record struct WanIpConnectionGetConnectionTypeInfoRequest;

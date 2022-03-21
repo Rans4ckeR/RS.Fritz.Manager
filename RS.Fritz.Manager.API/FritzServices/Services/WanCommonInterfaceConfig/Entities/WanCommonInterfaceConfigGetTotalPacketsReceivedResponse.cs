@@ -3,8 +3,5 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetTotalPacketsReceivedResponse")]
-public sealed record WanCommonInterfaceConfigGetTotalPacketsReceivedResponse
-{
-    [MessageBodyMember(Name = "NewTotalPacketsReceived")]
-    public uint TotalPacketsReceived { get; set; }
-}
+public readonly record struct WanCommonInterfaceConfigGetTotalPacketsReceivedResponse(
+    [property: MessageBodyMember(Name = "NewTotalPacketsReceived")] uint TotalPacketsReceived);

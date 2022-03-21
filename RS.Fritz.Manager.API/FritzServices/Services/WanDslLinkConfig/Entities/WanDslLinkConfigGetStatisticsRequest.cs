@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetStatistics")]
-public sealed record WanDslLinkConfigGetStatisticsRequest;
+public readonly record struct WanDslLinkConfigGetStatisticsRequest;

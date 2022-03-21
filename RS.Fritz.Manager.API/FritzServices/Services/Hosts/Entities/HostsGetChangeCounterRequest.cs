@@ -3,4 +3,4 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetChangeCounter")]
-public sealed record HostsGetChangeCounterRequest;
+public readonly record struct HostsGetChangeCounterRequest;

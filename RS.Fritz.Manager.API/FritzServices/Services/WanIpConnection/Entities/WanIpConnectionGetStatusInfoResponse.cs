@@ -3,15 +3,7 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetStatusInfoResponse")]
-public sealed record WanIpConnectionGetStatusInfoResponse
-{
-    [MessageBodyMember(Name = "NewConnectionStatus")]
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public string ConnectionStatus { get; set; }
-
-    [MessageBodyMember(Name = "NewLastConnectionError")]
-    public string LastConnectionError { get; set; }
-
-    [MessageBodyMember(Name = "NewUptime")]
-    public uint Uptime { get; set; }
-}
+public readonly record struct WanIpConnectionGetStatusInfoResponse(
+    [property: MessageBodyMember(Name = "NewConnectionStatus")] string ConnectionStatus,
+    [property: MessageBodyMember(Name = "NewLastConnectionError")] string LastConnectionError,
+    [property: MessageBodyMember(Name = "NewUptime")] uint Uptime);

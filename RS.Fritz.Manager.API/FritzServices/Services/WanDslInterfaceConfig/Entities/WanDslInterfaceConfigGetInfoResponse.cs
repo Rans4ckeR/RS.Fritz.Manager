@@ -3,51 +3,19 @@
 using System.ServiceModel;
 
 [MessageContract(WrapperName = "GetInfoResponse")]
-public sealed record WanDslInterfaceConfigGetInfoResponse
-{
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    [MessageBodyMember(Name = "NewEnable")]
-    public bool Enable { get; set; }
-
-    [MessageBodyMember(Name = "NewStatus")]
-    public string Status { get; set; }
-
-    [MessageBodyMember(Name = "NewDataPath")]
-    public string DataPath { get; set; }
-
-    [MessageBodyMember(Name = "NewUpstreamCurrRate")]
-    public int UpstreamCurrRate { get; set; }
-
-    [MessageBodyMember(Name = "NewDownstreamCurrRate")]
-    public uint DownstreamCurrRate { get; set; }
-
-    [MessageBodyMember(Name = "NewUpstreamMaxRate")]
-    public uint UpstreamMaxRate { get; set; }
-
-    [MessageBodyMember(Name = "NewDownstreamMaxRate")]
-    public uint DownstreamMaxRate { get; set; }
-
-    [MessageBodyMember(Name = "NewUpstreamNoiseMargin")]
-    public uint UpstreamNoiseMargin { get; set; }
-
-    [MessageBodyMember(Name = "NewDownstreamNoiseMargin")]
-    public uint DownstreamNoiseMargin { get; set; }
-
-    [MessageBodyMember(Name = "NewUpstreamAttenuation")]
-    public uint UpstreamAttenuation { get; set; }
-
-    [MessageBodyMember(Name = "NewDownstreamAttenuation")]
-    public uint DownstreamAttenuation { get; set; }
-
-    [MessageBodyMember(Name = "NewATURVendor")]
-    public string ATURVendor { get; set; }
-
-    [MessageBodyMember(Name = "NewATURCountry")]
-    public string ATURCountry { get; set; }
-
-    [MessageBodyMember(Name = "NewUpstreamPower")]
-    public ushort UpstreamPower { get; set; }
-
-    [MessageBodyMember(Name = "NewDownstreamPower")]
-    public ushort DownstreamPower { get; set; }
-}
+public readonly record struct WanDslInterfaceConfigGetInfoResponse(
+    [property: MessageBodyMember(Name = "NewEnable")] bool Enable,
+    [property: MessageBodyMember(Name = "NewStatus")] string Status,
+    [property: MessageBodyMember(Name = "NewDataPath")] string DataPath,
+    [property: MessageBodyMember(Name = "NewUpstreamCurrRate")] int UpstreamCurrRate,
+    [property: MessageBodyMember(Name = "NewDownstreamCurrRate")] uint DownstreamCurrRate,
+    [property: MessageBodyMember(Name = "NewUpstreamMaxRate")] uint UpstreamMaxRate,
+    [property: MessageBodyMember(Name = "NewDownstreamMaxRate")] uint DownstreamMaxRate,
+    [property: MessageBodyMember(Name = "NewUpstreamNoiseMargin")] uint UpstreamNoiseMargin,
+    [property: MessageBodyMember(Name = "NewDownstreamNoiseMargin")] uint DownstreamNoiseMargin,
+    [property: MessageBodyMember(Name = "NewUpstreamAttenuation")] uint UpstreamAttenuation,
+    [property: MessageBodyMember(Name = "NewDownstreamAttenuation")] uint DownstreamAttenuation,
+    [property: MessageBodyMember(Name = "NewATURVendor")] string ATURVendor,
+    [property: MessageBodyMember(Name = "NewATURCountry")] string ATURCountry,
+    [property: MessageBodyMember(Name = "NewUpstreamPower")] ushort UpstreamPower,
+    [property: MessageBodyMember(Name = "NewDownstreamPower")] ushort DownstreamPower);
