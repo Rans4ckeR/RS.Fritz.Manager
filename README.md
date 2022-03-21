@@ -55,7 +55,7 @@ device.NetworkCredential = new NetworkCredential(lastUsedUserName, Console.ReadL
 
 // Show device UpTime
 DeviceInfoGetInfoResponse deviceInfo = await device.DeviceInfoGetInfoAsync();
-Console.WriteLine(TimeSpan.FromSeconds(deviceInfo.UpTime));
+Console.WriteLine(TimeSpan.FromSeconds(deviceInfo.Uptime));
 
 await host.RunAsync();
 ```
