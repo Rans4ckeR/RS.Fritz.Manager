@@ -60,7 +60,7 @@ Console.WriteLine(TimeSpan.FromSeconds(deviceInfo.UpTime));
 await host.RunAsync();
 ```
 
-## Service implementation status
+## TR-064 Service implementation status
 
 ### WAN
 * 🔶 urn:dslforum-org:service:WANIPConnection:1
@@ -74,7 +74,7 @@ await host.RunAsync();
   * ❌ RequestConnection
   * ✅ X_GetDNSServers
   * ✅ GetPortMappingNumberOfEntries
-  * ❌ GetGenericPortMappingEntry
+  * ✅ GetGenericPortMappingEntry
   * ❌ GetSpecificPortMappingEntry
   * ❌ AddPortMapping
   * ❌ DeletePortMapping
@@ -96,7 +96,7 @@ await host.RunAsync();
   * ❌ RequestConnection
   * ✅ X_GetDNSServers
   * ✅ GetPortMappingNumberOfEntries
-  * ❌ GetGenericPortMappingEntry
+  * ✅ GetGenericPortMappingEntry
   * ❌ GetSpecificPortMappingEntry
   * ❌ AddPortMapping
   * ❌ DeletePortMapping

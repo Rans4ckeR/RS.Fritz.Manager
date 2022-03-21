@@ -23,7 +23,9 @@ internal sealed partial class App
         host = Host.CreateDefaultBuilder()
             .ConfigureServices((_, services) =>
             {
-                services.AddSingleton<MainWindow>()
+                services.AddSingleton<DeviceLoginInfo>()
+                    .AddSingleton<ILogger, UserInterfaceLogService>()
+                    .AddSingleton<MainWindow>()
                     .AddSingleton<MainWindowViewModel>()
                     .AddSingleton<DeviceInfoViewModel>()
                     .AddSingleton<DeviceInfoSetProvisioningCodeViewModel>()
@@ -43,9 +45,9 @@ internal sealed partial class App
                     .AddSingleton<WanIpConnectionViewModel>()
                     .AddSingleton<WanEthernetLinkConfigViewModel>()
                     .AddSingleton<AvmSpeedtestViewModel>()
-                    .AddSingleton<DeviceLoginInfo>()
-                    .AddSingleton<ILogger, UserInterfaceLogService>()
                     .AddSingleton<CaptureControlCaptureViewModel>()
+                    .AddSingleton<WanIpConnectionGetGenericPortMappingEntryViewModel>()
+                    .AddSingleton<WanPppConnectionGetGenericPortMappingEntryViewModel>()
                     .AddFritzApi();
             }).Build();
     }
