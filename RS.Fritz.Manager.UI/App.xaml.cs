@@ -41,6 +41,7 @@ internal sealed partial class App
                     .AddSingleton<HostsViewModel>()
                     .AddSingleton<HostsGetGenericHostEntryViewModel>()
                     .AddSingleton<Layer3ForwardingViewModel>()
+                    .AddSingleton<Layer3ForwardingGetGenericForwardingEntryViewModel>()
                     .AddSingleton<WanPppConnectionViewModel>()
                     .AddSingleton<WanIpConnectionViewModel>()
                     .AddSingleton<WanEthernetLinkConfigViewModel>()
