@@ -27,7 +27,7 @@ internal sealed class CaptureControlService : ICaptureControlService
         _ = response.EnsureSuccessStatusCode();
 
         await using Stream downloadStream = await response.Content.ReadAsStreamAsync(cancellationToken);
-        await using FileStream fileStream = file.Create();
+        await using FileStream fileStream = file.Open(new FileStreamOptions { Access = FileAccess.Write, Mode = FileMode.CreateNew, Options = FileOptions.Asynchronous });
 
         await downloadStream.CopyToAsync(fileStream, cancellationToken);
 
