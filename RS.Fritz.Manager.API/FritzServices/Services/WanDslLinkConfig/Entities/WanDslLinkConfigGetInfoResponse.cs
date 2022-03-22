@@ -1,7 +1,5 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.ServiceModel;
-
 [MessageContract(WrapperName = "GetInfoResponse")]
 public readonly record struct WanDslLinkConfigGetInfoResponse(
     [property: MessageBodyMember(Name = "NewEnable")] bool Enable,

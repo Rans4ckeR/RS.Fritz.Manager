@@ -1,8 +1,5 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 public static class TaskExtensions
 {
     public static async Task<TResult[]> WhenAllSafe<TResult>(IEnumerable<Task<TResult>> tasks)

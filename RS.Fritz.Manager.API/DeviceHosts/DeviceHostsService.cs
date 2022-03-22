@@ -1,12 +1,6 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
 using System.Runtime.Serialization;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
 
 internal sealed class DeviceHostsService : IDeviceHostsService

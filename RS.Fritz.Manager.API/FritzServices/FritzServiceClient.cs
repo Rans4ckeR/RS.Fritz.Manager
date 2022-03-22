@@ -1,9 +1,7 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System;
 using System.Net;
 using System.Security.Authentication;
-using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.Xml;

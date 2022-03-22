@@ -1,12 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
 
 internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzServiceViewModel
 {

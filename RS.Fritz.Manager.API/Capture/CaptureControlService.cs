@@ -1,10 +1,5 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
-
 internal sealed class CaptureControlService : ICaptureControlService
 {
     private readonly IHttpClientFactory httpClientFactory;

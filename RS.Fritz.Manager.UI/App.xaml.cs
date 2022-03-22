@@ -1,13 +1,10 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
 
 internal sealed partial class App
 {

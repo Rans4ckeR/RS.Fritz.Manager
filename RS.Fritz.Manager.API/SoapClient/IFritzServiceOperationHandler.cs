@@ -1,7 +1,5 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.Threading.Tasks;
-
 public interface IFritzServiceOperationHandler
 {
     Task<HostsGetHostNumberOfEntriesResponse> HostsGetHostNumberOfEntriesAsync(InternetGatewayDevice internetGatewayDevice);

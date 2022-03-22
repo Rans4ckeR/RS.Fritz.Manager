@@ -1,7 +1,5 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.ServiceModel;
-
 [MessageContract(WrapperName = "GetGenericHostEntryResponse")]
 public readonly record struct HostsGetGenericHostEntryResponse(
     [property: MessageBodyMember(Name = "NewIPAddress")] string IPAddress,

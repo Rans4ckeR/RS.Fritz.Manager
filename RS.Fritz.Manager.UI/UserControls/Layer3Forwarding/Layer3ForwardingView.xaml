@@ -19,6 +19,6 @@
         </Grid.ColumnDefinitions>
         <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetDefaultConnectionServiceResponse}"/>
         <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding Layer3ForwardingGetForwardNumberOfEntriesResponse}"/>
-        <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding Layer3ForwardingGetGenericForwardingEntryViewModel}"/>
+        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding Layer3ForwardingGetGenericForwardingEntryViewModel}"/>
     </Grid>
 </UserControl>

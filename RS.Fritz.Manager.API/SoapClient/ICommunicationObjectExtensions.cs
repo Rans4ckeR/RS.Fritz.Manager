@@ -1,8 +1,5 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System;
-using System.ServiceModel;
-
 internal static class ICommunicationObjectExtensions
 {
     public static void SafeClose(this ICommunicationObject communicationObject)
