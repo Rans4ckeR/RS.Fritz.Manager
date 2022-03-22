@@ -1222,7 +1222,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type ui:DeviceHostInfo}">
+            <DataTemplate DataType="{x:Type api:DeviceHostInfo}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="HostListPath">
                         <Grid>
@@ -1337,7 +1337,7 @@
                     </Expander>
                 </Border>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type ui:DeviceMeshInfo}">
+            <DataTemplate DataType="{x:Type api:DeviceMeshInfo}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="MeshListPath">
                         <Grid>

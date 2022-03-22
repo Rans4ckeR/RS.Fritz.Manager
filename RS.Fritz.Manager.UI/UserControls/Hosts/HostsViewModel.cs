@@ -1,7 +1,5 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.Collections.ObjectModel;
-
 internal sealed class HostsViewModel : FritzServiceViewModel
 {
     private readonly IDeviceHostsService deviceHostsService;
@@ -73,21 +71,11 @@ internal sealed class HostsViewModel : FritzServiceViewModel
 
     private async Task GetHostsGetHostListPathAsync(CancellationToken cancellationToken)
     {
-        HostsGetHostListPathResponse hostsGetHostListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetHostListPathAsync();
-        string hostListPath = hostsGetHostListPathResponse.HostListPath;
-        var hostListPathUri = new Uri(FormattableString.Invariant($"https://{DeviceLoginInfo.InternetGatewayDevice.ApiDevice.PreferredLocation.Host}:{DeviceLoginInfo.InternetGatewayDevice.ApiDevice.SecurityPort}{hostListPath}"));
-        IEnumerable<DeviceHost> deviceHosts = await deviceHostsService.GetDeviceHostsAsync(hostListPathUri, cancellationToken);
-
-        DeviceHostInfo = new DeviceHostInfo(hostListPath, hostListPathUri, new ObservableCollection<DeviceHost>(deviceHosts));
+        DeviceHostInfo = await deviceHostsService.GetDeviceHostsAsync(DeviceLoginInfo.InternetGatewayDevice!.ApiDevice, cancellationToken);
     }
 
     private async Task GetHostsGetMeshListPathAsync(CancellationToken cancellationToken)
     {
-        HostsGetMeshListPathResponse hostsGetMeshListPathResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetMeshListPathAsync();
-        string meshListPath = hostsGetMeshListPathResponse.MeshListPath;
-        var meshListPathUri = new Uri(FormattableString.Invariant($"https://{DeviceLoginInfo.InternetGatewayDevice.ApiDevice.PreferredLocation.Host}:{DeviceLoginInfo.InternetGatewayDevice.ApiDevice.SecurityPort}{meshListPath}"));
-        DeviceMesh deviceMesh = await deviceMeshService.GetDeviceMeshAsync(meshListPathUri, cancellationToken);
-
-        DeviceMeshInfo = new DeviceMeshInfo(meshListPath, meshListPathUri, deviceMesh);
+        DeviceMeshInfo = await deviceMeshService.GetDeviceMeshAsync(DeviceLoginInfo.InternetGatewayDevice!.ApiDevice, cancellationToken);
     }
 }

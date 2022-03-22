@@ -13,6 +13,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IDeviceMeshService, DeviceMeshService>()
             .AddSingleton<ICaptureControlService, CaptureControlService>()
             .AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>()
+            .AddSingleton<IUsersService, UsersService>()
             .AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>()
             .AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>()
             .AddSingleton<IClientFactory<IFritzWanDslInterfaceConfigService>, ClientFactory<IFritzWanDslInterfaceConfigService>>()
