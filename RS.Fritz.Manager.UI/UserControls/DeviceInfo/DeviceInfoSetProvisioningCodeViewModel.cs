@@ -1,10 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 using System.ComponentModel;
-using System.Threading;
-using System.Threading.Tasks;
-using RS.Fritz.Manager.API;
-using Microsoft.Extensions.Logging;
 
 internal sealed class DeviceInfoSetProvisioningCodeViewModel : FritzServiceViewModel
 {

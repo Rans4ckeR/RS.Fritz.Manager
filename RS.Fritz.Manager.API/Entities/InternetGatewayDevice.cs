@@ -1,14 +1,8 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Net;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Serialization;
 
-public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzServiceOperationHandler, IEnumerable<Uri> Locations, string Server, string CacheControl, string? Ext, string SearchTarget, string UniqueServiceName, Uri PreferredLocation)
+public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzServiceOperationHandler, IUsersService UsersService, IEnumerable<Uri> Locations, string Server, string CacheControl, string? Ext, string SearchTarget, string UniqueServiceName, Uri PreferredLocation)
 {
     public UPnPDescription? UPnPDescription { get; set; }
 
@@ -41,13 +35,6 @@ public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzSe
 
     private async Task GetUsersAsync()
     {
-        LanConfigSecurityGetUserListResponse lanConfigSecurityGetUserListResponse = await FritzServiceOperationHandler.LanConfigSecurityGetUserListAsync(this);
-
-        using var stringReader = new StringReader(lanConfigSecurityGetUserListResponse.UserList);
-        using var xmlTextReader = new XmlTextReader(stringReader);
-
-        var userList = (UserList?)new XmlSerializer(typeof(UserList)).Deserialize(xmlTextReader);
-
-        Users = userList?.Users ?? Array.Empty<User>();
+        Users = (await UsersService.GetUsersAsync(this)).ToArray();
     }
 }

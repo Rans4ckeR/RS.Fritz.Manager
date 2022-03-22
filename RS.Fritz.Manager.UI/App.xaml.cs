@@ -1,13 +1,10 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
 
 internal sealed partial class App
 {
@@ -23,7 +20,9 @@ internal sealed partial class App
         host = Host.CreateDefaultBuilder()
             .ConfigureServices((_, services) =>
             {
-                services.AddSingleton<MainWindow>()
+                services.AddSingleton<DeviceLoginInfo>()
+                    .AddSingleton<ILogger, UserInterfaceLogService>()
+                    .AddSingleton<MainWindow>()
                     .AddSingleton<MainWindowViewModel>()
                     .AddSingleton<DeviceInfoViewModel>()
                     .AddSingleton<DeviceInfoSetProvisioningCodeViewModel>()
@@ -39,13 +38,14 @@ internal sealed partial class App
                     .AddSingleton<HostsViewModel>()
                     .AddSingleton<HostsGetGenericHostEntryViewModel>()
                     .AddSingleton<Layer3ForwardingViewModel>()
+                    .AddSingleton<Layer3ForwardingGetGenericForwardingEntryViewModel>()
                     .AddSingleton<WanPppConnectionViewModel>()
                     .AddSingleton<WanIpConnectionViewModel>()
                     .AddSingleton<WanEthernetLinkConfigViewModel>()
                     .AddSingleton<AvmSpeedtestViewModel>()
-                    .AddSingleton<DeviceLoginInfo>()
-                    .AddSingleton<ILogger, UserInterfaceLogService>()
                     .AddSingleton<CaptureControlCaptureViewModel>()
+                    .AddSingleton<WanIpConnectionGetGenericPortMappingEntryViewModel>()
+                    .AddSingleton<WanPppConnectionGetGenericPortMappingEntryViewModel>()
                     .AddFritzApi();
             }).Build();
     }

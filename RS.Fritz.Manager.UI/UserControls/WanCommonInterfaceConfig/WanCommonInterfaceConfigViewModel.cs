@@ -1,11 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Threading;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
 
 internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 {

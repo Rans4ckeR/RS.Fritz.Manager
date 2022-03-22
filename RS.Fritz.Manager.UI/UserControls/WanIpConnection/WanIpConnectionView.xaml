@@ -17,16 +17,18 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WanIpConnectionGetInfoResponse}"/>
-        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding WanIpConnectionGetConnectionTypeInfoResponse}"/>
-        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding WanIpConnectionGetStatusInfoResponse}"/>
-        <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding WanIpConnectionGetNatRsipStatusResponse}"/>
-        <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding WanIpConnectionGetDnsServersResponse}"/>
-        <ContentControl Grid.Row="5" Grid.Column="0" Content="{Binding WanIpConnectionGetPortMappingNumberOfEntriesResponse}"/>
-        <ContentControl Grid.Row="6" Grid.Column="0" Content="{Binding WanIpConnectionGetExternalIpAddressResponse}"/>
+        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding WanConnectionGetConnectionTypeInfoResponse}"/>
+        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding WanConnectionGetStatusInfoResponse}"/>
+        <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding WanConnectionGetNatRsipStatusResponse}"/>
+        <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding WanConnectionGetDnsServersResponse}"/>
+        <ContentControl Grid.Row="5" Grid.Column="0" Content="{Binding WanConnectionGetPortMappingNumberOfEntriesResponse}"/>
+        <ContentControl Grid.Row="6" Grid.Column="0" Content="{Binding WanIpConnectionGetGenericPortMappingEntryViewModel}"/>
+        <ContentControl Grid.Row="7" Grid.Column="0" Content="{Binding WanConnectionGetExternalIpAddressResponse}"/>
     </Grid>
 </UserControl>

@@ -1,14 +1,11 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using CommunityToolkit.Mvvm.ComponentModel;
-using RS.Fritz.Manager.API;
 
 internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
 {
@@ -69,7 +66,7 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
     {
         const double yScale = 200d;
         const double xScale = 2d;
-        var downstreamSnrValues = WanDslInterfaceConfigGetDslInfoResponse!.SNRpsds.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
+        var downstreamSnrValues = WanDslInterfaceConfigGetDslInfoResponse!.Value.SNRpsds.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
         uint min = downstreamSnrValues.Min();
         uint max = downstreamSnrValues.Max();
         uint range = max - min;

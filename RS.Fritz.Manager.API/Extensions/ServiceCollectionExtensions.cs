@@ -1,8 +1,6 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System;
 using System.Net;
-using System.Net.Http;
 using System.Net.Security;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,8 +10,10 @@ public static class ServiceCollectionExtensions
     {
         _ = services.AddSingleton<IDeviceSearchService, DeviceSearchService>()
             .AddSingleton<IDeviceHostsService, DeviceHostsService>()
+            .AddSingleton<IDeviceMeshService, DeviceMeshService>()
             .AddSingleton<ICaptureControlService, CaptureControlService>()
             .AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>()
+            .AddSingleton<IUsersService, UsersService>()
             .AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>()
             .AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>()
             .AddSingleton<IClientFactory<IFritzWanDslInterfaceConfigService>, ClientFactory<IFritzWanDslInterfaceConfigService>>()

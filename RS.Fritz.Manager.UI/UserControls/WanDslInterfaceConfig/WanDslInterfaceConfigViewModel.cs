@@ -1,14 +1,9 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
 
-internal sealed class WanDslInterfaceConfigViewModel : FritzServiceViewModel
+internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzServiceViewModel
 {
     private readonly DispatcherTimer autoRefreshTimer;
 
@@ -17,7 +12,7 @@ internal sealed class WanDslInterfaceConfigViewModel : FritzServiceViewModel
     private WanDslInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
 
     public WanDslInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanDslInterfaceConfigInfoViewModel wanDslInterfaceConfigInfoViewModel, WanDslInterfaceConfigDslInfoViewModel wanDslInterfaceConfigDslInfoViewModel)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, WanAccessType.Dsl)
     {
         WanDslInterfaceConfigInfoViewModel = wanDslInterfaceConfigInfoViewModel;
         WanDslInterfaceConfigDslInfoViewModel = wanDslInterfaceConfigDslInfoViewModel;

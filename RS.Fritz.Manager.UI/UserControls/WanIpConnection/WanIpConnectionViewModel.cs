@@ -1,26 +1,22 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.Threading;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
-
-internal sealed class WanIpConnectionViewModel : FritzServiceViewModel, IRecipient<PropertyChangedMessage<WanAccessType?>>
+internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceViewModel
 {
     private WanIpConnectionGetInfoResponse? wanIpConnectionGetInfoResponse;
-    private WanIpConnectionGetConnectionTypeInfoResponse? wanIpConnectionGetConnectionTypeInfoResponse;
-    private WanIpConnectionGetStatusInfoResponse? wanIpConnectionGetStatusInfoResponse;
-    private WanIpConnectionGetNatRsipStatusResponse? wanIpConnectionGetNatRsipStatusResponse;
-    private WanIpConnectionGetDnsServersResponse? wanIpConnectionGetDnsServersResponse;
-    private WanIpConnectionGetPortMappingNumberOfEntriesResponse? wanIpConnectionGetPortMappingNumberOfEntriesResponse;
-    private WanIpConnectionGetExternalIpAddressResponse? wanIpConnectionGetExternalIpAddressResponse;
+    private WanConnectionGetConnectionTypeInfoResponse? wanConnectionGetConnectionTypeInfoResponse;
+    private WanConnectionGetStatusInfoResponse? wanConnectionGetStatusInfoResponse;
+    private WanConnectionGetNatRsipStatusResponse? wanConnectionGetNatRsipStatusResponse;
+    private WanConnectionGetDnsServersResponse? wanConnectionGetDnsServersResponse;
+    private WanConnectionGetPortMappingNumberOfEntriesResponse? wanConnectionGetPortMappingNumberOfEntriesResponse;
+    private WanConnectionGetExternalIpAddressResponse? wanConnectionGetExternalIpAddressResponse;
 
-    public WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
+    public WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanIpConnectionGetGenericPortMappingEntryViewModel wanIpConnectionGetGenericPortMappingEntryViewModel)
+        : base(deviceLoginInfo, logger, WanAccessType.Ethernet)
     {
+        WanIpConnectionGetGenericPortMappingEntryViewModel = wanIpConnectionGetGenericPortMappingEntryViewModel;
     }
+
+    public WanIpConnectionGetGenericPortMappingEntryViewModel WanIpConnectionGetGenericPortMappingEntryViewModel { get; }
 
     public WanIpConnectionGetInfoResponse? WanIpConnectionGetInfoResponse
     {
@@ -28,55 +24,44 @@ internal sealed class WanIpConnectionViewModel : FritzServiceViewModel, IRecipie
         private set { _ = SetProperty(ref wanIpConnectionGetInfoResponse, value); }
     }
 
-    public WanIpConnectionGetConnectionTypeInfoResponse? WanIpConnectionGetConnectionTypeInfoResponse
+    public WanConnectionGetConnectionTypeInfoResponse? WanConnectionGetConnectionTypeInfoResponse
     {
-        get => wanIpConnectionGetConnectionTypeInfoResponse;
-        private set { _ = SetProperty(ref wanIpConnectionGetConnectionTypeInfoResponse, value); }
+        get => wanConnectionGetConnectionTypeInfoResponse;
+        private set { _ = SetProperty(ref wanConnectionGetConnectionTypeInfoResponse, value); }
     }
 
-    public WanIpConnectionGetStatusInfoResponse? WanIpConnectionGetStatusInfoResponse
+    public WanConnectionGetStatusInfoResponse? WanConnectionGetStatusInfoResponse
     {
-        get => wanIpConnectionGetStatusInfoResponse;
-        private set { _ = SetProperty(ref wanIpConnectionGetStatusInfoResponse, value); }
+        get => wanConnectionGetStatusInfoResponse;
+        private set { _ = SetProperty(ref wanConnectionGetStatusInfoResponse, value); }
     }
 
-    public WanIpConnectionGetNatRsipStatusResponse? WanIpConnectionGetNatRsipStatusResponse
+    public WanConnectionGetNatRsipStatusResponse? WanConnectionGetNatRsipStatusResponse
     {
-        get => wanIpConnectionGetNatRsipStatusResponse;
-        private set { _ = SetProperty(ref wanIpConnectionGetNatRsipStatusResponse, value); }
+        get => wanConnectionGetNatRsipStatusResponse;
+        private set { _ = SetProperty(ref wanConnectionGetNatRsipStatusResponse, value); }
     }
 
-    public WanIpConnectionGetDnsServersResponse? WanIpConnectionGetDnsServersResponse
+    public WanConnectionGetDnsServersResponse? WanConnectionGetDnsServersResponse
     {
-        get => wanIpConnectionGetDnsServersResponse;
-        private set { _ = SetProperty(ref wanIpConnectionGetDnsServersResponse, value); }
+        get => wanConnectionGetDnsServersResponse;
+        private set { _ = SetProperty(ref wanConnectionGetDnsServersResponse, value); }
     }
 
-    public WanIpConnectionGetPortMappingNumberOfEntriesResponse? WanIpConnectionGetPortMappingNumberOfEntriesResponse
+    public WanConnectionGetPortMappingNumberOfEntriesResponse? WanConnectionGetPortMappingNumberOfEntriesResponse
     {
-        get => wanIpConnectionGetPortMappingNumberOfEntriesResponse;
-        private set { _ = SetProperty(ref wanIpConnectionGetPortMappingNumberOfEntriesResponse, value); }
-    }
-
-    public WanIpConnectionGetExternalIpAddressResponse? WanIpConnectionGetExternalIpAddressResponse
-    {
-        get => wanIpConnectionGetExternalIpAddressResponse;
-        private set { _ = SetProperty(ref wanIpConnectionGetExternalIpAddressResponse, value); }
-    }
-
-    public void Receive(PropertyChangedMessage<WanAccessType?> message)
-    {
-        if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
-            return;
-
-        switch (message.PropertyName)
+        get => wanConnectionGetPortMappingNumberOfEntriesResponse;
+        private set
         {
-            case nameof(ObservableInternetGatewayDevice.WanAccessType):
-                {
-                    UpdateCanExecuteDefaultCommand();
-                    break;
-                }
+            if (SetProperty(ref wanConnectionGetPortMappingNumberOfEntriesResponse, value))
+                WanIpConnectionGetGenericPortMappingEntryViewModel.PortMappingNumberOfEntries = WanConnectionGetPortMappingNumberOfEntriesResponse?.PortMappingNumberOfEntries;
         }
+    }
+
+    public WanConnectionGetExternalIpAddressResponse? WanConnectionGetExternalIpAddressResponse
+    {
+        get => wanConnectionGetExternalIpAddressResponse;
+        private set { _ = SetProperty(ref wanConnectionGetExternalIpAddressResponse, value); }
     }
 
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
@@ -93,11 +78,6 @@ internal sealed class WanIpConnectionViewModel : FritzServiceViewModel, IRecipie
           });
     }
 
-    protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType is WanAccessType.Ethernet;
-    }
-
     private async Task GetWanIpConnectionGetInfoAsync()
     {
         WanIpConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetInfoAsync();
@@ -105,31 +85,31 @@ internal sealed class WanIpConnectionViewModel : FritzServiceViewModel, IRecipie
 
     private async Task GetWanIpConnectionGetConnectionTypeInfoAsync()
     {
-        WanIpConnectionGetConnectionTypeInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetConnectionTypeInfoAsync();
+        WanConnectionGetConnectionTypeInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetConnectionTypeInfoAsync();
     }
 
     private async Task GetWanIpConnectionGetStatusInfoAsync()
     {
-        WanIpConnectionGetStatusInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetStatusInfoAsync();
+        WanConnectionGetStatusInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetStatusInfoAsync();
     }
 
     private async Task GetWanIpConnectionGetNatRsipStatusAsync()
     {
-        WanIpConnectionGetNatRsipStatusResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetNatRsipStatusAsync();
+        WanConnectionGetNatRsipStatusResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetNatRsipStatusAsync();
     }
 
     private async Task GetWanIpConnectionGetDnsServersAsync()
     {
-        WanIpConnectionGetDnsServersResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetDnsServersAsync();
+        WanConnectionGetDnsServersResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetDnsServersAsync();
     }
 
     private async Task GetWanIpConnectionGetPortMappingNumberOfEntriesAsync()
     {
-        WanIpConnectionGetPortMappingNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetPortMappingNumberOfEntriesAsync();
+        WanConnectionGetPortMappingNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetPortMappingNumberOfEntriesAsync();
     }
 
     private async Task GetWanIpConnectionGetExternalIpAddressAsync()
     {
-        WanIpConnectionGetExternalIpAddressResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetExternalIpAddressAsync();
+        WanConnectionGetExternalIpAddressResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanIpConnectionGetExternalIpAddressAsync();
     }
 }

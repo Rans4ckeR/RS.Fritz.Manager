@@ -1,30 +1,30 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.ServiceModel;
-using System.Threading.Tasks;
-
 [ServiceContract(Namespace = "urn:dslforum-org:service:WANIPConnection:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
 internal interface IFritzWanIpConnectionService
 {
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetInfo")]
-    public Task<WanIpConnectionGetInfoResponse> GetInfoAsync(WanIpConnectionGetInfoRequest wanIpConnectionGetInfoRequest);
+    public Task<WanIpConnectionGetInfoResponse> GetInfoAsync(WanConnectionGetInfoRequest wanConnectionGetInfoRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetConnectionTypeInfo")]
-    public Task<WanIpConnectionGetConnectionTypeInfoResponse> GetConnectionTypeInfoAsync(WanIpConnectionGetConnectionTypeInfoRequest wanIpConnectionGetConnectionTypeInfoRequest);
+    public Task<WanConnectionGetConnectionTypeInfoResponse> GetConnectionTypeInfoAsync(WanConnectionGetConnectionTypeInfoRequest wanConnectionGetConnectionTypeInfoRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetStatusInfo")]
-    public Task<WanIpConnectionGetStatusInfoResponse> GetStatusInfoAsync(WanIpConnectionGetStatusInfoRequest wanIpConnectionGetStatusInfoRequest);
+    public Task<WanConnectionGetStatusInfoResponse> GetStatusInfoAsync(WanConnectionGetStatusInfoRequest wanConnectionGetStatusInfoRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetNATRSIPStatus")]
-    public Task<WanIpConnectionGetNatRsipStatusResponse> GetNatRsipStatusAsync(WanIpConnectionGetNatRsipStatusRequest wanIpConnectionGetNatRsipStatusRequest);
+    public Task<WanConnectionGetNatRsipStatusResponse> GetNatRsipStatusAsync(WanConnectionGetNatRsipStatusRequest wanConnectionGetNatRsipStatusRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#X_GetDNSServers")]
-    public Task<WanIpConnectionGetDnsServersResponse> GetDnsServersAsync(WanIpConnectionGetDnsServersRequest wanIpConnectionGetDnsServersRequest);
+    public Task<WanConnectionGetDnsServersResponse> GetDnsServersAsync(WanConnectionGetDnsServersRequest wanConnectionGetDnsServersRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetPortMappingNumberOfEntries")]
-    public Task<WanIpConnectionGetPortMappingNumberOfEntriesResponse> GetPortMappingNumberOfEntriesAsync(WanIpConnectionGetPortMappingNumberOfEntriesRequest wanIpConnectionGetPortMappingNumberOfEntriesRequest);
+    public Task<WanConnectionGetPortMappingNumberOfEntriesResponse> GetPortMappingNumberOfEntriesAsync(WanConnectionGetPortMappingNumberOfEntriesRequest wanConnectionGetPortMappingNumberOfEntriesRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetExternalIPAddress")]
-    public Task<WanIpConnectionGetExternalIpAddressResponse> GetExternalIpAddressAsync(WanIpConnectionGetExternalIpAddressRequest wanIpConnectionGetExternalIpAddressRequest);
+    public Task<WanConnectionGetExternalIpAddressResponse> GetExternalIpAddressAsync(WanConnectionGetExternalIpAddressRequest wanConnectionGetExternalIpAddressRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetGenericPortMappingEntry")]
+    public Task<WanConnectionGetGenericPortMappingEntryResponse> GetGenericPortMappingEntryAsync(WanConnectionGetGenericPortMappingEntryRequest wanConnectionGetGenericPortMappingEntryRequest);
 }

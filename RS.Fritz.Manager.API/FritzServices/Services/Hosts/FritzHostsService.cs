@@ -1,8 +1,6 @@
 ﻿namespace RS.Fritz.Manager.API;
 
 using System.Net;
-using System.ServiceModel;
-using System.Threading.Tasks;
 
 internal sealed class FritzHostsService : FritzServiceClient<IFritzHostsService>, IFritzHostsService
 {
@@ -26,5 +24,15 @@ internal sealed class FritzHostsService : FritzServiceClient<IFritzHostsService>
     public Task<HostsGetGenericHostEntryResponse> GetGenericHostEntryAsync(HostsGetGenericHostEntryRequest hostsGetGenericHostEntryRequest)
     {
         return Channel.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest);
+    }
+
+    public Task<HostsGetChangeCounterResponse> GetChangeCounterAsync(HostsGetChangeCounterRequest hostsGetChangeCounterRequest)
+    {
+        return Channel.GetChangeCounterAsync(hostsGetChangeCounterRequest);
+    }
+
+    public Task<HostsGetMeshListPathResponse> GetMeshListPathAsync(HostsGetMeshListPathRequest hostsGetMeshListPathRequest)
+    {
+        return Channel.GetMeshListPathAsync(hostsGetMeshListPathRequest);
     }
 }

@@ -1,6 +1,5 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System;
 using System.IO;
 using System.Runtime.InteropServices;
 

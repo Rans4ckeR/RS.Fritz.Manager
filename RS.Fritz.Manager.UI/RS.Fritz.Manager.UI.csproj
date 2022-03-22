@@ -18,6 +18,7 @@
     <LangVersion>preview</LangVersion>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <Version>0.0.0.1</Version>
     <FileVersion>0.0.0.1</FileVersion>
@@ -76,10 +77,16 @@
     <Compile Update="UserControls\LanConfigSecurity\LanConfigSecuritySetConfigPasswordView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControls\Layer3Forwarding\Layer3ForwardingGetGenericForwardingEntryView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\WanCommonInterfaceConfig\WanCommonInterfaceConfigGetOnlineMonitorView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\WanCommonInterfaceConfig\WanCommonInterfaceConfigSetWanAccessTypeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserControls\WanConnectionSharedUserControls\WanConnectionGetGenericPortMappingEntryView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\WanDslInterfaceConfig\WanDslInterfaceConfigDslInfoView.xaml.cs">
@@ -124,11 +131,19 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="UserControls\Layer3Forwarding\Layer3ForwardingGetGenericForwardingEntryView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControls\WanCommonInterfaceConfig\WanCommonInterfaceConfigGetOnlineMonitorView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\WanCommonInterfaceConfig\WanCommonInterfaceConfigSetWanAccessTypeView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\WanConnectionSharedUserControls\WanConnectionGetGenericPortMappingEntryView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

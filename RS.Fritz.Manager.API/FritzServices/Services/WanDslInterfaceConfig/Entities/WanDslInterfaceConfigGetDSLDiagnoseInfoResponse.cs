@@ -1,30 +1,14 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System;
-using System.ServiceModel;
-
 [MessageContract(WrapperName = "GetDslDiagnoseInfoResponse")]
-public sealed record WanDslInterfaceConfigGetDslDiagnoseInfoResponse
+public readonly record struct WanDslInterfaceConfigGetDslDiagnoseInfoResponse(
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_DSLDiagnoseState")] string DSLDiagnoseState,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_CableNokDistance")] int CableNokDistance,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_DSLLastDiagnoseTime")] uint DSLLastDiagnoseTime,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_DSLSignalLossTime")] uint DSLSignalLossTime,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_DSLActive")] bool DSLActive,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_DSLSync")] bool DSLSync)
 {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    [MessageBodyMember(Name = "NewX_AVM-DE_DSLDiagnoseState")]
-    public string DSLDiagnoseState { get; set; }
-
-    [MessageBodyMember(Name = "NewX_AVM-DE_CableNokDistance")]
-    public int CableNokDistance { get; set; }
-
-    [MessageBodyMember(Name = "NewX_AVM-DE_DSLLastDiagnoseTime")]
-    public uint DSLLastDiagnoseTime { get; set; }
-
-    [MessageBodyMember(Name = "NewX_AVM-DE_DSLSignalLossTime ")]
-    public uint DSLSignalLossTime { get; set; }
-
-    [MessageBodyMember(Name = "NewX_AVM-DE_DSLActive")]
-    public bool DSLActive { get; set; }
-
-    [MessageBodyMember(Name = "NewX_AVM-DE_DSLSync")]
-    public bool DSLSync { get; set; }
-
     public string? Status
     {
         get

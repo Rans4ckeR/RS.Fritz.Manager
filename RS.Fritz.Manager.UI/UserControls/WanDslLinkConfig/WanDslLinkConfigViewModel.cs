@@ -1,11 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
-
-internal sealed class WanDslLinkConfigViewModel : FritzServiceViewModel
+internal sealed class WanDslLinkConfigViewModel : WanAccessTypeAwareFritzServiceViewModel
 {
     private WanDslLinkConfigGetInfoResponse? wanDslLinkConfigGetInfoResponse;
     private WanDslLinkConfigGetDslLinkInfoResponse? wanDslLinkConfigGetDslLinkInfoResponse;
@@ -15,7 +10,7 @@ internal sealed class WanDslLinkConfigViewModel : FritzServiceViewModel
     private WanDslLinkConfigGetStatisticsResponse? wanDslLinkConfigGetStatisticsResponse;
 
     public WanDslLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, WanAccessType.Dsl)
     {
     }
 

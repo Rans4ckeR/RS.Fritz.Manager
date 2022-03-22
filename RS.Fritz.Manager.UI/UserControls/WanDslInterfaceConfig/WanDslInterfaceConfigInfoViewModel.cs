@@ -1,13 +1,10 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using CommunityToolkit.Mvvm.ComponentModel;
-using RS.Fritz.Manager.API;
 
 internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
 {
@@ -52,7 +49,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
         get => wanDslInterfaceConfigGetInfoResponse;
         set
         {
-            wanDslInterfaceConfigGetInfoResponses.Add(value!);
+            wanDslInterfaceConfigGetInfoResponses.Add(value!.Value);
 
             if (wanDslInterfaceConfigGetInfoResponses.Count > 1)
             {

@@ -1,6 +1,4 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.ServiceModel;
-
 [MessageContract(WrapperName = "GetInfo")]
-public sealed record AvmSpeedtestGetInfoRequest;
+public readonly record struct AvmSpeedtestGetInfoRequest;

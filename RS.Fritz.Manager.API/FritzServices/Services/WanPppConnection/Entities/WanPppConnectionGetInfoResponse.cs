@@ -1,101 +1,35 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.ServiceModel;
-
 [MessageContract(WrapperName = "GetInfoResponse")]
-public sealed record WanPppConnectionGetInfoResponse
-{
-    [MessageBodyMember(Name = "NewEnable")]
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-    public bool Enable { get; set; }
-
-    [MessageBodyMember(Name = "NewConnectionStatus")]
-    public string ConnectionStatus { get; set; }
-
-    [MessageBodyMember(Name = "NewPossibleConnectionTypes")]
-    public string PossibleConnectionTypes { get; set; }
-
-    [MessageBodyMember(Name = "NewConnectionType")]
-    public string ConnectionType { get; set; }
-
-    [MessageBodyMember(Name = "NewName")]
-    public string Name { get; set; }
-
-    [MessageBodyMember(Name = "NewUptime")]
-    public uint Uptime { get; set; }
-
-    [MessageBodyMember(Name = "NewUpstreamMaxBitRate")]
-    public uint UpstreamMaxBitRate { get; set; }
-
-    [MessageBodyMember(Name = "NewDownstreamMaxBitRate")]
-    public uint DownstreamMaxBitRate { get; set; }
-
-    [MessageBodyMember(Name = "NewLastConnectionError")]
-    public string LastConnectionError { get; set; }
-
-    [MessageBodyMember(Name = "NewIdleDisconnectTime")]
-    public uint IdleDisconnectTime { get; set; }
-
-    [MessageBodyMember(Name = "NewRSIPAvailable")]
-    public bool RSIPAvailable { get; set; }
-
-    [MessageBodyMember(Name = "NewUserName")]
-    public string UserName { get; set; }
-
-    [MessageBodyMember(Name = "NewNATEnabled")]
-    public bool NATEnabled { get; set; }
-
-    [MessageBodyMember(Name = "NewExternalIPAddress")]
-    public string ExternalIPAddress { get; set; }
-
-    [MessageBodyMember(Name = "NewDNSServers")]
-    public string DNSServers { get; set; }
-
-    [MessageBodyMember(Name = "NewMACAddress")]
-    public string MACAddress { get; set; }
-
-    [MessageBodyMember(Name = "NewConnectionTrigger")]
-    public string ConnectionTrigger { get; set; }
-
-    [MessageBodyMember(Name = "NewLastAuthErrorInfo")]
-    public string LastAuthErrorInfo { get; set; }
-
-    [MessageBodyMember(Name = "NewMaxCharsUsername")]
-    public ushort MaxCharsUsername { get; set; }
-
-    [MessageBodyMember(Name = "NewMinCharsUsername")]
-    public ushort MinCharsUsername { get; set; }
-
-    [MessageBodyMember(Name = "NewAllowedCharsUsername")]
-    public string AllowedCharsUsername { get; set; }
-
-    [MessageBodyMember(Name = "NewMaxCharsPassword")]
-    public ushort MaxCharsPassword { get; set; }
-
-    [MessageBodyMember(Name = "NewMinCharsPassword")]
-    public ushort MinCharsPassword { get; set; }
-
-    [MessageBodyMember(Name = "NewAllowedCharsPassword")]
-    public string AllowedCharsPassword { get; set; }
-
-    [MessageBodyMember(Name = "NewTransportType")]
-    public string TransportType { get; set; }
-
-    [MessageBodyMember(Name = "NewRouteProtocolRx")]
-    public string RouteProtocolRx { get; set; }
-
-    [MessageBodyMember(Name = "NewPPPoEServiceName")]
-    public string PPPoEServiceName { get; set; }
-
-    [MessageBodyMember(Name = "NewRemoteIPAddress")]
-    public string RemoteIPAddress { get; set; }
-
-    [MessageBodyMember(Name = "NewPPPoEACName")]
-    public string PPPoEACName { get; set; }
-
-    [MessageBodyMember(Name = "NewDNSEnabled")]
-    public bool DNSEnabled { get; set; }
-
-    [MessageBodyMember(Name = "NewDNSOverrideAllowed")]
-    public bool DNSOverrideAllowed { get; set; }
-}
+public readonly record struct WanPppConnectionGetInfoResponse(
+    [property: MessageBodyMember(Name = "NewEnable")] bool Enable,
+    [property: MessageBodyMember(Name = "NewConnectionStatus")] string ConnectionStatus,
+    [property: MessageBodyMember(Name = "NewPossibleConnectionTypes")] string PossibleConnectionTypes,
+    [property: MessageBodyMember(Name = "NewConnectionType")] string ConnectionType,
+    [property: MessageBodyMember(Name = "NewName")] string Name,
+    [property: MessageBodyMember(Name = "NewUptime")] uint Uptime,
+    [property: MessageBodyMember(Name = "NewUpstreamMaxBitRate")] uint UpstreamMaxBitRate,
+    [property: MessageBodyMember(Name = "NewDownstreamMaxBitRate")] uint DownstreamMaxBitRate,
+    [property: MessageBodyMember(Name = "NewLastConnectionError")] string LastConnectionError,
+    [property: MessageBodyMember(Name = "NewIdleDisconnectTime")] uint IdleDisconnectTime,
+    [property: MessageBodyMember(Name = "NewRSIPAvailable")] bool RSIPAvailable,
+    [property: MessageBodyMember(Name = "NewUserName")] string UserName,
+    [property: MessageBodyMember(Name = "NewNATEnabled")] bool NATEnabled,
+    [property: MessageBodyMember(Name = "NewExternalIPAddress")] string ExternalIPAddress,
+    [property: MessageBodyMember(Name = "NewDNSServers")] string DNSServers,
+    [property: MessageBodyMember(Name = "NewMACAddress")] string MACAddress,
+    [property: MessageBodyMember(Name = "NewConnectionTrigger")] string ConnectionTrigger,
+    [property: MessageBodyMember(Name = "NewLastAuthErrorInfo")] string LastAuthErrorInfo,
+    [property: MessageBodyMember(Name = "NewMaxCharsUsername")] string MaxCharsUsername,
+    [property: MessageBodyMember(Name = "NewMinCharsUsername")] string MinCharsUsername,
+    [property: MessageBodyMember(Name = "NewAllowedCharsUsername")] string AllowedCharsUsername,
+    [property: MessageBodyMember(Name = "NewMaxCharsPassword")] string MaxCharsPassword,
+    [property: MessageBodyMember(Name = "NewMinCharsPassword")] string MinCharsPassword,
+    [property: MessageBodyMember(Name = "NewAllowedCharsPassword")] string AllowedCharsPassword,
+    [property: MessageBodyMember(Name = "NewTransportType")] string TransportType,
+    [property: MessageBodyMember(Name = "NewRouteProtocolRx")] string RouteProtocolRx,
+    [property: MessageBodyMember(Name = "NewPPPoEServiceName")] string PPPoEServiceName,
+    [property: MessageBodyMember(Name = "NewRemoteIPAddress")] string RemoteIPAddress,
+    [property: MessageBodyMember(Name = "NewPPPoEACName")] string PPPoEACName,
+    [property: MessageBodyMember(Name = "NewDNSEnabled")] bool DNSEnabled,
+    [property: MessageBodyMember(Name = "NewDNSOverrideAllowed")] bool DNSOverrideAllowed);

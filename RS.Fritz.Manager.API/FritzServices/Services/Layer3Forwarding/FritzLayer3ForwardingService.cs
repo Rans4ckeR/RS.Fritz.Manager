@@ -1,8 +1,6 @@
 ﻿namespace RS.Fritz.Manager.API;
 
 using System.Net;
-using System.ServiceModel;
-using System.Threading.Tasks;
 
 internal sealed class FritzLayer3ForwardingService : FritzServiceClient<IFritzLayer3ForwardingService>, IFritzLayer3ForwardingService
 {
@@ -21,5 +19,10 @@ internal sealed class FritzLayer3ForwardingService : FritzServiceClient<IFritzLa
     public Task<Layer3ForwardingGetForwardNumberOfEntriesResponse> GetForwardNumberOfEntriesAsync(Layer3ForwardingGetForwardNumberOfEntriesRequest layer3ForwardingGetForwardNumberOfEntriesRequest)
     {
         return Channel.GetForwardNumberOfEntriesAsync(layer3ForwardingGetForwardNumberOfEntriesRequest);
+    }
+
+    public Task<Layer3ForwardingGetGenericForwardingEntryResponse> GetGenericForwardingEntryAsync(Layer3ForwardingGetGenericForwardingEntryRequest layer3ForwardingGetGenericForwardingEntryRequest)
+    {
+        return Channel.GetGenericForwardingEntryAsync(layer3ForwardingGetGenericForwardingEntryRequest);
     }
 }

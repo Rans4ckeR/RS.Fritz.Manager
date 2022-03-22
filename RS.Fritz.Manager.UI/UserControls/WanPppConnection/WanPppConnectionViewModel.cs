@@ -1,29 +1,25 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.Threading;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
-
-internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipient<PropertyChangedMessage<WanAccessType?>>
+internal sealed class WanPppConnectionViewModel : WanAccessTypeAwareFritzServiceViewModel
 {
     private WanPppConnectionGetInfoResponse? wanPppConnectionGetInfoResponse;
-    private WanPppConnectionGetConnectionTypeInfoResponse? wanPppConnectionGetConnectionTypeInfoResponse;
-    private WanPppConnectionGetStatusInfoResponse? wanPppConnectionGetStatusInfoResponse;
+    private WanConnectionGetConnectionTypeInfoResponse? wanConnectionGetConnectionTypeInfoResponse;
+    private WanConnectionGetStatusInfoResponse? wanConnectionGetStatusInfoResponse;
     private WanPppConnectionGetLinkLayerMaxBitRatesResponse? wanPppConnectionGetLinkLayerMaxBitRatesResponse;
     private WanPppConnectionGetUserNameResponse? wanPppConnectionGetUserNameResponse;
-    private WanPppConnectionGetNatRsipStatusResponse? wanPppConnectionGetNatRsipStatusResponse;
-    private WanPppConnectionGetDnsServersResponse? wanPppConnectionGetDnsServersResponse;
-    private WanPppConnectionGetPortMappingNumberOfEntriesResponse? wanPppConnectionGetPortMappingNumberOfEntriesResponse;
-    private WanPppConnectionGetExternalIpAddressResponse? wanPppConnectionGetExternalIpAddressResponse;
+    private WanConnectionGetNatRsipStatusResponse? wanConnectionGetNatRsipStatusResponse;
+    private WanConnectionGetDnsServersResponse? wanConnectionGetDnsServersResponse;
+    private WanConnectionGetPortMappingNumberOfEntriesResponse? wanConnectionGetPortMappingNumberOfEntriesResponse;
+    private WanConnectionGetExternalIpAddressResponse? wanConnectionGetExternalIpAddressResponse;
     private WanPppConnectionGetAutoDisconnectTimeSpanResponse? wanPppConnectionGetAutoDisconnectTimeSpanResponse;
 
-    public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
+    public WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanPppConnectionGetGenericPortMappingEntryViewModel wanPppConnectionGetGenericPortMappingEntryViewModel)
+        : base(deviceLoginInfo, logger, WanAccessType.Dsl)
     {
+        WanPppConnectionGetGenericPortMappingEntryViewModel = wanPppConnectionGetGenericPortMappingEntryViewModel;
     }
+
+    public WanPppConnectionGetGenericPortMappingEntryViewModel WanPppConnectionGetGenericPortMappingEntryViewModel { get; }
 
     public WanPppConnectionGetInfoResponse? WanPppConnectionGetInfoResponse
     {
@@ -31,16 +27,16 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
         private set { _ = SetProperty(ref wanPppConnectionGetInfoResponse, value); }
     }
 
-    public WanPppConnectionGetConnectionTypeInfoResponse? WanPppConnectionGetConnectionTypeInfoResponse
+    public WanConnectionGetConnectionTypeInfoResponse? WanConnectionGetConnectionTypeInfoResponse
     {
-        get => wanPppConnectionGetConnectionTypeInfoResponse;
-        private set { _ = SetProperty(ref wanPppConnectionGetConnectionTypeInfoResponse, value); }
+        get => wanConnectionGetConnectionTypeInfoResponse;
+        private set { _ = SetProperty(ref wanConnectionGetConnectionTypeInfoResponse, value); }
     }
 
-    public WanPppConnectionGetStatusInfoResponse? WanPppConnectionGetStatusInfoResponse
+    public WanConnectionGetStatusInfoResponse? WanConnectionGetStatusInfoResponse
     {
-        get => wanPppConnectionGetStatusInfoResponse;
-        private set { _ = SetProperty(ref wanPppConnectionGetStatusInfoResponse, value); }
+        get => wanConnectionGetStatusInfoResponse;
+        private set { _ = SetProperty(ref wanConnectionGetStatusInfoResponse, value); }
     }
 
     public WanPppConnectionGetLinkLayerMaxBitRatesResponse? WanPppConnectionGetLinkLayerMaxBitRatesResponse
@@ -55,49 +51,38 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
         private set { _ = SetProperty(ref wanPppConnectionGetUserNameResponse, value); }
     }
 
-    public WanPppConnectionGetNatRsipStatusResponse? WanPppConnectionGetNatRsipStatusResponse
+    public WanConnectionGetNatRsipStatusResponse? WanConnectionGetNatRsipStatusResponse
     {
-        get => wanPppConnectionGetNatRsipStatusResponse;
-        private set { _ = SetProperty(ref wanPppConnectionGetNatRsipStatusResponse, value); }
+        get => wanConnectionGetNatRsipStatusResponse;
+        private set { _ = SetProperty(ref wanConnectionGetNatRsipStatusResponse, value); }
     }
 
-    public WanPppConnectionGetDnsServersResponse? WanPppConnectionGetDnsServersResponse
+    public WanConnectionGetDnsServersResponse? WanConnectionGetDnsServersResponse
     {
-        get => wanPppConnectionGetDnsServersResponse;
-        private set { _ = SetProperty(ref wanPppConnectionGetDnsServersResponse, value); }
+        get => wanConnectionGetDnsServersResponse;
+        private set { _ = SetProperty(ref wanConnectionGetDnsServersResponse, value); }
     }
 
-    public WanPppConnectionGetPortMappingNumberOfEntriesResponse? WanPppConnectionGetPortMappingNumberOfEntriesResponse
+    public WanConnectionGetPortMappingNumberOfEntriesResponse? WanConnectionGetPortMappingNumberOfEntriesResponse
     {
-        get => wanPppConnectionGetPortMappingNumberOfEntriesResponse;
-        private set { _ = SetProperty(ref wanPppConnectionGetPortMappingNumberOfEntriesResponse, value); }
+        get => wanConnectionGetPortMappingNumberOfEntriesResponse;
+        private set
+        {
+            if (SetProperty(ref wanConnectionGetPortMappingNumberOfEntriesResponse, value))
+                WanPppConnectionGetGenericPortMappingEntryViewModel.PortMappingNumberOfEntries = WanConnectionGetPortMappingNumberOfEntriesResponse?.PortMappingNumberOfEntries;
+        }
     }
 
-    public WanPppConnectionGetExternalIpAddressResponse? WanPppConnectionGetExternalIpAddressResponse
+    public WanConnectionGetExternalIpAddressResponse? WanConnectionGetExternalIpAddressResponse
     {
-        get => wanPppConnectionGetExternalIpAddressResponse;
-        private set { _ = SetProperty(ref wanPppConnectionGetExternalIpAddressResponse, value); }
+        get => wanConnectionGetExternalIpAddressResponse;
+        private set { _ = SetProperty(ref wanConnectionGetExternalIpAddressResponse, value); }
     }
 
     public WanPppConnectionGetAutoDisconnectTimeSpanResponse? WanPppConnectionGetAutoDisconnectTimeSpanResponse
     {
         get => wanPppConnectionGetAutoDisconnectTimeSpanResponse;
         private set { _ = SetProperty(ref wanPppConnectionGetAutoDisconnectTimeSpanResponse, value); }
-    }
-
-    public void Receive(PropertyChangedMessage<WanAccessType?> message)
-    {
-        if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
-            return;
-
-        switch (message.PropertyName)
-        {
-            case nameof(ObservableInternetGatewayDevice.WanAccessType):
-                {
-                    UpdateCanExecuteDefaultCommand();
-                    break;
-                }
-        }
     }
 
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
@@ -117,11 +102,6 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
           });
     }
 
-    protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType is WanAccessType.Dsl;
-    }
-
     private async Task GetWanPppConnectionGetInfoAsync()
     {
         WanPppConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetInfoAsync();
@@ -129,12 +109,12 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
 
     private async Task GetWanPppConnectionGetConnectionTypeInfoAsync()
     {
-        WanPppConnectionGetConnectionTypeInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetConnectionTypeInfoAsync();
+        WanConnectionGetConnectionTypeInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetConnectionTypeInfoAsync();
     }
 
     private async Task GetWanPppConnectionGetStatusInfoAsync()
     {
-        WanPppConnectionGetStatusInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetStatusInfoAsync();
+        WanConnectionGetStatusInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetStatusInfoAsync();
     }
 
     private async Task GetWanPppConnectionGetLinkLayerMaxBitRatesAsync()
@@ -149,22 +129,22 @@ internal sealed class WanPppConnectionViewModel : FritzServiceViewModel, IRecipi
 
     private async Task GetWanPppConnectionGetNatRsipStatusAsync()
     {
-        WanPppConnectionGetNatRsipStatusResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetNatRsipStatusAsync();
+        WanConnectionGetNatRsipStatusResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetNatRsipStatusAsync();
     }
 
     private async Task GetWanPppConnectionGetDnsServersAsync()
     {
-        WanPppConnectionGetDnsServersResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetDnsServersAsync();
+        WanConnectionGetDnsServersResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetDnsServersAsync();
     }
 
     private async Task GetWanPppConnectionGetPortMappingNumberOfEntriesAsync()
     {
-        WanPppConnectionGetPortMappingNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetPortMappingNumberOfEntriesAsync();
+        WanConnectionGetPortMappingNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetPortMappingNumberOfEntriesAsync();
     }
 
     private async Task GetWanPppConnectionGetExternalIpAddressAsync()
     {
-        WanPppConnectionGetExternalIpAddressResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetExternalIpAddressAsync();
+        WanConnectionGetExternalIpAddressResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetExternalIpAddressAsync();
     }
 
     private async Task GetWanPppConnectionGetAutoDisconnectTimeSpanAsync()

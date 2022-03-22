@@ -1,6 +1,4 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.ServiceModel;
-
 [MessageContract(WrapperName = "GetHostNumberOfEntries")]
-public sealed record HostsGetHostNumberOfEntriesRequest;
+public readonly record struct HostsGetHostNumberOfEntriesRequest;
