@@ -1,10 +1,5 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
-
 internal sealed class AvmSpeedtestViewModel : FritzServiceViewModel
 {
     private AvmSpeedtestGetInfoResponse? avmSpeedtestGetInfoResponse;

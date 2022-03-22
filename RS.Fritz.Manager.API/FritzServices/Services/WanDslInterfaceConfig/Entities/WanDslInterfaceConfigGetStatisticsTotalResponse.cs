@@ -1,7 +1,5 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.ServiceModel;
-
 [MessageContract(WrapperName = "GetStatisticsTotalResponse")]
 public readonly record struct WanDslInterfaceConfigGetStatisticsTotalResponse(
     [property: MessageBodyMember(Name = "NewReceiveBlocks")] uint ReceiveBlocks,

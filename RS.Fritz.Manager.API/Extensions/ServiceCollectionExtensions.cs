@@ -1,8 +1,6 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System;
 using System.Net;
-using System.Net.Http;
 using System.Net.Security;
 using Microsoft.Extensions.DependencyInjection;
 

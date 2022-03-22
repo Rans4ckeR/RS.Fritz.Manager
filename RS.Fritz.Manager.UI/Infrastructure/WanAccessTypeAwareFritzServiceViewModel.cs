@@ -2,7 +2,6 @@
 
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using Microsoft.Extensions.Logging;
 
 internal abstract class WanAccessTypeAwareFritzServiceViewModel : FritzServiceViewModel, IRecipient<PropertyChangedMessage<WanAccessType?>>
 {

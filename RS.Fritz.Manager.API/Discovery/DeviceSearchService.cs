@@ -1,17 +1,10 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
 
 internal sealed class DeviceSearchService : IDeviceSearchService

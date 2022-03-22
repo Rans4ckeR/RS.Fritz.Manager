@@ -1,8 +1,5 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System;
-using System.ServiceModel;
-
 [MessageContract(WrapperName = "GetDslDiagnoseInfoResponse")]
 public readonly record struct WanDslInterfaceConfigGetDslDiagnoseInfoResponse(
     [property: MessageBodyMember(Name = "NewX_AVM-DE_DSLDiagnoseState")] string DSLDiagnoseState,

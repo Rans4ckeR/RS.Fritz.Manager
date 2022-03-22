@@ -1,8 +1,6 @@
 ﻿namespace RS.Fritz.Manager.API;
 
 using System.Net;
-using System.ServiceModel;
-using System.Threading.Tasks;
 
 internal sealed class FritzLanConfigSecurityService : FritzServiceClient<IFritzLanConfigSecurityService>, IFritzLanConfigSecurityService
 {

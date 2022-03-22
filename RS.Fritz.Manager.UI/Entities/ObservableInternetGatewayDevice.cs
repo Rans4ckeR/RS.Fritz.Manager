@@ -1,12 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel.Security;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
-using RS.Fritz.Manager.API;
 
 internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
 {

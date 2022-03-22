@@ -1,17 +1,11 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
 
 internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzServiceViewModel
 {

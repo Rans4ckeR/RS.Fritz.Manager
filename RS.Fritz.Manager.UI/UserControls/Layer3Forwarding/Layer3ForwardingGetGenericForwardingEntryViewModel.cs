@@ -1,10 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 using System.ComponentModel;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
 
 internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel : FritzServiceViewModel
 {

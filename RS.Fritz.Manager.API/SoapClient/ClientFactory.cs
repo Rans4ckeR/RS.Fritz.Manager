@@ -1,8 +1,6 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System;
 using System.Net;
-using System.ServiceModel;
 
 internal sealed class ClientFactory<T> : IClientFactory<T>
     where T : class

@@ -1,7 +1,5 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.ServiceModel;
-
 [MessageContract(WrapperName = "GetGenericForwardingEntryResponse")]
 public readonly record struct Layer3ForwardingGetGenericForwardingEntryResponse(
     [property: MessageBodyMember(Name = "NewEnable")] bool Enable,

@@ -1,7 +1,5 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.ServiceModel;
-
 [MessageContract(WrapperName = "GetDslInfoResponse")]
 public readonly record struct WanDslInterfaceConfigGetDslInfoResponse(
     [property: MessageBodyMember(Name = "NewSNRGds")] uint SNRGds,

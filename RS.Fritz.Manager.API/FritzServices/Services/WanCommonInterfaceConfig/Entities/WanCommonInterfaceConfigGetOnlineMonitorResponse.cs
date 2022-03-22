@@ -1,7 +1,5 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.ServiceModel;
-
 [MessageContract(WrapperName = "GetOnlineMonitorResponse")]
 public readonly record struct WanCommonInterfaceConfigGetOnlineMonitorResponse(
     [property: MessageBodyMember(Name = "NewTotalNumberSyncGroups")] uint TotalNumberSyncGroups,

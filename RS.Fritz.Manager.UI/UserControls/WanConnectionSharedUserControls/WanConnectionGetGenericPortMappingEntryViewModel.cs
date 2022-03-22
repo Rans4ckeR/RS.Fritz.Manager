@@ -1,8 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 using System.ComponentModel;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
 
 internal abstract class WanConnectionGetGenericPortMappingEntryViewModel : FritzServiceViewModel
 {
@@ -10,7 +8,7 @@ internal abstract class WanConnectionGetGenericPortMappingEntryViewModel : Fritz
     private ushort? portMappingNumberOfEntries;
     private WanConnectionGetGenericPortMappingEntryResponse? wanConnectionGetGenericPortMappingEntryResponse;
 
-    public WanConnectionGetGenericPortMappingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    protected WanConnectionGetGenericPortMappingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
     {
     }
@@ -38,7 +36,7 @@ internal abstract class WanConnectionGetGenericPortMappingEntryViewModel : Fritz
     public WanConnectionGetGenericPortMappingEntryResponse? WanConnectionGetGenericPortMappingEntryResponse
     {
         get => wanConnectionGetGenericPortMappingEntryResponse;
-        set { _ = SetProperty(ref wanConnectionGetGenericPortMappingEntryResponse, value); }
+        protected set { _ = SetProperty(ref wanConnectionGetGenericPortMappingEntryResponse, value); }
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

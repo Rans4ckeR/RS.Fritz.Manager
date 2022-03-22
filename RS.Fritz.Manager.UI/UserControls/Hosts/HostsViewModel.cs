@@ -1,12 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
 
 internal sealed class HostsViewModel : FritzServiceViewModel
 {

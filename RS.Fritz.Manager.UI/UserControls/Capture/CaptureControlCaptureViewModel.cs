@@ -1,22 +1,17 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Extensions.Logging;
-using RS.Fritz.Manager.API;
 
 internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 {
     private const int TimerTickIntervalMs = 200;
-    private const string CapturePath = $"/cgi-bin/capture_notimeout";
+    private const string CapturePath = "/cgi-bin/capture_notimeout";
     private const string Scheme = "http";
 
     private readonly ICaptureControlService captureControlService;
@@ -29,7 +24,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
     private string filenamePrefix = "FritzboxCapture";
     private string selectedTargetFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
     private string targetFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-    private int milliSecondsCaptured;
+    private int miliSecondsCaptured;
 
     public CaptureControlCaptureViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, ICaptureControlService captureControlService)
            : base(deviceLoginInfo, logger)
@@ -53,7 +48,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 
     public string FilenamePrefix { get => filenamePrefix; set => _ = SetProperty(ref filenamePrefix, value); }
 
-    public ObservableCollection<string> TargetFolders { get; } = new ObservableCollection<string>()
+    public ObservableCollection<string> TargetFolders { get; } = new()
         {
             "Downloads",
             "Documents",
@@ -101,10 +96,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
     private static async Task<bool> InvalidTargetPath(string targetFolder, string filenamePrefix)
     {
         char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
-        bool invalidFilename = false;
-
-        if (filenamePrefix.IndexOfAny(invalidFileNameChars) != -1)
-            invalidFilename = true;
+        bool invalidFilename = filenamePrefix.IndexOfAny(invalidFileNameChars) != -1;
 
         targetFolder = invalidFilename ? "ThisIsAnInvalidPath::::" : targetFolder;
 
@@ -139,7 +131,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 
         ProgBarVisibility01 = Visibility.Visible;
         animationTimer.Start();
-        milliSecondsCaptured = 0;
+        miliSecondsCaptured = 0;
         StartButtonIsEnabled01 = false;
         await captureControlService.GetStartCaptureResponseAsync(captureUri, targetFolder, filenamePrefix);
 
@@ -165,9 +157,9 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
     private async void AnimationTimer_Tick(object? sender, EventArgs e)
     {
         ProgBarPercent01 = (progBarPercent01 + 1) % 10;
-        milliSecondsCaptured += TimerTickIntervalMs;
+        miliSecondsCaptured += TimerTickIntervalMs;
 
-        if (milliSecondsCaptured > CaptureTimeLimitMinutes * 60 * 1000)
+        if (miliSecondsCaptured > CaptureTimeLimitMinutes * 60 * 1000)
         {
             animationTimer.Stop();
             await DoExecuteStop1CommandAsync();
