@@ -21,12 +21,14 @@ internal sealed class DeviceSearchService : IDeviceSearchService
 
     private readonly IHttpClientFactory httpClientFactory;
     private readonly IFritzServiceOperationHandler fritzServiceOperationHandler;
+    private readonly IUsersService usersService;
     private readonly AddressFamily[] supportedAddressFamilies = { AddressFamily.InterNetwork, AddressFamily.InterNetworkV6 };
 
-    public DeviceSearchService(IHttpClientFactory httpClientFactory, IFritzServiceOperationHandler fritzServiceOperationHandler)
+    public DeviceSearchService(IHttpClientFactory httpClientFactory, IFritzServiceOperationHandler fritzServiceOperationHandler, IUsersService usersService)
     {
         this.httpClientFactory = httpClientFactory;
         this.fritzServiceOperationHandler = fritzServiceOperationHandler;
+        this.usersService = usersService;
     }
 
     private static IDictionary<AddressType, IPAddress> SsdpMultiCastAddresses => new Dictionary<AddressType, IPAddress>
@@ -167,6 +169,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
     {
         return new InternetGatewayDevice(
             fritzServiceOperationHandler,
+            usersService,
             internetGatewayDeviceResponses.Select(r => r.Location).Distinct(),
             internetGatewayDeviceResponses.Select(r => r.Server).Distinct().Single(),
             internetGatewayDeviceResponses.Select(r => r.CacheControl).Distinct().Single(),
