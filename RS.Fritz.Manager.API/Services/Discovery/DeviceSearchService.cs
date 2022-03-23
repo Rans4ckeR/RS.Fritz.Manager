@@ -13,11 +13,6 @@ internal sealed class DeviceSearchService : IDeviceSearchService
     private const int UPnPMultiCastPort = 1900;
     private const int DefaultReceiveTimeout = 500;
     private const int DefaultSendCount = 3;
-#pragma warning disable SA1310 // Field names should not contain underscore
-    private const uint IOC_IN = 0x80000000;
-    private const uint IOC_VENDOR = 0x18000000;
-    private const uint SIO_UDP_CONNRESET = IOC_IN | IOC_VENDOR | 12; // This ioctl queries the underlying provider for a handle that can be used to receive plug and play event notifications.
-#pragma warning restore SA1310 // Field names should not contain underscore
 
     private readonly IHttpClientFactory httpClientFactory;
     private readonly IFritzServiceOperationHandler fritzServiceOperationHandler;
@@ -89,9 +84,6 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         using var socket = new Socket(localAddress.AddressFamily, SocketType.Dgram, ProtocolType.Udp);
 
         socket.ExclusiveAddressUse = true;
-
-        if (OperatingSystem.IsWindows())
-            _ = socket.IOControl(unchecked((int)SIO_UDP_CONNRESET), new byte[] { 0 }, null); // Disables ICMP errors to be propagated to the socket.
 
         socket.Bind(new IPEndPoint(localAddress, 0));
 
