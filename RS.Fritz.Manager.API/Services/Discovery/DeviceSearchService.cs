@@ -44,26 +44,26 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         timeout ??= DefaultReceiveTimeout;
         sendCount ??= DefaultSendCount;
 
-        IEnumerable<string> deviceResponses = (await TaskExtensions.WhenAllSafe(GetLocalAddresses().Select(q => SearchDevicesAsync(q, deviceType, sendCount.Value, timeout.Value, cancellationToken)))).SelectMany(q => q);
-        IEnumerable<Dictionary<string, string>> deviceDictionaries = GetDeviceDictionaries(deviceResponses);
+        IEnumerable<string> rawDeviceResponses = await GetRawDeviceResponses(deviceType, sendCount.Value, timeout.Value, cancellationToken);
+        IEnumerable<Dictionary<string, string>> formattedDeviceResponses = GetFormattedDeviceResponses(rawDeviceResponses);
+        IEnumerable<IGrouping<string, InternetGatewayDeviceResponse>> groupedInternetGatewayDeviceResponses = GetGroupedInternetGatewayDeviceResponses(formattedDeviceResponses);
 
-        InternetGatewayDevice[] internetGatewayDevices = deviceDictionaries
-            .Select(q => new InternetGatewayDeviceResponse(new Uri(q["LOCATION"]), q["SERVER"], q["CACHE-CONTROL"], q["EXT"], q["ST"], q["USN"]))
-            .GroupBy(q => q.Usn)
-            .Select(GetInternetGatewayDevice)
-            .ToArray();
-
-        await TaskExtensions.WhenAllSafe(internetGatewayDevices.Select(q => GetUPnPDescription(q, cancellationToken)));
-
-        return internetGatewayDevices;
+        return await TaskExtensions.WhenAllSafe(groupedInternetGatewayDeviceResponses.Select(q => GetInternetGatewayDeviceAsync(q, cancellationToken)));
     }
 
-    private static Uri GetPreferredLocation(IGrouping<string, InternetGatewayDeviceResponse> internetGatewayDeviceResponses)
+    private static IEnumerable<IGrouping<string, InternetGatewayDeviceResponse>> GetGroupedInternetGatewayDeviceResponses(IEnumerable<Dictionary<string, string>> formattedDeviceResponses)
     {
-        return internetGatewayDeviceResponses.Select(q => q.Location).Distinct().SingleOrDefault(q => q.HostNameType is UriHostNameType.IPv6) ?? internetGatewayDeviceResponses.Select(q => q.Location).Distinct().Single(q => q.HostNameType is UriHostNameType.IPv4);
+        return formattedDeviceResponses
+            .Select(q => new InternetGatewayDeviceResponse(new Uri(q["LOCATION"]), q["SERVER"], q["CACHE-CONTROL"], q["EXT"], q["ST"], q["USN"]))
+            .GroupBy(q => q.Usn);
     }
 
-    private static IEnumerable<Dictionary<string, string>> GetDeviceDictionaries(IEnumerable<string> responses)
+    private static Uri GetPreferredLocation(IReadOnlyCollection<Uri> locations)
+    {
+        return locations.SingleOrDefault(q => q.HostNameType is UriHostNameType.IPv6) ?? locations.Single(q => q.HostNameType is UriHostNameType.IPv4);
+    }
+
+    private static IEnumerable<Dictionary<string, string>> GetFormattedDeviceResponses(IEnumerable<string> responses)
     {
         return responses.Select(q => q.Split(Environment.NewLine)).Select(q => q.Where(r => r.Contains(':', StringComparison.OrdinalIgnoreCase)).ToDictionary(
             s => s[..s.IndexOf(':', StringComparison.OrdinalIgnoreCase)],
@@ -144,6 +144,14 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         }
     }
 
+    private async Task<IEnumerable<string>> GetRawDeviceResponses(string deviceType, int sendCount, int timeout, CancellationToken cancellationToken)
+    {
+        IEnumerable<IPAddress> localAddresses = GetLocalAddresses();
+        IEnumerable<string>[] localAddressesDeviceResponses = await TaskExtensions.WhenAllSafe(localAddresses.Select(q => SearchDevicesAsync(q, deviceType, sendCount, timeout, cancellationToken)));
+
+        return localAddressesDeviceResponses.Where(q => q.Any()).SelectMany(q => q).Distinct();
+    }
+
     private IEnumerable<IPAddress> GetLocalAddresses()
     {
         return NetworkInterface.GetAllNetworkInterfaces()
@@ -155,18 +163,19 @@ internal sealed class DeviceSearchService : IDeviceSearchService
             .Where(q => supportedAddressFamilies.Contains(q.AddressFamily));
     }
 
-    private async Task GetUPnPDescription(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken)
+    private async Task<UPnPDescription> GetUPnPDescription(Uri uri, CancellationToken cancellationToken)
     {
-        Uri uri = internetGatewayDevice.Locations.SingleOrDefault(r => r.HostNameType == UriHostNameType.IPv6) ?? internetGatewayDevice.Locations.Single(r => r.HostNameType == UriHostNameType.IPv4);
         string uPnPDescription = await httpClientFactory.CreateClient(Constants.HttpClientName).GetStringAsync(uri, cancellationToken);
         using var stringReader = new StringReader(uPnPDescription);
         using var xmlTextReader = new XmlTextReader(stringReader);
 
-        internetGatewayDevice.UPnPDescription = (UPnPDescription?)new DataContractSerializer(typeof(UPnPDescription)).ReadObject(xmlTextReader);
+        return (UPnPDescription)new DataContractSerializer(typeof(UPnPDescription)).ReadObject(xmlTextReader)!;
     }
 
-    private InternetGatewayDevice GetInternetGatewayDevice(IGrouping<string, InternetGatewayDeviceResponse> internetGatewayDeviceResponses)
+    private async Task<InternetGatewayDevice> GetInternetGatewayDeviceAsync(IGrouping<string, InternetGatewayDeviceResponse> internetGatewayDeviceResponses, CancellationToken cancellationToken)
     {
+        Uri preferredLocation = GetPreferredLocation(internetGatewayDeviceResponses.Select(r => r.Location).ToArray());
+
         return new InternetGatewayDevice(
             fritzServiceOperationHandler,
             usersService,
@@ -176,6 +185,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
             internetGatewayDeviceResponses.Select(r => r.Ext).Distinct().Single(),
             internetGatewayDeviceResponses.Select(r => r.SearchTarget).Distinct().Single(),
             internetGatewayDeviceResponses.Key,
-            GetPreferredLocation(internetGatewayDeviceResponses));
+            await GetUPnPDescription(preferredLocation, cancellationToken),
+            preferredLocation);
     }
 }
