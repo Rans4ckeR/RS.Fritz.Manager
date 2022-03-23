@@ -14,27 +14,12 @@ public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzSe
 
     internal async Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
     {
-        await InitializeAsync();
-
         return await operation(FritzServiceOperationHandler, this);
     }
 
     public async Task InitializeAsync()
     {
-        if (SecurityPort is null)
-            await GetSecurityPortAsync();
-
-        if (Users is null)
-            await GetUsersAsync();
-    }
-
-    private async Task GetSecurityPortAsync()
-    {
-        SecurityPort = (await FritzServiceOperationHandler.DeviceInfoGetSecurityPortAsync(this)).SecurityPort;
-    }
-
-    private async Task GetUsersAsync()
-    {
+        SecurityPort = (await this.DeviceInfoGetSecurityPortAsync()).SecurityPort;
         Users = (await UsersService.GetUsersAsync(this)).ToArray();
     }
 }
