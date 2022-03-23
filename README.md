@@ -3,7 +3,7 @@ Allows FritzBox device detection, monitoring, configuring and network traffic ca
 
 Available as a standalone Windows application ([UI](#rsfritzmanagerui)) and as a NuGet package ([API](#rsfritzmanagerapi)).
 
-For a list of implemented services check the [Service implementation status](#service-implementation-status)
+For a list of implemented services check the [Service implementation status](#tr-064-service-implementation-status)
 
 
 ## RS.Fritz.Manager.UI
@@ -66,7 +66,6 @@ Console.WriteLine($"Device uptime: {TimeSpan.FromSeconds(deviceInfo.Uptime)}");
 // Retrieving the device users manually
 IUsersService usersService = serviceScope.ServiceProvider.GetRequiredService<IUsersService>();
 IEnumerable<User> users = await usersService.GetUsersAsync(device);
-
 users.ToList().ForEach(q => Console.WriteLine($"User: {q.Name}"));
 
 // Retrieving a list of device hosts in the network
