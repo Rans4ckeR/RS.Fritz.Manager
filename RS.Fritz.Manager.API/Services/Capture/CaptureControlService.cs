@@ -8,16 +8,18 @@ internal sealed class CaptureControlService : ICaptureControlService
     private const string CapturePath = "/cgi-bin/capture_notimeout";
 
     private readonly IHttpClientFactory httpClientFactory;
+    private readonly IWebUiService webUiService;
 
-    public CaptureControlService(IHttpClientFactory httpClientFactory)
+    public CaptureControlService(IHttpClientFactory httpClientFactory, IWebUiService webUiService)
     {
         this.httpClientFactory = httpClientFactory;
+        this.webUiService = webUiService;
     }
 
     public async Task<FileInfo> GetStartCaptureResponseAsync(InternetGatewayDevice internetGateway, string folderPath, string filePrefix, CancellationToken cancellationToken = default)
     {
         const string iface = "2-1";
-        string sid = await GetSidAsync(internetGateway);
+        string sid = await GetSidAsync(internetGateway, cancellationToken);
         string query = FormattableString.Invariant($"sid={sid}&capture=Start&snaplen=1600&ifaceorminor={iface}");
         var captureUri = new Uri(FormattableString.Invariant($"{Scheme}://{internetGateway.PreferredLocation.Host}{CapturePath}?{query}"));
         HttpClient httpClient = httpClientFactory.CreateClient(Constants.HttpClientName);
@@ -37,7 +39,7 @@ internal sealed class CaptureControlService : ICaptureControlService
     public async Task GetStopCaptureResponseAsync(InternetGatewayDevice internetGateway, CancellationToken cancellationToken = default)
     {
         const string iface = "eth_udma0";
-        string sid = await GetSidAsync(internetGateway);
+        string sid = await GetSidAsync(internetGateway, cancellationToken);
         string timeString20 = DateTime.UtcNow.Ticks.ToString("D20", CultureInfo.InvariantCulture);
         string timeId = FormattableString.Invariant($"t{timeString20[^13..]}");
         var captureUri = new Uri(FormattableString.Invariant($"{Scheme}://{internetGateway.PreferredLocation.Host}{CapturePath}?iface={iface}&minor=1&type=2&capture=Stop&sid={sid}&useajax=1&xhr=1&{timeId}=nocache"));
@@ -47,12 +49,10 @@ internal sealed class CaptureControlService : ICaptureControlService
         _ = response.EnsureSuccessStatusCode();
     }
 
-    private static async Task<string> GetSidAsync(InternetGatewayDevice internetGateway)
+    private async Task<string> GetSidAsync(InternetGatewayDevice internetGateway, CancellationToken cancellationToken)
     {
-        HostsGetHostListPathResponse hostsGetHostListPathResponse = await internetGateway.HostsGetHostListPathAsync();
-        string hostListPath = hostsGetHostListPathResponse.HostListPath;
-        string returnString = hostListPath[(hostListPath.LastIndexOf("sid=", StringComparison.InvariantCulture) != -1 ? hostListPath.LastIndexOf("sid=", StringComparison.InvariantCulture) : hostListPath.Length - 1)..];
+        WebUiSessionInfo webUiSessionInfo = await webUiService.LogonAsync(internetGateway, cancellationToken);
 
-        return returnString.Length >= 4 ? returnString.Remove(0, 4) : string.Empty;
+        return webUiSessionInfo.Sid;
     }
 }

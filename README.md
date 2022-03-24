@@ -47,7 +47,7 @@ IDeviceSearchService deviceSearchService = serviceScope.ServiceProvider.GetRequi
 InternetGatewayDevice device = (await deviceSearchService.GetDevicesAsync()).First();
 
 // Show the device model from UPnP data
-Console.WriteLine($"Device model: {device.UPnPDescription.Value.Device.ModelDescription}");
+Console.WriteLine($"Device model: {device.UPnPDescription.Device.ModelDescription}");
 
 // Initialize the device for TR-064, retrieves the security port and the users
 await device.InitializeAsync();
@@ -78,17 +78,22 @@ IDeviceMeshService deviceMeshService = serviceScope.ServiceProvider.GetRequiredS
 DeviceMeshInfo deviceMeshInfo = await deviceMeshService.GetDeviceMeshAsync(device);
 deviceMeshInfo.DeviceMesh.Nodes.ToList().ForEach(q => Console.WriteLine($"Mesh host: {q.DeviceName}"));
 
+// Retrieve a new session for use in the WebUI
+IWebUiService webUiService = serviceScope.ServiceProvider.GetRequiredService<IWebUiService>();
+WebUiSessionInfo webUiSessionInfo = await webUiService.LogonAsync(device);
+Console.WriteLine($"Session: {webUiSessionInfo.Sid}");
+
 // Capture live network traffic from router to file
 ICaptureControlService captureControlService = serviceScope.ServiceProvider.GetRequiredService<ICaptureControlService>();
-Task.Run(() => StopCaptureAfter10SecondsAsync(device, captureControlService));
+Task.Run(() => StopCaptureAfter1SecondsAsync(device, captureControlService));
 FileInfo fileInfo = await captureControlService.GetStartCaptureResponseAsync(device, "c:\\temp", "capturefile");
 Console.WriteLine($"Network trace written to file: {fileInfo}");
 
 await host.RunAsync();
 
-static async Task StopCaptureAfter10SecondsAsync(InternetGatewayDevice device, ICaptureControlService captureControlService)
+static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, ICaptureControlService captureControlService)
 {
-    await Task.Delay(10000);
+    await Task.Delay(1000);
     await captureControlService.GetStopCaptureResponseAsync(device);
 }
 ```
