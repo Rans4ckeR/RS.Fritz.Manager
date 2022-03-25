@@ -47,6 +47,7 @@ internal sealed partial class App
                     .AddSingleton<WanIpConnectionGetGenericPortMappingEntryViewModel>()
                     .AddSingleton<WanPppConnectionGetGenericPortMappingEntryViewModel>()
                     .AddSingleton<LanEthernetInterfaceConfigViewModel>()
+                    .AddSingleton<LanHostConfigManagementViewModel>()
                     .AddFritzApi();
             }).Build();
     }
