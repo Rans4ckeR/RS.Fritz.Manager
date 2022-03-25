@@ -65,6 +65,9 @@
     <Resource Include="Images\Success.png" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UserControls\LanEthernetInterfaceConfig\LanEthernetInterfaceConfigView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\AvmSpeedtest\AvmSpeedtestView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -115,6 +118,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="UserControls\LanEthernetInterfaceConfig\LanEthernetInterfaceConfigView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="UserControls\AvmSpeedtest\AvmSpeedtestView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

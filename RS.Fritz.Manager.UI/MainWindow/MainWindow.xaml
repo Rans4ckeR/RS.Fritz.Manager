@@ -106,8 +106,11 @@
                 <RibbonGroup ToolTip="This service allows you to use Iperf to measure the transmission rate between the FRITZ!Box and the computer in your home network or in the internet. Iperf is free software for measuring the transmission speed of TCP and UDP data between a server and a client. The FRITZ!Box works as the Iperf server and measurement takes place using an Iperf client on your computer. The Iperf client can be downloaded from the internet for a wide variety of operating systems. More information on Iperf is presented in the internet.">
                     <RibbonButton Label="AvmSpeedtest" Command="{Binding AvmSpeedtestViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
-                <RibbonGroup ToolTip="The Capture funcion enables packet sniffing to be analized with e.g. wireshark">
+                <RibbonGroup ToolTip="The Capture function enables packet sniffing to be analyzed with e.g. Wireshark.">
                     <RibbonButton Label="Sniffer" Command="{Binding CaptureControlCaptureViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                </RibbonGroup>
+                <RibbonGroup ToolTip="This service models an Ethernet LAN connection on an IGD device. This service allows for the determination and modification of basic configuration information.">
+                    <RibbonButton Label="LanEthernetInterfaceConfig" Command="{Binding LanEthernetInterfaceConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
             </RibbonTab>
         </Ribbon>
