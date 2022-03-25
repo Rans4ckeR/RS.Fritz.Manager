@@ -39,7 +39,7 @@ internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref lanConfigSecurityGetUserListResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
             {

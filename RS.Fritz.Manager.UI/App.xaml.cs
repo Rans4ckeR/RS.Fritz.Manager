@@ -46,6 +46,7 @@ internal sealed partial class App
                     .AddSingleton<CaptureControlCaptureViewModel>()
                     .AddSingleton<WanIpConnectionGetGenericPortMappingEntryViewModel>()
                     .AddSingleton<WanPppConnectionGetGenericPortMappingEntryViewModel>()
+                    .AddSingleton<LanEthernetInterfaceConfigViewModel>()
                     .AddFritzApi();
             }).Build();
     }

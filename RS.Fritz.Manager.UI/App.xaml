@@ -1337,6 +1337,61 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type api:LanEthernetInterfaceConfigGetInfoResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Enable}" Content="_Enable" ToolTip="Enables or disables this interface."/>
+                            <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status" ToolTip="Indicates the status of this interface. Possible values are Up, NoLink, Error, Disabled."/>
+                            <TextBlock x:Name="Status" Grid.Row="1" Grid.Column="1" Text="{Binding Status}"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=MacAddress}" Content="_MacAddress" ToolTip="The physical address of the interface."/>
+                            <TextBlock x:Name="MacAddress" Grid.Row="2" Grid.Column="1" Text="{Binding MacAddress}"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=MaxBitRate}" Content="_MaxBitRate" ToolTip="The maximum upstream and downstream bit rate available to this connection. Possible values are 10, 100, 1000, Auto."/>
+                            <TextBlock x:Name="MaxBitRate" Grid.Row="3" Grid.Column="1" Text="{Binding MaxBitRate}"/>
+                            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DuplexMode}" Content="_DuplexMode" ToolTip="The duplex mode available to this connection. Possible values are Half, Full, Auto."/>
+                            <TextBlock x:Name="DuplexMode" Grid.Row="4" Grid.Column="1" Text="{Binding DuplexMode}"/>
+                          </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:LanEthernetInterfaceConfigGetStatisticsResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Statistics">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=BytesSent}" Content="_BytesSent" ToolTip="Total number of bytes sent over the interface since the CPE was last reset."/>
+                            <TextBlock x:Name="BytesSent" Grid.Row="0" Grid.Column="1" Text="{Binding BytesSent}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=BytesReceived}" Content="_BytesReceived" ToolTip="Total number of bytes received over the interface since the CPE was last reset."/>
+                            <TextBlock x:Name="BytesReceived" Grid.Row="1" Grid.Column="1" Text="{Binding BytesReceived}"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=PacketsSent}" Content="_PacketsSent" ToolTip="Total number of packets sent over the interface since the CPE was last reset."/>
+                            <TextBlock x:Name="PacketsSent" Grid.Row="2" Grid.Column="1" Text="{Binding PacketsSent}"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=PacketsReceived}" Content="_PacketsReceived" ToolTip="Total number of packets received over the interface since the CPE was last reset."/>
+                            <TextBlock x:Name="PacketsReceived" Grid.Row="3" Grid.Column="1" Text="{Binding PacketsReceived}"/>
+                          </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type api:DeviceMeshInfo}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="MeshListPath">
@@ -1671,6 +1726,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type ui:AvmSpeedtestViewModel}">
                 <ui:AvmSpeedtestView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ui:LanEthernetInterfaceConfigViewModel}">
+                <ui:LanEthernetInterfaceConfigView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

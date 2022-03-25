@@ -25,6 +25,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     public MainWindowViewModel(
         DeviceLoginInfo deviceLoginInfo,
         ILogger logger,
+        IDeviceSearchService deviceSearchService,
+        CaptureControlCaptureViewModel captureControlCaptureViewModel,
         WanIpConnectionViewModel wanIpConnectionViewModel,
         HostsViewModel hostsViewModel,
         WanCommonInterfaceConfigViewModel wanCommonInterfaceConfigViewModel,
@@ -36,8 +38,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         WanEthernetLinkConfigViewModel wanEthernetLinkConfigViewModel,
         WanDslLinkConfigViewModel wanDslLinkConfigViewModel,
         AvmSpeedtestViewModel avmSpeedtestViewModel,
-        IDeviceSearchService deviceSearchService,
-        CaptureControlCaptureViewModel captureControlCaptureViewModel)
+        LanEthernetInterfaceConfigViewModel lanEthernetInterfaceConfigViewModel)
         : base(deviceLoginInfo, logger)
     {
         this.deviceSearchService = deviceSearchService;
@@ -53,6 +54,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         WanDslLinkConfigViewModel = wanDslLinkConfigViewModel;
         AvmSpeedtestViewModel = avmSpeedtestViewModel;
         CaptureControlCaptureViewModel = captureControlCaptureViewModel;
+        LanEthernetInterfaceConfigViewModel = lanEthernetInterfaceConfigViewModel;
         LoginCommand = new AsyncRelayCommand<bool?>(ExecuteLoginCommandAsync, _ => CanExecuteLoginCommand);
 
         WeakReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) =>
@@ -91,6 +93,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     public AvmSpeedtestViewModel AvmSpeedtestViewModel { get; }
 
     public CaptureControlCaptureViewModel? CaptureControlCaptureViewModel { get; }
+
+    public LanEthernetInterfaceConfigViewModel? LanEthernetInterfaceConfigViewModel { get; }
 
     public string? UserMessage
     {
@@ -202,7 +206,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         ActiveView = null;
         DeviceLoginInfo.InternetGatewayDevice = null;

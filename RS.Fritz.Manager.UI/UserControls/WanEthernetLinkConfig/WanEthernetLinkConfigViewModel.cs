@@ -15,7 +15,7 @@ internal sealed class WanEthernetLinkConfigViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref wanEthernetLinkConfigGetEthernetLinkStatusResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         WanEthernetLinkConfigGetEthernetLinkStatusResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanEthernetLinkConfigGetEthernetLinkStatusAsync();
     }

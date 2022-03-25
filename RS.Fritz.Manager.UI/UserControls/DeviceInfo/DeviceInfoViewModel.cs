@@ -32,7 +32,7 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
 
     public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel { get; }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
             {
