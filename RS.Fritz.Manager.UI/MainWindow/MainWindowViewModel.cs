@@ -10,7 +10,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
-internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<PropertyChangedMessage<IEnumerable<User>>>
+internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<PropertyChangedMessage<IEnumerable<User>>>, IRecipient<PropertyChangedMessage<ObservableInternetGatewayDevice?>>
 {
     private readonly IDeviceSearchService deviceSearchService;
     private ObservableCollection<ObservableInternetGatewayDevice> devices = new();
@@ -21,6 +21,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     private bool loginCommandActive;
     private bool canExecuteLoginCommand;
     private ImageSource loginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Login.png"));
+    private bool discoveryTabSelected = true;
 
     public MainWindowViewModel(
         DeviceLoginInfo deviceLoginInfo,
@@ -146,6 +147,19 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
 
     public ImageSource LoginButtonImage { get => loginButtonImage; set => _ = SetProperty(ref loginButtonImage, value); }
 
+    public bool DiscoveryTabSelected
+    {
+        get => discoveryTabSelected;
+        set
+        {
+            if (SetProperty(ref discoveryTabSelected, value))
+            {
+                if (value && ActiveView != DeviceLoginInfo.InternetGatewayDevice)
+                    ActiveView = DeviceLoginInfo.InternetGatewayDevice;
+            }
+        }
+    }
+
     private bool CanExecuteLoginCommand
     {
         get => canExecuteLoginCommand;
@@ -165,6 +179,18 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         {
             nameof(ObservableInternetGatewayDevice.Users) => new ObservableCollection<User>(message.NewValue.OrderByDescending(q => q.LastUser)),
             _ => Users
+        };
+    }
+
+    public void Receive(PropertyChangedMessage<ObservableInternetGatewayDevice?> message)
+    {
+        if (message.Sender != DeviceLoginInfo)
+            return;
+
+        ActiveView = message.PropertyName switch
+        {
+            nameof(DeviceLoginInfo.InternetGatewayDevice) => DeviceLoginInfo.InternetGatewayDevice,
+            _ => ActiveView
         };
     }
 
