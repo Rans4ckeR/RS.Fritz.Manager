@@ -210,7 +210,7 @@ static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, IC
 * 🔶 urn:dslforum-org:service:LANEthernetInterfaceConfig:1
   * ❌ SetEnable
   * ✅ GetInfo
-  * ❌ GetStatistics
+  * ✅ GetStatistics
 * ❌ urn:dslforum-org:service:X_AVM-DE_Dect:1
 * ❌ urn:dslforum-org:service:X_AVM-DE_Homeauto:1
 * ❌ urn:dslforum-org:service:X_AVM-DE_Homeplug:1

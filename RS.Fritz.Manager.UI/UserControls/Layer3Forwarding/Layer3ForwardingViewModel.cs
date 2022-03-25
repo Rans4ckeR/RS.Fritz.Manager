@@ -29,7 +29,7 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
             {

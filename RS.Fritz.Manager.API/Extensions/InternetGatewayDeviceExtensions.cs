@@ -281,4 +281,9 @@ public static class InternetGatewayDeviceExtensions
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.LanEthernetInterfaceConfigGetInfoAsync(d));
     }
+
+    public static Task<LanEthernetInterfaceConfigGetStatisticsResponse> LanEthernetInterfaceConfigGetStatisticsAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.LanEthernetInterfaceConfigGetStatisticsAsync(d));
+    }
 }

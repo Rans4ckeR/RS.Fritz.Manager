@@ -39,7 +39,7 @@ internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel : Fritz
         private set { _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         Layer3ForwardingGetGenericForwardingEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.Layer3ForwardingGetGenericForwardingEntryAsync(Index!.Value);
     }

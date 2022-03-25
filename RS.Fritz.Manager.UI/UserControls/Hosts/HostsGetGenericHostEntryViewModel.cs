@@ -39,7 +39,7 @@ internal sealed class HostsGetGenericHostEntryViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref hostsGetGenericHostEntryResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         HostsGetGenericHostEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetGenericHostEntryAsync(Index!.Value);
     }

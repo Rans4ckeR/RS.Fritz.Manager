@@ -85,7 +85,7 @@ internal sealed class WanPppConnectionViewModel : WanAccessTypeAwareFritzService
         private set { _ = SetProperty(ref wanPppConnectionGetAutoDisconnectTimeSpanResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
           {

@@ -1366,6 +1366,32 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type api:LanEthernetInterfaceConfigGetStatisticsResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Statistics">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=BytesSent}" Content="_BytesSent" ToolTip="Total number of bytes sent over the interface since the CPE was last reset."/>
+                            <TextBlock x:Name="BytesSent" Grid.Row="0" Grid.Column="1" Text="{Binding BytesSent}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=BytesReceived}" Content="_BytesReceived" ToolTip="Total number of bytes received over the interface since the CPE was last reset."/>
+                            <TextBlock x:Name="BytesReceived" Grid.Row="1" Grid.Column="1" Text="{Binding BytesReceived}"/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=PacketsSent}" Content="_PacketsSent" ToolTip="Total number of packets sent over the interface since the CPE was last reset."/>
+                            <TextBlock x:Name="PacketsSent" Grid.Row="2" Grid.Column="1" Text="{Binding PacketsSent}"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=PacketsReceived}" Content="_PacketsReceived" ToolTip="Total number of packets received over the interface since the CPE was last reset."/>
+                            <TextBlock x:Name="PacketsReceived" Grid.Row="3" Grid.Column="1" Text="{Binding PacketsReceived}"/>
+                          </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type api:DeviceMeshInfo}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="MeshListPath">
