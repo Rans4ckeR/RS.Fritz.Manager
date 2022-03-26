@@ -1542,6 +1542,94 @@
                     </Expander>
                 </Border>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type api:LanHostConfigManagementGetSubnetMaskResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SubnetMask">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=SubnetMask}" Content="_SubnetMask" ToolTip="Specifies the client's network subnet mask."/>
+                            <TextBlock x:Name="SubnetMask" Grid.Row="0" Grid.Column="1" Text="{Binding SubnetMask}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:LanHostConfigManagementGetIpRoutersListResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpRoutersList">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IpRouters}" Content="_IpRouters" ToolTip="Comma separated list of IP addresses of routers on this subnet. Also known as default gateway. Support for more than one Router address is Optional."/>
+                            <TextBlock x:Name="IpRouters" Grid.Row="0" Grid.Column="1" Text="{Binding IpRouters}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:LanHostConfigManagementGetAddressRangeResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="AddressRange">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=MinAddress}" Content="_MinAddress" ToolTip="Specifies first address in the pool to be assigned by the DHCP server on the LAN interface."/>
+                            <TextBlock x:Name="MinAddress" Grid.Row="0" Grid.Column="1" Text="{Binding MinAddress}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=NaxAddress}" Content="_NaxAddress" ToolTip="Specifies last address in the pool to be assigned by the DHCP server on the LAN interface."/>
+                            <TextBlock x:Name="NaxAddress" Grid.Row="1" Grid.Column="1" Text="{Binding NaxAddress}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpInterfaceNumberOfEntries">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IpInterfaceNumberOfEntries}" Content="_IpInterfaceNumberOfEntries" ToolTip="Number of IP interface at LAN side of the CPE. 1 is a typical value for CPE not supporting Multihomed interfaces. Support for more than one interface instance is Optional."/>
+                            <TextBlock x:Name="IpInterfaceNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding IpInterfaceNumberOfEntries}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:LanHostConfigManagementGetDnsServersResponse}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DnsServers">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DnsServers}" Content="_DnsServers" ToolTip="Comma separated list of DNS servers offered to DHCP clients. Support for more than three DNS Servers is Optional."/>
+                            <TextBlock x:Name="DnsServers" Grid.Row="0" Grid.Column="1" Text="{Binding DnsServers}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type api:DeviceMeshInfo}">
                 <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
                     <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="MeshListPath">

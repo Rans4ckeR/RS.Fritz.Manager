@@ -210,14 +210,14 @@ static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, IC
   * ✅ GetInfo
   * ❌ SetDHCPServerEnable
   * ❌ SetSubnetMask
-  * ❌ GetSubnetMask
+  * ✅ GetSubnetMask
   * ❌ SetIPRouter
-  * ❌ GetIPRoutersList
+  * ✅ GetIPRoutersList
   * ❌ SetIPInterface
-  * ❌ GetAddressRange
+  * ✅ GetAddressRange
   * ❌ SetAddressRange
-  * ❌ GetIPInterfaceNumberOfEntries
-  * ❌ GetDNSServer
+  * ✅ GetIPInterfaceNumberOfEntries
+  * ✅ GetDNSServers
 * 🔶 urn:dslforum-org:service:LANEthernetInterfaceConfig:1
   * ❌ SetEnable
   * ✅ GetInfo
