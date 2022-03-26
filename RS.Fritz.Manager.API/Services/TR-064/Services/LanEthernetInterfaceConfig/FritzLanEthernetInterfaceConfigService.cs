@@ -6,7 +6,7 @@ internal sealed class FritzLanEthernetInterfaceConfigService : FritzServiceClien
 {
     public const string ControlUrl = "/upnp/control/lanethernetifcfg";
 
-    public FritzLanEthernetInterfaceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential = null)
+    public FritzLanEthernetInterfaceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
         : base(endpointConfiguration, remoteAddress, networkCredential)
     {
     }

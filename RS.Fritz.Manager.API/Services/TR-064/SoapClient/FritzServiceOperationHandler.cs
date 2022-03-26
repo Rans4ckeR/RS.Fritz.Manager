@@ -15,7 +15,8 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
     private readonly IClientFactory<IFritzWanEthernetLinkConfigService> fritzWanEthernetLinkConfigServiceClientFactory;
     private readonly IClientFactory<IFritzWanDslLinkConfigService> fritzWanDslLinkConfigServiceClientFactory;
     private readonly IClientFactory<IFritzAvmSpeedtestService> fritzAvmSpeedtestServiceClientFactory;
-    private readonly IClientFactory<IFritzLanEthernetInterfaceConfigService> fritzLanEthernetInterfaceConfigClientFactory;
+    private readonly IClientFactory<IFritzLanEthernetInterfaceConfigService> fritzLanEthernetInterfaceConfigServiceClientFactory;
+    private readonly IClientFactory<IFritzLanHostConfigManagementService> fritzLanHostConfigManagementServiceClientFactory;
 
     public FritzServiceOperationHandler(
         IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,
@@ -29,7 +30,8 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         IClientFactory<IFritzWanEthernetLinkConfigService> fritzWanEthernetLinkConfigServiceClientFactory,
         IClientFactory<IFritzWanDslLinkConfigService> fritzWanDslLinkConfigServiceClientFactory,
         IClientFactory<IFritzAvmSpeedtestService> fritzAvmSpeedtestServiceClientFactory,
-        IClientFactory<IFritzLanEthernetInterfaceConfigService> fritzLanEthernetInterfaceConfigClientFactory)
+        IClientFactory<IFritzLanEthernetInterfaceConfigService> fritzLanEthernetInterfaceConfigServiceClientFactory,
+        IClientFactory<IFritzLanHostConfigManagementService> fritzLanHostConfigManagementServiceClientFactory)
     {
         this.fritzHostsServiceClientFactory = fritzHostsServiceClientFactory;
         this.fritzWanCommonInterfaceConfigServiceClientFactory = fritzWanCommonInterfaceConfigServiceClientFactory;
@@ -42,7 +44,8 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         this.fritzWanEthernetLinkConfigServiceClientFactory = fritzWanEthernetLinkConfigServiceClientFactory;
         this.fritzWanDslLinkConfigServiceClientFactory = fritzWanDslLinkConfigServiceClientFactory;
         this.fritzAvmSpeedtestServiceClientFactory = fritzAvmSpeedtestServiceClientFactory;
-        this.fritzLanEthernetInterfaceConfigClientFactory = fritzLanEthernetInterfaceConfigClientFactory;
+        this.fritzLanEthernetInterfaceConfigServiceClientFactory = fritzLanEthernetInterfaceConfigServiceClientFactory;
+        this.fritzLanHostConfigManagementServiceClientFactory = fritzLanHostConfigManagementServiceClientFactory;
     }
 
     public Task<HostsGetHostNumberOfEntriesResponse> HostsGetHostNumberOfEntriesAsync(InternetGatewayDevice internetGatewayDevice)
@@ -322,12 +325,42 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
 
     public Task<LanEthernetInterfaceConfigGetInfoResponse> LanEthernetInterfaceConfigGetInfoAsync(InternetGatewayDevice internetGatewayDevice)
     {
-        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanEthernetInterfaceConfigClientFactory, (q, r, t) => new FritzLanEthernetInterfaceConfigService(q, r, t!), FritzLanEthernetInterfaceConfigService.ControlUrl), q => q.GetInfoAsync(default));
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanEthernetInterfaceConfigServiceClientFactory, (q, r, t) => new FritzLanEthernetInterfaceConfigService(q, r, t!), FritzLanEthernetInterfaceConfigService.ControlUrl), q => q.GetInfoAsync(default));
     }
 
     public Task<LanEthernetInterfaceConfigGetStatisticsResponse> LanEthernetInterfaceConfigGetStatisticsAsync(InternetGatewayDevice internetGatewayDevice)
     {
-        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanEthernetInterfaceConfigClientFactory, (q, r, t) => new FritzLanEthernetInterfaceConfigService(q, r, t!), FritzLanEthernetInterfaceConfigService.ControlUrl), q => q.GetStatisticsAsync(default));
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanEthernetInterfaceConfigServiceClientFactory, (q, r, t) => new FritzLanEthernetInterfaceConfigService(q, r, t!), FritzLanEthernetInterfaceConfigService.ControlUrl), q => q.GetStatisticsAsync(default));
+    }
+
+    public Task<LanHostConfigManagementGetInfoResponse> LanHostConfigManagementGetInfoAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanHostConfigManagementServiceClientFactory, (q, r, t) => new FritzLanHostConfigManagementService(q, r, t!), FritzLanHostConfigManagementService.ControlUrl), q => q.GetInfoAsync(default));
+    }
+
+    public Task<LanHostConfigManagementGetAddressRangeResponse> LanHostConfigManagementGetAddressRangeAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanHostConfigManagementServiceClientFactory, (q, r, t) => new FritzLanHostConfigManagementService(q, r, t!), FritzLanHostConfigManagementService.ControlUrl), q => q.GetAddressRangeAsync(default));
+    }
+
+    public Task<LanHostConfigManagementGetDnsServersResponse> LanHostConfigManagementGetDnsServersAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanHostConfigManagementServiceClientFactory, (q, r, t) => new FritzLanHostConfigManagementService(q, r, t!), FritzLanHostConfigManagementService.ControlUrl), q => q.GetDnsServersAsync(default));
+    }
+
+    public Task<LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse> LanHostConfigManagementGetIpInterfaceNumberOfEntriesAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanHostConfigManagementServiceClientFactory, (q, r, t) => new FritzLanHostConfigManagementService(q, r, t!), FritzLanHostConfigManagementService.ControlUrl), q => q.GetIpInterfaceNumberOfEntriesAsync(default));
+    }
+
+    public Task<LanHostConfigManagementGetIpRoutersListResponse> LanHostConfigManagementGetIpRoutersListAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanHostConfigManagementServiceClientFactory, (q, r, t) => new FritzLanHostConfigManagementService(q, r, t!), FritzLanHostConfigManagementService.ControlUrl), q => q.GetIpRoutersListAsync(default));
+    }
+
+    public Task<LanHostConfigManagementGetSubnetMaskResponse> LanHostConfigManagementGetSubnetMaskAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanHostConfigManagementServiceClientFactory, (q, r, t) => new FritzLanHostConfigManagementService(q, r, t!), FritzLanHostConfigManagementService.ControlUrl), q => q.GetSubnetMaskAsync(default));
     }
 
     private static T GetFritzServiceClient<T>(InternetGatewayDevice internetGatewayDevice, IClientFactory<T> clientFactory, Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createService, string controlUrl, bool secure = true)
