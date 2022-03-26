@@ -40,7 +40,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         WanDslLinkConfigViewModel wanDslLinkConfigViewModel,
         AvmSpeedtestViewModel avmSpeedtestViewModel,
         LanEthernetInterfaceConfigViewModel lanEthernetInterfaceConfigViewModel,
-        LanHostConfigManagementViewModel lanHostConfigManagementViewModel)
+        LanHostConfigManagementViewModel lanHostConfigManagementViewModel,
+        WlanConfigurationViewModel wlanConfigurationViewModel)
         : base(deviceLoginInfo, logger)
     {
         this.deviceSearchService = deviceSearchService;
@@ -58,6 +59,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         CaptureControlCaptureViewModel = captureControlCaptureViewModel;
         LanEthernetInterfaceConfigViewModel = lanEthernetInterfaceConfigViewModel;
         LanHostConfigManagementViewModel = lanHostConfigManagementViewModel;
+        WlanConfigurationViewModel = wlanConfigurationViewModel;
         LoginCommand = new AsyncRelayCommand<bool?>(ExecuteLoginCommandAsync, _ => CanExecuteLoginCommand);
 
         WeakReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) =>
@@ -100,6 +102,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     public LanEthernetInterfaceConfigViewModel? LanEthernetInterfaceConfigViewModel { get; }
 
     public LanHostConfigManagementViewModel? LanHostConfigManagementViewModel { get; }
+
+    public WlanConfigurationViewModel? WlanConfigurationViewModel { get; }
 
     public string? UserMessage
     {

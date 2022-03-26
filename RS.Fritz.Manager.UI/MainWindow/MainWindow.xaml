@@ -86,6 +86,9 @@
                 <RibbonGroup ToolTip="This service enables reporting of LAN-related device information and setting and configuring LAN IP addressing.">
                     <RibbonButton Label="LanHostConfigManagement" Command="{Binding LanHostConfigManagementViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                 </RibbonGroup>
+                <RibbonGroup ToolTip="This service models an 802.11 LAN connection on a CPE device.">
+                    <RibbonButton Label="WlanConfiguration" Command="{Binding WlanConfigurationViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                </RibbonGroup>
             </RibbonTab>
             <RibbonTab Header="WAN">
                 <RibbonGroup ToolTip="This service models physical layer properties specific to a single physical connection of a DSL modem used for Internet access on an Internet Gateway Device (IGD).">

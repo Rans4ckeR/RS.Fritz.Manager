@@ -17,6 +17,10 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
     private readonly IClientFactory<IFritzAvmSpeedtestService> fritzAvmSpeedtestServiceClientFactory;
     private readonly IClientFactory<IFritzLanEthernetInterfaceConfigService> fritzLanEthernetInterfaceConfigServiceClientFactory;
     private readonly IClientFactory<IFritzLanHostConfigManagementService> fritzLanHostConfigManagementServiceClientFactory;
+    private readonly IClientFactory<IFritzWlanConfiguration1Service> fritzWlanConfiguration1ServiceClientFactory;
+    private readonly IClientFactory<IFritzWlanConfiguration2Service> fritzWlanConfiguration2ServiceClientFactory;
+    private readonly IClientFactory<IFritzWlanConfiguration3Service> fritzWlanConfiguration3ServiceClientFactory;
+    private readonly IClientFactory<IFritzWlanConfiguration4Service> fritzWlanConfiguration4ServiceClientFactory;
 
     public FritzServiceOperationHandler(
         IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,
@@ -31,7 +35,11 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         IClientFactory<IFritzWanDslLinkConfigService> fritzWanDslLinkConfigServiceClientFactory,
         IClientFactory<IFritzAvmSpeedtestService> fritzAvmSpeedtestServiceClientFactory,
         IClientFactory<IFritzLanEthernetInterfaceConfigService> fritzLanEthernetInterfaceConfigServiceClientFactory,
-        IClientFactory<IFritzLanHostConfigManagementService> fritzLanHostConfigManagementServiceClientFactory)
+        IClientFactory<IFritzLanHostConfigManagementService> fritzLanHostConfigManagementServiceClientFactory,
+        IClientFactory<IFritzWlanConfiguration1Service> fritzWlanConfiguration1ServiceClientFactory,
+        IClientFactory<IFritzWlanConfiguration2Service> fritzWlanConfiguration2ServiceClientFactory,
+        IClientFactory<IFritzWlanConfiguration3Service> fritzWlanConfiguration3ServiceClientFactory,
+        IClientFactory<IFritzWlanConfiguration4Service> fritzWlanConfiguration4ServiceClientFactory)
     {
         this.fritzHostsServiceClientFactory = fritzHostsServiceClientFactory;
         this.fritzWanCommonInterfaceConfigServiceClientFactory = fritzWanCommonInterfaceConfigServiceClientFactory;
@@ -46,6 +54,10 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         this.fritzAvmSpeedtestServiceClientFactory = fritzAvmSpeedtestServiceClientFactory;
         this.fritzLanEthernetInterfaceConfigServiceClientFactory = fritzLanEthernetInterfaceConfigServiceClientFactory;
         this.fritzLanHostConfigManagementServiceClientFactory = fritzLanHostConfigManagementServiceClientFactory;
+        this.fritzWlanConfiguration1ServiceClientFactory = fritzWlanConfiguration1ServiceClientFactory;
+        this.fritzWlanConfiguration2ServiceClientFactory = fritzWlanConfiguration2ServiceClientFactory;
+        this.fritzWlanConfiguration3ServiceClientFactory = fritzWlanConfiguration3ServiceClientFactory;
+        this.fritzWlanConfiguration4ServiceClientFactory = fritzWlanConfiguration4ServiceClientFactory;
     }
 
     public Task<HostsGetHostNumberOfEntriesResponse> HostsGetHostNumberOfEntriesAsync(InternetGatewayDevice internetGatewayDevice)
@@ -361,6 +373,26 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
     public Task<LanHostConfigManagementGetSubnetMaskResponse> LanHostConfigManagementGetSubnetMaskAsync(InternetGatewayDevice internetGatewayDevice)
     {
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanHostConfigManagementServiceClientFactory, (q, r, t) => new FritzLanHostConfigManagementService(q, r, t!), FritzLanHostConfigManagementService.ControlUrl), q => q.GetSubnetMaskAsync(default));
+    }
+
+    public Task<WlanConfigurationGetInfoResponse> WlanConfiguration1GetInfoAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWlanConfiguration1ServiceClientFactory, (q, r, t) => new FritzWlanConfiguration1Service(q, r, t!), FritzWlanConfiguration1Service.ControlUrl), q => q.GetInfoAsync(default));
+    }
+
+    public Task<WlanConfigurationGetInfoResponse> WlanConfiguration2GetInfoAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWlanConfiguration2ServiceClientFactory, (q, r, t) => new FritzWlanConfiguration2Service(q, r, t!), FritzWlanConfiguration2Service.ControlUrl), q => q.GetInfoAsync(default));
+    }
+
+    public Task<WlanConfigurationGetInfoResponse> WlanConfiguration3GetInfoAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWlanConfiguration3ServiceClientFactory, (q, r, t) => new FritzWlanConfiguration3Service(q, r, t!), FritzWlanConfiguration3Service.ControlUrl), q => q.GetInfoAsync(default));
+    }
+
+    public Task<WlanConfigurationGetInfoResponse> WlanConfiguration4GetInfoAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWlanConfiguration4ServiceClientFactory, (q, r, t) => new FritzWlanConfiguration4Service(q, r, t!), FritzWlanConfiguration4Service.ControlUrl), q => q.GetInfoAsync(default));
     }
 
     private static T GetFritzServiceClient<T>(InternetGatewayDevice internetGatewayDevice, IClientFactory<T> clientFactory, Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createService, string controlUrl, bool secure = true)

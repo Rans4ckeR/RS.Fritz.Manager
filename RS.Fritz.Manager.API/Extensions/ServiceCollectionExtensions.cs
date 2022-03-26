@@ -27,7 +27,11 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IClientFactory<IFritzWanDslLinkConfigService>, ClientFactory<IFritzWanDslLinkConfigService>>()
             .AddSingleton<IClientFactory<IFritzAvmSpeedtestService>, ClientFactory<IFritzAvmSpeedtestService>>()
             .AddSingleton<IClientFactory<IFritzLanEthernetInterfaceConfigService>, ClientFactory<IFritzLanEthernetInterfaceConfigService>>()
-            .AddSingleton<IClientFactory<IFritzLanHostConfigManagementService>, ClientFactory<IFritzLanHostConfigManagementService>>();
+            .AddSingleton<IClientFactory<IFritzLanHostConfigManagementService>, ClientFactory<IFritzLanHostConfigManagementService>>()
+            .AddSingleton<IClientFactory<IFritzWlanConfiguration1Service>, ClientFactory<IFritzWlanConfiguration1Service>>()
+            .AddSingleton<IClientFactory<IFritzWlanConfiguration2Service>, ClientFactory<IFritzWlanConfiguration2Service>>()
+            .AddSingleton<IClientFactory<IFritzWlanConfiguration3Service>, ClientFactory<IFritzWlanConfiguration3Service>>()
+            .AddSingleton<IClientFactory<IFritzWlanConfiguration4Service>, ClientFactory<IFritzWlanConfiguration4Service>>();
         ConfigureHttpClients(services);
     }
 
