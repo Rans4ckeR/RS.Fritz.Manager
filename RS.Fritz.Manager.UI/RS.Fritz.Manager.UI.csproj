@@ -121,6 +121,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="UserControls\WlanConfiguration\WlanConfigurationView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="UserControls\LanHostConfigManagement\LanHostConfigManagementView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

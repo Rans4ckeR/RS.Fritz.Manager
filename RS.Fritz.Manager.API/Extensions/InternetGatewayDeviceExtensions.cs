@@ -316,4 +316,24 @@ public static class InternetGatewayDeviceExtensions
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.LanHostConfigManagementGetDnsServersAsync(d));
     }
+
+    public static Task<WlanConfigurationGetInfoResponse> WlanConfiguration1GetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.WlanConfiguration1GetInfoAsync(d));
+    }
+
+    public static Task<WlanConfigurationGetInfoResponse> WlanConfiguration2GetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.WlanConfiguration2GetInfoAsync(d));
+    }
+
+    public static Task<WlanConfigurationGetInfoResponse> WlanConfiguration3GetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.WlanConfiguration3GetInfoAsync(d));
+    }
+
+    public static Task<WlanConfigurationGetInfoResponse> WlanConfiguration4GetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.WlanConfiguration4GetInfoAsync(d));
+    }
 }

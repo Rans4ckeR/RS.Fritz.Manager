@@ -5,5 +5,6 @@
 internal interface IFritzWanEthernetLinkConfigService
 {
     [OperationContract(Action = "urn:dslforum-org:service:WANEthernetLinkConfig:1#GetEthernetLinkStatus")]
+    [FaultContract(typeof(UPnPFault))]
     public Task<WanEthernetLinkConfigGetEthernetLinkStatusResponse> GetEthernetLinkStatusAsync(WanEthernetLinkConfigGetEthernetLinkStatusRequest wanEthernetLinkConfigGetEthernetLinkStatusRequest);
 }

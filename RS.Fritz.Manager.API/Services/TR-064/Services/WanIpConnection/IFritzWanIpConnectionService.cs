@@ -5,26 +5,34 @@
 internal interface IFritzWanIpConnectionService
 {
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetInfo")]
+    [FaultContract(typeof(UPnPFault))]
     public Task<WanIpConnectionGetInfoResponse> GetInfoAsync(WanConnectionGetInfoRequest wanConnectionGetInfoRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetConnectionTypeInfo")]
+    [FaultContract(typeof(UPnPFault))]
     public Task<WanConnectionGetConnectionTypeInfoResponse> GetConnectionTypeInfoAsync(WanConnectionGetConnectionTypeInfoRequest wanConnectionGetConnectionTypeInfoRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetStatusInfo")]
+    [FaultContract(typeof(UPnPFault))]
     public Task<WanConnectionGetStatusInfoResponse> GetStatusInfoAsync(WanConnectionGetStatusInfoRequest wanConnectionGetStatusInfoRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetNATRSIPStatus")]
+    [FaultContract(typeof(UPnPFault))]
     public Task<WanConnectionGetNatRsipStatusResponse> GetNatRsipStatusAsync(WanConnectionGetNatRsipStatusRequest wanConnectionGetNatRsipStatusRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#X_GetDNSServers")]
+    [FaultContract(typeof(UPnPFault))]
     public Task<WanConnectionGetDnsServersResponse> GetDnsServersAsync(WanConnectionGetDnsServersRequest wanConnectionGetDnsServersRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetPortMappingNumberOfEntries")]
+    [FaultContract(typeof(UPnPFault))]
     public Task<WanConnectionGetPortMappingNumberOfEntriesResponse> GetPortMappingNumberOfEntriesAsync(WanConnectionGetPortMappingNumberOfEntriesRequest wanConnectionGetPortMappingNumberOfEntriesRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetExternalIPAddress")]
+    [FaultContract(typeof(UPnPFault))]
     public Task<WanConnectionGetExternalIpAddressResponse> GetExternalIpAddressAsync(WanConnectionGetExternalIpAddressRequest wanConnectionGetExternalIpAddressRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:WANIPConnection:1#GetGenericPortMappingEntry")]
+    [FaultContract(typeof(UPnPFault))]
     public Task<WanConnectionGetGenericPortMappingEntryResponse> GetGenericPortMappingEntryAsync(WanConnectionGetGenericPortMappingEntryRequest wanConnectionGetGenericPortMappingEntryRequest);
 }
