@@ -11,7 +11,7 @@ internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceV
     private WanConnectionGetExternalIpAddressResponse? wanConnectionGetExternalIpAddressResponse;
 
     public WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanIpConnectionGetGenericPortMappingEntryViewModel wanIpConnectionGetGenericPortMappingEntryViewModel)
-        : base(deviceLoginInfo, logger, WanAccessType.Ethernet)
+        : base(deviceLoginInfo, logger, WanAccessType.Ethernet, "WANIPConnection")
     {
         WanIpConnectionGetGenericPortMappingEntryViewModel = wanIpConnectionGetGenericPortMappingEntryViewModel;
     }

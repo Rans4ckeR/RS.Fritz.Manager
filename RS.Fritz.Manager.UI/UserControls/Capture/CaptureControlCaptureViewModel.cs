@@ -77,7 +77,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         }
     }
 
-    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         return Task.CompletedTask;
     }

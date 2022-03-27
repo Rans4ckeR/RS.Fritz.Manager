@@ -5,7 +5,7 @@ internal sealed class AvmSpeedtestViewModel : FritzServiceViewModel
     private AvmSpeedtestGetInfoResponse? avmSpeedtestGetInfoResponse;
 
     public AvmSpeedtestViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "X_AVM-DE_Speedtest")
     {
     }
 

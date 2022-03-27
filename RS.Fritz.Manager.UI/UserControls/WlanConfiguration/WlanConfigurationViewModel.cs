@@ -8,7 +8,7 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
     private WlanConfigurationGetInfoResponse? wlanConfiguration4GetInfoResponse;
 
     public WlanConfigurationViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "WLANConfiguration")
     {
     }
 
@@ -49,25 +49,25 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
 
     private async Task GetWlanConfiguration1GetInfoAsync()
     {
-        if (DeviceLoginInfo.InternetGatewayDevice!.UPnPDescription!.Value.Device.DeviceList.Any(q => q.ServiceList.Any(r => r.ServiceType is "urn:dslforum-org:service:WLANConfiguration:1")))
+        if (DeviceLoginInfo.InternetGatewayDevice!.UPnPDescription!.Value.Device.GetServices().Any(r => r.ServiceType is "urn:dslforum-org:service:WLANConfiguration:1"))
             WlanConfiguration1GetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WlanConfiguration1GetInfoAsync();
     }
 
     private async Task GetWlanConfiguration2GetInfoAsync()
     {
-        if (DeviceLoginInfo.InternetGatewayDevice!.UPnPDescription!.Value.Device.DeviceList.Any(q => q.ServiceList.Any(r => r.ServiceType is "urn:dslforum-org:service:WLANConfiguration:2")))
+        if (DeviceLoginInfo.InternetGatewayDevice!.UPnPDescription!.Value.Device.GetServices().Any(r => r.ServiceType is "urn:dslforum-org:service:WLANConfiguration:2"))
             WlanConfiguration2GetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WlanConfiguration2GetInfoAsync();
     }
 
     private async Task GetWlanConfiguration3GetInfoAsync()
     {
-        if (DeviceLoginInfo.InternetGatewayDevice!.UPnPDescription!.Value.Device.DeviceList.Any(q => q.ServiceList.Any(r => r.ServiceType is "urn:dslforum-org:service:WLANConfiguration:3")))
+        if (DeviceLoginInfo.InternetGatewayDevice!.UPnPDescription!.Value.Device.GetServices().Any(r => r.ServiceType is "urn:dslforum-org:service:WLANConfiguration:3"))
             WlanConfiguration3GetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WlanConfiguration3GetInfoAsync();
     }
 
     private async Task GetWlanConfiguration4GetInfoAsync()
     {
-        if (DeviceLoginInfo.InternetGatewayDevice!.UPnPDescription!.Value.Device.DeviceList.Any(q => q.ServiceList.Any(r => r.ServiceType is "urn:dslforum-org:service:WLANConfiguration:4")))
+        if (DeviceLoginInfo.InternetGatewayDevice!.UPnPDescription!.Value.Device.GetServices().Any(r => r.ServiceType is "urn:dslforum-org:service:WLANConfiguration:4"))
             WlanConfiguration4GetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WlanConfiguration4GetInfoAsync();
     }
 }

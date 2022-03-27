@@ -40,15 +40,15 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalNumberSyncGroups}" Content="_TotalNumberSyncGroups"/>
-                    <TextBlock x:Name="TotalNumberSyncGroups" Grid.Row="0" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.TotalNumberSyncGroups, FallbackValue={x:Null}}"/>
+                    <TextBlock x:Name="TotalNumberSyncGroups" Grid.Row="0" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.TotalNumberSyncGroups}"/>
                     <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=SyncGroupName}" Content="_SyncGroupName"/>
-                    <TextBlock x:Name="SyncGroupName" Grid.Row="1" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.SyncGroupName, FallbackValue={x:Null}}"/>
+                    <TextBlock x:Name="SyncGroupName" Grid.Row="1" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.SyncGroupName}"/>
                     <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=SyncGroupMode}" Content="_SyncGroupMode"/>
-                    <TextBlock x:Name="SyncGroupMode" Grid.Row="2" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.SyncGroupMode, FallbackValue={x:Null}}"/>
+                    <TextBlock x:Name="SyncGroupMode" Grid.Row="2" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.SyncGroupMode}"/>
                     <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=MaxDownstream}" Content="_MaxDownstream"/>
-                    <TextBlock x:Name="MaxDownstream" Grid.Row="3" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.MaxDownstream, FallbackValue={x:Null}}"/>
+                    <TextBlock x:Name="MaxDownstream" Grid.Row="3" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.MaxDownstream}"/>
                     <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=MaxUpstream}" Content="_MaxUpstream"/>
-                    <TextBlock x:Name="MaxUpstream" Grid.Row="4" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.MaxUpstream, FallbackValue={x:Null}}"/>
+                    <TextBlock x:Name="MaxUpstream" Grid.Row="4" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.MaxUpstream}"/>
                     <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=SyncGroupIndex}" Content="_SyncGroupIndex"/>
                     <TextBox x:Name="SyncGroupIndex" Grid.Row="5" Grid.Column="1" MinWidth="50" Text="{Binding SyncGroupIndex, UpdateSourceTrigger=PropertyChanged}"/>
                     <Button Grid.Row="6" Grid.Column="0" Content="Get OnlineMonitor" Command="{Binding DefaultCommand}" CommandParameter="{StaticResource False}"/>

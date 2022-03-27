@@ -10,7 +10,7 @@ internal sealed class LanHostConfigManagementViewModel : FritzServiceViewModel
     private LanHostConfigManagementGetDnsServersResponse? lanHostConfigManagementGetDnsServersResponse;
 
     public LanHostConfigManagementViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "LANHostConfigManagement")
     {
     }
 

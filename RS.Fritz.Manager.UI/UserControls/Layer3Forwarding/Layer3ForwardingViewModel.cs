@@ -6,7 +6,7 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
     private Layer3ForwardingGetForwardNumberOfEntriesResponse? layer3ForwardingGetForwardNumberOfEntriesResponse;
 
     public Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, Layer3ForwardingGetGenericForwardingEntryViewModel layer3ForwardingGetGenericForwardingEntryViewModel)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "Layer3Forwarding")
     {
         Layer3ForwardingGetGenericForwardingEntryViewModel = layer3ForwardingGetGenericForwardingEntryViewModel;
     }
