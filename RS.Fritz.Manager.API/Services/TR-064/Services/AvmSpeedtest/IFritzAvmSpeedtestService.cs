@@ -5,7 +5,6 @@
 internal interface IFritzAvmSpeedtestService
 {
     [OperationContract(Action = "urn:dslforum-org:service:X_AVM-DE_Speedtest:1#GetInfo")]
-    [FaultContract(typeof(FritzFaultContract), Name = "UPnPError", Namespace = "urn:schemas-upnp-org:control-1-0")]
-    [XmlSerializerFormat(SupportFaults = true)]
+    [FaultContract(typeof(UPnPFault))]
     public Task<AvmSpeedtestGetInfoResponse> GetInfoAsync(AvmSpeedtestGetInfoRequest avmSpeedtestGetInfoRequest);
 }

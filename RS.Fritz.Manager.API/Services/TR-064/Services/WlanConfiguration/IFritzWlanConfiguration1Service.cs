@@ -5,7 +5,6 @@
 internal interface IFritzWlanConfiguration1Service
 {
     [OperationContract(Action = "urn:dslforum-org:service:WLANConfiguration:1#GetInfo")]
-    [FaultContract(typeof(FritzFaultContract), Name = "UPnPError", Namespace = "urn:schemas-upnp-org:control-1-0")]
-    [XmlSerializerFormat(SupportFaults = true)]
+    [FaultContract(typeof(UPnPFault))]
     public Task<WlanConfigurationGetInfoResponse> GetInfoAsync(WlanConfigurationGetInfoRequest wlanConfigurationGetInfoRequest);
 }
