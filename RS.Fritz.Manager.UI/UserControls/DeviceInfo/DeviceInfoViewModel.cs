@@ -7,7 +7,7 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
     private DeviceInfoGetDeviceLogResponse? deviceInfoGetDeviceLogResponse;
 
     public DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "DeviceInfo")
     {
         DeviceInfoSetProvisioningCodeViewModel = deviceInfoSetProvisioningCodeViewModel;
     }

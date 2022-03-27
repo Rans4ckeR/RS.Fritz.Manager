@@ -8,7 +8,7 @@ internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
     private LanConfigSecurityGetUserListResponse? lanConfigSecurityGetUserListResponse;
 
     public LanConfigSecurityViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "LANConfigSecurity")
     {
         LanConfigSecuritySetConfigPasswordViewModel = lanConfigSecuritySetConfigPasswordViewModel;
     }

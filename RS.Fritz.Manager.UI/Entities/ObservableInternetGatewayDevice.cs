@@ -8,6 +8,7 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
     private IEnumerable<User> users = Enumerable.Empty<User>();
     private WanAccessType? wanAccessType;
     private bool authenticated;
+    private IReadOnlyCollection<ServiceListItem>? services;
 
     public ObservableInternetGatewayDevice(InternetGatewayDevice internetGatewayDevice)
     {
@@ -68,6 +69,8 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
     {
         get => ApiDevice.UPnPDescription;
     }
+
+    public IEnumerable<ServiceListItem> Services { get => services ??= UPnPDescription!.Value.Device.GetServices().ToArray(); }
 
     public async Task GetDeviceTypeAsync()
     {

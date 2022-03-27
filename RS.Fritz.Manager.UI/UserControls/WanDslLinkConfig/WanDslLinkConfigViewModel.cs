@@ -10,7 +10,7 @@ internal sealed class WanDslLinkConfigViewModel : WanAccessTypeAwareFritzService
     private WanDslLinkConfigGetStatisticsResponse? wanDslLinkConfigGetStatisticsResponse;
 
     public WanDslLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, WanAccessType.Dsl)
+        : base(deviceLoginInfo, logger, WanAccessType.Dsl, "WANDSLLinkConfig")
     {
     }
 

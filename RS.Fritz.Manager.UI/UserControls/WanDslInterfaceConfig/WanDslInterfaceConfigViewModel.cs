@@ -12,7 +12,7 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
     private WanDslInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
 
     public WanDslInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanDslInterfaceConfigInfoViewModel wanDslInterfaceConfigInfoViewModel, WanDslInterfaceConfigDslInfoViewModel wanDslInterfaceConfigDslInfoViewModel)
-        : base(deviceLoginInfo, logger, WanAccessType.Dsl)
+        : base(deviceLoginInfo, logger, WanAccessType.Dsl, "WANDSLInterfaceConfig")
     {
         WanDslInterfaceConfigInfoViewModel = wanDslInterfaceConfigInfoViewModel;
         WanDslInterfaceConfigDslInfoViewModel = wanDslInterfaceConfigDslInfoViewModel;

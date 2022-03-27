@@ -8,13 +8,16 @@ using CommunityToolkit.Mvvm.Messaging.Messages;
 
 internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<PropertyChangedMessage<bool>>
 {
+    private readonly string? requiredServiceType;
+
     private bool defaultCommandActive;
     private bool canExecuteDefaultCommand;
 
-    protected FritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    protected FritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, string? requiredServiceType = null)
     {
         Logger = logger;
         DeviceLoginInfo = deviceLoginInfo;
+        this.requiredServiceType = requiredServiceType;
         DefaultCommand = new AsyncRelayCommand<bool?>(ExecuteDefaultCommandAsync, _ => CanExecuteDefaultCommand);
         PropertyChanged += FritzServiceViewModelPropertyChanged;
         IsActive = true;
@@ -88,7 +91,7 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
 
     protected virtual bool GetCanExecuteDefaultCommand()
     {
-        return (DeviceLoginInfo.InternetGatewayDevice?.Authenticated ?? false) && !DefaultCommandActive;
+        return (DeviceLoginInfo.InternetGatewayDevice?.Authenticated ?? false) && !DefaultCommandActive && (requiredServiceType is null || DeviceLoginInfo.InternetGatewayDevice.Services.Any(r => r.ServiceType.StartsWith(FormattableString.Invariant($"urn:dslforum-org:service:{requiredServiceType}:"), StringComparison.OrdinalIgnoreCase)));
     }
 
     protected void UpdateCanExecuteDefaultCommand()

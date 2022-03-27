@@ -6,7 +6,7 @@ internal sealed class LanEthernetInterfaceConfigViewModel : FritzServiceViewMode
     private LanEthernetInterfaceConfigGetStatisticsResponse? lanEthernetInterfaceConfigGetStatisticsResponse;
 
     public LanEthernetInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "LANEthernetInterfaceConfig")
     {
     }
 

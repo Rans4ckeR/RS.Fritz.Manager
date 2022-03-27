@@ -11,7 +11,7 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     private DeviceMeshInfo? deviceMeshInfo;
 
     public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IDeviceHostsService deviceHostsService, IDeviceMeshService deviceMeshService, HostsGetGenericHostEntryViewModel hostsGetGenericHostEntryViewModel)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "Hosts")
     {
         HostsGetGenericHostEntryViewModel = hostsGetGenericHostEntryViewModel;
         this.deviceHostsService = deviceHostsService;
