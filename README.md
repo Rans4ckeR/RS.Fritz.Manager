@@ -207,7 +207,7 @@ static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, IC
   * ✅ X_AVM-DE_GetMeshListPath
 * 🔶 urn:dslforum-org:service:WLANConfiguration
   * ❌ SetEnable
-  * ❌ GetInfo
+  * ✅ GetInfo
   * ❌ SetConfig
   * ❌ SetSecurityKeys
   * ❌ GetSecurityKeys
