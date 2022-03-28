@@ -2,14 +2,18 @@
 
 internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
 {
+    private readonly IWlanDeviceService wlanDeviceService;
+
     private WlanConfigurationGetInfoResponse? wlanConfiguration1GetInfoResponse;
     private WlanConfigurationGetInfoResponse? wlanConfiguration2GetInfoResponse;
     private WlanConfigurationGetInfoResponse? wlanConfiguration3GetInfoResponse;
     private WlanConfigurationGetInfoResponse? wlanConfiguration4GetInfoResponse;
+    private WlanDeviceInfo? wlanDeviceInfo;
 
-    public WlanConfigurationViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    public WlanConfigurationViewModel(DeviceLoginInfo deviceLoginInfo, IWlanDeviceService wlanDeviceService, ILogger logger)
         : base(deviceLoginInfo, logger, "WLANConfiguration")
     {
+        this.wlanDeviceService = wlanDeviceService;
     }
 
     public WlanConfigurationGetInfoResponse? WlanConfiguration1GetInfoResponse
@@ -36,6 +40,12 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref wlanConfiguration4GetInfoResponse, value); }
     }
 
+    public WlanDeviceInfo? WlanDeviceInfo
+    {
+        get => wlanDeviceInfo;
+        private set { _ = SetProperty(ref wlanDeviceInfo, value); }
+    }
+
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         await API.TaskExtensions.WhenAllSafe(new[]
@@ -43,7 +53,8 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
                 GetWlanConfiguration1GetInfoAsync(),
                 GetWlanConfiguration2GetInfoAsync(),
                 GetWlanConfiguration3GetInfoAsync(),
-                GetWlanConfiguration4GetInfoAsync()
+                GetWlanConfiguration4GetInfoAsync(),
+                GetWlanConfigurationGetHostListPathAsync(cancellationToken)
           });
     }
 
@@ -69,5 +80,10 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
     {
         if (DeviceLoginInfo.InternetGatewayDevice!.UPnPDescription!.Value.Device.GetServices().Any(r => r.ServiceType is "urn:dslforum-org:service:WLANConfiguration:4"))
             WlanConfiguration4GetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WlanConfiguration4GetInfoAsync();
+    }
+
+    private async Task GetWlanConfigurationGetHostListPathAsync(CancellationToken cancellationToken)
+    {
+        WlanDeviceInfo = await wlanDeviceService.GetWlanDevicesAsync(DeviceLoginInfo.InternetGatewayDevice!.ApiDevice, cancellationToken);
     }
 }

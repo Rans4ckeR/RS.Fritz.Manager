@@ -11,6 +11,7 @@ public static class ServiceCollectionExtensions
         _ = services.AddSingleton<IDeviceSearchService, DeviceSearchService>()
             .AddSingleton<IDeviceHostsService, DeviceHostsService>()
             .AddSingleton<IDeviceMeshService, DeviceMeshService>()
+            .AddSingleton<IWlanDeviceService, WlanDeviceService>()
             .AddSingleton<ICaptureControlService, CaptureControlService>()
             .AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>()
             .AddSingleton<IUsersService, UsersService>()
