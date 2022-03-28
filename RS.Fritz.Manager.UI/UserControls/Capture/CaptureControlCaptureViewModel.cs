@@ -90,7 +90,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         _ => FormattableString.Invariant($"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\{folderPath}")
     };
 
-    private static async Task<bool> InvalidTargetPath(string targetFolder, string filenamePrefix)
+    private static bool InvalidTargetPath(string targetFolder, string filenamePrefix)
     {
         char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
         bool invalidFilename = filenamePrefix.IndexOfAny(invalidFileNameChars) != -1;
@@ -99,18 +99,16 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 
         try
         {
-            if (!Directory.Exists(targetFolder))
-                _ = Directory.CreateDirectory(targetFolder);
+            var directoryInfo = new DirectoryInfo(targetFolder);
+
+            if (!directoryInfo.Exists)
+                directoryInfo.Create();
 
             return false;
         }
-        catch
+        catch (IOException)
         {
             _ = WeakReferenceMessenger.Default.Send(new UserMessageValueChangedMessage(new UserMessage("Invalid character in TargetFolder or FilenamePrefix")));
-
-            await Task.Delay(3000);
-
-            _ = WeakReferenceMessenger.Default.Send(new UserMessageValueChangedMessage(new UserMessage(string.Empty)));
 
             return true;
         }
@@ -118,7 +116,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 
     private async Task DoExecuteStart1CommandAsync(CancellationToken cancellationToken)
     {
-        if (await InvalidTargetPath(targetFolder, FilenamePrefix))
+        if (InvalidTargetPath(targetFolder, FilenamePrefix))
             return;
 
         ProgBarVisibility01 = Visibility.Visible;
