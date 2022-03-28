@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
+    <DataTemplate DataType="{x:Type api:WanEthernetLinkConfigGetEthernetLinkStatusResponse}">
+        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="EthernetLinkStatus">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=EthernetLinkStatus}" Content="_EthernetLinkStatus" ToolTip="Status of the Ethernet link. Possible values are Up, Down, Unavailable."/>
+                    <TextBlock x:Name="EthernetLinkStatus" Grid.Row="0" Grid.Column="1" Text="{Binding EthernetLinkStatus}"/>
+                </Grid>
+            </Expander>
+        </Border>
+    </DataTemplate>
+</ResourceDictionary>
