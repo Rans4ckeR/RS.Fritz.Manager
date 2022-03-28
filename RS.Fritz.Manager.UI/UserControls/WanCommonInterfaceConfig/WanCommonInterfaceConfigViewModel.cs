@@ -89,8 +89,17 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 
     private async void AutoRefreshTimerTick(object? sender, EventArgs e)
     {
-        if (CanExecuteDefaultCommand)
-            await DefaultCommand.ExecuteAsync(false);
+        try
+        {
+            if (CanExecuteDefaultCommand)
+                await DefaultCommand.ExecuteAsync(false);
+        }
+        catch (Exception ex)
+        {
+            AutoRefresh = false;
+
+            Logger.ExceptionThrown(ex);
+        }
     }
 
     private async Task GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()

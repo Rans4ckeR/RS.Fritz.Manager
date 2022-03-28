@@ -3,6 +3,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ServiceModel.Security;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -12,6 +13,11 @@ using CommunityToolkit.Mvvm.Messaging.Messages;
 
 internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<PropertyChangedMessage<IEnumerable<User>>>, IRecipient<PropertyChangedMessage<ObservableInternetGatewayDevice?>>
 {
+    private const double OpacityOverlay = 0.75;
+    private const double OpacityNoOverlay = 1d;
+    private const int ZIndexOverlay = 1;
+    private const int ZIndexNoOverlay = -1;
+
     private readonly IDeviceSearchService deviceSearchService;
     private ObservableCollection<ObservableInternetGatewayDevice> devices = new();
     private ObservableCollection<User> users = new();
@@ -22,6 +28,9 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     private bool canExecuteLoginCommand;
     private ImageSource loginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Login.png"));
     private bool discoveryTabSelected = true;
+    private double mainContentOpacity = OpacityNoOverlay;
+    private bool mainContentIsHitTestVisible = true;
+    private int messageZIndex = ZIndexNoOverlay;
 
     public MainWindowViewModel(
         DeviceLoginInfo deviceLoginInfo,
@@ -61,6 +70,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         LanHostConfigManagementViewModel = lanHostConfigManagementViewModel;
         WlanConfigurationViewModel = wlanConfigurationViewModel;
         LoginCommand = new AsyncRelayCommand<bool?>(ExecuteLoginCommandAsync, _ => CanExecuteLoginCommand);
+        CopyMessageCommand = new RelayCommand(ExecuteCopyMessageCommand);
+        CloseMessageCommand = new RelayCommand(ExecuteCloseMessageCommand);
 
         WeakReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) =>
         {
@@ -74,6 +85,10 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     }
 
     public static string Title => "FritzManager";
+
+    public IRelayCommand CopyMessageCommand { get; }
+
+    public IRelayCommand CloseMessageCommand { get; }
 
     public DeviceInfoViewModel DeviceInfoViewModel { get; }
 
@@ -97,17 +112,50 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
 
     public AvmSpeedtestViewModel AvmSpeedtestViewModel { get; }
 
-    public CaptureControlCaptureViewModel? CaptureControlCaptureViewModel { get; }
+    public CaptureControlCaptureViewModel CaptureControlCaptureViewModel { get; }
 
-    public LanEthernetInterfaceConfigViewModel? LanEthernetInterfaceConfigViewModel { get; }
+    public LanEthernetInterfaceConfigViewModel LanEthernetInterfaceConfigViewModel { get; }
 
-    public LanHostConfigManagementViewModel? LanHostConfigManagementViewModel { get; }
+    public LanHostConfigManagementViewModel LanHostConfigManagementViewModel { get; }
 
-    public WlanConfigurationViewModel? WlanConfigurationViewModel { get; }
+    public WlanConfigurationViewModel WlanConfigurationViewModel { get; }
+
+    public double MainContentOpacity
+    {
+        get => mainContentOpacity; set { _ = SetProperty(ref mainContentOpacity, value); }
+    }
+
+    public bool MainContentIsHitTestVisible
+    {
+        get => mainContentIsHitTestVisible; set { _ = SetProperty(ref mainContentIsHitTestVisible, value); }
+    }
+
+    public int MessageZIndex
+    {
+        get => messageZIndex; set { _ = SetProperty(ref messageZIndex, value); }
+    }
 
     public string? UserMessage
     {
-        get => userMessage; private set { _ = SetProperty(ref userMessage, value); }
+        get => userMessage;
+        private set
+        {
+            if (SetProperty(ref userMessage, value))
+            {
+                if (value is null)
+                {
+                    MessageZIndex = ZIndexNoOverlay;
+                    MainContentOpacity = OpacityNoOverlay;
+                    MainContentIsHitTestVisible = true;
+                }
+                else
+                {
+                    MessageZIndex = ZIndexOverlay;
+                    MainContentOpacity = OpacityOverlay;
+                    MainContentIsHitTestVisible = false;
+                }
+            }
+        }
     }
 
     public bool DeviceAndLoginControlsEnabled
@@ -279,5 +327,15 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         {
             LoginCommandActive = false;
         }
+    }
+
+    private void ExecuteCopyMessageCommand()
+    {
+        Clipboard.SetText(UserMessage);
+    }
+
+    private void ExecuteCloseMessageCommand()
+    {
+        UserMessage = null;
     }
 }

@@ -12,124 +12,147 @@
         Style="{DynamicResource TextStyle}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Ribbon Grid.Row="0" Background="{StaticResource TitleBackgroundSolidColorBrush}" Foreground="{StaticResource NavigationBackgroundSolidColorBrush}">
-            <Ribbon.ApplicationMenu>
-                <RibbonApplicationMenu Visibility="Hidden"/>
-            </Ribbon.ApplicationMenu>
-            <Ribbon.ContextMenu>
-                <ContextMenu Visibility="Hidden"/>
-            </Ribbon.ContextMenu>
-            <RibbonTab Header="Discovery &amp; Login" IsEnabled="{Binding DeviceAndLoginControlsEnabled}" IsSelected="{Binding DiscoveryTabSelected}">
-                <RibbonGroup>
-                    <RibbonButton Label="Discover Internet Gateway Devices" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png" Command="{Binding DefaultCommand}" CommandParameter="{StaticResource False}"/>
-                </RibbonGroup>
-                <RibbonGroup>
-                    <RibbonComboBox Label="Select A Discovered Device:" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Device.png">
-                        <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.InternetGatewayDevice}">
-                            <RibbonGalleryCategory ItemsSource="{Binding Devices}">
-                                <RibbonGalleryCategory.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type ui:ObservableInternetGatewayDevice}">
-                                        <TextBlock Text="{Binding Server}"/>
-                                    </DataTemplate>
-                                </RibbonGalleryCategory.ItemTemplate>
-                            </RibbonGalleryCategory>
-                        </RibbonGallery>
-                    </RibbonComboBox>
-                </RibbonGroup>
-                <RibbonGroup>
-                    <RibbonComboBox Label="Select A User:" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/User.png">
-                        <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.User}">
-                            <RibbonGalleryCategory ItemsSource="{Binding Users}">
-                                <RibbonGalleryCategory.ItemTemplate>
-                                    <DataTemplate DataType="{x:Type api:User}">
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </DataTemplate>
-                                </RibbonGalleryCategory.ItemTemplate>
-                            </RibbonGalleryCategory>
-                        </RibbonGallery>
-                    </RibbonComboBox>
-                </RibbonGroup>
-                <RibbonGroup>
-                    <RibbonTextBox Label="Enter User Password:" Text="{Binding DeviceLoginInfo.Password, UpdateSourceTrigger=PropertyChanged}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Password.png">
-                        <TextBox.InputBindings>
-                            <KeyBinding Command="{Binding LoginCommand}" CommandParameter="{StaticResource False}" Key="Return" />
-                        </TextBox.InputBindings>
-                    </RibbonTextBox>
-                </RibbonGroup>
-                <RibbonGroup>
-                    <RibbonButton Label="Login" LargeImageSource="{Binding LoginButtonImage }" Command="{Binding LoginCommand}" CommandParameter="{StaticResource False}"/>
-                </RibbonGroup>
-            </RibbonTab>
-            <RibbonTab Header="System">
-                <RibbonGroup ToolTip="This service allows the reporting of basic device information, including the current hardware and software versions.">
-                    <RibbonButton Label="DeviceInfo" Command="{Binding DeviceInfoViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-                <RibbonGroup ToolTip="This service enables the ability to set the password that will allow the device to be configured via the xml interface.">
-                    <RibbonButton Label="LanConfigSecurity" Command="{Binding LanConfigSecurityViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-            </RibbonTab>
-            <RibbonTab Header="Home network">
-                <RibbonGroup ToolTip="This service provides information about each of the hosts on this LAN, including those whose IP address was allocated by the CPE using DHCP as well as hosts with statically allocated IP addresses. It also allows the IP address of a particular host to be re-allocated by removing it from this table.">
-                    <RibbonButton Label="Hosts" Command="{Binding HostsViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-                <RibbonGroup ToolTip="This service models an Ethernet LAN connection on an IGD device. This service allows for the determination and modification of basic configuration information.">
-                    <RibbonButton Label="LanEthernetInterfaceConfig" Command="{Binding LanEthernetInterfaceConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-                <RibbonGroup ToolTip="This service enables reporting of LAN-related device information and setting and configuring LAN IP addressing.">
-                    <RibbonButton Label="LanHostConfigManagement" Command="{Binding LanHostConfigManagementViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-                <RibbonGroup ToolTip="This service models an 802.11 LAN connection on a CPE device.">
-                    <RibbonButton Label="WlanConfiguration" Command="{Binding WlanConfigurationViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-            </RibbonTab>
-            <RibbonTab Header="WAN">
-                <RibbonGroup ToolTip="This service models physical layer properties specific to a single physical connection of a DSL modem used for Internet access on an Internet Gateway Device (IGD).">
-                    <RibbonButton Label="WanDslInterfaceConfig" Command="{Binding WanDslInterfaceConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                    <RibbonCheckBox Label="Auto Refresh" IsChecked="{Binding WanDslInterfaceConfigViewModel.AutoRefresh}" />
-                </RibbonGroup>
-                <RibbonGroup ToolTip="This service is a standard UPnP service that models WAN interface properties common across all connection service instances.">
-                    <RibbonButton Label="WanCommonInterfaceConfig" Command="{Binding WanCommonInterfaceConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                    <RibbonCheckBox Label="Auto Refresh" IsChecked="{Binding WanCommonInterfaceConfigViewModel.AutoRefresh}" />
-                </RibbonGroup>
-                <RibbonGroup ToolTip="This service allows the handling of the routing and forwarding configuration of the device.">
-                    <RibbonButton Label="Layer3Forwarding" Command="{Binding Layer3ForwardingViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-                <RibbonGroup ToolTip="This service enables a UPnP control point to configure and control PPP connections on the WAN interface of a UPnP compliant IGD.">
-                    <RibbonButton Label="WanPppConnection" Command="{Binding WanPppConnectionViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-                <RibbonGroup ToolTip="This service enables a UPnP control point to configure and control IP connections on the WAN interface of a UPnP compliant IGD.">
-                    <RibbonButton Label="WanIpConnection" Command="{Binding WanIpConnectionViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-                <RibbonGroup ToolTip="This service is a standard UPnP service that models the Ethernet link layer properties specific to a single physical Ethernet connection of a GW used for Internet access on an IGD.">
-                    <RibbonButton Label="WanEthernetLinkConfig" Command="{Binding WanEthernetLinkConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-                <RibbonGroup ToolTip="This service is a service which allows for the operation of an explicit DSL diagnostic test, and the ability to examine the results of the last such test.">
-                    <RibbonButton Label="WanDslLinkConfig" Command="{Binding WanDslLinkConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-                <RibbonGroup ToolTip="This service allows you to use Iperf to measure the transmission rate between the FRITZ!Box and the computer in your home network or in the internet. Iperf is free software for measuring the transmission speed of TCP and UDP data between a server and a client. The FRITZ!Box works as the Iperf server and measurement takes place using an Iperf client on your computer. The Iperf client can be downloaded from the internet for a wide variety of operating systems. More information on Iperf is presented in the internet.">
-                    <RibbonButton Label="AvmSpeedtest" Command="{Binding AvmSpeedtestViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-            </RibbonTab>
-            <RibbonTab Header="Packet tracing">
-                <RibbonGroup ToolTip="The Capture function enables packet sniffing to be analyzed with Wireshark.">
-                    <RibbonButton Label="Sniffer" Command="{Binding CaptureControlCaptureViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
-                </RibbonGroup>
-            </RibbonTab>
-        </Ribbon>
-        <ScrollViewer Grid.Row="1" Background="{StaticResource WindowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <ContentControl Content="{Binding ActiveView}"/>
-        </ScrollViewer>
-        <Separator Grid.Row="2" Background="{StaticResource WindowBackgroundSolidColorBrush}"/>
-        <ScrollViewer Grid.Row="3" Background="{StaticResource WindowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <TextBox IsReadOnly="True" TextWrapping="Wrap" Background="Transparent" BorderThickness="0" Text="{Binding UserMessage, Mode=OneWay}" Foreground="Red"/>
-        </ScrollViewer>
+        <ContentControl Grid.Row="0" Grid.Column="0" Opacity="{Binding MainContentOpacity}" IsHitTestVisible="{Binding MainContentIsHitTestVisible}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Ribbon Grid.Row="0" Grid.Column="0" Background="{StaticResource TitleBackgroundSolidColorBrush}" Foreground="{StaticResource NavigationBackgroundSolidColorBrush}">
+                    <Ribbon.ApplicationMenu>
+                        <RibbonApplicationMenu Visibility="Hidden"/>
+                    </Ribbon.ApplicationMenu>
+                    <Ribbon.ContextMenu>
+                        <ContextMenu Visibility="Hidden"/>
+                    </Ribbon.ContextMenu>
+                    <RibbonTab Header="Discovery &amp; Login" IsEnabled="{Binding DeviceAndLoginControlsEnabled}" IsSelected="{Binding DiscoveryTabSelected}">
+                        <RibbonGroup>
+                            <RibbonButton Label="Discover Internet Gateway Devices" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png" Command="{Binding DefaultCommand}" CommandParameter="{StaticResource False}"/>
+                        </RibbonGroup>
+                        <RibbonGroup>
+                            <RibbonComboBox Label="Select A Discovered Device:" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Device.png">
+                                <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.InternetGatewayDevice}">
+                                    <RibbonGalleryCategory ItemsSource="{Binding Devices}">
+                                        <RibbonGalleryCategory.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type ui:ObservableInternetGatewayDevice}">
+                                                <TextBlock Text="{Binding Server}"/>
+                                            </DataTemplate>
+                                        </RibbonGalleryCategory.ItemTemplate>
+                                    </RibbonGalleryCategory>
+                                </RibbonGallery>
+                            </RibbonComboBox>
+                        </RibbonGroup>
+                        <RibbonGroup>
+                            <RibbonComboBox Label="Select A User:" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/User.png">
+                                <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.User}">
+                                    <RibbonGalleryCategory ItemsSource="{Binding Users}">
+                                        <RibbonGalleryCategory.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type api:User}">
+                                                <TextBlock Text="{Binding Name}"/>
+                                            </DataTemplate>
+                                        </RibbonGalleryCategory.ItemTemplate>
+                                    </RibbonGalleryCategory>
+                                </RibbonGallery>
+                            </RibbonComboBox>
+                        </RibbonGroup>
+                        <RibbonGroup>
+                            <RibbonTextBox Label="Enter User Password:" Text="{Binding DeviceLoginInfo.Password, UpdateSourceTrigger=PropertyChanged}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Password.png">
+                                <TextBox.InputBindings>
+                                    <KeyBinding Command="{Binding LoginCommand}" CommandParameter="{StaticResource False}" Key="Return" />
+                                </TextBox.InputBindings>
+                            </RibbonTextBox>
+                        </RibbonGroup>
+                        <RibbonGroup>
+                            <RibbonButton Label="Login" LargeImageSource="{Binding LoginButtonImage }" Command="{Binding LoginCommand}" CommandParameter="{StaticResource False}"/>
+                        </RibbonGroup>
+                    </RibbonTab>
+                    <RibbonTab Header="System">
+                        <RibbonGroup ToolTip="This service allows the reporting of basic device information, including the current hardware and software versions.">
+                            <RibbonButton Label="DeviceInfo" Command="{Binding DeviceInfoViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                        <RibbonGroup ToolTip="This service enables the ability to set the password that will allow the device to be configured via the xml interface.">
+                            <RibbonButton Label="LanConfigSecurity" Command="{Binding LanConfigSecurityViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                    </RibbonTab>
+                    <RibbonTab Header="Home network">
+                        <RibbonGroup ToolTip="This service provides information about each of the hosts on this LAN, including those whose IP address was allocated by the CPE using DHCP as well as hosts with statically allocated IP addresses. It also allows the IP address of a particular host to be re-allocated by removing it from this table.">
+                            <RibbonButton Label="Hosts" Command="{Binding HostsViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                        <RibbonGroup ToolTip="This service models an Ethernet LAN connection on an IGD device. This service allows for the determination and modification of basic configuration information.">
+                            <RibbonButton Label="LanEthernetInterfaceConfig" Command="{Binding LanEthernetInterfaceConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                        <RibbonGroup ToolTip="This service enables reporting of LAN-related device information and setting and configuring LAN IP addressing.">
+                            <RibbonButton Label="LanHostConfigManagement" Command="{Binding LanHostConfigManagementViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                        <RibbonGroup ToolTip="This service models an 802.11 LAN connection on a CPE device.">
+                            <RibbonButton Label="WlanConfiguration" Command="{Binding WlanConfigurationViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                    </RibbonTab>
+                    <RibbonTab Header="WAN">
+                        <RibbonGroup ToolTip="This service models physical layer properties specific to a single physical connection of a DSL modem used for Internet access on an Internet Gateway Device (IGD).">
+                            <RibbonButton Label="WanDslInterfaceConfig" Command="{Binding WanDslInterfaceConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                            <RibbonCheckBox Label="Auto Refresh" IsChecked="{Binding WanDslInterfaceConfigViewModel.AutoRefresh}" />
+                        </RibbonGroup>
+                        <RibbonGroup ToolTip="This service is a standard UPnP service that models WAN interface properties common across all connection service instances.">
+                            <RibbonButton Label="WanCommonInterfaceConfig" Command="{Binding WanCommonInterfaceConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                            <RibbonCheckBox Label="Auto Refresh" IsChecked="{Binding WanCommonInterfaceConfigViewModel.AutoRefresh}" />
+                        </RibbonGroup>
+                        <RibbonGroup ToolTip="This service allows the handling of the routing and forwarding configuration of the device.">
+                            <RibbonButton Label="Layer3Forwarding" Command="{Binding Layer3ForwardingViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                        <RibbonGroup ToolTip="This service enables a UPnP control point to configure and control PPP connections on the WAN interface of a UPnP compliant IGD.">
+                            <RibbonButton Label="WanPppConnection" Command="{Binding WanPppConnectionViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                        <RibbonGroup ToolTip="This service enables a UPnP control point to configure and control IP connections on the WAN interface of a UPnP compliant IGD.">
+                            <RibbonButton Label="WanIpConnection" Command="{Binding WanIpConnectionViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                        <RibbonGroup ToolTip="This service is a standard UPnP service that models the Ethernet link layer properties specific to a single physical Ethernet connection of a GW used for Internet access on an IGD.">
+                            <RibbonButton Label="WanEthernetLinkConfig" Command="{Binding WanEthernetLinkConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                        <RibbonGroup ToolTip="This service is a service which allows for the operation of an explicit DSL diagnostic test, and the ability to examine the results of the last such test.">
+                            <RibbonButton Label="WanDslLinkConfig" Command="{Binding WanDslLinkConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                        <RibbonGroup ToolTip="This service allows you to use Iperf to measure the transmission rate between the FRITZ!Box and the computer in your home network or in the internet. Iperf is free software for measuring the transmission speed of TCP and UDP data between a server and a client. The FRITZ!Box works as the Iperf server and measurement takes place using an Iperf client on your computer. The Iperf client can be downloaded from the internet for a wide variety of operating systems. More information on Iperf is presented in the internet.">
+                            <RibbonButton Label="AvmSpeedtest" Command="{Binding AvmSpeedtestViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                    </RibbonTab>
+                    <RibbonTab Header="Packet tracing">
+                        <RibbonGroup ToolTip="The Capture function enables packet sniffing to be analyzed with Wireshark.">
+                            <RibbonButton Label="Sniffer" Command="{Binding CaptureControlCaptureViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                    </RibbonTab>
+                </Ribbon>
+                <ScrollViewer Grid.Row="1" Grid.Column="0" Background="{StaticResource WindowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <ContentControl Content="{Binding ActiveView}"/>
+                </ScrollViewer>
+            </Grid>
+        </ContentControl>
+        <ContentControl Grid.Row="0" Grid.Column="0" Panel.ZIndex="{Binding MessageZIndex}">
+            <Border Margin="200">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource WindowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <TextBox IsReadOnly="True" TextWrapping="Wrap" Background="Transparent" BorderThickness="0" Text="{Binding UserMessage, Mode=OneWay}" Foreground="Red"/>
+                    </ScrollViewer>
+                    <Button Grid.Row="1" Grid.Column="0" Content="Copy" Command="{Binding CopyMessageCommand}"/>
+                    <Button Grid.Row="1" Grid.Column="1" Content="Close" Command="{Binding CloseMessageCommand}"/>
+                </Grid>
+            </Border>
+        </ContentControl>
     </Grid>
 </RibbonWindow>
