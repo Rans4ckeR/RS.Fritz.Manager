@@ -1621,7 +1621,7 @@
                             <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
                             <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status" ToolTip="Indicates the status of this interface. Possible values are Up, Disabled."/>
                             <TextBlock x:Name="Status" Grid.Row="1" Grid.Column="1" Text="{Binding Status}"/>
-                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=MaxBitRate}" Content="_MaxBitRate" ToolTip="The maximum upstream and downstream bit rate available to this connection in Mbps. Always Auto."/>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=MaxBitRate}" Content="_MaxBitRate" ToolTip="The maximum upstream and downstream bit rate available to this connection in Mbps. Not supported, always Auto."/>
                             <TextBlock x:Name="MaxBitRate" Grid.Row="2" Grid.Column="1" Text="{Binding MaxBitRate}"/>
                             <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Channel}" Content="_Channel" ToolTip="The current radio channel used by the connection. 0 Means auto channel."/>
                             <TextBlock x:Name="Channel" Grid.Row="3" Grid.Column="1" Text="{Binding Channel}"/>
@@ -1633,7 +1633,7 @@
                             <TextBlock x:Name="PossibleBeaconTypes" Grid.Row="6" Grid.Column="1" Text="{Binding PossibleBeaconTypes}"/>
                             <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=MacAddressControlEnabled}" Content="_MacAddressControlEnabled" ToolTip="Indicates whether MAC Address Control is enabled or not on this interface."/>
                             <TextBlock x:Name="MacAddressControlEnabled" Grid.Row="7" Grid.Column="1" Text="{Binding MacAddressControlEnabled}"/>
-                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=Standard}" Content="_Standard" ToolTip="Indicates which IEEE 802.11 mode the device is currently operating in. Possible values are b, g, n, ac, ax, ''."/>
+                            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=Standard}" Content="_Standard" ToolTip="Indicates which IEEE 802.11 mode the device is currently operating in. Possible values are b, g, n, ac, ax, ''. Only the highest of the active modes is returned."/>
                             <TextBlock x:Name="Standard" Grid.Row="8" Grid.Column="1" Text="{Binding Standard}"/>
                             <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=Bssid}" Content="_Bssid" ToolTip="The MAC address of the interface."/>
                             <TextBlock x:Name="Bssid" Grid.Row="9" Grid.Column="1" Text="{Binding Bssid}"/>
@@ -1925,6 +1925,36 @@
                             <TextBlock x:Name="ChannelWidth" Grid.Row="0" Grid.Column="1" Text="{Binding ChannelWidth}"/>
                             <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=SupportedStreamCount}" Content="_SupportedStreamCount" ToolTip="Supported stream count."/>
                             <TextBlock x:Name="SupportedStreamCount" Grid.Row="1" Grid.Column="1" Text="{Binding SupportedStreamCount}"/>
+                        </Grid>
+                    </Expander>
+                </Border>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type api:WlanDeviceInfo}">
+                <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                    <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanDeviceListPath">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=WlanDeviceListPath}" Content="_WlanDeviceListPath"/>
+                            <TextBlock x:Name="WlanDeviceListPath" Grid.Row="0" Grid.Column="1" Text="{Binding WlanDeviceListPath}"/>
+                            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=WlanDeviceListPathLink}" Content="_WlanDeviceListPathLink"/>
+                            <TextBlock x:Name="WlanDeviceListPathLink" Grid.Row="1" Grid.Column="1">
+                                <ui:ExternalBrowserHyperlink NavigateUri="{Binding WlanDeviceListPathLink}">
+                                    <TextBlock Text="{Binding WlanDeviceListPathLink}"/>
+                                </ui:ExternalBrowserHyperlink>
+                            </TextBlock>
+                            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=TotalAssociations}" Content="_TotalAssociations" ToolTip="The number of all connected WIFI devices which are listed in the file independent from the current access point."/>
+                            <TextBlock x:Name="TotalAssociations" Grid.Row="2" Grid.Column="1" Text="{Binding WlanDeviceList.TotalAssociations}"/>
+                            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=WlanDeviceList}" Content="_WlanDeviceList" ToolTip="Devices with AssociatedDeviceChannel set to 0 are not listed in this list, because these are not connected to any access point of this CPE."/>
+                            <DataGrid x:Name="WlanDeviceList" Grid.Row="3" Grid.Column="1" Height="150" IsReadOnly="true" ItemsSource="{Binding WlanDeviceList.Items}"/>
                         </Grid>
                     </Expander>
                 </Border>

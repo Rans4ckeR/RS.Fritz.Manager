@@ -15,4 +15,9 @@ internal sealed class FritzWlanConfiguration3Service : FritzServiceClient<IFritz
     {
         return Channel.GetInfoAsync(wlanConfigurationGetInfoRequest);
     }
+
+    public Task<WlanConfigurationGetWlanDeviceListPathResponse> GetWlanDeviceListPathAsync(WlanConfigurationGetWlanDeviceListPathRequest wlanConfigurationGetWlanDeviceListPathRequest)
+    {
+        return Channel.GetWlanDeviceListPathAsync(wlanConfigurationGetWlanDeviceListPathRequest);
+    }
 }

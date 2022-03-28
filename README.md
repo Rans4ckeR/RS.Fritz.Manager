@@ -78,6 +78,11 @@ IDeviceMeshService deviceMeshService = serviceScope.ServiceProvider.GetRequiredS
 DeviceMeshInfo deviceMeshInfo = await deviceMeshService.GetDeviceMeshAsync(device);
 deviceMeshInfo.DeviceMesh.Nodes.ToList().ForEach(q => Console.WriteLine($"Mesh host: {q.DeviceName}"));
 
+// Retrieving a list of WLAN devices in the network
+IWlanDeviceService wlanDeviceService = serviceScope.ServiceProvider.GetRequiredService<IWlanDeviceService>();
+WlanDeviceInfo wlanDeviceInfo = await wlanDeviceService.GetWlanDevicesAsync(device);
+wlanDeviceInfo.WlanDeviceList.Items.ToList().ForEach(q => Console.WriteLine($"WLAN device: {q.AssociatedDeviceIpAddress}"));
+
 // Retrieve a new session for use in the WebUI
 IWebUiService webUiService = serviceScope.ServiceProvider.GetRequiredService<IWebUiService>();
 WebUiSessionInfo webUiSessionInfo = await webUiService.LogonAsync(device);
@@ -228,7 +233,7 @@ static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, IC
   * ❌ GetGenericAssociatedDeviceInfo
   * ❌ GetSpecificAssociatedDeviceInfo
   * ❌ X_AVM-DE_GetSpecificAssociatedDeviceInfoByIp
-  * ❌ X_AVM-DE_GetWLANDeviceListPath
+  * ✅ X_AVM-DE_GetWLANDeviceListPath
   * ❌ X_AVM-DE_SetStickSurfEnable
   * ❌ X_AVM-DE_GetIPTVOptimized
   * ❌ X_AVM-DE_SetIPTVOptimized
