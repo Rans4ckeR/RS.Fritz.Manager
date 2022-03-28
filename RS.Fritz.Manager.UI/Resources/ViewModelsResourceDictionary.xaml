@@ -1,0 +1,76 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
+    <DataTemplate DataType="{x:Type ui:CaptureControlCaptureViewModel}">
+        <ui:CaptureControlCaptureView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:HostsViewModel}">
+        <ui:HostsView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:HostsGetGenericHostEntryViewModel}">
+        <ui:HostsGetGenericHostEntryView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:DeviceInfoViewModel}">
+        <ui:DeviceInfoView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:LanConfigSecurityViewModel}">
+        <ui:LanConfigSecurityView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:WanDslInterfaceConfigViewModel}">
+        <ui:WanDslInterfaceConfigView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:WanDslInterfaceConfigDslInfoViewModel}">
+        <ui:WanDslInterfaceConfigDslInfoView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:WanDslInterfaceConfigInfoViewModel}">
+        <ui:WanDslInterfaceConfigInfoView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:WanDslLinkConfigViewModel}">
+        <ui:WanDslLinkConfigView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:LanConfigSecuritySetConfigPasswordViewModel}">
+        <ui:LanConfigSecuritySetConfigPasswordView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:DeviceInfoSetProvisioningCodeViewModel}">
+        <ui:DeviceInfoSetProvisioningCodeView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:Layer3ForwardingViewModel}">
+        <ui:Layer3ForwardingView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:Layer3ForwardingGetGenericForwardingEntryViewModel}">
+        <ui:Layer3ForwardingGetGenericForwardingEntryView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:WanPppConnectionViewModel}">
+        <ui:WanPppConnectionView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:WanIpConnectionViewModel}">
+        <ui:WanIpConnectionView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:WanConnectionGetGenericPortMappingEntryViewModel}">
+        <ui:WanConnectionGetGenericPortMappingEntryView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigViewModel}">
+        <ui:WanCommonInterfaceConfigView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigSetWanAccessTypeViewModel}">
+        <ui:WanCommonInterfaceConfigSetWanAccessTypeView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:WanCommonInterfaceConfigGetOnlineMonitorViewModel}">
+        <ui:WanCommonInterfaceConfigGetOnlineMonitorView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:WanEthernetLinkConfigViewModel}">
+        <ui:WanEthernetLinkConfigView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:AvmSpeedtestViewModel}">
+        <ui:AvmSpeedtestView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:LanEthernetInterfaceConfigViewModel}">
+        <ui:LanEthernetInterfaceConfigView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:LanHostConfigManagementViewModel}">
+        <ui:LanHostConfigManagementView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:WlanConfigurationViewModel}">
+        <ui:WlanConfigurationView/>
+    </DataTemplate>
+</ResourceDictionary>

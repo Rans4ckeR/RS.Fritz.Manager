@@ -1,0 +1,100 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
+    <DataTemplate DataType="{x:Type api:LanConfigSecurityGetAnonymousLoginResponse}">
+        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="AnonymousLogin">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AnonymousLoginEnabled}" Content="_AnonymousLoginEnabled"/>
+                    <TextBlock x:Name="AnonymousLoginEnabled" Grid.Row="0" Grid.Column="1" Text="{Binding AnonymousLoginEnabled}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ButtonLoginEnabled}" Content="_ButtonLoginEnabled"/>
+                    <TextBlock x:Name="ButtonLoginEnabled" Grid.Row="1" Grid.Column="1" Text="{Binding ButtonLoginEnabled}"/>
+                </Grid>
+            </Expander>
+        </Border>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:LanConfigSecurityGetCurrentUserResponse}">
+        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="CurrentUser">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=CurrentUsername}" Content="_CurrentUsername"/>
+                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=CurrentUserRights}" Content="_CurrentUserRights"/>
+                    <TextBlock x:Name="CurrentUsername" Grid.Row="0" Grid.Column="1" Text="{Binding CurrentUsername}"/>
+                    <TextBlock x:Name="CurrentUserRights" Grid.Row="1" Grid.Column="1" Text="{Binding CurrentUserRights}"/>
+                </Grid>
+            </Expander>
+        </Border>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:LanConfigSecurityGetInfoResponse}">
+        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=MaxCharsPassword}" Content="_MaxCharsPassword"/>
+                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MinCharsPassword}" Content="_MinCharsPassword"/>
+                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AllowedCharsPassword}" Content="_AllowedCharsPassword"/>
+                    <TextBlock x:Name="MaxCharsPassword" Grid.Row="0" Grid.Column="1" Text="{Binding MaxCharsPassword}"/>
+                    <TextBlock x:Name="MinCharsPassword" Grid.Row="1" Grid.Column="1" Text="{Binding MinCharsPassword}"/>
+                    <TextBlock x:Name="AllowedCharsPassword" Grid.Row="2" Grid.Column="1" Text="{Binding AllowedCharsPassword}"/>
+                </Grid>
+            </Expander>
+        </Border>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:LanConfigSecurityGetUserListResponse}">
+        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="UserList">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=UserList}" Content="_UserList"/>
+                    <TextBlock x:Name="UserList" Grid.Row="0" Grid.Column="1" Text="{Binding UserList}"/>
+                </Grid>
+            </Expander>
+        </Border>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:User}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Name}" Content="_Name"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=LastUser}" Content="_LastUser"/>
+            <TextBlock x:Name="Name" Grid.Row="0" Grid.Column="1" Text="{Binding Name}"/>
+            <TextBlock x:Name="LastUser" Grid.Row="1" Grid.Column="1" Text="{Binding LastUser}"/>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>
