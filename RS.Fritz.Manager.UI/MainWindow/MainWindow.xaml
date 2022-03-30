@@ -43,7 +43,7 @@
                                     <RibbonGalleryCategory ItemsSource="{Binding Devices}">
                                         <RibbonGalleryCategory.ItemTemplate>
                                             <DataTemplate DataType="{x:Type ui:ObservableInternetGatewayDevice}">
-                                                <TextBlock Text="{Binding Server}"/>
+                                                <TextBlock Text="{Binding ApiDevice.Server}"/>
                                             </DataTemplate>
                                         </RibbonGalleryCategory.ItemTemplate>
                                     </RibbonGalleryCategory>

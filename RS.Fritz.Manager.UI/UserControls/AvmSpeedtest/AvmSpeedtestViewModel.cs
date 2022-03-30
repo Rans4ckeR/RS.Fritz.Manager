@@ -17,6 +17,6 @@ internal sealed class AvmSpeedtestViewModel : FritzServiceViewModel
 
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        AvmSpeedtestGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.AvmSpeedtestGetInfoAsync();
+        AvmSpeedtestGetInfoResponse = await ExecuteApiAsync(q => q.AvmSpeedtestGetInfoAsync());
     }
 }

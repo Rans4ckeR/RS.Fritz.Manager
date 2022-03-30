@@ -65,31 +65,31 @@ internal sealed class LanHostConfigManagementViewModel : FritzServiceViewModel
 
     private async Task GetLanHostConfigManagementGetInfoAsync()
     {
-        LanHostConfigManagementGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanHostConfigManagementGetInfoAsync();
+        LanHostConfigManagementGetInfoResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetInfoAsync());
     }
 
     private async Task LanHostConfigManagementGetSubnetMaskAsync()
     {
-        LanHostConfigManagementGetSubnetMaskResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanHostConfigManagementGetSubnetMaskAsync();
+        LanHostConfigManagementGetSubnetMaskResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetSubnetMaskAsync());
     }
 
     private async Task LanHostConfigManagementGetIpRoutersListAsync()
     {
-        LanHostConfigManagementGetIpRoutersListResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanHostConfigManagementGetIpRoutersListAsync();
+        LanHostConfigManagementGetIpRoutersListResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetIpRoutersListAsync());
     }
 
     private async Task LanHostConfigManagementGetAddressRangeAsync()
     {
-        LanHostConfigManagementGetAddressRangeResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanHostConfigManagementGetAddressRangeAsync();
+        LanHostConfigManagementGetAddressRangeResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetAddressRangeAsync());
     }
 
     private async Task LanHostConfigManagementGetIpInterfaceNumberOfEntriesAsync()
     {
-        LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanHostConfigManagementGetIpInterfaceNumberOfEntriesAsync();
+        LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetIpInterfaceNumberOfEntriesAsync());
     }
 
     private async Task LanHostConfigManagementGetDnsServersAsync()
     {
-        LanHostConfigManagementGetDnsServersResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanHostConfigManagementGetDnsServersAsync();
+        LanHostConfigManagementGetDnsServersResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetDnsServersAsync());
     }
 }

@@ -124,7 +124,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         miliSecondsCaptured = 0;
         StartButtonIsEnabled01 = false;
 
-        _ = await captureControlService.GetStartCaptureResponseAsync(DeviceLoginInfo.InternetGatewayDevice!.ApiDevice, targetFolder, filenamePrefix, cancellationToken);
+        _ = await captureControlService.GetStartCaptureResponseAsync(ApiDevice, targetFolder, filenamePrefix, cancellationToken);
 
         progBarPercent01 = 0;
         animationTimer.Stop();
@@ -134,7 +134,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 
     private async Task DoExecuteStop1CommandAsync(CancellationToken cancellationToken)
     {
-        await captureControlService.GetStopCaptureResponseAsync(DeviceLoginInfo.InternetGatewayDevice!.ApiDevice, cancellationToken);
+        await captureControlService.GetStopCaptureResponseAsync(ApiDevice, cancellationToken);
 
         StartButtonIsEnabled01 = true;
     }

@@ -40,11 +40,11 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
 
     private async Task GetLayer3ForwardingGetDefaultConnectionServiceAsync()
     {
-        Layer3ForwardingGetDefaultConnectionServiceResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.Layer3ForwardingGetDefaultConnectionServiceAsync();
+        Layer3ForwardingGetDefaultConnectionServiceResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetDefaultConnectionServiceAsync());
     }
 
     private async Task GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
     {
-        Layer3ForwardingGetForwardNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.Layer3ForwardingGetForwardNumberOfEntriesAsync();
+        Layer3ForwardingGetForwardNumberOfEntriesResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetForwardNumberOfEntriesAsync());
     }
 }

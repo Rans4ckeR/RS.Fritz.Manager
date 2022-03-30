@@ -61,21 +61,21 @@ internal sealed class HostsViewModel : FritzServiceViewModel
 
     private async Task GetHostsGetHostNumberOfEntriesAsync()
     {
-        HostsGetHostNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetHostNumberOfEntriesAsync();
+        HostsGetHostNumberOfEntriesResponse = await ExecuteApiAsync(q => q.HostsGetHostNumberOfEntriesAsync());
     }
 
     private async Task GetHostsGetChangeCounterAsync()
     {
-        HostsGetChangeCounterResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetChangeCounterAsync();
+        HostsGetChangeCounterResponse = await ExecuteApiAsync(q => q.HostsGetChangeCounterAsync());
     }
 
     private async Task GetHostsGetHostListPathAsync(CancellationToken cancellationToken)
     {
-        DeviceHostInfo = await deviceHostsService.GetDeviceHostsAsync(DeviceLoginInfo.InternetGatewayDevice!.ApiDevice, cancellationToken);
+        DeviceHostInfo = await deviceHostsService.GetDeviceHostsAsync(ApiDevice, cancellationToken);
     }
 
     private async Task GetHostsGetMeshListPathAsync(CancellationToken cancellationToken)
     {
-        DeviceMeshInfo = await deviceMeshService.GetDeviceMeshAsync(DeviceLoginInfo.InternetGatewayDevice!.ApiDevice, cancellationToken);
+        DeviceMeshInfo = await deviceMeshService.GetDeviceMeshAsync(ApiDevice, cancellationToken);
     }
 }

@@ -41,7 +41,7 @@ internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel : Fritz
 
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        Layer3ForwardingGetGenericForwardingEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.Layer3ForwardingGetGenericForwardingEntryAsync(Index!.Value);
+        Layer3ForwardingGetGenericForwardingEntryResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetGenericForwardingEntryAsync(Index!.Value));
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

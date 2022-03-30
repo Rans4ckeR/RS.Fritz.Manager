@@ -154,7 +154,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
 
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        WanCommonInterfaceConfigGetOnlineMonitorResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanCommonInterfaceConfigGetOnlineMonitorAsync(SyncGroupIndex);
+        WanCommonInterfaceConfigGetOnlineMonitorResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetOnlineMonitorAsync(SyncGroupIndex));
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

@@ -33,11 +33,11 @@ internal sealed class LanEthernetInterfaceConfigViewModel : FritzServiceViewMode
 
     private async Task GetLanEthernetInterfaceConfigGetInfoAsync()
     {
-        LanEthernetInterfaceConfigGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanEthernetInterfaceConfigGetInfoAsync();
+        LanEthernetInterfaceConfigGetInfoResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetInfoAsync());
     }
 
     private async Task GetLanEthernetInterfaceConfigGetStatisticsAsync()
     {
-        LanEthernetInterfaceConfigGetStatisticsResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanEthernetInterfaceConfigGetStatisticsAsync();
+        LanEthernetInterfaceConfigGetStatisticsResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetStatisticsAsync());
     }
 }

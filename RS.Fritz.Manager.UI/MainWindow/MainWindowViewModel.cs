@@ -201,7 +201,15 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         }
     }
 
-    public ImageSource LoginButtonImage { get => loginButtonImage; set => _ = SetProperty(ref loginButtonImage, value); }
+    public ImageSource LoginButtonImage
+    {
+        get => loginButtonImage;
+        private set
+        {
+            if (SetProperty(ref loginButtonImage, value))
+                value.Freeze();
+        }
+    }
 
     public bool DiscoveryTabSelected
     {
@@ -243,11 +251,17 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         if (message.Sender != DeviceLoginInfo)
             return;
 
-        ActiveView = message.PropertyName switch
+        switch (message.PropertyName)
         {
-            nameof(DeviceLoginInfo.InternetGatewayDevice) => DeviceLoginInfo.InternetGatewayDevice,
-            _ => ActiveView
-        };
+            case nameof(DeviceLoginInfo.InternetGatewayDevice):
+                {
+                    ActiveView = DeviceLoginInfo.InternetGatewayDevice;
+                    LoginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Login.png"));
+
+                    UpdateCanExecuteLoginCommand();
+                    break;
+                }
+        }
     }
 
     public override void Receive(PropertyChangedMessage<bool> message)

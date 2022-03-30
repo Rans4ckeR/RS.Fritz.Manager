@@ -4,23 +4,35 @@ internal abstract class ServiceOperationHandler
 {
     protected static async Task<TResult> ExecuteAsync<T, TResult>(T client, Func<T, Task<TResult>> operation)
     {
+        if (client is not ICommunicationObject communicationObject)
+            throw new NotSupportedException();
+
         try
         {
-            return await Execute(client, operation).ConfigureAwait(false);
+            return await operation(client);
         }
         finally
         {
-            CloseClient(client);
+            CloseClient(communicationObject);
         }
     }
 
-    private static Task<TResult> Execute<T, TResult>(T client, Func<T, Task<TResult>> operation)
+    private static void CloseClient(ICommunicationObject communicationObject)
     {
-        return operation(client);
-    }
-
-    private static void CloseClient<T>(T? client)
-    {
-        (client as ICommunicationObject)?.SafeClose();
+        try
+        {
+            if (communicationObject.State == CommunicationState.Faulted)
+                communicationObject.Abort();
+            else if (communicationObject.State != CommunicationState.Closed)
+                communicationObject.Close();
+        }
+        catch (CommunicationException)
+        {
+            communicationObject.Abort();
+        }
+        catch (TimeoutException)
+        {
+            communicationObject.Abort();
+        }
     }
 }

@@ -23,7 +23,7 @@ internal sealed class WanCommonInterfaceConfigSetWanAccessTypeViewModel : FritzS
 
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        _ = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanCommonInterfaceConfigSetWanAccessTypeAsync(WanAccessType!);
+        _ = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigSetWanAccessTypeAsync(WanAccessType!));
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
