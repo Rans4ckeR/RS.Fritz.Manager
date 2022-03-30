@@ -100,21 +100,21 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
 
     private async Task GetWanDslInterfaceConfigGetDslDiagnoseInfoAsync()
     {
-        WanDslInterfaceConfigGetDslDiagnoseInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslInterfaceConfigGetDslDiagnoseInfoAsync();
+        WanDslInterfaceConfigGetDslDiagnoseInfoResponse = await ExecuteApiAsync(q => q.WanDslInterfaceConfigGetDslDiagnoseInfoAsync());
     }
 
     private async Task GetWanDslInterfaceConfigGetDslInfoAsync()
     {
-        WanDslInterfaceConfigDslInfoViewModel.WanDslInterfaceConfigGetDslInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslInterfaceConfigGetDslInfoAsync();
+        WanDslInterfaceConfigDslInfoViewModel.WanDslInterfaceConfigGetDslInfoResponse = await ExecuteApiAsync(q => q.WanDslInterfaceConfigGetDslInfoAsync());
     }
 
     private async Task GetWanDslInterfaceConfigGetInfoAsync()
     {
-        WanDslInterfaceConfigInfoViewModel.WanDslInterfaceConfigGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslInterfaceConfigGetInfoAsync();
+        WanDslInterfaceConfigInfoViewModel.WanDslInterfaceConfigGetInfoResponse = await ExecuteApiAsync(q => q.WanDslInterfaceConfigGetInfoAsync());
     }
 
     private async Task GetWanDslInterfaceConfigGetStatisticsTotalAsync()
     {
-        WanDslInterfaceConfigGetStatisticsTotalResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslInterfaceConfigGetStatisticsTotalAsync();
+        WanDslInterfaceConfigGetStatisticsTotalResponse = await ExecuteApiAsync(q => q.WanDslInterfaceConfigGetStatisticsTotalAsync());
     }
 }

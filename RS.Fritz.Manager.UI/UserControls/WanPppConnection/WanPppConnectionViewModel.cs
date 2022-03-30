@@ -104,51 +104,51 @@ internal sealed class WanPppConnectionViewModel : WanAccessTypeAwareFritzService
 
     private async Task GetWanPppConnectionGetInfoAsync()
     {
-        WanPppConnectionGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetInfoAsync();
+        WanPppConnectionGetInfoResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetInfoAsync());
     }
 
     private async Task GetWanPppConnectionGetConnectionTypeInfoAsync()
     {
-        WanConnectionGetConnectionTypeInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetConnectionTypeInfoAsync();
+        WanConnectionGetConnectionTypeInfoResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetConnectionTypeInfoAsync());
     }
 
     private async Task GetWanPppConnectionGetStatusInfoAsync()
     {
-        WanConnectionGetStatusInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetStatusInfoAsync();
+        WanConnectionGetStatusInfoResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetStatusInfoAsync());
     }
 
     private async Task GetWanPppConnectionGetLinkLayerMaxBitRatesAsync()
     {
-        WanPppConnectionGetLinkLayerMaxBitRatesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetLinkLayerMaxBitRatesAsync();
+        WanPppConnectionGetLinkLayerMaxBitRatesResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetLinkLayerMaxBitRatesAsync());
     }
 
     private async Task GetWanPppConnectionGetUserNameAsync()
     {
-        WanPppConnectionGetUserNameResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetUserNameAsync();
+        WanPppConnectionGetUserNameResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetUserNameAsync());
     }
 
     private async Task GetWanPppConnectionGetNatRsipStatusAsync()
     {
-        WanConnectionGetNatRsipStatusResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetNatRsipStatusAsync();
+        WanConnectionGetNatRsipStatusResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetNatRsipStatusAsync());
     }
 
     private async Task GetWanPppConnectionGetDnsServersAsync()
     {
-        WanConnectionGetDnsServersResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetDnsServersAsync();
+        WanConnectionGetDnsServersResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetDnsServersAsync());
     }
 
     private async Task GetWanPppConnectionGetPortMappingNumberOfEntriesAsync()
     {
-        WanConnectionGetPortMappingNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetPortMappingNumberOfEntriesAsync();
+        WanConnectionGetPortMappingNumberOfEntriesResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetPortMappingNumberOfEntriesAsync());
     }
 
     private async Task GetWanPppConnectionGetExternalIpAddressAsync()
     {
-        WanConnectionGetExternalIpAddressResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetExternalIpAddressAsync();
+        WanConnectionGetExternalIpAddressResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetExternalIpAddressAsync());
     }
 
     private async Task GetWanPppConnectionGetAutoDisconnectTimeSpanAsync()
     {
-        WanPppConnectionGetAutoDisconnectTimeSpanResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanPppConnectionGetAutoDisconnectTimeSpanAsync();
+        WanPppConnectionGetAutoDisconnectTimeSpanResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetAutoDisconnectTimeSpanAsync());
     }
 }

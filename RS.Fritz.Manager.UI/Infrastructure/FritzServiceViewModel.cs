@@ -37,6 +37,8 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
         }
     }
 
+    protected InternetGatewayDevice ApiDevice => DeviceLoginInfo.InternetGatewayDevice!.ApiDevice;
+
     protected ILogger Logger { get; }
 
     protected bool CanExecuteDefaultCommand
@@ -91,12 +93,17 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
 
     protected virtual bool GetCanExecuteDefaultCommand()
     {
-        return (DeviceLoginInfo.InternetGatewayDevice?.Authenticated ?? false) && !DefaultCommandActive && (requiredServiceType is null || DeviceLoginInfo.InternetGatewayDevice.Services.Any(r => r.ServiceType.StartsWith(FormattableString.Invariant($"urn:dslforum-org:service:{requiredServiceType}:"), StringComparison.OrdinalIgnoreCase)));
+        return (DeviceLoginInfo.InternetGatewayDevice?.Authenticated ?? false) && !DefaultCommandActive && (requiredServiceType is null || ApiDevice.Services.Any(r => r.ServiceType.StartsWith(FormattableString.Invariant($"urn:dslforum-org:service:{requiredServiceType}:"), StringComparison.OrdinalIgnoreCase)));
     }
 
     protected void UpdateCanExecuteDefaultCommand()
     {
         CanExecuteDefaultCommand = GetCanExecuteDefaultCommand();
+    }
+
+    protected async Task<T> ExecuteApiAsync<T>(Func<InternetGatewayDevice, Task<T>> operation)
+    {
+        return await operation(ApiDevice);
     }
 
     private async Task ExecuteDefaultCommandAsync(bool? showView, CancellationToken cancellationToken)

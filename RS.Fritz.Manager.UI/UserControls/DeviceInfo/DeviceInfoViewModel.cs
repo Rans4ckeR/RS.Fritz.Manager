@@ -44,16 +44,16 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
 
     private async Task GetDeviceInfoGetSecurityPortAsync()
     {
-        DeviceInfoGetSecurityPortResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoGetSecurityPortAsync();
+        DeviceInfoGetSecurityPortResponse = await ExecuteApiAsync(q => q.DeviceInfoGetSecurityPortAsync());
     }
 
     private async Task GetDeviceInfoGetInfoAsync()
     {
-        DeviceInfoGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoGetInfoAsync();
+        DeviceInfoGetInfoResponse = await ExecuteApiAsync(q => q.DeviceInfoGetInfoAsync());
     }
 
     private async Task GetDeviceInfoGetDeviceLogAsync()
     {
-        DeviceInfoGetDeviceLogResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoGetDeviceLogAsync();
+        DeviceInfoGetDeviceLogResponse = await ExecuteApiAsync(q => q.DeviceInfoGetDeviceLogAsync());
     }
 }
