@@ -106,6 +106,11 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
         return await operation(ApiDevice);
     }
 
+    protected async Task<T> ExecuteApiAsync<T>(Func<InternetGatewayDevice, int, Task<T>> operation, int interfaceNumber)
+    {
+        return await operation(ApiDevice, interfaceNumber);
+    }
+
     private async Task ExecuteDefaultCommandAsync(bool? showView, CancellationToken cancellationToken)
     {
         try

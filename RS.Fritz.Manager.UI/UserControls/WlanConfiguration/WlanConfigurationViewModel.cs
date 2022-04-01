@@ -247,7 +247,7 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
         for (int i = 0; i < 4; i++)
         {
             if (HasWlanConfigurationService(i + 1))
-                responses[i] = await operation(ApiDevice, i + 1);
+                responses[i] = await ExecuteApiAsync(operation, i + 1);
         }
 
         return responses;

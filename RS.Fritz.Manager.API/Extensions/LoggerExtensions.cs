@@ -8,6 +8,13 @@ public static class LoggerExtensions
 
     public static void ExceptionThrown(this ILogger logger, Exception exception)
     {
-        ExceptionDetails(logger, exception.GetDetailedExceptionInfo(), null);
+        try
+        {
+            ExceptionDetails(logger, exception.GetDetailedExceptionInfo(), null);
+        }
+        catch (Exception ex)
+        {
+            ExceptionDetails(logger, ex.GetDetailedExceptionInfo(), null);
+        }
     }
 }
