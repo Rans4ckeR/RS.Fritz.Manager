@@ -65,6 +65,9 @@
     <Resource Include="Images\Success.png" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UserControls\ManagementServer\ManagementServerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\LanHostConfigManagement\LanHostConfigManagementView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -121,9 +124,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Resources\TR-064\ManagementServerResourceDictionary.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Resources\TR-064\WanDslLinkConfigResourceDictionary.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ManagementServer\ManagementServerView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="UserControls\WlanConfiguration\WlanConfigurationView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

@@ -73,4 +73,7 @@
     <DataTemplate DataType="{x:Type ui:WlanConfigurationViewModel}">
         <ui:WlanConfigurationView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:ManagementServerViewModel}">
+        <ui:ManagementServerView/>
+    </DataTemplate>
 </ResourceDictionary>

@@ -402,6 +402,16 @@ public static class InternetGatewayDeviceExtensions
         return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetWlanConnectionInfoAsync(d), (h, d) => h.WlanConfiguration2GetWlanConnectionInfoAsync(d), (h, d) => h.WlanConfiguration3GetWlanConnectionInfoAsync(d), (h, d) => h.WlanConfiguration4GetWlanConnectionInfoAsync(d)));
     }
 
+    public static Task<ManagementServerGetInfoResponse> ManagementServerGetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.ManagementServerGetInfoAsync(d));
+    }
+
+    public static Task<ManagementServerGetTr069FirmwareDownloadEnabledResponse> ManagementServerGetTr069FirmwareDownloadEnabledAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.ManagementServerGetTr069FirmwareDownloadEnabledAsync(d));
+    }
+
     private static Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> GetWlanOperation<T>(
         int interfaceNumber,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface1Operation,

@@ -49,6 +49,7 @@ internal sealed partial class App
                     .AddSingleton<LanEthernetInterfaceConfigViewModel>()
                     .AddSingleton<LanHostConfigManagementViewModel>()
                     .AddSingleton<WlanConfigurationViewModel>()
+                    .AddSingleton<ManagementServerViewModel>()
                     .AddFritzApi();
             }).Build();
     }

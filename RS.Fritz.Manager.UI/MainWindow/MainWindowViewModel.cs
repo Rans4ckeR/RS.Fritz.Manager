@@ -50,7 +50,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         AvmSpeedtestViewModel avmSpeedtestViewModel,
         LanEthernetInterfaceConfigViewModel lanEthernetInterfaceConfigViewModel,
         LanHostConfigManagementViewModel lanHostConfigManagementViewModel,
-        WlanConfigurationViewModel wlanConfigurationViewModel)
+        WlanConfigurationViewModel wlanConfigurationViewModel,
+        ManagementServerViewModel managementServerViewModel)
         : base(deviceLoginInfo, logger)
     {
         this.deviceSearchService = deviceSearchService;
@@ -69,6 +70,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         LanEthernetInterfaceConfigViewModel = lanEthernetInterfaceConfigViewModel;
         LanHostConfigManagementViewModel = lanHostConfigManagementViewModel;
         WlanConfigurationViewModel = wlanConfigurationViewModel;
+        ManagementServerViewModel = managementServerViewModel;
         LoginCommand = new AsyncRelayCommand<bool?>(ExecuteLoginCommandAsync, _ => CanExecuteLoginCommand);
         CopyMessageCommand = new RelayCommand(ExecuteCopyMessageCommand);
         CloseMessageCommand = new RelayCommand(ExecuteCloseMessageCommand);
@@ -119,6 +121,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     public LanHostConfigManagementViewModel LanHostConfigManagementViewModel { get; }
 
     public WlanConfigurationViewModel WlanConfigurationViewModel { get; }
+
+    public ManagementServerViewModel ManagementServerViewModel { get; }
 
     public double MainContentOpacity
     {
