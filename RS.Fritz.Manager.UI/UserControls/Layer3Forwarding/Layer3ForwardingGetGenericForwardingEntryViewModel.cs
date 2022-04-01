@@ -6,7 +6,7 @@ internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel : Fritz
 {
     private ushort? index;
     private ushort? forwardNumberOfEntries;
-    private Layer3ForwardingGetGenericForwardingEntryResponse? layer3ForwardingGetGenericForwardingEntryResponse;
+    private KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>? layer3ForwardingGetGenericForwardingEntryResponse;
 
     public Layer3ForwardingGetGenericForwardingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -33,7 +33,7 @@ internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel : Fritz
         }
     }
 
-    public Layer3ForwardingGetGenericForwardingEntryResponse? Layer3ForwardingGetGenericForwardingEntryResponse
+    public KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>? Layer3ForwardingGetGenericForwardingEntryResponse
     {
         get => layer3ForwardingGetGenericForwardingEntryResponse;
         private set { _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponse, value); }

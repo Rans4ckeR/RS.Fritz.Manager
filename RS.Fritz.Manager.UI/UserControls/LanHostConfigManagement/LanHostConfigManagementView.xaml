@@ -20,11 +20,89 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanHostConfigManagementGetInfoResponse}"/>
-        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding LanHostConfigManagementGetSubnetMaskResponse}"/>
-        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding LanHostConfigManagementGetIpRoutersListResponse}"/>
-        <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding LanHostConfigManagementGetAddressRangeResponse}"/>
-        <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse}"/>
-        <ContentControl Grid.Row="5" Grid.Column="0" Content="{Binding LanHostConfigManagementGetDnsServersResponse}"/>
+        <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanHostConfigManagementGetInfoResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanHostConfigManagementGetInfoResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SubnetMask">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanHostConfigManagementGetSubnetMaskResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanHostConfigManagementGetSubnetMaskResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
+        <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpRoutersList">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanHostConfigManagementGetIpRoutersListResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanHostConfigManagementGetIpRoutersListResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
+        <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="AddressRange">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanHostConfigManagementGetAddressRangeResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanHostConfigManagementGetAddressRangeResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
+        <Border Grid.Row="4" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpInterfaceNumberOfEntries">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
+        <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DnsServers">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanHostConfigManagementGetDnsServersResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanHostConfigManagementGetDnsServersResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
     </Grid>
 </UserControl>

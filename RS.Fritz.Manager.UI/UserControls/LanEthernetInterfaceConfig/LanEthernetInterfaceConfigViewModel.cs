@@ -2,21 +2,21 @@
 
 internal sealed class LanEthernetInterfaceConfigViewModel : FritzServiceViewModel
 {
-    private LanEthernetInterfaceConfigGetInfoResponse? lanEthernetInterfaceConfigGetInfoResponse;
-    private LanEthernetInterfaceConfigGetStatisticsResponse? lanEthernetInterfaceConfigGetStatisticsResponse;
+    private KeyValuePair<LanEthernetInterfaceConfigGetInfoResponse?, UPnPFault?>? lanEthernetInterfaceConfigGetInfoResponse;
+    private KeyValuePair<LanEthernetInterfaceConfigGetStatisticsResponse?, UPnPFault?>? lanEthernetInterfaceConfigGetStatisticsResponse;
 
     public LanEthernetInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger, "LANEthernetInterfaceConfig")
     {
     }
 
-    public LanEthernetInterfaceConfigGetInfoResponse? LanEthernetInterfaceConfigGetInfoResponse
+    public KeyValuePair<LanEthernetInterfaceConfigGetInfoResponse?, UPnPFault?>? LanEthernetInterfaceConfigGetInfoResponse
     {
         get => lanEthernetInterfaceConfigGetInfoResponse;
         private set { _ = SetProperty(ref lanEthernetInterfaceConfigGetInfoResponse, value); }
     }
 
-    public LanEthernetInterfaceConfigGetStatisticsResponse? LanEthernetInterfaceConfigGetStatisticsResponse
+    public KeyValuePair<LanEthernetInterfaceConfigGetStatisticsResponse?, UPnPFault?>? LanEthernetInterfaceConfigGetStatisticsResponse
     {
         get => lanEthernetInterfaceConfigGetStatisticsResponse;
         private set { _ = SetProperty(ref lanEthernetInterfaceConfigGetStatisticsResponse, value); }

@@ -6,7 +6,7 @@ internal abstract class WanConnectionGetGenericPortMappingEntryViewModel : Fritz
 {
     private ushort? index;
     private ushort? portMappingNumberOfEntries;
-    private WanConnectionGetGenericPortMappingEntryResponse? wanConnectionGetGenericPortMappingEntryResponse;
+    private KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>? wanConnectionGetGenericPortMappingEntryResponse;
 
     protected WanConnectionGetGenericPortMappingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -33,7 +33,7 @@ internal abstract class WanConnectionGetGenericPortMappingEntryViewModel : Fritz
         }
     }
 
-    public WanConnectionGetGenericPortMappingEntryResponse? WanConnectionGetGenericPortMappingEntryResponse
+    public KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>? WanConnectionGetGenericPortMappingEntryResponse
     {
         get => wanConnectionGetGenericPortMappingEntryResponse;
         protected set { _ = SetProperty(ref wanConnectionGetGenericPortMappingEntryResponse, value); }

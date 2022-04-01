@@ -16,7 +16,33 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanEthernetInterfaceConfigGetInfoResponse}"/>
-        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding LanEthernetInterfaceConfigGetStatisticsResponse}"/>
+        <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanEthernetInterfaceConfigGetInfoResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanEthernetInterfaceConfigGetInfoResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Statistics">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanEthernetInterfaceConfigGetStatisticsResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding LanEthernetInterfaceConfigGetStatisticsResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
     </Grid>
 </UserControl>

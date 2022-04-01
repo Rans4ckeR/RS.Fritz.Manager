@@ -5,8 +5,8 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     private readonly IDeviceHostsService deviceHostsService;
     private readonly IDeviceMeshService deviceMeshService;
 
-    private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
-    private HostsGetChangeCounterResponse? hostsGetChangeCounterResponse;
+    private KeyValuePair<HostsGetHostNumberOfEntriesResponse?, UPnPFault?>? hostsGetHostNumberOfEntriesResponse;
+    private KeyValuePair<HostsGetChangeCounterResponse?, UPnPFault?>? hostsGetChangeCounterResponse;
     private DeviceHostInfo? deviceHostInfo;
     private DeviceMeshInfo? deviceMeshInfo;
 
@@ -20,17 +20,17 @@ internal sealed class HostsViewModel : FritzServiceViewModel
 
     public HostsGetGenericHostEntryViewModel HostsGetGenericHostEntryViewModel { get; }
 
-    public HostsGetHostNumberOfEntriesResponse? HostsGetHostNumberOfEntriesResponse
+    public KeyValuePair<HostsGetHostNumberOfEntriesResponse?, UPnPFault?>? HostsGetHostNumberOfEntriesResponse
     {
         get => hostsGetHostNumberOfEntriesResponse;
         private set
         {
             if (SetProperty(ref hostsGetHostNumberOfEntriesResponse, value))
-                HostsGetGenericHostEntryViewModel.HostNumberOfEntries = HostsGetHostNumberOfEntriesResponse?.HostNumberOfEntries;
+                HostsGetGenericHostEntryViewModel.HostNumberOfEntries = HostsGetHostNumberOfEntriesResponse?.Key?.HostNumberOfEntries;
         }
     }
 
-    public HostsGetChangeCounterResponse? HostsGetChangeCounterResponse
+    public KeyValuePair<HostsGetChangeCounterResponse?, UPnPFault?>? HostsGetChangeCounterResponse
     {
         get => hostsGetChangeCounterResponse;
         private set { _ = SetProperty(ref hostsGetChangeCounterResponse, value); }

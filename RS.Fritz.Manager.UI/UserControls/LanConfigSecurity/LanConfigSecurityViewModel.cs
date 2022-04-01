@@ -2,10 +2,10 @@
 
 internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
 {
-    private LanConfigSecurityGetAnonymousLoginResponse? lanConfigSecurityGetAnonymousLoginResponse;
-    private LanConfigSecurityGetCurrentUserResponse? lanConfigSecurityGetCurrentUserResponse;
-    private LanConfigSecurityGetInfoResponse? lanConfigSecurityGetInfoResponse;
-    private LanConfigSecurityGetUserListResponse? lanConfigSecurityGetUserListResponse;
+    private KeyValuePair<LanConfigSecurityGetAnonymousLoginResponse?, UPnPFault?>? lanConfigSecurityGetAnonymousLoginResponse;
+    private KeyValuePair<LanConfigSecurityGetCurrentUserResponse?, UPnPFault?>? lanConfigSecurityGetCurrentUserResponse;
+    private KeyValuePair<LanConfigSecurityGetInfoResponse?, UPnPFault?>? lanConfigSecurityGetInfoResponse;
+    private KeyValuePair<LanConfigSecurityGetUserListResponse?, UPnPFault?>? lanConfigSecurityGetUserListResponse;
 
     public LanConfigSecurityViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel)
         : base(deviceLoginInfo, logger, "LANConfigSecurity")
@@ -15,25 +15,25 @@ internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
 
     public LanConfigSecuritySetConfigPasswordViewModel LanConfigSecuritySetConfigPasswordViewModel { get; }
 
-    public LanConfigSecurityGetAnonymousLoginResponse? LanConfigSecurityGetAnonymousLoginResponse
+    public KeyValuePair<LanConfigSecurityGetAnonymousLoginResponse?, UPnPFault?>? LanConfigSecurityGetAnonymousLoginResponse
     {
         get => lanConfigSecurityGetAnonymousLoginResponse;
         private set { _ = SetProperty(ref lanConfigSecurityGetAnonymousLoginResponse, value); }
     }
 
-    public LanConfigSecurityGetCurrentUserResponse? LanConfigSecurityGetCurrentUserResponse
+    public KeyValuePair<LanConfigSecurityGetCurrentUserResponse?, UPnPFault?>? LanConfigSecurityGetCurrentUserResponse
     {
         get => lanConfigSecurityGetCurrentUserResponse;
         private set { _ = SetProperty(ref lanConfigSecurityGetCurrentUserResponse, value); }
     }
 
-    public LanConfigSecurityGetInfoResponse? LanConfigSecurityGetInfoResponse
+    public KeyValuePair<LanConfigSecurityGetInfoResponse?, UPnPFault?>? LanConfigSecurityGetInfoResponse
     {
         get => lanConfigSecurityGetInfoResponse;
         private set { _ = SetProperty(ref lanConfigSecurityGetInfoResponse, value); }
     }
 
-    public LanConfigSecurityGetUserListResponse? LanConfigSecurityGetUserListResponse
+    public KeyValuePair<LanConfigSecurityGetUserListResponse?, UPnPFault?>? LanConfigSecurityGetUserListResponse
     {
         get => lanConfigSecurityGetUserListResponse;
         private set { _ = SetProperty(ref lanConfigSecurityGetUserListResponse, value); }

@@ -317,43 +317,105 @@ public static class InternetGatewayDeviceExtensions
         return internetGatewayDevice.ExecuteAsync((h, d) => h.LanHostConfigManagementGetDnsServersAsync(d));
     }
 
-    public static Task<WlanConfigurationGetInfoResponse> WlanConfiguration1GetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    public static Task<WlanConfigurationGetInfoResponse> WlanConfigurationGetInfoAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
     {
-        return internetGatewayDevice.ExecuteAsync((h, d) => h.WlanConfiguration1GetInfoAsync(d));
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetInfoAsync(d), (h, d) => h.WlanConfiguration2GetInfoAsync(d), (h, d) => h.WlanConfiguration3GetInfoAsync(d), (h, d) => h.WlanConfiguration4GetInfoAsync(d)));
     }
 
-    public static Task<WlanConfigurationGetInfoResponse> WlanConfiguration2GetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    public static Task<WlanConfigurationGetWlanDeviceListPathResponse> WlanConfigurationGetWlanDeviceListPathAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
     {
-        return internetGatewayDevice.ExecuteAsync((h, d) => h.WlanConfiguration2GetInfoAsync(d));
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetWlanDeviceListPathAsync(d), (h, d) => h.WlanConfiguration2GetWlanDeviceListPathAsync(d), (h, d) => h.WlanConfiguration3GetWlanDeviceListPathAsync(d), (h, d) => h.WlanConfiguration4GetWlanDeviceListPathAsync(d)));
     }
 
-    public static Task<WlanConfigurationGetInfoResponse> WlanConfiguration3GetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    public static Task<WlanConfigurationGetBasBeaconSecurityPropertiesResponse> WlanConfigurationGetBasBeaconSecurityPropertiesAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
     {
-        return internetGatewayDevice.ExecuteAsync((h, d) => h.WlanConfiguration3GetInfoAsync(d));
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetBasBeaconSecurityPropertiesAsync(d), (h, d) => h.WlanConfiguration2GetBasBeaconSecurityPropertiesAsync(d), (h, d) => h.WlanConfiguration3GetBasBeaconSecurityPropertiesAsync(d), (h, d) => h.WlanConfiguration4GetBasBeaconSecurityPropertiesAsync(d)));
     }
 
-    public static Task<WlanConfigurationGetInfoResponse> WlanConfiguration4GetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    public static Task<WlanConfigurationGetBssIdResponse> WlanConfigurationGetBssIdAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
     {
-        return internetGatewayDevice.ExecuteAsync((h, d) => h.WlanConfiguration4GetInfoAsync(d));
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetBssIdAsync(d), (h, d) => h.WlanConfiguration2GetBssIdAsync(d), (h, d) => h.WlanConfiguration3GetBssIdAsync(d), (h, d) => h.WlanConfiguration4GetBssIdAsync(d)));
     }
 
-    public static Task<WlanConfigurationGetWlanDeviceListPathResponse> WlanConfiguration1GetWlanDeviceListPathAsync(this InternetGatewayDevice internetGatewayDevice)
+    public static Task<WlanConfigurationGetSsIdResponse> WlanConfigurationGetSsIdAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
     {
-        return internetGatewayDevice.ExecuteAsync((h, d) => h.WlanConfiguration1GetWlanDeviceListPathAsync(d));
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetSsIdAsync(d), (h, d) => h.WlanConfiguration2GetSsIdAsync(d), (h, d) => h.WlanConfiguration3GetSsIdAsync(d), (h, d) => h.WlanConfiguration4GetSsIdAsync(d)));
     }
 
-    public static Task<WlanConfigurationGetWlanDeviceListPathResponse> WlanConfiguration2GetWlanDeviceListPathAsync(this InternetGatewayDevice internetGatewayDevice)
+    public static Task<WlanConfigurationGetBeaconTypeResponse> WlanConfigurationGetBeaconTypeAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
     {
-        return internetGatewayDevice.ExecuteAsync((h, d) => h.WlanConfiguration2GetWlanDeviceListPathAsync(d));
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetBeaconTypeAsync(d), (h, d) => h.WlanConfiguration2GetBeaconTypeAsync(d), (h, d) => h.WlanConfiguration3GetBeaconTypeAsync(d), (h, d) => h.WlanConfiguration4GetBeaconTypeAsync(d)));
     }
 
-    public static Task<WlanConfigurationGetWlanDeviceListPathResponse> WlanConfiguration3GetWlanDeviceListPathAsync(this InternetGatewayDevice internetGatewayDevice)
+    public static Task<WlanConfigurationGetChannelInfoResponse> WlanConfigurationGetChannelInfoAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
     {
-        return internetGatewayDevice.ExecuteAsync((h, d) => h.WlanConfiguration3GetWlanDeviceListPathAsync(d));
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetChannelInfoAsync(d), (h, d) => h.WlanConfiguration2GetChannelInfoAsync(d), (h, d) => h.WlanConfiguration3GetChannelInfoAsync(d), (h, d) => h.WlanConfiguration4GetChannelInfoAsync(d)));
     }
 
-    public static Task<WlanConfigurationGetWlanDeviceListPathResponse> WlanConfiguration4GetWlanDeviceListPathAsync(this InternetGatewayDevice internetGatewayDevice)
+    public static Task<WlanConfigurationGetBeaconAdvertisementResponse> WlanConfigurationGetBeaconAdvertisementAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
     {
-        return internetGatewayDevice.ExecuteAsync((h, d) => h.WlanConfiguration4GetWlanDeviceListPathAsync(d));
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetBeaconAdvertisementAsync(d), (h, d) => h.WlanConfiguration2GetBeaconAdvertisementAsync(d), (h, d) => h.WlanConfiguration3GetBeaconAdvertisementAsync(d), (h, d) => h.WlanConfiguration4GetBeaconAdvertisementAsync(d)));
+    }
+
+    public static Task<WlanConfigurationGetTotalAssociationsResponse> WlanConfigurationGetTotalAssociationsAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
+    {
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetTotalAssociationsAsync(d), (h, d) => h.WlanConfiguration2GetTotalAssociationsAsync(d), (h, d) => h.WlanConfiguration3GetTotalAssociationsAsync(d), (h, d) => h.WlanConfiguration4GetTotalAssociationsAsync(d)));
+    }
+
+    public static Task<WlanConfigurationGetIpTvOptimizedResponse> WlanConfigurationGetIpTvOptimizedAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
+    {
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetIpTvOptimizedAsync(d), (h, d) => h.WlanConfiguration2GetIpTvOptimizedAsync(d), (h, d) => h.WlanConfiguration3GetIpTvOptimizedAsync(d), (h, d) => h.WlanConfiguration4GetIpTvOptimizedAsync(d)));
+    }
+
+    public static Task<WlanConfigurationGetStatisticsResponse> WlanConfigurationGetStatisticsAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
+    {
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetStatisticsAsync(d), (h, d) => h.WlanConfiguration2GetStatisticsAsync(d), (h, d) => h.WlanConfiguration3GetStatisticsAsync(d), (h, d) => h.WlanConfiguration4GetStatisticsAsync(d)));
+    }
+
+    public static Task<WlanConfigurationGetPacketStatisticsResponse> WlanConfigurationGetPacketStatisticsAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
+    {
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetPacketStatisticsAsync(d), (h, d) => h.WlanConfiguration2GetPacketStatisticsAsync(d), (h, d) => h.WlanConfiguration3GetPacketStatisticsAsync(d), (h, d) => h.WlanConfiguration4GetPacketStatisticsAsync(d)));
+    }
+
+    public static Task<WlanConfigurationGetNightControlResponse> WlanConfigurationGetNightControlAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
+    {
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetNightControlAsync(d), (h, d) => h.WlanConfiguration2GetNightControlAsync(d), (h, d) => h.WlanConfiguration3GetNightControlAsync(d), (h, d) => h.WlanConfiguration4GetNightControlAsync(d)));
+    }
+
+    public static Task<WlanConfigurationGetWlanHybridModeResponse> WlanConfigurationGetWlanHybridModeAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
+    {
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetWlanHybridModeAsync(d), (h, d) => h.WlanConfiguration2GetWlanHybridModeAsync(d), (h, d) => h.WlanConfiguration3GetWlanHybridModeAsync(d), (h, d) => h.WlanConfiguration4GetWlanHybridModeAsync(d)));
+    }
+
+    public static Task<WlanConfigurationGetWlanExtInfoResponse> WlanConfigurationGetWlanExtInfoAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
+    {
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetWlanExtInfoAsync(d), (h, d) => h.WlanConfiguration2GetWlanExtInfoAsync(d), (h, d) => h.WlanConfiguration3GetWlanExtInfoAsync(d), (h, d) => h.WlanConfiguration4GetWlanExtInfoAsync(d)));
+    }
+
+    public static Task<WlanConfigurationGetWpsInfoResponse> WlanConfigurationGetWpsInfoAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
+    {
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetWpsInfoAsync(d), (h, d) => h.WlanConfiguration2GetWpsInfoAsync(d), (h, d) => h.WlanConfiguration3GetWpsInfoAsync(d), (h, d) => h.WlanConfiguration4GetWpsInfoAsync(d)));
+    }
+
+    public static Task<WlanConfigurationGetWlanConnectionInfoResponse> WlanConfigurationGetWlanConnectionInfoAsync(this InternetGatewayDevice internetGatewayDevice, int interfaceNumber)
+    {
+        return internetGatewayDevice.ExecuteAsync(GetWlanOperation(interfaceNumber, (h, d) => h.WlanConfiguration1GetWlanConnectionInfoAsync(d), (h, d) => h.WlanConfiguration2GetWlanConnectionInfoAsync(d), (h, d) => h.WlanConfiguration3GetWlanConnectionInfoAsync(d), (h, d) => h.WlanConfiguration4GetWlanConnectionInfoAsync(d)));
+    }
+
+    private static Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> GetWlanOperation<T>(
+        int interfaceNumber,
+        Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface1Operation,
+        Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface2Operation,
+        Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface3Operation,
+        Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface4Operation)
+    {
+        return interfaceNumber switch
+        {
+            1 => interface1Operation,
+            2 => interface2Operation,
+            3 => interface3Operation,
+            4 => interface4Operation,
+            _ => throw new ArgumentOutOfRangeException(nameof(interfaceNumber), interfaceNumber, null)
+        };
     }
 }

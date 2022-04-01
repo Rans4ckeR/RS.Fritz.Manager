@@ -43,10 +43,19 @@ public static class ExceptionMessageBuilder
                 .AppendLine(FormattableString.Invariant($"{nameof(FaultException)}.{nameof(FaultException.Reason)}: {faultException.Reason}"))
                 .GetFaultCode(faultException.Code);
 
-            if (ex is FaultException<UPnPFault> upnpFaultFaultException)
+            if (ex is FaultException<UPnPFault1> upnpFaultFault1Exception)
             {
-                _ = sb.AppendLine(FormattableString.Invariant($"{nameof(UPnPFault)}.{nameof(UPnPFault.ErrorCode)}: {upnpFaultFaultException.Detail.ErrorCode}"))
-                    .AppendLine(FormattableString.Invariant($"{nameof(UPnPFault)}.{nameof(UPnPFault.ErrorDescription)}: {upnpFaultFaultException.Detail.ErrorDescription}"));
+                _ = sb.AppendLine(FormattableString.Invariant($"{nameof(UPnPFault1)}.{nameof(UPnPFault1.ErrorCode)}: {upnpFaultFault1Exception.Detail.ErrorCode}"))
+                    .AppendLine(FormattableString.Invariant($"{nameof(UPnPFault1)}.{nameof(UPnPFault1.ErrorDescription)}: {upnpFaultFault1Exception.Detail.ErrorDescription}"));
+            }
+            else if (ex is FaultException<UPnPFault2> upnpFaultFault2Exception)
+            {
+                _ = sb.AppendLine(FormattableString.Invariant($"{nameof(UPnPFault2)}.{nameof(UPnPFault2.ErrorCode)}: {upnpFaultFault2Exception.Detail.ErrorCode}"))
+                    .AppendLine(FormattableString.Invariant($"{nameof(UPnPFault2)}.{nameof(UPnPFault2.ErrorDescription)}: {upnpFaultFault2Exception.Detail.ErrorDescription}"));
+            }
+            else
+            {
+                throw new NotSupportedException(FormattableString.Invariant($"Encountered unexpected {nameof(FaultException)}."));
             }
         }
 

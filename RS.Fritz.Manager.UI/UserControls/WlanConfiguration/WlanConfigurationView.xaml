@@ -25,11 +25,249 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfiguration1GetInfoResponse}" />
+                    <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetInfoResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetInfoResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BasBeaconSecurityProperties">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBasBeaconSecurityPropertiesResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBasBeaconSecurityPropertiesResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BssId">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBssIdResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBssIdResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SsId">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetSsIdResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetSsIdResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconType">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconTypeResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconTypeResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ChannelInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetChannelInfoResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetChannelInfoResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="6" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconAdvertisement">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconAdvertisementResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconAdvertisementResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="7" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalAssociations">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetTotalAssociationsResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetTotalAssociationsResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="8" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpTvOptimized">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetIpTvOptimizedResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetIpTvOptimizedResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="9" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Statistics">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetStatisticsResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetStatisticsResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="10" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="PacketStatistics">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetPacketStatisticsResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetPacketStatisticsResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="11" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="NightControl">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetNightControlResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetNightControlResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="12" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanHybridMode">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanHybridModeResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanHybridModeResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="13" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanExtInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanExtInfoResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanExtInfoResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="14" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WpsInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWpsInfoResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWpsInfoResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="15" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConnectionInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanConnectionInfoResponses[0].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanConnectionInfoResponses[0].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
                 </Grid>
             </Expander>
         </Border>
@@ -38,11 +276,249 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfiguration2GetInfoResponse}" />
+                    <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetInfoResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetInfoResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BasBeaconSecurityProperties">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBasBeaconSecurityPropertiesResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBasBeaconSecurityPropertiesResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BssId">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBssIdResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBssIdResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SsId">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetSsIdResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetSsIdResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconType">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconTypeResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconTypeResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ChannelInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetChannelInfoResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetChannelInfoResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="6" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconAdvertisement">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconAdvertisementResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconAdvertisementResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="7" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalAssociations">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetTotalAssociationsResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetTotalAssociationsResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="8" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpTvOptimized">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetIpTvOptimizedResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetIpTvOptimizedResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="9" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Statistics">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetStatisticsResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetStatisticsResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="10" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="PacketStatistics">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetPacketStatisticsResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetPacketStatisticsResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="11" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="NightControl">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetNightControlResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetNightControlResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="12" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanHybridMode">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanHybridModeResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanHybridModeResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="13" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanExtInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanExtInfoResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanExtInfoResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="14" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WpsInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWpsInfoResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWpsInfoResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="15" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConnectionInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanConnectionInfoResponses[1].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanConnectionInfoResponses[1].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
                 </Grid>
             </Expander>
         </Border>
@@ -51,11 +527,249 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfiguration3GetInfoResponse}" />
+                    <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetInfoResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetInfoResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BasBeaconSecurityProperties">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBasBeaconSecurityPropertiesResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBasBeaconSecurityPropertiesResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BssId">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBssIdResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBssIdResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SsId">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetSsIdResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetSsIdResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconType">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconTypeResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconTypeResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ChannelInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetChannelInfoResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetChannelInfoResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="6" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconAdvertisement">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconAdvertisementResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconAdvertisementResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="7" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalAssociations">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetTotalAssociationsResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetTotalAssociationsResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="8" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpTvOptimized">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetIpTvOptimizedResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetIpTvOptimizedResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="9" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Statistics">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetStatisticsResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetStatisticsResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="10" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="PacketStatistics">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetPacketStatisticsResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetPacketStatisticsResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="11" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="NightControl">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetNightControlResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetNightControlResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="12" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanHybridMode">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanHybridModeResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanHybridModeResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="13" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanExtInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanExtInfoResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanExtInfoResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="14" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WpsInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWpsInfoResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWpsInfoResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="15" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConnectionInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanConnectionInfoResponses[2].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanConnectionInfoResponses[2].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
                 </Grid>
             </Expander>
         </Border>
@@ -64,11 +778,249 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfiguration4GetInfoResponse}" />
+                    <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetInfoResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetInfoResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BasBeaconSecurityProperties">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBasBeaconSecurityPropertiesResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBasBeaconSecurityPropertiesResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BssId">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBssIdResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBssIdResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SsId">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetSsIdResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetSsIdResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="4" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconType">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconTypeResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconTypeResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ChannelInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetChannelInfoResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetChannelInfoResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="6" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconAdvertisement">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconAdvertisementResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetBeaconAdvertisementResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="7" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalAssociations">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetTotalAssociationsResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetTotalAssociationsResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="8" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpTvOptimized">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetIpTvOptimizedResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetIpTvOptimizedResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="9" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Statistics">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetStatisticsResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetStatisticsResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="10" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="PacketStatistics">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetPacketStatisticsResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetPacketStatisticsResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="11" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="NightControl">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetNightControlResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetNightControlResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="12" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanHybridMode">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanHybridModeResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanHybridModeResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="13" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanExtInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanExtInfoResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanExtInfoResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="14" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WpsInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWpsInfoResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWpsInfoResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
+                    <Border Grid.Row="15" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConnectionInfo">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanConnectionInfoResponses[3].Value}"/>
+                                <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanConfigurationGetWlanConnectionInfoResponses[3].Key}"/>
+                            </Grid>
+                        </Expander>
+                    </Border>
                 </Grid>
             </Expander>
         </Border>

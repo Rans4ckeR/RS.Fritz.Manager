@@ -23,7 +23,7 @@ internal sealed class DeviceInfoSetProvisioningCodeViewModel : FritzServiceViewM
 
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        _ = await ExecuteApiAsync(q => q.DeviceInfoSetProvisioningCodeAsync(ProvisioningCode));
+        _ = await ExecuteApiAsync(q => q.DeviceInfoSetProvisioningCodeAsync(ProvisioningCode), throwException: true);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

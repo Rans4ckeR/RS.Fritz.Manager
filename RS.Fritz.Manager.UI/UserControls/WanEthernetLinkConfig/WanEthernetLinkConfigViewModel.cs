@@ -2,14 +2,14 @@
 
 internal sealed class WanEthernetLinkConfigViewModel : FritzServiceViewModel
 {
-    private WanEthernetLinkConfigGetEthernetLinkStatusResponse? wanEthernetLinkConfigGetEthernetLinkStatusResponse;
+    private KeyValuePair<WanEthernetLinkConfigGetEthernetLinkStatusResponse?, UPnPFault?>? wanEthernetLinkConfigGetEthernetLinkStatusResponse;
 
     public WanEthernetLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
     {
     }
 
-    public WanEthernetLinkConfigGetEthernetLinkStatusResponse? WanEthernetLinkConfigGetEthernetLinkStatusResponse
+    public KeyValuePair<WanEthernetLinkConfigGetEthernetLinkStatusResponse?, UPnPFault?>? WanEthernetLinkConfigGetEthernetLinkStatusResponse
     {
         get => wanEthernetLinkConfigGetEthernetLinkStatusResponse;
         private set { _ = SetProperty(ref wanEthernetLinkConfigGetEthernetLinkStatusResponse, value); }

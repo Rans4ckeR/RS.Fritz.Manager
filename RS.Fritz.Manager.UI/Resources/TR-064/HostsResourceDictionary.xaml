@@ -3,71 +3,61 @@
                     xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
                     xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
     <DataTemplate DataType="{x:Type api:HostsGetHostNumberOfEntriesResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="HostNumberOfEntries">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=HostNumberOfEntries}" Content="_HostNumberOfEntries" ToolTip="Number of entries in the Host table."/>
-                    <TextBlock x:Name="HostNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding HostNumberOfEntries}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=HostNumberOfEntries}" Content="_HostNumberOfEntries" ToolTip="Number of entries in the Host table."/>
+            <TextBlock x:Name="HostNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding HostNumberOfEntries}"/>
+        </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:HostsGetChangeCounterResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ChangeCounter">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ChangeCounter}" Content="_ChangeCounter"/>
-                    <TextBlock x:Name="ChangeCounter" Grid.Row="0" Grid.Column="1" Text="{Binding ChangeCounter}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ChangeCounter}" Content="_ChangeCounter"/>
+            <TextBlock x:Name="ChangeCounter" Grid.Row="0" Grid.Column="1" Text="{Binding ChangeCounter}"/>
+        </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:HostsGetGenericHostEntryResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IPAddress}" Content="_IPAddress" ToolTip="Current IP Address of the host."/>
-                <TextBlock x:Name="IPAddress" Grid.Row="0" Grid.Column="1" Text="{Binding IPAddress}"/>
-                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="MAC address of the host."/>
-                <TextBlock x:Name="MACAddress" Grid.Row="1" Grid.Column="1" Text="{Binding MACAddress}"/>
-                <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AddressSource}" Content="_AddressSource" ToolTip="Indicates whether the IP address of the host was allocated by the CPE using DHCP or was assigned to the host statically. Possible values are DHCP, Static, AutoIP."/>
-                <TextBlock x:Name="AddressSource" Grid.Row="2" Grid.Column="1" Text="{Binding AddressSource}"/>
-                <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LeaseTimeRemaining}" Content="_LeaseTimeRemaining" ToolTip="DHCP lease time remaining in seconds. The value must be 0 (zero) if the AddressSource is not DHCP. -1 = Infinite lease."/>
-                <TextBlock x:Name="LeaseTimeRemaining" Grid.Row="3" Grid.Column="1" Text="{Binding LeaseTimeRemaining}"/>
-                <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=InterfaceType}" Content="_InterfaceType" ToolTip="Type of physical interface through which the host is connected to the CPE. Possible values are Ethernet, USB, 802.11, HomePNA, HomePlug, Other."/>
-                <TextBlock x:Name="InterfaceType" Grid.Row="4" Grid.Column="1" Text="{Binding InterfaceType}"/>
-                <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Active}" Content="_Active" ToolTip="Whether or not the host is currently present on the LAN. The method of presence detection is a local matter to the CPE."/>
-                <TextBlock x:Name="Active" Grid.Row="5" Grid.Column="1" Text="{Binding Active}"/>
-                <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=HostName}" Content="_HostName" ToolTip="The device's host name or empty string if unknown. Max length = 64 characters."/>
-                <TextBlock x:Name="HostName" Grid.Row="6" Grid.Column="1" Text="{Binding HostName}"/>
-            </Grid>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IPAddress}" Content="_IPAddress" ToolTip="Current IP Address of the host."/>
+            <TextBlock x:Name="IPAddress" Grid.Row="0" Grid.Column="1" Text="{Binding IPAddress}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="MAC address of the host."/>
+            <TextBlock x:Name="MACAddress" Grid.Row="1" Grid.Column="1" Text="{Binding MACAddress}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AddressSource}" Content="_AddressSource" ToolTip="Indicates whether the IP address of the host was allocated by the CPE using DHCP or was assigned to the host statically. Possible values are DHCP, Static, AutoIP."/>
+            <TextBlock x:Name="AddressSource" Grid.Row="2" Grid.Column="1" Text="{Binding AddressSource}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LeaseTimeRemaining}" Content="_LeaseTimeRemaining" ToolTip="DHCP lease time remaining in seconds. The value must be 0 (zero) if the AddressSource is not DHCP. -1 = Infinite lease."/>
+            <TextBlock x:Name="LeaseTimeRemaining" Grid.Row="3" Grid.Column="1" Text="{Binding LeaseTimeRemaining}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=InterfaceType}" Content="_InterfaceType" ToolTip="Type of physical interface through which the host is connected to the CPE. Possible values are Ethernet, USB, 802.11, HomePNA, HomePlug, Other."/>
+            <TextBlock x:Name="InterfaceType" Grid.Row="4" Grid.Column="1" Text="{Binding InterfaceType}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Active}" Content="_Active" ToolTip="Whether or not the host is currently present on the LAN. The method of presence detection is a local matter to the CPE."/>
+            <TextBlock x:Name="Active" Grid.Row="5" Grid.Column="1" Text="{Binding Active}"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=HostName}" Content="_HostName" ToolTip="The device's host name or empty string if unknown. Max length = 64 characters."/>
+            <TextBlock x:Name="HostName" Grid.Row="6" Grid.Column="1" Text="{Binding HostName}"/>
+        </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:DeviceHostInfo}">
         <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">

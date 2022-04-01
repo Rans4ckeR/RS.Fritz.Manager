@@ -5,10 +5,12 @@
 internal interface IFritzLanEthernetInterfaceConfigService
 {
     [OperationContract(Action = "urn:dslforum-org:service:LANEthernetInterfaceConfig:1#GetInfo")]
-    [FaultContract(typeof(UPnPFault))]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
     public Task<LanEthernetInterfaceConfigGetInfoResponse> GetInfoAsync(LanEthernetInterfaceConfigGetInfoRequest lanEthernetInterfaceConfigGetInfoRequest);
 
     [OperationContract(Action = "urn:dslforum-org:service:LANEthernetInterfaceConfig:1#GetStatistics")]
-    [FaultContract(typeof(UPnPFault))]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
     public Task<LanEthernetInterfaceConfigGetStatisticsResponse> GetStatisticsAsync(LanEthernetInterfaceConfigGetStatisticsRequest lanEthernetInterfaceConfigGetStatisticsRequest);
 }

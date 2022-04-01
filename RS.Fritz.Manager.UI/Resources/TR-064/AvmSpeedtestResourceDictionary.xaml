@@ -2,41 +2,37 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
     <DataTemplate DataType="{x:Type api:AvmSpeedtestGetInfoResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=EnableTcp}" Content="_EnableTcp" ToolTip="Status of measuring point for an Iperf client in the home network for TCP."/>
-                    <TextBlock x:Name="EnableTcp" Grid.Row="0" Grid.Column="1" Text="{Binding EnableTcp}"/>
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=EnableUdp}" Content="_EnableUdp" ToolTip="Status of measuring point for an Iperf client in the home network for UDP."/>
-                    <TextBlock x:Name="EnableUdp" Grid.Row="1" Grid.Column="1" Text="{Binding EnableUdp}"/>
-                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=EnableUdpBidirect}" Content="_EnableUdpBidirect" ToolTip="Status of measuring point for a bidirectional Iperf-UDP test."/>
-                    <TextBlock x:Name="EnableUdpBidirect" Grid.Row="2" Grid.Column="1" Text="{Binding EnableUdpBidirect}"/>
-                    <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=WanEnableTcp}" Content="_WanEnableTcp" ToolTip="Status of measuring point for an Iperf client on the firewall for TCP."/>
-                    <TextBlock x:Name="WanEnableTcp" Grid.Row="3" Grid.Column="1" Text="{Binding WanEnableTcp}"/>
-                    <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=WanEnableUdp}" Content="_WanEnableUdp" ToolTip="Status of measuring point for an Iperf client on the firewall for UDP."/>
-                    <TextBlock x:Name="WanEnableUdp" Grid.Row="4" Grid.Column="1" Text="{Binding WanEnableUdp}"/>
-                    <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=PortTcp}" Content="_PortTcp" ToolTip="TCP port."/>
-                    <TextBlock x:Name="PortTcp" Grid.Row="5" Grid.Column="1" Text="{Binding PortTcp}"/>
-                    <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=PortUdp}" Content="_PortUdp" ToolTip="UDP port."/>
-                    <TextBlock x:Name="PortUdp" Grid.Row="6" Grid.Column="1" Text="{Binding PortUdp}"/>
-                    <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=PortUdpBidirect}" Content="_PortUdpBidirect" ToolTip="UDP bidirectional port."/>
-                    <TextBlock x:Name="PortUdpBidirect" Grid.Row="7" Grid.Column="1" Text="{Binding PortUdpBidirect}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=EnableTcp}" Content="_EnableTcp" ToolTip="Status of measuring point for an Iperf client in the home network for TCP."/>
+            <TextBlock x:Name="EnableTcp" Grid.Row="0" Grid.Column="1" Text="{Binding EnableTcp}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=EnableUdp}" Content="_EnableUdp" ToolTip="Status of measuring point for an Iperf client in the home network for UDP."/>
+            <TextBlock x:Name="EnableUdp" Grid.Row="1" Grid.Column="1" Text="{Binding EnableUdp}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=EnableUdpBidirect}" Content="_EnableUdpBidirect" ToolTip="Status of measuring point for a bidirectional Iperf-UDP test."/>
+            <TextBlock x:Name="EnableUdpBidirect" Grid.Row="2" Grid.Column="1" Text="{Binding EnableUdpBidirect}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=WanEnableTcp}" Content="_WanEnableTcp" ToolTip="Status of measuring point for an Iperf client on the firewall for TCP."/>
+            <TextBlock x:Name="WanEnableTcp" Grid.Row="3" Grid.Column="1" Text="{Binding WanEnableTcp}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=WanEnableUdp}" Content="_WanEnableUdp" ToolTip="Status of measuring point for an Iperf client on the firewall for UDP."/>
+            <TextBlock x:Name="WanEnableUdp" Grid.Row="4" Grid.Column="1" Text="{Binding WanEnableUdp}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=PortTcp}" Content="_PortTcp" ToolTip="TCP port."/>
+            <TextBlock x:Name="PortTcp" Grid.Row="5" Grid.Column="1" Text="{Binding PortTcp}"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=PortUdp}" Content="_PortUdp" ToolTip="UDP port."/>
+            <TextBlock x:Name="PortUdp" Grid.Row="6" Grid.Column="1" Text="{Binding PortUdp}"/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=PortUdpBidirect}" Content="_PortUdpBidirect" ToolTip="UDP bidirectional port."/>
+            <TextBlock x:Name="PortUdpBidirect" Grid.Row="7" Grid.Column="1" Text="{Binding PortUdpBidirect}"/>
+        </Grid>
     </DataTemplate>
 </ResourceDictionary>

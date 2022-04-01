@@ -8,8 +8,8 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
     private readonly DispatcherTimer autoRefreshTimer;
 
     private bool autoRefresh;
-    private WanDslInterfaceConfigGetDslDiagnoseInfoResponse? wanDslInterfaceConfigGetDslDiagnoseInfoResponse;
-    private WanDslInterfaceConfigGetStatisticsTotalResponse? wanDslInterfaceConfigGetStatisticsTotalResponse;
+    private KeyValuePair<WanDslInterfaceConfigGetDslDiagnoseInfoResponse?, UPnPFault?>? wanDslInterfaceConfigGetDslDiagnoseInfoResponse;
+    private KeyValuePair<WanDslInterfaceConfigGetStatisticsTotalResponse?, UPnPFault?>? wanDslInterfaceConfigGetStatisticsTotalResponse;
 
     public WanDslInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanDslInterfaceConfigInfoViewModel wanDslInterfaceConfigInfoViewModel, WanDslInterfaceConfigDslInfoViewModel wanDslInterfaceConfigDslInfoViewModel)
         : base(deviceLoginInfo, logger, WanAccessType.Dsl, "WANDSLInterfaceConfig")
@@ -38,13 +38,13 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
         }
     }
 
-    public WanDslInterfaceConfigGetDslDiagnoseInfoResponse? WanDslInterfaceConfigGetDslDiagnoseInfoResponse
+    public KeyValuePair<WanDslInterfaceConfigGetDslDiagnoseInfoResponse?, UPnPFault?>? WanDslInterfaceConfigGetDslDiagnoseInfoResponse
     {
         get => wanDslInterfaceConfigGetDslDiagnoseInfoResponse;
         private set { _ = SetProperty(ref wanDslInterfaceConfigGetDslDiagnoseInfoResponse, value); }
     }
 
-    public WanDslInterfaceConfigGetStatisticsTotalResponse? WanDslInterfaceConfigGetStatisticsTotalResponse
+    public KeyValuePair<WanDslInterfaceConfigGetStatisticsTotalResponse?, UPnPFault?>? WanDslInterfaceConfigGetStatisticsTotalResponse
     {
         get => wanDslInterfaceConfigGetStatisticsTotalResponse;
         private set { _ = SetProperty(ref wanDslInterfaceConfigGetStatisticsTotalResponse, value); }
