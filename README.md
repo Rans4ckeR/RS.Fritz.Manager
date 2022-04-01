@@ -219,36 +219,36 @@ static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, IC
   * ❌ SetDefaultWEPKeyIndex
   * ❌ GetDefaultWEPKeyIndex
   * ❌ SetBasBeaconSecurityProperties
-  * ❌ GetBasBeaconSecurityProperties
-  * ❌ GetBSSID
-  * ❌ GetSSID
+  * ✅ GetBasBeaconSecurityProperties
+  * ✅ GetBSSID
+  * ✅ GetSSID
   * ❌ SetSSID
-  * ❌ GetBeaconType
+  * ✅ GetBeaconType
   * ❌ SetBeaconType
-  * ❌ GetChannelInfo
+  * ✅ GetChannelInfo
   * ❌ SetChannel
-  * ❌ GetBeaconAdvertisement
+  * ✅ GetBeaconAdvertisement
   * ❌ SetBeaconAdvertisement
-  * ❌ GetTotalAssociations
+  * ✅ GetTotalAssociations
   * ❌ GetGenericAssociatedDeviceInfo
   * ❌ GetSpecificAssociatedDeviceInfo
   * ❌ X_AVM-DE_GetSpecificAssociatedDeviceInfoByIp
   * ✅ X_AVM-DE_GetWLANDeviceListPath
   * ❌ X_AVM-DE_SetStickSurfEnable
-  * ❌ X_AVM-DE_GetIPTVOptimized
+  * ✅ X_AVM-DE_GetIPTVOptimized
   * ❌ X_AVM-DE_SetIPTVOptimized
-  * ❌ GetStatistics
-  * ❌ GetPacketStatistics
-  * ❌ X_AVM-DE_GetNightControl
+  * ✅ GetStatistics
+  * ✅ GetPacketStatistics
+  * ✅ X_AVM-DE_GetNightControl
   * ❌ X_SetHighFrequencyBand
-  * ❌ X_AVM-DE_GetWLANHybridMode
+  * ✅ X_AVM-DE_GetWLANHybridMode
   * ❌ X_AVM-DE_SetWLANHybridMode
-  * ❌ X_AVM-DE_GetWLANExtInfo
+  * ✅ X_AVM-DE_GetWLANExtInfo
   * ❌ X_AVM-DE_SetWLANGlobalEnable
-  * ❌ X_AVM-DE_GetWPSInfo
+  * ✅ X_AVM-DE_GetWPSInfo
   * ❌ X_AVM-DE_SetWPSConfig
   * ❌ X_AVM-DE_SetWPSEnable
-  * ❌ X_AVM-DE_GetWLANConnectionInfo
+  * ✅ X_AVM-DE_GetWLANConnectionInfo
 * 🔶 urn:dslforum-org:service:LANHostConfigManagement
   * ✅ GetInfo
   * ❌ SetDHCPServerEnable
