@@ -5,22 +5,22 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
     private readonly IWlanDeviceService wlanDeviceService;
 
     private WlanDeviceInfo? wlanDeviceInfo;
-    private WlanConfigurationGetInfoResponse?[]? wlanConfigurationGetInfoResponses;
-    private WlanConfigurationGetBasBeaconSecurityPropertiesResponse?[]? wlanConfigurationGetBasBeaconSecurityPropertiesResponses;
-    private WlanConfigurationGetBssIdResponse?[]? wlanConfigurationGetBssIdResponses;
-    private WlanConfigurationGetSsIdResponse?[]? wlanConfigurationGetSsIdResponses;
-    private WlanConfigurationGetBeaconTypeResponse?[]? wlanConfigurationGetBeaconTypeResponses;
-    private WlanConfigurationGetChannelInfoResponse?[]? wlanConfigurationGetChannelInfoResponses;
-    private WlanConfigurationGetBeaconAdvertisementResponse?[]? wlanConfigurationGetBeaconAdvertisementResponses;
-    private WlanConfigurationGetTotalAssociationsResponse?[]? wlanConfigurationGetTotalAssociationsResponses;
-    private WlanConfigurationGetIpTvOptimizedResponse?[]? wlanConfigurationGetIpTvOptimizedResponses;
-    private WlanConfigurationGetStatisticsResponse?[]? wlanConfigurationGetStatisticsResponses;
-    private WlanConfigurationGetPacketStatisticsResponse?[]? wlanConfigurationGetPacketStatisticsResponses;
-    private WlanConfigurationGetNightControlResponse?[]? wlanConfigurationGetNightControlResponses;
-    private WlanConfigurationGetWlanHybridModeResponse?[]? wlanConfigurationGetWlanHybridModeResponses;
-    private WlanConfigurationGetWlanExtInfoResponse?[]? wlanConfigurationGetWlanExtInfoResponses;
-    private WlanConfigurationGetWpsInfoResponse?[]? wlanConfigurationGetWpsInfoResponses;
-    private WlanConfigurationGetWlanConnectionInfoResponse?[]? wlanConfigurationGetWlanConnectionInfoResponses;
+    private KeyValuePair<WlanConfigurationGetInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetInfoResponses;
+    private KeyValuePair<WlanConfigurationGetBasBeaconSecurityPropertiesResponse?, UPnPFault?>?[]? wlanConfigurationGetBasBeaconSecurityPropertiesResponses;
+    private KeyValuePair<WlanConfigurationGetBssIdResponse?, UPnPFault?>?[]? wlanConfigurationGetBssIdResponses;
+    private KeyValuePair<WlanConfigurationGetSsIdResponse?, UPnPFault?>?[]? wlanConfigurationGetSsIdResponses;
+    private KeyValuePair<WlanConfigurationGetBeaconTypeResponse?, UPnPFault?>?[]? wlanConfigurationGetBeaconTypeResponses;
+    private KeyValuePair<WlanConfigurationGetChannelInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetChannelInfoResponses;
+    private KeyValuePair<WlanConfigurationGetBeaconAdvertisementResponse?, UPnPFault?>?[]? wlanConfigurationGetBeaconAdvertisementResponses;
+    private KeyValuePair<WlanConfigurationGetTotalAssociationsResponse?, UPnPFault?>?[]? wlanConfigurationGetTotalAssociationsResponses;
+    private KeyValuePair<WlanConfigurationGetIpTvOptimizedResponse?, UPnPFault?>?[]? wlanConfigurationGetIpTvOptimizedResponses;
+    private KeyValuePair<WlanConfigurationGetStatisticsResponse?, UPnPFault?>?[]? wlanConfigurationGetStatisticsResponses;
+    private KeyValuePair<WlanConfigurationGetPacketStatisticsResponse?, UPnPFault?>?[]? wlanConfigurationGetPacketStatisticsResponses;
+    private KeyValuePair<WlanConfigurationGetNightControlResponse?, UPnPFault?>?[]? wlanConfigurationGetNightControlResponses;
+    private KeyValuePair<WlanConfigurationGetWlanHybridModeResponse?, UPnPFault?>?[]? wlanConfigurationGetWlanHybridModeResponses;
+    private KeyValuePair<WlanConfigurationGetWlanExtInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetWlanExtInfoResponses;
+    private KeyValuePair<WlanConfigurationGetWpsInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetWpsInfoResponses;
+    private KeyValuePair<WlanConfigurationGetWlanConnectionInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetWlanConnectionInfoResponses;
 
     public WlanConfigurationViewModel(DeviceLoginInfo deviceLoginInfo, IWlanDeviceService wlanDeviceService, ILogger logger)
         : base(deviceLoginInfo, logger, "WLANConfiguration")
@@ -34,97 +34,97 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref wlanDeviceInfo, value); }
     }
 
-    public WlanConfigurationGetInfoResponse?[]? WlanConfigurationGetInfoResponses
+    public KeyValuePair<WlanConfigurationGetInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetInfoResponses
     {
         get => wlanConfigurationGetInfoResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetInfoResponses, value); }
     }
 
-    public WlanConfigurationGetBasBeaconSecurityPropertiesResponse?[]? WlanConfigurationGetBasBeaconSecurityPropertiesResponses
+    public KeyValuePair<WlanConfigurationGetBasBeaconSecurityPropertiesResponse?, UPnPFault?>?[]? WlanConfigurationGetBasBeaconSecurityPropertiesResponses
     {
         get => wlanConfigurationGetBasBeaconSecurityPropertiesResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetBasBeaconSecurityPropertiesResponses, value); }
     }
 
-    public WlanConfigurationGetBssIdResponse?[]? WlanConfigurationGetBssIdResponses
+    public KeyValuePair<WlanConfigurationGetBssIdResponse?, UPnPFault?>?[]? WlanConfigurationGetBssIdResponses
     {
         get => wlanConfigurationGetBssIdResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetBssIdResponses, value); }
     }
 
-    public WlanConfigurationGetSsIdResponse?[]? WlanConfigurationGetSsIdResponses
+    public KeyValuePair<WlanConfigurationGetSsIdResponse?, UPnPFault?>?[]? WlanConfigurationGetSsIdResponses
     {
         get => wlanConfigurationGetSsIdResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetSsIdResponses, value); }
     }
 
-    public WlanConfigurationGetBeaconTypeResponse?[]? WlanConfigurationGetBeaconTypeResponses
+    public KeyValuePair<WlanConfigurationGetBeaconTypeResponse?, UPnPFault?>?[]? WlanConfigurationGetBeaconTypeResponses
     {
         get => wlanConfigurationGetBeaconTypeResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetBeaconTypeResponses, value); }
     }
 
-    public WlanConfigurationGetChannelInfoResponse?[]? WlanConfigurationGetChannelInfoResponses
+    public KeyValuePair<WlanConfigurationGetChannelInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetChannelInfoResponses
     {
         get => wlanConfigurationGetChannelInfoResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetChannelInfoResponses, value); }
     }
 
-    public WlanConfigurationGetBeaconAdvertisementResponse?[]? WlanConfigurationGetBeaconAdvertisementResponses
+    public KeyValuePair<WlanConfigurationGetBeaconAdvertisementResponse?, UPnPFault?>?[]? WlanConfigurationGetBeaconAdvertisementResponses
     {
         get => wlanConfigurationGetBeaconAdvertisementResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetBeaconAdvertisementResponses, value); }
     }
 
-    public WlanConfigurationGetTotalAssociationsResponse?[]? WlanConfigurationGetTotalAssociationsResponses
+    public KeyValuePair<WlanConfigurationGetTotalAssociationsResponse?, UPnPFault?>?[]? WlanConfigurationGetTotalAssociationsResponses
     {
         get => wlanConfigurationGetTotalAssociationsResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetTotalAssociationsResponses, value); }
     }
 
-    public WlanConfigurationGetIpTvOptimizedResponse?[]? WlanConfigurationGetIpTvOptimizedResponses
+    public KeyValuePair<WlanConfigurationGetIpTvOptimizedResponse?, UPnPFault?>?[]? WlanConfigurationGetIpTvOptimizedResponses
     {
         get => wlanConfigurationGetIpTvOptimizedResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetIpTvOptimizedResponses, value); }
     }
 
-    public WlanConfigurationGetStatisticsResponse?[]? WlanConfigurationGetStatisticsResponses
+    public KeyValuePair<WlanConfigurationGetStatisticsResponse?, UPnPFault?>?[]? WlanConfigurationGetStatisticsResponses
     {
         get => wlanConfigurationGetStatisticsResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetStatisticsResponses, value); }
     }
 
-    public WlanConfigurationGetPacketStatisticsResponse?[]? WlanConfigurationGetPacketStatisticsResponses
+    public KeyValuePair<WlanConfigurationGetPacketStatisticsResponse?, UPnPFault?>?[]? WlanConfigurationGetPacketStatisticsResponses
     {
         get => wlanConfigurationGetPacketStatisticsResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetPacketStatisticsResponses, value); }
     }
 
-    public WlanConfigurationGetNightControlResponse?[]? WlanConfigurationGetNightControlResponses
+    public KeyValuePair<WlanConfigurationGetNightControlResponse?, UPnPFault?>?[]? WlanConfigurationGetNightControlResponses
     {
         get => wlanConfigurationGetNightControlResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetNightControlResponses, value); }
     }
 
-    public WlanConfigurationGetWlanHybridModeResponse?[]? WlanConfigurationGetWlanHybridModeResponses
+    public KeyValuePair<WlanConfigurationGetWlanHybridModeResponse?, UPnPFault?>?[]? WlanConfigurationGetWlanHybridModeResponses
     {
         get => wlanConfigurationGetWlanHybridModeResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetWlanHybridModeResponses, value); }
     }
 
-    public WlanConfigurationGetWlanExtInfoResponse?[]? WlanConfigurationGetWlanExtInfoResponses
+    public KeyValuePair<WlanConfigurationGetWlanExtInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetWlanExtInfoResponses
     {
         get => wlanConfigurationGetWlanExtInfoResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetWlanExtInfoResponses, value); }
     }
 
-    public WlanConfigurationGetWpsInfoResponse?[]? WlanConfigurationGetWpsInfoResponses
+    public KeyValuePair<WlanConfigurationGetWpsInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetWpsInfoResponses
     {
         get => wlanConfigurationGetWpsInfoResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetWpsInfoResponses, value); }
     }
 
-    public WlanConfigurationGetWlanConnectionInfoResponse?[]? WlanConfigurationGetWlanConnectionInfoResponses
+    public KeyValuePair<WlanConfigurationGetWlanConnectionInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetWlanConnectionInfoResponses
     {
         get => wlanConfigurationGetWlanConnectionInfoResponses;
         private set { _ = SetProperty(ref wlanConfigurationGetWlanConnectionInfoResponses, value); }
@@ -236,18 +236,25 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
 
     private async Task GetWlanConfigurationGetWlanConnectionInfoAsync()
     {
-        WlanConfigurationGetWlanConnectionInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanConnectionInfoAsync(i));
+        WlanConfigurationGetWlanConnectionInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanConnectionInfoAsync(i), new Dictionary<ushort, string> { { 714, "Current device is not directly connected to any of the access points." } });
     }
 
-    private async Task<T?[]> ExecuteApiWlanConfigurationAsync<T>(Func<InternetGatewayDevice, int, Task<T>> operation)
+    private async Task<KeyValuePair<T?, UPnPFault?>?[]> ExecuteApiWlanConfigurationAsync<T>(Func<InternetGatewayDevice, int, Task<T>> operation, IDictionary<ushort, string>? errorReasons = null)
         where T : struct
     {
-        var responses = new T?[4];
+        var responses = new KeyValuePair<T?, UPnPFault?>?[4];
 
         for (int i = 0; i < 4; i++)
         {
             if (HasWlanConfigurationService(i + 1))
-                responses[i] = await ExecuteApiAsync(operation, i + 1);
+            {
+                (T? response, UPnPFault? error) = await ExecuteApiAsync(operation, i + 1);
+
+                if (error is not null && (errorReasons?.TryGetValue(error.ErrorCode, out string? errorReason) ?? false))
+                    error.ErrorReason = errorReason;
+
+                responses[i] = new KeyValuePair<T?, UPnPFault?>(response, error);
+            }
         }
 
         return responses;

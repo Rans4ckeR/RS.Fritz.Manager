@@ -3,72 +3,68 @@
                     xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
                     xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
     <DataTemplate DataType="{x:Type api:WlanConfigurationGetInfoResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Enable}" Content="_Enable" ToolTip="Enables or disables this interface."/>
-                    <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status" ToolTip="Indicates the status of this interface. Possible values are Up, Disabled."/>
-                    <TextBlock x:Name="Status" Grid.Row="1" Grid.Column="1" Text="{Binding Status}"/>
-                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=MaxBitRate}" Content="_MaxBitRate" ToolTip="The maximum upstream and downstream bit rate available to this connection in Mbps. Not supported, always Auto."/>
-                    <TextBlock x:Name="MaxBitRate" Grid.Row="2" Grid.Column="1" Text="{Binding MaxBitRate}"/>
-                    <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Channel}" Content="_Channel" ToolTip="The current radio channel used by the connection. 0 Means auto channel."/>
-                    <TextBlock x:Name="Channel" Grid.Row="3" Grid.Column="1" Text="{Binding Channel}"/>
-                    <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Ssid}" Content="_Ssid" ToolTip="The current service set identifier in use by the connection. The SSID is an identifier that is attached to packets sent over the wireless LAN that functions as a 'password' for joining a particular radio network (BSS). Note: If an access point wishes to be known by more than one SSID, it must provide a WLANConfiguration instance for each SSID."/>
-                    <TextBlock x:Name="Ssid" Grid.Row="4" Grid.Column="1" Text="{Binding Ssid}"/>
-                    <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=BeaconType}" Content="_BeaconType" ToolTip="The beacon types to be use with this connection. Possible values are None, Basic, WPA, 11i, WPAand11i, WPA3, 11iandWPA3, OWE, OWETran."/>
-                    <TextBlock x:Name="BeaconType" Grid.Row="5" Grid.Column="1" Text="{Binding BeaconType}"/>
-                    <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=PossibleBeaconTypes}" Content="_PossibleBeaconTypes" ToolTip="Comma separated string of possible BeaconTypes. e.g. WPA, None, WPAand11i."/>
-                    <TextBlock x:Name="PossibleBeaconTypes" Grid.Row="6" Grid.Column="1" Text="{Binding PossibleBeaconTypes}"/>
-                    <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=MacAddressControlEnabled}" Content="_MacAddressControlEnabled" ToolTip="Indicates whether MAC Address Control is enabled or not on this interface."/>
-                    <TextBlock x:Name="MacAddressControlEnabled" Grid.Row="7" Grid.Column="1" Text="{Binding MacAddressControlEnabled}"/>
-                    <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=Standard}" Content="_Standard" ToolTip="Indicates which IEEE 802.11 mode the device is currently operating in. Possible values are b, g, n, ac, ax, ''. Only the highest of the active modes is returned."/>
-                    <TextBlock x:Name="Standard" Grid.Row="8" Grid.Column="1" Text="{Binding Standard}"/>
-                    <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=Bssid}" Content="_Bssid" ToolTip="The MAC address of the interface."/>
-                    <TextBlock x:Name="Bssid" Grid.Row="9" Grid.Column="1" Text="{Binding Bssid}"/>
-                    <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=BasicEncryptionModes}" Content="_BasicEncryptionModes" ToolTip="Encryption modes that are available when basic 802.11 is enabled. Always None."/>
-                    <TextBlock x:Name="BasicEncryptionModes" Grid.Row="10" Grid.Column="1" Text="{Binding BasicEncryptionModes}"/>
-                    <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=BasicAuthenticationMode}" Content="_BasicAuthenticationMode" ToolTip="Authentication modes that are available when basic 802.11 is enabled. Always None."/>
-                    <TextBlock x:Name="BasicAuthenticationMode" Grid.Row="11" Grid.Column="1" Text="{Binding BasicAuthenticationMode}"/>
-                    <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=MaxCharsSsid}" Content="_MaxCharsSsid"/>
-                    <TextBlock x:Name="MaxCharsSsid" Grid.Row="12" Grid.Column="1" Text="{Binding MaxCharsSsid}"/>
-                    <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=MinCharsSsid}" Content="_MinCharsSsid"/>
-                    <TextBlock x:Name="MinCharsSsid" Grid.Row="13" Grid.Column="1" Text="{Binding MinCharsSsid}"/>
-                    <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=AllowedCharsSsid}" Content="_AllowedCharsSsid"/>
-                    <TextBlock x:Name="AllowedCharsSsid" Grid.Row="14" Grid.Column="1" Text="{Binding AllowedCharsSsid}"/>
-                    <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=MinCharsPsk}" Content="_MinCharsPsk"/>
-                    <TextBlock x:Name="MinCharsPsk" Grid.Row="15" Grid.Column="1" Text="{Binding MinCharsPsk}"/>
-                    <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=MaxCharsPsk}" Content="_MaxCharsPsk"/>
-                    <TextBlock x:Name="MaxCharsPsk" Grid.Row="16" Grid.Column="1" Text="{Binding MaxCharsPsk}"/>
-                    <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=AllowedCharsPsk}" Content="_AllowedCharsPsk"/>
-                    <TextBlock x:Name="AllowedCharsPsk" Grid.Row="17" Grid.Column="1" Text="{Binding AllowedCharsPsk}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Enable}" Content="_Enable" ToolTip="Enables or disables this interface."/>
+            <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status" ToolTip="Indicates the status of this interface. Possible values are Up, Disabled."/>
+            <TextBlock x:Name="Status" Grid.Row="1" Grid.Column="1" Text="{Binding Status}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=MaxBitRate}" Content="_MaxBitRate" ToolTip="The maximum upstream and downstream bit rate available to this connection in Mbps. Not supported, always Auto."/>
+            <TextBlock x:Name="MaxBitRate" Grid.Row="2" Grid.Column="1" Text="{Binding MaxBitRate}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Channel}" Content="_Channel" ToolTip="The current radio channel used by the connection. 0 Means auto channel."/>
+            <TextBlock x:Name="Channel" Grid.Row="3" Grid.Column="1" Text="{Binding Channel}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Ssid}" Content="_Ssid" ToolTip="The current service set identifier in use by the connection. The SSID is an identifier that is attached to packets sent over the wireless LAN that functions as a 'password' for joining a particular radio network (BSS). Note: If an access point wishes to be known by more than one SSID, it must provide a WLANConfiguration instance for each SSID."/>
+            <TextBlock x:Name="Ssid" Grid.Row="4" Grid.Column="1" Text="{Binding Ssid}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=BeaconType}" Content="_BeaconType" ToolTip="The beacon types to be use with this connection. Possible values are None, Basic, WPA, 11i, WPAand11i, WPA3, 11iandWPA3, OWE, OWETran."/>
+            <TextBlock x:Name="BeaconType" Grid.Row="5" Grid.Column="1" Text="{Binding BeaconType}"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=PossibleBeaconTypes}" Content="_PossibleBeaconTypes" ToolTip="Comma separated string of possible BeaconTypes. e.g. WPA, None, WPAand11i."/>
+            <TextBlock x:Name="PossibleBeaconTypes" Grid.Row="6" Grid.Column="1" Text="{Binding PossibleBeaconTypes}"/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=MacAddressControlEnabled}" Content="_MacAddressControlEnabled" ToolTip="Indicates whether MAC Address Control is enabled or not on this interface."/>
+            <TextBlock x:Name="MacAddressControlEnabled" Grid.Row="7" Grid.Column="1" Text="{Binding MacAddressControlEnabled}"/>
+            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=Standard}" Content="_Standard" ToolTip="Indicates which IEEE 802.11 mode the device is currently operating in. Possible values are b, g, n, ac, ax, ''. Only the highest of the active modes is returned."/>
+            <TextBlock x:Name="Standard" Grid.Row="8" Grid.Column="1" Text="{Binding Standard}"/>
+            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=Bssid}" Content="_Bssid" ToolTip="The MAC address of the interface."/>
+            <TextBlock x:Name="Bssid" Grid.Row="9" Grid.Column="1" Text="{Binding Bssid}"/>
+            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=BasicEncryptionModes}" Content="_BasicEncryptionModes" ToolTip="Encryption modes that are available when basic 802.11 is enabled. Always None."/>
+            <TextBlock x:Name="BasicEncryptionModes" Grid.Row="10" Grid.Column="1" Text="{Binding BasicEncryptionModes}"/>
+            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=BasicAuthenticationMode}" Content="_BasicAuthenticationMode" ToolTip="Authentication modes that are available when basic 802.11 is enabled. Always None."/>
+            <TextBlock x:Name="BasicAuthenticationMode" Grid.Row="11" Grid.Column="1" Text="{Binding BasicAuthenticationMode}"/>
+            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=MaxCharsSsid}" Content="_MaxCharsSsid"/>
+            <TextBlock x:Name="MaxCharsSsid" Grid.Row="12" Grid.Column="1" Text="{Binding MaxCharsSsid}"/>
+            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=MinCharsSsid}" Content="_MinCharsSsid"/>
+            <TextBlock x:Name="MinCharsSsid" Grid.Row="13" Grid.Column="1" Text="{Binding MinCharsSsid}"/>
+            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=AllowedCharsSsid}" Content="_AllowedCharsSsid"/>
+            <TextBlock x:Name="AllowedCharsSsid" Grid.Row="14" Grid.Column="1" Text="{Binding AllowedCharsSsid}"/>
+            <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=MinCharsPsk}" Content="_MinCharsPsk"/>
+            <TextBlock x:Name="MinCharsPsk" Grid.Row="15" Grid.Column="1" Text="{Binding MinCharsPsk}"/>
+            <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=MaxCharsPsk}" Content="_MaxCharsPsk"/>
+            <TextBlock x:Name="MaxCharsPsk" Grid.Row="16" Grid.Column="1" Text="{Binding MaxCharsPsk}"/>
+            <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=AllowedCharsPsk}" Content="_AllowedCharsPsk"/>
+            <TextBlock x:Name="AllowedCharsPsk" Grid.Row="17" Grid.Column="1" Text="{Binding AllowedCharsPsk}"/>
+        </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:WlanDeviceInfo}">
         <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
@@ -101,23 +97,294 @@
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:WlanConfigurationGetBasBeaconSecurityPropertiesResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BasBeaconSecurityProperties">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=BasicEncryptionModes}" Content="_BasicEncryptionModes" ToolTip="Encryption modes that are available when basic 802.11 is enabled. Always None."/>
-                    <TextBlock x:Name="BasicEncryptionModes" Grid.Row="0" Grid.Column="1" Text="{Binding BasicEncryptionModes}"/>
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=BasicAuthenticationMode}" Content="_BasicAuthenticationMode" ToolTip="Authentication modes that are available when basic 802.11 is enabled. Always None."/>
-                    <TextBlock x:Name="BasicAuthenticationMode" Grid.Row="1" Grid.Column="1" Text="{Binding BasicAuthenticationMode}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=BasicEncryptionModes}" Content="_BasicEncryptionModes" ToolTip="Encryption modes that are available when basic 802.11 is enabled. Always None."/>
+            <TextBlock x:Name="BasicEncryptionModes" Grid.Row="0" Grid.Column="1" Text="{Binding BasicEncryptionModes}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=BasicAuthenticationMode}" Content="_BasicAuthenticationMode" ToolTip="Authentication modes that are available when basic 802.11 is enabled. Always None."/>
+            <TextBlock x:Name="BasicAuthenticationMode" Grid.Row="1" Grid.Column="1" Text="{Binding BasicAuthenticationMode}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetBeaconAdvertisementResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=BeaconAdvertisementEnabled}" Content="_BeaconAdvertisementEnabled" ToolTip="Indicates whether or not the access point is sending out beacons."/>
+            <TextBlock x:Name="BeaconAdvertisementEnabled" Grid.Row="0" Grid.Column="1" Text="{Binding BeaconAdvertisementEnabled}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetBeaconTypeResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=PossibleBeaconTypes}" Content="_PossibleBeaconTypes" ToolTip="Comma separated string of possible BeaconTypes. e.g. WPA, None, WPAand11i."/>
+            <TextBlock x:Name="PossibleBeaconTypes" Grid.Row="0" Grid.Column="1" Text="{Binding PossibleBeaconTypes}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetBssIdResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=BssId}" Content="_BssId" ToolTip="The MAC address of the interface."/>
+            <TextBlock x:Name="BssId" Grid.Row="0" Grid.Column="1" Text="{Binding BssId}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetChannelInfoResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Channel}" Content="_Channel" ToolTip="The current radio channel used by the connection. 0 Means auto channel."/>
+            <TextBlock x:Name="Channel" Grid.Row="0" Grid.Column="1" Text="{Binding Channel}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PossibleChannels}" Content="_PossibleChannels" ToolTip="Comma-separated list (maximum number of characters 1024) of strings. Possible radio channels for the wireless standard (a, b or g) and the regulatory domain."/>
+            <TextBlock x:Name="PossibleChannels" Grid.Row="1" Grid.Column="1" Text="{Binding PossibleChannels}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetIpTvOptimizedResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IpTvOptimize}" Content="_IpTvOptimize" ToolTip="Optimize Wi-Fi transmission for live TV."/>
+            <TextBlock x:Name="IpTvOptimize" Grid.Row="0" Grid.Column="1" Text="{Binding IpTvOptimize}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetNightControlResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=NightControl}" Content="_NightControl"/>
+            <TextBlock x:Name="NightControl" Grid.Row="0" Grid.Column="1" Text="{Binding NightControl}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=NightTimeControlNoForcedOff}" Content="_NightTimeControlNoForcedOff"/>
+            <TextBlock x:Name="NightTimeControlNoForcedOff" Grid.Row="1" Grid.Column="1" Text="{Binding NightTimeControlNoForcedOff}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetPacketStatisticsResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalPacketsSent}" Content="_TotalPacketsSent" ToolTip="Total number of packets sent over the interface since the CPE was last reset."/>
+            <TextBlock x:Name="TotalPacketsSent" Grid.Row="0" Grid.Column="1" Text="{Binding TotalPacketsSent}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=TotalPacketsReceived}" Content="_TotalPacketsReceived" ToolTip="Total number of packets received over the interface since the CPE was last reset."/>
+            <TextBlock x:Name="TotalPacketsReceived" Grid.Row="1" Grid.Column="1" Text="{Binding TotalPacketsReceived}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetSsIdResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=SsId}" Content="_SsId" ToolTip="The current service set identifier in use by the connection. The SSID is an identifier that is attached to packets sent over the wireless LAN that functions as a 'password' for joining a particular radio network (BSS). Note: If an access point wishes to be known by more than one SSID, it must provide a WLANConfiguration instance for each SSID."/>
+            <TextBlock x:Name="SsId" Grid.Row="0" Grid.Column="1" Text="{Binding SsId}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetStatisticsResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalPacketsSent}" Content="_TotalPacketsSent" ToolTip="Total number of packets sent over the interface since the CPE was last reset."/>
+            <TextBlock x:Name="TotalPacketsSent" Grid.Row="0" Grid.Column="1" Text="{Binding TotalPacketsSent}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=TotalPacketsReceived}" Content="_TotalPacketsReceived" ToolTip="Total number of packets received over the interface since the CPE was last reset."/>
+            <TextBlock x:Name="TotalPacketsReceived" Grid.Row="1" Grid.Column="1" Text="{Binding TotalPacketsReceived}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetTotalAssociationsResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalAssociations}" Content="_TotalAssociations" ToolTip="The number of devices currently associated with the access point."/>
+            <TextBlock x:Name="TotalAssociations" Grid.Row="0" Grid.Column="1" Text="{Binding TotalAssociations}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetWlanConnectionInfoResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AssociatedDeviceMacAddress}" Content="_AssociatedDeviceMacAddress"/>
+            <TextBlock x:Name="AssociatedDeviceMacAddress" Grid.Row="0" Grid.Column="1" Text="{Binding AssociatedDeviceMacAddress}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=SsId}" Content="_SsId" ToolTip="The current service set identifier in use by the connection. The SSID is an identifier that is attached to packets sent over the wireless LAN that functions as a 'password' for joining a particular radio network (BSS). Note: If an access point wishes to be known by more than one SSID, it must provide a WLANConfiguration instance for each SSID."/>
+            <TextBlock x:Name="SsId" Grid.Row="1" Grid.Column="1" Text="{Binding SsId}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=BssId}" Content="_BssId" ToolTip="The MAC address of the interface."/>
+            <TextBlock x:Name="BssId" Grid.Row="2" Grid.Column="1" Text="{Binding BssId}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=BeaconType}" Content="_BeaconType" ToolTip="The beacon types to be use with this connection. Possible values are None, Basic, WPA, 11i, WPAand11i, WPA3, 11iandWPA3, OWE, OWETran."/>
+            <TextBlock x:Name="BeaconType" Grid.Row="3" Grid.Column="1" Text="{Binding BeaconType}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Channel}" Content="_Channel" ToolTip="The current radio channel used by the connection. 0 Means auto channel."/>
+            <TextBlock x:Name="Channel" Grid.Row="4" Grid.Column="1" Text="{Binding Channel}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Standard}" Content="_Standard" ToolTip="Indicates which IEEE 802.11 mode the device is currently operating in. Possible values are b, g, n, ac, ax, ''. Only the highest of the active modes is returned."/>
+            <TextBlock x:Name="Standard" Grid.Row="5" Grid.Column="1" Text="{Binding Standard}"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=SignalStrength}" Content="_SignalStrength"/>
+            <TextBlock x:Name="SignalStrength" Grid.Row="6" Grid.Column="1" Text="{Binding SignalStrength}"/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=Speed}" Content="_Speed"/>
+            <TextBlock x:Name="Speed" Grid.Row="7" Grid.Column="1" Text="{Binding Speed}"/>
+            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=SpeedRx}" Content="_SpeedRx"/>
+            <TextBlock x:Name="SpeedRx" Grid.Row="8" Grid.Column="1" Text="{Binding SpeedRx}"/>
+            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=SpeedMax}" Content="_SpeedMax"/>
+            <TextBlock x:Name="SpeedMax" Grid.Row="9" Grid.Column="1" Text="{Binding SpeedMax}"/>
+            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=SpeedRxMax}" Content="_SpeedRxMax"/>
+            <TextBlock x:Name="SpeedRxMax" Grid.Row="10" Grid.Column="1" Text="{Binding SpeedRxMax}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetWlanExtInfoResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ApEnabled}" Content="_ApEnabled"/>
+            <TextBlock x:Name="ApEnabled" Grid.Row="0" Grid.Column="1" Text="{Binding ApEnabled}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ApType}" Content="_ApType"/>
+            <TextBlock x:Name="ApType" Grid.Row="1" Grid.Column="1" Text="{Binding ApType}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=TimeoutActive}" Content="_TimeoutActive"/>
+            <TextBlock x:Name="TimeoutActive" Grid.Row="2" Grid.Column="1" Text="{Binding TimeoutActive}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Timeout}" Content="_Timeout"/>
+            <TextBlock x:Name="Timeout" Grid.Row="3" Grid.Column="1" Text="{Binding Timeout}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=TimeRemain}" Content="_TimeRemain"/>
+            <TextBlock x:Name="TimeRemain" Grid.Row="4" Grid.Column="1" Text="{Binding TimeRemain}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=NoForcedOff}" Content="_NoForcedOff"/>
+            <TextBlock x:Name="NoForcedOff" Grid.Row="5" Grid.Column="1" Text="{Binding NoForcedOff}"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=UserIsolation}" Content="_UserIsolation"/>
+            <TextBlock x:Name="UserIsolation" Grid.Row="6" Grid.Column="1" Text="{Binding UserIsolation}"/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=EncryptionMode}" Content="_EncryptionMode"/>
+            <TextBlock x:Name="EncryptionMode" Grid.Row="7" Grid.Column="1" Text="{Binding EncryptionMode}"/>
+            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=LastChangedStamp}" Content="_LastChangedStamp"/>
+            <TextBlock x:Name="LastChangedStamp" Grid.Row="8" Grid.Column="1" Text="{Binding LastChangedStamp}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetWlanHybridModeResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Enable}" Content="_Enable"/>
+            <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=BeaconType}" Content="_BeaconType" ToolTip="The beacon types to be use with this connection. Possible values are None, Basic, WPA, 11i, WPAand11i, WPA3, 11iandWPA3, OWE, OWETran."/>
+            <TextBlock x:Name="BeaconType" Grid.Row="1" Grid.Column="1" Text="{Binding BeaconType}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=KeyPassphrase}" Content="_KeyPassphrase"/>
+            <TextBlock x:Name="KeyPassphrase" Grid.Row="2" Grid.Column="1" Text="{Binding KeyPassphrase}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=SsId}" Content="_SsId" ToolTip="The current service set identifier in use by the connection. The SSID is an identifier that is attached to packets sent over the wireless LAN that functions as a 'password' for joining a particular radio network (BSS). Note: If an access point wishes to be known by more than one SSID, it must provide a WLANConfiguration instance for each SSID."/>
+            <TextBlock x:Name="SsId" Grid.Row="3" Grid.Column="1" Text="{Binding SsId}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=BssId}" Content="_BssId" ToolTip="The MAC address of the interface."/>
+            <TextBlock x:Name="BssId" Grid.Row="4" Grid.Column="1" Text="{Binding BssId}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=TrafficMode}" Content="_TrafficMode"/>
+            <TextBlock x:Name="TrafficMode" Grid.Row="5" Grid.Column="1" Text="{Binding TrafficMode}"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=ManualSpeed}" Content="_ManualSpeed"/>
+            <TextBlock x:Name="ManualSpeed" Grid.Row="6" Grid.Column="1" Text="{Binding ManualSpeed}"/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=MaxSpeedDs}" Content="_MaxSpeedDs"/>
+            <TextBlock x:Name="MaxSpeedDs" Grid.Row="7" Grid.Column="1" Text="{Binding MaxSpeedDs}"/>
+            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=MaxSpeedUs}" Content="_MaxSpeedUs"/>
+            <TextBlock x:Name="MaxSpeedUs" Grid.Row="8" Grid.Column="1" Text="{Binding MaxSpeedUs}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WlanConfigurationGetWpsInfoResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=WpsMode}" Content="_WpsMode" ToolTip="Possible values are pbc (Push Button Configuration), stop (Stop running WPS session), other (WPS disabled or unknown WPS mode)."/>
+            <TextBlock x:Name="WpsMode" Grid.Row="0" Grid.Column="1" Text="{Binding WpsMode}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=WpsStatus}" Content="_WpsStatus" ToolTip="Possible values are off, inactive, active, success, err_common, err_timeout, err_reconfig, err_internal, err_abort."/>
+            <TextBlock x:Name="WpsStatus" Grid.Row="1" Grid.Column="1" Text="{Binding WpsStatus}"/>
+        </Grid>
     </DataTemplate>
 </ResourceDictionary>

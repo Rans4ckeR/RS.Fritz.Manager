@@ -1,6 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 using System.ComponentModel;
+using System.ServiceModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -106,9 +107,21 @@ internal abstract class FritzServiceViewModel : ObservableRecipient, IRecipient<
         return await operation(ApiDevice);
     }
 
-    protected async Task<T> ExecuteApiAsync<T>(Func<InternetGatewayDevice, int, Task<T>> operation, int interfaceNumber)
+    protected async Task<(T? Response, UPnPFault? Error)> ExecuteApiAsync<T>(Func<InternetGatewayDevice, int, Task<T>> operation, int interfaceNumber)
+        where T : struct
     {
-        return await operation(ApiDevice, interfaceNumber);
+        try
+        {
+            return (await operation(ApiDevice, interfaceNumber), null);
+        }
+        catch (FaultException<UPnPFault1> ex)
+        {
+            return (null, new UPnPFault(ex.Detail.ErrorCode, ex.Detail.ErrorDescription));
+        }
+        catch (FaultException<UPnPFault2> ex)
+        {
+            return (null, new UPnPFault(ex.Detail.ErrorCode, ex.Detail.ErrorDescription));
+        }
     }
 
     private async Task ExecuteDefaultCommandAsync(bool? showView, CancellationToken cancellationToken)
