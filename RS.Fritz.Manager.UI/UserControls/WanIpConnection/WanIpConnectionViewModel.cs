@@ -2,13 +2,13 @@
 
 internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceViewModel
 {
-    private WanIpConnectionGetInfoResponse? wanIpConnectionGetInfoResponse;
-    private WanConnectionGetConnectionTypeInfoResponse? wanConnectionGetConnectionTypeInfoResponse;
-    private WanConnectionGetStatusInfoResponse? wanConnectionGetStatusInfoResponse;
-    private WanConnectionGetNatRsipStatusResponse? wanConnectionGetNatRsipStatusResponse;
-    private WanConnectionGetDnsServersResponse? wanConnectionGetDnsServersResponse;
-    private WanConnectionGetPortMappingNumberOfEntriesResponse? wanConnectionGetPortMappingNumberOfEntriesResponse;
-    private WanConnectionGetExternalIpAddressResponse? wanConnectionGetExternalIpAddressResponse;
+    private KeyValuePair<WanIpConnectionGetInfoResponse?, UPnPFault?>? wanIpConnectionGetInfoResponse;
+    private KeyValuePair<WanConnectionGetConnectionTypeInfoResponse?, UPnPFault?>? wanConnectionGetConnectionTypeInfoResponse;
+    private KeyValuePair<WanConnectionGetStatusInfoResponse?, UPnPFault?>? wanConnectionGetStatusInfoResponse;
+    private KeyValuePair<WanConnectionGetNatRsipStatusResponse?, UPnPFault?>? wanConnectionGetNatRsipStatusResponse;
+    private KeyValuePair<WanConnectionGetDnsServersResponse?, UPnPFault?>? wanConnectionGetDnsServersResponse;
+    private KeyValuePair<WanConnectionGetPortMappingNumberOfEntriesResponse?, UPnPFault?>? wanConnectionGetPortMappingNumberOfEntriesResponse;
+    private KeyValuePair<WanConnectionGetExternalIpAddressResponse?, UPnPFault?>? wanConnectionGetExternalIpAddressResponse;
 
     public WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanIpConnectionGetGenericPortMappingEntryViewModel wanIpConnectionGetGenericPortMappingEntryViewModel)
         : base(deviceLoginInfo, logger, WanAccessType.Ethernet, "WANIPConnection")
@@ -18,47 +18,47 @@ internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceV
 
     public WanIpConnectionGetGenericPortMappingEntryViewModel WanIpConnectionGetGenericPortMappingEntryViewModel { get; }
 
-    public WanIpConnectionGetInfoResponse? WanIpConnectionGetInfoResponse
+    public KeyValuePair<WanIpConnectionGetInfoResponse?, UPnPFault?>? WanIpConnectionGetInfoResponse
     {
         get => wanIpConnectionGetInfoResponse;
         private set { _ = SetProperty(ref wanIpConnectionGetInfoResponse, value); }
     }
 
-    public WanConnectionGetConnectionTypeInfoResponse? WanConnectionGetConnectionTypeInfoResponse
+    public KeyValuePair<WanConnectionGetConnectionTypeInfoResponse?, UPnPFault?>? WanConnectionGetConnectionTypeInfoResponse
     {
         get => wanConnectionGetConnectionTypeInfoResponse;
         private set { _ = SetProperty(ref wanConnectionGetConnectionTypeInfoResponse, value); }
     }
 
-    public WanConnectionGetStatusInfoResponse? WanConnectionGetStatusInfoResponse
+    public KeyValuePair<WanConnectionGetStatusInfoResponse?, UPnPFault?>? WanConnectionGetStatusInfoResponse
     {
         get => wanConnectionGetStatusInfoResponse;
         private set { _ = SetProperty(ref wanConnectionGetStatusInfoResponse, value); }
     }
 
-    public WanConnectionGetNatRsipStatusResponse? WanConnectionGetNatRsipStatusResponse
+    public KeyValuePair<WanConnectionGetNatRsipStatusResponse?, UPnPFault?>? WanConnectionGetNatRsipStatusResponse
     {
         get => wanConnectionGetNatRsipStatusResponse;
         private set { _ = SetProperty(ref wanConnectionGetNatRsipStatusResponse, value); }
     }
 
-    public WanConnectionGetDnsServersResponse? WanConnectionGetDnsServersResponse
+    public KeyValuePair<WanConnectionGetDnsServersResponse?, UPnPFault?>? WanConnectionGetDnsServersResponse
     {
         get => wanConnectionGetDnsServersResponse;
         private set { _ = SetProperty(ref wanConnectionGetDnsServersResponse, value); }
     }
 
-    public WanConnectionGetPortMappingNumberOfEntriesResponse? WanConnectionGetPortMappingNumberOfEntriesResponse
+    public KeyValuePair<WanConnectionGetPortMappingNumberOfEntriesResponse?, UPnPFault?>? WanConnectionGetPortMappingNumberOfEntriesResponse
     {
         get => wanConnectionGetPortMappingNumberOfEntriesResponse;
         private set
         {
             if (SetProperty(ref wanConnectionGetPortMappingNumberOfEntriesResponse, value))
-                WanIpConnectionGetGenericPortMappingEntryViewModel.PortMappingNumberOfEntries = WanConnectionGetPortMappingNumberOfEntriesResponse?.PortMappingNumberOfEntries;
+                WanIpConnectionGetGenericPortMappingEntryViewModel.PortMappingNumberOfEntries = WanConnectionGetPortMappingNumberOfEntriesResponse?.Key!.Value.PortMappingNumberOfEntries;
         }
     }
 
-    public WanConnectionGetExternalIpAddressResponse? WanConnectionGetExternalIpAddressResponse
+    public KeyValuePair<WanConnectionGetExternalIpAddressResponse?, UPnPFault?>? WanConnectionGetExternalIpAddressResponse
     {
         get => wanConnectionGetExternalIpAddressResponse;
         private set { _ = SetProperty(ref wanConnectionGetExternalIpAddressResponse, value); }

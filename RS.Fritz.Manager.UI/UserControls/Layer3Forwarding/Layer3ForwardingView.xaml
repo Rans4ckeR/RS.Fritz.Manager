@@ -17,8 +17,34 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetDefaultConnectionServiceResponse}"/>
-        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding Layer3ForwardingGetForwardNumberOfEntriesResponse}"/>
+        <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DefaultConnectionService">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetDefaultConnectionServiceResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetDefaultConnectionServiceResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ForwardNumberOfEntries">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetForwardNumberOfEntriesResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetForwardNumberOfEntriesResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
         <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding Layer3ForwardingGetGenericForwardingEntryViewModel}"/>
     </Grid>
 </UserControl>

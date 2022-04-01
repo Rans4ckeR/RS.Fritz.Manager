@@ -2,97 +2,77 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
     <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetCommonLinkPropertiesResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="LinkProperties">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=WanAccessType}" Content="_WanAccessType" ToolTip="Specifies the WAN access (modem) between the residential network and the ISP. Possible values are DSL, Ethernet, X_AVM-DE_Fiber, X_AVM-DE_UMTS, X_AVM-DE_Cable, X_AVM-DE_LTE."/>
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PhysicalLinkStatus}" Content="_PhysicalLinkStatus" ToolTip="Indicates the state of the physical connection (link) from WANDevice to a connected entity. Possible values are Up, Down, Initializing, Unavailable."/>
-                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Layer1DownstreamMaxBitRate}" Content="_Layer1DownstreamMaxBitRate" ToolTip="Specifies the maximum downstream theoretical bit rate for the WAN device."/>
-                    <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Layer1UpstreamMaxBitRate}" Content="_Layer1UpstreamMaxBitRate" ToolTip="Specifies the maximum upstream theoretical bit rate for the WAN device."/>
-                    <TextBlock x:Name="WanAccessType" Grid.Row="0" Grid.Column="1" Text="{Binding WanAccessType}"/>
-                    <TextBlock x:Name="PhysicalLinkStatus" Grid.Row="1" Grid.Column="1" Text="{Binding PhysicalLinkStatus}"/>
-                    <TextBlock x:Name="Layer1DownstreamMaxBitRate" Grid.Row="2" Grid.Column="1" Text="{Binding Layer1DownstreamMaxBitRate}"/>
-                    <TextBlock x:Name="Layer1UpstreamMaxBitRate" Grid.Row="3" Grid.Column="1" Text="{Binding Layer1UpstreamMaxBitRate}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=WanAccessType}" Content="_WanAccessType" ToolTip="Specifies the WAN access (modem) between the residential network and the ISP. Possible values are DSL, Ethernet, X_AVM-DE_Fiber, X_AVM-DE_UMTS, X_AVM-DE_Cable, X_AVM-DE_LTE."/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PhysicalLinkStatus}" Content="_PhysicalLinkStatus" ToolTip="Indicates the state of the physical connection (link) from WANDevice to a connected entity. Possible values are Up, Down, Initializing, Unavailable."/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Layer1DownstreamMaxBitRate}" Content="_Layer1DownstreamMaxBitRate" ToolTip="Specifies the maximum downstream theoretical bit rate for the WAN device."/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Layer1UpstreamMaxBitRate}" Content="_Layer1UpstreamMaxBitRate" ToolTip="Specifies the maximum upstream theoretical bit rate for the WAN device."/>
+            <TextBlock x:Name="WanAccessType" Grid.Row="0" Grid.Column="1" Text="{Binding WanAccessType}"/>
+            <TextBlock x:Name="PhysicalLinkStatus" Grid.Row="1" Grid.Column="1" Text="{Binding PhysicalLinkStatus}"/>
+            <TextBlock x:Name="Layer1DownstreamMaxBitRate" Grid.Row="2" Grid.Column="1" Text="{Binding Layer1DownstreamMaxBitRate}"/>
+            <TextBlock x:Name="Layer1UpstreamMaxBitRate" Grid.Row="3" Grid.Column="1" Text="{Binding Layer1UpstreamMaxBitRate}"/>
+        </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetTotalBytesReceivedResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalBytesReceived">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesReceived}" Content="_TotalBytesReceived" ToolTip="Represents the cumulative counter for total number of bytes received downstream across all connection service instances on the WANDevice."/>
-                    <TextBlock x:Name="TotalBytesReceived" Grid.Row="0" Grid.Column="1" Text="{Binding TotalBytesReceived}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesReceived}" Content="_TotalBytesReceived" ToolTip="Represents the cumulative counter for total number of bytes received downstream across all connection service instances on the WANDevice."/>
+            <TextBlock x:Name="TotalBytesReceived" Grid.Row="0" Grid.Column="1" Text="{Binding TotalBytesReceived}"/>
+        </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetTotalBytesSentResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalBytesSent">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesSent}" Content="_TotalBytesSent" ToolTip="Represents the cumulative counter for total number of bytes sent upstream across all connection service instances on the WANDevice."/>
-                    <TextBlock x:Name="TotalBytesSent" Grid.Row="0" Grid.Column="1" Text="{Binding TotalBytesSent}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalBytesSent}" Content="_TotalBytesSent" ToolTip="Represents the cumulative counter for total number of bytes sent upstream across all connection service instances on the WANDevice."/>
+            <TextBlock x:Name="TotalBytesSent" Grid.Row="0" Grid.Column="1" Text="{Binding TotalBytesSent}"/>
+        </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetTotalPacketsReceivedResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalPacketsReceived">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalPacketsReceived}" Content="_TotalPacketsReceived" ToolTip="Represents the cumulative counter for total number of packets (IP or PPP) received downstream across all connection service instances on the WANDevice."/>
-                    <TextBlock x:Name="TotalPacketsReceived" Grid.Row="0" Grid.Column="1" Text="{Binding TotalPacketsReceived}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalPacketsReceived}" Content="_TotalPacketsReceived" ToolTip="Represents the cumulative counter for total number of packets (IP or PPP) received downstream across all connection service instances on the WANDevice."/>
+            <TextBlock x:Name="TotalPacketsReceived" Grid.Row="0" Grid.Column="1" Text="{Binding TotalPacketsReceived}"/>
+        </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:WanCommonInterfaceConfigGetTotalPacketsSentResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalPacketsSent">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalPacketsSent}" Content="_TotalPacketsSent" ToolTip="Represents the cumulative counter for total number of packets (IP or PPP) sent upstream across all connection service instances on the WANDevice."/>
-                    <TextBlock x:Name="TotalPacketsSent" Grid.Row="0" Grid.Column="1" Text="{Binding TotalPacketsSent}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalPacketsSent}" Content="_TotalPacketsSent" ToolTip="Represents the cumulative counter for total number of packets (IP or PPP) sent upstream across all connection service instances on the WANDevice."/>
+            <TextBlock x:Name="TotalPacketsSent" Grid.Row="0" Grid.Column="1" Text="{Binding TotalPacketsSent}"/>
+        </Grid>
     </DataTemplate>
 </ResourceDictionary>

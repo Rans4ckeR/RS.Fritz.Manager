@@ -48,10 +48,10 @@
                 <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=AturCountry}" Content="_ATURCountry" ToolTip="T.35 country code of the ADSL Termination Unit - Remote (ATU-R) vendor as defined in G.994.1."/>
                 <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=UpstreamPower}" Content="_UpstreamPower" ToolTip="Provides a snapshot of the current output power at the Customer Premises Equipment (CPE)'s DSL interface (expressed in 0.1 dBmV)."/>
                 <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DownstreamPower}" Content="_DownstreamPower" ToolTip="Provides a snapshot of the current received power signal level at the Customer Premises Equipment (CPE)'s DSL interface (expressed in 0.1 dBmV)."/>
-                <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Enable}"/>
-                <TextBlock x:Name="Status" Grid.Row="1" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Status}"/>
-                <TextBlock x:Name="DataPath" Grid.Row="2" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.DataPath}"/>
-                <TextBlock x:Name="UpstreamCurrRate" Grid.Row="3" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.UpstreamCurrRate}"/>
+                <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.Enable}"/>
+                <TextBlock x:Name="Status" Grid.Row="1" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.Status}"/>
+                <TextBlock x:Name="DataPath" Grid.Row="2" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.DataPath}"/>
+                <TextBlock x:Name="UpstreamCurrRate" Grid.Row="3" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.UpstreamCurrRate}"/>
                 <ItemsControl Grid.Row="3" Grid.Column="2" ItemsSource="{Binding UpstreamCurrRateHistory}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -65,7 +65,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock x:Name="DownstreamCurrRate" Grid.Row="4" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.DownstreamCurrRate}"/>
+                <TextBlock x:Name="DownstreamCurrRate" Grid.Row="4" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.DownstreamCurrRate}"/>
                 <ItemsControl Grid.Row="4" Grid.Column="2" ItemsSource="{Binding DownstreamCurrRateHistory}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -79,7 +79,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock x:Name="UpstreamMaxRate" Grid.Row="5" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.UpstreamMaxRate}"/>
+                <TextBlock x:Name="UpstreamMaxRate" Grid.Row="5" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.UpstreamMaxRate}"/>
                 <ItemsControl Grid.Row="5" Grid.Column="2" ItemsSource="{Binding UpstreamMaxRateHistory}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -93,7 +93,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock x:Name="DownstreamMaxRate" Grid.Row="6" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.DownstreamMaxRate}"/>
+                <TextBlock x:Name="DownstreamMaxRate" Grid.Row="6" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.DownstreamMaxRate}"/>
                 <ItemsControl Grid.Row="6" Grid.Column="2" ItemsSource="{Binding DownstreamMaxRateHistory}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -107,7 +107,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock x:Name="UpstreamNoiseMargin" Grid.Row="7" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.UpstreamNoiseMargin}"/>
+                <TextBlock x:Name="UpstreamNoiseMargin" Grid.Row="7" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.UpstreamNoiseMargin}"/>
                 <ItemsControl Grid.Row="7" Grid.Column="2" ItemsSource="{Binding UpstreamNoiseMarginHistory}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -121,7 +121,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock x:Name="DownstreamNoiseMargin" Grid.Row="8" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.DownstreamNoiseMargin}"/>
+                <TextBlock x:Name="DownstreamNoiseMargin" Grid.Row="8" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.DownstreamNoiseMargin}"/>
                 <ItemsControl Grid.Row="8" Grid.Column="2" ItemsSource="{Binding DownstreamNoiseMarginHistory}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -135,7 +135,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock x:Name="UpstreamAttenuation" Grid.Row="9" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.UpstreamAttenuation}"/>
+                <TextBlock x:Name="UpstreamAttenuation" Grid.Row="9" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.UpstreamAttenuation}"/>
                 <ItemsControl Grid.Row="9" Grid.Column="2" ItemsSource="{Binding UpstreamAttenuationHistory}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -149,7 +149,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock x:Name="DownstreamAttenuation" Grid.Row="10" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.DownstreamAttenuation}"/>
+                <TextBlock x:Name="DownstreamAttenuation" Grid.Row="10" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.DownstreamAttenuation}"/>
                 <ItemsControl Grid.Row="10" Grid.Column="2" ItemsSource="{Binding DownstreamAttenuationHistory}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -163,9 +163,9 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock x:Name="AturVendor" Grid.Row="11" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.ATURVendor}"/>
-                <TextBlock x:Name="AturCountry" Grid.Row="12" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.ATURCountry}"/>
-                <TextBlock x:Name="UpstreamPower" Grid.Row="13" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.UpstreamPower}"/>
+                <TextBlock x:Name="AturVendor" Grid.Row="11" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.ATURVendor}"/>
+                <TextBlock x:Name="AturCountry" Grid.Row="12" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.ATURCountry}"/>
+                <TextBlock x:Name="UpstreamPower" Grid.Row="13" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.UpstreamPower}"/>
                 <ItemsControl Grid.Row="13" Grid.Column="2" ItemsSource="{Binding UpstreamPowerHistory}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -179,7 +179,7 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock x:Name="DownstreamPower" Grid.Row="14" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.DownstreamPower}"/>
+                <TextBlock x:Name="DownstreamPower" Grid.Row="14" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.DownstreamPower}"/>
                 <ItemsControl Grid.Row="14" Grid.Column="2" ItemsSource="{Binding DownstreamPowerHistory}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>

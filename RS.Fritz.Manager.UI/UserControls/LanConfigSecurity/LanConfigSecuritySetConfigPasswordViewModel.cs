@@ -23,7 +23,7 @@ internal sealed class LanConfigSecuritySetConfigPasswordViewModel : FritzService
 
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        _ = await ExecuteApiAsync(q => q.LanConfigSecuritySetConfigPasswordAsync(Password!));
+        _ = await ExecuteApiAsync(q => q.LanConfigSecuritySetConfigPasswordAsync(Password!), throwException: true);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

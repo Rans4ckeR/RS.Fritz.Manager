@@ -2,14 +2,14 @@
 
 internal sealed class AvmSpeedtestViewModel : FritzServiceViewModel
 {
-    private AvmSpeedtestGetInfoResponse? avmSpeedtestGetInfoResponse;
+    private KeyValuePair<AvmSpeedtestGetInfoResponse?, UPnPFault?>? avmSpeedtestGetInfoResponse;
 
     public AvmSpeedtestViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger, "X_AVM-DE_Speedtest")
     {
     }
 
-    public AvmSpeedtestGetInfoResponse? AvmSpeedtestGetInfoResponse
+    public KeyValuePair<AvmSpeedtestGetInfoResponse?, UPnPFault?>? AvmSpeedtestGetInfoResponse
     {
         get => avmSpeedtestGetInfoResponse;
         private set { _ = SetProperty(ref avmSpeedtestGetInfoResponse, value); }

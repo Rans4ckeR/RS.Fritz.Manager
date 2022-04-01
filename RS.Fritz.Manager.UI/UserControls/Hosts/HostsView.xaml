@@ -20,9 +20,35 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding DeviceHostInfo}"/>
-        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding HostsGetHostNumberOfEntriesResponse}"/>
+        <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="NumberOfEntries">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding HostsGetHostNumberOfEntriesResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding HostsGetHostNumberOfEntriesResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
         <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding HostsGetGenericHostEntryViewModel}"/>
-        <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding HostsGetChangeCounterResponse}"/>
+        <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ChangeCounter">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding HostsGetChangeCounterResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding HostsGetChangeCounterResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
         <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding DeviceMeshInfo}"/>
     </Grid>
 </UserControl>

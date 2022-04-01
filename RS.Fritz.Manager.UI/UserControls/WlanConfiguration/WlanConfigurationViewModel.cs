@@ -247,14 +247,7 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
         for (int i = 0; i < 4; i++)
         {
             if (HasWlanConfigurationService(i + 1))
-            {
-                (T? response, UPnPFault? error) = await ExecuteApiAsync(operation, i + 1);
-
-                if (error is not null && (errorReasons?.TryGetValue(error.ErrorCode, out string? errorReason) ?? false))
-                    error.ErrorReason = errorReason;
-
-                responses[i] = new KeyValuePair<T?, UPnPFault?>(response, error);
-            }
+                responses[i] = await ExecuteApiAsync(operation, i + 1, errorReasons);
         }
 
         return responses;

@@ -69,31 +69,31 @@
                 <Label Grid.Row="22" Grid.Column="0" Target="{Binding ElementName=UpstreamMaxRate}" Content="_UpstreamMaxRate"/>
                 <Label Grid.Row="23" Grid.Column="0" Target="{Binding ElementName=UpstreamNoiseMargin}" Content="_UpstreamNoiseMargin"/>
                 <Label Grid.Row="24" Grid.Column="0" Target="{Binding ElementName=UpstreamPower}" Content="_UpstreamPower"/>
-                <TextBlock x:Name="AturCountry" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.ATURCountry}"/>
-                <TextBlock x:Name="AturVendor" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.ATURVendor}"/>
-                <TextBlock x:Name="CrcErrors" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.CRCErrors}"/>
-                <TextBlock x:Name="CurrentProfile" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.CurrentProfile}"/>
-                <TextBlock x:Name="DownstreamAttenuation" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.DownstreamAttenuation}"/>
-                <TextBlock x:Name="DownstreamCurrRate" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.DownstreamCurrRate}"/>
-                <TextBlock x:Name="DownstreamMaxRate" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.DownstreamMaxRate}"/>
-                <TextBlock x:Name="DownstreamNoiseMargin" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.DownstreamNoiseMargin}"/>
-                <TextBlock x:Name="DownstreamPower" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.DownstreamPower}"/>
-                <TextBlock x:Name="FecErrors" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.FECErrors}"/>
-                <TextBlock x:Name="LatNds" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.LATNds}"/>
-                <TextBlock x:Name="LatNus" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.LATNus}"/>
-                <TextBlock x:Name="LinkStatus" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.LinkStatus}"/>
-                <TextBlock x:Name="ModulationType" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.ModulationType}"/>
-                <TextBlock x:Name="SnrGds" Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.SNRGds}"/>
-                <TextBlock x:Name="SnrGus" Grid.Row="15" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.SNRGus}"/>
-                <TextBlock x:Name="SnrmTds" Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.SNRMTds}"/>
-                <TextBlock x:Name="SnrmTus" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.SNRMTus}"/>
-                <TextBlock x:Name="SnRpsds" Grid.Row="18" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.SNRpsds}"/>
-                <TextBlock x:Name="SnRpsus" Grid.Row="19" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.SNRpsus}"/>
-                <TextBlock x:Name="UpstreamAttenuation" Grid.Row="20" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.UpstreamAttenuation}"/>
-                <TextBlock x:Name="UpstreamCurrRate" Grid.Row="21" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.UpstreamCurrRate}"/>
-                <TextBlock x:Name="UpstreamMaxRate" Grid.Row="22" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.UpstreamMaxRate}"/>
-                <TextBlock x:Name="UpstreamNoiseMargin" Grid.Row="23" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.UpstreamNoiseMargin}"/>
-                <TextBlock x:Name="UpstreamPower" Grid.Row="24" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.UpstreamPower}"/>
+                <TextBlock x:Name="AturCountry" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.ATURCountry}"/>
+                <TextBlock x:Name="AturVendor" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.ATURVendor}"/>
+                <TextBlock x:Name="CrcErrors" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.CRCErrors}"/>
+                <TextBlock x:Name="CurrentProfile" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.CurrentProfile}"/>
+                <TextBlock x:Name="DownstreamAttenuation" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.DownstreamAttenuation}"/>
+                <TextBlock x:Name="DownstreamCurrRate" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.DownstreamCurrRate}"/>
+                <TextBlock x:Name="DownstreamMaxRate" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.DownstreamMaxRate}"/>
+                <TextBlock x:Name="DownstreamNoiseMargin" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.DownstreamNoiseMargin}"/>
+                <TextBlock x:Name="DownstreamPower" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.DownstreamPower}"/>
+                <TextBlock x:Name="FecErrors" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.FECErrors}"/>
+                <TextBlock x:Name="LatNds" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.LATNds}"/>
+                <TextBlock x:Name="LatNus" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.LATNus}"/>
+                <TextBlock x:Name="LinkStatus" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.LinkStatus}"/>
+                <TextBlock x:Name="ModulationType" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.ModulationType}"/>
+                <TextBlock x:Name="SnrGds" Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SNRGds}"/>
+                <TextBlock x:Name="SnrGus" Grid.Row="15" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SNRGus}"/>
+                <TextBlock x:Name="SnrmTds" Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SNRMTds}"/>
+                <TextBlock x:Name="SnrmTus" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SNRMTus}"/>
+                <TextBlock x:Name="SnRpsds" Grid.Row="18" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SNRpsds}"/>
+                <TextBlock x:Name="SnRpsus" Grid.Row="19" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SNRpsus}"/>
+                <TextBlock x:Name="UpstreamAttenuation" Grid.Row="20" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.UpstreamAttenuation}"/>
+                <TextBlock x:Name="UpstreamCurrRate" Grid.Row="21" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.UpstreamCurrRate}"/>
+                <TextBlock x:Name="UpstreamMaxRate" Grid.Row="22" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.UpstreamMaxRate}"/>
+                <TextBlock x:Name="UpstreamNoiseMargin" Grid.Row="23" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.UpstreamNoiseMargin}"/>
+                <TextBlock x:Name="UpstreamPower" Grid.Row="24" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.UpstreamPower}"/>
                 <ItemsControl Grid.Row="25" Grid.Column="2" Margin="10,0,0,0" ItemsSource="{Binding DownstreamSnrElements}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>

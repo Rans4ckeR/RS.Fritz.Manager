@@ -2,9 +2,9 @@
 
 internal sealed class DeviceInfoViewModel : FritzServiceViewModel
 {
-    private DeviceInfoGetSecurityPortResponse? deviceInfoGetSecurityPortResponse;
-    private DeviceInfoGetInfoResponse? deviceInfoGetInfoResponse;
-    private DeviceInfoGetDeviceLogResponse? deviceInfoGetDeviceLogResponse;
+    private KeyValuePair<DeviceInfoGetSecurityPortResponse?, UPnPFault?>? deviceInfoGetSecurityPortResponse;
+    private KeyValuePair<DeviceInfoGetInfoResponse?, UPnPFault?>? deviceInfoGetInfoResponse;
+    private KeyValuePair<DeviceInfoGetDeviceLogResponse?, UPnPFault?>? deviceInfoGetDeviceLogResponse;
 
     public DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel)
         : base(deviceLoginInfo, logger, "DeviceInfo")
@@ -12,19 +12,19 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
         DeviceInfoSetProvisioningCodeViewModel = deviceInfoSetProvisioningCodeViewModel;
     }
 
-    public DeviceInfoGetSecurityPortResponse? DeviceInfoGetSecurityPortResponse
+    public KeyValuePair<DeviceInfoGetSecurityPortResponse?, UPnPFault?>? DeviceInfoGetSecurityPortResponse
     {
         get => deviceInfoGetSecurityPortResponse;
         private set { _ = SetProperty(ref deviceInfoGetSecurityPortResponse, value); }
     }
 
-    public DeviceInfoGetInfoResponse? DeviceInfoGetInfoResponse
+    public KeyValuePair<DeviceInfoGetInfoResponse?, UPnPFault?>? DeviceInfoGetInfoResponse
     {
         get => deviceInfoGetInfoResponse;
         private set { _ = SetProperty(ref deviceInfoGetInfoResponse, value); }
     }
 
-    public DeviceInfoGetDeviceLogResponse? DeviceInfoGetDeviceLogResponse
+    public KeyValuePair<DeviceInfoGetDeviceLogResponse?, UPnPFault?>? DeviceInfoGetDeviceLogResponse
     {
         get => deviceInfoGetDeviceLogResponse;
         private set { _ = SetProperty(ref deviceInfoGetDeviceLogResponse, value); }

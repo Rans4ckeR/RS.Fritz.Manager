@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="Resources\TR-064\SharedWanConnectionResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\WanCommonInterfaceConfigResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\WanDslInterfaceConfigResourceDictionary.xaml"/>
+                <ResourceDictionary Source="Resources\TR-064\WanDslLinkConfigResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\WanEthernetLinkConfigResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\WanIpConnectionResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\WanPppConnectionResourceDictionary.xaml"/>

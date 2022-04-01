@@ -2,49 +2,49 @@
 
 internal sealed class LanHostConfigManagementViewModel : FritzServiceViewModel
 {
-    private LanHostConfigManagementGetInfoResponse? lanHostConfigManagementGetInfoResponse;
-    private LanHostConfigManagementGetSubnetMaskResponse? lanHostConfigManagementGetSubnetMaskResponse;
-    private LanHostConfigManagementGetIpRoutersListResponse? lanHostConfigManagementGetIpRoutersListResponse;
-    private LanHostConfigManagementGetAddressRangeResponse? lanHostConfigManagementGetAddressRangeResponse;
-    private LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse? lanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse;
-    private LanHostConfigManagementGetDnsServersResponse? lanHostConfigManagementGetDnsServersResponse;
+    private KeyValuePair<LanHostConfigManagementGetInfoResponse?, UPnPFault?>? lanHostConfigManagementGetInfoResponse;
+    private KeyValuePair<LanHostConfigManagementGetSubnetMaskResponse?, UPnPFault?>? lanHostConfigManagementGetSubnetMaskResponse;
+    private KeyValuePair<LanHostConfigManagementGetIpRoutersListResponse?, UPnPFault?>? lanHostConfigManagementGetIpRoutersListResponse;
+    private KeyValuePair<LanHostConfigManagementGetAddressRangeResponse?, UPnPFault?>? lanHostConfigManagementGetAddressRangeResponse;
+    private KeyValuePair<LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse?, UPnPFault?>? lanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse;
+    private KeyValuePair<LanHostConfigManagementGetDnsServersResponse?, UPnPFault?>? lanHostConfigManagementGetDnsServersResponse;
 
     public LanHostConfigManagementViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger, "LANHostConfigManagement")
     {
     }
 
-    public LanHostConfigManagementGetInfoResponse? LanHostConfigManagementGetInfoResponse
+    public KeyValuePair<LanHostConfigManagementGetInfoResponse?, UPnPFault?>? LanHostConfigManagementGetInfoResponse
     {
         get => lanHostConfigManagementGetInfoResponse;
         private set { _ = SetProperty(ref lanHostConfigManagementGetInfoResponse, value); }
     }
 
-    public LanHostConfigManagementGetSubnetMaskResponse? LanHostConfigManagementGetSubnetMaskResponse
+    public KeyValuePair<LanHostConfigManagementGetSubnetMaskResponse?, UPnPFault?>? LanHostConfigManagementGetSubnetMaskResponse
     {
         get => lanHostConfigManagementGetSubnetMaskResponse;
         private set { _ = SetProperty(ref lanHostConfigManagementGetSubnetMaskResponse, value); }
     }
 
-    public LanHostConfigManagementGetIpRoutersListResponse? LanHostConfigManagementGetIpRoutersListResponse
+    public KeyValuePair<LanHostConfigManagementGetIpRoutersListResponse?, UPnPFault?>? LanHostConfigManagementGetIpRoutersListResponse
     {
         get => lanHostConfigManagementGetIpRoutersListResponse;
         private set { _ = SetProperty(ref lanHostConfigManagementGetIpRoutersListResponse, value); }
     }
 
-    public LanHostConfigManagementGetAddressRangeResponse? LanHostConfigManagementGetAddressRangeResponse
+    public KeyValuePair<LanHostConfigManagementGetAddressRangeResponse?, UPnPFault?>? LanHostConfigManagementGetAddressRangeResponse
     {
         get => lanHostConfigManagementGetAddressRangeResponse;
         private set { _ = SetProperty(ref lanHostConfigManagementGetAddressRangeResponse, value); }
     }
 
-    public LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse? LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse
+    public KeyValuePair<LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse?, UPnPFault?>? LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse
     {
         get => lanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse;
         private set { _ = SetProperty(ref lanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse, value); }
     }
 
-    public LanHostConfigManagementGetDnsServersResponse? LanHostConfigManagementGetDnsServersResponse
+    public KeyValuePair<LanHostConfigManagementGetDnsServersResponse?, UPnPFault?>? LanHostConfigManagementGetDnsServersResponse
     {
         get => lanHostConfigManagementGetDnsServersResponse;
         private set { _ = SetProperty(ref lanHostConfigManagementGetDnsServersResponse, value); }

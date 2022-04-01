@@ -22,7 +22,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
     private readonly ScaleTransform scaleXyTransform = new() { ScaleX = 2d, ScaleY = -2d };
 
     private uint syncGroupIndex;
-    private WanCommonInterfaceConfigGetOnlineMonitorResponse? wanCommonInterfaceConfigGetOnlineMonitorResponse;
+    private KeyValuePair<WanCommonInterfaceConfigGetOnlineMonitorResponse?, UPnPFault?>? wanCommonInterfaceConfigGetOnlineMonitorResponse;
     private List<uint>? downstreamInternetBps;
     private List<uint>? downstreamIpTvBps;
     private List<uint>? upstreamTotalBps;
@@ -132,20 +132,20 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
         private set { _ = SetProperty(ref currentUpstreamBackgroundApplicationsBps, value); }
     }
 
-    public WanCommonInterfaceConfigGetOnlineMonitorResponse? WanCommonInterfaceConfigGetOnlineMonitorResponse
+    public KeyValuePair<WanCommonInterfaceConfigGetOnlineMonitorResponse?, UPnPFault?>? WanCommonInterfaceConfigGetOnlineMonitorResponse
     {
         get => wanCommonInterfaceConfigGetOnlineMonitorResponse;
         set
         {
             _ = SetProperty(ref wanCommonInterfaceConfigGetOnlineMonitorResponse, value);
 
-            downstreamInternetBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.DownstreamInternetBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
-            downstreamIpTvBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.DownstreamIpTvBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
-            upstreamTotalBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.UpstreamTotalBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
-            upstreamRealTimeApplicationsBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.UpstreamRealTimeApplicationsBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
-            upstreamPrioritizedApplicationsBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.UpstreamPrioritizedApplicationsBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
-            upstreamNormalApplicationsBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.UpstreamNormalApplicationsBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
-            upstreamBackgroundApplicationsBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.UpstreamBackgroundApplicationsBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
+            downstreamInternetBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.Key!.Value.DownstreamInternetBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
+            downstreamIpTvBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.Key!.Value.DownstreamIpTvBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
+            upstreamTotalBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.Key!.Value.UpstreamTotalBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
+            upstreamRealTimeApplicationsBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.Key!.Value.UpstreamRealTimeApplicationsBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
+            upstreamPrioritizedApplicationsBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.Key!.Value.UpstreamPrioritizedApplicationsBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
+            upstreamNormalApplicationsBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.Key!.Value.UpstreamNormalApplicationsBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
+            upstreamBackgroundApplicationsBps = wanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.Key!.Value.UpstreamBackgroundApplicationsBps.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
 
             UpdateOnlineMonitorDownstreamElements();
             UpdateOnlineMonitorUpstreamElements();
@@ -173,7 +173,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
 
     protected override bool GetCanExecuteDefaultCommand()
     {
-        return base.GetCanExecuteDefaultCommand() && (WanCommonInterfaceConfigGetOnlineMonitorResponse is null || SyncGroupIndex < WanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.TotalNumberSyncGroups);
+        return base.GetCanExecuteDefaultCommand() && (WanCommonInterfaceConfigGetOnlineMonitorResponse is null || SyncGroupIndex < WanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.Key!.Value.TotalNumberSyncGroups);
     }
 
     private static void CreateUiElements(double yScale, double xScale, uint min, uint range, ICollection<UIElement> uiElements, IReadOnlyList<uint> values, Brush brush)

@@ -2,8 +2,8 @@
 
 internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
 {
-    private Layer3ForwardingGetDefaultConnectionServiceResponse? layer3ForwardingGetDefaultConnectionServiceResponse;
-    private Layer3ForwardingGetForwardNumberOfEntriesResponse? layer3ForwardingGetForwardNumberOfEntriesResponse;
+    private KeyValuePair<Layer3ForwardingGetDefaultConnectionServiceResponse?, UPnPFault?>? layer3ForwardingGetDefaultConnectionServiceResponse;
+    private KeyValuePair<Layer3ForwardingGetForwardNumberOfEntriesResponse?, UPnPFault?>? layer3ForwardingGetForwardNumberOfEntriesResponse;
 
     public Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, Layer3ForwardingGetGenericForwardingEntryViewModel layer3ForwardingGetGenericForwardingEntryViewModel)
         : base(deviceLoginInfo, logger, "Layer3Forwarding")
@@ -13,19 +13,19 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
 
     public Layer3ForwardingGetGenericForwardingEntryViewModel Layer3ForwardingGetGenericForwardingEntryViewModel { get; }
 
-    public Layer3ForwardingGetDefaultConnectionServiceResponse? Layer3ForwardingGetDefaultConnectionServiceResponse
+    public KeyValuePair<Layer3ForwardingGetDefaultConnectionServiceResponse?, UPnPFault?>? Layer3ForwardingGetDefaultConnectionServiceResponse
     {
         get => layer3ForwardingGetDefaultConnectionServiceResponse;
         private set { _ = SetProperty(ref layer3ForwardingGetDefaultConnectionServiceResponse, value); }
     }
 
-    public Layer3ForwardingGetForwardNumberOfEntriesResponse? Layer3ForwardingGetForwardNumberOfEntriesResponse
+    public KeyValuePair<Layer3ForwardingGetForwardNumberOfEntriesResponse?, UPnPFault?>? Layer3ForwardingGetForwardNumberOfEntriesResponse
     {
         get => layer3ForwardingGetForwardNumberOfEntriesResponse;
         private set
         {
             if (SetProperty(ref layer3ForwardingGetForwardNumberOfEntriesResponse, value))
-                Layer3ForwardingGetGenericForwardingEntryViewModel.ForwardNumberOfEntries = Layer3ForwardingGetForwardNumberOfEntriesResponse?.ForwardNumberOfEntries;
+                Layer3ForwardingGetGenericForwardingEntryViewModel.ForwardNumberOfEntries = Layer3ForwardingGetForwardNumberOfEntriesResponse?.Key?.ForwardNumberOfEntries;
         }
     }
 

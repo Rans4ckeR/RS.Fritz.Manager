@@ -2,167 +2,151 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
     <DataTemplate DataType="{x:Type api:WanPppConnectionGetInfoResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Enable}" Content="_Enable" ToolTip="Enables or disables the connection."/>
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ConnectionStatus}" Content="_ConnectionStatus" ToolTip="Current status of an Internet connection. Possible values are Unconfigured, Connecting, Authenticating, Connected, PendingDisconnect, Disconnecting, Disconnected."/>
-                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=PossibleConnectionTypes}" Content="_PossibleConnectionTypes" ToolTip="The types of connections possible in the context of a specific modem and link type. Possible values are Unconfigured, IP_Routed, IP_Bridged, DHCP_Spoofed, PPPoE_Bridged, PPTP_Relay, L2TP_Relay, PPPoE_Relay."/>
-                    <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=ConnectionType}" Content="_ConnectionType" ToolTip="The connection type for a specific active connection."/>
-                    <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Name}" Content="_Name" ToolTip="Friendly Name of the connection. This name must be unique within the scope of the IGD."/>
-                    <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Uptime}" Content="_Uptime" ToolTip="The time in seconds that this connection has stayed up."/>
-                    <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=UpstreamMaxBitRate}" Content="_UpstreamMaxBitRate" ToolTip="The maximum upstream bit rate available to this connection instance. This variable has a static value once a connection is setup."/>
-                    <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=DownstreamMaxBitRate}" Content="_DownstreamMaxBitRate" ToolTip="The maximum downstream bit rate available to this connection instance. This variable has a static value once a connection is setup."/>
-                    <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=LastConnectionError}" Content="_LastConnectionError" ToolTip="Provides information about the cause of failure for the last connection setup attempt. Possible values are ERROR_NONE, ERROR_ISP_TIME_OUT, ERROR_COMMAND_ABORTED, ERROR_NOT_ENABLED_FOR_INTERNET, ERROR_BAD_PHONE_NUMBER, ERROR_USER_DISCONNECT, ERROR_ISP_DISCONNECT, ERROR_IDLE_DISCONNECT, ERROR_FORCED_DISCONNECT, ERROR_SERVER_OUT_OF_RESOURCES, ERROR_RESTRICTED_LOGON_HOURS, ERROR_ACCOUNT_DISABLED, ERROR_ACCOUNT_EXPIRED, ERROR_PASSWORD_EXPIRED, ERROR_AUTHENTICATION_FAILURE, ERROR_NO_DIALTONE, ERROR_NO_CARRIER, ERROR_NO_ANSWER, ERROR_LINE_BUSY, ERROR_UNSUPPORTED_BITSPERSECOND, ERROR_TOO_MANY_LINE_ERRORS, ERROR_IP_CONFIGURATION, ERROR_UNKNOWN."/>
-                    <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=IdleDisconnectTime}" Content="_IdleDisconnectTime" ToolTip="Represents the idle time of a connection in seconds (since the establishment of the connection), after which connection termination is initiated by the gateway. A value of zero for this variable allows infinite idle time – connection will not be terminated due to idle time."/>
-                    <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=RSIPAvailable}" Content="_RSIPAvailable" ToolTip="This variable indicates if Realm-specific IP (RSIP) is available as a feature on the InternetGatewayDevice. RSIP is being defined in the NAT working group in the IETF to allow host-NATing using a standard set of message exchanges. It also allows end-to-end applications that otherwise break if NAT is introduced (e.g. IPsec-based VPNs). A gateway that does not support RSIP should set this variable to 0."/>
-                    <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=UserName}" Content="_UserName" ToolTip="The User name used to login to the Internet Service Provider."/>
-                    <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=NATEnabled}" Content="_NATEnabled" ToolTip="Indicates if Network Address Translation (NAT) is enabled for this connection."/>
-                    <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=ExternalIPAddress}" Content="_ExternalIPAddress" ToolTip="This is the external IP address used by NAT for the connection."/>
-                    <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DNSServers}" Content="_DNSServers" ToolTip="Comma separated list of DNS servers configured on the WANPPPConnection."/>
-                    <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="The physical address of the WANPPPConnection if applicable"/>
-                    <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=ConnectionTrigger}" Content="_ConnectionTrigger" ToolTip="Defines the trigger used to establish the PPP connection."/>
-                    <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=LastAuthErrorInfo}" Content="_LastAuthErrorInfo"/>
-                    <Label Grid.Row="18" Grid.Column="0" Target="{Binding ElementName=MaxCharsUsername}" Content="_MaxCharsUsername"/>
-                    <Label Grid.Row="19" Grid.Column="0" Target="{Binding ElementName=MinCharsUsername}" Content="_MinCharsUsername"/>
-                    <Label Grid.Row="20" Grid.Column="0" Target="{Binding ElementName=AllowedCharsUsername}" Content="_AllowedCharsUsername"/>
-                    <Label Grid.Row="21" Grid.Column="0" Target="{Binding ElementName=MaxCharsPassword}" Content="_MaxCharsPassword"/>
-                    <Label Grid.Row="22" Grid.Column="0" Target="{Binding ElementName=MinCharsPassword}" Content="_MinCharsPassword"/>
-                    <Label Grid.Row="23" Grid.Column="0" Target="{Binding ElementName=AllowedCharsPassword}" Content="_AllowedCharsPassword"/>
-                    <Label Grid.Row="24" Grid.Column="0" Target="{Binding ElementName=TransportType}" Content="_TransportType" ToolTip="PPP Transport type of the WANPPPConnection."/>
-                    <Label Grid.Row="25" Grid.Column="0" Target="{Binding ElementName=RouteProtocolRx}" Content="_RouteProtocolRx" ToolTip="Defines the Rx protocol to be used."/>
-                    <Label Grid.Row="26" Grid.Column="0" Target="{Binding ElementName=PPPoEServiceName}" Content="_PPPoEServiceName" ToolTip="PPPoE Service Name. Not supported, returns ''"/>
-                    <Label Grid.Row="27" Grid.Column="0" Target="{Binding ElementName=RemoteIPAddress}" Content="_RemoteIPAddress" ToolTip="The remote IP address of the WANPPPConnection. Not supported, returns ''"/>
-                    <Label Grid.Row="28" Grid.Column="0" Target="{Binding ElementName=PPPoEACName}" Content="_PPPoEACName" ToolTip="PPPoE Access Concentrator Name."/>
-                    <Label Grid.Row="29" Grid.Column="0" Target="{Binding ElementName=DNSEnabled}" Content="_DNSEnabled" ToolTip="Defines whether or not the device should attempt to query a DNS server across this connection."/>
-                    <Label Grid.Row="30" Grid.Column="0" Target="{Binding ElementName=DNSOverrideAllowed}" Content="_DNSOverrideAllowed" ToolTip="Defines whether or not a manually set, 'non-zero' DNS address can be overridden by a DNS entry received from the WAN."/>
-                    <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
-                    <TextBlock x:Name="ConnectionStatus" Grid.Row="1" Grid.Column="1" Text="{Binding ConnectionStatus}"/>
-                    <TextBlock x:Name="PossibleConnectionTypes" Grid.Row="2" Grid.Column="1" Text="{Binding PossibleConnectionTypes}"/>
-                    <TextBlock x:Name="ConnectionType" Grid.Row="3" Grid.Column="1" Text="{Binding ConnectionType}"/>
-                    <TextBlock x:Name="Name" Grid.Row="4" Grid.Column="1" Text="{Binding Name}"/>
-                    <TextBlock x:Name="Uptime" Grid.Row="5" Grid.Column="1" Text="{Binding Uptime}"/>
-                    <TextBlock x:Name="UpstreamMaxBitRate" Grid.Row="6" Grid.Column="1" Text="{Binding UpstreamMaxBitRate}"/>
-                    <TextBlock x:Name="DownstreamMaxBitRate" Grid.Row="7" Grid.Column="1" Text="{Binding DownstreamMaxBitRate}"/>
-                    <TextBlock x:Name="LastConnectionError" Grid.Row="8" Grid.Column="1" Text="{Binding LastConnectionError}"/>
-                    <TextBlock x:Name="IdleDisconnectTime" Grid.Row="9" Grid.Column="1" Text="{Binding IdleDisconnectTime}"/>
-                    <TextBlock x:Name="RSIPAvailable" Grid.Row="10" Grid.Column="1" Text="{Binding RSIPAvailable}"/>
-                    <TextBlock x:Name="UserName" Grid.Row="11" Grid.Column="1" Text="{Binding UserName}"/>
-                    <TextBlock x:Name="NATEnabled" Grid.Row="12" Grid.Column="1" Text="{Binding NATEnabled}"/>
-                    <TextBlock x:Name="ExternalIPAddress" Grid.Row="13" Grid.Column="1" Text="{Binding ExternalIPAddress}"/>
-                    <TextBlock x:Name="DNSServers" Grid.Row="14" Grid.Column="1" Text="{Binding DNSServers}"/>
-                    <TextBlock x:Name="MACAddress" Grid.Row="15" Grid.Column="1" Text="{Binding MACAddress}"/>
-                    <TextBlock x:Name="ConnectionTrigger" Grid.Row="16" Grid.Column="1" Text="{Binding ConnectionTrigger}"/>
-                    <TextBlock x:Name="LastAuthErrorInfo" Grid.Row="17" Grid.Column="1" Text="{Binding LastAuthErrorInfo}"/>
-                    <TextBlock x:Name="MaxCharsUsername" Grid.Row="18" Grid.Column="1" Text="{Binding MaxCharsUsername}"/>
-                    <TextBlock x:Name="MinCharsUsername" Grid.Row="19" Grid.Column="1" Text="{Binding MinCharsUsername}"/>
-                    <TextBlock x:Name="AllowedCharsUsername" Grid.Row="20" Grid.Column="1" Text="{Binding AllowedCharsUsername}"/>
-                    <TextBlock x:Name="MaxCharsPassword" Grid.Row="21" Grid.Column="1" Text="{Binding MaxCharsPassword}"/>
-                    <TextBlock x:Name="MinCharsPassword" Grid.Row="22" Grid.Column="1" Text="{Binding MinCharsPassword}"/>
-                    <TextBlock x:Name="AllowedCharsPassword" Grid.Row="23" Grid.Column="1" Text="{Binding AllowedCharsPassword}"/>
-                    <TextBlock x:Name="TransportType" Grid.Row="24" Grid.Column="1" Text="{Binding TransportType}"/>
-                    <TextBlock x:Name="RouteProtocolRx" Grid.Row="25" Grid.Column="1" Text="{Binding RouteProtocolRx}"/>
-                    <TextBlock x:Name="PPPoEServiceName" Grid.Row="26" Grid.Column="1" Text="{Binding PPPoEServiceName}"/>
-                    <TextBlock x:Name="RemoteIPAddress" Grid.Row="27" Grid.Column="1" Text="{Binding RemoteIPAddress}"/>
-                    <TextBlock x:Name="PPPoEACName" Grid.Row="28" Grid.Column="1" Text="{Binding PPPoEACName}"/>
-                    <TextBlock x:Name="DNSEnabled" Grid.Row="29" Grid.Column="1" Text="{Binding DNSEnabled}"/>
-                    <TextBlock x:Name="DNSOverrideAllowed" Grid.Row="30" Grid.Column="1" Text="{Binding DNSOverrideAllowed}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Enable}" Content="_Enable" ToolTip="Enables or disables the connection."/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ConnectionStatus}" Content="_ConnectionStatus" ToolTip="Current status of an Internet connection. Possible values are Unconfigured, Connecting, Authenticating, Connected, PendingDisconnect, Disconnecting, Disconnected."/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=PossibleConnectionTypes}" Content="_PossibleConnectionTypes" ToolTip="The types of connections possible in the context of a specific modem and link type. Possible values are Unconfigured, IP_Routed, IP_Bridged, DHCP_Spoofed, PPPoE_Bridged, PPTP_Relay, L2TP_Relay, PPPoE_Relay."/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=ConnectionType}" Content="_ConnectionType" ToolTip="The connection type for a specific active connection."/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Name}" Content="_Name" ToolTip="Friendly Name of the connection. This name must be unique within the scope of the IGD."/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Uptime}" Content="_Uptime" ToolTip="The time in seconds that this connection has stayed up."/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=UpstreamMaxBitRate}" Content="_UpstreamMaxBitRate" ToolTip="The maximum upstream bit rate available to this connection instance. This variable has a static value once a connection is setup."/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=DownstreamMaxBitRate}" Content="_DownstreamMaxBitRate" ToolTip="The maximum downstream bit rate available to this connection instance. This variable has a static value once a connection is setup."/>
+            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=LastConnectionError}" Content="_LastConnectionError" ToolTip="Provides information about the cause of failure for the last connection setup attempt. Possible values are ERROR_NONE, ERROR_ISP_TIME_OUT, ERROR_COMMAND_ABORTED, ERROR_NOT_ENABLED_FOR_INTERNET, ERROR_BAD_PHONE_NUMBER, ERROR_USER_DISCONNECT, ERROR_ISP_DISCONNECT, ERROR_IDLE_DISCONNECT, ERROR_FORCED_DISCONNECT, ERROR_SERVER_OUT_OF_RESOURCES, ERROR_RESTRICTED_LOGON_HOURS, ERROR_ACCOUNT_DISABLED, ERROR_ACCOUNT_EXPIRED, ERROR_PASSWORD_EXPIRED, ERROR_AUTHENTICATION_FAILURE, ERROR_NO_DIALTONE, ERROR_NO_CARRIER, ERROR_NO_ANSWER, ERROR_LINE_BUSY, ERROR_UNSUPPORTED_BITSPERSECOND, ERROR_TOO_MANY_LINE_ERRORS, ERROR_IP_CONFIGURATION, ERROR_UNKNOWN."/>
+            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=IdleDisconnectTime}" Content="_IdleDisconnectTime" ToolTip="Represents the idle time of a connection in seconds (since the establishment of the connection), after which connection termination is initiated by the gateway. A value of zero for this variable allows infinite idle time – connection will not be terminated due to idle time."/>
+            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=RSIPAvailable}" Content="_RSIPAvailable" ToolTip="This variable indicates if Realm-specific IP (RSIP) is available as a feature on the InternetGatewayDevice. RSIP is being defined in the NAT working group in the IETF to allow host-NATing using a standard set of message exchanges. It also allows end-to-end applications that otherwise break if NAT is introduced (e.g. IPsec-based VPNs). A gateway that does not support RSIP should set this variable to 0."/>
+            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=UserName}" Content="_UserName" ToolTip="The User name used to login to the Internet Service Provider."/>
+            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=NATEnabled}" Content="_NATEnabled" ToolTip="Indicates if Network Address Translation (NAT) is enabled for this connection."/>
+            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=ExternalIPAddress}" Content="_ExternalIPAddress" ToolTip="This is the external IP address used by NAT for the connection."/>
+            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DNSServers}" Content="_DNSServers" ToolTip="Comma separated list of DNS servers configured on the WANPPPConnection."/>
+            <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="The physical address of the WANPPPConnection if applicable"/>
+            <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=ConnectionTrigger}" Content="_ConnectionTrigger" ToolTip="Defines the trigger used to establish the PPP connection."/>
+            <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=LastAuthErrorInfo}" Content="_LastAuthErrorInfo"/>
+            <Label Grid.Row="18" Grid.Column="0" Target="{Binding ElementName=MaxCharsUsername}" Content="_MaxCharsUsername"/>
+            <Label Grid.Row="19" Grid.Column="0" Target="{Binding ElementName=MinCharsUsername}" Content="_MinCharsUsername"/>
+            <Label Grid.Row="20" Grid.Column="0" Target="{Binding ElementName=AllowedCharsUsername}" Content="_AllowedCharsUsername"/>
+            <Label Grid.Row="21" Grid.Column="0" Target="{Binding ElementName=MaxCharsPassword}" Content="_MaxCharsPassword"/>
+            <Label Grid.Row="22" Grid.Column="0" Target="{Binding ElementName=MinCharsPassword}" Content="_MinCharsPassword"/>
+            <Label Grid.Row="23" Grid.Column="0" Target="{Binding ElementName=AllowedCharsPassword}" Content="_AllowedCharsPassword"/>
+            <Label Grid.Row="24" Grid.Column="0" Target="{Binding ElementName=TransportType}" Content="_TransportType" ToolTip="PPP Transport type of the WANPPPConnection."/>
+            <Label Grid.Row="25" Grid.Column="0" Target="{Binding ElementName=RouteProtocolRx}" Content="_RouteProtocolRx" ToolTip="Defines the Rx protocol to be used."/>
+            <Label Grid.Row="26" Grid.Column="0" Target="{Binding ElementName=PPPoEServiceName}" Content="_PPPoEServiceName" ToolTip="PPPoE Service Name. Not supported, returns ''"/>
+            <Label Grid.Row="27" Grid.Column="0" Target="{Binding ElementName=RemoteIPAddress}" Content="_RemoteIPAddress" ToolTip="The remote IP address of the WANPPPConnection. Not supported, returns ''"/>
+            <Label Grid.Row="28" Grid.Column="0" Target="{Binding ElementName=PPPoEACName}" Content="_PPPoEACName" ToolTip="PPPoE Access Concentrator Name."/>
+            <Label Grid.Row="29" Grid.Column="0" Target="{Binding ElementName=DNSEnabled}" Content="_DNSEnabled" ToolTip="Defines whether or not the device should attempt to query a DNS server across this connection."/>
+            <Label Grid.Row="30" Grid.Column="0" Target="{Binding ElementName=DNSOverrideAllowed}" Content="_DNSOverrideAllowed" ToolTip="Defines whether or not a manually set, 'non-zero' DNS address can be overridden by a DNS entry received from the WAN."/>
+            <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
+            <TextBlock x:Name="ConnectionStatus" Grid.Row="1" Grid.Column="1" Text="{Binding ConnectionStatus}"/>
+            <TextBlock x:Name="PossibleConnectionTypes" Grid.Row="2" Grid.Column="1" Text="{Binding PossibleConnectionTypes}"/>
+            <TextBlock x:Name="ConnectionType" Grid.Row="3" Grid.Column="1" Text="{Binding ConnectionType}"/>
+            <TextBlock x:Name="Name" Grid.Row="4" Grid.Column="1" Text="{Binding Name}"/>
+            <TextBlock x:Name="Uptime" Grid.Row="5" Grid.Column="1" Text="{Binding Uptime}"/>
+            <TextBlock x:Name="UpstreamMaxBitRate" Grid.Row="6" Grid.Column="1" Text="{Binding UpstreamMaxBitRate}"/>
+            <TextBlock x:Name="DownstreamMaxBitRate" Grid.Row="7" Grid.Column="1" Text="{Binding DownstreamMaxBitRate}"/>
+            <TextBlock x:Name="LastConnectionError" Grid.Row="8" Grid.Column="1" Text="{Binding LastConnectionError}"/>
+            <TextBlock x:Name="IdleDisconnectTime" Grid.Row="9" Grid.Column="1" Text="{Binding IdleDisconnectTime}"/>
+            <TextBlock x:Name="RSIPAvailable" Grid.Row="10" Grid.Column="1" Text="{Binding RSIPAvailable}"/>
+            <TextBlock x:Name="UserName" Grid.Row="11" Grid.Column="1" Text="{Binding UserName}"/>
+            <TextBlock x:Name="NATEnabled" Grid.Row="12" Grid.Column="1" Text="{Binding NATEnabled}"/>
+            <TextBlock x:Name="ExternalIPAddress" Grid.Row="13" Grid.Column="1" Text="{Binding ExternalIPAddress}"/>
+            <TextBlock x:Name="DNSServers" Grid.Row="14" Grid.Column="1" Text="{Binding DNSServers}"/>
+            <TextBlock x:Name="MACAddress" Grid.Row="15" Grid.Column="1" Text="{Binding MACAddress}"/>
+            <TextBlock x:Name="ConnectionTrigger" Grid.Row="16" Grid.Column="1" Text="{Binding ConnectionTrigger}"/>
+            <TextBlock x:Name="LastAuthErrorInfo" Grid.Row="17" Grid.Column="1" Text="{Binding LastAuthErrorInfo}"/>
+            <TextBlock x:Name="MaxCharsUsername" Grid.Row="18" Grid.Column="1" Text="{Binding MaxCharsUsername}"/>
+            <TextBlock x:Name="MinCharsUsername" Grid.Row="19" Grid.Column="1" Text="{Binding MinCharsUsername}"/>
+            <TextBlock x:Name="AllowedCharsUsername" Grid.Row="20" Grid.Column="1" Text="{Binding AllowedCharsUsername}"/>
+            <TextBlock x:Name="MaxCharsPassword" Grid.Row="21" Grid.Column="1" Text="{Binding MaxCharsPassword}"/>
+            <TextBlock x:Name="MinCharsPassword" Grid.Row="22" Grid.Column="1" Text="{Binding MinCharsPassword}"/>
+            <TextBlock x:Name="AllowedCharsPassword" Grid.Row="23" Grid.Column="1" Text="{Binding AllowedCharsPassword}"/>
+            <TextBlock x:Name="TransportType" Grid.Row="24" Grid.Column="1" Text="{Binding TransportType}"/>
+            <TextBlock x:Name="RouteProtocolRx" Grid.Row="25" Grid.Column="1" Text="{Binding RouteProtocolRx}"/>
+            <TextBlock x:Name="PPPoEServiceName" Grid.Row="26" Grid.Column="1" Text="{Binding PPPoEServiceName}"/>
+            <TextBlock x:Name="RemoteIPAddress" Grid.Row="27" Grid.Column="1" Text="{Binding RemoteIPAddress}"/>
+            <TextBlock x:Name="PPPoEACName" Grid.Row="28" Grid.Column="1" Text="{Binding PPPoEACName}"/>
+            <TextBlock x:Name="DNSEnabled" Grid.Row="29" Grid.Column="1" Text="{Binding DNSEnabled}"/>
+            <TextBlock x:Name="DNSOverrideAllowed" Grid.Row="30" Grid.Column="1" Text="{Binding DNSOverrideAllowed}"/>
+        </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:WanPppConnectionGetLinkLayerMaxBitRatesResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="LinkLayerMaxBitRates">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=UpstreamMaxBitRate}" Content="_UpstreamMaxBitRate" ToolTip="The maximum upstream bit rate available to this connection instance. This variable has a static value once a connection is setup."/>
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DownstreamMaxBitRate}" Content="_DownstreamMaxBitRate" ToolTip="The maximum downstream bit rate available to this connection instance. This variable has a static value once a connection is setup."/>
-                    <TextBlock x:Name="UpstreamMaxBitRate" Grid.Row="0" Grid.Column="1" Text="{Binding UpstreamMaxBitRate}"/>
-                    <TextBlock x:Name="DownstreamMaxBitRate" Grid.Row="1" Grid.Column="1" Text="{Binding DownstreamMaxBitRate}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=UpstreamMaxBitRate}" Content="_UpstreamMaxBitRate" ToolTip="The maximum upstream bit rate available to this connection instance. This variable has a static value once a connection is setup."/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DownstreamMaxBitRate}" Content="_DownstreamMaxBitRate" ToolTip="The maximum downstream bit rate available to this connection instance. This variable has a static value once a connection is setup."/>
+            <TextBlock x:Name="UpstreamMaxBitRate" Grid.Row="0" Grid.Column="1" Text="{Binding UpstreamMaxBitRate}"/>
+            <TextBlock x:Name="DownstreamMaxBitRate" Grid.Row="1" Grid.Column="1" Text="{Binding DownstreamMaxBitRate}"/>
+        </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:WanPppConnectionGetUserNameResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="UserName">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=UserName}" Content="_UserName" ToolTip="The User name used to login to the Internet Service Provider."/>
-                    <TextBlock x:Name="UserName" Grid.Row="0" Grid.Column="1" Text="{Binding UserName}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=UserName}" Content="_UserName" ToolTip="The User name used to login to the Internet Service Provider."/>
+            <TextBlock x:Name="UserName" Grid.Row="0" Grid.Column="1" Text="{Binding UserName}"/>
+        </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:WanPppConnectionGetAutoDisconnectTimeSpanResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="AutoDisconnectTimeSpan">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DisconnectPreventionEnable}" Content="_DisconnectPreventionEnable" ToolTip="Retrieves the value of the DisconnectPreventionEnable state variable."/>
-                    <TextBlock x:Name="DisconnectPreventionEnable" Grid.Row="0" Grid.Column="1" Text="{Binding DisconnectPreventionEnable}"/>
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DisconnectPreventionHour}" Content="_DisconnectPreventionHour" ToolTip="Retrieves the value of the DisconnectPreventionHour state variable (0-23)."/>
-                    <TextBlock x:Name="DisconnectPreventionHour" Grid.Row="1" Grid.Column="1" Text="{Binding DisconnectPreventionHour}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DisconnectPreventionEnable}" Content="_DisconnectPreventionEnable" ToolTip="Retrieves the value of the DisconnectPreventionEnable state variable."/>
+            <TextBlock x:Name="DisconnectPreventionEnable" Grid.Row="0" Grid.Column="1" Text="{Binding DisconnectPreventionEnable}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DisconnectPreventionHour}" Content="_DisconnectPreventionHour" ToolTip="Retrieves the value of the DisconnectPreventionHour state variable (0-23)."/>
+            <TextBlock x:Name="DisconnectPreventionHour" Grid.Row="1" Grid.Column="1" Text="{Binding DisconnectPreventionHour}"/>
+        </Grid>
     </DataTemplate>
 </ResourceDictionary>

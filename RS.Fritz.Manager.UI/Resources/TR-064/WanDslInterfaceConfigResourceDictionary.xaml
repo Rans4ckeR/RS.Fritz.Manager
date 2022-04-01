@@ -2,235 +2,89 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
     <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetDslDiagnoseInfoResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DSLDiagnoseInfo">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=CableNokDistance}" Content="_CableNokDistance"/>
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DSLActive}" Content="_DSLActive"/>
-                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DSLDiagnoseState}" Content="_DSLDiagnoseState" ToolTip="Possible values are NONE, NO_CALIB, RUNNING, DONE, DONE_CABLE_NOK, DONE_CABLE_OK."/>
-                    <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=DSLLastDiagnoseTime}" Content="_DSLLastDiagnoseTime"/>
-                    <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DSLSignalLossTime}" Content="_DSLSignalLossTime"/>
-                    <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=DSLSync}" Content="_DSLSync"/>
-                    <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status"/>
-                    <TextBlock x:Name="CableNokDistance" Grid.Row="0" Grid.Column="1" Text="{Binding CableNokDistance}"/>
-                    <TextBlock x:Name="DSLActive" Grid.Row="1" Grid.Column="1" Text="{Binding DSLActive}"/>
-                    <TextBlock x:Name="DSLDiagnoseState" Grid.Row="2" Grid.Column="1" Text="{Binding DSLDiagnoseState}"/>
-                    <TextBlock x:Name="DSLLastDiagnoseTime" Grid.Row="3" Grid.Column="1" Text="{Binding DSLLastDiagnoseTime}"/>
-                    <TextBlock x:Name="DSLSignalLossTime" Grid.Row="4" Grid.Column="1" Text="{Binding DSLSignalLossTime}"/>
-                    <TextBlock x:Name="DSLSync" Grid.Row="5" Grid.Column="1" Text="{Binding DSLSync}"/>
-                    <TextBlock x:Name="Status" Grid.Row="6" Grid.Column="1" Text="{Binding Status}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=CableNokDistance}" Content="_CableNokDistance"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DSLActive}" Content="_DSLActive"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DSLDiagnoseState}" Content="_DSLDiagnoseState" ToolTip="Possible values are NONE, NO_CALIB, RUNNING, DONE, DONE_CABLE_NOK, DONE_CABLE_OK."/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=DSLLastDiagnoseTime}" Content="_DSLLastDiagnoseTime"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DSLSignalLossTime}" Content="_DSLSignalLossTime"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=DSLSync}" Content="_DSLSync"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status"/>
+            <TextBlock x:Name="CableNokDistance" Grid.Row="0" Grid.Column="1" Text="{Binding CableNokDistance}"/>
+            <TextBlock x:Name="DSLActive" Grid.Row="1" Grid.Column="1" Text="{Binding DSLActive}"/>
+            <TextBlock x:Name="DSLDiagnoseState" Grid.Row="2" Grid.Column="1" Text="{Binding DSLDiagnoseState}"/>
+            <TextBlock x:Name="DSLLastDiagnoseTime" Grid.Row="3" Grid.Column="1" Text="{Binding DSLLastDiagnoseTime}"/>
+            <TextBlock x:Name="DSLSignalLossTime" Grid.Row="4" Grid.Column="1" Text="{Binding DSLSignalLossTime}"/>
+            <TextBlock x:Name="DSLSync" Grid.Row="5" Grid.Column="1" Text="{Binding DSLSync}"/>
+            <TextBlock x:Name="Status" Grid.Row="6" Grid.Column="1" Text="{Binding Status}"/>
+        </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetStatisticsTotalResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="StatisticsTotal">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ATUCCRCErrors}" Content="_ATUCCRCErrors" ToolTip="Total number of Cyclic Redundancy Check (CRC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ATUCFECErrors}" Content="_ATUCFECErrors" ToolTip="Total number of Forward Error Correction (FEC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
-                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=ATUCHECErrors}" Content="_ATUCHECErrors" ToolTip="Total number of Header Error Checksum (HEC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
-                    <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CellDelin}" Content="_CellDelin" ToolTip="Number of cell-delineation errors since the most recent DSL Showtime."/>
-                    <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=CRCErrors}" Content="_CRCErrors" ToolTip="Total number of Cyclic Redundancy Check (CRC) errors detected."/>
-                    <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=ErroredSecs}" Content="_ErroredSecs" ToolTip="Total number of errored seconds."/>
-                    <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=FECErrors}" Content="_FECErrors" ToolTip="Total number of Forward Error Correction (FEC) errors detected."/>
-                    <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=HECErrors}" Content="_HECErrors" ToolTip="Total number of Header Error Checksum (HEC) errors detected."/>
-                    <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=InitErrors}" Content="_InitErrors" ToolTip="Total number of initialization errors."/>
-                    <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=InitTimeouts}" Content="_InitTimeouts" ToolTip="Total number of initialization timeout errors."/>
-                    <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=LinkRetrain}" Content="_LinkRetrain" ToolTip="Total number of link-retrain errors."/>
-                    <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=LossOfFraming}" Content="_LossOfFraming" ToolTip="Total number of loss-of-framing errors."/>
-                    <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ReceiveBlocks}" Content="_ReceiveBlocks" ToolTip="Total number of successfully received superframes."/>
-                    <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=SeverelyErroredSecs}" Content="_SeverelyErroredSecs" ToolTip="Total number of severely errored seconds."/>
-                    <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=TransmitBlocks}" Content="_TransmitBlocks" ToolTip="Total number of successfully transmitted superframes."/>
-                    <TextBlock x:Name="ATUCCRCErrors" Grid.Row="0" Grid.Column="1" Text="{Binding ATUCCRCErrors}"/>
-                    <TextBlock x:Name="ATUCFECErrors" Grid.Row="1" Grid.Column="1" Text="{Binding ATUCFECErrors}"/>
-                    <TextBlock x:Name="ATUCHECErrors" Grid.Row="2" Grid.Column="1" Text="{Binding ATUCHECErrors}"/>
-                    <TextBlock x:Name="CellDelin" Grid.Row="3" Grid.Column="1" Text="{Binding CellDelin}"/>
-                    <TextBlock x:Name="CRCErrors" Grid.Row="4" Grid.Column="1" Text="{Binding CRCErrors}"/>
-                    <TextBlock x:Name="ErroredSecs" Grid.Row="5" Grid.Column="1" Text="{Binding ErroredSecs}"/>
-                    <TextBlock x:Name="FECErrors" Grid.Row="6" Grid.Column="1" Text="{Binding FECErrors}"/>
-                    <TextBlock x:Name="HECErrors" Grid.Row="7" Grid.Column="1" Text="{Binding HECErrors}"/>
-                    <TextBlock x:Name="InitErrors" Grid.Row="8" Grid.Column="1" Text="{Binding InitErrors}"/>
-                    <TextBlock x:Name="InitTimeouts" Grid.Row="9" Grid.Column="1" Text="{Binding InitTimeouts}"/>
-                    <TextBlock x:Name="LinkRetrain" Grid.Row="10" Grid.Column="1" Text="{Binding LinkRetrain}"/>
-                    <TextBlock x:Name="LossOfFraming" Grid.Row="11" Grid.Column="1" Text="{Binding LossOfFraming}"/>
-                    <TextBlock x:Name="ReceiveBlocks" Grid.Row="12" Grid.Column="1" Text="{Binding ReceiveBlocks}"/>
-                    <TextBlock x:Name="SeverelyErroredSecs" Grid.Row="13" Grid.Column="1" Text="{Binding SeverelyErroredSecs}"/>
-                    <TextBlock x:Name="TransmitBlocks" Grid.Row="14" Grid.Column="1" Text="{Binding TransmitBlocks}"/>
-                </Grid>
-            </Expander>
-        </Border>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetInfoResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Enable}" Content="_Enable" ToolTip="Enables or disables the link. Returns always 'true'."/>
-                    <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=LinkStatus}" Content="_LinkStatus" ToolTip="Status of the link. This parameter has been duplicated to WANDSLInterfaceConfig which models the DSL connection outside the WANConnectionDevice (this is required for multiple VP/VC support over one DSL link). Possible values are Up, Down, Initializing, Unavailable."/>
-                    <TextBlock x:Name="LinkStatus" Grid.Row="1" Grid.Column="1" Text="{Binding LinkStatus}"/>
-                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=LinkType}" Content="_LinkType" ToolTip="Indicates the type of DSL connection and refers to the complete stack of protocol used for this connection. Possible values are EoA, PPPoA (intern PPPoA with LLC), PPPoE, Unconfigured."/>
-                    <TextBlock x:Name="LinkType" Grid.Row="2" Grid.Column="1" Text="{Binding LinkType}"/>
-                    <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=DestinationAddress}" Content="_DestinationAddress" ToolTip="Destination address of this link. For PVC: VPI/VCI, for SVC: ATM connection name or ATM address."/>
-                    <TextBlock x:Name="DestinationAddress" Grid.Row="3" Grid.Column="1" Text="{Binding DestinationAddress}"/>
-                    <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=AtmEncapsulation}" Content="_AtmEncapsulation" ToolTip="Identifies the connection encapsulation that will be used. Possible values are LLC, VCMUX."/>
-                    <TextBlock x:Name="AtmEncapsulation" Grid.Row="4" Grid.Column="1" Text="{Binding AtmEncapsulation}"/>
-                    <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=AutoConfig}" Content="_AutoConfig" ToolTip="Indicates if the CPE is currently using some auto configuration mechanisms for this connection."/>
-                    <TextBlock x:Name="AutoConfig" Grid.Row="5" Grid.Column="1" Text="{Binding AutoConfig}"/>
-                    <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=AtmQos}" Content="_AtmQos" ToolTip="Describes the ATM Quality Of Service (QoS) being used on the PVC. Possible values are UBR, CBR, GFR, VBR-nrt, VBR-rt, UBR+, ABR."/>
-                    <TextBlock x:Name="AtmQos" Grid.Row="6" Grid.Column="1" Text="{Binding AtmQos}"/>
-                    <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=AtmPeakCellRate}" Content="_AtmPeakCellRate" ToolTip="Specifies the upstream peak cell rate in cells per second."/>
-                    <TextBlock x:Name="AtmPeakCellRate" Grid.Row="7" Grid.Column="1" Text="{Binding AtmPeakCellRate}"/>
-                    <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=AtmSustainableCellRate}" Content="_AtmSustainableCellRate" ToolTip="Specifies the upstream sustainable cell rate, in cells per second, used for traffic shaping."/>
-                    <TextBlock x:Name="AtmSustainableCellRate" Grid.Row="8" Grid.Column="1" Text="{Binding AtmSustainableCellRate}"/>
-                </Grid>
-            </Expander>
-        </Border>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetDslLinkInfoResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DslLinkInfo">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=LinkType}" Content="_LinkType" ToolTip="Indicates the type of DSL connection and refers to the complete stack of protocol used for this connection. Possible values are EoA, PPPoA (intern PPPoA with LLC), PPPoE, Unconfigured."/>
-                    <TextBlock x:Name="LinkType" Grid.Row="0" Grid.Column="1" Text="{Binding LinkType}"/>
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=LinkStatus}" Content="_LinkStatus" ToolTip="Status of the link. This parameter has been duplicated to WANDSLInterfaceConfig which models the DSL connection outside the WANConnectionDevice (this is required for multiple VP/VC support over one DSL link). Possible values are Up, Down, Initializing, Unavailable."/>
-                    <TextBlock x:Name="LinkStatus" Grid.Row="1" Grid.Column="1" Text="{Binding LinkStatus}"/>
-                </Grid>
-            </Expander>
-        </Border>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetDestinationAddressResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DestinationAddress">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DestinationAddress}" Content="_DestinationAddress" ToolTip="Destination address of this link. For PVC: VPI/VCI, for SVC: ATM connection name or ATM address."/>
-                    <TextBlock x:Name="DestinationAddress" Grid.Row="0" Grid.Column="1" Text="{Binding DestinationAddress}"/>
-                </Grid>
-            </Expander>
-        </Border>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetAtmEncapsulationResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="AtmEncapsulation">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AtmEncapsulation}" Content="_AtmEncapsulation" ToolTip="Identifies the connection encapsulation that will be used. Possible values are LLC, VCMUX."/>
-                    <TextBlock x:Name="AtmEncapsulation" Grid.Row="0" Grid.Column="1" Text="{Binding AtmEncapsulation}"/>
-                </Grid>
-            </Expander>
-        </Border>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetAutoConfigResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="AutoConfig">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AutoConfig}" Content="_AutoConfig" ToolTip="Indicates if the CPE is currently using some auto configuration mechanisms for this connection."/>
-                    <TextBlock x:Name="AutoConfig" Grid.Row="0" Grid.Column="1" Text="{Binding AutoConfig}"/>
-                </Grid>
-            </Expander>
-        </Border>
-    </DataTemplate>
-    <DataTemplate DataType="{x:Type api:WanDslLinkConfigGetStatisticsResponse}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Statistics">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AtmTransmittedBlocks}" Content="_AtmTransmittedBlocks" ToolTip="The current count of successfully transmitted blocks."/>
-                    <TextBlock x:Name="AtmTransmittedBlocks" Grid.Row="0" Grid.Column="1" Text="{Binding AtmTransmittedBlocks}"/>
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=AtmReceivedBlocks}" Content="_AtmReceivedBlocks" ToolTip="The current count of successfully received blocks."/>
-                    <TextBlock x:Name="AtmReceivedBlocks" Grid.Row="1" Grid.Column="1" Text="{Binding AtmReceivedBlocks}"/>
-                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Aal5CrcErrors}" Content="_Aal5CrcErrors" ToolTip="Count of the AAL5 layer cyclic redundancy check errors."/>
-                    <TextBlock x:Name="Aal5CrcErrors" Grid.Row="2" Grid.Column="1" Text="{Binding Aal5CrcErrors}"/>
-                    <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=AtmCrcErrors}" Content="_AtmCrcErrors" ToolTip="Count of the ATM layer cyclic redundancy check errors."/>
-                    <TextBlock x:Name="AtmCrcErrors" Grid.Row="3" Grid.Column="1" Text="{Binding AtmCrcErrors}"/>
-                </Grid>
-            </Expander>
-        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ATUCCRCErrors}" Content="_ATUCCRCErrors" ToolTip="Total number of Cyclic Redundancy Check (CRC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ATUCFECErrors}" Content="_ATUCFECErrors" ToolTip="Total number of Forward Error Correction (FEC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=ATUCHECErrors}" Content="_ATUCHECErrors" ToolTip="Total number of Header Error Checksum (HEC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CellDelin}" Content="_CellDelin" ToolTip="Number of cell-delineation errors since the most recent DSL Showtime."/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=CRCErrors}" Content="_CRCErrors" ToolTip="Total number of Cyclic Redundancy Check (CRC) errors detected."/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=ErroredSecs}" Content="_ErroredSecs" ToolTip="Total number of errored seconds."/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=FECErrors}" Content="_FECErrors" ToolTip="Total number of Forward Error Correction (FEC) errors detected."/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=HECErrors}" Content="_HECErrors" ToolTip="Total number of Header Error Checksum (HEC) errors detected."/>
+            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=InitErrors}" Content="_InitErrors" ToolTip="Total number of initialization errors."/>
+            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=InitTimeouts}" Content="_InitTimeouts" ToolTip="Total number of initialization timeout errors."/>
+            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=LinkRetrain}" Content="_LinkRetrain" ToolTip="Total number of link-retrain errors."/>
+            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=LossOfFraming}" Content="_LossOfFraming" ToolTip="Total number of loss-of-framing errors."/>
+            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ReceiveBlocks}" Content="_ReceiveBlocks" ToolTip="Total number of successfully received superframes."/>
+            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=SeverelyErroredSecs}" Content="_SeverelyErroredSecs" ToolTip="Total number of severely errored seconds."/>
+            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=TransmitBlocks}" Content="_TransmitBlocks" ToolTip="Total number of successfully transmitted superframes."/>
+            <TextBlock x:Name="ATUCCRCErrors" Grid.Row="0" Grid.Column="1" Text="{Binding ATUCCRCErrors}"/>
+            <TextBlock x:Name="ATUCFECErrors" Grid.Row="1" Grid.Column="1" Text="{Binding ATUCFECErrors}"/>
+            <TextBlock x:Name="ATUCHECErrors" Grid.Row="2" Grid.Column="1" Text="{Binding ATUCHECErrors}"/>
+            <TextBlock x:Name="CellDelin" Grid.Row="3" Grid.Column="1" Text="{Binding CellDelin}"/>
+            <TextBlock x:Name="CRCErrors" Grid.Row="4" Grid.Column="1" Text="{Binding CRCErrors}"/>
+            <TextBlock x:Name="ErroredSecs" Grid.Row="5" Grid.Column="1" Text="{Binding ErroredSecs}"/>
+            <TextBlock x:Name="FECErrors" Grid.Row="6" Grid.Column="1" Text="{Binding FECErrors}"/>
+            <TextBlock x:Name="HECErrors" Grid.Row="7" Grid.Column="1" Text="{Binding HECErrors}"/>
+            <TextBlock x:Name="InitErrors" Grid.Row="8" Grid.Column="1" Text="{Binding InitErrors}"/>
+            <TextBlock x:Name="InitTimeouts" Grid.Row="9" Grid.Column="1" Text="{Binding InitTimeouts}"/>
+            <TextBlock x:Name="LinkRetrain" Grid.Row="10" Grid.Column="1" Text="{Binding LinkRetrain}"/>
+            <TextBlock x:Name="LossOfFraming" Grid.Row="11" Grid.Column="1" Text="{Binding LossOfFraming}"/>
+            <TextBlock x:Name="ReceiveBlocks" Grid.Row="12" Grid.Column="1" Text="{Binding ReceiveBlocks}"/>
+            <TextBlock x:Name="SeverelyErroredSecs" Grid.Row="13" Grid.Column="1" Text="{Binding SeverelyErroredSecs}"/>
+            <TextBlock x:Name="TransmitBlocks" Grid.Row="14" Grid.Column="1" Text="{Binding TransmitBlocks}"/>
+        </Grid>
     </DataTemplate>
 </ResourceDictionary>
