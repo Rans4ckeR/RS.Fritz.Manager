@@ -728,6 +728,46 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.GetTr069FirmwareDownloadEnabledAsync(default));
     }
 
+    public Task<ManagementServerSetManagementServerUrlResponse> ManagementServerSetManagementServerUrlAsync(InternetGatewayDevice internetGatewayDevice, string url)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetManagementServerUrlAsync(new ManagementServerSetManagementServerUrlRequest(url)));
+    }
+
+    public Task<ManagementServerSetManagementServerUsernameResponse> ManagementServerSetManagementServerUsernameAsync(InternetGatewayDevice internetGatewayDevice, string username)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetManagementServerUsernameAsync(new ManagementServerSetManagementServerUsernameRequest(username)));
+    }
+
+    public Task<ManagementServerSetManagementServerPasswordResponse> ManagementServerSetManagementServerPasswordAsync(InternetGatewayDevice internetGatewayDevice, string password)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetManagementServerPasswordAsync(new ManagementServerSetManagementServerPasswordRequest(password)));
+    }
+
+    public Task<ManagementServerSetPeriodicInformResponse> ManagementServerSetPeriodicInformAsync(InternetGatewayDevice internetGatewayDevice, bool periodicInformEnable, ushort periodicInformInterval, DateTime periodicInformTime)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetPeriodicInformAsync(new ManagementServerSetPeriodicInformRequest(periodicInformEnable, periodicInformInterval, periodicInformTime)));
+    }
+
+    public Task<ManagementServerSetConnectionRequestAuthenticationResponse> ManagementServerSetConnectionRequestAuthenticationAsync(InternetGatewayDevice internetGatewayDevice, string connectionRequestUsername, string connectionRequestPassword)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetConnectionRequestAuthenticationAsync(new ManagementServerSetConnectionRequestAuthenticationRequest(connectionRequestUsername, connectionRequestPassword)));
+    }
+
+    public Task<ManagementServerSetUpgradeManagementResponse> ManagementServerSetUpgradeManagementAsync(InternetGatewayDevice internetGatewayDevice, bool upgradesManaged)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetUpgradeManagementAsync(new ManagementServerSetUpgradeManagementRequest(upgradesManaged)));
+    }
+
+    public Task<ManagementServerSetTr069EnableResponse> ManagementServerSetTr069EnableAsync(InternetGatewayDevice internetGatewayDevice, bool tr069Enabled)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetTr069EnableAsync(new ManagementServerSetTr069EnableRequest(tr069Enabled)));
+    }
+
+    public Task<ManagementServerSetTr069FirmwareDownloadEnabledResponse> ManagementServerSetTr069FirmwareDownloadEnabledAsync(InternetGatewayDevice internetGatewayDevice, bool tr069FirmwareDownloadEnabled)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetTr069FirmwareDownloadEnabledAsync(new ManagementServerSetTr069FirmwareDownloadEnabledRequest(tr069FirmwareDownloadEnabled)));
+    }
+
     private static T GetFritzServiceClient<T>(InternetGatewayDevice internetGatewayDevice, IClientFactory<T> clientFactory, Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createService, string controlUrl, bool secure = true)
     {
         return clientFactory.Build(createService, internetGatewayDevice.PreferredLocation, secure, controlUrl, secure ? internetGatewayDevice.SecurityPort : null, internetGatewayDevice.NetworkCredential);

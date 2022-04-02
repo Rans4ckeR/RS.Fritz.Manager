@@ -146,8 +146,8 @@ static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, IC
   * ✅ GetExternalIPAddress
   * ❌ SetRouteProtocolRx
   * ❌ SetIdleDisconnectTime
-  * ✅ X_AVM_DE_GetAutoDisconnectTimeSpan
-  * ❌ X_AVM_DE_SetAutoDisconnectTimeSpan
+  * ✅ X_AVM-DE_GetAutoDisconnectTimeSpan
+  * ❌ X_AVM-DE_SetAutoDisconnectTimeSpan
 * ✅ urn:dslforum-org:service:WANCommonInterfaceConfig
   * ✅ GetCommonLinkProperties
   * ✅ GetTotalBytesSent
@@ -288,17 +288,17 @@ static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, IC
   * ✅ SetConfigPassword
   * ✅ X_AVM-DE_GetUserList
 * ❌ urn:dslforum-org:service:X_AVM-DE_AppSetup
-* 🔶 urn:dslforum-org:service:ManagementServer
+* ✅ urn:dslforum-org:service:ManagementServer
   * ✅ GetInfo
-  * ❌ SetManagementServerURL
-  * ❌ SetManagementServerUsername
-  * ❌ SetManagementServerPassword
-  * ❌ SetPeriodicInform
-  * ❌ SetConnectionRequestAuthentication
-  * ❌ SetUpgradeManagement
-  * ❌ X_SetTR069Enable
-  * ✅ X_AVM_DE_GetTR069FirmwareDownloadEnabled
-  * ❌ X_AVM_DE_SetTR069FirmwareDownloadEnabled
+  * ✅ SetManagementServerURL
+  * ✅ SetManagementServerUsername
+  * ✅ SetManagementServerPassword
+  * ✅ SetPeriodicInform
+  * ✅ SetConnectionRequestAuthentication
+  * ✅ SetUpgradeManagement
+  * ✅ X_SetTR069Enable
+  * ✅ X_AVM-DE_GetTR069FirmwareDownloadEnabled
+  * ✅ X_AVM-DE_SetTR069FirmwareDownloadEnabled
 * ❌ urn:dslforum-org:service:X_AVM-DE_Auth
 * ❌ urn:dslforum-org:service:Time
 * ❌ urn:dslforum-org:service:UserInterface

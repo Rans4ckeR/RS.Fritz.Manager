@@ -412,6 +412,46 @@ public static class InternetGatewayDeviceExtensions
         return internetGatewayDevice.ExecuteAsync((h, d) => h.ManagementServerGetTr069FirmwareDownloadEnabledAsync(d));
     }
 
+    public static Task<ManagementServerSetManagementServerUrlResponse> ManagementServerSetManagementServerUrlAsync(this InternetGatewayDevice internetGatewayDevice, string url)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.ManagementServerSetManagementServerUrlAsync(d, url));
+    }
+
+    public static Task<ManagementServerSetManagementServerUsernameResponse> ManagementServerSetManagementServerUsernameAsync(this InternetGatewayDevice internetGatewayDevice, string username)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.ManagementServerSetManagementServerUsernameAsync(d, username));
+    }
+
+    public static Task<ManagementServerSetManagementServerPasswordResponse> ManagementServerSetManagementServerPasswordAsync(this InternetGatewayDevice internetGatewayDevice, string password)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.ManagementServerSetManagementServerPasswordAsync(d, password));
+    }
+
+    public static Task<ManagementServerSetPeriodicInformResponse> ManagementServerSetPeriodicInformAsync(this InternetGatewayDevice internetGatewayDevice, bool periodicInformEnable, ushort periodicInformInterval, DateTime periodicInformTime)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.ManagementServerSetPeriodicInformAsync(d, periodicInformEnable, periodicInformInterval, periodicInformTime));
+    }
+
+    public static Task<ManagementServerSetConnectionRequestAuthenticationResponse> ManagementServerSetConnectionRequestAuthenticationAsync(InternetGatewayDevice internetGatewayDevice, string connectionRequestUsername, string connectionRequestPassword)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.ManagementServerSetConnectionRequestAuthenticationAsync(d, connectionRequestUsername, connectionRequestPassword));
+    }
+
+    public static Task<ManagementServerSetUpgradeManagementResponse> ManagementServerSetUpgradeManagementAsync(this InternetGatewayDevice internetGatewayDevice, bool upgradesManaged)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.ManagementServerSetUpgradeManagementAsync(d, upgradesManaged));
+    }
+
+    public static Task<ManagementServerSetTr069EnableResponse> ManagementServerSetTr069EnableAsync(this InternetGatewayDevice internetGatewayDevice, bool tr069Enabled)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.ManagementServerSetTr069EnableAsync(d, tr069Enabled));
+    }
+
+    public static Task<ManagementServerSetTr069FirmwareDownloadEnabledResponse> ManagementServerSetTr069FirmwareDownloadEnabledAsync(this InternetGatewayDevice internetGatewayDevice, bool tr069FirmwareDownloadEnabled)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.ManagementServerSetTr069FirmwareDownloadEnabledAsync(d, tr069FirmwareDownloadEnabled));
+    }
+
     private static Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> GetWlanOperation<T>(
         int interfaceNumber,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface1Operation,

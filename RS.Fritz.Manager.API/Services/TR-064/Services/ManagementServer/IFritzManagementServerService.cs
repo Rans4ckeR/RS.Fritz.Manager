@@ -13,4 +13,44 @@ internal interface IFritzManagementServerService
     [FaultContract(typeof(UPnPFault1))]
     [FaultContract(typeof(UPnPFault2))]
     public Task<ManagementServerGetTr069FirmwareDownloadEnabledResponse> GetTr069FirmwareDownloadEnabledAsync(ManagementServerGetTr069FirmwareDownloadEnabledRequest managementServerGetTr069FirmwareDownloadEnabledRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:ManagementServer:1#SetManagementServerURL")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    public Task<ManagementServerSetManagementServerUrlResponse> SetManagementServerUrlAsync(ManagementServerSetManagementServerUrlRequest managementServerSetManagementServerUrlRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:ManagementServer:1#SetManagementServerUsername")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    public Task<ManagementServerSetManagementServerUsernameResponse> SetManagementServerUsernameAsync(ManagementServerSetManagementServerUsernameRequest managementServerSetManagementServerUsernameRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:ManagementServer:1#SetManagementServerPassword")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    public Task<ManagementServerSetManagementServerPasswordResponse> SetManagementServerPasswordAsync(ManagementServerSetManagementServerPasswordRequest managementServerSetManagementServerPasswordRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:ManagementServer:1#SetPeriodicInform")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    public Task<ManagementServerSetPeriodicInformResponse> SetPeriodicInformAsync(ManagementServerSetPeriodicInformRequest managementServerSetPeriodicInformRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:ManagementServer:1#SetConnectionRequestAuthentication")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    public Task<ManagementServerSetConnectionRequestAuthenticationResponse> SetConnectionRequestAuthenticationAsync(ManagementServerSetConnectionRequestAuthenticationRequest managementServerSetConnectionRequestAuthenticationRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:ManagementServer:1#SetUpgradeManagement")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    public Task<ManagementServerSetUpgradeManagementResponse> SetUpgradeManagementAsync(ManagementServerSetUpgradeManagementRequest managementServerSetUpgradeManagementRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:ManagementServer:1#X_SetTR069Enable")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    public Task<ManagementServerSetTr069EnableResponse> SetTr069EnableAsync(ManagementServerSetTr069EnableRequest managementServerSetTr069EnableRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:ManagementServer:1#X_AVM-DE_SetTR069FirmwareDownloadEnabled")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    public Task<ManagementServerSetTr069FirmwareDownloadEnabledResponse> SetTr069FirmwareDownloadEnabledAsync(ManagementServerSetTr069FirmwareDownloadEnabledRequest managementServerSetTr069FirmwareDownloadEnabledRequest);
 }
