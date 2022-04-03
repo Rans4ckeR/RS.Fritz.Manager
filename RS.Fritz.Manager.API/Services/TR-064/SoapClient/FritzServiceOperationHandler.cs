@@ -21,6 +21,7 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
     private readonly IClientFactory<IFritzWlanConfiguration2Service> fritzWlanConfiguration2ServiceClientFactory;
     private readonly IClientFactory<IFritzWlanConfiguration3Service> fritzWlanConfiguration3ServiceClientFactory;
     private readonly IClientFactory<IFritzWlanConfiguration4Service> fritzWlanConfiguration4ServiceClientFactory;
+    private readonly IClientFactory<IFritzManagementServerService> fritzManagementServerServiceClientFactory;
 
     public FritzServiceOperationHandler(
         IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,
@@ -39,7 +40,8 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         IClientFactory<IFritzWlanConfiguration1Service> fritzWlanConfiguration1ServiceClientFactory,
         IClientFactory<IFritzWlanConfiguration2Service> fritzWlanConfiguration2ServiceClientFactory,
         IClientFactory<IFritzWlanConfiguration3Service> fritzWlanConfiguration3ServiceClientFactory,
-        IClientFactory<IFritzWlanConfiguration4Service> fritzWlanConfiguration4ServiceClientFactory)
+        IClientFactory<IFritzWlanConfiguration4Service> fritzWlanConfiguration4ServiceClientFactory,
+        IClientFactory<IFritzManagementServerService> fritzManagementServerServiceClientFactory)
     {
         this.fritzHostsServiceClientFactory = fritzHostsServiceClientFactory;
         this.fritzWanCommonInterfaceConfigServiceClientFactory = fritzWanCommonInterfaceConfigServiceClientFactory;
@@ -58,6 +60,7 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         this.fritzWlanConfiguration2ServiceClientFactory = fritzWlanConfiguration2ServiceClientFactory;
         this.fritzWlanConfiguration3ServiceClientFactory = fritzWlanConfiguration3ServiceClientFactory;
         this.fritzWlanConfiguration4ServiceClientFactory = fritzWlanConfiguration4ServiceClientFactory;
+        this.fritzManagementServerServiceClientFactory = fritzManagementServerServiceClientFactory;
     }
 
     public Task<HostsGetHostNumberOfEntriesResponse> HostsGetHostNumberOfEntriesAsync(InternetGatewayDevice internetGatewayDevice)
@@ -70,9 +73,9 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzHostsServiceClientFactory, (q, r, t) => new FritzHostsService(q, r, t!), FritzHostsService.ControlUrl), q => q.GetHostListPathAsync(default));
     }
 
-    public Task<HostsGetGenericHostEntryResponse> HostsGetGenericHostEntryAsync(InternetGatewayDevice internetGatewayDevice, ushort index)
+    public Task<HostsGetGenericHostEntryResponse> HostsGetGenericHostEntryAsync(InternetGatewayDevice internetGatewayDevice, HostsGetGenericHostEntryRequest hostsGetGenericHostEntryRequest)
     {
-        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzHostsServiceClientFactory, (q, r, t) => new FritzHostsService(q, r, t!), FritzHostsService.ControlUrl), q => q.GetGenericHostEntryAsync(new HostsGetGenericHostEntryRequest { Index = index }));
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzHostsServiceClientFactory, (q, r, t) => new FritzHostsService(q, r, t!), FritzHostsService.ControlUrl), q => q.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest));
     }
 
     public Task<HostsGetChangeCounterResponse> HostsGetChangeCounterAsync(InternetGatewayDevice internetGatewayDevice)
@@ -110,14 +113,14 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanCommonInterfaceConfigServiceClientFactory, (q, r, t) => new FritzWanCommonInterfaceConfigService(q, r, t!), FritzWanCommonInterfaceConfigService.ControlUrl), q => q.GetTotalPacketsSentAsync(default));
     }
 
-    public Task<WanCommonInterfaceConfigGetOnlineMonitorResponse> WanCommonInterfaceConfigGetOnlineMonitorAsync(InternetGatewayDevice internetGatewayDevice, uint syncGroupIndex)
+    public Task<WanCommonInterfaceConfigGetOnlineMonitorResponse> WanCommonInterfaceConfigGetOnlineMonitorAsync(InternetGatewayDevice internetGatewayDevice, WanCommonInterfaceConfigGetOnlineMonitorRequest wanCommonInterfaceConfigGetOnlineMonitorRequest)
     {
-        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanCommonInterfaceConfigServiceClientFactory, (q, r, t) => new FritzWanCommonInterfaceConfigService(q, r, t!), FritzWanCommonInterfaceConfigService.ControlUrl), q => q.GetOnlineMonitorAsync(new WanCommonInterfaceConfigGetOnlineMonitorRequest { SyncGroupIndex = syncGroupIndex }));
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanCommonInterfaceConfigServiceClientFactory, (q, r, t) => new FritzWanCommonInterfaceConfigService(q, r, t!), FritzWanCommonInterfaceConfigService.ControlUrl), q => q.GetOnlineMonitorAsync(wanCommonInterfaceConfigGetOnlineMonitorRequest));
     }
 
-    public Task<WanCommonInterfaceConfigSetWanAccessTypeResponse> WanCommonInterfaceConfigSetWanAccessTypeAsync(InternetGatewayDevice internetGatewayDevice, string accessType)
+    public Task<WanCommonInterfaceConfigSetWanAccessTypeResponse> WanCommonInterfaceConfigSetWanAccessTypeAsync(InternetGatewayDevice internetGatewayDevice, WanCommonInterfaceConfigSetWanAccessTypeRequest wanCommonInterfaceConfigSetWanAccessTypeRequest)
     {
-        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanCommonInterfaceConfigServiceClientFactory, (q, r, t) => new FritzWanCommonInterfaceConfigService(q, r, t!), FritzWanCommonInterfaceConfigService.ControlUrl), q => q.SetWanAccessTypeAsync(new WanCommonInterfaceConfigSetWanAccessTypeRequest { AccessType = accessType }));
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanCommonInterfaceConfigServiceClientFactory, (q, r, t) => new FritzWanCommonInterfaceConfigService(q, r, t!), FritzWanCommonInterfaceConfigService.ControlUrl), q => q.SetWanAccessTypeAsync(wanCommonInterfaceConfigSetWanAccessTypeRequest));
     }
 
     public Task<DeviceInfoGetInfoResponse> DeviceInfoGetInfoAsync(InternetGatewayDevice internetGatewayDevice)
@@ -135,9 +138,9 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzDeviceInfoServiceClientFactory, (q, r, t) => new FritzDeviceInfoService(q, r, t), FritzDeviceInfoService.ControlUrl, false), q => q.GetSecurityPortAsync(default));
     }
 
-    public Task<DeviceInfoSetProvisioningCodeResponse> DeviceInfoSetProvisioningCodeAsync(InternetGatewayDevice internetGatewayDevice, string provisioningCode)
+    public Task<DeviceInfoSetProvisioningCodeResponse> DeviceInfoSetProvisioningCodeAsync(InternetGatewayDevice internetGatewayDevice, DeviceInfoSetProvisioningCodeRequest deviceInfoSetProvisioningCodeRequest)
     {
-        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzDeviceInfoServiceClientFactory, (q, r, t) => new FritzDeviceInfoService(q, r, t), FritzDeviceInfoService.ControlUrl), q => q.SetProvisioningCodeAsync(new DeviceInfoSetProvisioningCodeRequest { ProvisioningCode = provisioningCode }));
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzDeviceInfoServiceClientFactory, (q, r, t) => new FritzDeviceInfoService(q, r, t), FritzDeviceInfoService.ControlUrl), q => q.SetProvisioningCodeAsync(deviceInfoSetProvisioningCodeRequest));
     }
 
     public Task<LanConfigSecurityGetAnonymousLoginResponse> LanConfigSecurityGetAnonymousLoginAsync(InternetGatewayDevice internetGatewayDevice)
@@ -160,9 +163,9 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanConfigSecurityServiceClientFactory, (q, r, t) => new FritzLanConfigSecurityService(q, r, t), FritzLanConfigSecurityService.ControlUrl), q => q.GetUserListAsync(default));
     }
 
-    public Task<LanConfigSecuritySetConfigPasswordResponse> LanConfigSecuritySetConfigPasswordAsync(InternetGatewayDevice internetGatewayDevice, string password)
+    public Task<LanConfigSecuritySetConfigPasswordResponse> LanConfigSecuritySetConfigPasswordAsync(InternetGatewayDevice internetGatewayDevice, LanConfigSecuritySetConfigPasswordRequest lanConfigSecuritySetConfigPasswordRequest)
     {
-        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanConfigSecurityServiceClientFactory, (q, r, t) => new FritzLanConfigSecurityService(q, r, t), FritzLanConfigSecurityService.ControlUrl), q => q.SetConfigPasswordAsync(new LanConfigSecuritySetConfigPasswordRequest { Password = password }));
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLanConfigSecurityServiceClientFactory, (q, r, t) => new FritzLanConfigSecurityService(q, r, t), FritzLanConfigSecurityService.ControlUrl), q => q.SetConfigPasswordAsync(lanConfigSecuritySetConfigPasswordRequest));
     }
 
     public Task<Layer3ForwardingGetDefaultConnectionServiceResponse> Layer3ForwardingGetDefaultConnectionServiceAsync(InternetGatewayDevice internetGatewayDevice)
@@ -175,9 +178,9 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLayer3ForwardingServiceClientFactory, (q, r, t) => new FritzLayer3ForwardingService(q, r, t!), FritzLayer3ForwardingService.ControlUrl), q => q.GetForwardNumberOfEntriesAsync(default));
     }
 
-    public Task<Layer3ForwardingGetGenericForwardingEntryResponse> Layer3ForwardingGetGenericForwardingEntryAsync(InternetGatewayDevice internetGatewayDevice, ushort forwardingIndex)
+    public Task<Layer3ForwardingGetGenericForwardingEntryResponse> Layer3ForwardingGetGenericForwardingEntryAsync(InternetGatewayDevice internetGatewayDevice, Layer3ForwardingGetGenericForwardingEntryRequest layer3ForwardingGetGenericForwardingEntryRequest)
     {
-        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLayer3ForwardingServiceClientFactory, (q, r, t) => new FritzLayer3ForwardingService(q, r, t!), FritzLayer3ForwardingService.ControlUrl), q => q.GetGenericForwardingEntryAsync(new Layer3ForwardingGetGenericForwardingEntryRequest(forwardingIndex)));
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzLayer3ForwardingServiceClientFactory, (q, r, t) => new FritzLayer3ForwardingService(q, r, t!), FritzLayer3ForwardingService.ControlUrl), q => q.GetGenericForwardingEntryAsync(layer3ForwardingGetGenericForwardingEntryRequest));
     }
 
     public Task<WanDslInterfaceConfigGetDslDiagnoseInfoResponse> WanDslInterfaceConfigGetDslDiagnoseInfoAsync(InternetGatewayDevice internetGatewayDevice)
@@ -235,9 +238,9 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanIpConnectionServiceClientFactory, (q, r, t) => new FritzWanIpConnectionService(q, r, t!), FritzWanIpConnectionService.ControlUrl), q => q.GetExternalIpAddressAsync(default));
     }
 
-    public Task<WanConnectionGetGenericPortMappingEntryResponse> WanIpConnectionGetGenericPortMappingEntryAsync(InternetGatewayDevice internetGatewayDevice, ushort portMappingIndex)
+    public Task<WanConnectionGetGenericPortMappingEntryResponse> WanIpConnectionGetGenericPortMappingEntryAsync(InternetGatewayDevice internetGatewayDevice, WanConnectionGetGenericPortMappingEntryRequest wanConnectionGetGenericPortMappingEntryRequest)
     {
-        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanIpConnectionServiceClientFactory, (q, r, t) => new FritzWanIpConnectionService(q, r, t!), FritzWanIpConnectionService.ControlUrl), q => q.GetGenericPortMappingEntryAsync(new WanConnectionGetGenericPortMappingEntryRequest(portMappingIndex)));
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanIpConnectionServiceClientFactory, (q, r, t) => new FritzWanIpConnectionService(q, r, t!), FritzWanIpConnectionService.ControlUrl), q => q.GetGenericPortMappingEntryAsync(wanConnectionGetGenericPortMappingEntryRequest));
     }
 
     public Task<WanPppConnectionGetInfoResponse> WanPppConnectionGetInfoAsync(InternetGatewayDevice internetGatewayDevice)
@@ -290,9 +293,9 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanPppConnectionServiceClientFactory, (q, r, t) => new FritzWanPppConnectionService(q, r, t!), FritzWanPppConnectionService.ControlUrl), q => q.GetAutoDisconnectTimeSpanAsync(default));
     }
 
-    public Task<WanConnectionGetGenericPortMappingEntryResponse> WanPppConnectionGetGenericPortMappingEntryAsync(InternetGatewayDevice internetGatewayDevice, ushort portMappingIndex)
+    public Task<WanConnectionGetGenericPortMappingEntryResponse> WanPppConnectionGetGenericPortMappingEntryAsync(InternetGatewayDevice internetGatewayDevice, WanConnectionGetGenericPortMappingEntryRequest wanConnectionGetGenericPortMappingEntryRequest)
     {
-        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanPppConnectionServiceClientFactory, (q, r, t) => new FritzWanPppConnectionService(q, r, t!), FritzWanPppConnectionService.ControlUrl), q => q.GetGenericPortMappingEntryAsync(new WanConnectionGetGenericPortMappingEntryRequest(portMappingIndex)));
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanPppConnectionServiceClientFactory, (q, r, t) => new FritzWanPppConnectionService(q, r, t!), FritzWanPppConnectionService.ControlUrl), q => q.GetGenericPortMappingEntryAsync(wanConnectionGetGenericPortMappingEntryRequest));
     }
 
     public Task<WanEthernetLinkConfigGetEthernetLinkStatusResponse> WanEthernetLinkConfigGetEthernetLinkStatusAsync(InternetGatewayDevice internetGatewayDevice)
@@ -713,6 +716,56 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
     public Task<WlanConfigurationGetWlanConnectionInfoResponse> WlanConfiguration4GetWlanConnectionInfoAsync(InternetGatewayDevice internetGatewayDevice)
     {
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWlanConfiguration4ServiceClientFactory, (q, r, t) => new FritzWlanConfiguration4Service(q, r, t!), FritzWlanConfiguration4Service.ControlUrl), q => q.GetWlanConnectionInfoAsync(default));
+    }
+
+    public Task<ManagementServerGetInfoResponse> ManagementServerGetInfoAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.GetInfoAsync(default));
+    }
+
+    public Task<ManagementServerGetTr069FirmwareDownloadEnabledResponse> ManagementServerGetTr069FirmwareDownloadEnabledAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.GetTr069FirmwareDownloadEnabledAsync(default));
+    }
+
+    public Task<ManagementServerSetManagementServerUrlResponse> ManagementServerSetManagementServerUrlAsync(InternetGatewayDevice internetGatewayDevice, ManagementServerSetManagementServerUrlRequest managementServerSetManagementServerUrlRequest)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetManagementServerUrlAsync(managementServerSetManagementServerUrlRequest));
+    }
+
+    public Task<ManagementServerSetManagementServerUsernameResponse> ManagementServerSetManagementServerUsernameAsync(InternetGatewayDevice internetGatewayDevice, ManagementServerSetManagementServerUsernameRequest managementServerSetManagementServerUsernameRequest)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetManagementServerUsernameAsync(managementServerSetManagementServerUsernameRequest));
+    }
+
+    public Task<ManagementServerSetManagementServerPasswordResponse> ManagementServerSetManagementServerPasswordAsync(InternetGatewayDevice internetGatewayDevice, ManagementServerSetManagementServerPasswordRequest managementServerSetManagementServerPasswordRequest)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetManagementServerPasswordAsync(managementServerSetManagementServerPasswordRequest));
+    }
+
+    public Task<ManagementServerSetPeriodicInformResponse> ManagementServerSetPeriodicInformAsync(InternetGatewayDevice internetGatewayDevice, ManagementServerSetPeriodicInformRequest managementServerSetPeriodicInformRequest)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetPeriodicInformAsync(managementServerSetPeriodicInformRequest));
+    }
+
+    public Task<ManagementServerSetConnectionRequestAuthenticationResponse> ManagementServerSetConnectionRequestAuthenticationAsync(InternetGatewayDevice internetGatewayDevice, ManagementServerSetConnectionRequestAuthenticationRequest managementServerSetConnectionRequestAuthenticationRequest)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetConnectionRequestAuthenticationAsync(managementServerSetConnectionRequestAuthenticationRequest));
+    }
+
+    public Task<ManagementServerSetUpgradeManagementResponse> ManagementServerSetUpgradeManagementAsync(InternetGatewayDevice internetGatewayDevice, ManagementServerSetUpgradeManagementRequest managementServerSetUpgradeManagementRequest)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetUpgradeManagementAsync(managementServerSetUpgradeManagementRequest));
+    }
+
+    public Task<ManagementServerSetTr069EnableResponse> ManagementServerSetTr069EnableAsync(InternetGatewayDevice internetGatewayDevice, ManagementServerSetTr069EnableRequest managementServerSetTr069EnableRequest)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetTr069EnableAsync(managementServerSetTr069EnableRequest));
+    }
+
+    public Task<ManagementServerSetTr069FirmwareDownloadEnabledResponse> ManagementServerSetTr069FirmwareDownloadEnabledAsync(InternetGatewayDevice internetGatewayDevice, ManagementServerSetTr069FirmwareDownloadEnabledRequest managementServerSetTr069FirmwareDownloadEnabledRequest)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzManagementServerServiceClientFactory, (q, r, t) => new FritzManagementServerService(q, r, t!), FritzManagementServerService.ControlUrl), q => q.SetTr069FirmwareDownloadEnabledAsync(managementServerSetTr069FirmwareDownloadEnabledRequest));
     }
 
     private static T GetFritzServiceClient<T>(InternetGatewayDevice internetGatewayDevice, IClientFactory<T> clientFactory, Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createService, string controlUrl, bool secure = true)

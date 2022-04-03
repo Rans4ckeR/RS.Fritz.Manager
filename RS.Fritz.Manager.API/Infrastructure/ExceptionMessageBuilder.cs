@@ -43,6 +43,7 @@ public static class ExceptionMessageBuilder
                 .AppendLine(FormattableString.Invariant($"{nameof(FaultException)}.{nameof(FaultException.Reason)}: {faultException.Reason}"))
                 .GetFaultCode(faultException.Code);
 
+#pragma warning disable IDE0045 // Convert to conditional expression
             if (ex is FaultException<UPnPFault1> upnpFaultFault1Exception)
             {
                 _ = sb.AppendLine(FormattableString.Invariant($"{nameof(UPnPFault1)}.{nameof(UPnPFault1.ErrorCode)}: {upnpFaultFault1Exception.Detail.ErrorCode}"))
@@ -57,6 +58,7 @@ public static class ExceptionMessageBuilder
             {
                 throw new NotSupportedException(FormattableString.Invariant($"Encountered unexpected {nameof(FaultException)}."));
             }
+#pragma warning restore IDE0045 // Convert to conditional expression
         }
 
         _ = sb.AppendLine(FormattableString.Invariant($"{nameof(Exception)}.{nameof(Exception.StackTrace)}: {ex.StackTrace}"));

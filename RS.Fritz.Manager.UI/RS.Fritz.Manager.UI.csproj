@@ -65,6 +65,9 @@
     <Resource Include="Images\Success.png" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UserControls\ManagementServer\ManagementServerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\LanHostConfigManagement\LanHostConfigManagementView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -78,9 +81,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\Hosts\HostsGetGenericHostEntryView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="UserControls\LanConfigSecurity\LanConfigSecuritySetConfigPasswordView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="UserControls\Layer3Forwarding\Layer3ForwardingGetGenericForwardingEntryView.xaml.cs">
@@ -121,9 +121,49 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Resources\TR-064\ManagementServerResourceDictionary.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Resources\TR-064\WanDslLinkConfigResourceDictionary.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ManagementServer\ManagementServerSetTr069FirmwareDownloadEnabledView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ManagementServer\ManagementServerSetTr069EnableView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ManagementServer\ManagementServerSetUpgradeManagementView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ManagementServer\ManagementServerSetConnectionRequestAuthenticationView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ManagementServer\ManagementServerSetPeriodicInformView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ManagementServer\ManagementServerSetManagementServerPasswordView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ManagementServer\ManagementServerSetManagementServerUsernameView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\ManagementServer\ManagementServerSetManagementServerUrlView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="UserControls\ManagementServer\ManagementServerView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Update="UserControls\WlanConfiguration\WlanConfigurationView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
@@ -145,10 +185,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="UserControls\Hosts\HostsGetGenericHostEntryView.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="UserControls\LanConfigSecurity\LanConfigSecuritySetConfigPasswordView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

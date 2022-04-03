@@ -129,6 +129,6 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 
     private async Task GetWanCommonInterfaceConfigGetOnlineMonitorAsync()
     {
-        WanCommonInterfaceConfigGetOnlineMonitorViewModel.WanCommonInterfaceConfigGetOnlineMonitorResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetOnlineMonitorAsync(0));
+        WanCommonInterfaceConfigGetOnlineMonitorViewModel.WanCommonInterfaceConfigGetOnlineMonitorResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetOnlineMonitorAsync(new WanCommonInterfaceConfigGetOnlineMonitorRequest(0)));
     }
 }

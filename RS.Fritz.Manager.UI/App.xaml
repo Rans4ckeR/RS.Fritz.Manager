@@ -15,6 +15,7 @@
                 <ResourceDictionary Source="Resources\TR-064\LanEthernetInterfaceConfigResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\LanHostConfigManagementResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\Layer3ForwardingResourceDictionary.xaml"/>
+                <ResourceDictionary Source="Resources\TR-064\ManagementServerResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\SharedWanConnectionResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\WanCommonInterfaceConfigResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\WanDslInterfaceConfigResourceDictionary.xaml"/>
