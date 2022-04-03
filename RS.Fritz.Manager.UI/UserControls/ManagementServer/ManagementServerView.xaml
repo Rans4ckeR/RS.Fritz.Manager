@@ -12,6 +12,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -44,5 +52,13 @@
                 </Grid>
             </Expander>
         </Border>
+        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding ManagementServerSetManagementServerUrlViewModel}"/>
+        <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding ManagementServerSetManagementServerUsernameViewModel}"/>
+        <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding ManagementServerSetManagementServerPasswordViewModel}"/>
+        <ContentControl Grid.Row="5" Grid.Column="0" Content="{Binding ManagementServerSetPeriodicInformViewModel}"/>
+        <ContentControl Grid.Row="6" Grid.Column="0" Content="{Binding ManagementServerSetConnectionRequestAuthenticationViewModel}"/>
+        <ContentControl Grid.Row="7" Grid.Column="0" Content="{Binding ManagementServerSetUpgradeManagementViewModel}"/>
+        <ContentControl Grid.Row="8" Grid.Column="0" Content="{Binding ManagementServerSetTr069EnableViewModel}"/>
+        <ContentControl Grid.Row="9" Grid.Column="0" Content="{Binding ManagementServerSetTr069FirmwareDownloadEnabledViewModel}"/>
     </Grid>
 </UserControl>

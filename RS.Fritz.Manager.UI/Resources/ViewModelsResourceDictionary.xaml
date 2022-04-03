@@ -76,4 +76,28 @@
     <DataTemplate DataType="{x:Type ui:ManagementServerViewModel}">
         <ui:ManagementServerView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:ManagementServerSetManagementServerUrlViewModel}">
+        <ui:ManagementServerSetManagementServerUrlView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:ManagementServerSetManagementServerUsernameViewModel}">
+        <ui:ManagementServerSetManagementServerUsernameView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:ManagementServerSetManagementServerPasswordViewModel}">
+        <ui:ManagementServerSetManagementServerPasswordView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:ManagementServerSetPeriodicInformViewModel}">
+        <ui:ManagementServerSetPeriodicInformView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:ManagementServerSetConnectionRequestAuthenticationViewModel}">
+        <ui:ManagementServerSetConnectionRequestAuthenticationView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:ManagementServerSetUpgradeManagementViewModel}">
+        <ui:ManagementServerSetUpgradeManagementView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:ManagementServerSetTr069EnableViewModel}">
+        <ui:ManagementServerSetTr069EnableView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:ManagementServerSetTr069FirmwareDownloadEnabledViewModel}">
+        <ui:ManagementServerSetTr069FirmwareDownloadEnabledView/>
+    </DataTemplate>
 </ResourceDictionary>

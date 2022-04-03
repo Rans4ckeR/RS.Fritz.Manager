@@ -42,18 +42,18 @@ internal sealed class WebUiService : IWebUiService
         return await GetResponseAsync(internetGatewayDevice, parameters, cancellationToken);
     }
 
-    public async Task<WebUiSessionInfo> LogoffAsync(InternetGatewayDevice internetGatewayDevice, string sessionId, CancellationToken cancellationToken = default)
+    public Task<WebUiSessionInfo> LogoffAsync(InternetGatewayDevice internetGatewayDevice, string sessionId, CancellationToken cancellationToken = default)
     {
         var parameters = new Dictionary<string, string> { { "logout", string.Empty }, { "sid", sessionId } };
 
-        return await GetResponseAsync(internetGatewayDevice, parameters, cancellationToken);
+        return GetResponseAsync(internetGatewayDevice, parameters, cancellationToken);
     }
 
-    public async Task<WebUiSessionInfo> ValidateSessionAsync(InternetGatewayDevice internetGatewayDevice, string sessionId, CancellationToken cancellationToken = default)
+    public Task<WebUiSessionInfo> ValidateSessionAsync(InternetGatewayDevice internetGatewayDevice, string sessionId, CancellationToken cancellationToken = default)
     {
         var parameters = new Dictionary<string, string> { { "sid", sessionId } };
 
-        return await GetResponseAsync(internetGatewayDevice, parameters, cancellationToken);
+        return GetResponseAsync(internetGatewayDevice, parameters, cancellationToken);
     }
 
     private static WebUiSessionInfo Deserialize(string xmlResponse)

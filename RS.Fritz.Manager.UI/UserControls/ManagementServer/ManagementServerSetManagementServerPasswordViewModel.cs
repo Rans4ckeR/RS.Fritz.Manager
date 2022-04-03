@@ -2,12 +2,12 @@
 
 using System.ComponentModel;
 
-internal sealed class LanConfigSecuritySetConfigPasswordViewModel : SetValuesViewModel<LanConfigSecuritySetConfigPasswordRequest, LanConfigSecuritySetConfigPasswordResponse>
+internal sealed class ManagementServerSetManagementServerPasswordViewModel : SetValuesViewModel<ManagementServerSetManagementServerPasswordRequest, ManagementServerSetManagementServerPasswordResponse>
 {
     private string? password;
 
-    public LanConfigSecuritySetConfigPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetConfigPassword", "Update Password", (d, r) => d.LanConfigSecuritySetConfigPasswordAsync(r))
+    public ManagementServerSetManagementServerPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+        : base(deviceLoginInfo, logger, "SetManagementServerPassword", "Update ManagementServerPassword", (d, r) => d.ManagementServerSetManagementServerPasswordAsync(r))
     {
     }
 
@@ -21,9 +21,9 @@ internal sealed class LanConfigSecuritySetConfigPasswordViewModel : SetValuesVie
         }
     }
 
-    protected override LanConfigSecuritySetConfigPasswordRequest BuildRequest()
+    protected override ManagementServerSetManagementServerPasswordRequest BuildRequest()
     {
-        return new LanConfigSecuritySetConfigPasswordRequest(Password!);
+        return new ManagementServerSetManagementServerPasswordRequest(Password!);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
