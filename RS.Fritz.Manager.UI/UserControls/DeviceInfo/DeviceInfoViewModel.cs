@@ -2,29 +2,29 @@
 
 internal sealed class DeviceInfoViewModel : FritzServiceViewModel
 {
-    private DeviceInfoGetSecurityPortResponse? deviceInfoGetSecurityPortResponse;
-    private DeviceInfoGetInfoResponse? deviceInfoGetInfoResponse;
-    private DeviceInfoGetDeviceLogResponse? deviceInfoGetDeviceLogResponse;
+    private KeyValuePair<DeviceInfoGetSecurityPortResponse?, UPnPFault?>? deviceInfoGetSecurityPortResponse;
+    private KeyValuePair<DeviceInfoGetInfoResponse?, UPnPFault?>? deviceInfoGetInfoResponse;
+    private KeyValuePair<DeviceInfoGetDeviceLogResponse?, UPnPFault?>? deviceInfoGetDeviceLogResponse;
 
     public DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "DeviceInfo")
     {
         DeviceInfoSetProvisioningCodeViewModel = deviceInfoSetProvisioningCodeViewModel;
     }
 
-    public DeviceInfoGetSecurityPortResponse? DeviceInfoGetSecurityPortResponse
+    public KeyValuePair<DeviceInfoGetSecurityPortResponse?, UPnPFault?>? DeviceInfoGetSecurityPortResponse
     {
         get => deviceInfoGetSecurityPortResponse;
         private set { _ = SetProperty(ref deviceInfoGetSecurityPortResponse, value); }
     }
 
-    public DeviceInfoGetInfoResponse? DeviceInfoGetInfoResponse
+    public KeyValuePair<DeviceInfoGetInfoResponse?, UPnPFault?>? DeviceInfoGetInfoResponse
     {
         get => deviceInfoGetInfoResponse;
         private set { _ = SetProperty(ref deviceInfoGetInfoResponse, value); }
     }
 
-    public DeviceInfoGetDeviceLogResponse? DeviceInfoGetDeviceLogResponse
+    public KeyValuePair<DeviceInfoGetDeviceLogResponse?, UPnPFault?>? DeviceInfoGetDeviceLogResponse
     {
         get => deviceInfoGetDeviceLogResponse;
         private set { _ = SetProperty(ref deviceInfoGetDeviceLogResponse, value); }
@@ -32,9 +32,9 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
 
     public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel { get; }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        await API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(new[]
             {
                 GetDeviceInfoGetSecurityPortAsync(),
                 GetDeviceInfoGetInfoAsync(),
@@ -44,16 +44,16 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
 
     private async Task GetDeviceInfoGetSecurityPortAsync()
     {
-        DeviceInfoGetSecurityPortResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoGetSecurityPortAsync();
+        DeviceInfoGetSecurityPortResponse = await ExecuteApiAsync(q => q.DeviceInfoGetSecurityPortAsync());
     }
 
     private async Task GetDeviceInfoGetInfoAsync()
     {
-        DeviceInfoGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoGetInfoAsync();
+        DeviceInfoGetInfoResponse = await ExecuteApiAsync(q => q.DeviceInfoGetInfoAsync());
     }
 
     private async Task GetDeviceInfoGetDeviceLogAsync()
     {
-        DeviceInfoGetDeviceLogResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoGetDeviceLogAsync();
+        DeviceInfoGetDeviceLogResponse = await ExecuteApiAsync(q => q.DeviceInfoGetDeviceLogAsync());
     }
 }

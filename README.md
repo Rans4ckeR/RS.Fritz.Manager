@@ -3,7 +3,7 @@ Allows FritzBox device detection, monitoring, configuring and network traffic ca
 
 Available as a standalone Windows application ([UI](#rsfritzmanagerui)) and as a NuGet package ([API](#rsfritzmanagerapi)).
 
-For a list of implemented services check the [Service implementation status](#service-implementation-status)
+For a list of implemented services check the [Service implementation status](#tr-064-service-implementation-status)
 
 
 ## RS.Fritz.Manager.UI
@@ -47,7 +47,7 @@ IDeviceSearchService deviceSearchService = serviceScope.ServiceProvider.GetRequi
 InternetGatewayDevice device = (await deviceSearchService.GetDevicesAsync()).First();
 
 // Show the device model from UPnP data
-Console.WriteLine($"Device model: {device.UPnPDescription.Value.Device.ModelDescription}");
+Console.WriteLine($"Device model: {device.UPnPDescription.Device.ModelDescription}");
 
 // Initialize the device for TR-064, retrieves the security port and the users
 await device.InitializeAsync();
@@ -66,7 +66,6 @@ Console.WriteLine($"Device uptime: {TimeSpan.FromSeconds(deviceInfo.Uptime)}");
 // Retrieving the device users manually
 IUsersService usersService = serviceScope.ServiceProvider.GetRequiredService<IUsersService>();
 IEnumerable<User> users = await usersService.GetUsersAsync(device);
-
 users.ToList().ForEach(q => Console.WriteLine($"User: {q.Name}"));
 
 // Retrieving a list of device hosts in the network
@@ -79,17 +78,27 @@ IDeviceMeshService deviceMeshService = serviceScope.ServiceProvider.GetRequiredS
 DeviceMeshInfo deviceMeshInfo = await deviceMeshService.GetDeviceMeshAsync(device);
 deviceMeshInfo.DeviceMesh.Nodes.ToList().ForEach(q => Console.WriteLine($"Mesh host: {q.DeviceName}"));
 
+// Retrieving a list of WLAN devices in the network
+IWlanDeviceService wlanDeviceService = serviceScope.ServiceProvider.GetRequiredService<IWlanDeviceService>();
+WlanDeviceInfo wlanDeviceInfo = await wlanDeviceService.GetWlanDevicesAsync(device);
+wlanDeviceInfo.WlanDeviceList.Items.ToList().ForEach(q => Console.WriteLine($"WLAN device: {q.AssociatedDeviceIpAddress}"));
+
+// Retrieve a new session for use in the WebUI
+IWebUiService webUiService = serviceScope.ServiceProvider.GetRequiredService<IWebUiService>();
+WebUiSessionInfo webUiSessionInfo = await webUiService.LogonAsync(device);
+Console.WriteLine($"Session: {webUiSessionInfo.Sid}");
+
 // Capture live network traffic from router to file
 ICaptureControlService captureControlService = serviceScope.ServiceProvider.GetRequiredService<ICaptureControlService>();
-Task.Run(() => StopCaptureAfter10SecondsAsync(device, captureControlService));
+Task.Run(() => StopCaptureAfter1SecondsAsync(device, captureControlService));
 FileInfo fileInfo = await captureControlService.GetStartCaptureResponseAsync(device, "c:\\temp", "capturefile");
 Console.WriteLine($"Network trace written to file: {fileInfo}");
 
 await host.RunAsync();
 
-static async Task StopCaptureAfter10SecondsAsync(InternetGatewayDevice device, ICaptureControlService captureControlService)
+static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, ICaptureControlService captureControlService)
 {
-    await Task.Delay(10000);
+    await Task.Delay(1000);
     await captureControlService.GetStopCaptureResponseAsync(device);
 }
 ```
@@ -97,7 +106,7 @@ static async Task StopCaptureAfter10SecondsAsync(InternetGatewayDevice device, I
 ## TR-064 Service implementation status
 
 ### WAN
-* 🔶 urn:dslforum-org:service:WANIPConnection:1
+* 🔶 urn:dslforum-org:service:WANIPConnection
   * ✅ GetInfo
   * ✅ GetConnectionTypeInfo
   * ❌ SetConnectionType
@@ -115,7 +124,7 @@ static async Task StopCaptureAfter10SecondsAsync(InternetGatewayDevice device, I
   * ✅ GetExternalIPAddress
   * ❌ SetRouteProtocolRx
   * ❌ SetIdleDisconnectTime
-* 🔶 urn:dslforum-org:service:WANPPPConnection:1
+* 🔶 urn:dslforum-org:service:WANPPPConnection
   * ✅ GetInfo
   * ✅ GetConnectionTypeInfo
   * ❌ SetConnectionType
@@ -137,9 +146,9 @@ static async Task StopCaptureAfter10SecondsAsync(InternetGatewayDevice device, I
   * ✅ GetExternalIPAddress
   * ❌ SetRouteProtocolRx
   * ❌ SetIdleDisconnectTime
-  * ✅ X_AVM_DE_GetAutoDisconnectTimeSpan
-  * ❌ X_AVM_DE_SetAutoDisconnectTimeSpan
-* ✅ urn:dslforum-org:service:WANCommonInterfaceConfig:1
+  * ✅ X_AVM-DE_GetAutoDisconnectTimeSpan
+  * ❌ X_AVM-DE_SetAutoDisconnectTimeSpan
+* ✅ urn:dslforum-org:service:WANCommonInterfaceConfig
   * ✅ GetCommonLinkProperties
   * ✅ GetTotalBytesSent
   * ✅ GetTotalBytesReceived
@@ -147,14 +156,14 @@ static async Task StopCaptureAfter10SecondsAsync(InternetGatewayDevice device, I
   * ✅ GetTotalPacketsReceived
   * ✅ X_AVM-DE_SetWANAccessType
   * ✅ X_AVM-DE_GetOnlineMonitor
-* ✅ urn:dslforum-org:service:WANEthernetLinkConfig:1
+* ✅ urn:dslforum-org:service:WANEthernetLinkConfig
   * ✅ GetEthernetLinkStatus
-* ✅ urn:dslforum-org:service:WANDSLInterfaceConfig:1
+* ✅ urn:dslforum-org:service:WANDSLInterfaceConfig
   * ✅ GetInfo
   * ✅ GetStatisticsTotal
   * ✅ X_AVM-DE_GetDSLDiagnoseInfo
   * ✅ X_AVM-DE_GetDSLInfo
-* 🔶 urn:dslforum-org:service:WANDSLLinkConfig:1
+* 🔶 urn:dslforum-org:service:WANDSLLinkConfig
   * ✅ GetInfo
   * ❌ SetEnable
   * ❌ SetDSLLinkType
@@ -165,13 +174,13 @@ static async Task StopCaptureAfter10SecondsAsync(InternetGatewayDevice device, I
   * ✅ GetATMEncapsulation
   * ✅ GetAutoConfig
   * ✅ GetStatistics
-* 🔶 urn:dslforum-org:service:X_AVM-DE_Speedtest:1
+* 🔶 urn:dslforum-org:service:X_AVM-DE_Speedtest
   * ✅ GetInfo
   * ❌ SetConfig
-* ❌ urn:dslforum-org:service:X_AVM-DE_RemoteAccess:1
-* ❌ urn:dslforum-org:service:X_AVM-DE_MyFritz:1
-* ❌ urn:dslforum-org:service:X_AVM-DE_HostFilter:1
-* 🔶 urn:dslforum-org:service:Layer3Forwarding:1
+* ❌ urn:dslforum-org:service:X_AVM-DE_RemoteAccess
+* ❌ urn:dslforum-org:service:X_AVM-DE_MyFritz
+* ❌ urn:dslforum-org:service:X_AVM-DE_HostFilter
+* 🔶 urn:dslforum-org:service:Layer3Forwarding
   * ❌ SetDefaultConnectionService
   * ✅ GetDefaultConnectionService
   * ✅ GetForwardNumberOfEntries
@@ -182,12 +191,12 @@ static async Task StopCaptureAfter10SecondsAsync(InternetGatewayDevice device, I
   * ❌ SetForwardingEntryEnable
 
 ### Telephony
-* ❌ urn:dslforum-org:service:X_AVM-DE_OnTel:1
-* ❌ urn:dslforum-org:service:X_AVM-DE_TAM:1
-* ❌ urn:dslforum-org:service:X_VoIP:1
+* ❌ urn:dslforum-org:service:X_AVM-DE_OnTel
+* ❌ urn:dslforum-org:service:X_AVM-DE_TAM
+* ❌ urn:dslforum-org:service:X_VoIP
 
 ### Home network
-* 🔶 urn:dslforum-org:service:Hosts:1
+* 🔶 urn:dslforum-org:service:Hosts
   * ✅ GetHostNumberOfEntries
   * ❌ GetSpecificHostEntry
   * ✅ GetGenericHostEntry
@@ -201,32 +210,95 @@ static async Task StopCaptureAfter10SecondsAsync(InternetGatewayDevice device, I
   * ❌ X_AVM-DE_HostDoUpdate
   * ✅ X_AVM-DE_GetHostListPath
   * ✅ X_AVM-DE_GetMeshListPath
-* ❌ urn:dslforum-org:service:WLANConfiguration:1
-* ❌ urn:dslforum-org:service:LANHostConfigManagement:1
-* ❌ urn:dslforum-org:service:LANEthernetInterfaceConfig:1
-* ❌ urn:dslforum-org:service:X_AVM-DE_Dect:1
-* ❌ urn:dslforum-org:service:X_AVM-DE_Homeauto:1
-* ❌ urn:dslforum-org:service:X_AVM-DE_Homeplug:1
+* 🔶 urn:dslforum-org:service:WLANConfiguration
+  * ❌ SetEnable
+  * ✅ GetInfo
+  * ❌ SetConfig
+  * ❌ SetSecurityKeys
+  * ❌ GetSecurityKeys
+  * ❌ SetDefaultWEPKeyIndex
+  * ❌ GetDefaultWEPKeyIndex
+  * ❌ SetBasBeaconSecurityProperties
+  * ✅ GetBasBeaconSecurityProperties
+  * ✅ GetBSSID
+  * ✅ GetSSID
+  * ❌ SetSSID
+  * ✅ GetBeaconType
+  * ❌ SetBeaconType
+  * ✅ GetChannelInfo
+  * ❌ SetChannel
+  * ✅ GetBeaconAdvertisement
+  * ❌ SetBeaconAdvertisement
+  * ✅ GetTotalAssociations
+  * ❌ GetGenericAssociatedDeviceInfo
+  * ❌ GetSpecificAssociatedDeviceInfo
+  * ❌ X_AVM-DE_GetSpecificAssociatedDeviceInfoByIp
+  * ✅ X_AVM-DE_GetWLANDeviceListPath
+  * ❌ X_AVM-DE_SetStickSurfEnable
+  * ✅ X_AVM-DE_GetIPTVOptimized
+  * ❌ X_AVM-DE_SetIPTVOptimized
+  * ✅ GetStatistics
+  * ✅ GetPacketStatistics
+  * ✅ X_AVM-DE_GetNightControl
+  * ❌ X_SetHighFrequencyBand
+  * ✅ X_AVM-DE_GetWLANHybridMode
+  * ❌ X_AVM-DE_SetWLANHybridMode
+  * ✅ X_AVM-DE_GetWLANExtInfo
+  * ❌ X_AVM-DE_SetWLANGlobalEnable
+  * ✅ X_AVM-DE_GetWPSInfo
+  * ❌ X_AVM-DE_SetWPSConfig
+  * ❌ X_AVM-DE_SetWPSEnable
+  * ✅ X_AVM-DE_GetWLANConnectionInfo
+* 🔶 urn:dslforum-org:service:LANHostConfigManagement
+  * ✅ GetInfo
+  * ❌ SetDHCPServerEnable
+  * ❌ SetSubnetMask
+  * ✅ GetSubnetMask
+  * ❌ SetIPRouter
+  * ✅ GetIPRoutersList
+  * ❌ SetIPInterface
+  * ✅ GetAddressRange
+  * ❌ SetAddressRange
+  * ✅ GetIPInterfaceNumberOfEntries
+  * ✅ GetDNSServers
+* 🔶 urn:dslforum-org:service:LANEthernetInterfaceConfig
+  * ❌ SetEnable
+  * ✅ GetInfo
+  * ✅ GetStatistics
+* ❌ urn:dslforum-org:service:X_AVM-DE_Dect
+* ❌ urn:dslforum-org:service:X_AVM-DE_Homeauto
+* ❌ urn:dslforum-org:service:X_AVM-DE_Homeplug
 
 ### Storage/NAS
-* ❌ urn:dslforum-org:service:X_AVM-DE_Storage:1
-* ❌ urn:dslforum-org:service:X_AVM-DE_UPnP:1
-* ❌ urn:dslforum-org:service:X_AVM-DE_Filelinks:1
+* ❌ urn:dslforum-org:service:X_AVM-DE_Storage
+* ❌ urn:dslforum-org:service:X_AVM-DE_UPnP
+* ❌ urn:dslforum-org:service:X_AVM-DE_Filelinks
 
 ### System
-* ✅ urn:dslforum-org:service:DeviceInfo:1
+* ✅ urn:dslforum-org:service:DeviceInfo
   * ✅ GetInfo
   * ✅ SetProvisioningCode
   * ✅ GetDeviceLog
   * ✅ GetSecurityPort
-* ❌ urn:dslforum-org:service:DeviceConfig:1
-* ✅ urn:dslforum-org:service:LANConfigSecurity:1
+* ❌ urn:dslforum-org:service:DeviceConfig
+* ✅ urn:dslforum-org:service:LANConfigSecurity
   * ✅ GetInfo
   * ✅ X_AVM-DE_GetAnonymousLogin
   * ✅ X_AVM-DE_GetCurrentUser
   * ✅ SetConfigPassword
   * ✅ X_AVM-DE_GetUserList
-* ❌ urn:dslforum-org:service:X_AVM-DE_AppSetup:1
-* ❌ urn:dslforum-org:service:X_AVM-DE_Auth:1
-* ❌ urn:dslforum-org:service:Time:1
-* ❌ urn:dslforum-org:service:UserInterface:1
+* ❌ urn:dslforum-org:service:X_AVM-DE_AppSetup
+* ✅ urn:dslforum-org:service:ManagementServer
+  * ✅ GetInfo
+  * ✅ SetManagementServerURL
+  * ✅ SetManagementServerUsername
+  * ✅ SetManagementServerPassword
+  * ✅ SetPeriodicInform
+  * ✅ SetConnectionRequestAuthentication
+  * ✅ SetUpgradeManagement
+  * ✅ X_SetTR069Enable
+  * ✅ X_AVM-DE_GetTR069FirmwareDownloadEnabled
+  * ✅ X_AVM-DE_SetTR069FirmwareDownloadEnabled
+* ❌ urn:dslforum-org:service:X_AVM-DE_Auth
+* ❌ urn:dslforum-org:service:Time
+* ❌ urn:dslforum-org:service:UserInterface

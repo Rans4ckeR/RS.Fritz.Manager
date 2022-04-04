@@ -2,16 +2,16 @@
 
 using System.ComponentModel;
 
-internal sealed class DeviceInfoSetProvisioningCodeViewModel : FritzServiceViewModel
+internal sealed class DeviceInfoSetProvisioningCodeViewModel : SetValuesViewModel<DeviceInfoSetProvisioningCodeRequest, DeviceInfoSetProvisioningCodeResponse>
 {
-    private string provisioningCode = string.Empty;
+    private string? provisioningCode;
 
     public DeviceInfoSetProvisioningCodeViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "SetProvisioningCode", "Update ProvisioningCode", (d, r) => d.DeviceInfoSetProvisioningCodeAsync(r))
     {
     }
 
-    public string ProvisioningCode
+    public string? ProvisioningCode
     {
         get => provisioningCode;
         set
@@ -21,9 +21,9 @@ internal sealed class DeviceInfoSetProvisioningCodeViewModel : FritzServiceViewM
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override DeviceInfoSetProvisioningCodeRequest BuildRequest()
     {
-        _ = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.DeviceInfoSetProvisioningCodeAsync(ProvisioningCode);
+        return new DeviceInfoSetProvisioningCodeRequest(ProvisioningCode!);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

@@ -16,36 +16,6 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
 
     public InternetGatewayDevice ApiDevice { get; }
 
-    public string Server
-    {
-        get => ApiDevice.Server;
-    }
-
-    public string CacheControl
-    {
-        get => ApiDevice.CacheControl;
-    }
-
-    public string? Ext
-    {
-        get => ApiDevice.Ext;
-    }
-
-    public string SearchTarget
-    {
-        get => ApiDevice.SearchTarget;
-    }
-
-    public string UniqueServiceName
-    {
-        get => ApiDevice.UniqueServiceName;
-    }
-
-    public IEnumerable<Uri> Locations
-    {
-        get => ApiDevice.Locations;
-    }
-
     public IEnumerable<User> Users
     {
         get => users;
@@ -62,11 +32,6 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
     {
         get => wanAccessType;
         set => _ = SetProperty(ref wanAccessType, value, true);
-    }
-
-    public UPnPDescription? UPnPDescription
-    {
-        get => ApiDevice.UPnPDescription;
     }
 
     public async Task GetDeviceTypeAsync()

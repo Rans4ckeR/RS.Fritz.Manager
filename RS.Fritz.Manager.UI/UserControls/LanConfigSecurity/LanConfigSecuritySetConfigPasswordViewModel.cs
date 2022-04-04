@@ -2,12 +2,12 @@
 
 using System.ComponentModel;
 
-internal sealed class LanConfigSecuritySetConfigPasswordViewModel : FritzServiceViewModel
+internal sealed class LanConfigSecuritySetConfigPasswordViewModel : SetValuesViewModel<LanConfigSecuritySetConfigPasswordRequest, LanConfigSecuritySetConfigPasswordResponse>
 {
     private string? password;
 
     public LanConfigSecuritySetConfigPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "SetConfigPassword", "Update Password", (d, r) => d.LanConfigSecuritySetConfigPasswordAsync(r))
     {
     }
 
@@ -21,9 +21,9 @@ internal sealed class LanConfigSecuritySetConfigPasswordViewModel : FritzService
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override LanConfigSecuritySetConfigPasswordRequest BuildRequest()
     {
-        _ = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanConfigSecuritySetConfigPasswordAsync(Password!);
+        return new LanConfigSecuritySetConfigPasswordRequest(Password!);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -38,10 +38,5 @@ internal sealed class LanConfigSecuritySetConfigPasswordViewModel : FritzService
                     break;
                 }
         }
-    }
-
-    protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && !string.IsNullOrWhiteSpace(Password);
     }
 }

@@ -6,7 +6,7 @@ internal sealed class HostsGetGenericHostEntryViewModel : FritzServiceViewModel
 {
     private ushort? index;
     private ushort? hostNumberOfEntries;
-    private HostsGetGenericHostEntryResponse? hostsGetGenericHostEntryResponse;
+    private KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>? hostsGetGenericHostEntryResponse;
 
     public HostsGetGenericHostEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger)
@@ -33,15 +33,15 @@ internal sealed class HostsGetGenericHostEntryViewModel : FritzServiceViewModel
         }
     }
 
-    public HostsGetGenericHostEntryResponse? HostsGetGenericHostEntryResponse
+    public KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>? HostsGetGenericHostEntryResponse
     {
         get => hostsGetGenericHostEntryResponse;
         private set { _ = SetProperty(ref hostsGetGenericHostEntryResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        HostsGetGenericHostEntryResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetGenericHostEntryAsync(Index!.Value);
+        HostsGetGenericHostEntryResponse = await ExecuteApiAsync(q => q.HostsGetGenericHostEntryAsync(new HostsGetGenericHostEntryRequest(Index!.Value)));
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

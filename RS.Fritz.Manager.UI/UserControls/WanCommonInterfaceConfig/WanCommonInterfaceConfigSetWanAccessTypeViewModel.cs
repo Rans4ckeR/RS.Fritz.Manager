@@ -2,12 +2,12 @@
 
 using System.ComponentModel;
 
-internal sealed class WanCommonInterfaceConfigSetWanAccessTypeViewModel : FritzServiceViewModel
+internal sealed class WanCommonInterfaceConfigSetWanAccessTypeViewModel : SetValuesViewModel<WanCommonInterfaceConfigSetWanAccessTypeRequest, WanCommonInterfaceConfigSetWanAccessTypeResponse>
 {
     private string? wanAccessType;
 
     public WanCommonInterfaceConfigSetWanAccessTypeViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "SetWanAccessType", "Update WanAccessType", (d, r) => d.WanCommonInterfaceConfigSetWanAccessTypeAsync(r))
     {
     }
 
@@ -21,9 +21,9 @@ internal sealed class WanCommonInterfaceConfigSetWanAccessTypeViewModel : FritzS
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override WanCommonInterfaceConfigSetWanAccessTypeRequest BuildRequest()
     {
-        _ = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanCommonInterfaceConfigSetWanAccessTypeAsync(WanAccessType!);
+        return new WanCommonInterfaceConfigSetWanAccessTypeRequest(WanAccessType!);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -38,10 +38,5 @@ internal sealed class WanCommonInterfaceConfigSetWanAccessTypeViewModel : FritzS
                     break;
                 }
         }
-    }
-
-    protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && !string.IsNullOrWhiteSpace(WanAccessType);
     }
 }

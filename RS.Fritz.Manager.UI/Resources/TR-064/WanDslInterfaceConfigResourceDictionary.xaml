@@ -1,0 +1,90 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
+    <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetDslDiagnoseInfoResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=CableNokDistance}" Content="_CableNokDistance"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DSLActive}" Content="_DSLActive"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DSLDiagnoseState}" Content="_DSLDiagnoseState" ToolTip="Possible values are NONE, NO_CALIB, RUNNING, DONE, DONE_CABLE_NOK, DONE_CABLE_OK."/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=DSLLastDiagnoseTime}" Content="_DSLLastDiagnoseTime"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DSLSignalLossTime}" Content="_DSLSignalLossTime"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=DSLSync}" Content="_DSLSync"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status"/>
+            <TextBlock x:Name="CableNokDistance" Grid.Row="0" Grid.Column="1" Text="{Binding CableNokDistance}"/>
+            <TextBlock x:Name="DSLActive" Grid.Row="1" Grid.Column="1" Text="{Binding DSLActive}"/>
+            <TextBlock x:Name="DSLDiagnoseState" Grid.Row="2" Grid.Column="1" Text="{Binding DSLDiagnoseState}"/>
+            <TextBlock x:Name="DSLLastDiagnoseTime" Grid.Row="3" Grid.Column="1" Text="{Binding DSLLastDiagnoseTime}"/>
+            <TextBlock x:Name="DSLSignalLossTime" Grid.Row="4" Grid.Column="1" Text="{Binding DSLSignalLossTime}"/>
+            <TextBlock x:Name="DSLSync" Grid.Row="5" Grid.Column="1" Text="{Binding DSLSync}"/>
+            <TextBlock x:Name="Status" Grid.Row="6" Grid.Column="1" Text="{Binding Status}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WanDslInterfaceConfigGetStatisticsTotalResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ATUCCRCErrors}" Content="_ATUCCRCErrors" ToolTip="Total number of Cyclic Redundancy Check (CRC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ATUCFECErrors}" Content="_ATUCFECErrors" ToolTip="Total number of Forward Error Correction (FEC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=ATUCHECErrors}" Content="_ATUCHECErrors" ToolTip="Total number of Header Error Checksum (HEC) errors detected by the ADSL Termination Unit - Central (ATU-C)."/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CellDelin}" Content="_CellDelin" ToolTip="Number of cell-delineation errors since the most recent DSL Showtime."/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=CRCErrors}" Content="_CRCErrors" ToolTip="Total number of Cyclic Redundancy Check (CRC) errors detected."/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=ErroredSecs}" Content="_ErroredSecs" ToolTip="Total number of errored seconds."/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=FECErrors}" Content="_FECErrors" ToolTip="Total number of Forward Error Correction (FEC) errors detected."/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=HECErrors}" Content="_HECErrors" ToolTip="Total number of Header Error Checksum (HEC) errors detected."/>
+            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=InitErrors}" Content="_InitErrors" ToolTip="Total number of initialization errors."/>
+            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=InitTimeouts}" Content="_InitTimeouts" ToolTip="Total number of initialization timeout errors."/>
+            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=LinkRetrain}" Content="_LinkRetrain" ToolTip="Total number of link-retrain errors."/>
+            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=LossOfFraming}" Content="_LossOfFraming" ToolTip="Total number of loss-of-framing errors."/>
+            <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ReceiveBlocks}" Content="_ReceiveBlocks" ToolTip="Total number of successfully received superframes."/>
+            <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=SeverelyErroredSecs}" Content="_SeverelyErroredSecs" ToolTip="Total number of severely errored seconds."/>
+            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=TransmitBlocks}" Content="_TransmitBlocks" ToolTip="Total number of successfully transmitted superframes."/>
+            <TextBlock x:Name="ATUCCRCErrors" Grid.Row="0" Grid.Column="1" Text="{Binding ATUCCRCErrors}"/>
+            <TextBlock x:Name="ATUCFECErrors" Grid.Row="1" Grid.Column="1" Text="{Binding ATUCFECErrors}"/>
+            <TextBlock x:Name="ATUCHECErrors" Grid.Row="2" Grid.Column="1" Text="{Binding ATUCHECErrors}"/>
+            <TextBlock x:Name="CellDelin" Grid.Row="3" Grid.Column="1" Text="{Binding CellDelin}"/>
+            <TextBlock x:Name="CRCErrors" Grid.Row="4" Grid.Column="1" Text="{Binding CRCErrors}"/>
+            <TextBlock x:Name="ErroredSecs" Grid.Row="5" Grid.Column="1" Text="{Binding ErroredSecs}"/>
+            <TextBlock x:Name="FECErrors" Grid.Row="6" Grid.Column="1" Text="{Binding FECErrors}"/>
+            <TextBlock x:Name="HECErrors" Grid.Row="7" Grid.Column="1" Text="{Binding HECErrors}"/>
+            <TextBlock x:Name="InitErrors" Grid.Row="8" Grid.Column="1" Text="{Binding InitErrors}"/>
+            <TextBlock x:Name="InitTimeouts" Grid.Row="9" Grid.Column="1" Text="{Binding InitTimeouts}"/>
+            <TextBlock x:Name="LinkRetrain" Grid.Row="10" Grid.Column="1" Text="{Binding LinkRetrain}"/>
+            <TextBlock x:Name="LossOfFraming" Grid.Row="11" Grid.Column="1" Text="{Binding LossOfFraming}"/>
+            <TextBlock x:Name="ReceiveBlocks" Grid.Row="12" Grid.Column="1" Text="{Binding ReceiveBlocks}"/>
+            <TextBlock x:Name="SeverelyErroredSecs" Grid.Row="13" Grid.Column="1" Text="{Binding SeverelyErroredSecs}"/>
+            <TextBlock x:Name="TransmitBlocks" Grid.Row="14" Grid.Column="1" Text="{Binding TransmitBlocks}"/>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

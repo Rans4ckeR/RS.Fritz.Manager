@@ -7,8 +7,8 @@ internal abstract class WanAccessTypeAwareFritzServiceViewModel : FritzServiceVi
 {
     private readonly WanAccessType wanAccessType;
 
-    protected WanAccessTypeAwareFritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanAccessType wanAccessType)
-        : base(deviceLoginInfo, logger)
+    protected WanAccessTypeAwareFritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanAccessType wanAccessType, string requiredServiceType)
+        : base(deviceLoginInfo, logger, requiredServiceType)
     {
         this.wanAccessType = wanAccessType;
     }

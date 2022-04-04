@@ -2,57 +2,57 @@
 
 internal sealed class WanDslLinkConfigViewModel : WanAccessTypeAwareFritzServiceViewModel
 {
-    private WanDslLinkConfigGetInfoResponse? wanDslLinkConfigGetInfoResponse;
-    private WanDslLinkConfigGetDslLinkInfoResponse? wanDslLinkConfigGetDslLinkInfoResponse;
-    private WanDslLinkConfigGetDestinationAddressResponse? wanDslLinkConfigGetDestinationAddressResponse;
-    private WanDslLinkConfigGetAtmEncapsulationResponse? wanDslLinkConfigGetAtmEncapsulationResponse;
-    private WanDslLinkConfigGetAutoConfigResponse? wanDslLinkConfigGetAutoConfigResponse;
-    private WanDslLinkConfigGetStatisticsResponse? wanDslLinkConfigGetStatisticsResponse;
+    private KeyValuePair<WanDslLinkConfigGetInfoResponse?, UPnPFault?>? wanDslLinkConfigGetInfoResponse;
+    private KeyValuePair<WanDslLinkConfigGetDslLinkInfoResponse?, UPnPFault?>? wanDslLinkConfigGetDslLinkInfoResponse;
+    private KeyValuePair<WanDslLinkConfigGetDestinationAddressResponse?, UPnPFault?>? wanDslLinkConfigGetDestinationAddressResponse;
+    private KeyValuePair<WanDslLinkConfigGetAtmEncapsulationResponse?, UPnPFault?>? wanDslLinkConfigGetAtmEncapsulationResponse;
+    private KeyValuePair<WanDslLinkConfigGetAutoConfigResponse?, UPnPFault?>? wanDslLinkConfigGetAutoConfigResponse;
+    private KeyValuePair<WanDslLinkConfigGetStatisticsResponse?, UPnPFault?>? wanDslLinkConfigGetStatisticsResponse;
 
     public WanDslLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, WanAccessType.Dsl)
+        : base(deviceLoginInfo, logger, WanAccessType.Dsl, "WANDSLLinkConfig")
     {
     }
 
-    public WanDslLinkConfigGetInfoResponse? WanDslLinkConfigGetInfoResponse
+    public KeyValuePair<WanDslLinkConfigGetInfoResponse?, UPnPFault?>? WanDslLinkConfigGetInfoResponse
     {
         get => wanDslLinkConfigGetInfoResponse;
         private set { _ = SetProperty(ref wanDslLinkConfigGetInfoResponse, value); }
     }
 
-    public WanDslLinkConfigGetDslLinkInfoResponse? WanDslLinkConfigGetDslLinkInfoResponse
+    public KeyValuePair<WanDslLinkConfigGetDslLinkInfoResponse?, UPnPFault?>? WanDslLinkConfigGetDslLinkInfoResponse
     {
         get => wanDslLinkConfigGetDslLinkInfoResponse;
         private set { _ = SetProperty(ref wanDslLinkConfigGetDslLinkInfoResponse, value); }
     }
 
-    public WanDslLinkConfigGetDestinationAddressResponse? WanDslLinkConfigGetDestinationAddressResponse
+    public KeyValuePair<WanDslLinkConfigGetDestinationAddressResponse?, UPnPFault?>? WanDslLinkConfigGetDestinationAddressResponse
     {
         get => wanDslLinkConfigGetDestinationAddressResponse;
         private set { _ = SetProperty(ref wanDslLinkConfigGetDestinationAddressResponse, value); }
     }
 
-    public WanDslLinkConfigGetAtmEncapsulationResponse? WanDslLinkConfigGetAtmEncapsulationResponse
+    public KeyValuePair<WanDslLinkConfigGetAtmEncapsulationResponse?, UPnPFault?>? WanDslLinkConfigGetAtmEncapsulationResponse
     {
         get => wanDslLinkConfigGetAtmEncapsulationResponse;
         private set { _ = SetProperty(ref wanDslLinkConfigGetAtmEncapsulationResponse, value); }
     }
 
-    public WanDslLinkConfigGetAutoConfigResponse? WanDslLinkConfigGetAutoConfigResponse
+    public KeyValuePair<WanDslLinkConfigGetAutoConfigResponse?, UPnPFault?>? WanDslLinkConfigGetAutoConfigResponse
     {
         get => wanDslLinkConfigGetAutoConfigResponse;
         private set { _ = SetProperty(ref wanDslLinkConfigGetAutoConfigResponse, value); }
     }
 
-    public WanDslLinkConfigGetStatisticsResponse? WanDslLinkConfigGetStatisticsResponse
+    public KeyValuePair<WanDslLinkConfigGetStatisticsResponse?, UPnPFault?>? WanDslLinkConfigGetStatisticsResponse
     {
         get => wanDslLinkConfigGetStatisticsResponse;
         private set { _ = SetProperty(ref wanDslLinkConfigGetStatisticsResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        await API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(new[]
           {
                 GetWanDslLinkConfigGetInfoAsync(),
                 GetWanDslLinkConfigGetDslLinkInfoAsync(),
@@ -65,31 +65,31 @@ internal sealed class WanDslLinkConfigViewModel : WanAccessTypeAwareFritzService
 
     private async Task GetWanDslLinkConfigGetInfoAsync()
     {
-        WanDslLinkConfigGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslLinkConfigGetInfoAsync();
+        WanDslLinkConfigGetInfoResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetInfoAsync());
     }
 
     private async Task GetWanDslLinkConfigGetDslLinkInfoAsync()
     {
-        WanDslLinkConfigGetDslLinkInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslLinkConfigGetDslLinkInfoAsync();
+        WanDslLinkConfigGetDslLinkInfoResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetDslLinkInfoAsync());
     }
 
     private async Task GetWanDslLinkConfigGetDestinationAddressAsync()
     {
-        WanDslLinkConfigGetDestinationAddressResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslLinkConfigGetDestinationAddressAsync();
+        WanDslLinkConfigGetDestinationAddressResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetDestinationAddressAsync());
     }
 
     private async Task GetWanDslLinkConfigGetAtmEncapsulationAsync()
     {
-        WanDslLinkConfigGetAtmEncapsulationResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslLinkConfigGetAtmEncapsulationAsync();
+        WanDslLinkConfigGetAtmEncapsulationResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetAtmEncapsulationAsync());
     }
 
     private async Task GetWanDslLinkConfigGetAutoConfigAsync()
     {
-        WanDslLinkConfigGetAutoConfigResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslLinkConfigGetAutoConfigAsync();
+        WanDslLinkConfigGetAutoConfigResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetAutoConfigAsync());
     }
 
     private async Task GetWanDslLinkConfigGetStatisticsAsync()
     {
-        WanDslLinkConfigGetStatisticsResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanDslLinkConfigGetStatisticsAsync();
+        WanDslLinkConfigGetStatisticsResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetStatisticsAsync());
     }
 }

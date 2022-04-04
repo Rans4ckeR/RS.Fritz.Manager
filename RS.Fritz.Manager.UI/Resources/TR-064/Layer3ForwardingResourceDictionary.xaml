@@ -1,0 +1,70 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
+    <DataTemplate DataType="{x:Type api:Layer3ForwardingGetDefaultConnectionServiceResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DefaultConnectionService}" Content="_DefaultConnectionService" ToolTip="Specifies the default WAN interface. The content is the full hierarchical parameter name of the default layer-3 connection object."/>
+            <TextBlock x:Name="DefaultConnectionService" Grid.Row="0" Grid.Column="1" Text="{Binding DefaultConnectionService}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:Layer3ForwardingGetForwardNumberOfEntriesResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ForwardNumberOfEntries}" Content="_ForwardNumberOfEntries" ToolTip="Number of forwarding instances."/>
+            <TextBlock x:Name="ForwardNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding ForwardNumberOfEntries}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:Layer3ForwardingGetGenericForwardingEntryResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Enable}" Content="_Enable" ToolTip="Enables or disables the forwarding entry. On creation, an entry is disabled by default."/>
+            <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Status}" Content="_Status" ToolTip="Indicates the status of the forwarding entry. Possible values are Default, Network, Host."/>
+            <TextBlock x:Name="Status" Grid.Row="1" Grid.Column="1" Text="{Binding Status}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Type}" Content="_Type" ToolTip="Indicates the type of route. Possible values are Default, Network, Host."/>
+            <TextBlock x:Name="Type" Grid.Row="2" Grid.Column="1" Text="{Binding Type}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=DestIPAddress}" Content="_DestIPAddress" ToolTip="Destination address."/>
+            <TextBlock x:Name="DestIPAddress" Grid.Row="3" Grid.Column="1" Text="{Binding DestIPAddress}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DestSubnetMask}" Content="_DestSubnetMask" ToolTip="Destination subnet mask."/>
+            <TextBlock x:Name="DestSubnetMask" Grid.Row="4" Grid.Column="1" Text="{Binding DestSubnetMask}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=SourceIPAddress}" Content="_SourceIPAddress" ToolTip="Source address."/>
+            <TextBlock x:Name="SourceIPAddress" Grid.Row="5" Grid.Column="1" Text="{Binding SourceIPAddress}"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=SourceSubnetMask}" Content="_SourceSubnetMask" ToolTip="Source subnet mask."/>
+            <TextBlock x:Name="SourceSubnetMask" Grid.Row="6" Grid.Column="1" Text="{Binding SourceSubnetMask}"/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=GatewayIPAddress}" Content="_GatewayIPAddress" ToolTip="IP address of the gateway."/>
+            <TextBlock x:Name="GatewayIPAddress" Grid.Row="7" Grid.Column="1" Text="{Binding GatewayIPAddress}"/>
+            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=Interface}" Content="_Interface" ToolTip="Specifies the WAN interface associated with this entry. The content is the full hierarchical parameter name of the layer-3 connection object."/>
+            <TextBlock x:Name="Interface" Grid.Row="8" Grid.Column="1" Text="{Binding Interface}"/>
+            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=ForwardingMetric}" Content="_ForwardingMetric" ToolTip="Forwarding metric. A value of -1 indicates this metric is not used."/>
+            <TextBlock x:Name="ForwardingMetric" Grid.Row="9" Grid.Column="1" Text="{Binding ForwardingMetric}"/>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

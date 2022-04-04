@@ -23,7 +23,16 @@
                 <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Index}" Content="_Index"/>
                 <TextBox x:Name="Index" Grid.Row="0" Grid.Column="1" MinWidth="50" Text="{Binding Index, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="Get GenericForwardingEntry" Command="{Binding DefaultCommand}" CommandParameter="{StaticResource False}"/>
-                <ContentControl Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Content="{Binding Layer3ForwardingGetGenericForwardingEntryResponse}"/>
+                <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetGenericForwardingEntryResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetGenericForwardingEntryResponse.Key}"/>
+                </Grid>
             </Grid>
         </Expander>
     </Border>

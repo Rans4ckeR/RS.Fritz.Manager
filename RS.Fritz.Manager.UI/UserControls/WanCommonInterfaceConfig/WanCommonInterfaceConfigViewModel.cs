@@ -7,14 +7,14 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
     private readonly DispatcherTimer autoRefreshTimer;
 
     private bool autoRefresh;
-    private WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
-    private WanCommonInterfaceConfigGetTotalBytesReceivedResponse? wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
-    private WanCommonInterfaceConfigGetTotalBytesSentResponse? wanCommonInterfaceConfigGetTotalBytesSentResponse;
-    private WanCommonInterfaceConfigGetTotalPacketsReceivedResponse? wanCommonInterfaceConfigGetTotalPacketsReceivedResponse;
-    private WanCommonInterfaceConfigGetTotalPacketsSentResponse? wanCommonInterfaceConfigGetTotalPacketsSentResponse;
+    private KeyValuePair<WanCommonInterfaceConfigGetTotalBytesReceivedResponse?, UPnPFault?>? wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
+    private KeyValuePair<WanCommonInterfaceConfigGetTotalBytesSentResponse?, UPnPFault?>? wanCommonInterfaceConfigGetTotalBytesSentResponse;
+    private KeyValuePair<WanCommonInterfaceConfigGetTotalPacketsReceivedResponse?, UPnPFault?>? wanCommonInterfaceConfigGetTotalPacketsReceivedResponse;
+    private KeyValuePair<WanCommonInterfaceConfigGetTotalPacketsSentResponse?, UPnPFault?>? wanCommonInterfaceConfigGetTotalPacketsSentResponse;
+    private KeyValuePair<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse?, UPnPFault?>? wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
 
     public WanCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, WanCommonInterfaceConfigSetWanAccessTypeViewModel wanCommonInterfaceConfigSetWanAccessTypeViewModel, WanCommonInterfaceConfigGetOnlineMonitorViewModel wanCommonInterfaceConfigGetOnlineMonitorViewModel, ILogger logger)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "WANCommonInterfaceConfig")
     {
         WanCommonInterfaceConfigSetWanAccessTypeViewModel = wanCommonInterfaceConfigSetWanAccessTypeViewModel;
         WanCommonInterfaceConfigGetOnlineMonitorViewModel = wanCommonInterfaceConfigGetOnlineMonitorViewModel;
@@ -44,39 +44,39 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 
     public WanCommonInterfaceConfigGetOnlineMonitorViewModel WanCommonInterfaceConfigGetOnlineMonitorViewModel { get; }
 
-    public WanCommonInterfaceConfigGetTotalBytesReceivedResponse? WanCommonInterfaceConfigGetTotalBytesReceivedResponse
+    public KeyValuePair<WanCommonInterfaceConfigGetTotalBytesReceivedResponse?, UPnPFault?>? WanCommonInterfaceConfigGetTotalBytesReceivedResponse
     {
         get => wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
         private set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesReceivedResponse, value); }
     }
 
-    public WanCommonInterfaceConfigGetTotalBytesSentResponse? WanCommonInterfaceConfigGetTotalBytesSentResponse
+    public KeyValuePair<WanCommonInterfaceConfigGetTotalBytesSentResponse?, UPnPFault?>? WanCommonInterfaceConfigGetTotalBytesSentResponse
     {
         get => wanCommonInterfaceConfigGetTotalBytesSentResponse;
         private set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesSentResponse, value); }
     }
 
-    public WanCommonInterfaceConfigGetTotalPacketsReceivedResponse? WanCommonInterfaceConfigGetTotalPacketsReceivedResponse
+    public KeyValuePair<WanCommonInterfaceConfigGetTotalPacketsReceivedResponse?, UPnPFault?>? WanCommonInterfaceConfigGetTotalPacketsReceivedResponse
     {
         get => wanCommonInterfaceConfigGetTotalPacketsReceivedResponse;
         private set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalPacketsReceivedResponse, value); }
     }
 
-    public WanCommonInterfaceConfigGetTotalPacketsSentResponse? WanCommonInterfaceConfigGetTotalPacketsSentResponse
+    public KeyValuePair<WanCommonInterfaceConfigGetTotalPacketsSentResponse?, UPnPFault?>? WanCommonInterfaceConfigGetTotalPacketsSentResponse
     {
         get => wanCommonInterfaceConfigGetTotalPacketsSentResponse;
         private set { _ = SetProperty(ref wanCommonInterfaceConfigGetTotalPacketsSentResponse, value); }
     }
 
-    public WanCommonInterfaceConfigGetCommonLinkPropertiesResponse? WanCommonInterfaceConfigGetCommonLinkPropertiesResponse
+    public KeyValuePair<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse?, UPnPFault?>? WanCommonInterfaceConfigGetCommonLinkPropertiesResponse
     {
         get => wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
         private set { _ = SetProperty(ref wanCommonInterfaceConfigGetCommonLinkPropertiesResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        await API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(new[]
             {
                GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(),
                GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(),
@@ -89,37 +89,46 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 
     private async void AutoRefreshTimerTick(object? sender, EventArgs e)
     {
-        if (CanExecuteDefaultCommand)
-            await DefaultCommand.ExecuteAsync(false);
+        try
+        {
+            if (CanExecuteDefaultCommand)
+                await DefaultCommand.ExecuteAsync(false);
+        }
+        catch (Exception ex)
+        {
+            AutoRefresh = false;
+
+            Logger.ExceptionThrown(ex);
+        }
     }
 
     private async Task GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
     {
-        WanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanCommonInterfaceConfigGetCommonLinkPropertiesAsync();
+        WanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetCommonLinkPropertiesAsync());
     }
 
     private async Task GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync()
     {
-        WanCommonInterfaceConfigGetTotalBytesReceivedResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanCommonInterfaceConfigGetTotalBytesReceivedAsync();
+        WanCommonInterfaceConfigGetTotalBytesReceivedResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetTotalBytesReceivedAsync());
     }
 
     private async Task GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
     {
-        WanCommonInterfaceConfigGetTotalBytesSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanCommonInterfaceConfigGetTotalBytesSentAsync();
+        WanCommonInterfaceConfigGetTotalBytesSentResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetTotalBytesSentAsync());
     }
 
     private async Task GetWanCommonInterfaceConfigGetTotalPacketsReceivedAsync()
     {
-        WanCommonInterfaceConfigGetTotalPacketsReceivedResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanCommonInterfaceConfigGetTotalPacketsReceivedAsync();
+        WanCommonInterfaceConfigGetTotalPacketsReceivedResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetTotalPacketsReceivedAsync());
     }
 
     private async Task GetWanCommonInterfaceConfigGetTotalPacketsSentAsync()
     {
-        WanCommonInterfaceConfigGetTotalPacketsSentResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanCommonInterfaceConfigGetTotalPacketsSentAsync();
+        WanCommonInterfaceConfigGetTotalPacketsSentResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetTotalPacketsSentAsync());
     }
 
     private async Task GetWanCommonInterfaceConfigGetOnlineMonitorAsync()
     {
-        WanCommonInterfaceConfigGetOnlineMonitorViewModel.WanCommonInterfaceConfigGetOnlineMonitorResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.WanCommonInterfaceConfigGetOnlineMonitorAsync(0);
+        WanCommonInterfaceConfigGetOnlineMonitorViewModel.WanCommonInterfaceConfigGetOnlineMonitorResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetOnlineMonitorAsync(new WanCommonInterfaceConfigGetOnlineMonitorRequest(0)));
     }
 }

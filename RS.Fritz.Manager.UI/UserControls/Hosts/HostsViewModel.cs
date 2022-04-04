@@ -5,13 +5,13 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     private readonly IDeviceHostsService deviceHostsService;
     private readonly IDeviceMeshService deviceMeshService;
 
-    private HostsGetHostNumberOfEntriesResponse? hostsGetHostNumberOfEntriesResponse;
-    private HostsGetChangeCounterResponse? hostsGetChangeCounterResponse;
+    private KeyValuePair<HostsGetHostNumberOfEntriesResponse?, UPnPFault?>? hostsGetHostNumberOfEntriesResponse;
+    private KeyValuePair<HostsGetChangeCounterResponse?, UPnPFault?>? hostsGetChangeCounterResponse;
     private DeviceHostInfo? deviceHostInfo;
     private DeviceMeshInfo? deviceMeshInfo;
 
     public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IDeviceHostsService deviceHostsService, IDeviceMeshService deviceMeshService, HostsGetGenericHostEntryViewModel hostsGetGenericHostEntryViewModel)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "Hosts")
     {
         HostsGetGenericHostEntryViewModel = hostsGetGenericHostEntryViewModel;
         this.deviceHostsService = deviceHostsService;
@@ -20,17 +20,17 @@ internal sealed class HostsViewModel : FritzServiceViewModel
 
     public HostsGetGenericHostEntryViewModel HostsGetGenericHostEntryViewModel { get; }
 
-    public HostsGetHostNumberOfEntriesResponse? HostsGetHostNumberOfEntriesResponse
+    public KeyValuePair<HostsGetHostNumberOfEntriesResponse?, UPnPFault?>? HostsGetHostNumberOfEntriesResponse
     {
         get => hostsGetHostNumberOfEntriesResponse;
         private set
         {
             if (SetProperty(ref hostsGetHostNumberOfEntriesResponse, value))
-                HostsGetGenericHostEntryViewModel.HostNumberOfEntries = HostsGetHostNumberOfEntriesResponse?.HostNumberOfEntries;
+                HostsGetGenericHostEntryViewModel.HostNumberOfEntries = HostsGetHostNumberOfEntriesResponse?.Key?.HostNumberOfEntries;
         }
     }
 
-    public HostsGetChangeCounterResponse? HostsGetChangeCounterResponse
+    public KeyValuePair<HostsGetChangeCounterResponse?, UPnPFault?>? HostsGetChangeCounterResponse
     {
         get => hostsGetChangeCounterResponse;
         private set { _ = SetProperty(ref hostsGetChangeCounterResponse, value); }
@@ -48,9 +48,9 @@ internal sealed class HostsViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref deviceMeshInfo, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        await API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(new[]
             {
                 GetHostsGetHostListPathAsync(cancellationToken),
                 GetHostsGetMeshListPathAsync(cancellationToken),
@@ -61,21 +61,21 @@ internal sealed class HostsViewModel : FritzServiceViewModel
 
     private async Task GetHostsGetHostNumberOfEntriesAsync()
     {
-        HostsGetHostNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetHostNumberOfEntriesAsync();
+        HostsGetHostNumberOfEntriesResponse = await ExecuteApiAsync(q => q.HostsGetHostNumberOfEntriesAsync());
     }
 
     private async Task GetHostsGetChangeCounterAsync()
     {
-        HostsGetChangeCounterResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.HostsGetChangeCounterAsync();
+        HostsGetChangeCounterResponse = await ExecuteApiAsync(q => q.HostsGetChangeCounterAsync());
     }
 
     private async Task GetHostsGetHostListPathAsync(CancellationToken cancellationToken)
     {
-        DeviceHostInfo = await deviceHostsService.GetDeviceHostsAsync(DeviceLoginInfo.InternetGatewayDevice!.ApiDevice, cancellationToken);
+        DeviceHostInfo = await deviceHostsService.GetDeviceHostsAsync(ApiDevice, cancellationToken);
     }
 
     private async Task GetHostsGetMeshListPathAsync(CancellationToken cancellationToken)
     {
-        DeviceMeshInfo = await deviceMeshService.GetDeviceMeshAsync(DeviceLoginInfo.InternetGatewayDevice!.ApiDevice, cancellationToken);
+        DeviceMeshInfo = await deviceMeshService.GetDeviceMeshAsync(ApiDevice, cancellationToken);
     }
 }

@@ -1,0 +1,57 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
+    <DataTemplate DataType="{x:Type api:ManagementServerGetInfoResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Url}" Content="_Url" ToolTip="URL for the CPE to connect to the ACS using the CPE WAN Management Protocol."/>
+            <ContentControl x:Name="Url" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding Url}" Grid.Row="0" Grid.Column="1"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Username}" Content="_Username" ToolTip="Username used to authenticate the CPE when making a connection to the ACS using the CPE WAN Management Protocol. This username is used only for HTTP-based authentication of the CPE."/>
+            <TextBlock x:Name="Username" Grid.Row="1" Grid.Column="1" Text="{Binding Username}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=PeriodicInformEnable}" Content="_PeriodicInformEnable" ToolTip="Whether or not the CPE must periodically send CPE information to Server using the Inform method call."/>
+            <TextBlock x:Name="PeriodicInformEnable" Grid.Row="2" Grid.Column="1" Text="{Binding PeriodicInformEnable}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=PeriodicInformInterval}" Content="_PeriodicInformInterval" ToolTip="The duration in seconds of the interval for which the CPE MUST attempt to connect with the ACS and call the Inform method if PeriodicInformEnable is true."/>
+            <TextBlock x:Name="PeriodicInformInterval" Grid.Row="3" Grid.Column="1" Text="{Binding PeriodicInformInterval}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=PeriodicInformTime}" Content="_PeriodicInformTime" ToolTip="An absolute time reference in UTC to determine when the CPE should initiate the Inform method calls. Each Inform call must occur at this reference time plus or minus an integer multiple of the PeriodicInformInterval. A zero dateTime value (0000-00-00T00:00:00) indicates that no particular time reference is specified. That is, the CPE may locally choose the time reference, required only to adhere to the specified PeriodicInformInterval."/>
+            <TextBlock x:Name="PeriodicInformTime" Grid.Row="4" Grid.Column="1" Text="{Binding PeriodicInformTime}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=ParameterKey}" Content="_ParameterKey" ToolTip="The value of the ParameterKey argument from the most recent SetParameterValues, AddObject, or DeleteObject method call from the Server. If there have been no such calls, this value is empty."/>
+            <TextBlock x:Name="ParameterKey" Grid.Row="5" Grid.Column="1" Text="{Binding ParameterKey}"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=ParameterHash}" Content="_ParameterHash" ToolTip="Base64 encoded MD5 hash of all parameter values in the entire parameter database (except this one). Change in any parameter value should result in a change to this value."/>
+            <TextBlock x:Name="ParameterHash" Grid.Row="6" Grid.Column="1" Text="{Binding ParameterHash}"/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=ConnectionRequestUrl}" Content="_ConnectionRequestUrl" ToolTip="HTTP URL for an ACS to make a Connection Request notification to the CPE."/>
+            <ContentControl x:Name="ConnectionRequestUrl" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding ConnectionRequestUrl}" Grid.Row="7" Grid.Column="1"/>
+            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=ConnectionRequestUsername}" Content="_ConnectionRequestUsername" ToolTip="Username used to authenticate an ACS making a Connection Request to the CPE."/>
+            <TextBlock x:Name="ConnectionRequestUsername" Grid.Row="8" Grid.Column="1" Text="{Binding ConnectionRequestUsername}"/>
+            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=UpgradesManaged}" Content="_UpgradesManaged" ToolTip="Indicates whether or not the ACS will manage upgrades for the CPE. If true, the CPE SHOULD not use other means other than the ACS to seek out available upgrades. If false, the CPE MAY use other means for this purpose."/>
+            <TextBlock x:Name="UpgradesManaged" Grid.Row="9" Grid.Column="1" Text="{Binding UpgradesManaged}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:ManagementServerGetTr069FirmwareDownloadEnabledResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Tr069FirmwareDownloadEnabled}" Content="_Tr069FirmwareDownloadEnabled"/>
+            <TextBlock x:Name="Tr069FirmwareDownloadEnabled" Grid.Row="0" Grid.Column="1" Text="{Binding Tr069FirmwareDownloadEnabled}"/>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

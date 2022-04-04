@@ -20,7 +20,7 @@ internal sealed class DeviceHostsService : IDeviceHostsService
         string deviceHostsListXml = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStringAsync(hostListPathUri, cancellationToken);
         using var stringReader = new StringReader(deviceHostsListXml);
         using var xmlTextReader = new XmlTextReader(stringReader);
-        DeviceHostsList deviceHostsList = (DeviceHostsList?)new DataContractSerializer(typeof(DeviceHostsList)).ReadObject(xmlTextReader) ?? new DeviceHostsList();
+        var deviceHostsList = (DeviceHostsList)new DataContractSerializer(typeof(DeviceHostsList)).ReadObject(xmlTextReader)!;
 
         return new DeviceHostInfo(hostListPath, hostListPathUri, deviceHostsList);
     }

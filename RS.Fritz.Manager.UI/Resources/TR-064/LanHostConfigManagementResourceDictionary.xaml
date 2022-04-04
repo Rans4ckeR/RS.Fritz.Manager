@@ -1,0 +1,112 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
+    <DataTemplate DataType="{x:Type api:LanHostConfigManagementGetInfoResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DhcpServerConfigurable}" Content="_DhcpServerConfigurable" ToolTip="Enables the configuration of the DHCP server on the LAN interface. If this variable is set to false, the CPE should restore its default DHCP server settings."/>
+            <TextBlock x:Name="DhcpServerConfigurable" Grid.Row="0" Grid.Column="1" Text="{Binding DhcpServerConfigurable}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=DhcpRelay}" Content="_DhcpRelay" ToolTip="Indicates if the DHCP server performs the role of a server (0) or a relay (1) on the LAN interface."/>
+            <TextBlock x:Name="DhcpRelay" Grid.Row="1" Grid.Column="1" Text="{Binding DhcpRelay}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=MinAddress}" Content="_MinAddress" ToolTip="Specifies first address in the pool to be assigned by the DHCP server on the LAN interface."/>
+            <TextBlock x:Name="MinAddress" Grid.Row="2" Grid.Column="1" Text="{Binding MinAddress}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=NaxAddress}" Content="_NaxAddress" ToolTip="Specifies last address in the pool to be assigned by the DHCP server on the LAN interface."/>
+            <TextBlock x:Name="NaxAddress" Grid.Row="3" Grid.Column="1" Text="{Binding NaxAddress}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=ReservedAddresses}" Content="_ReservedAddresses" ToolTip="Comma separated list of addresses marked reserved from the address allocation pool."/>
+            <TextBlock x:Name="ReservedAddresses" Grid.Row="4" Grid.Column="1" Text="{Binding ReservedAddresses}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=DhcpServerEnable}" Content="_DhcpServerEnable" ToolTip="Enables or disables the DHCP server on the LAN interface."/>
+            <TextBlock x:Name="DhcpServerEnable" Grid.Row="5" Grid.Column="1" Text="{Binding DhcpServerEnable}"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=DnsServers}" Content="_DnsServers" ToolTip="Comma separated list of DNS servers offered to DHCP clients. Support for more than three DNS Servers is Optional."/>
+            <TextBlock x:Name="DnsServers" Grid.Row="6" Grid.Column="1" Text="{Binding DnsServers}"/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=DomainName}" Content="_DomainName" ToolTip="Sets the domain name to provide to clients on the LAN interface."/>
+            <TextBlock x:Name="DomainName" Grid.Row="7" Grid.Column="1" Text="{Binding DomainName}"/>
+            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=IpRouters}" Content="_IpRouters" ToolTip="Comma separated list of IP addresses of routers on this subnet. Also known as default gateway. Support for more than one Router address is Optional."/>
+            <TextBlock x:Name="IpRouters" Grid.Row="8" Grid.Column="1" Text="{Binding IpRouters}"/>
+            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=SubnetMask}" Content="_SubnetMask" ToolTip="Specifies the client's network subnet mask."/>
+            <TextBlock x:Name="SubnetMask" Grid.Row="9" Grid.Column="1" Text="{Binding SubnetMask}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:LanHostConfigManagementGetSubnetMaskResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=SubnetMask}" Content="_SubnetMask" ToolTip="Specifies the client's network subnet mask."/>
+            <TextBlock x:Name="SubnetMask" Grid.Row="0" Grid.Column="1" Text="{Binding SubnetMask}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:LanHostConfigManagementGetIpRoutersListResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IpRouters}" Content="_IpRouters" ToolTip="Comma separated list of IP addresses of routers on this subnet. Also known as default gateway. Support for more than one Router address is Optional."/>
+            <TextBlock x:Name="IpRouters" Grid.Row="0" Grid.Column="1" Text="{Binding IpRouters}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:LanHostConfigManagementGetAddressRangeResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=MinAddress}" Content="_MinAddress" ToolTip="Specifies first address in the pool to be assigned by the DHCP server on the LAN interface."/>
+            <TextBlock x:Name="MinAddress" Grid.Row="0" Grid.Column="1" Text="{Binding MinAddress}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=NaxAddress}" Content="_NaxAddress" ToolTip="Specifies last address in the pool to be assigned by the DHCP server on the LAN interface."/>
+            <TextBlock x:Name="NaxAddress" Grid.Row="1" Grid.Column="1" Text="{Binding NaxAddress}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IpInterfaceNumberOfEntries}" Content="_IpInterfaceNumberOfEntries" ToolTip="Number of IP interface at LAN side of the CPE. 1 is a typical value for CPE not supporting Multihomed interfaces. Support for more than one interface instance is Optional."/>
+            <TextBlock x:Name="IpInterfaceNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding IpInterfaceNumberOfEntries}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:LanHostConfigManagementGetDnsServersResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DnsServers}" Content="_DnsServers" ToolTip="Comma separated list of DNS servers offered to DHCP clients. Support for more than three DNS Servers is Optional."/>
+            <TextBlock x:Name="DnsServers" Grid.Row="0" Grid.Column="1" Text="{Binding DnsServers}"/>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

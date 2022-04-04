@@ -2,36 +2,36 @@
 
 internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
 {
-    private Layer3ForwardingGetDefaultConnectionServiceResponse? layer3ForwardingGetDefaultConnectionServiceResponse;
-    private Layer3ForwardingGetForwardNumberOfEntriesResponse? layer3ForwardingGetForwardNumberOfEntriesResponse;
+    private KeyValuePair<Layer3ForwardingGetDefaultConnectionServiceResponse?, UPnPFault?>? layer3ForwardingGetDefaultConnectionServiceResponse;
+    private KeyValuePair<Layer3ForwardingGetForwardNumberOfEntriesResponse?, UPnPFault?>? layer3ForwardingGetForwardNumberOfEntriesResponse;
 
     public Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, Layer3ForwardingGetGenericForwardingEntryViewModel layer3ForwardingGetGenericForwardingEntryViewModel)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "Layer3Forwarding")
     {
         Layer3ForwardingGetGenericForwardingEntryViewModel = layer3ForwardingGetGenericForwardingEntryViewModel;
     }
 
     public Layer3ForwardingGetGenericForwardingEntryViewModel Layer3ForwardingGetGenericForwardingEntryViewModel { get; }
 
-    public Layer3ForwardingGetDefaultConnectionServiceResponse? Layer3ForwardingGetDefaultConnectionServiceResponse
+    public KeyValuePair<Layer3ForwardingGetDefaultConnectionServiceResponse?, UPnPFault?>? Layer3ForwardingGetDefaultConnectionServiceResponse
     {
         get => layer3ForwardingGetDefaultConnectionServiceResponse;
         private set { _ = SetProperty(ref layer3ForwardingGetDefaultConnectionServiceResponse, value); }
     }
 
-    public Layer3ForwardingGetForwardNumberOfEntriesResponse? Layer3ForwardingGetForwardNumberOfEntriesResponse
+    public KeyValuePair<Layer3ForwardingGetForwardNumberOfEntriesResponse?, UPnPFault?>? Layer3ForwardingGetForwardNumberOfEntriesResponse
     {
         get => layer3ForwardingGetForwardNumberOfEntriesResponse;
         private set
         {
             if (SetProperty(ref layer3ForwardingGetForwardNumberOfEntriesResponse, value))
-                Layer3ForwardingGetGenericForwardingEntryViewModel.ForwardNumberOfEntries = Layer3ForwardingGetForwardNumberOfEntriesResponse?.ForwardNumberOfEntries;
+                Layer3ForwardingGetGenericForwardingEntryViewModel.ForwardNumberOfEntries = Layer3ForwardingGetForwardNumberOfEntriesResponse?.Key?.ForwardNumberOfEntries;
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        await API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(new[]
             {
                 GetLayer3ForwardingGetDefaultConnectionServiceAsync(),
                 GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
@@ -40,11 +40,11 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
 
     private async Task GetLayer3ForwardingGetDefaultConnectionServiceAsync()
     {
-        Layer3ForwardingGetDefaultConnectionServiceResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.Layer3ForwardingGetDefaultConnectionServiceAsync();
+        Layer3ForwardingGetDefaultConnectionServiceResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetDefaultConnectionServiceAsync());
     }
 
     private async Task GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
     {
-        Layer3ForwardingGetForwardNumberOfEntriesResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.Layer3ForwardingGetForwardNumberOfEntriesAsync();
+        Layer3ForwardingGetForwardNumberOfEntriesResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetForwardNumberOfEntriesAsync());
     }
 }

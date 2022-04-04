@@ -46,6 +46,18 @@ internal sealed partial class App
                     .AddSingleton<CaptureControlCaptureViewModel>()
                     .AddSingleton<WanIpConnectionGetGenericPortMappingEntryViewModel>()
                     .AddSingleton<WanPppConnectionGetGenericPortMappingEntryViewModel>()
+                    .AddSingleton<LanEthernetInterfaceConfigViewModel>()
+                    .AddSingleton<LanHostConfigManagementViewModel>()
+                    .AddSingleton<WlanConfigurationViewModel>()
+                    .AddSingleton<ManagementServerViewModel>()
+                    .AddSingleton<ManagementServerSetManagementServerUrlViewModel>()
+                    .AddSingleton<ManagementServerSetManagementServerUsernameViewModel>()
+                    .AddSingleton<ManagementServerSetManagementServerPasswordViewModel>()
+                    .AddSingleton<ManagementServerSetPeriodicInformViewModel>()
+                    .AddSingleton<ManagementServerSetConnectionRequestAuthenticationViewModel>()
+                    .AddSingleton<ManagementServerSetUpgradeManagementViewModel>()
+                    .AddSingleton<ManagementServerSetTr069EnableViewModel>()
+                    .AddSingleton<ManagementServerSetTr069FirmwareDownloadEnabledViewModel>()
                     .AddFritzApi();
             }).Build();
     }

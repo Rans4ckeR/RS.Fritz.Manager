@@ -14,7 +14,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
     private readonly ScaleTransform scaleYTransform = new() { ScaleY = -1d };
     private readonly List<WanDslInterfaceConfigGetInfoResponse> wanDslInterfaceConfigGetInfoResponses = new();
 
-    private WanDslInterfaceConfigGetInfoResponse? wanDslInterfaceConfigGetInfoResponse;
+    private KeyValuePair<WanDslInterfaceConfigGetInfoResponse?, UPnPFault?>? wanDslInterfaceConfigGetInfoResponse;
     private List<UIElement>? downstreamMaxRateHistory;
     private List<UIElement>? upstreamCurrRateHistory;
     private List<UIElement>? downstreamCurrRateHistory;
@@ -44,12 +44,12 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
         scaleYTransform.Freeze();
     }
 
-    public WanDslInterfaceConfigGetInfoResponse? WanDslInterfaceConfigGetInfoResponse
+    public KeyValuePair<WanDslInterfaceConfigGetInfoResponse?, UPnPFault?>? WanDslInterfaceConfigGetInfoResponse
     {
         get => wanDslInterfaceConfigGetInfoResponse;
         set
         {
-            wanDslInterfaceConfigGetInfoResponses.Add(value!.Value);
+            wanDslInterfaceConfigGetInfoResponses.Add(value!.Value.Key!.Value);
 
             if (wanDslInterfaceConfigGetInfoResponses.Count > 1)
             {

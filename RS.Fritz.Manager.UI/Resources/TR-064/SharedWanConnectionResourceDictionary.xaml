@@ -1,0 +1,128 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
+    <DataTemplate DataType="{x:Type api:WanConnectionGetConnectionTypeInfoResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ConnectionType}" Content="_ConnectionType" ToolTip="The connection type for a specific active connection."/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PossibleConnectionTypes}" Content="_PossibleConnectionTypes" ToolTip="The types of connections possible in the context of a specific modem and link type. Possible values are Unconfigured, IP_Routed, IP_Bridged, DHCP_Spoofed, IpoE_Bridged, PPTP_Relay, L2TP_Relay, IpoE_Relay."/>
+            <TextBlock x:Name="ConnectionType" Grid.Row="0" Grid.Column="1" Text="{Binding ConnectionType}"/>
+            <TextBlock x:Name="PossibleConnectionTypes" Grid.Row="1" Grid.Column="1" Text="{Binding PossibleConnectionTypes}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WanConnectionGetStatusInfoResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ConnectionStatus}" Content="_ConnectionStatus" ToolTip="Current status of an Internet connection. Possible values are Unconfigured, Connecting, Authenticating, Connected, PendingDisconnect, Disconnecting, Disconnected."/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=LastConnectionError}" Content="_LastConnectionError" ToolTip="Provides information about the cause of failure for the last connection setup attempt. Possible values are ERROR_NONE, ERROR_ISP_TIME_OUT, ERROR_COMMAND_ABORTED, ERROR_NOT_ENABLED_FOR_INTERNET, ERROR_BAD_PHONE_NUMBER, ERROR_USER_DISCONNECT, ERROR_ISP_DISCONNECT, ERROR_IDLE_DISCONNECT, ERROR_FORCED_DISCONNECT, ERROR_SERVER_OUT_OF_RESOURCES, ERROR_RESTRICTED_LOGON_HOURS, ERROR_ACCOUNT_DISABLED, ERROR_ACCOUNT_EXPIRED, ERROR_PASSWORD_EXPIRED, ERROR_AUTHENTICATION_FAILURE, ERROR_NO_DIALTONE, ERROR_NO_CARRIER, ERROR_NO_ANSWER, ERROR_LINE_BUSY, ERROR_UNSUPPORTED_BITSPERSECOND, ERROR_TOO_MANY_LINE_ERRORS, ERROR_IP_CONFIGURATION, ERROR_UNKNOWN."/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Uptime}" Content="_Uptime" ToolTip="The time in seconds that this connection has stayed up."/>
+            <TextBlock x:Name="ConnectionStatus" Grid.Row="0" Grid.Column="1" Text="{Binding ConnectionStatus}"/>
+            <TextBlock x:Name="LastConnectionError" Grid.Row="1" Grid.Column="1" Text="{Binding LastConnectionError}"/>
+            <TextBlock x:Name="Uptime" Grid.Row="2" Grid.Column="1" Text="{Binding Uptime}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WanConnectionGetNatRsipStatusResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=RsipAvailable}" Content="_RsipAvailable" ToolTip="This variable indicates if Realm-specific IP (RSIP) is available as a feature on the InternetGatewayDevice. RSIP is being defined in the NAT working group in the IETF to allow host-NATing using a standard set of message exchanges. It also allows end-to-end applications that otherwise break if NAT is introduced (e.g. IPsec-based VPNs). A gateway that does not support RSIP should set this variable to 0."/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=NatEnabled}" Content="_NatEnabled" ToolTip="Indicates if Network Address Translation (NAT) is enabled for this connection."/>
+            <TextBlock x:Name="RsipAvailable" Grid.Row="0" Grid.Column="1" Text="{Binding RsipAvailable}"/>
+            <TextBlock x:Name="NatEnabled" Grid.Row="1" Grid.Column="1" Text="{Binding NatEnabled}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WanConnectionGetDnsServersResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DnsServers}" Content="_DnsServers" ToolTip="Comma separated list of DNS servers configured on the WANConnection."/>
+            <TextBlock x:Name="DnsServers" Grid.Row="0" Grid.Column="1" Text="{Binding DnsServers}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WanConnectionGetPortMappingNumberOfEntriesResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=PortMappingNumberOfEntries}" Content="_PortMappingNumberOfEntries" ToolTip="Total number of port mapping entries."/>
+            <TextBlock x:Name="PortMappingNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding PortMappingNumberOfEntries}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WanConnectionGetExternalIpAddressResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ExternalIpAddress}" Content="_ExternalIpAddress" ToolTip="This is the external IP address used by NAT for this connection."/>
+            <TextBlock x:Name="ExternalIpAddress" Grid.Row="0" Grid.Column="1" Text="{Binding ExternalIpAddress}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:WanConnectionGetGenericPortMappingEntryResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=RemoteHost}" Content="_RemoteHost" ToolTip="This parameter is the IP address of the source of inbound packets. An empty string indicates a 'wildcard' (this will be a wildcard in most cases). CPE are required only to support wildcards."/>
+            <TextBlock x:Name="RemoteHost" Grid.Row="0" Grid.Column="1" Text="{Binding RemoteHost}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=ExternalPort}" Content="_ExternalPort" ToolTip="The external port that the NAT gateway would listen on for connection requests to a corresponding InternalPort. Inbound packets to this external port on the WAN interface should be forwarded to InternalClient on the InternalPort."/>
+            <TextBlock x:Name="ExternalPort" Grid.Row="1" Grid.Column="1" Text="{Binding ExternalPort}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Protocol}" Content="_Protocol" ToolTip="Indicates whether the IP address of the host was allocated by the CPE using DHCP or was assigned to the host statically. Possible values are DHCP, Static, AutoIP."/>
+            <TextBlock x:Name="Protocol" Grid.Row="2" Grid.Column="1" Text="{Binding Protocol}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=InternalPort}" Content="_InternalPort" ToolTip="The port on InternalClient that the gateway should forward connection requests to. A value of zero (0) is not allowed."/>
+            <TextBlock x:Name="InternalPort" Grid.Row="3" Grid.Column="1" Text="{Binding InternalPort}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=InternalClient}" Content="_InternalClient" ToolTip="The IP address or DNS host name of an internal client (on the LAN)."/>
+            <TextBlock x:Name="InternalClient" Grid.Row="4" Grid.Column="1" Text="{Binding InternalClient}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Enabled}" Content="_Enabled" ToolTip="Enables or disables the port mapping instance. On creation, an entry is disabled by default."/>
+            <TextBlock x:Name="Enabled" Grid.Row="5" Grid.Column="1" Text="{Binding Enabled}"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=PortMappingDescription}" Content="_PortMappingDescription" ToolTip="User-readable description of this port mapping."/>
+            <TextBlock x:Name="PortMappingDescription" Grid.Row="6" Grid.Column="1" Text="{Binding PortMappingDescription}"/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=LeaseDuration}" Content="_LeaseDuration" ToolTip="Determines the time to live, in seconds, of a port-mapping lease. A value of 0 means the port mapping is static. Static port mappings do not necessarily mean persistence of these mappings across device resets or reboots."/>
+            <TextBlock x:Name="LeaseDuration" Grid.Row="7" Grid.Column="1" Text="{Binding LeaseDuration}"/>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

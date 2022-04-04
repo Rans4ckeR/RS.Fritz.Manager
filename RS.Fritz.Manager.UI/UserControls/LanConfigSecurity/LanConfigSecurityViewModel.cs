@@ -2,46 +2,46 @@
 
 internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
 {
-    private LanConfigSecurityGetAnonymousLoginResponse? lanConfigSecurityGetAnonymousLoginResponse;
-    private LanConfigSecurityGetCurrentUserResponse? lanConfigSecurityGetCurrentUserResponse;
-    private LanConfigSecurityGetInfoResponse? lanConfigSecurityGetInfoResponse;
-    private LanConfigSecurityGetUserListResponse? lanConfigSecurityGetUserListResponse;
+    private KeyValuePair<LanConfigSecurityGetAnonymousLoginResponse?, UPnPFault?>? lanConfigSecurityGetAnonymousLoginResponse;
+    private KeyValuePair<LanConfigSecurityGetCurrentUserResponse?, UPnPFault?>? lanConfigSecurityGetCurrentUserResponse;
+    private KeyValuePair<LanConfigSecurityGetInfoResponse?, UPnPFault?>? lanConfigSecurityGetInfoResponse;
+    private KeyValuePair<LanConfigSecurityGetUserListResponse?, UPnPFault?>? lanConfigSecurityGetUserListResponse;
 
     public LanConfigSecurityViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel)
-        : base(deviceLoginInfo, logger)
+        : base(deviceLoginInfo, logger, "LANConfigSecurity")
     {
         LanConfigSecuritySetConfigPasswordViewModel = lanConfigSecuritySetConfigPasswordViewModel;
     }
 
     public LanConfigSecuritySetConfigPasswordViewModel LanConfigSecuritySetConfigPasswordViewModel { get; }
 
-    public LanConfigSecurityGetAnonymousLoginResponse? LanConfigSecurityGetAnonymousLoginResponse
+    public KeyValuePair<LanConfigSecurityGetAnonymousLoginResponse?, UPnPFault?>? LanConfigSecurityGetAnonymousLoginResponse
     {
         get => lanConfigSecurityGetAnonymousLoginResponse;
         private set { _ = SetProperty(ref lanConfigSecurityGetAnonymousLoginResponse, value); }
     }
 
-    public LanConfigSecurityGetCurrentUserResponse? LanConfigSecurityGetCurrentUserResponse
+    public KeyValuePair<LanConfigSecurityGetCurrentUserResponse?, UPnPFault?>? LanConfigSecurityGetCurrentUserResponse
     {
         get => lanConfigSecurityGetCurrentUserResponse;
         private set { _ = SetProperty(ref lanConfigSecurityGetCurrentUserResponse, value); }
     }
 
-    public LanConfigSecurityGetInfoResponse? LanConfigSecurityGetInfoResponse
+    public KeyValuePair<LanConfigSecurityGetInfoResponse?, UPnPFault?>? LanConfigSecurityGetInfoResponse
     {
         get => lanConfigSecurityGetInfoResponse;
         private set { _ = SetProperty(ref lanConfigSecurityGetInfoResponse, value); }
     }
 
-    public LanConfigSecurityGetUserListResponse? LanConfigSecurityGetUserListResponse
+    public KeyValuePair<LanConfigSecurityGetUserListResponse?, UPnPFault?>? LanConfigSecurityGetUserListResponse
     {
         get => lanConfigSecurityGetUserListResponse;
         private set { _ = SetProperty(ref lanConfigSecurityGetUserListResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken = default)
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        await API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(new[]
             {
                 GetLanConfigSecurityGetAnonymousLoginAsync(),
                 GetLanConfigSecurityGetCurrentUserAsync(),
@@ -52,21 +52,21 @@ internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
 
     private async Task GetLanConfigSecurityGetAnonymousLoginAsync()
     {
-        LanConfigSecurityGetAnonymousLoginResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanConfigSecurityGetAnonymousLoginAsync();
+        LanConfigSecurityGetAnonymousLoginResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetAnonymousLoginAsync());
     }
 
     private async Task GetLanConfigSecurityGetCurrentUserAsync()
     {
-        LanConfigSecurityGetCurrentUserResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanConfigSecurityGetCurrentUserAsync();
+        LanConfigSecurityGetCurrentUserResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetCurrentUserAsync());
     }
 
     private async Task GetLanConfigSecurityGetInfoAsync()
     {
-        LanConfigSecurityGetInfoResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanConfigSecurityGetInfoAsync();
+        LanConfigSecurityGetInfoResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetInfoAsync());
     }
 
     private async Task GetLanConfigSecurityGetUserListAsync()
     {
-        LanConfigSecurityGetUserListResponse = await DeviceLoginInfo.InternetGatewayDevice!.ApiDevice.LanConfigSecurityGetUserListAsync();
+        LanConfigSecurityGetUserListResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetUserListAsync());
     }
 }

@@ -17,8 +17,8 @@ internal sealed class UsersService : IUsersService
         LanConfigSecurityGetUserListResponse lanConfigSecurityGetUserListResponse = await fritzServiceOperationHandler.LanConfigSecurityGetUserListAsync(internetGatewayDevice);
         using var stringReader = new StringReader(lanConfigSecurityGetUserListResponse.UserList);
         using var xmlTextReader = new XmlTextReader(stringReader);
-        var userList = (UserList?)new XmlSerializer(typeof(UserList)).Deserialize(xmlTextReader);
+        var userList = (UserList)new XmlSerializer(typeof(UserList)).Deserialize(xmlTextReader)!;
 
-        return userList?.Users ?? Array.Empty<User>();
+        return userList.Users;
     }
 }
