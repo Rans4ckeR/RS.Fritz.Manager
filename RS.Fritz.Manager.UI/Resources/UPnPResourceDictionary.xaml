@@ -102,13 +102,13 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=HW}" Content="_HW"/>
+                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Hw}" Content="_Hw"/>
                     <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Major}" Content="_Major"/>
                     <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Minor}" Content="_Minor"/>
                     <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=Patch}" Content="_Patch"/>
                     <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=BuildNumber}" Content="_BuildNumber"/>
                     <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Display}" Content="_Display"/>
-                    <TextBlock x:Name="HW" Grid.Row="0" Grid.Column="1" Text="{Binding HW}"/>
+                    <TextBlock x:Name="Hw" Grid.Row="0" Grid.Column="1" Text="{Binding Hw}"/>
                     <TextBlock x:Name="Major" Grid.Row="1" Grid.Column="1" Text="{Binding Major}"/>
                     <TextBlock x:Name="Minor" Grid.Row="2" Grid.Column="1" Text="{Binding Minor}"/>
                     <TextBlock x:Name="Patch" Grid.Row="3" Grid.Column="1" Text="{Binding Patch}"/>

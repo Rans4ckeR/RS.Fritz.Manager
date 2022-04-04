@@ -28,9 +28,9 @@ internal sealed class DeviceSearchService : IDeviceSearchService
 
     private static IDictionary<AddressType, IPAddress> SsdpMultiCastAddresses => new Dictionary<AddressType, IPAddress>
     {
-        [AddressType.IPv4SiteLocal] = IPAddress.Parse("239.255.255.250"),
-        [AddressType.IPv6LinkLocal] = IPAddress.Parse("[FF02::C]"),
-        [AddressType.IPv6SiteLocal] = IPAddress.Parse("[FF05::C]")
+        [AddressType.IpV4SiteLocal] = IPAddress.Parse("239.255.255.250"),
+        [AddressType.IpV6LinkLocal] = IPAddress.Parse("[FF02::C]"),
+        [AddressType.IpV6SiteLocal] = IPAddress.Parse("[FF05::C]")
     };
 
     public async Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null, int? sendCount = null, int? timeout = null, CancellationToken cancellationToken = default)
@@ -104,13 +104,13 @@ internal sealed class DeviceSearchService : IDeviceSearchService
     private static AddressType GetAddressType(IPAddress localAddress)
     {
         if (localAddress.AddressFamily == AddressFamily.InterNetwork)
-            return AddressType.IPv4SiteLocal;
+            return AddressType.IpV4SiteLocal;
 
         if (localAddress.IsIPv6LinkLocal)
-            return AddressType.IPv6LinkLocal;
+            return AddressType.IpV6LinkLocal;
 
         if (localAddress.IsIPv6SiteLocal)
-            return AddressType.IPv6SiteLocal;
+            return AddressType.IpV6SiteLocal;
 
         return AddressType.Unknown;
     }

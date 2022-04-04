@@ -42,10 +42,10 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IPAddress}" Content="_IPAddress" ToolTip="Current IP Address of the host."/>
-            <TextBlock x:Name="IPAddress" Grid.Row="0" Grid.Column="1" Text="{Binding IPAddress}"/>
-            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="MAC address of the host."/>
-            <TextBlock x:Name="MACAddress" Grid.Row="1" Grid.Column="1" Text="{Binding MACAddress}"/>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IpAddress}" Content="_IpAddress" ToolTip="Current IP Address of the host."/>
+            <TextBlock x:Name="IpAddress" Grid.Row="0" Grid.Column="1" Text="{Binding IpAddress}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MacAddress}" Content="_MacAddress" ToolTip="MAC address of the host."/>
+            <TextBlock x:Name="MacAddress" Grid.Row="1" Grid.Column="1" Text="{Binding MacAddress}"/>
             <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AddressSource}" Content="_AddressSource" ToolTip="Indicates whether the IP address of the host was allocated by the CPE using DHCP or was assigned to the host statically. Possible values are DHCP, Static, AutoIP."/>
             <TextBlock x:Name="AddressSource" Grid.Row="2" Grid.Column="1" Text="{Binding AddressSource}"/>
             <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LeaseTimeRemaining}" Content="_LeaseTimeRemaining" ToolTip="DHCP lease time remaining in seconds. The value must be 0 (zero) if the AddressSource is not DHCP. -1 = Infinite lease."/>
@@ -221,9 +221,9 @@
                     <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=SteeringEnabled}" Content="_SteeringEnabled" ToolTip="WLAN: Steering of this interface is enabled."/>
                     <TextBlock x:Name="SteeringEnabled" Grid.Row="11" Grid.Column="1" Text="{Binding SteeringEnabled}"/>
                     <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=Is11kFriendly}" Content="_Is11kFriendly" ToolTip="WLAN: Beacon Reporting seems to work with this interface and client is capable of it."/>
-                    <TextBlock x:Name="Is11kFriendly" Grid.Row="12" Grid.Column="1" Text="{Binding Is11kFriendly}"/>
+                    <TextBlock x:Name="Is11kFriendly" Grid.Row="12" Grid.Column="1" Text="{Binding Is11KFriendly}"/>
                     <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=Is11vFriendly}" Content="_Is11vFriendly" ToolTip="WLAN: BSS Transition Management seems to work with this interface and client is capable of it."/>
-                    <TextBlock x:Name="Is11vFriendly" Grid.Row="13" Grid.Column="1" Text="{Binding Is11vFriendly}"/>
+                    <TextBlock x:Name="Is11vFriendly" Grid.Row="13" Grid.Column="1" Text="{Binding Is11VFriendly}"/>
                     <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=LegacyFriendly}" Content="_LegacyFriendly" ToolTip="WLAN: Legacy Steering seems to work with this interface."/>
                     <TextBlock x:Name="LegacyFriendly" Grid.Row="14" Grid.Column="1" Text="{Binding LegacyFriendly}"/>
                     <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=RrmCompliant}" Content="_RrmCompliant" ToolTip="WLAN: Beacon report RCPI measurements seem to be encoded as described in Table 9-154 of IEEE802.11 (2016)."/>

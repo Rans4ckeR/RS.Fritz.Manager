@@ -17,6 +17,6 @@ internal sealed class ClientFactory<T> : IClientFactory<T>
 
     private static FritzServiceEndpointConfiguration GetEndpointConfiguration(bool secure)
     {
-        return secure ? FritzServiceEndpointConfiguration.BasicHttpsBinding_IFritzService : FritzServiceEndpointConfiguration.BasicHttpBinding_IFritzService;
+        return secure ? FritzServiceEndpointConfiguration.BasicHttpsBindingIFritzService : FritzServiceEndpointConfiguration.BasicHttpBindingIFritzService;
     }
 }

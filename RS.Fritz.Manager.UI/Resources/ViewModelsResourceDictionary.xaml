@@ -100,4 +100,10 @@
     <DataTemplate DataType="{x:Type ui:ManagementServerSetTr069FirmwareDownloadEnabledViewModel}">
         <ui:ManagementServerSetTr069FirmwareDownloadEnabledView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:TimeViewModel}">
+        <ui:TimeView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:TimeSetNtpServersViewModel}">
+        <ui:TimeSetNtpServersView/>
+    </DataTemplate>
 </ResourceDictionary>

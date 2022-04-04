@@ -58,6 +58,8 @@ internal sealed partial class App
                     .AddSingleton<ManagementServerSetUpgradeManagementViewModel>()
                     .AddSingleton<ManagementServerSetTr069EnableViewModel>()
                     .AddSingleton<ManagementServerSetTr069FirmwareDownloadEnabledViewModel>()
+                    .AddSingleton<TimeViewModel>()
+                    .AddSingleton<TimeSetNtpServersViewModel>()
                     .AddFritzApi();
             }).Build();
     }

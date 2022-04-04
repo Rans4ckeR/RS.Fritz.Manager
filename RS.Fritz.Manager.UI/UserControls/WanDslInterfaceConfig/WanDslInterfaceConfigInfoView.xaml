@@ -163,8 +163,8 @@
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
-                <TextBlock x:Name="AturVendor" Grid.Row="11" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.ATURVendor}"/>
-                <TextBlock x:Name="AturCountry" Grid.Row="12" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.ATURCountry}"/>
+                <TextBlock x:Name="AturVendor" Grid.Row="11" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.AturVendor}"/>
+                <TextBlock x:Name="AturCountry" Grid.Row="12" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.AturCountry}"/>
                 <TextBlock x:Name="UpstreamPower" Grid.Row="13" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetInfoResponse.Key.UpstreamPower}"/>
                 <ItemsControl Grid.Row="13" Grid.Column="2" ItemsSource="{Binding UpstreamPowerHistory}">
                     <ItemsControl.ItemsPanel>
