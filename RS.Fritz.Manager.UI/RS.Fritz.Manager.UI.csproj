@@ -65,6 +65,9 @@
     <Resource Include="Images\Success.png" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UserControls\Time\TimeView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\ManagementServer\ManagementServerView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -121,11 +124,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Resources\TR-064\TimeResourceDictionary.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Resources\TR-064\ManagementServerResourceDictionary.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\TR-064\WanDslLinkConfigResourceDictionary.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\Time\TimeSetNtpServersView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="UserControls\Time\TimeView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

@@ -272,6 +272,7 @@ static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, IC
 ### Storage/NAS
 * ❌ urn:dslforum-org:service:X_AVM-DE_Storage
 * ❌ urn:dslforum-org:service:X_AVM-DE_UPnP
+* ❌ urn:dslforum-org:service:X_AVM-DE_WebDAVClient
 * ❌ urn:dslforum-org:service:X_AVM-DE_Filelinks
 
 ### System
@@ -300,5 +301,7 @@ static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, IC
   * ✅ X_AVM-DE_GetTR069FirmwareDownloadEnabled
   * ✅ X_AVM-DE_SetTR069FirmwareDownloadEnabled
 * ❌ urn:dslforum-org:service:X_AVM-DE_Auth
-* ❌ urn:dslforum-org:service:Time
+* ✅ urn:dslforum-org:service:Time
+  * ✅ GetInfo
+  * ✅ SetNTPServers
 * ❌ urn:dslforum-org:service:UserInterface

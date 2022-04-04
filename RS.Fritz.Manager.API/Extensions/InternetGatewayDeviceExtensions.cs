@@ -452,6 +452,16 @@ public static class InternetGatewayDeviceExtensions
         return internetGatewayDevice.ExecuteAsync((h, d) => h.ManagementServerSetTr069FirmwareDownloadEnabledAsync(d, managementServerSetTr069FirmwareDownloadEnabledRequest));
     }
 
+    public static Task<TimeGetInfoResponse> TimeGetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.TimeGetInfoAsync(d));
+    }
+
+    public static Task<TimeSetNtpServersResponse> TimeSetNtpServersAsync(this InternetGatewayDevice internetGatewayDevice, TimeSetNtpServersRequest timeSetNtpServersRequest)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.TimeSetNtpServersAsync(d, timeSetNtpServersRequest));
+    }
+
     private static Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> GetWlanOperation<T>(
         int interfaceNumber,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface1Operation,
