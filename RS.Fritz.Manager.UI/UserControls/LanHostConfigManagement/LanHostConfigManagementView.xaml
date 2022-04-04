@@ -20,8 +20,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="0" Grid.Column="0">
+            <Expander Header="Info">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -34,8 +34,8 @@
                 </Grid>
             </Expander>
         </Border>
-        <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SubnetMask">
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="1" Grid.Column="0">
+            <Expander Header="SubnetMask">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -48,8 +48,8 @@
                 </Grid>
             </Expander>
         </Border>
-        <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpRoutersList">
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="2" Grid.Column="0">
+            <Expander Header="IpRoutersList">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -62,8 +62,8 @@
                 </Grid>
             </Expander>
         </Border>
-        <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="AddressRange">
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="3" Grid.Column="0">
+            <Expander Header="AddressRange">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -76,8 +76,8 @@
                 </Grid>
             </Expander>
         </Border>
-        <Border Grid.Row="4" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpInterfaceNumberOfEntries">
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="4" Grid.Column="0">
+            <Expander Header="IpInterfaceNumberOfEntries">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -90,8 +90,8 @@
                 </Grid>
             </Expander>
         </Border>
-        <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DnsServers">
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="5" Grid.Column="0">
+            <Expander Header="DnsServers">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

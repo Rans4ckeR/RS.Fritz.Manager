@@ -16,8 +16,8 @@
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:InternetGatewayDevice}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource NavigationBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SSDP">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="SSDP">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -48,8 +48,8 @@
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:UPnPDescription}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource NavigationBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="UPnP">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="UPnP">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -67,8 +67,8 @@
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:SpecVersion}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource NavigationBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SpecVersion">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="SpecVersion">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -87,8 +87,8 @@
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:SystemVersion}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource NavigationBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SystemVersion">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="SystemVersion">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -119,8 +119,8 @@
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:Device}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource NavigationBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Device">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="Device">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -168,15 +168,19 @@
                     <TextBlock x:Name="Upc" Grid.Row="9" Grid.Column="1" Text="{Binding Upc}"/>
                     <ContentControl x:Name="PresentationUrl" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding PresentationUrl}" Grid.Row="10" Grid.Column="1"/>
                     <ItemsControl x:Name="IconList" Grid.Row="11" Grid.Column="1" ItemsSource="{Binding IconList}"/>
-                    <ItemsControl x:Name="ServiceList" Grid.Row="12" Grid.Column="1" ItemsSource="{Binding ServiceList}"/>
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="12" Grid.Column="1">
+                        <Expander Header="ServiceList">
+                            <DataGrid x:Name="ServiceList" ItemsSource="{Binding ServiceList}"/>
+                        </Expander>
+                    </Border>
                     <ItemsControl x:Name="DeviceList" Grid.Row="13" Grid.Column="1" ItemsSource="{Binding DeviceList}"/>
                 </Grid>
             </Expander>
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:IconListItem}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource NavigationBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Icon">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="Icon">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -204,8 +208,8 @@
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:ServiceListItem}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource NavigationBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Service">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="Service">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

@@ -29,7 +29,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         this.captureControlService = captureControlService;
         Start1Command = new AsyncRelayCommand(DoExecuteStart1CommandAsync);
         Stop1Command = new AsyncRelayCommand(DoExecuteStop1CommandAsync);
-        animationTimer = new DispatcherTimer()
+        animationTimer = new DispatcherTimer
         {
             Interval = TimeSpan.FromMilliseconds(TimerTickIntervalMs)
         };
