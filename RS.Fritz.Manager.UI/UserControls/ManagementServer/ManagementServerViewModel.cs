@@ -56,9 +56,9 @@ internal sealed class ManagementServerViewModel : FritzServiceViewModel
 
     public ManagementServerSetTr069FirmwareDownloadEnabledViewModel ManagementServerSetTr069FirmwareDownloadEnabledViewModel { get; }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        await API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(new[]
             {
                GetManagementServerGetInfoAsync(),
                GetManagementServerGetTr069FirmwareDownloadEnabledAsync()

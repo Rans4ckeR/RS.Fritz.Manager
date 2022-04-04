@@ -14,9 +14,9 @@ public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzSe
 
     public IEnumerable<ServiceListItem> Services { get => services ??= UPnPDescription.Device.GetServices().ToArray(); }
 
-    internal async Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
+    internal Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
     {
-        return await operation(FritzServiceOperationHandler, this);
+        return operation(FritzServiceOperationHandler, this);
     }
 
     public async Task InitializeAsync()

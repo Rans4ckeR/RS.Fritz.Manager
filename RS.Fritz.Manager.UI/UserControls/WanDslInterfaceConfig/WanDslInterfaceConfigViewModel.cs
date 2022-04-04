@@ -72,9 +72,9 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        await API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(new[]
             {
                 GetWanDslInterfaceConfigGetDslDiagnoseInfoAsync(),
                 GetWanDslInterfaceConfigGetDslInfoAsync(),

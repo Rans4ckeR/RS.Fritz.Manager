@@ -1,5 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
+using System.Windows;
+
 internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
 {
     private readonly IWlanDeviceService wlanDeviceService;
@@ -21,6 +23,9 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
     private KeyValuePair<WlanConfigurationGetWlanExtInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetWlanExtInfoResponses;
     private KeyValuePair<WlanConfigurationGetWpsInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetWpsInfoResponses;
     private KeyValuePair<WlanConfigurationGetWlanConnectionInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetWlanConnectionInfoResponses;
+    private Visibility? interface2Visibility;
+    private Visibility? interface3Visibility;
+    private Visibility? interface4Visibility;
 
     public WlanConfigurationViewModel(DeviceLoginInfo deviceLoginInfo, IWlanDeviceService wlanDeviceService, ILogger logger)
         : base(deviceLoginInfo, logger, "WLANConfiguration")
@@ -130,9 +135,24 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref wlanConfigurationGetWlanConnectionInfoResponses, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    public Visibility Interface2Visibility
     {
-        await API.TaskExtensions.WhenAllSafe(new[]
+        get => interface2Visibility ??= HasWlanConfigurationService(2) ? Visibility.Visible : Visibility.Hidden;
+    }
+
+    public Visibility Interface3Visibility
+    {
+        get => interface3Visibility ??= HasWlanConfigurationService(3) ? Visibility.Visible : Visibility.Hidden;
+    }
+
+    public Visibility Interface4Visibility
+    {
+        get => interface4Visibility ??= HasWlanConfigurationService(4) ? Visibility.Visible : Visibility.Hidden;
+    }
+
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    {
+        return API.TaskExtensions.WhenAllSafe(new[]
           {
                 GetWlanConfigurationGetHostListPathAsync(cancellationToken),
                 GetWlanConfigurationGetInfoAsync(),

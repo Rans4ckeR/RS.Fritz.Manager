@@ -271,7 +271,7 @@
                 </Grid>
             </Expander>
         </Border>
-        <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+        <Border Grid.Row="2" Grid.Column="0" Visibility="{Binding Interface2Visibility}" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
             <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConfiguration2">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -522,7 +522,7 @@
                 </Grid>
             </Expander>
         </Border>
-        <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+        <Border Grid.Row="3" Grid.Column="0" Visibility="{Binding Interface3Visibility}" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
             <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConfiguration3">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -773,7 +773,7 @@
                 </Grid>
             </Expander>
         </Border>
-        <Border Grid.Row="4" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
+        <Border Grid.Row="4" Grid.Column="0" Visibility="{Binding Interface4Visibility}" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
             <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConfiguration4">
                 <Grid>
                     <Grid.RowDefinitions>

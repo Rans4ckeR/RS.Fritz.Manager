@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
-                    xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
+                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
     <DataTemplate DataType="{x:Type api:ManagementServerGetInfoResponse}">
         <Grid>
             <Grid.RowDefinitions>
@@ -21,11 +20,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Url}" Content="_Url" ToolTip="URL for the CPE to connect to the ACS using the CPE WAN Management Protocol."/>
-            <TextBlock x:Name="Url" Grid.Row="0" Grid.Column="1">
-                <ui:ExternalBrowserHyperlink NavigateUri="{Binding Url}">
-                    <TextBlock Text="{Binding Url}"/>
-                </ui:ExternalBrowserHyperlink>
-            </TextBlock>
+            <ContentControl x:Name="Url" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding Url}" Grid.Row="0" Grid.Column="1"/>
             <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Username}" Content="_Username" ToolTip="Username used to authenticate the CPE when making a connection to the ACS using the CPE WAN Management Protocol. This username is used only for HTTP-based authentication of the CPE."/>
             <TextBlock x:Name="Username" Grid.Row="1" Grid.Column="1" Text="{Binding Username}"/>
             <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=PeriodicInformEnable}" Content="_PeriodicInformEnable" ToolTip="Whether or not the CPE must periodically send CPE information to Server using the Inform method call."/>
@@ -39,11 +34,7 @@
             <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=ParameterHash}" Content="_ParameterHash" ToolTip="Base64 encoded MD5 hash of all parameter values in the entire parameter database (except this one). Change in any parameter value should result in a change to this value."/>
             <TextBlock x:Name="ParameterHash" Grid.Row="6" Grid.Column="1" Text="{Binding ParameterHash}"/>
             <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=ConnectionRequestUrl}" Content="_ConnectionRequestUrl" ToolTip="HTTP URL for an ACS to make a Connection Request notification to the CPE."/>
-            <TextBlock x:Name="ConnectionRequestUrl" Grid.Row="7" Grid.Column="1">
-                <ui:ExternalBrowserHyperlink NavigateUri="{Binding ConnectionRequestUrl}">
-                    <TextBlock Text="{Binding ConnectionRequestUrl}"/>
-                </ui:ExternalBrowserHyperlink>
-            </TextBlock>
+            <ContentControl x:Name="ConnectionRequestUrl" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding ConnectionRequestUrl}" Grid.Row="7" Grid.Column="1"/>
             <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=ConnectionRequestUsername}" Content="_ConnectionRequestUsername" ToolTip="Username used to authenticate an ACS making a Connection Request to the CPE."/>
             <TextBlock x:Name="ConnectionRequestUsername" Grid.Row="8" Grid.Column="1" Text="{Binding ConnectionRequestUsername}"/>
             <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=UpgradesManaged}" Content="_UpgradesManaged" ToolTip="Indicates whether or not the ACS will manage upgrades for the CPE. If true, the CPE SHOULD not use other means other than the ACS to seek out available upgrades. If false, the CPE MAY use other means for this purpose."/>
