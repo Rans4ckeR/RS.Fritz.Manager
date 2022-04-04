@@ -2,7 +2,7 @@
 
 internal enum FritzServiceEndpointConfiguration
 {
-    BasicHttpBinding_IFritzService,
+    BasicHttpBindingIFritzService,
 
-    BasicHttpsBinding_IFritzService
+    BasicHttpsBindingIFritzService
 }

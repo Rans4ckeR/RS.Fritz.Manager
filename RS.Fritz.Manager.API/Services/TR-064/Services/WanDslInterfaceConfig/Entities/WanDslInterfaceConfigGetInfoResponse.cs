@@ -13,7 +13,7 @@ public readonly record struct WanDslInterfaceConfigGetInfoResponse(
     [property: MessageBodyMember(Name = "NewDownstreamNoiseMargin")] uint DownstreamNoiseMargin,
     [property: MessageBodyMember(Name = "NewUpstreamAttenuation")] uint UpstreamAttenuation,
     [property: MessageBodyMember(Name = "NewDownstreamAttenuation")] uint DownstreamAttenuation,
-    [property: MessageBodyMember(Name = "NewATURVendor")] string ATURVendor,
-    [property: MessageBodyMember(Name = "NewATURCountry")] string ATURCountry,
+    [property: MessageBodyMember(Name = "NewATURVendor")] string AturVendor,
+    [property: MessageBodyMember(Name = "NewATURCountry")] string AturCountry,
     [property: MessageBodyMember(Name = "NewUpstreamPower")] ushort UpstreamPower,
     [property: MessageBodyMember(Name = "NewDownstreamPower")] ushort DownstreamPower);

@@ -2,8 +2,8 @@
 
 [MessageContract(WrapperName = "GetGenericHostEntryResponse")]
 public readonly record struct HostsGetGenericHostEntryResponse(
-    [property: MessageBodyMember(Name = "NewIPAddress")] string IPAddress,
-    [property: MessageBodyMember(Name = "NewMACAddress")] string MACAddress,
+    [property: MessageBodyMember(Name = "NewIPAddress")] string IpAddress,
+    [property: MessageBodyMember(Name = "NewMACAddress")] string MacAddress,
     [property: MessageBodyMember(Name = "NewAddressSource")] string AddressSource,
     [property: MessageBodyMember(Name = "NewLeaseTimeRemaining")] int LeaseTimeRemaining,
     [property: MessageBodyMember(Name = "NewInterfaceType")] string InterfaceType,

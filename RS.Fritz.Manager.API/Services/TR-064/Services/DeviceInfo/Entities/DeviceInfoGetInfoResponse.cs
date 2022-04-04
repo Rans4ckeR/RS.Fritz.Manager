@@ -3,7 +3,7 @@
 [MessageContract(WrapperName = "GetInfoResponse")]
 public readonly record struct DeviceInfoGetInfoResponse(
     [property: MessageBodyMember(Name = "NewManufacturerName")] string ManufacturerName,
-    [property: MessageBodyMember(Name = "NewManufacturerOUI")] string ManufacturerOUI,
+    [property: MessageBodyMember(Name = "NewManufacturerOUI")] string ManufacturerOui,
     [property: MessageBodyMember(Name = "NewModelName")] string ModelName,
     [property: MessageBodyMember(Name = "NewDescription")] string Description,
     [property: MessageBodyMember(Name = "NewProductClass")] string ProductClass,

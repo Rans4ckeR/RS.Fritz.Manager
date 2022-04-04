@@ -66,7 +66,7 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
     {
         const double yScale = 200d;
         const double xScale = 2d;
-        var downstreamSnrValues = WanDslInterfaceConfigGetDslInfoResponse!.Value.Key!.Value.SNRpsds.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
+        var downstreamSnrValues = WanDslInterfaceConfigGetDslInfoResponse!.Value.Key!.Value.SnrPsDs.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
         uint min = downstreamSnrValues.Min();
         uint max = downstreamSnrValues.Max();
         uint range = max - min;
