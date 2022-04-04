@@ -22,15 +22,15 @@
             <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
             <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=LinkStatus}" Content="_LinkStatus" ToolTip="Status of the link. This parameter has been duplicated to WANDSLInterfaceConfig which models the DSL connection outside the WANConnectionDevice (this is required for multiple VP/VC support over one DSL link). Possible values are Up, Down, Initializing, Unavailable."/>
             <TextBlock x:Name="LinkStatus" Grid.Row="1" Grid.Column="1" Text="{Binding LinkStatus}"/>
-            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=LinkType}" Content="_LinkType" ToolTip="Indicates the type of DSL connection and refers to the complete stack of protocol used for this connection. Possible values are EoA, PPPoA (intern PPPoA with LLC), PPPoE, Unconfigured."/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=LinkType}" Content="_LinkType" ToolTip="Indicates the type of DSL connection and refers to the complete stack of protocol used for this connection. Possible values are EoA (Ethernet-over-ATM), PPPoA (intern Point-to-Point Protocol over ATM with LLC), PPPoE (Point-to-Point Protocol over Ethernet), Unconfigured."/>
             <TextBlock x:Name="LinkType" Grid.Row="2" Grid.Column="1" Text="{Binding LinkType}"/>
-            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=DestinationAddress}" Content="_DestinationAddress" ToolTip="Destination address of this link. For PVC: VPI/VCI, for SVC: ATM connection name or ATM address."/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=DestinationAddress}" Content="_DestinationAddress" ToolTip="Destination address of this link. For PVC (Permanent Virtual Circuit): VPI (Virtual Path Identifier)/VCI (Virtual Channel Identifier), for SVC (Switched Virtual Circuit): ATM connection name or ATM address."/>
             <TextBlock x:Name="DestinationAddress" Grid.Row="3" Grid.Column="1" Text="{Binding DestinationAddress}"/>
-            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=AtmEncapsulation}" Content="_AtmEncapsulation" ToolTip="Identifies the connection encapsulation that will be used. Possible values are LLC, VCMUX."/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=AtmEncapsulation}" Content="_AtmEncapsulation" ToolTip="Identifies the connection encapsulation that will be used. Possible values are LLC (Logical Link Control), VCMUX (Virtual Circuit Multiplexing)."/>
             <TextBlock x:Name="AtmEncapsulation" Grid.Row="4" Grid.Column="1" Text="{Binding AtmEncapsulation}"/>
             <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=AutoConfig}" Content="_AutoConfig" ToolTip="Indicates if the CPE is currently using some auto configuration mechanisms for this connection."/>
             <TextBlock x:Name="AutoConfig" Grid.Row="5" Grid.Column="1" Text="{Binding AutoConfig}"/>
-            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=AtmQos}" Content="_AtmQos" ToolTip="Describes the ATM Quality Of Service (QoS) being used on the PVC. Possible values are UBR, CBR, GFR, VBR-nrt, VBR-rt, UBR+, ABR."/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=AtmQos}" Content="_AtmQos" ToolTip="Describes the ATM Quality Of Service (QoS) being used on the PVC. Possible values are UBR (Unspecified Bit Rate), CBR (Constant Bit Rate), GFR (Guaranteed Frame Rate), VBR-nrt (Non Real Time Variable Bit Rate), VBR-rt (Real Time Variable Bit Rate), UBR+, ABR (Available Bit Rate)."/>
             <TextBlock x:Name="AtmQos" Grid.Row="6" Grid.Column="1" Text="{Binding AtmQos}"/>
             <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=AtmPeakCellRate}" Content="_AtmPeakCellRate" ToolTip="Specifies the upstream peak cell rate in cells per second."/>
             <TextBlock x:Name="AtmPeakCellRate" Grid.Row="7" Grid.Column="1" Text="{Binding AtmPeakCellRate}"/>
@@ -48,7 +48,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=LinkType}" Content="_LinkType" ToolTip="Indicates the type of DSL connection and refers to the complete stack of protocol used for this connection. Possible values are EoA, PPPoA (intern PPPoA with LLC), PPPoE, Unconfigured."/>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=LinkType}" Content="_LinkType" ToolTip="Indicates the type of DSL connection and refers to the complete stack of protocol used for this connection. Possible values are EoA (Ethernet-over-ATM), PPPoA (intern Point-to-Point Protocol over ATM with LLC), PPPoE (Point-to-Point Protocol over Ethernet), Unconfigured."/>
             <TextBlock x:Name="LinkType" Grid.Row="0" Grid.Column="1" Text="{Binding LinkType}"/>
             <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=LinkStatus}" Content="_LinkStatus" ToolTip="Status of the link. This parameter has been duplicated to WANDSLInterfaceConfig which models the DSL connection outside the WANConnectionDevice (this is required for multiple VP/VC support over one DSL link). Possible values are Up, Down, Initializing, Unavailable."/>
             <TextBlock x:Name="LinkStatus" Grid.Row="1" Grid.Column="1" Text="{Binding LinkStatus}"/>
@@ -63,7 +63,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DestinationAddress}" Content="_DestinationAddress" ToolTip="Destination address of this link. For PVC: VPI/VCI, for SVC: ATM connection name or ATM address."/>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=DestinationAddress}" Content="_DestinationAddress" ToolTip="Destination address of this link. For PVC (Permanent Virtual Circuit): VPI (Virtual Path Identifier)/VCI (Virtual Channel Identifier), for SVC (Switched Virtual Circuit): ATM connection name or ATM address."/>
             <TextBlock x:Name="DestinationAddress" Grid.Row="0" Grid.Column="1" Text="{Binding DestinationAddress}"/>
         </Grid>
     </DataTemplate>
@@ -76,7 +76,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AtmEncapsulation}" Content="_AtmEncapsulation" ToolTip="Identifies the connection encapsulation that will be used. Possible values are LLC, VCMUX."/>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AtmEncapsulation}" Content="_AtmEncapsulation" ToolTip="Identifies the connection encapsulation that will be used. Possible values are LLC (Logical Link Control), VCMUX (Virtual Circuit Multiplexing)."/>
             <TextBlock x:Name="AtmEncapsulation" Grid.Row="0" Grid.Column="1" Text="{Binding AtmEncapsulation}"/>
         </Grid>
     </DataTemplate>
@@ -109,9 +109,9 @@
             <TextBlock x:Name="AtmTransmittedBlocks" Grid.Row="0" Grid.Column="1" Text="{Binding AtmTransmittedBlocks}"/>
             <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=AtmReceivedBlocks}" Content="_AtmReceivedBlocks" ToolTip="The current count of successfully received blocks."/>
             <TextBlock x:Name="AtmReceivedBlocks" Grid.Row="1" Grid.Column="1" Text="{Binding AtmReceivedBlocks}"/>
-            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Aal5CrcErrors}" Content="_Aal5CrcErrors" ToolTip="Count of the AAL5 layer cyclic redundancy check errors."/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Aal5CrcErrors}" Content="_Aal5CrcErrors" ToolTip="Count of the AAL5 (ATM Adaptation Layer 5) layer cyclic redundancy check errors."/>
             <TextBlock x:Name="Aal5CrcErrors" Grid.Row="2" Grid.Column="1" Text="{Binding Aal5CrcErrors}"/>
-            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=AtmCrcErrors}" Content="_AtmCrcErrors" ToolTip="Count of the ATM layer cyclic redundancy check errors."/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=AtmCrcErrors}" Content="_AtmCrcErrors" ToolTip="Count of the ATM (Asynchronous Transfer Mode) layer cyclic redundancy check errors."/>
             <TextBlock x:Name="AtmCrcErrors" Grid.Row="3" Grid.Column="1" Text="{Binding AtmCrcErrors}"/>
         </Grid>
     </DataTemplate>

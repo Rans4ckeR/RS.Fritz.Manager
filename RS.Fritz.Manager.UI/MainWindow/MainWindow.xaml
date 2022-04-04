@@ -26,7 +26,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Ribbon Grid.Row="0" Grid.Column="0" Background="{StaticResource TitleBackgroundSolidColorBrush}" Foreground="{StaticResource NavigationBackgroundSolidColorBrush}">
+                <Ribbon Grid.Row="0" Grid.Column="0" Background="{StaticResource TitleBackgroundSolidColorBrush}" Foreground="MediumBlue">
                     <Ribbon.ApplicationMenu>
                         <RibbonApplicationMenu Visibility="Hidden"/>
                     </Ribbon.ApplicationMenu>

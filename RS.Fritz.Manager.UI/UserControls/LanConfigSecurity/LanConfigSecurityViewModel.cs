@@ -39,9 +39,9 @@ internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref lanConfigSecurityGetUserListResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        await API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(new[]
             {
                 GetLanConfigSecurityGetAnonymousLoginAsync(),
                 GetLanConfigSecurityGetCurrentUserAsync(),

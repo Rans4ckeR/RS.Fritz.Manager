@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
-                    xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
+                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
     <DataTemplate DataType="{x:Type api:HostsGetHostNumberOfEntriesResponse}">
         <Grid>
             <Grid.RowDefinitions>
@@ -75,11 +74,7 @@
                     <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=HostListPath}" Content="_HostListPath"/>
                     <TextBlock x:Name="HostListPath" Grid.Row="0" Grid.Column="1" Text="{Binding HostListPath}"/>
                     <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=HostListPathLink}" Content="_HostListPathLink"/>
-                    <TextBlock x:Name="HostListPathLink" Grid.Row="1" Grid.Column="1">
-                        <ui:ExternalBrowserHyperlink NavigateUri="{Binding HostListPathLink}">
-                            <TextBlock Text="{Binding HostListPathLink}"/>
-                        </ui:ExternalBrowserHyperlink>
-                    </TextBlock>
+                    <ContentControl x:Name="HostListPathLink" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding HostListPathLink}" Grid.Row="1" Grid.Column="1"/>
                     <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DeviceHosts}" Content="_DeviceHosts"/>
                     <DataGrid x:Name="DeviceHosts" Grid.Row="2" Grid.Column="1" Height="150" IsReadOnly="true" ItemsSource="{Binding DeviceHosts}"/>
                 </Grid>
@@ -102,11 +97,7 @@
                     <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=MeshListPath}" Content="_MeshListPath"/>
                     <TextBlock x:Name="MeshListPath" Grid.Row="0" Grid.Column="1" Text="{Binding MeshListPath}"/>
                     <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MeshListPathLink}" Content="_MeshListPathLink"/>
-                    <TextBlock x:Name="MeshListPathLink" Grid.Row="1" Grid.Column="1">
-                                <ui:ExternalBrowserHyperlink NavigateUri="{Binding MeshListPathLink}">
-                                    <TextBlock Text="{Binding MeshListPathLink}"/>
-                                </ui:ExternalBrowserHyperlink>
-                            </TextBlock>
+                    <ContentControl x:Name="MeshListPathLink" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding MeshListPathLink}" Grid.Row="1" Grid.Column="1"/>
                     <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DeviceMesh}" Content="_DeviceMesh"/>
                     <ContentControl x:Name="DeviceMesh" Grid.Row="2" Grid.Column="1" Content="{Binding DeviceMesh}"/>
                 </Grid>

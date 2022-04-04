@@ -3,7 +3,8 @@
                     xmlns:presentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="presentationOptions"
-                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+                    xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
     <system:Boolean x:Key="False">False</system:Boolean>
     <SolidColorBrush x:Key="WindowBackgroundSolidColorBrush" Color="#FF292822" presentationOptions:Freeze="True"/>
     <SolidColorBrush x:Key="ForegroundSolidColorBrush" Color="#FF121212" presentationOptions:Freeze="True"/>
@@ -37,4 +38,11 @@
         <Setter Property="Background" Value="{StaticResource TitleBackgroundSolidColorBrush}"/>
         <Setter Property="FontFamily" Value="Arial"/>
     </Style>
+    <DataTemplate DataType="{x:Type system:String}" x:Key="UrlDataTemplate">
+        <TextBlock>
+            <ui:ExternalBrowserHyperlink NavigateUri="{Binding}">
+                <TextBlock Text="{Binding}"/>
+            </ui:ExternalBrowserHyperlink>
+        </TextBlock>
+    </DataTemplate>
 </ResourceDictionary>

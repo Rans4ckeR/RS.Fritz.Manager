@@ -38,17 +38,7 @@
                     <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Ext}" Content="_Ext" ToolTip="Required for backwards compatibility with UPnP 1.0. (Header field name only; no field value.)"/>
                     <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=UniqueServiceName}" Content="_UniqueServiceName" ToolTip="Field value contains Unique Service Name. Identifies a unique instance of a device or service. The prefix (before the double colon) shall match the value of the UDN element in the device description OR the lower ST version used in the M-Search request."/>
                     <TextBlock x:Name="Server" Grid.Row="0" Grid.Column="1" Text="{Binding Server}"/>
-                    <ListView x:Name="Locations" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Locations}" Foreground="{StaticResource TextSolidColorBrush}" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="2">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock>
-                                    <ui:ExternalBrowserHyperlink NavigateUri="{Binding}">
-                                        <TextBlock Text="{Binding}"/>
-                                    </ui:ExternalBrowserHyperlink>
-                                </TextBlock>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <ListView x:Name="Locations" Grid.Row="1" Grid.Column="1" ItemTemplate="{StaticResource UrlDataTemplate}" ItemsSource="{Binding Locations}" Foreground="{StaticResource TextSolidColorBrush}" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="2"/>
                     <TextBlock x:Name="SearchTarget" Grid.Row="2" Grid.Column="1" Text="{Binding SearchTarget}"/>
                     <TextBlock x:Name="CacheControl" Grid.Row="3" Grid.Column="1" Text="{Binding CacheControl}"/>
                     <TextBlock x:Name="Ext" Grid.Row="4" Grid.Column="1" Text="{Binding Ext}"/>
@@ -169,26 +159,14 @@
                     <TextBlock x:Name="DeviceType" Grid.Row="0" Grid.Column="1" Text="{Binding DeviceType}"/>
                     <TextBlock x:Name="FriendlyName" Grid.Row="1" Grid.Column="1" Text="{Binding FriendlyName}"/>
                     <TextBlock x:Name="Manufacturer" Grid.Row="2" Grid.Column="1" Text="{Binding Manufacturer}"/>
-                    <TextBlock x:Name="ManufacturerUrl" Grid.Row="3" Grid.Column="1">
-                                <ui:ExternalBrowserHyperlink NavigateUri="{Binding ManufacturerUrl}">
-                                    <TextBlock Text="{Binding ManufacturerUrl}"/>
-                                </ui:ExternalBrowserHyperlink>
-                            </TextBlock>
+                    <ContentControl x:Name="ManufacturerUrl" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding ManufacturerUrl}" Grid.Row="3" Grid.Column="1"/>
                     <TextBlock x:Name="ModelDescription" Grid.Row="4" Grid.Column="1" Text="{Binding ModelDescription}"/>
                     <TextBlock x:Name="ModelName" Grid.Row="5" Grid.Column="1" Text="{Binding ModelName}"/>
                     <TextBlock x:Name="ModelNumber" Grid.Row="6" Grid.Column="1" Text="{Binding ModelNumber}"/>
-                    <TextBlock x:Name="ModelUrl" Grid.Row="7" Grid.Column="1">
-                                <ui:ExternalBrowserHyperlink NavigateUri="{Binding ModelUrl}">
-                                    <TextBlock Text="{Binding ModelUrl}"/>
-                                </ui:ExternalBrowserHyperlink>
-                            </TextBlock>
+                    <ContentControl x:Name="ModelUrl" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding ModelUrl}" Grid.Row="7" Grid.Column="1"/>
                     <TextBlock x:Name="UniqueDeviceName" Grid.Row="8" Grid.Column="1" Text="{Binding UniqueDeviceName}"/>
                     <TextBlock x:Name="Upc" Grid.Row="9" Grid.Column="1" Text="{Binding Upc}"/>
-                    <TextBlock x:Name="PresentationUrl" Grid.Row="10" Grid.Column="1">
-                                <ui:ExternalBrowserHyperlink NavigateUri="{Binding PresentationUrl}">
-                                    <TextBlock Text="{Binding PresentationUrl}"/>
-                                </ui:ExternalBrowserHyperlink>
-                            </TextBlock>
+                    <ContentControl x:Name="PresentationUrl" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding PresentationUrl}" Grid.Row="10" Grid.Column="1"/>
                     <ItemsControl x:Name="IconList" Grid.Row="11" Grid.Column="1" ItemsSource="{Binding IconList}"/>
                     <ItemsControl x:Name="ServiceList" Grid.Row="12" Grid.Column="1" ItemsSource="{Binding ServiceList}"/>
                     <ItemsControl x:Name="DeviceList" Grid.Row="13" Grid.Column="1" ItemsSource="{Binding DeviceList}"/>

@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
-                    xmlns:ui="clr-namespace:RS.Fritz.Manager.UI">
+                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
     <DataTemplate DataType="{x:Type api:WlanConfigurationGetInfoResponse}">
         <Grid>
             <Grid.RowDefinitions>
@@ -83,11 +82,7 @@
                     <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=WlanDeviceListPath}" Content="_WlanDeviceListPath"/>
                     <TextBlock x:Name="WlanDeviceListPath" Grid.Row="0" Grid.Column="1" Text="{Binding WlanDeviceListPath}"/>
                     <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=WlanDeviceListPathLink}" Content="_WlanDeviceListPathLink"/>
-                    <TextBlock x:Name="WlanDeviceListPathLink" Grid.Row="1" Grid.Column="1">
-                        <ui:ExternalBrowserHyperlink NavigateUri="{Binding WlanDeviceListPathLink}">
-                            <TextBlock Text="{Binding WlanDeviceListPathLink}"/>
-                        </ui:ExternalBrowserHyperlink>
-                    </TextBlock>
+                    <ContentControl x:Name="WlanDeviceListPathLink" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding WlanDeviceListPathLink}" Grid.Row="1" Grid.Column="1"/>
                     <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=TotalAssociations}" Content="_TotalAssociations" ToolTip="The number of all connected WIFI devices which are listed in the file independent from the current access point."/>
                     <TextBlock x:Name="TotalAssociations" Grid.Row="2" Grid.Column="1" Text="{Binding WlanDeviceList.TotalAssociations}"/>
                     <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=WlanDeviceList}" Content="_WlanDeviceList" ToolTip="Devices with AssociatedDeviceChannel set to 0 are not listed in this list, because these are not connected to any access point of this CPE."/>

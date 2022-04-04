@@ -50,9 +50,9 @@ internal sealed class LanHostConfigManagementViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref lanHostConfigManagementGetDnsServersResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        await API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(new[]
             {
                 GetLanHostConfigManagementGetInfoAsync(),
                 LanHostConfigManagementGetSubnetMaskAsync(),

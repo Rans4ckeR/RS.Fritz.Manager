@@ -1,7 +1,7 @@
 name: .NET
 on:
   push:
-    branches: [ master, release/*, develop ]
+    branches: [ develop ]
   workflow_dispatch:
 permissions:
   contents: write

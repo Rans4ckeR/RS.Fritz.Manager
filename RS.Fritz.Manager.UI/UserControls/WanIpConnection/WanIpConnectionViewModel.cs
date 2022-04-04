@@ -64,9 +64,9 @@ internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceV
         private set { _ = SetProperty(ref wanConnectionGetExternalIpAddressResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        await API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(new[]
           {
                 GetWanIpConnectionGetInfoAsync(),
                 GetWanIpConnectionGetConnectionTypeInfoAsync(),
