@@ -38,6 +38,34 @@
         <Setter Property="Background" Value="{StaticResource TitleBackgroundSolidColorBrush}"/>
         <Setter Property="FontFamily" Value="Arial"/>
     </Style>
+    <Style TargetType="{x:Type Border}" x:Key="BorderStyle">
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="BorderBrush" Value="{StaticResource NavigationBackgroundSolidColorBrush}"/>
+        <Setter Property="Background" Value="{StaticResource ForegroundSolidColorBrush}"/>
+        <Setter Property="BorderThickness" Value="5"/>
+        <Setter Property="CornerRadius" Value="10"/>
+    </Style>
+    <Style TargetType="{x:Type Expander}">
+        <Setter Property="IsExpanded" Value="True"/>
+        <Setter Property="Foreground" Value="{StaticResource TextSolidColorBrush}"/>
+    </Style>
+    <Style TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Foreground" Value="{StaticResource TitleTextSolidColorBrush}"/>
+        <Setter Property="Background" Value="{StaticResource TitleBackgroundSolidColorBrush}"/>
+    </Style>
+    <Style TargetType="{x:Type DataGridRowHeader}">
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Foreground" Value="{StaticResource TitleTextSolidColorBrush}"/>
+        <Setter Property="Background" Value="{StaticResource TitleBackgroundSolidColorBrush}"/>
+    </Style>
+    <Style TargetType="{x:Type DataGrid}">
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="Foreground" Value="{StaticResource TextSolidColorBrush}"/>
+        <Setter Property="Background" Value="{StaticResource TitleBackgroundSolidColorBrush}"/>
+        <Setter Property="AlternatingRowBackground" Value="{StaticResource NavigationBackgroundSolidColorBrush}"/>
+        <Setter Property="RowBackground" Value="{StaticResource TitleBackgroundSolidColorBrush}"/>
+    </Style>
     <DataTemplate DataType="{x:Type system:String}" x:Key="UrlDataTemplate">
         <TextBlock>
             <ui:ExternalBrowserHyperlink NavigateUri="{Binding}">

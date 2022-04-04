@@ -139,7 +139,7 @@
             </Grid>
         </ContentControl>
         <ContentControl Grid.Row="0" Grid.Column="0" Panel.ZIndex="{Binding MessageZIndex}">
-            <Border Margin="200">
+            <Border Style="{StaticResource BorderStyle}" Margin="200">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
