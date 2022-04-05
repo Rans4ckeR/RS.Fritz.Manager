@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-internal sealed class DeviceInfoSetProvisioningCodeViewModel : SetValuesViewModel<DeviceInfoSetProvisioningCodeRequest, DeviceInfoSetProvisioningCodeResponse>
+internal sealed class DeviceInfoSetProvisioningCodeViewModel : ExecuteOperationViewModel<DeviceInfoSetProvisioningCodeRequest, DeviceInfoSetProvisioningCodeResponse>
 {
     private string? provisioningCode;
 

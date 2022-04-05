@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-internal sealed class TimeSetNtpServersViewModel : SetValuesViewModel<TimeSetNtpServersRequest, TimeSetNtpServersResponse>
+internal sealed class TimeSetNtpServersViewModel : ExecuteOperationViewModel<TimeSetNtpServersRequest, TimeSetNtpServersResponse>
 {
     private string? ntpServer1;
     private string? ntpServer2;

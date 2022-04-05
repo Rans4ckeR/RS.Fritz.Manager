@@ -108,7 +108,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         }
         catch (IOException)
         {
-            _ = WeakReferenceMessenger.Default.Send(new UserMessageValueChangedMessage(new UserMessage("Invalid character in TargetFolder or FilenamePrefix")));
+            _ = StrongReferenceMessenger.Default.Send(new UserMessageValueChangedMessage(new UserMessage("Invalid character in TargetFolder or FilenamePrefix")));
 
             return true;
         }

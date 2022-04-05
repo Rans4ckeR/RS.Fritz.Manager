@@ -11,7 +11,7 @@ internal sealed class UserInterfaceLogService : ILogger
 
         string message = formatter(state, exception);
 
-        _ = WeakReferenceMessenger.Default.Send(new UserMessageValueChangedMessage(new UserMessage(message)));
+        _ = StrongReferenceMessenger.Default.Send(new UserMessageValueChangedMessage(new UserMessage(message)));
     }
 
     public bool IsEnabled(LogLevel logLevel) => logLevel >= LogLevel.Warning;
