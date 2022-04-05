@@ -6,9 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
-    public static void AddFritzApi(this IServiceCollection services)
+    public static IServiceCollection AddFritzApi(this IServiceCollection serviceCollection)
     {
-        _ = services.AddSingleton<IDeviceSearchService, DeviceSearchService>()
+        return serviceCollection.AddSingleton<IDeviceSearchService, DeviceSearchService>()
             .AddSingleton<IDeviceHostsService, DeviceHostsService>()
             .AddSingleton<IDeviceMeshService, DeviceMeshService>()
             .AddSingleton<IWlanDeviceService, WlanDeviceService>()
@@ -34,13 +34,14 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IClientFactory<IFritzWlanConfiguration3Service>, ClientFactory<IFritzWlanConfiguration3Service>>()
             .AddSingleton<IClientFactory<IFritzWlanConfiguration4Service>, ClientFactory<IFritzWlanConfiguration4Service>>()
             .AddSingleton<IClientFactory<IFritzManagementServerService>, ClientFactory<IFritzManagementServerService>>()
-            .AddSingleton<IClientFactory<IFritzTimeService>, ClientFactory<IFritzTimeService>>();
-        ConfigureHttpClients(services);
+            .AddSingleton<IClientFactory<IFritzTimeService>, ClientFactory<IFritzTimeService>>()
+            .AddSingleton<IClientFactory<IFritzUserInterfaceService>, ClientFactory<IFritzUserInterfaceService>>()
+            .ConfigureHttpClients();
     }
 
-    private static void ConfigureHttpClients(IServiceCollection services)
+    private static IServiceCollection ConfigureHttpClients(this IServiceCollection serviceCollection)
     {
-        _ = services.AddHttpClient(Constants.HttpClientName)
+        _ = serviceCollection.AddHttpClient(Constants.HttpClientName)
             .ConfigureHttpClient((_, httpClient) =>
             {
                 httpClient.Timeout = TimeSpan.FromSeconds(60);
@@ -50,7 +51,7 @@ public static class ServiceCollectionExtensions
             {
                 AutomaticDecompression = DecompressionMethods.All
             });
-        _ = services.AddHttpClient(Constants.NonValidatingHttpsClientName)
+        _ = serviceCollection.AddHttpClient(Constants.NonValidatingHttpsClientName)
             .ConfigureHttpClient((_, httpClient) =>
             {
                 httpClient.Timeout = TimeSpan.FromSeconds(10);
@@ -61,5 +62,7 @@ public static class ServiceCollectionExtensions
                 ServerCertificateCustomValidationCallback = (_, _, _, sslPolicyErrors) => (sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) == 0,
                 AutomaticDecompression = DecompressionMethods.All
             });
+
+        return serviceCollection;
     }
 }

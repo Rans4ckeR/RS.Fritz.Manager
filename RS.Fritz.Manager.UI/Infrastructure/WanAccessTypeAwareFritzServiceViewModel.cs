@@ -3,7 +3,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
-internal abstract class WanAccessTypeAwareFritzServiceViewModel : FritzServiceViewModel, IRecipient<PropertyChangedMessage<WanAccessType?>>
+internal abstract class WanAccessTypeAwareFritzServiceViewModel : FritzServiceViewModel
 {
     private readonly WanAccessType wanAccessType;
 
@@ -11,9 +11,18 @@ internal abstract class WanAccessTypeAwareFritzServiceViewModel : FritzServiceVi
         : base(deviceLoginInfo, logger, requiredServiceType)
     {
         this.wanAccessType = wanAccessType;
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<WanAccessType?>>(this, (r, m) =>
+        {
+            ((WanAccessTypeAwareFritzServiceViewModel)r).Receive(m);
+        });
     }
 
-    public void Receive(PropertyChangedMessage<WanAccessType?> message)
+    protected override bool GetCanExecuteDefaultCommand()
+    {
+        return base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType == wanAccessType;
+    }
+
+    private void Receive(PropertyChangedMessage<WanAccessType?> message)
     {
         if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
             return;
@@ -26,10 +35,5 @@ internal abstract class WanAccessTypeAwareFritzServiceViewModel : FritzServiceVi
                     break;
                 }
         }
-    }
-
-    protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType == wanAccessType;
     }
 }

@@ -304,4 +304,13 @@ static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, IC
 * ✅ urn:dslforum-org:service:Time
   * ✅ GetInfo
   * ✅ SetNTPServers
-* ❌ urn:dslforum-org:service:UserInterface
+* 🔶 urn:dslforum-org:service:UserInterface
+  * ✅ GetInfo
+  * ❌ X_AVM-DE_CheckUpdate
+  * ✅ X_AVM-DE_DoPrepareCGI
+  * ✅ X_AVM-DE_DoUpdate
+  * ❌ X_AVM-DE_DoManualUpdate
+  * ❌ X_AVM-DE_GetInternationalConfig
+  * ❌ X_AVM-DE_SetInternationalConfig
+  * ❌ X_AVM-DE_GetInfo
+  * ❌ X_AVM-DE_SetConfig

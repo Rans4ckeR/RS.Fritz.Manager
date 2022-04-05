@@ -11,7 +11,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
-internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<PropertyChangedMessage<IEnumerable<User>>>, IRecipient<PropertyChangedMessage<ObservableInternetGatewayDevice?>>
+internal sealed class MainWindowViewModel : FritzServiceViewModel
 {
     private const double OpacityOverlay = 0.75;
     private const double OpacityNoOverlay = 1d;
@@ -52,7 +52,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         LanHostConfigManagementViewModel lanHostConfigManagementViewModel,
         WlanConfigurationViewModel wlanConfigurationViewModel,
         ManagementServerViewModel managementServerViewModel,
-        TimeViewModel timeViewModel)
+        TimeViewModel timeViewModel,
+        UserInterfaceViewModel userInterfaceViewModel)
         : base(deviceLoginInfo, logger)
     {
         this.deviceSearchService = deviceSearchService;
@@ -73,17 +74,26 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         WlanConfigurationViewModel = wlanConfigurationViewModel;
         ManagementServerViewModel = managementServerViewModel;
         TimeViewModel = timeViewModel;
+        UserInterfaceViewModel = userInterfaceViewModel;
         LoginCommand = new AsyncRelayCommand<bool?>(ExecuteLoginCommandAsync, _ => CanExecuteLoginCommand);
         CopyMessageCommand = new RelayCommand(ExecuteCopyMessageCommand);
         CloseMessageCommand = new RelayCommand(ExecuteCloseMessageCommand);
 
-        WeakReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) =>
+        StrongReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) =>
         {
             ((MainWindowViewModel)r).UserMessage = m.Value.Message;
         });
-        WeakReferenceMessenger.Default.Register<ActiveViewValueChangedMessage>(this, (r, m) =>
+        StrongReferenceMessenger.Default.Register<ActiveViewValueChangedMessage>(this, (r, m) =>
         {
             ((MainWindowViewModel)r).ActiveView = m.Value;
+        });
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<IEnumerable<User>>>(this, (r, m) =>
+        {
+            ((MainWindowViewModel)r).Receive(m);
+        });
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<ObservableInternetGatewayDevice?>>(this, (r, m) =>
+        {
+            ((MainWindowViewModel)r).Receive(m);
         });
         UpdateCanExecuteDefaultCommand();
     }
@@ -127,6 +137,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     public ManagementServerViewModel ManagementServerViewModel { get; }
 
     public TimeViewModel TimeViewModel { get; }
+
+    public UserInterfaceViewModel UserInterfaceViewModel { get; }
 
     public double MainContentOpacity
     {
@@ -242,37 +254,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
         }
     }
 
-    public void Receive(PropertyChangedMessage<IEnumerable<User>> message)
-    {
-        if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
-            return;
-
-        Users = message.PropertyName switch
-        {
-            nameof(ObservableInternetGatewayDevice.Users) => new ObservableCollection<User>(message.NewValue.OrderByDescending(q => q.LastUser)),
-            _ => Users
-        };
-    }
-
-    public void Receive(PropertyChangedMessage<ObservableInternetGatewayDevice?> message)
-    {
-        if (message.Sender != DeviceLoginInfo)
-            return;
-
-        switch (message.PropertyName)
-        {
-            case nameof(DeviceLoginInfo.InternetGatewayDevice):
-                {
-                    ActiveView = DeviceLoginInfo.InternetGatewayDevice;
-                    LoginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Login.png"));
-
-                    UpdateCanExecuteLoginCommand();
-                    break;
-                }
-        }
-    }
-
-    public override void Receive(PropertyChangedMessage<bool> message)
+    protected override void Receive(PropertyChangedMessage<bool> message)
     {
         base.Receive(message);
 
@@ -320,6 +302,36 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel, IRecipient<Pr
     protected override bool GetCanExecuteDefaultCommand()
     {
         return !DefaultCommandActive;
+    }
+
+    private void Receive(PropertyChangedMessage<IEnumerable<User>> message)
+    {
+        if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
+            return;
+
+        Users = message.PropertyName switch
+        {
+            nameof(ObservableInternetGatewayDevice.Users) => new ObservableCollection<User>(message.NewValue.OrderByDescending(q => q.LastUser)),
+            _ => Users
+        };
+    }
+
+    private void Receive(PropertyChangedMessage<ObservableInternetGatewayDevice?> message)
+    {
+        if (message.Sender != DeviceLoginInfo)
+            return;
+
+        switch (message.PropertyName)
+        {
+            case nameof(DeviceLoginInfo.InternetGatewayDevice):
+                {
+                    ActiveView = DeviceLoginInfo.InternetGatewayDevice;
+                    LoginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Login.png"));
+
+                    UpdateCanExecuteLoginCommand();
+                    break;
+                }
+        }
     }
 
     private void UpdateCanExecuteLoginCommand()

@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetManagementServerUsernameViewModel : SetValuesViewModel<ManagementServerSetManagementServerUsernameRequest, ManagementServerSetManagementServerUsernameResponse>
+internal sealed class ManagementServerSetManagementServerUsernameViewModel : ExecuteOperationViewModel<ManagementServerSetManagementServerUsernameRequest, ManagementServerSetManagementServerUsernameResponse>
 {
     private string? username;
 

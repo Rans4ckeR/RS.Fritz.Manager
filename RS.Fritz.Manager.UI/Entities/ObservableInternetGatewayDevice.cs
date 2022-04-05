@@ -2,6 +2,7 @@
 
 using System.ServiceModel.Security;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 
 internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
 {
@@ -10,6 +11,7 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
     private bool authenticated;
 
     public ObservableInternetGatewayDevice(InternetGatewayDevice internetGatewayDevice)
+        : base(StrongReferenceMessenger.Default)
     {
         ApiDevice = internetGatewayDevice;
     }

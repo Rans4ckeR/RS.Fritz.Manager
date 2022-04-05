@@ -1,0 +1,73 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
+    <DataTemplate DataType="{x:Type api:UserInterfaceGetInfoResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=UpgradeAvailable}" Content="_UpgradeAvailable" ToolTip="Indicates that a CPE upgrade is available, allowing the CPE to display this information to the user."/>
+            <TextBlock x:Name="UpgradeAvailable" Grid.Row="0" Grid.Column="1" Text="{Binding UpgradeAvailable}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PasswordRequired}" Content="_PasswordRequired" ToolTip="Present only if the CPE provides a password-protected LAN-side user interface."/>
+            <TextBlock x:Name="PasswordRequired" Grid.Row="1" Grid.Column="1" Text="{Binding PasswordRequired}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=PasswordUserSelectable}" Content="_PasswordUserSelectable" ToolTip="Present only if the CPE provides a password-protected LAN-side user interface and supports LAN-side Auto-Configuration."/>
+            <TextBlock x:Name="PasswordUserSelectable" Grid.Row="2" Grid.Column="1" Text="{Binding PasswordUserSelectable}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=WarrantyDate}" Content="_WarrantyDate" ToolTip="Indicates the date and time in UTC that the warranty associated with the CPE is to expire. Not supported. Returns Default string."/>
+            <TextBlock x:Name="WarrantyDate" Grid.Row="3" Grid.Column="1" Text="{Binding WarrantyDate}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Version}" Content="_Version"/>
+            <TextBlock x:Name="Version" Grid.Row="4" Grid.Column="1" Text="{Binding Version}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=DownloadUrl}" Content="_DownloadUrl"/>
+            <ContentControl x:Name="DownloadUrl" Grid.Row="5" Grid.Column="1" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding DownloadUrl}"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=InfoUrl}" Content="_InfoUrl"/>
+            <ContentControl x:Name="InfoUrl" Grid.Row="6" Grid.Column="1" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding InfoUrl}"/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=UpdateState}" Content="_UpdateState" ToolTip="Possible values are Started, Stopped, Error, NoUpdate, UpdateAvailable, Unknown."/>
+            <TextBlock x:Name="UpdateState" Grid.Row="7" Grid.Column="1" Text="{Binding UpdateState}"/>
+            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=LaborVersion}" Content="_LaborVersion" ToolTip="'Current' currently used Version, either Release or Labor XXX Release-Firmware: '' Labor-Firmware: content of CONFIG_LABOR_ID_NAME e.g. phone."/>
+            <TextBlock x:Name="LaborVersion" Grid.Row="8" Grid.Column="1" Text="{Binding LaborVersion}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:UserInterfaceDoPrepareCgiResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Cgi}" Content="_Cgi" ToolTip="CGI path."/>
+            <TextBlock x:Name="Cgi" Grid.Row="0" Grid.Column="1" Text="{Binding Cgi}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=SessionId}" Content="_SessionId"/>
+            <TextBlock x:Name="SessionId" Grid.Row="1" Grid.Column="1" Text="{Binding SessionId}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:UserInterfaceDoUpdateResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=UpgradeAvailable}" Content="_UpgradeAvailable"/>
+            <TextBlock x:Name="UpgradeAvailable" Grid.Row="0" Grid.Column="1" Text="{Binding UpgradeAvailable}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=UpdateState}" Content="_UpdateState" ToolTip="Possible values are Started, Stopped, Error, NoUpdate, UpdateAvailable, Unknown."/>
+            <TextBlock x:Name="UpdateState" Grid.Row="1" Grid.Column="1" Text="{Binding UpdateState}"/>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

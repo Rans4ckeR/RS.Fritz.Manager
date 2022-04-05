@@ -65,6 +65,9 @@
     <Resource Include="Images\Success.png" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="UserControls\UserInterface\UserInterfaceView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UserControls\Time\TimeView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -124,6 +127,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Resources\TR-064\UserInterfaceResourceDictionary.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Resources\TR-064\TimeResourceDictionary.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
@@ -133,6 +140,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\TR-064\WanDslLinkConfigResourceDictionary.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\UserInterface\UserInterfaceDoPrepareCgiView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\UserInterface\UserInterfaceDoUpdateView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\UserInterface\UserInterfaceView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

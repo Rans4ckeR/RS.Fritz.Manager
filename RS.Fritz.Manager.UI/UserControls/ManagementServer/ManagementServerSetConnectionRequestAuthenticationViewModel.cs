@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetConnectionRequestAuthenticationViewModel : SetValuesViewModel<ManagementServerSetConnectionRequestAuthenticationRequest, ManagementServerSetConnectionRequestAuthenticationResponse>
+internal sealed class ManagementServerSetConnectionRequestAuthenticationViewModel : ExecuteOperationViewModel<ManagementServerSetConnectionRequestAuthenticationRequest, ManagementServerSetConnectionRequestAuthenticationResponse>
 {
     private string? connectionRequestUsername;
     private string? connectionRequestPassword;

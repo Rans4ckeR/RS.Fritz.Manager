@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetUpgradeManagementViewModel : SetValuesViewModel<ManagementServerSetUpgradeManagementRequest, ManagementServerSetUpgradeManagementResponse>
+internal sealed class ManagementServerSetUpgradeManagementViewModel : ExecuteOperationViewModel<ManagementServerSetUpgradeManagementRequest, ManagementServerSetUpgradeManagementResponse>
 {
     private bool? upgradesManaged;
 

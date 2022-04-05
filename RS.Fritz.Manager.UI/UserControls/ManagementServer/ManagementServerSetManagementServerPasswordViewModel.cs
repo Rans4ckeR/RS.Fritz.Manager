@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetManagementServerPasswordViewModel : SetValuesViewModel<ManagementServerSetManagementServerPasswordRequest, ManagementServerSetManagementServerPasswordResponse>
+internal sealed class ManagementServerSetManagementServerPasswordViewModel : ExecuteOperationViewModel<ManagementServerSetManagementServerPasswordRequest, ManagementServerSetManagementServerPasswordResponse>
 {
     private string? password;
 

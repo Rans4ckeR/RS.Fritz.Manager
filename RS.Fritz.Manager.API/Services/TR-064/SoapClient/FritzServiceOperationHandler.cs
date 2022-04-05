@@ -23,6 +23,7 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
     private readonly IClientFactory<IFritzWlanConfiguration4Service> fritzWlanConfiguration4ServiceClientFactory;
     private readonly IClientFactory<IFritzManagementServerService> fritzManagementServerServiceClientFactory;
     private readonly IClientFactory<IFritzTimeService> fritzTimeServiceClientFactory;
+    private readonly IClientFactory<IFritzUserInterfaceService> fritzUserInterfaceClientFactory;
 
     public FritzServiceOperationHandler(
         IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,
@@ -43,7 +44,8 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         IClientFactory<IFritzWlanConfiguration3Service> fritzWlanConfiguration3ServiceClientFactory,
         IClientFactory<IFritzWlanConfiguration4Service> fritzWlanConfiguration4ServiceClientFactory,
         IClientFactory<IFritzManagementServerService> fritzManagementServerServiceClientFactory,
-        IClientFactory<IFritzTimeService> fritzTimeServiceClientFactory)
+        IClientFactory<IFritzTimeService> fritzTimeServiceClientFactory,
+        IClientFactory<IFritzUserInterfaceService> fritzUserInterfaceClientFactory)
     {
         this.fritzHostsServiceClientFactory = fritzHostsServiceClientFactory;
         this.fritzWanCommonInterfaceConfigServiceClientFactory = fritzWanCommonInterfaceConfigServiceClientFactory;
@@ -64,6 +66,7 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         this.fritzWlanConfiguration4ServiceClientFactory = fritzWlanConfiguration4ServiceClientFactory;
         this.fritzManagementServerServiceClientFactory = fritzManagementServerServiceClientFactory;
         this.fritzTimeServiceClientFactory = fritzTimeServiceClientFactory;
+        this.fritzUserInterfaceClientFactory = fritzUserInterfaceClientFactory;
     }
 
     public Task<HostsGetHostNumberOfEntriesResponse> HostsGetHostNumberOfEntriesAsync(InternetGatewayDevice internetGatewayDevice)
@@ -779,6 +782,21 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
     public Task<TimeSetNtpServersResponse> TimeSetNtpServersAsync(InternetGatewayDevice internetGatewayDevice, TimeSetNtpServersRequest timeSetNtpServersRequest)
     {
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzTimeServiceClientFactory, (q, r, t) => new FritzTimeService(q, r, t!), FritzTimeService.ControlUrl), q => q.SetNtpServersAsync(timeSetNtpServersRequest));
+    }
+
+    public Task<UserInterfaceGetInfoResponse> UserInterfaceGetInfoAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzUserInterfaceClientFactory, (q, r, t) => new FritzUserInterfaceService(q, r, t!), FritzUserInterfaceService.ControlUrl), q => q.GetInfoAsync(default));
+    }
+
+    public Task<UserInterfaceDoPrepareCgiResponse> UserInterfaceDoPrepareCgiAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzUserInterfaceClientFactory, (q, r, t) => new FritzUserInterfaceService(q, r, t!), FritzUserInterfaceService.ControlUrl), q => q.DoPrepareCgiAsync(default));
+    }
+
+    public Task<UserInterfaceDoUpdateResponse> UserInterfaceDoUpdateAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzUserInterfaceClientFactory, (q, r, t) => new FritzUserInterfaceService(q, r, t!), FritzUserInterfaceService.ControlUrl), q => q.DoUpdateAsync(default));
     }
 
     private static T GetFritzServiceClient<T>(InternetGatewayDevice internetGatewayDevice, IClientFactory<T> clientFactory, Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createService, string controlUrl, bool secure = true)

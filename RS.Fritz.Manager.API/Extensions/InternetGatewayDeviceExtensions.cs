@@ -462,6 +462,21 @@ public static class InternetGatewayDeviceExtensions
         return internetGatewayDevice.ExecuteAsync((h, d) => h.TimeSetNtpServersAsync(d, timeSetNtpServersRequest));
     }
 
+    public static Task<UserInterfaceGetInfoResponse> UserInterfaceGetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceGetInfoAsync(d));
+    }
+
+    public static Task<UserInterfaceDoPrepareCgiResponse> UserInterfaceDoPrepareCgiAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceDoPrepareCgiAsync(d));
+    }
+
+    public static Task<UserInterfaceDoUpdateResponse> DoUpdateAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceDoUpdateAsync(d));
+    }
+
     private static Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> GetWlanOperation<T>(
         int interfaceNumber,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface1Operation,

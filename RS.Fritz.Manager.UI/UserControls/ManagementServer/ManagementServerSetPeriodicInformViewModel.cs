@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetPeriodicInformViewModel : SetValuesViewModel<ManagementServerSetPeriodicInformRequest, ManagementServerSetPeriodicInformResponse>
+internal sealed class ManagementServerSetPeriodicInformViewModel : ExecuteOperationViewModel<ManagementServerSetPeriodicInformRequest, ManagementServerSetPeriodicInformResponse>
 {
     private bool? periodicInformEnable;
     private ushort? periodicInformInterval;

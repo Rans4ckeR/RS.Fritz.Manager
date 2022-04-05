@@ -5,7 +5,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
-internal sealed class DeviceLoginInfo : ObservableRecipient, IRecipient<PropertyChangedMessage<ObservableInternetGatewayDevice?>>, IRecipient<PropertyChangedMessage<string?>>, IRecipient<PropertyChangedMessage<User?>>
+internal sealed class DeviceLoginInfo : ObservableRecipient
 {
     private ObservableInternetGatewayDevice? internetGatewayDevice;
     private User? user;
@@ -13,8 +13,22 @@ internal sealed class DeviceLoginInfo : ObservableRecipient, IRecipient<Property
     private bool loginInfoSet;
 
     public DeviceLoginInfo()
+        : base(StrongReferenceMessenger.Default)
     {
         IsActive = true;
+
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<ObservableInternetGatewayDevice?>>(this, (r, m) =>
+        {
+            ((DeviceLoginInfo)r).Receive(m);
+        });
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<string?>>(this, (r, m) =>
+        {
+            ((DeviceLoginInfo)r).Receive(m);
+        });
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<User?>>(this, (r, m) =>
+        {
+            ((DeviceLoginInfo)r).Receive(m);
+        });
     }
 
     public ObservableInternetGatewayDevice? InternetGatewayDevice
@@ -41,7 +55,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient, IRecipient<Property
         private set => _ = SetProperty(ref loginInfoSet, value, true);
     }
 
-    public async void Receive(PropertyChangedMessage<ObservableInternetGatewayDevice?> message)
+    private async void Receive(PropertyChangedMessage<ObservableInternetGatewayDevice?> message)
     {
         if (message.Sender != this)
             return;
@@ -69,7 +83,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient, IRecipient<Property
         }
     }
 
-    public void Receive(PropertyChangedMessage<string?> message)
+    private void Receive(PropertyChangedMessage<string?> message)
     {
         if (message.Sender != this)
             return;
@@ -85,7 +99,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient, IRecipient<Property
         }
     }
 
-    public void Receive(PropertyChangedMessage<User?> message)
+    private void Receive(PropertyChangedMessage<User?> message)
     {
         if (message.Sender != this)
             return;

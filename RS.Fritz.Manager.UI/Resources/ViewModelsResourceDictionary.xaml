@@ -106,4 +106,13 @@
     <DataTemplate DataType="{x:Type ui:TimeSetNtpServersViewModel}">
         <ui:TimeSetNtpServersView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceViewModel}">
+        <ui:UserInterfaceView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceDoPrepareCgiViewModel}">
+        <ui:UserInterfaceDoPrepareCgiView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceDoUpdateViewModel}">
+        <ui:UserInterfaceDoUpdateView/>
+    </DataTemplate>
 </ResourceDictionary>

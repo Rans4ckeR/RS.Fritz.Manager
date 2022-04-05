@@ -54,7 +54,7 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
 
     public WanDslInterfaceConfigDslInfoViewModel WanDslInterfaceConfigDslInfoViewModel { get; }
 
-    public override void Receive(PropertyChangedMessage<bool> message)
+    protected override void Receive(PropertyChangedMessage<bool> message)
     {
         base.Receive(message);
 
