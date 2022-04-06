@@ -30,4 +30,29 @@ internal sealed class FritzUserInterfaceService : FritzServiceClient<IFritzUserI
     {
         return Channel.DoUpdateAsync(userInterfaceDoUpdateRequest);
     }
+
+    public Task<UserInterfaceDoManualUpdateResponse> DoManualUpdateAsync(UserInterfaceDoManualUpdateRequest userInterfaceDoManualUpdateRequest)
+    {
+        return Channel.DoManualUpdateAsync(userInterfaceDoManualUpdateRequest);
+    }
+
+    public Task<UserInterfaceGetInternationalConfigResponse> GetInternationalConfigAsync(UserInterfaceGetInternationalConfigRequest userInterfaceGetInternationalConfigRequest)
+    {
+        return Channel.GetInternationalConfigAsync(userInterfaceGetInternationalConfigRequest);
+    }
+
+    public Task<UserInterfaceSetInternationalConfigResponse> SetInternationalConfigAsync(UserInterfaceSetInternationalConfigRequest userInterfaceSetInternationalConfigRequest)
+    {
+        return Channel.SetInternationalConfigAsync(userInterfaceSetInternationalConfigRequest);
+    }
+
+    public Task<UserInterfaceAvmGetInfoResponse> AvmGetInfoAsync(UserInterfaceAvmGetInfoRequest userInterfaceAvmGetInfoRequest)
+    {
+        return Channel.AvmGetInfoAsync(userInterfaceAvmGetInfoRequest);
+    }
+
+    public Task<UserInterfaceSetConfigResponse> SetConfigAsync(UserInterfaceSetConfigRequest userInterfaceSetConfigRequest)
+    {
+        return Channel.SetConfigAsync(userInterfaceSetConfigRequest);
+    }
 }

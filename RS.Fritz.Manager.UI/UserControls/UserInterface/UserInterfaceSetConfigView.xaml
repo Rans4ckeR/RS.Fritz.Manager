@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="RS.Fritz.Manager.UI.UserInterfaceSetConfigView"
+             x:ClassModifier="internal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ui="clr-namespace:RS.Fritz.Manager.UI"
+             d:DataContext="{d:DesignInstance Type=ui:UserInterfaceSetConfigViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border Style="{StaticResource BorderStyle}">
+        <Expander Header="{Binding Title}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AutoUpdateMode}" Content="_AutoUpdateMode" ToolTip="Possible values are off, all, important, check."/>
+                <TextBox x:Name="AutoUpdateMode" Grid.Row="0" Grid.Column="1" MinWidth="50" Text="{Binding AutoUpdateMode, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Grid.Row="1" Grid.Column="0" Content="{Binding ButtonText}" Command="{Binding DefaultCommand}" CommandParameter="{StaticResource False}"/>
+                <ContentControl Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Content="{Binding Response.Value}"/>
+            </Grid>
+        </Expander>
+    </Border>
+</UserControl>

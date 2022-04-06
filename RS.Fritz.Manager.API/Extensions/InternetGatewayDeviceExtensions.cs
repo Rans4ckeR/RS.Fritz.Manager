@@ -482,6 +482,31 @@ public static class InternetGatewayDeviceExtensions
         return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceDoUpdateAsync(d));
     }
 
+    public static Task<UserInterfaceDoManualUpdateResponse> UserInterfaceDoManualUpdateAsync(this InternetGatewayDevice internetGatewayDevice, UserInterfaceDoManualUpdateRequest userInterfaceDoManualUpdateRequest)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceDoManualUpdateAsync(d, userInterfaceDoManualUpdateRequest));
+    }
+
+    public static Task<UserInterfaceGetInternationalConfigResponse> UserInterfaceGetInternationalConfigAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceGetInternationalConfigAsync(d));
+    }
+
+    public static Task<UserInterfaceSetInternationalConfigResponse> UserInterfaceSetInternationalConfigAsync(this InternetGatewayDevice internetGatewayDevice, UserInterfaceSetInternationalConfigRequest userInterfaceSetInternationalConfigRequest)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceSetInternationalConfigAsync(d, userInterfaceSetInternationalConfigRequest));
+    }
+
+    public static Task<UserInterfaceAvmGetInfoResponse> UserInterfaceAvmGetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceAvmGetInfoAsync(d));
+    }
+
+    public static Task<UserInterfaceSetConfigResponse> UserInterfaceSetConfigAsync(this InternetGatewayDevice internetGatewayDevice, UserInterfaceSetConfigRequest userInterfaceSetConfigRequest)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceSetConfigAsync(d, userInterfaceSetConfigRequest));
+    }
+
     private static Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> GetWlanOperation<T>(
         int interfaceNumber,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface1Operation,

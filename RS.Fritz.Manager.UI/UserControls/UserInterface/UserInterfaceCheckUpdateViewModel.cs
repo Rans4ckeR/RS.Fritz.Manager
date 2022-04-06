@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-internal sealed class UserInterfaceCheckUpdateViewModel : ExecuteOperationViewModel<UserInterfaceCheckUpdateRequest, UserInterfaceCheckUpdateResponse>
+internal sealed class UserInterfaceCheckUpdateViewModel : ManualOperationViewModel<UserInterfaceCheckUpdateRequest, UserInterfaceCheckUpdateResponse>
 {
     private string? laborVersion;
 

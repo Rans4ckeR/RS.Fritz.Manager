@@ -804,6 +804,31 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzUserInterfaceClientFactory, (q, r, t) => new FritzUserInterfaceService(q, r, t!), FritzUserInterfaceService.ControlUrl), q => q.DoUpdateAsync(default));
     }
 
+    public Task<UserInterfaceDoManualUpdateResponse> UserInterfaceDoManualUpdateAsync(InternetGatewayDevice internetGatewayDevice, UserInterfaceDoManualUpdateRequest userInterfaceDoManualUpdateRequest)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzUserInterfaceClientFactory, (q, r, t) => new FritzUserInterfaceService(q, r, t!), FritzUserInterfaceService.ControlUrl), q => q.DoManualUpdateAsync(userInterfaceDoManualUpdateRequest));
+    }
+
+    public Task<UserInterfaceGetInternationalConfigResponse> UserInterfaceGetInternationalConfigAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzUserInterfaceClientFactory, (q, r, t) => new FritzUserInterfaceService(q, r, t!), FritzUserInterfaceService.ControlUrl), q => q.GetInternationalConfigAsync(default));
+    }
+
+    public Task<UserInterfaceSetInternationalConfigResponse> UserInterfaceSetInternationalConfigAsync(InternetGatewayDevice internetGatewayDevice, UserInterfaceSetInternationalConfigRequest userInterfaceSetInternationalConfigRequest)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzUserInterfaceClientFactory, (q, r, t) => new FritzUserInterfaceService(q, r, t!), FritzUserInterfaceService.ControlUrl), q => q.SetInternationalConfigAsync(userInterfaceSetInternationalConfigRequest));
+    }
+
+    public Task<UserInterfaceAvmGetInfoResponse> UserInterfaceAvmGetInfoAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzUserInterfaceClientFactory, (q, r, t) => new FritzUserInterfaceService(q, r, t!), FritzUserInterfaceService.ControlUrl), q => q.AvmGetInfoAsync(default));
+    }
+
+    public Task<UserInterfaceSetConfigResponse> UserInterfaceSetConfigAsync(InternetGatewayDevice internetGatewayDevice, UserInterfaceSetConfigRequest userInterfaceSetConfigRequest)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzUserInterfaceClientFactory, (q, r, t) => new FritzUserInterfaceService(q, r, t!), FritzUserInterfaceService.ControlUrl), q => q.SetConfigAsync(userInterfaceSetConfigRequest));
+    }
+
     private static T GetFritzServiceClient<T>(InternetGatewayDevice internetGatewayDevice, IClientFactory<T> clientFactory, Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createService, string controlUrl, bool secure = true)
     {
         return clientFactory.Build(createService, internetGatewayDevice.PreferredLocation, secure, controlUrl, secure ? internetGatewayDevice.SecurityPort : null, internetGatewayDevice.NetworkCredential);

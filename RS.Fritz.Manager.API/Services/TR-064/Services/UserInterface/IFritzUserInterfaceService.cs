@@ -23,4 +23,29 @@ internal interface IFritzUserInterfaceService
     [FaultContract(typeof(UPnPFault1))]
     [FaultContract(typeof(UPnPFault2))]
     Task<UserInterfaceDoUpdateResponse> DoUpdateAsync(UserInterfaceDoUpdateRequest userInterfaceDoUpdateRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:UserInterface:1#X_AVM-DE_DoManualUpdate")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    Task<UserInterfaceDoManualUpdateResponse> DoManualUpdateAsync(UserInterfaceDoManualUpdateRequest userInterfaceDoManualUpdateRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:UserInterface:1#X_AVM-DE_GetInternationalConfig")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    Task<UserInterfaceGetInternationalConfigResponse> GetInternationalConfigAsync(UserInterfaceGetInternationalConfigRequest userInterfaceGetInternationalConfigRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:UserInterface:1#X_AVM-DE_SetInternationalConfig")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    Task<UserInterfaceSetInternationalConfigResponse> SetInternationalConfigAsync(UserInterfaceSetInternationalConfigRequest userInterfaceSetInternationalConfigRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:UserInterface:1#X_AVM-DE_GetInfo")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    Task<UserInterfaceAvmGetInfoResponse> AvmGetInfoAsync(UserInterfaceAvmGetInfoRequest userInterfaceAvmGetInfoRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:UserInterface:1#X_AVM-DE_SetConfig")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    Task<UserInterfaceSetConfigResponse> SetConfigAsync(UserInterfaceSetConfigRequest userInterfaceSetConfigRequest);
 }

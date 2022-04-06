@@ -118,4 +118,13 @@
     <DataTemplate DataType="{x:Type ui:UserInterfaceDoUpdateViewModel}">
         <ui:UserInterfaceDoUpdateView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceDoManualUpdateViewModel}">
+        <ui:UserInterfaceDoManualUpdateView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceSetInternationalConfigViewModel}">
+        <ui:UserInterfaceSetInternationalConfigView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceSetConfigViewModel}">
+        <ui:UserInterfaceSetConfigView/>
+    </DataTemplate>
 </ResourceDictionary>

@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetTr069EnableViewModel : ExecuteOperationViewModel<ManagementServerSetTr069EnableRequest, ManagementServerSetTr069EnableResponse>
+internal sealed class ManagementServerSetTr069EnableViewModel : ManualOperationViewModel<ManagementServerSetTr069EnableRequest, ManagementServerSetTr069EnableResponse>
 {
     private bool? tr069Enabled;
 

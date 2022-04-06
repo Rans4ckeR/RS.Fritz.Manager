@@ -46,6 +46,9 @@ public static class ServiceCollectionExtensions
             .AddSingleton<UserInterfaceViewModel>()
             .AddSingleton<UserInterfaceCheckUpdateViewModel>()
             .AddSingleton<UserInterfaceDoPrepareCgiViewModel>()
-            .AddSingleton<UserInterfaceDoUpdateViewModel>();
+            .AddSingleton<UserInterfaceDoUpdateViewModel>()
+            .AddSingleton<UserInterfaceDoManualUpdateViewModel>()
+            .AddSingleton<UserInterfaceSetInternationalConfigViewModel>()
+            .AddSingleton<UserInterfaceSetConfigViewModel>();
     }
 }

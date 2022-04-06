@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-internal sealed class LanConfigSecuritySetConfigPasswordViewModel : ExecuteOperationViewModel<LanConfigSecuritySetConfigPasswordRequest, LanConfigSecuritySetConfigPasswordResponse>
+internal sealed class LanConfigSecuritySetConfigPasswordViewModel : ManualOperationViewModel<LanConfigSecuritySetConfigPasswordRequest, LanConfigSecuritySetConfigPasswordResponse>
 {
     private string? password;
 
