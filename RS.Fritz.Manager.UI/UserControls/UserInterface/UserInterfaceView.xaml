@@ -13,6 +13,12 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -31,7 +37,39 @@
                 </Grid>
             </Expander>
         </Border>
-        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding UserInterfaceDoPrepareCgiViewModel}"/>
-        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding UserInterfaceDoUpdateViewModel}"/>
+        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding UserInterfaceCheckUpdateViewModel}"/>
+        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding UserInterfaceDoPrepareCgiViewModel}"/>
+        <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding UserInterfaceDoUpdateViewModel}"/>
+        <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding UserInterfaceDoManualUpdateViewModel}"/>
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="5" Grid.Column="0">
+            <Expander Header="InternationalConfig">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding UserInterfaceGetInternationalConfigResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding UserInterfaceGetInternationalConfigResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
+        <ContentControl Grid.Row="6" Grid.Column="0" Content="{Binding UserInterfaceSetInternationalConfigViewModel}"/>
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="7" Grid.Column="0">
+            <Expander Header="AvmGetInfo">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding UserInterfaceAvmGetInfoResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding UserInterfaceAvmGetInfoResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
+        <ContentControl Grid.Row="8" Grid.Column="0" Content="{Binding UserInterfaceSetConfigViewModel}"/>
     </Grid>
 </UserControl>

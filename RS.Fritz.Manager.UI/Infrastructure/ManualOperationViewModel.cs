@@ -1,13 +1,13 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal abstract class ExecuteOperationViewModel<TRequest, TResponse> : FritzServiceViewModel
+internal abstract class ManualOperationViewModel<TRequest, TResponse> : FritzServiceViewModel
     where TRequest : struct
     where TResponse : struct
 {
     private readonly Func<InternetGatewayDevice, TRequest, Task<TResponse>> operation;
     private KeyValuePair<TResponse?, UPnPFault?>? response;
 
-    protected ExecuteOperationViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, string title, string buttonText, Func<InternetGatewayDevice, TRequest, Task<TResponse>> operation)
+    protected ManualOperationViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, string title, string buttonText, Func<InternetGatewayDevice, TRequest, Task<TResponse>> operation)
         : base(deviceLoginInfo, logger)
     {
         this.operation = operation;

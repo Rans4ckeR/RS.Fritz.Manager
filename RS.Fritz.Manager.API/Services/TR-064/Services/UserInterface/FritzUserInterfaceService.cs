@@ -16,6 +16,11 @@ internal sealed class FritzUserInterfaceService : FritzServiceClient<IFritzUserI
         return Channel.GetInfoAsync(userInterfaceGetInfoRequest);
     }
 
+    public Task<UserInterfaceCheckUpdateResponse> CheckUpdateAsync(UserInterfaceCheckUpdateRequest userInterfaceCheckUpdateRequest)
+    {
+        return Channel.CheckUpdateAsync(userInterfaceCheckUpdateRequest);
+    }
+
     public Task<UserInterfaceDoPrepareCgiResponse> DoPrepareCgiAsync(UserInterfaceDoPrepareCgiRequest userInterfaceDoPrepareCgiRequest)
     {
         return Channel.DoPrepareCgiAsync(userInterfaceDoPrepareCgiRequest);
@@ -24,5 +29,30 @@ internal sealed class FritzUserInterfaceService : FritzServiceClient<IFritzUserI
     public Task<UserInterfaceDoUpdateResponse> DoUpdateAsync(UserInterfaceDoUpdateRequest userInterfaceDoUpdateRequest)
     {
         return Channel.DoUpdateAsync(userInterfaceDoUpdateRequest);
+    }
+
+    public Task<UserInterfaceDoManualUpdateResponse> DoManualUpdateAsync(UserInterfaceDoManualUpdateRequest userInterfaceDoManualUpdateRequest)
+    {
+        return Channel.DoManualUpdateAsync(userInterfaceDoManualUpdateRequest);
+    }
+
+    public Task<UserInterfaceGetInternationalConfigResponse> GetInternationalConfigAsync(UserInterfaceGetInternationalConfigRequest userInterfaceGetInternationalConfigRequest)
+    {
+        return Channel.GetInternationalConfigAsync(userInterfaceGetInternationalConfigRequest);
+    }
+
+    public Task<UserInterfaceSetInternationalConfigResponse> SetInternationalConfigAsync(UserInterfaceSetInternationalConfigRequest userInterfaceSetInternationalConfigRequest)
+    {
+        return Channel.SetInternationalConfigAsync(userInterfaceSetInternationalConfigRequest);
+    }
+
+    public Task<UserInterfaceAvmGetInfoResponse> AvmGetInfoAsync(UserInterfaceAvmGetInfoRequest userInterfaceAvmGetInfoRequest)
+    {
+        return Channel.AvmGetInfoAsync(userInterfaceAvmGetInfoRequest);
+    }
+
+    public Task<UserInterfaceSetConfigResponse> SetConfigAsync(UserInterfaceSetConfigRequest userInterfaceSetConfigRequest)
+    {
+        return Channel.SetConfigAsync(userInterfaceSetConfigRequest);
     }
 }

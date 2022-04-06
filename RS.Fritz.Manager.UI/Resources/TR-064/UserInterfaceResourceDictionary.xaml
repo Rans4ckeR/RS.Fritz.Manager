@@ -70,4 +70,60 @@
             <TextBlock x:Name="UpdateState" Grid.Row="1" Grid.Column="1" Text="{Binding UpdateState}"/>
         </Grid>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type api:UserInterfaceGetInternationalConfigResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Language}" Content="_Language"/>
+            <TextBlock x:Name="Language" Grid.Row="0" Grid.Column="1" Text="{Binding Language}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=Country}" Content="_Country"/>
+            <TextBlock x:Name="Country" Grid.Row="1" Grid.Column="1" Text="{Binding Country}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=Annex}" Content="_Annex"/>
+            <TextBlock x:Name="Annex" Grid.Row="2" Grid.Column="1" Text="{Binding Annex}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LanguageList}" Content="_LanguageList"/>
+            <TextBlock x:Name="LanguageList" Grid.Row="3" Grid.Column="1" Text="{Binding LanguageList}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=CountryList}" Content="_CountryList"/>
+            <TextBlock x:Name="CountryList" Grid.Row="4" Grid.Column="1" Text="{Binding CountryList}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=AnnexList}" Content="_AnnexList"/>
+            <TextBlock x:Name="AnnexList" Grid.Row="5" Grid.Column="1" Text="{Binding AnnexList}"/>
+        </Grid>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type api:UserInterfaceAvmGetInfoResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AutoUpdateMode}" Content="_AutoUpdateMode" ToolTip="Possible values are off, all, important, check."/>
+            <TextBlock x:Name="AutoUpdateMode" Grid.Row="0" Grid.Column="1" Text="{Binding AutoUpdateMode}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=UpdateTime}" Content="_UpdateTime"/>
+            <TextBlock x:Name="UpdateTime" Grid.Row="1" Grid.Column="1" Text="{Binding UpdateTime}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=LastFwVersion}" Content="_LastFwVersion"/>
+            <TextBlock x:Name="LastFwVersion" Grid.Row="2" Grid.Column="1" Text="{Binding LastFwVersion}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LastInfoUrl}" Content="_LastInfoUrl"/>
+            <ContentControl x:Name="LastInfoUrl" Grid.Row="3" Grid.Column="1" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding LastInfoUrl}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=CurrentFwVersion}" Content="_CurrentFwVersion"/>
+            <TextBlock x:Name="CurrentFwVersion" Grid.Row="4" Grid.Column="1" Text="{Binding CurrentFwVersion}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=UpdateSuccessful}" Content="_UpdateSuccessful" ToolTip="Possible values are unknown, failed, succeeded."/>
+            <TextBlock x:Name="UpdateSuccessful" Grid.Row="5" Grid.Column="1" Text="{Binding UpdateSuccessful}"/>
+        </Grid>
+    </DataTemplate>
 </ResourceDictionary>

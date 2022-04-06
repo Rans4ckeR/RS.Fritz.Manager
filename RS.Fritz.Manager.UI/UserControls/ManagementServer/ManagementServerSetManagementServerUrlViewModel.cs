@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetManagementServerUrlViewModel : ExecuteOperationViewModel<ManagementServerSetManagementServerUrlRequest, ManagementServerSetManagementServerUrlResponse>
+internal sealed class ManagementServerSetManagementServerUrlViewModel : ManualOperationViewModel<ManagementServerSetManagementServerUrlRequest, ManagementServerSetManagementServerUrlResponse>
 {
     private string? url;
 
