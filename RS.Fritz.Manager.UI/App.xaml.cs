@@ -1,7 +1,9 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
+using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,6 +35,8 @@ internal sealed partial class App
     {
         await host.StartAsync();
 
+        SetUiCulture();
+
         MainWindow mainWindow = host.Services.GetRequiredService<MainWindow>();
 
         PreventWpfFlashbang(mainWindow);
@@ -60,6 +64,13 @@ internal sealed partial class App
     {
         window.Loaded += (s, _) => ((Window)s).WindowState = WindowState.Normal;
         window.WindowState = WindowState.Minimized;
+    }
+
+    private static void SetUiCulture()
+    {
+        FrameworkElement.LanguageProperty.OverrideMetadata(
+            typeof(FrameworkElement),
+            new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
     }
 
     private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
