@@ -9,6 +9,11 @@ internal interface IFritzUserInterfaceService
     [FaultContract(typeof(UPnPFault2))]
     Task<UserInterfaceGetInfoResponse> GetInfoAsync(UserInterfaceGetInfoRequest userInterfaceGetInfoRequest);
 
+    [OperationContract(Action = "urn:dslforum-org:service:UserInterface:1#X_AVM-DE_CheckUpdate")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    Task<UserInterfaceCheckUpdateResponse> CheckUpdateAsync(UserInterfaceCheckUpdateRequest userInterfaceCheckUpdateRequest);
+
     [OperationContract(Action = "urn:dslforum-org:service:UserInterface:1#X_AVM-DE_DoPrepareCGI")]
     [FaultContract(typeof(UPnPFault1))]
     [FaultContract(typeof(UPnPFault2))]

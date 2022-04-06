@@ -44,6 +44,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<TimeViewModel>()
             .AddSingleton<TimeSetNtpServersViewModel>()
             .AddSingleton<UserInterfaceViewModel>()
+            .AddSingleton<UserInterfaceCheckUpdateViewModel>()
             .AddSingleton<UserInterfaceDoPrepareCgiViewModel>()
             .AddSingleton<UserInterfaceDoUpdateViewModel>();
     }

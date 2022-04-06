@@ -16,6 +16,11 @@ internal sealed class FritzUserInterfaceService : FritzServiceClient<IFritzUserI
         return Channel.GetInfoAsync(userInterfaceGetInfoRequest);
     }
 
+    public Task<UserInterfaceCheckUpdateResponse> CheckUpdateAsync(UserInterfaceCheckUpdateRequest userInterfaceCheckUpdateRequest)
+    {
+        return Channel.CheckUpdateAsync(userInterfaceCheckUpdateRequest);
+    }
+
     public Task<UserInterfaceDoPrepareCgiResponse> DoPrepareCgiAsync(UserInterfaceDoPrepareCgiRequest userInterfaceDoPrepareCgiRequest)
     {
         return Channel.DoPrepareCgiAsync(userInterfaceDoPrepareCgiRequest);

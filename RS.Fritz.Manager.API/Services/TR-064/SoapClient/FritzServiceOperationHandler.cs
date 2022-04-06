@@ -789,6 +789,11 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzUserInterfaceClientFactory, (q, r, t) => new FritzUserInterfaceService(q, r, t!), FritzUserInterfaceService.ControlUrl), q => q.GetInfoAsync(default));
     }
 
+    public Task<UserInterfaceCheckUpdateResponse> UserInterfaceCheckUpdateAsync(InternetGatewayDevice internetGatewayDevice, UserInterfaceCheckUpdateRequest userInterfaceCheckUpdateRequest)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzUserInterfaceClientFactory, (q, r, t) => new FritzUserInterfaceService(q, r, t!), FritzUserInterfaceService.ControlUrl), q => q.CheckUpdateAsync(userInterfaceCheckUpdateRequest));
+    }
+
     public Task<UserInterfaceDoPrepareCgiResponse> UserInterfaceDoPrepareCgiAsync(InternetGatewayDevice internetGatewayDevice)
     {
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzUserInterfaceClientFactory, (q, r, t) => new FritzUserInterfaceService(q, r, t!), FritzUserInterfaceService.ControlUrl), q => q.DoPrepareCgiAsync(default));

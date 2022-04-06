@@ -13,6 +13,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -31,7 +32,8 @@
                 </Grid>
             </Expander>
         </Border>
-        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding UserInterfaceDoPrepareCgiViewModel}"/>
-        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding UserInterfaceDoUpdateViewModel}"/>
+        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding UserInterfaceCheckUpdateViewModel}"/>
+        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding UserInterfaceDoPrepareCgiViewModel}"/>
+        <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding UserInterfaceDoUpdateViewModel}"/>
     </Grid>
 </UserControl>

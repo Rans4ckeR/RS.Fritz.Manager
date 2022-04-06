@@ -109,6 +109,9 @@
     <DataTemplate DataType="{x:Type ui:UserInterfaceViewModel}">
         <ui:UserInterfaceView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceCheckUpdateViewModel}">
+        <ui:UserInterfaceCheckUpdateView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type ui:UserInterfaceDoPrepareCgiViewModel}">
         <ui:UserInterfaceDoPrepareCgiView/>
     </DataTemplate>

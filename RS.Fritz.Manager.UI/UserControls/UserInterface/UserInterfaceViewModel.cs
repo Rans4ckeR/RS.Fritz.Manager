@@ -4,9 +4,15 @@ internal sealed class UserInterfaceViewModel : FritzServiceViewModel
 {
     private KeyValuePair<UserInterfaceGetInfoResponse?, UPnPFault?>? userInterfaceGetInfoResponse;
 
-    public UserInterfaceViewModel(DeviceLoginInfo deviceLoginInfo, UserInterfaceDoPrepareCgiViewModel userInterfaceDoPrepareCgiViewModel, UserInterfaceDoUpdateViewModel userInterfaceDoUpdateViewModel, ILogger logger)
+    public UserInterfaceViewModel(
+        DeviceLoginInfo deviceLoginInfo,
+        UserInterfaceCheckUpdateViewModel userInterfaceCheckUpdateViewModel,
+        UserInterfaceDoPrepareCgiViewModel userInterfaceDoPrepareCgiViewModel,
+        UserInterfaceDoUpdateViewModel userInterfaceDoUpdateViewModel,
+        ILogger logger)
         : base(deviceLoginInfo, logger, "UserInterface")
     {
+        UserInterfaceCheckUpdateViewModel = userInterfaceCheckUpdateViewModel;
         UserInterfaceDoUpdateViewModel = userInterfaceDoUpdateViewModel;
         UserInterfaceDoPrepareCgiViewModel = userInterfaceDoPrepareCgiViewModel;
     }
@@ -16,6 +22,8 @@ internal sealed class UserInterfaceViewModel : FritzServiceViewModel
         get => userInterfaceGetInfoResponse;
         private set { _ = SetProperty(ref userInterfaceGetInfoResponse, value); }
     }
+
+    public UserInterfaceCheckUpdateViewModel UserInterfaceCheckUpdateViewModel { get; }
 
     public UserInterfaceDoPrepareCgiViewModel UserInterfaceDoPrepareCgiViewModel { get; }
 

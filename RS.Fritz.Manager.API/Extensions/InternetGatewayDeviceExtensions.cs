@@ -467,12 +467,17 @@ public static class InternetGatewayDeviceExtensions
         return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceGetInfoAsync(d));
     }
 
+    public static Task<UserInterfaceCheckUpdateResponse> UserInterfaceCheckUpdateAsync(this InternetGatewayDevice internetGatewayDevice, UserInterfaceCheckUpdateRequest userInterfaceCheckUpdateRequest)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceCheckUpdateAsync(d, userInterfaceCheckUpdateRequest));
+    }
+
     public static Task<UserInterfaceDoPrepareCgiResponse> UserInterfaceDoPrepareCgiAsync(this InternetGatewayDevice internetGatewayDevice)
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceDoPrepareCgiAsync(d));
     }
 
-    public static Task<UserInterfaceDoUpdateResponse> DoUpdateAsync(this InternetGatewayDevice internetGatewayDevice)
+    public static Task<UserInterfaceDoUpdateResponse> UserInterfaceDoUpdateAsync(this InternetGatewayDevice internetGatewayDevice)
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceDoUpdateAsync(d));
     }
