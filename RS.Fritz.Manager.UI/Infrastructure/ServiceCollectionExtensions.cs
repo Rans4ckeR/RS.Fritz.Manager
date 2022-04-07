@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-public static class ServiceCollectionExtensions
+internal static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddViewModels(this IServiceCollection serviceCollection)
     {
@@ -49,6 +49,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<UserInterfaceDoUpdateViewModel>()
             .AddSingleton<UserInterfaceDoManualUpdateViewModel>()
             .AddSingleton<UserInterfaceSetInternationalConfigViewModel>()
-            .AddSingleton<UserInterfaceSetConfigViewModel>();
+            .AddSingleton<UserInterfaceSetConfigViewModel>()
+            .AddSingleton<DeviceConfigViewModel>();
     }
 }

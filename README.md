@@ -281,7 +281,19 @@ static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, IC
   * ✅ SetProvisioningCode
   * ✅ GetDeviceLog
   * ✅ GetSecurityPort
-* ❌ urn:dslforum-org:service:DeviceConfig
+* 🔶 urn:dslforum-org:service:DeviceConfig
+  * ✅ GetPersistentData
+  * ❌ SetPersistentData
+  * ❌ ConfigurationStarted
+  * ❌ ConfigurationFinished
+  * ❌ FactoryReset
+  * ❌ Reboot
+  * ❌ X_GenerateUUID
+  * ❌ X_AVM-DE_GetConfigFile
+  * ❌ X_AVM-DE_SetConfigFile
+  * ❌ X_AVM-DE_CreateUrlSID
+  * ❌ X_AVM-DE_GetSupportDataInfo
+  * ❌ X_AVM-DE_SendSupportData
 * ✅ urn:dslforum-org:service:LANConfigSecurity
   * ✅ GetInfo
   * ✅ X_AVM-DE_GetAnonymousLogin

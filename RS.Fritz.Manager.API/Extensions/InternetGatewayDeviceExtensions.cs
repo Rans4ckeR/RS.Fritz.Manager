@@ -507,6 +507,11 @@ public static class InternetGatewayDeviceExtensions
         return internetGatewayDevice.ExecuteAsync((h, d) => h.UserInterfaceSetConfigAsync(d, userInterfaceSetConfigRequest));
     }
 
+    public static Task<DeviceConfigGetPersistentDataResponse> DeviceConfigGetPersistentDataAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.DeviceConfigGetPersistentDataAsync(d));
+    }
+
     private static Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> GetWlanOperation<T>(
         int interfaceNumber,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface1Operation,

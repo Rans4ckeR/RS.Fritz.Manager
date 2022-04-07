@@ -127,4 +127,7 @@
     <DataTemplate DataType="{x:Type ui:UserInterfaceSetConfigViewModel}">
         <ui:UserInterfaceSetConfigView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:DeviceConfigViewModel}">
+        <ui:DeviceConfigView/>
+    </DataTemplate>
 </ResourceDictionary>
