@@ -36,12 +36,14 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetForwardNumberOfEntriesResponse.Value}"/>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetForwardNumberOfEntriesResponse.Key}"/>
+                    <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Layer3ForwardingGetGenericForwardingEntryResponses}"/>
                 </Grid>
             </Expander>
         </Border>

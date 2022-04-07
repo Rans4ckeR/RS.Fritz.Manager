@@ -128,12 +128,14 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WanConnectionGetPortMappingNumberOfEntriesResponse.Value}"/>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WanConnectionGetPortMappingNumberOfEntriesResponse.Key}"/>
+                    <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding WanConnectionGetGenericPortMappingEntryResponses}"/>
                 </Grid>
             </Expander>
         </Border>

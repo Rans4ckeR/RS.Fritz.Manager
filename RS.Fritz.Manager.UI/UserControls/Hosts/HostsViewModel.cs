@@ -1,5 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
+using System.Collections.ObjectModel;
+
 internal sealed class HostsViewModel : FritzServiceViewModel
 {
     private readonly IDeviceHostsService deviceHostsService;
@@ -9,6 +11,7 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     private KeyValuePair<HostsGetChangeCounterResponse?, UPnPFault?>? hostsGetChangeCounterResponse;
     private DeviceHostInfo? deviceHostInfo;
     private DeviceMeshInfo? deviceMeshInfo;
+    private ObservableCollection<HostsGetGenericHostEntryResponse>? hostsGetGenericHostEntryResponses;
 
     public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IDeviceHostsService deviceHostsService, IDeviceMeshService deviceMeshService, HostsGetGenericHostEntryViewModel hostsGetGenericHostEntryViewModel)
         : base(deviceLoginInfo, logger, "Hosts")
@@ -48,6 +51,12 @@ internal sealed class HostsViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref deviceMeshInfo, value); }
     }
 
+    public ObservableCollection<HostsGetGenericHostEntryResponse>? HostsGetGenericHostEntryResponses
+    {
+        get => hostsGetGenericHostEntryResponses;
+        private set { _ = SetProperty(ref hostsGetGenericHostEntryResponses, value); }
+    }
+
     protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         return API.TaskExtensions.WhenAllSafe(new[]
@@ -62,6 +71,20 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     private async Task GetHostsGetHostNumberOfEntriesAsync()
     {
         HostsGetHostNumberOfEntriesResponse = await ExecuteApiAsync(q => q.HostsGetHostNumberOfEntriesAsync());
+
+        ushort numberOfEntries = HostsGetHostNumberOfEntriesResponse!.Value.Key!.Value.HostNumberOfEntries;
+        var tasks = new List<Task<KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>>>();
+
+        for (ushort i = 0; i < numberOfEntries; i++)
+        {
+            ushort capturedIndex = i;
+
+            tasks.Add(ExecuteApiAsync(q => q.HostsGetGenericHostEntryAsync(new HostsGetGenericHostEntryRequest(capturedIndex))));
+        }
+
+        KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks);
+
+        HostsGetGenericHostEntryResponses = new ObservableCollection<HostsGetGenericHostEntryResponse>(responses.Select(q => q.Key!.Value));
     }
 
     private async Task GetHostsGetChangeCounterAsync()

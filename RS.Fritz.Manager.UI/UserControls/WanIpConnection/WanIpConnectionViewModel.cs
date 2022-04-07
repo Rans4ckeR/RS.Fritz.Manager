@@ -1,5 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
+using System.Collections.ObjectModel;
+
 internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceViewModel
 {
     private KeyValuePair<WanIpConnectionGetInfoResponse?, UPnPFault?>? wanIpConnectionGetInfoResponse;
@@ -9,6 +11,7 @@ internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceV
     private KeyValuePair<WanConnectionGetDnsServersResponse?, UPnPFault?>? wanConnectionGetDnsServersResponse;
     private KeyValuePair<WanConnectionGetPortMappingNumberOfEntriesResponse?, UPnPFault?>? wanConnectionGetPortMappingNumberOfEntriesResponse;
     private KeyValuePair<WanConnectionGetExternalIpAddressResponse?, UPnPFault?>? wanConnectionGetExternalIpAddressResponse;
+    private ObservableCollection<WanConnectionGetGenericPortMappingEntryResponse>? wanConnectionGetGenericPortMappingEntryResponses;
 
     public WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanIpConnectionGetGenericPortMappingEntryViewModel wanIpConnectionGetGenericPortMappingEntryViewModel)
         : base(deviceLoginInfo, logger, WanAccessType.Ethernet, "WANIPConnection")
@@ -64,6 +67,12 @@ internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceV
         private set { _ = SetProperty(ref wanConnectionGetExternalIpAddressResponse, value); }
     }
 
+    public ObservableCollection<WanConnectionGetGenericPortMappingEntryResponse>? WanConnectionGetGenericPortMappingEntryResponses
+    {
+        get => wanConnectionGetGenericPortMappingEntryResponses;
+        private set { _ = SetProperty(ref wanConnectionGetGenericPortMappingEntryResponses, value); }
+    }
+
     protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         return API.TaskExtensions.WhenAllSafe(new[]
@@ -106,6 +115,20 @@ internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceV
     private async Task GetWanIpConnectionGetPortMappingNumberOfEntriesAsync()
     {
         WanConnectionGetPortMappingNumberOfEntriesResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetPortMappingNumberOfEntriesAsync());
+
+        ushort numberOfEntries = WanConnectionGetPortMappingNumberOfEntriesResponse!.Value.Key!.Value.PortMappingNumberOfEntries;
+        var tasks = new List<Task<KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>>>();
+
+        for (ushort i = 0; i < numberOfEntries; i++)
+        {
+            ushort capturedIndex = i;
+
+            tasks.Add(ExecuteApiAsync(q => q.WanIpConnectionGetGenericPortMappingEntryAsync(new WanConnectionGetGenericPortMappingEntryRequest(capturedIndex))));
+        }
+
+        KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks);
+
+        WanConnectionGetGenericPortMappingEntryResponses = new ObservableCollection<WanConnectionGetGenericPortMappingEntryResponse>(responses.Select(q => q.Key!.Value));
     }
 
     private async Task GetWanIpConnectionGetExternalIpAddressAsync()

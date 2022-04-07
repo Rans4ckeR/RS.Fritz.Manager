@@ -1,9 +1,12 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
+using System.Collections.ObjectModel;
+
 internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
 {
     private KeyValuePair<Layer3ForwardingGetDefaultConnectionServiceResponse?, UPnPFault?>? layer3ForwardingGetDefaultConnectionServiceResponse;
     private KeyValuePair<Layer3ForwardingGetForwardNumberOfEntriesResponse?, UPnPFault?>? layer3ForwardingGetForwardNumberOfEntriesResponse;
+    private ObservableCollection<Layer3ForwardingGetGenericForwardingEntryResponse>? layer3ForwardingGetGenericForwardingEntryResponses;
 
     public Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, Layer3ForwardingGetGenericForwardingEntryViewModel layer3ForwardingGetGenericForwardingEntryViewModel)
         : base(deviceLoginInfo, logger, "Layer3Forwarding")
@@ -29,6 +32,12 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
         }
     }
 
+    public ObservableCollection<Layer3ForwardingGetGenericForwardingEntryResponse>? Layer3ForwardingGetGenericForwardingEntryResponses
+    {
+        get => layer3ForwardingGetGenericForwardingEntryResponses;
+        private set { _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponses, value); }
+    }
+
     protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         return API.TaskExtensions.WhenAllSafe(new[]
@@ -46,5 +55,19 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
     private async Task GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
     {
         Layer3ForwardingGetForwardNumberOfEntriesResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetForwardNumberOfEntriesAsync());
+
+        ushort numberOfEntries = Layer3ForwardingGetForwardNumberOfEntriesResponse!.Value.Key!.Value.ForwardNumberOfEntries;
+        var tasks = new List<Task<KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>>>();
+
+        for (ushort i = 0; i < numberOfEntries; i++)
+        {
+            ushort capturedIndex = i;
+
+            tasks.Add(ExecuteApiAsync(q => q.Layer3ForwardingGetGenericForwardingEntryAsync(new Layer3ForwardingGetGenericForwardingEntryRequest(capturedIndex))));
+        }
+
+        KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks);
+
+        Layer3ForwardingGetGenericForwardingEntryResponses = new ObservableCollection<Layer3ForwardingGetGenericForwardingEntryResponse>(responses.Select(q => q.Key!.Value));
     }
 }
