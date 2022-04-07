@@ -36,6 +36,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IClientFactory<IFritzManagementServerService>, ClientFactory<IFritzManagementServerService>>()
             .AddSingleton<IClientFactory<IFritzTimeService>, ClientFactory<IFritzTimeService>>()
             .AddSingleton<IClientFactory<IFritzUserInterfaceService>, ClientFactory<IFritzUserInterfaceService>>()
+            .AddSingleton<IClientFactory<IFritzDeviceConfigService>, ClientFactory<IFritzDeviceConfigService>>()
             .ConfigureHttpClients();
     }
 

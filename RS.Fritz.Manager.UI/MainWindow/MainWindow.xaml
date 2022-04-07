@@ -90,6 +90,9 @@
                         <RibbonGroup ToolTip="This service contains parameters relating to the user interface of the CPE.">
                             <RibbonButton Label="UserInterface" Command="{Binding UserInterfaceViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                         </RibbonGroup>
+                        <RibbonGroup ToolTip="This service contains general configuration parameters.">
+                            <RibbonButton Label="DeviceConfig" Command="{Binding DeviceConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
                     </RibbonTab>
                     <RibbonTab Header="Home network">
                         <RibbonGroup ToolTip="This service provides information about each of the hosts on this LAN, including those whose IP address was allocated by the CPE using DHCP as well as hosts with statically allocated IP addresses. It also allows the IP address of a particular host to be re-allocated by removing it from this table.">

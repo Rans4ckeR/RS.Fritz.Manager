@@ -53,7 +53,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         WlanConfigurationViewModel wlanConfigurationViewModel,
         ManagementServerViewModel managementServerViewModel,
         TimeViewModel timeViewModel,
-        UserInterfaceViewModel userInterfaceViewModel)
+        UserInterfaceViewModel userInterfaceViewModel,
+        DeviceConfigViewModel deviceConfigViewModel)
         : base(deviceLoginInfo, logger)
     {
         this.deviceSearchService = deviceSearchService;
@@ -75,6 +76,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         ManagementServerViewModel = managementServerViewModel;
         TimeViewModel = timeViewModel;
         UserInterfaceViewModel = userInterfaceViewModel;
+        DeviceConfigViewModel = deviceConfigViewModel;
         LoginCommand = new AsyncRelayCommand<bool?>(ExecuteLoginCommandAsync, _ => CanExecuteLoginCommand);
         CopyMessageCommand = new RelayCommand(ExecuteCopyMessageCommand);
         CloseMessageCommand = new RelayCommand(ExecuteCloseMessageCommand);
@@ -139,6 +141,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     public TimeViewModel TimeViewModel { get; }
 
     public UserInterfaceViewModel UserInterfaceViewModel { get; }
+
+    public DeviceConfigViewModel DeviceConfigViewModel { get; }
 
     public double MainContentOpacity
     {
