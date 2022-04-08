@@ -288,11 +288,11 @@ static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, IC
   * ❌ ConfigurationFinished
   * ❌ FactoryReset
   * ❌ Reboot
-  * ❌ X_GenerateUUID
+  * ✅ X_GenerateUUID
   * ❌ X_AVM-DE_GetConfigFile
   * ❌ X_AVM-DE_SetConfigFile
-  * ❌ X_AVM-DE_CreateUrlSID
-  * ❌ X_AVM-DE_GetSupportDataInfo
+  * ✅ X_AVM-DE_CreateUrlSID
+  * ✅ X_AVM-DE_GetSupportDataInfo
   * ❌ X_AVM-DE_SendSupportData
 * ✅ urn:dslforum-org:service:LANConfigSecurity
   * ✅ GetInfo

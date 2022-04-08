@@ -15,4 +15,19 @@ internal sealed class FritzDeviceConfigService : FritzServiceClient<IFritzDevice
     {
         return Channel.GetPersistentDataAsync(deviceConfigGetPersistentDataRequest);
     }
+
+    public Task<DeviceConfigGenerateUuIdResponse> GenerateUuIdAsync(DeviceConfigGenerateUuIdRequest deviceConfigGenerateUuIdRequest)
+    {
+        return Channel.GenerateUuIdAsync(deviceConfigGenerateUuIdRequest);
+    }
+
+    public Task<DeviceConfigCreateUrlSidResponse> CreateUrlSidAsync(DeviceConfigCreateUrlSidRequest deviceConfigCreateUrlSidRequest)
+    {
+        return Channel.CreateUrlSidAsync(deviceConfigCreateUrlSidRequest);
+    }
+
+    public Task<DeviceConfigGetSupportDataInfoResponse> GetSupportDataInfoAsync(DeviceConfigGetSupportDataInfoRequest deviceConfigGetSupportDataInfoRequest)
+    {
+        return Channel.GetSupportDataInfoAsync(deviceConfigGetSupportDataInfoRequest);
+    }
 }
