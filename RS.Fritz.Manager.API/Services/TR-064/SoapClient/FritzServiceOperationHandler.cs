@@ -837,6 +837,21 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzDeviceConfigServiceClientFactory, (q, r, t) => new FritzDeviceConfigService(q, r, t!), FritzDeviceConfigService.ControlUrl), q => q.GetPersistentDataAsync(default));
     }
 
+    public Task<DeviceConfigGenerateUuIdResponse> DeviceConfigGenerateUuIdAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzDeviceConfigServiceClientFactory, (q, r, t) => new FritzDeviceConfigService(q, r, t!), FritzDeviceConfigService.ControlUrl), q => q.GenerateUuIdAsync(default));
+    }
+
+    public Task<DeviceConfigCreateUrlSidResponse> DeviceConfigCreateUrlSidAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzDeviceConfigServiceClientFactory, (q, r, t) => new FritzDeviceConfigService(q, r, t!), FritzDeviceConfigService.ControlUrl), q => q.CreateUrlSidAsync(default));
+    }
+
+    public Task<DeviceConfigGetSupportDataInfoResponse> DeviceConfigGetSupportDataInfoAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzDeviceConfigServiceClientFactory, (q, r, t) => new FritzDeviceConfigService(q, r, t!), FritzDeviceConfigService.ControlUrl), q => q.GetSupportDataInfoAsync(default));
+    }
+
     private static T GetFritzServiceClient<T>(InternetGatewayDevice internetGatewayDevice, IClientFactory<T> clientFactory, Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createService, string controlUrl, bool secure = true)
     {
         return clientFactory.Build(createService, internetGatewayDevice.PreferredLocation, secure, controlUrl, secure ? internetGatewayDevice.SecurityPort : null, internetGatewayDevice.NetworkCredential);

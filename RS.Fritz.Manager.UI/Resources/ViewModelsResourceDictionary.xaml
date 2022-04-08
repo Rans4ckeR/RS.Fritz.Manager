@@ -130,4 +130,10 @@
     <DataTemplate DataType="{x:Type ui:DeviceConfigViewModel}">
         <ui:DeviceConfigView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:DeviceConfigGenerateUuIdViewModel}">
+        <ui:DeviceConfigGenerateUuIdView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:DeviceConfigCreateUrlSidViewModel}">
+        <ui:DeviceConfigCreateUrlSidView/>
+    </DataTemplate>
 </ResourceDictionary>

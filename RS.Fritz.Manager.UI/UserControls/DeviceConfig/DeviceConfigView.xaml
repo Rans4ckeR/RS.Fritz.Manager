@@ -11,6 +11,9 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -26,6 +29,22 @@
                     </Grid.ColumnDefinitions>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding DeviceConfigGetPersistentDataResponse.Value}"/>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding DeviceConfigGetPersistentDataResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
+        <ContentControl Grid.Row="1" Grid.Column="0" Content="{Binding DeviceConfigGenerateUuIdViewModel}"/>
+        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding DeviceConfigCreateUrlSidViewModel}"/>
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="3" Grid.Column="0">
+            <Expander Header="GetSupportDataInfo">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding DeviceConfigGetSupportDataInfoResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding DeviceConfigGetSupportDataInfoResponse.Key}"/>
                 </Grid>
             </Expander>
         </Border>

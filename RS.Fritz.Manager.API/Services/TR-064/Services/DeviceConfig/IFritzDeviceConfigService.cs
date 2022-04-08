@@ -8,4 +8,19 @@ internal interface IFritzDeviceConfigService
     [FaultContract(typeof(UPnPFault1))]
     [FaultContract(typeof(UPnPFault2))]
     Task<DeviceConfigGetPersistentDataResponse> GetPersistentDataAsync(DeviceConfigGetPersistentDataRequest deviceConfigGetPersistentDataRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:DeviceConfig:1#X_GenerateUUID")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    Task<DeviceConfigGenerateUuIdResponse> GenerateUuIdAsync(DeviceConfigGenerateUuIdRequest deviceConfigGenerateUuIdRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:DeviceConfig:1#X_AVM-DE_CreateUrlSID")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    Task<DeviceConfigCreateUrlSidResponse> CreateUrlSidAsync(DeviceConfigCreateUrlSidRequest deviceConfigCreateUrlSidRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:DeviceConfig:1#X_AVM-DE_GetSupportDataInfo")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    Task<DeviceConfigGetSupportDataInfoResponse> GetSupportDataInfoAsync(DeviceConfigGetSupportDataInfoRequest deviceConfigGetSupportDataInfoRequest);
 }

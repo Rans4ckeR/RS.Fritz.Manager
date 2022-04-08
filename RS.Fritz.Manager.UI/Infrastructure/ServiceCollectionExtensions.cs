@@ -50,6 +50,8 @@ internal static class ServiceCollectionExtensions
             .AddSingleton<UserInterfaceDoManualUpdateViewModel>()
             .AddSingleton<UserInterfaceSetInternationalConfigViewModel>()
             .AddSingleton<UserInterfaceSetConfigViewModel>()
-            .AddSingleton<DeviceConfigViewModel>();
+            .AddSingleton<DeviceConfigViewModel>()
+            .AddSingleton<DeviceConfigGenerateUuIdViewModel>()
+            .AddSingleton<DeviceConfigCreateUrlSidViewModel>();
     }
 }

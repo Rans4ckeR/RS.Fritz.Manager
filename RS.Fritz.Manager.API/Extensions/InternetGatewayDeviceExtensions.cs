@@ -512,6 +512,21 @@ public static class InternetGatewayDeviceExtensions
         return internetGatewayDevice.ExecuteAsync((h, d) => h.DeviceConfigGetPersistentDataAsync(d));
     }
 
+    public static Task<DeviceConfigGenerateUuIdResponse> DeviceConfigGenerateUuIdAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.DeviceConfigGenerateUuIdAsync(d));
+    }
+
+    public static Task<DeviceConfigCreateUrlSidResponse> DeviceConfigCreateUrlSidAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.DeviceConfigCreateUrlSidAsync(d));
+    }
+
+    public static Task<DeviceConfigGetSupportDataInfoResponse> DeviceConfigGetSupportDataInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.DeviceConfigGetSupportDataInfoAsync(d));
+    }
+
     private static Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> GetWlanOperation<T>(
         int interfaceNumber,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface1Operation,
