@@ -7,6 +7,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources\GeneralResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\UPnPResourceDictionary.xaml"/>
+                <ResourceDictionary Source="Resources\WebUiResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\ViewModelsResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\AvmSpeedtestResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\DeviceConfigResourceDictionary.xaml"/>

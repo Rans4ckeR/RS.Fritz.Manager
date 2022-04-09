@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net7.0-windows;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net7.0-windows10.0.22000.0;net6.0-windows10.0.22000.0</TargetFrameworks>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <AssemblyName>RS.Fritz.Manager.UI</AssemblyName>
     <RootNamespace>RS.Fritz.Manager.UI</RootNamespace>
     <Title>RS.Fritz.Manager.UI</Title>
@@ -39,10 +40,10 @@
   <ItemGroup>
     <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-windows'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-windows10.0.22000.0'">
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0-preview.2.22152.2" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows10.0.22000.0'">
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +131,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Resources\WebUiResourceDictionary.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Resources\TR-064\DeviceConfigResourceDictionary.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

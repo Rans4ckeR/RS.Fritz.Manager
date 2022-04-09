@@ -136,9 +136,9 @@
                             <RibbonButton Label="AvmSpeedtest" Command="{Binding AvmSpeedtestViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                         </RibbonGroup>
                     </RibbonTab>
-                    <RibbonTab Header="Packet tracing">
-                        <RibbonGroup ToolTip="The Capture function enables packet sniffing to be analyzed with Wireshark.">
-                            <RibbonButton Label="Sniffer" Command="{Binding CaptureControlCaptureViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                    <RibbonTab Header="WebUI">
+                        <RibbonGroup ToolTip="For the purpose of diagnostics, FRITZ!Box can record all data packets in Wireshark format when the FRITZ!Box is configured as a router.">
+                            <RibbonButton Label="Packet Trace" Command="{Binding CaptureControlCaptureViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                         </RibbonGroup>
                     </RibbonTab>
                 </Ribbon>

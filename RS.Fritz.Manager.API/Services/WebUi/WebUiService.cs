@@ -81,10 +81,7 @@ internal sealed class WebUiService : IWebUiService
         var formContent = new FormUrlEncodedContent(parameters);
         Uri loginUri = GetLoginUri(internetGatewayDevice);
         HttpResponseMessage loginResponse = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).PostAsync(loginUri, formContent, cancellationToken);
-
-        _ = loginResponse.EnsureSuccessStatusCode();
-
-        string xmlResponse = await loginResponse.Content.ReadAsStringAsync(cancellationToken);
+        string xmlResponse = await loginResponse.EnsureSuccessStatusCode().Content.ReadAsStringAsync(cancellationToken);
 
         return Deserialize(xmlResponse);
     }

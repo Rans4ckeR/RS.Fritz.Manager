@@ -9,12 +9,17 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Border Style="{StaticResource BorderStyle}">
-        <Expander Header="CaptureControl">
-            <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ItemsControl Grid.Row="0" Grid.Column="0" ItemsSource="{Binding CaptureInterfaceGroups}"/>
+            <Grid Grid.Row="1" Grid.Column="0" >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
@@ -22,23 +27,13 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Content="Capture interface 2-1"/>
-                <Button Grid.Row="4" Grid.Column="1" Content="Start" IsEnabled="{Binding StartButtonIsEnabled01}" Margin="10" Command="{Binding Start1Command}"/>
-                <Button Grid.Row="4" Grid.Column="2" Content=" Stop" Margin="10" Command="{Binding Stop1Command}"/>
-                <ProgressBar Grid.Row="4" Grid.Column="3" Margin="10" Width="100" Minimum="0" Maximum="9" Visibility="{Binding ProgBarVisibility01, UpdateSourceTrigger=PropertyChanged}" Value="{Binding ProgBarPercent01, UpdateSourceTrigger=PropertyChanged}"/>
-                <Label Grid.Row="1" Grid.Column="4" Margin="20,0,0,0" VerticalAlignment="Center" Content="CaptureTimeLimit (minutes)"/>
-                <Label Grid.Row="2" Grid.Column="4" Margin="20,0,0,0" VerticalAlignment="Center" Content="FilenamePrefix"/>
-                <Label Grid.Row="3" Grid.Column="4" Margin="20,0,0,0" VerticalAlignment="Center" Content="TargetFolder"/>
-                <TextBox Grid.Row="1" Width="60" Grid.Column="5" Text="{Binding CaptureTimeLimitMinutes}" TextAlignment="Right" Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                <Slider Grid.Row="1" Grid.Column="6" Orientation="Horizontal" Width="150" Minimum="1" Value="{Binding CaptureTimeLimitMinutes}" Maximum="100" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"/>
-                <TextBox Grid.Row="2" Grid.Column="5" Text="{Binding FilenamePrefix,UpdateSourceTrigger=PropertyChanged}" Width="180" TextAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center"/>
-                <ComboBox Grid.Row="3" Grid.Column="5" IsEditable="True" Text="{Binding SelectedTargetFolder, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" ItemsSource="{ Binding TargetFolders}" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=FolderName}" Content="_Target Folder"/>
+                <TextBox x:Name="FolderName" Grid.Row="0" Grid.Column="1" Text="{Binding FolderName}"/>
+                <Button Grid.Row="0" Grid.Column="2" Content="Select Target Folder" Command="{Binding SelectTargetFolderCommand}"/>
+                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PacketCaptureSizeLimit}" Content="_Packet Capture Size Limit"/>
+                <TextBox x:Name="PacketCaptureSizeLimit" Grid.Row="1" Grid.Column="1" Text="{Binding PacketCaptureSizeLimit}"/>
             </Grid>
-        </Expander>
+        </Grid>
     </Border>
 </UserControl>
