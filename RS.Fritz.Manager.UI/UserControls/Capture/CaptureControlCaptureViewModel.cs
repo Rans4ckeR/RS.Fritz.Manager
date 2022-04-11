@@ -16,22 +16,16 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
     private string folderName = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
     private int packetCaptureSizeLimit = 1600;
     private ObservableCollection<CaptureInterfaceGroup>? captureInterfaceGroups;
-    private Dictionary<CaptureInterface, bool>? captureInterfaceActiveDictionary;
+    private Dictionary<CaptureInterface, UserInterfaceCaptureInterface>? captureInterfaceDictionary;
 
     public CaptureControlCaptureViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, ICaptureControlService captureControlService)
            : base(deviceLoginInfo, logger)
     {
         this.captureControlService = captureControlService;
         SelectTargetFolderCommand = new AsyncRelayCommand(DoExecuteSelectTargetFolderCommandAsync);
-        CaptureInterfaceStartCommand = new RelayCommand<CaptureInterface>(DoExecuteCaptureInterfaceStartCommand, CanExecuteCaptureInterfaceStartCommand);
-        CaptureInterfaceStopCommand = new AsyncRelayCommand<CaptureInterface>(DoExecuteCaptureInterfaceStopCommandAsync, CanExecuteCaptureInterfaceStopCommand);
     }
 
     public IAsyncRelayCommand SelectTargetFolderCommand { get; }
-
-    public IRelayCommand CaptureInterfaceStartCommand { get; }
-
-    public IAsyncRelayCommand CaptureInterfaceStopCommand { get; }
 
     public string FolderName
     {
@@ -39,7 +33,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         set
         {
             if (SetProperty(ref folderName, value))
-                CaptureInterfaceStartCommand.NotifyCanExecuteChanged();
+                CaptureInterfaceDictionary?.Values.ToList().ForEach(q => q.StartCommand.NotifyCanExecuteChanged());
         }
     }
 
@@ -49,7 +43,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         set
         {
             if (SetProperty(ref packetCaptureSizeLimit, value))
-                CaptureInterfaceStartCommand.NotifyCanExecuteChanged();
+                CaptureInterfaceDictionary?.Values.ToList().ForEach(q => q.StartCommand.NotifyCanExecuteChanged());
         }
     }
 
@@ -59,14 +53,21 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         private set
         {
             if (SetProperty(ref captureInterfaceGroups, value))
-                CaptureInterfaceActiveDictionary = value!.SelectMany(q => q.CaptureInterfaces).ToDictionary(q => q, _ => false);
+                CaptureInterfaceDictionary = value!.SelectMany(q => q.CaptureInterfaces).ToDictionary(q => q, q => new UserInterfaceCaptureInterface { CaptureInterface = q, StartCommand = new RelayCommand<CaptureInterface>(DoExecuteCaptureInterfaceStartCommand, CanExecuteCaptureInterfaceStartCommand), StopCommand = new AsyncRelayCommand<CaptureInterface>(DoExecuteCaptureInterfaceStopCommandAsync, CanExecuteCaptureInterfaceStopCommand) });
         }
     }
 
-    private Dictionary<CaptureInterface, bool>? CaptureInterfaceActiveDictionary
+    public Dictionary<CaptureInterface, UserInterfaceCaptureInterface>? CaptureInterfaceDictionary
     {
-        get => captureInterfaceActiveDictionary;
-        set => _ = SetProperty(ref captureInterfaceActiveDictionary, value);
+        get => captureInterfaceDictionary;
+        private set
+        {
+            if (SetProperty(ref captureInterfaceDictionary, value))
+            {
+                CaptureInterfaceDictionary?.Values.ToList().ForEach(q => q.StartCommand.NotifyCanExecuteChanged());
+                CaptureInterfaceDictionary?.Values.ToList().ForEach(q => q.StopCommand.NotifyCanExecuteChanged());
+            }
+        }
     }
 
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
@@ -76,12 +77,12 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 
     private bool CanExecuteCaptureInterfaceStartCommand(CaptureInterface captureInterface)
     {
-        return PacketCaptureSizeLimit > 0 && !string.IsNullOrWhiteSpace(FolderName) && !CaptureInterfaceActiveDictionary![captureInterface];
+        return PacketCaptureSizeLimit > 0 && !string.IsNullOrWhiteSpace(FolderName) && !CaptureInterfaceDictionary![captureInterface].Active;
     }
 
     private bool CanExecuteCaptureInterfaceStopCommand(CaptureInterface captureInterface)
     {
-        return CaptureInterfaceActiveDictionary![captureInterface];
+        return CaptureInterfaceDictionary![captureInterface].Active;
     }
 
     private async Task DoExecuteSelectTargetFolderCommandAsync(CancellationToken cancellationToken)
@@ -89,7 +90,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         IntPtr mainWindowHandle = new WindowInteropHelper(Application.Current.MainWindow).Handle;
         var folderPicker = new FolderPicker
         {
-            SuggestedStartLocation = PickerLocationId.Desktop
+            SuggestedStartLocation = PickerLocationId.Downloads
         };
 
         InitializeWithWindow.Initialize(folderPicker, mainWindowHandle);
@@ -111,10 +112,12 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 
     private void SetCaptureInterfaceStatus(CaptureInterface captureInterface, bool commandActive)
     {
-        CaptureInterfaceActiveDictionary![captureInterface] = commandActive;
+        UserInterfaceCaptureInterface userInterfaceCaptureInterface = CaptureInterfaceDictionary![captureInterface];
 
-        CaptureInterfaceStartCommand.NotifyCanExecuteChanged();
-        CaptureInterfaceStopCommand.NotifyCanExecuteChanged();
+        userInterfaceCaptureInterface.Active = commandActive;
+
+        userInterfaceCaptureInterface.StartCommand.NotifyCanExecuteChanged();
+        userInterfaceCaptureInterface.StopCommand.NotifyCanExecuteChanged();
     }
 
     private async Task StartBackgroundCaptureAsync(CaptureInterface captureInterface, FileInfo fileInfo)

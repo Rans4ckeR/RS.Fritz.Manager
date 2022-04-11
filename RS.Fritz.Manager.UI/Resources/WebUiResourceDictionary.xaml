@@ -5,6 +5,13 @@
                     xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
                     xmlns:ui="clr-namespace:RS.Fritz.Manager.UI"
                     mc:Ignorable="presentationOptions">
+    <MultiBinding x:Key="MultiBinding">
+        <MultiBinding.Converter>
+            <ui:DictionaryMultiValueConverter/>
+        </MultiBinding.Converter>
+        <Binding RelativeSource="{RelativeSource AncestorType=ui:CaptureControlCaptureView, Mode=FindAncestor}" Path="DataContext.CaptureInterfaceDictionary"/>
+        <Binding Path="."/>
+    </MultiBinding>
     <DataTemplate DataType="{x:Type api:CaptureInterfaceGroup}">
         <Border Style="{StaticResource BorderStyle}">
             <Grid>
@@ -32,8 +39,8 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Content="{Binding Name}"/>
-            <Button Grid.Row="0" Grid.Column="1" Content="Start" Command="{Binding RelativeSource={RelativeSource AncestorType=ui:CaptureControlCaptureView, Mode=FindAncestor}, Path=DataContext.CaptureInterfaceStartCommand}" CommandParameter="{Binding}"/>
-            <Button Grid.Row="0" Grid.Column="2" Content="Stop" Command="{Binding RelativeSource={RelativeSource AncestorType=ui:CaptureControlCaptureView, Mode=FindAncestor}, Path=DataContext.CaptureInterfaceStopCommand}" CommandParameter="{Binding}"/>
+            <Button Grid.Row="0" Grid.Column="1" Content="Start" DataContext="{StaticResource MultiBinding}" Command="{Binding StartCommand}" CommandParameter="{Binding CaptureInterface}"/>
+            <Button Grid.Row="0" Grid.Column="2" Content="Stop" DataContext="{StaticResource MultiBinding}" Command="{Binding StopCommand}" CommandParameter="{Binding CaptureInterface}"/>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>
