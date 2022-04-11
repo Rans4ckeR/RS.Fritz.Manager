@@ -15,8 +15,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 
     private string folderName = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
     private int packetCaptureSizeLimit = 1600;
-    private ObservableCollection<CaptureInterfaceGroup>? captureInterfaceGroups;
-    private Dictionary<CaptureInterface, UserInterfaceCaptureInterface>? captureInterfaceDictionary;
+    private ObservableCollection<UserInterfaceCaptureInterfaceGroup>? captureInterfaceGroups;
 
     public CaptureControlCaptureViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, ICaptureControlService captureControlService)
            : base(deviceLoginInfo, logger)
@@ -33,7 +32,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         set
         {
             if (SetProperty(ref folderName, value))
-                CaptureInterfaceDictionary?.Values.ToList().ForEach(q => q.StartCommand.NotifyCanExecuteChanged());
+                NotifyAllStartCommandsCanExecuteChanged();
         }
     }
 
@@ -43,46 +42,49 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         set
         {
             if (SetProperty(ref packetCaptureSizeLimit, value))
-                CaptureInterfaceDictionary?.Values.ToList().ForEach(q => q.StartCommand.NotifyCanExecuteChanged());
+                NotifyAllStartCommandsCanExecuteChanged();
         }
     }
 
-    public ObservableCollection<CaptureInterfaceGroup>? CaptureInterfaceGroups
+    public ObservableCollection<UserInterfaceCaptureInterfaceGroup>? CaptureInterfaceGroups
     {
         get => captureInterfaceGroups;
-        private set
-        {
-            if (SetProperty(ref captureInterfaceGroups, value))
-                CaptureInterfaceDictionary = value!.SelectMany(q => q.CaptureInterfaces).ToDictionary(q => q, q => new UserInterfaceCaptureInterface { CaptureInterface = q, StartCommand = new RelayCommand<CaptureInterface>(DoExecuteCaptureInterfaceStartCommand, CanExecuteCaptureInterfaceStartCommand), StopCommand = new AsyncRelayCommand<CaptureInterface>(DoExecuteCaptureInterfaceStopCommandAsync, CanExecuteCaptureInterfaceStopCommand) });
-        }
-    }
-
-    public Dictionary<CaptureInterface, UserInterfaceCaptureInterface>? CaptureInterfaceDictionary
-    {
-        get => captureInterfaceDictionary;
-        private set
-        {
-            if (SetProperty(ref captureInterfaceDictionary, value))
-            {
-                CaptureInterfaceDictionary?.Values.ToList().ForEach(q => q.StartCommand.NotifyCanExecuteChanged());
-                CaptureInterfaceDictionary?.Values.ToList().ForEach(q => q.StopCommand.NotifyCanExecuteChanged());
-            }
-        }
+        private set => _ = SetProperty(ref captureInterfaceGroups, value);
     }
 
     protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        CaptureInterfaceGroups = new ObservableCollection<CaptureInterfaceGroup>(await captureControlService.GetInterfacesAsync(ApiDevice, cancellationToken));
+        if (CaptureInterfaceGroups is not null)
+            return;
+
+        IEnumerable<UserInterfaceCaptureInterfaceGroup> newCaptureInterfaceGroups = (await captureControlService.GetInterfacesAsync(ApiDevice, cancellationToken)).Select(q => new UserInterfaceCaptureInterfaceGroup(q, q.CaptureInterfaces.Select(r => new UserInterfaceCaptureInterface(r, new RelayCommand<UserInterfaceCaptureInterface>(DoExecuteCaptureInterfaceStartCommand, _ => CanExecuteCaptureInterfaceStartCommand(r)), new AsyncRelayCommand<UserInterfaceCaptureInterface>(DoExecuteCaptureInterfaceStopCommandAsync, _ => CanExecuteCaptureInterfaceStopCommand(r)))).ToList()));
+
+        CaptureInterfaceGroups = new ObservableCollection<UserInterfaceCaptureInterfaceGroup>(newCaptureInterfaceGroups);
+
+        NotifyAllStartCommandsCanExecuteChanged();
+    }
+
+    private static void SetCaptureInterfaceStatus(UserInterfaceCaptureInterface userInterfaceCaptureInterface, bool commandActive)
+    {
+        userInterfaceCaptureInterface.Active = commandActive;
+
+        userInterfaceCaptureInterface.StartCommand.NotifyCanExecuteChanged();
+        userInterfaceCaptureInterface.StopCommand.NotifyCanExecuteChanged();
+    }
+
+    private void NotifyAllStartCommandsCanExecuteChanged()
+    {
+        CaptureInterfaceGroups?.ToList().ForEach(q => q.CaptureInterfaces.ForEach(r => r.StartCommand.NotifyCanExecuteChanged()));
     }
 
     private bool CanExecuteCaptureInterfaceStartCommand(CaptureInterface captureInterface)
     {
-        return PacketCaptureSizeLimit > 0 && !string.IsNullOrWhiteSpace(FolderName) && !CaptureInterfaceDictionary![captureInterface].Active;
+        return PacketCaptureSizeLimit > 0 && !string.IsNullOrWhiteSpace(FolderName) && (!CaptureInterfaceGroups?.SelectMany(q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false);
     }
 
     private bool CanExecuteCaptureInterfaceStopCommand(CaptureInterface captureInterface)
     {
-        return CaptureInterfaceDictionary![captureInterface].Active;
+        return CaptureInterfaceGroups?.SelectMany(q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false;
     }
 
     private async Task DoExecuteSelectTargetFolderCommandAsync(CancellationToken cancellationToken)
@@ -101,41 +103,31 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
             FolderName = storageFolder.Path;
     }
 
-    private async void DoExecuteCaptureInterfaceStartCommand(CaptureInterface captureInterface)
+    private async void DoExecuteCaptureInterfaceStartCommand(UserInterfaceCaptureInterface? userInterfaceCaptureInterface)
     {
-        SetCaptureInterfaceStatus(captureInterface, true);
+        SetCaptureInterfaceStatus(userInterfaceCaptureInterface!, true);
 
-        var fileInfo = new FileInfo(FormattableString.Invariant($"{FolderName}\\{captureInterface.Name}_{DateTime.Now.ToString("s").Replace(":", string.Empty)}.eth"));
+        var fileInfo = new FileInfo(FormattableString.Invariant($"{FolderName}\\{userInterfaceCaptureInterface!.CaptureInterface.Name}_{DateTime.Now.ToString("s").Replace(":", string.Empty)}.eth"));
 
-        await StartBackgroundCaptureAsync(captureInterface, fileInfo);
+        await StartBackgroundCaptureAsync(userInterfaceCaptureInterface, fileInfo);
     }
 
-    private void SetCaptureInterfaceStatus(CaptureInterface captureInterface, bool commandActive)
-    {
-        UserInterfaceCaptureInterface userInterfaceCaptureInterface = CaptureInterfaceDictionary![captureInterface];
-
-        userInterfaceCaptureInterface.Active = commandActive;
-
-        userInterfaceCaptureInterface.StartCommand.NotifyCanExecuteChanged();
-        userInterfaceCaptureInterface.StopCommand.NotifyCanExecuteChanged();
-    }
-
-    private async Task StartBackgroundCaptureAsync(CaptureInterface captureInterface, FileInfo fileInfo)
+    private async Task StartBackgroundCaptureAsync(UserInterfaceCaptureInterface userInterfaceCaptureInterface, FileInfo fileInfo)
     {
         try
         {
-            await captureControlService.StartCaptureAsync(ApiDevice, fileInfo, captureInterface, PacketCaptureSizeLimit);
+            await captureControlService.StartCaptureAsync(ApiDevice, fileInfo, userInterfaceCaptureInterface.CaptureInterface, PacketCaptureSizeLimit);
         }
         catch (Exception ex)
         {
             Logger.ExceptionThrown(ex);
-            SetCaptureInterfaceStatus(captureInterface, false);
+            SetCaptureInterfaceStatus(userInterfaceCaptureInterface, false);
         }
     }
 
-    private async Task DoExecuteCaptureInterfaceStopCommandAsync(CaptureInterface captureInterface, CancellationToken cancellationToken)
+    private async Task DoExecuteCaptureInterfaceStopCommandAsync(UserInterfaceCaptureInterface? userInterfaceCaptureInterface, CancellationToken cancellationToken)
     {
-        await captureControlService.StopCaptureAsync(ApiDevice, captureInterface, cancellationToken);
-        SetCaptureInterfaceStatus(captureInterface, false);
+        await captureControlService.StopCaptureAsync(ApiDevice, userInterfaceCaptureInterface!.CaptureInterface, cancellationToken);
+        SetCaptureInterfaceStatus(userInterfaceCaptureInterface, false);
     }
 }
