@@ -100,4 +100,40 @@
     <DataTemplate DataType="{x:Type ui:ManagementServerSetTr069FirmwareDownloadEnabledViewModel}">
         <ui:ManagementServerSetTr069FirmwareDownloadEnabledView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:TimeViewModel}">
+        <ui:TimeView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:TimeSetNtpServersViewModel}">
+        <ui:TimeSetNtpServersView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceViewModel}">
+        <ui:UserInterfaceView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceCheckUpdateViewModel}">
+        <ui:UserInterfaceCheckUpdateView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceDoPrepareCgiViewModel}">
+        <ui:UserInterfaceDoPrepareCgiView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceDoUpdateViewModel}">
+        <ui:UserInterfaceDoUpdateView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceDoManualUpdateViewModel}">
+        <ui:UserInterfaceDoManualUpdateView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceSetInternationalConfigViewModel}">
+        <ui:UserInterfaceSetInternationalConfigView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:UserInterfaceSetConfigViewModel}">
+        <ui:UserInterfaceSetConfigView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:DeviceConfigViewModel}">
+        <ui:DeviceConfigView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:DeviceConfigGenerateUuIdViewModel}">
+        <ui:DeviceConfigGenerateUuIdView/>
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:DeviceConfigCreateUrlSidViewModel}">
+        <ui:DeviceConfigCreateUrlSidView/>
+    </DataTemplate>
 </ResourceDictionary>

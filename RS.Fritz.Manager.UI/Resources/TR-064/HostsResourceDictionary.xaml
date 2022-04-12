@@ -42,10 +42,10 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IPAddress}" Content="_IPAddress" ToolTip="Current IP Address of the host."/>
-            <TextBlock x:Name="IPAddress" Grid.Row="0" Grid.Column="1" Text="{Binding IPAddress}"/>
-            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="MAC address of the host."/>
-            <TextBlock x:Name="MACAddress" Grid.Row="1" Grid.Column="1" Text="{Binding MACAddress}"/>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=IpAddress}" Content="_IpAddress" ToolTip="Current IP Address of the host."/>
+            <TextBlock x:Name="IpAddress" Grid.Row="0" Grid.Column="1" Text="{Binding IpAddress}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MacAddress}" Content="_MacAddress" ToolTip="MAC address of the host."/>
+            <TextBlock x:Name="MacAddress" Grid.Row="1" Grid.Column="1" Text="{Binding MacAddress}"/>
             <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AddressSource}" Content="_AddressSource" ToolTip="Indicates whether the IP address of the host was allocated by the CPE using DHCP or was assigned to the host statically. Possible values are DHCP, Static, AutoIP."/>
             <TextBlock x:Name="AddressSource" Grid.Row="2" Grid.Column="1" Text="{Binding AddressSource}"/>
             <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LeaseTimeRemaining}" Content="_LeaseTimeRemaining" ToolTip="DHCP lease time remaining in seconds. The value must be 0 (zero) if the AddressSource is not DHCP. -1 = Infinite lease."/>
@@ -59,8 +59,8 @@
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:DeviceHostInfo}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="HostListPath">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="HostListPath">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -76,14 +76,14 @@
                     <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=HostListPathLink}" Content="_HostListPathLink"/>
                     <ContentControl x:Name="HostListPathLink" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding HostListPathLink}" Grid.Row="1" Grid.Column="1"/>
                     <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=DeviceHosts}" Content="_DeviceHosts"/>
-                    <DataGrid x:Name="DeviceHosts" Grid.Row="2" Grid.Column="1" Height="150" IsReadOnly="true" ItemsSource="{Binding DeviceHosts}"/>
+                    <DataGrid x:Name="DeviceHosts" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding DeviceHosts}"/>
                 </Grid>
             </Expander>
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:DeviceMeshInfo}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="MeshListPath">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="MeshListPath">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -121,8 +121,8 @@
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:DeviceMeshNode}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Node">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="Node">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -165,8 +165,8 @@
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:DeviceMeshNodeInterface}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="NodeInterface">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="NodeInterface">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -221,9 +221,9 @@
                     <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=SteeringEnabled}" Content="_SteeringEnabled" ToolTip="WLAN: Steering of this interface is enabled."/>
                     <TextBlock x:Name="SteeringEnabled" Grid.Row="11" Grid.Column="1" Text="{Binding SteeringEnabled}"/>
                     <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=Is11kFriendly}" Content="_Is11kFriendly" ToolTip="WLAN: Beacon Reporting seems to work with this interface and client is capable of it."/>
-                    <TextBlock x:Name="Is11kFriendly" Grid.Row="12" Grid.Column="1" Text="{Binding Is11kFriendly}"/>
+                    <TextBlock x:Name="Is11kFriendly" Grid.Row="12" Grid.Column="1" Text="{Binding Is11KFriendly}"/>
                     <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=Is11vFriendly}" Content="_Is11vFriendly" ToolTip="WLAN: BSS Transition Management seems to work with this interface and client is capable of it."/>
-                    <TextBlock x:Name="Is11vFriendly" Grid.Row="13" Grid.Column="1" Text="{Binding Is11vFriendly}"/>
+                    <TextBlock x:Name="Is11vFriendly" Grid.Row="13" Grid.Column="1" Text="{Binding Is11VFriendly}"/>
                     <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=LegacyFriendly}" Content="_LegacyFriendly" ToolTip="WLAN: Legacy Steering seems to work with this interface."/>
                     <TextBlock x:Name="LegacyFriendly" Grid.Row="14" Grid.Column="1" Text="{Binding LegacyFriendly}"/>
                     <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=RrmCompliant}" Content="_RrmCompliant" ToolTip="WLAN: Beacon report RCPI measurements seem to be encoded as described in Table 9-154 of IEEE802.11 (2016)."/>
@@ -231,13 +231,25 @@
                     <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=ClientPosition}" Content="_ClientPosition" ToolTip="WLAN: Rating of the connected uplink rcpi. Possible values are too_close, too_far, ok, unknown."/>
                     <TextBlock x:Name="ClientPosition" Grid.Row="16" Grid.Column="1" Text="{Binding ClientPosition}"/>
                     <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=SupportedStreamsTx}" Content="_SupportedStreamsTx" ToolTip="WLAN: Tx properties. Table representing possible stream configurations for a certain channel width."/>
-                    <ItemsControl x:Name="SupportedStreamsTx" Grid.Row="17" Grid.Column="1" ItemsSource="{Binding SupportedStreamsTx}"/>
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="17" Grid.Column="1">
+                        <Expander Header="SupportedStreamsTx">
+                            <DataGrid x:Name="SupportedStreamsTx" ItemsSource="{Binding SupportedStreamsTx}"/>
+                        </Expander>
+                    </Border>
                     <Label Grid.Row="18" Grid.Column="0" Target="{Binding ElementName=SupportedStreamsRx}" Content="_SupportedStreamsRx" ToolTip="WLAN: Rx properties. Table representing possible stream configurations for a certain channel width."/>
-                    <ItemsControl x:Name="SupportedStreamsRx" Grid.Row="18" Grid.Column="1" ItemsSource="{Binding SupportedStreamsRx}"/>
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="18" Grid.Column="1">
+                        <Expander Header="SupportedStreamsRx">
+                            <DataGrid x:Name="SupportedStreamsRx" ItemsSource="{Binding SupportedStreamsRx}"/>
+                        </Expander>
+                    </Border>
                     <Label Grid.Row="19" Grid.Column="0" Target="{Binding ElementName=Phymodes}" Content="_Phymodes" ToolTip="WLAN: Currently selected Phymodes, e.g. a, ac, n. Might be empty for unconfigured interfaces."/>
                     <ItemsControl x:Name="Phymodes" Grid.Row="19" Grid.Column="1" ItemsSource="{Binding Phymodes}"/>
                     <Label Grid.Row="20" Grid.Column="0" Target="{Binding ElementName=Channels}" Content="_Channels" ToolTip="WLAN: List of all channels this interface can operate on."/>
-                    <ItemsControl x:Name="Channels" Grid.Row="20" Grid.Column="1" ItemsSource="{Binding Channels}"/>
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="20" Grid.Column="1">
+                        <Expander Header="Channels">
+                            <DataGrid x:Name="Channels" ItemsSource="{Binding Channels}"/>
+                        </Expander>
+                    </Border>
                     <Label Grid.Row="21" Grid.Column="0" Target="{Binding ElementName=NodeLinks}" Content="_NodeLinks" ToolTip="Connection links."/>
                     <ItemsControl x:Name="NodeLinks" Grid.Row="21" Grid.Column="1" ItemsSource="{Binding NodeLinks}"/>
                 </Grid>
@@ -245,8 +257,8 @@
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:DeviceMeshNodeLink}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="NodeLink">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="NodeLink">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -313,8 +325,8 @@
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:DeviceMeshChannel}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Channel">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="Channel">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -330,8 +342,8 @@
         </Border>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:DeviceMeshStreamConfiguration}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="StreamConfiguration">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="StreamConfiguration">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

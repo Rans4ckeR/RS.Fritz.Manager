@@ -22,14 +22,14 @@ internal abstract class FritzServiceClient<T> : ClientBase<T>
     {
         return endpointConfiguration switch
         {
-            FritzServiceEndpointConfiguration.BasicHttpBinding_IFritzService => new BasicHttpBinding
+            FritzServiceEndpointConfiguration.BasicHttpBindingIFritzService => new BasicHttpBinding
             {
                 MaxBufferSize = int.MaxValue,
                 ReaderQuotas = XmlDictionaryReaderQuotas.Max,
                 MaxReceivedMessageSize = int.MaxValue,
                 AllowCookies = true
             },
-            FritzServiceEndpointConfiguration.BasicHttpsBinding_IFritzService => new BasicHttpsBinding
+            FritzServiceEndpointConfiguration.BasicHttpsBindingIFritzService => new BasicHttpsBinding
             {
                 MaxBufferSize = int.MaxValue,
                 ReaderQuotas = XmlDictionaryReaderQuotas.Max,

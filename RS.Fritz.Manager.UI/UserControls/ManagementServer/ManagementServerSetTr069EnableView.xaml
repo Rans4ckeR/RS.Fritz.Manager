@@ -8,8 +8,8 @@
              d:DataContext="{d:DesignInstance Type=ui:ManagementServerSetTr069EnableViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="{Binding Title}">
+    <Border Style="{StaticResource BorderStyle}">
+        <Expander Header="{Binding Title}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

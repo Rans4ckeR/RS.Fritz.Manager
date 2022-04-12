@@ -20,8 +20,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WlanDeviceInfo}" />
-        <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConfiguration1">
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="1" Grid.Column="0">
+            <Expander Header="WlanConfiguration1">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -44,8 +44,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="0" Grid.Column="0">
+                        <Expander Header="Info">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -58,8 +58,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BasBeaconSecurityProperties">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="1" Grid.Column="0">
+                        <Expander Header="BasBeaconSecurityProperties">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -72,8 +72,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BssId">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="2" Grid.Column="0">
+                        <Expander Header="BssId">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -86,8 +86,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SsId">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="3" Grid.Column="0">
+                        <Expander Header="SsId">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -100,8 +100,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="4" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconType">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="4" Grid.Column="0">
+                        <Expander Header="BeaconType">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -114,8 +114,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ChannelInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="5" Grid.Column="0">
+                        <Expander Header="ChannelInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -128,8 +128,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="6" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconAdvertisement">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="6" Grid.Column="0">
+                        <Expander Header="BeaconAdvertisement">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -142,8 +142,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="7" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalAssociations">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="7" Grid.Column="0">
+                        <Expander Header="TotalAssociations">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -156,8 +156,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="8" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpTvOptimized">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="8" Grid.Column="0">
+                        <Expander Header="IpTvOptimized">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -170,8 +170,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="9" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Statistics">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="9" Grid.Column="0">
+                        <Expander Header="Statistics">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -184,8 +184,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="10" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="PacketStatistics">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="10" Grid.Column="0">
+                        <Expander Header="PacketStatistics">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -198,8 +198,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="11" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="NightControl">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="11" Grid.Column="0">
+                        <Expander Header="NightControl">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -212,8 +212,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="12" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanHybridMode">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="12" Grid.Column="0">
+                        <Expander Header="WlanHybridMode">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -226,8 +226,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="13" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanExtInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="13" Grid.Column="0">
+                        <Expander Header="WlanExtInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -240,8 +240,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="14" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WpsInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="14" Grid.Column="0">
+                        <Expander Header="WpsInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -254,8 +254,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="15" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConnectionInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="15" Grid.Column="0">
+                        <Expander Header="WlanConnectionInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -271,8 +271,8 @@
                 </Grid>
             </Expander>
         </Border>
-        <Border Grid.Row="2" Grid.Column="0" Visibility="{Binding Interface2Visibility}" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConfiguration2">
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="2" Grid.Column="0" Visibility="{Binding Interface2Visibility}">
+            <Expander Header="WlanConfiguration2">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -295,8 +295,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="0" Grid.Column="0">
+                        <Expander Header="Info">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -309,8 +309,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BasBeaconSecurityProperties">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="1" Grid.Column="0">
+                        <Expander Header="BasBeaconSecurityProperties">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -323,8 +323,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BssId">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="2" Grid.Column="0">
+                        <Expander Header="BssId">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -337,8 +337,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SsId">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="3" Grid.Column="0">
+                        <Expander Header="SsId">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -351,8 +351,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="4" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconType">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="4" Grid.Column="0">
+                        <Expander Header="BeaconType">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -365,8 +365,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ChannelInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="5" Grid.Column="0">
+                        <Expander Header="ChannelInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -379,8 +379,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="6" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconAdvertisement">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="6" Grid.Column="0">
+                        <Expander Header="BeaconAdvertisement">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -393,8 +393,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="7" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalAssociations">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="7" Grid.Column="0">
+                        <Expander Header="TotalAssociations">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -407,8 +407,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="8" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpTvOptimized">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="8" Grid.Column="0">
+                        <Expander Header="IpTvOptimized">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -421,8 +421,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="9" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Statistics">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="9" Grid.Column="0">
+                        <Expander Header="Statistics">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -435,8 +435,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="10" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="PacketStatistics">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="10" Grid.Column="0">
+                        <Expander Header="PacketStatistics">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -449,8 +449,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="11" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="NightControl">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="11" Grid.Column="0">
+                        <Expander Header="NightControl">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -463,8 +463,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="12" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanHybridMode">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="12" Grid.Column="0">
+                        <Expander Header="WlanHybridMode">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -477,8 +477,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="13" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanExtInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="13" Grid.Column="0">
+                        <Expander Header="WlanExtInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -491,8 +491,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="14" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WpsInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="14" Grid.Column="0">
+                        <Expander Header="WpsInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -505,8 +505,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="15" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConnectionInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="15" Grid.Column="0">
+                        <Expander Header="WlanConnectionInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -522,8 +522,8 @@
                 </Grid>
             </Expander>
         </Border>
-        <Border Grid.Row="3" Grid.Column="0" Visibility="{Binding Interface3Visibility}" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConfiguration3">
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="3" Grid.Column="0" Visibility="{Binding Interface3Visibility}">
+            <Expander Header="WlanConfiguration3">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -546,8 +546,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="0" Grid.Column="0">
+                        <Expander Header="Info">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -560,8 +560,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BasBeaconSecurityProperties">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="1" Grid.Column="0">
+                        <Expander Header="BasBeaconSecurityProperties">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -574,8 +574,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BssId">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="2" Grid.Column="0">
+                        <Expander Header="BssId">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -588,8 +588,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SsId">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="3" Grid.Column="0">
+                        <Expander Header="SsId">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -602,8 +602,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="4" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconType">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="4" Grid.Column="0">
+                        <Expander Header="BeaconType">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -616,8 +616,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ChannelInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="5" Grid.Column="0">
+                        <Expander Header="ChannelInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -630,8 +630,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="6" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconAdvertisement">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="6" Grid.Column="0">
+                        <Expander Header="BeaconAdvertisement">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -644,8 +644,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="7" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalAssociations">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="7" Grid.Column="0">
+                        <Expander Header="TotalAssociations">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -658,8 +658,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="8" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpTvOptimized">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="8" Grid.Column="0">
+                        <Expander Header="IpTvOptimized">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -672,8 +672,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="9" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Statistics">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="9" Grid.Column="0">
+                        <Expander Header="Statistics">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -686,8 +686,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="10" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="PacketStatistics">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="10" Grid.Column="0">
+                        <Expander Header="PacketStatistics">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -700,8 +700,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="11" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="NightControl">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="11" Grid.Column="0">
+                        <Expander Header="NightControl">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -714,8 +714,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="12" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanHybridMode">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="12" Grid.Column="0">
+                        <Expander Header="WlanHybridMode">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -728,8 +728,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="13" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanExtInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="13" Grid.Column="0">
+                        <Expander Header="WlanExtInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -742,8 +742,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="14" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WpsInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="14" Grid.Column="0">
+                        <Expander Header="WpsInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -756,8 +756,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="15" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConnectionInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="15" Grid.Column="0">
+                        <Expander Header="WlanConnectionInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -773,8 +773,8 @@
                 </Grid>
             </Expander>
         </Border>
-        <Border Grid.Row="4" Grid.Column="0" Visibility="{Binding Interface4Visibility}" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConfiguration4">
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="4" Grid.Column="0" Visibility="{Binding Interface4Visibility}">
+            <Expander Header="WlanConfiguration4">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -797,8 +797,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Info">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="0" Grid.Column="0">
+                        <Expander Header="Info">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -811,8 +811,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BasBeaconSecurityProperties">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="1" Grid.Column="0">
+                        <Expander Header="BasBeaconSecurityProperties">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -825,8 +825,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="2" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BssId">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="2" Grid.Column="0">
+                        <Expander Header="BssId">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -839,8 +839,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="3" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="SsId">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="3" Grid.Column="0">
+                        <Expander Header="SsId">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -853,8 +853,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="4" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconType">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="4" Grid.Column="0">
+                        <Expander Header="BeaconType">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -867,8 +867,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="5" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ChannelInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="5" Grid.Column="0">
+                        <Expander Header="ChannelInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -881,8 +881,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="6" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="BeaconAdvertisement">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="6" Grid.Column="0">
+                        <Expander Header="BeaconAdvertisement">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -895,8 +895,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="7" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="TotalAssociations">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="7" Grid.Column="0">
+                        <Expander Header="TotalAssociations">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -909,8 +909,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="8" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="IpTvOptimized">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="8" Grid.Column="0">
+                        <Expander Header="IpTvOptimized">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -923,8 +923,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="9" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="Statistics">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="9" Grid.Column="0">
+                        <Expander Header="Statistics">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -937,8 +937,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="10" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="PacketStatistics">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="10" Grid.Column="0">
+                        <Expander Header="PacketStatistics">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -951,8 +951,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="11" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="NightControl">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="11" Grid.Column="0">
+                        <Expander Header="NightControl">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -965,8 +965,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="12" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanHybridMode">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="12" Grid.Column="0">
+                        <Expander Header="WlanHybridMode">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -979,8 +979,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="13" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanExtInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="13" Grid.Column="0">
+                        <Expander Header="WlanExtInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -993,8 +993,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="14" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WpsInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="14" Grid.Column="0">
+                        <Expander Header="WpsInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -1007,8 +1007,8 @@
                             </Grid>
                         </Expander>
                     </Border>
-                    <Border Grid.Row="15" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-                        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanConnectionInfo">
+                    <Border Style="{StaticResource BorderStyle}" Grid.Row="15" Grid.Column="0">
+                        <Expander Header="WlanConnectionInfo">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>

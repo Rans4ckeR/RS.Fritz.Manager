@@ -7,8 +7,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources\GeneralResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\UPnPResourceDictionary.xaml"/>
+                <ResourceDictionary Source="Resources\WebUiResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\ViewModelsResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\AvmSpeedtestResourceDictionary.xaml"/>
+                <ResourceDictionary Source="Resources\TR-064\DeviceConfigResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\DeviceInfoResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\HostsResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\LanConfigSecurityResourceDictionary.xaml"/>
@@ -17,6 +19,8 @@
                 <ResourceDictionary Source="Resources\TR-064\Layer3ForwardingResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\ManagementServerResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\SharedWanConnectionResourceDictionary.xaml"/>
+                <ResourceDictionary Source="Resources\TR-064\TimeResourceDictionary.xaml"/>
+                <ResourceDictionary Source="Resources\TR-064\UserInterfaceResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\WanCommonInterfaceConfigResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\WanDslInterfaceConfigResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\WanDslLinkConfigResourceDictionary.xaml"/>

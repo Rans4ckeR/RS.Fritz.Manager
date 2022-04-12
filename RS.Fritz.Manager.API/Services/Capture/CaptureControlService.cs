@@ -4,55 +4,89 @@ using System.Globalization;
 
 internal sealed class CaptureControlService : ICaptureControlService
 {
-    private const string Scheme = "http";
-    private const string CapturePath = "/cgi-bin/capture_notimeout";
-
     private readonly IHttpClientFactory httpClientFactory;
-    private readonly IWebUiService webUiService;
 
-    public CaptureControlService(IHttpClientFactory httpClientFactory, IWebUiService webUiService)
+    public CaptureControlService(IHttpClientFactory httpClientFactory)
     {
         this.httpClientFactory = httpClientFactory;
-        this.webUiService = webUiService;
     }
 
-    public async Task<FileInfo> GetStartCaptureResponseAsync(InternetGatewayDevice internetGateway, string folderPath, string filePrefix, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<CaptureInterfaceGroup>> GetInterfacesAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
-        const string iface = "2-1";
-        string sid = await GetSidAsync(internetGateway, cancellationToken);
-        string query = FormattableString.Invariant($"sid={sid}&capture=Start&snaplen=1600&ifaceorminor={iface}");
-        var captureUri = new Uri(FormattableString.Invariant($"{Scheme}://{internetGateway.PreferredLocation.Host}{CapturePath}?{query}"));
-        HttpClient httpClient = httpClientFactory.CreateClient(Constants.HttpClientName);
-        var file = new FileInfo(FormattableString.Invariant($"{folderPath}\\{filePrefix}_{DateTime.Now.ToString("s").Replace(":", string.Empty)}.eth"));
-        HttpResponseMessage response = await httpClient.GetAsync(captureUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        string sid = await GetSidAsync(internetGatewayDevice);
+        var captureUri = new Uri(FormattableString.Invariant($"https://{internetGatewayDevice.PreferredLocation.Host}/data.lua"));
+        HttpClient httpClient = httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName);
+        var content = new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            { "xhr", "1" },
+            { "sid", sid },
+            { "lang", "en" },
+            { "oldpage", "/capture.lua" },
+            { "initalRefreshParamsSaved", "true" }
+        });
+        HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(captureUri, content, cancellationToken);
+        string responseContent = await httpResponseMessage.EnsureSuccessStatusCode().Content.ReadAsStringAsync(cancellationToken);
+        var captureInterfaceGroups = new List<CaptureInterfaceGroup>();
+        int groupNameBeginPosition = -1;
 
-        _ = response.EnsureSuccessStatusCode();
+        while ((groupNameBeginPosition = responseContent.IndexOf("<h3>", groupNameBeginPosition + 1, StringComparison.OrdinalIgnoreCase)) != -1)
+        {
+            int groupNameEndPosition = responseContent.IndexOf("</h3>", groupNameBeginPosition + 1, StringComparison.OrdinalIgnoreCase);
+            string groupName = responseContent[(groupNameBeginPosition + "<h3>".Length)..groupNameEndPosition];
+            int interfaceNameBeginPosition = groupNameEndPosition;
+            int nextGroupNameBeginPosition = responseContent.IndexOf("<h3>", groupNameBeginPosition + 1, StringComparison.OrdinalIgnoreCase);
+            var captureInterfaces = new List<CaptureInterface>();
 
-        await using Stream downloadStream = await response.Content.ReadAsStreamAsync(cancellationToken);
-        await using FileStream fileStream = file.Open(new FileStreamOptions { Access = FileAccess.Write, Mode = FileMode.CreateNew, Options = FileOptions.Asynchronous });
+            while ((interfaceNameBeginPosition = responseContent.IndexOf("<th>", interfaceNameBeginPosition + 1, StringComparison.OrdinalIgnoreCase)) != -1 && interfaceNameBeginPosition < nextGroupNameBeginPosition)
+            {
+                int interfaceNameEndPosition = responseContent.IndexOf("</th>", interfaceNameBeginPosition + 1, StringComparison.OrdinalIgnoreCase);
+                string interfaceName = responseContent[(interfaceNameBeginPosition + "<th>".Length)..interfaceNameEndPosition];
+                int startParameterBeginPosition = responseContent.IndexOf("\" value=\"", interfaceNameEndPosition + 1, StringComparison.OrdinalIgnoreCase) + "\" value=\"".Length;
+                int startParameterEndPosition = responseContent.IndexOf("\"", startParameterBeginPosition + 1, StringComparison.OrdinalIgnoreCase);
+                string startParameter = responseContent[startParameterBeginPosition..startParameterEndPosition];
+                int stopParameterBeginPosition = responseContent.IndexOf("\" value=\"", startParameterEndPosition + 1, StringComparison.OrdinalIgnoreCase) + "\" value=\"".Length;
+                int stopParameterEndPosition = responseContent.IndexOf("\"", stopParameterBeginPosition + 1, StringComparison.OrdinalIgnoreCase);
+                string stopParameter = responseContent[stopParameterBeginPosition..stopParameterEndPosition];
+                string[] stopParameterParts = stopParameter.Split(';');
+
+                captureInterfaces.Add(new CaptureInterface(interfaceName, startParameter, stopParameterParts[0], stopParameterParts[1], stopParameterParts[2]));
+            }
+
+            if (captureInterfaces.Any())
+                captureInterfaceGroups.Add(new CaptureInterfaceGroup(groupName, captureInterfaces));
+        }
+
+        return captureInterfaceGroups;
+    }
+
+    public async Task StartCaptureAsync(InternetGatewayDevice internetGatewayDevice, FileInfo fileInfo, CaptureInterface captureInterface, int packetCaptureSizeLimit = 1600, CancellationToken cancellationToken = default)
+    {
+        string sid = await GetSidAsync(internetGatewayDevice);
+        var captureUri = new Uri(FormattableString.Invariant($"https://{internetGatewayDevice.PreferredLocation.Host}/cgi-bin/capture_notimeout?sid={sid}&capture=Start&snaplen={packetCaptureSizeLimit}&ifaceorminor={captureInterface.InterfaceOrMinor}"));
+        HttpClient httpClient = httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName);
+        HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(captureUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        await using Stream downloadStream = await httpResponseMessage.EnsureSuccessStatusCode().Content.ReadAsStreamAsync(cancellationToken);
+        await using FileStream fileStream = fileInfo.Open(new FileStreamOptions { Access = FileAccess.Write, Mode = FileMode.CreateNew, Options = FileOptions.Asynchronous });
 
         await downloadStream.CopyToAsync(fileStream, cancellationToken);
-
-        return file;
     }
 
-    public async Task GetStopCaptureResponseAsync(InternetGatewayDevice internetGateway, CancellationToken cancellationToken = default)
+    public async Task StopCaptureAsync(InternetGatewayDevice internetGatewayDevice, CaptureInterface captureInterface, CancellationToken cancellationToken = default)
     {
-        const string iface = "eth_udma0";
-        string sid = await GetSidAsync(internetGateway, cancellationToken);
+        string sid = await GetSidAsync(internetGatewayDevice);
         string timeString20 = DateTime.UtcNow.Ticks.ToString("D20", CultureInfo.InvariantCulture);
         string timeId = FormattableString.Invariant($"t{timeString20[^13..]}");
-        var captureUri = new Uri(FormattableString.Invariant($"{Scheme}://{internetGateway.PreferredLocation.Host}{CapturePath}?iface={iface}&minor=1&type=2&capture=Stop&sid={sid}&useajax=1&xhr=1&{timeId}=nocache"));
-        HttpClient httpClient = httpClientFactory.CreateClient(Constants.HttpClientName);
-        HttpResponseMessage response = await httpClient.GetAsync(captureUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        var captureUri = new Uri(FormattableString.Invariant($"https://{internetGatewayDevice.PreferredLocation.Host}/cgi-bin/capture_notimeout?iface={captureInterface.Interface}&minor={captureInterface.Minor}&type={captureInterface.Type}&capture=Stop&sid={sid}&useajax=1&xhr=1&{timeId}=nocache"));
+        HttpClient httpClient = httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName);
+        HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(captureUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
 
-        _ = response.EnsureSuccessStatusCode();
+        _ = httpResponseMessage.EnsureSuccessStatusCode();
     }
 
-    private async Task<string> GetSidAsync(InternetGatewayDevice internetGateway, CancellationToken cancellationToken)
+    private static async Task<string> GetSidAsync(InternetGatewayDevice internetGatewayDevice)
     {
-        WebUiSessionInfo webUiSessionInfo = await webUiService.LogonAsync(internetGateway, cancellationToken);
+        DeviceConfigCreateUrlSidResponse deviceConfigCreateUrlSidResponse = await internetGatewayDevice.DeviceConfigCreateUrlSidAsync();
 
-        return webUiSessionInfo.Sid;
+        return deviceConfigCreateUrlSidResponse.UrlSid.Replace("sid=", null, StringComparison.OrdinalIgnoreCase);
     }
 }

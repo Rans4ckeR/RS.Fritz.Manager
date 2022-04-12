@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetTr069FirmwareDownloadEnabledViewModel : SetValuesViewModel<ManagementServerSetTr069FirmwareDownloadEnabledRequest, ManagementServerSetTr069FirmwareDownloadEnabledResponse>
+internal sealed class ManagementServerSetTr069FirmwareDownloadEnabledViewModel : ManualOperationViewModel<ManagementServerSetTr069FirmwareDownloadEnabledRequest, ManagementServerSetTr069FirmwareDownloadEnabledResponse>
 {
     private bool? tr069FirmwareDownloadEnabled;
 

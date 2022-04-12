@@ -4,9 +4,9 @@ internal enum AddressType
 {
     Unknown,
 
-    IPv4SiteLocal,
+    IpV4SiteLocal,
 
-    IPv6LinkLocal,
+    IpV6LinkLocal,
 
-    IPv6SiteLocal
+    IpV6SiteLocal
 }

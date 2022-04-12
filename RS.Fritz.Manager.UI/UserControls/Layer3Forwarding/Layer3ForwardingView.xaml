@@ -17,8 +17,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DefaultConnectionService">
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="0" Grid.Column="0">
+            <Expander Header="DefaultConnectionService">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -31,10 +31,11 @@
                 </Grid>
             </Expander>
         </Border>
-        <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="ForwardNumberOfEntries">
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="1" Grid.Column="0">
+            <Expander Header="ForwardNumberOfEntries">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -42,6 +43,7 @@
                     </Grid.ColumnDefinitions>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetForwardNumberOfEntriesResponse.Value}"/>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetForwardNumberOfEntriesResponse.Key}"/>
+                    <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Layer3ForwardingGetGenericForwardingEntryResponses}"/>
                 </Grid>
             </Expander>
         </Border>

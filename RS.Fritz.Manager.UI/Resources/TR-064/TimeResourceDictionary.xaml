@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API">
+    <DataTemplate DataType="{x:Type api:TimeGetInfoResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=NtpServer1}" Content="_NtpServer1" ToolTip="First NTP timeserver. Either a host name or IP address."/>
+            <TextBlock x:Name="NtpServer1" Grid.Row="0" Grid.Column="1" Text="{Binding NtpServer1}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=NtpServer2}" Content="_NtpServer2" ToolTip="Second NTP timeserver. Either a host name or IP address."/>
+            <TextBlock x:Name="NtpServer2" Grid.Row="1" Grid.Column="1" Text="{Binding NtpServer2}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=CurrentLocalTime}" Content="_CurrentLocalTime" ToolTip="The current date and time in the CPE's local time zone."/>
+            <TextBlock x:Name="CurrentLocalTime" Grid.Row="2" Grid.Column="1" Text="{Binding CurrentLocalTime}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=LocalTimeZone}" Content="_LocalTimeZone" ToolTip="The local time offset from UTC in the form: +hh:mm -hh:mm. Not supported."/>
+            <TextBlock x:Name="LocalTimeZone" Grid.Row="3" Grid.Column="1" Text="{Binding LocalTimeZone}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=LocalTimeZoneName}" Content="_LocalTimeZoneName" ToolTip="Name of the local time zone (human readable string). Not supported."/>
+            <TextBlock x:Name="LocalTimeZoneName" Grid.Row="4" Grid.Column="1" Text="{Binding LocalTimeZoneName}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=DaylightSavingsUsed}" Content="_DaylightSavingsUsed" ToolTip="Whether or not daylight savings time is in use in the CPE's local time zone. Not supported."/>
+            <TextBlock x:Name="DaylightSavingsUsed" Grid.Row="5" Grid.Column="1" Text="{Binding DaylightSavingsUsed}"/>
+            <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=DaylightSavingsStart}" Content="_DaylightSavingsStart" ToolTip="Date and time daylight savings time begins if used in local standard time. If daylight savings time is not used, this value is ignored. Not supported."/>
+            <TextBlock x:Name="DaylightSavingsStart" Grid.Row="6" Grid.Column="1" Text="{Binding DaylightSavingsStart}"/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=DaylightSavingsEnd}" Content="_DaylightSavingsEnd" ToolTip="Date and time daylight savings time ends if used in local daylight time. If daylight savings time is not used, this value is ignored. Not supported."/>
+            <TextBlock x:Name="DaylightSavingsEnd" Grid.Row="7" Grid.Column="1" Text="{Binding DaylightSavingsEnd}"/>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

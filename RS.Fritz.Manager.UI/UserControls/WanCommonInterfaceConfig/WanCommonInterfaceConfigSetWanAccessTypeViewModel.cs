@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-internal sealed class WanCommonInterfaceConfigSetWanAccessTypeViewModel : SetValuesViewModel<WanCommonInterfaceConfigSetWanAccessTypeRequest, WanCommonInterfaceConfigSetWanAccessTypeResponse>
+internal sealed class WanCommonInterfaceConfigSetWanAccessTypeViewModel : ManualOperationViewModel<WanCommonInterfaceConfigSetWanAccessTypeRequest, WanCommonInterfaceConfigSetWanAccessTypeResponse>
 {
     private string? wanAccessType;
 

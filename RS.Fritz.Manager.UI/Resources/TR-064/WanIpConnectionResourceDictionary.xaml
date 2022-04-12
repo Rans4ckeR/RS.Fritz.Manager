@@ -32,15 +32,15 @@
             <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=Name}" Content="_Name" ToolTip="Friendly Name of the connection. This name must be unique within the scope of the IGD."/>
             <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=Uptime}" Content="_Uptime" ToolTip="The time in seconds that this connection has stayed up."/>
             <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=LastConnectionError}" Content="_LastConnectionError" ToolTip="Provides information about the cause of failure for the last connection setup attempt. Possible values are ERROR_NONE, ERROR_ISP_TIME_OUT, ERROR_COMMAND_ABORTED, ERROR_NOT_ENABLED_FOR_INTERNET, ERROR_BAD_PHONE_NUMBER, ERROR_USER_DISCONNECT, ERROR_ISP_DISCONNECT, ERROR_IDLE_DISCONNECT, ERROR_FORCED_DISCONNECT, ERROR_SERVER_OUT_OF_RESOURCES, ERROR_RESTRICTED_LOGON_HOURS, ERROR_ACCOUNT_DISABLED, ERROR_ACCOUNT_EXPIRED, ERROR_PASSWORD_EXPIRED, ERROR_AUTHENTICATION_FAILURE, ERROR_NO_DIALTONE, ERROR_NO_CARRIER, ERROR_NO_ANSWER, ERROR_LINE_BUSY, ERROR_UNSUPPORTED_BITSPERSECOND, ERROR_TOO_MANY_LINE_ERRORS, ERROR_IP_CONFIGURATION, ERROR_UNKNOWN."/>
-            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=RSIPAvailable}" Content="_RSIPAvailable" ToolTip="This variable indicates if Realm-specific IP (RSIP) is available as a feature on the InternetGatewayDevice. RSIP is being defined in the NAT working group in the IETF to allow host-NATing using a standard set of message exchanges. It also allows end-to-end applications that otherwise break if NAT is introduced (e.g. IPsec-based VPNs). A gateway that does not support RSIP should set this variable to 0."/>
-            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=NATEnabled}" Content="_NATEnabled" ToolTip="Indicates if Network Address Translation (NAT) is enabled for this connection."/>
-            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=ExternalIPAddress}" Content="_ExternalIPAddress" ToolTip="This is the external IP address used by NAT for the connection."/>
-            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=DNSServers}" Content="_DNSServers" ToolTip="Comma separated list of DNS servers configured on the WANIPConnection."/>
-            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=MACAddress}" Content="_MACAddress" ToolTip="The physical address of the WANIPConnection if applicable"/>
+            <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=RsipAvailable}" Content="_RsipAvailable" ToolTip="This variable indicates if Realm-specific IP (RSIP) is available as a feature on the InternetGatewayDevice. RSIP is being defined in the NAT working group in the IETF to allow host-NATing using a standard set of message exchanges. It also allows end-to-end applications that otherwise break if NAT is introduced (e.g. IPsec-based VPNs). A gateway that does not support RSIP should set this variable to 0."/>
+            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=NatEnabled}" Content="_NatEnabled" ToolTip="Indicates if Network Address Translation (NAT) is enabled for this connection."/>
+            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=ExternalIpAddress}" Content="_ExternalIpAddress" ToolTip="This is the external IP address used by NAT for the connection."/>
+            <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=DnsServers}" Content="_DnsServers" ToolTip="Comma separated list of DNS servers configured on the WANIPConnection."/>
+            <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=MacAddress}" Content="_MacAddress" ToolTip="The physical address of the WANIPConnection if applicable"/>
             <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=ConnectionTrigger}" Content="_ConnectionTrigger" ToolTip="Defines the trigger used to establish the PPP connection."/>
             <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=RouteProtocolRx}" Content="_RouteProtocolRx" ToolTip="Defines the Rx protocol to be used."/>
-            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DNSEnabled}" Content="_DNSEnabled" ToolTip="Defines whether or not the device should attempt to query a DNS server across this connection."/>
-            <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=DNSOverrideAllowed}" Content="_DNSOverrideAllowed" ToolTip="Defines whether or not a manually set, 'non-zero' DNS address can be overridden by a DNS entry received from the WAN."/>
+            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=DnsEnabled}" Content="_DnsEnabled" ToolTip="Defines whether or not the device should attempt to query a DNS server across this connection."/>
+            <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=DnsOverrideAllowed}" Content="_DnsOverrideAllowed" ToolTip="Defines whether or not a manually set, 'non-zero' DNS address can be overridden by a DNS entry received from the WAN."/>
             <TextBlock x:Name="Enable" Grid.Row="0" Grid.Column="1" Text="{Binding Enable}"/>
             <TextBlock x:Name="ConnectionStatus" Grid.Row="1" Grid.Column="1" Text="{Binding ConnectionStatus}"/>
             <TextBlock x:Name="PossibleConnectionTypes" Grid.Row="2" Grid.Column="1" Text="{Binding PossibleConnectionTypes}"/>
@@ -48,15 +48,15 @@
             <TextBlock x:Name="Name" Grid.Row="4" Grid.Column="1" Text="{Binding Name}"/>
             <TextBlock x:Name="Uptime" Grid.Row="5" Grid.Column="1" Text="{Binding Uptime}"/>
             <TextBlock x:Name="LastConnectionError" Grid.Row="6" Grid.Column="1" Text="{Binding LastConnectionError}"/>
-            <TextBlock x:Name="RSIPAvailable" Grid.Row="7" Grid.Column="1" Text="{Binding RSIPAvailable}"/>
-            <TextBlock x:Name="NATEnabled" Grid.Row="8" Grid.Column="1" Text="{Binding NATEnabled}"/>
-            <TextBlock x:Name="ExternalIPAddress" Grid.Row="9" Grid.Column="1" Text="{Binding ExternalIPAddress}"/>
-            <TextBlock x:Name="DNSServers" Grid.Row="10" Grid.Column="1" Text="{Binding DNSServers}"/>
-            <TextBlock x:Name="MACAddress" Grid.Row="11" Grid.Column="1" Text="{Binding MACAddress}"/>
+            <TextBlock x:Name="RsipAvailable" Grid.Row="7" Grid.Column="1" Text="{Binding RsipAvailable}"/>
+            <TextBlock x:Name="NatEnabled" Grid.Row="8" Grid.Column="1" Text="{Binding NatEnabled}"/>
+            <TextBlock x:Name="ExternalIpAddress" Grid.Row="9" Grid.Column="1" Text="{Binding ExternalIpAddress}"/>
+            <TextBlock x:Name="DnsServers" Grid.Row="10" Grid.Column="1" Text="{Binding DnsServers}"/>
+            <TextBlock x:Name="MacAddress" Grid.Row="11" Grid.Column="1" Text="{Binding MacAddress}"/>
             <TextBlock x:Name="ConnectionTrigger" Grid.Row="12" Grid.Column="1" Text="{Binding ConnectionTrigger}"/>
             <TextBlock x:Name="RouteProtocolRx" Grid.Row="13" Grid.Column="1" Text="{Binding RouteProtocolRx}"/>
-            <TextBlock x:Name="DNSEnabled" Grid.Row="14" Grid.Column="1" Text="{Binding DNSEnabled}"/>
-            <TextBlock x:Name="DNSOverrideAllowed" Grid.Row="15" Grid.Column="1" Text="{Binding DNSOverrideAllowed}"/>
+            <TextBlock x:Name="DnsEnabled" Grid.Row="14" Grid.Column="1" Text="{Binding DnsEnabled}"/>
+            <TextBlock x:Name="DnsOverrideAllowed" Grid.Row="15" Grid.Column="1" Text="{Binding DnsOverrideAllowed}"/>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

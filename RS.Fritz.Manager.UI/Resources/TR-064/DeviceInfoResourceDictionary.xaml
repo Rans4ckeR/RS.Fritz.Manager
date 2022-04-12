@@ -37,7 +37,7 @@
             <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=Description}" Content="_Description" ToolTip="A full description of the Customer Premises Equipment (CPE) device (human readable string)."/>
             <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=HardwareVersion}" Content="_HardwareVersion" ToolTip="Represents the current hardware revision of the Internet Gateway Device (IGD)"/>
             <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=ManufacturerName}" Content="_ManufacturerName" ToolTip="The manufacturer of the Customer Premises Equipment (CPE) (human readable string)"/>
-            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=ManufacturerOUI}" Content="_ManufacturerOUI" ToolTip="Organizationally unique identifier of the device manufacturer. Represented as a six hexadecimal-digit value using all upper-case letters and including any leading zeros. The value MUST be a valid OUI as defined in http://standards.ieee.org/faqs/OUI.html."/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=ManufacturerOui}" Content="_ManufacturerOui" ToolTip="Organizationally unique identifier of the device manufacturer. Represented as a six hexadecimal-digit value using all upper-case letters and including any leading zeros. The value MUST be a valid OUI as defined in http://standards.ieee.org/faqs/OUI.html."/>
             <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=ModelName}" Content="_ModelName" ToolTip="Model name of the Customer Premises Equipment (CPE) (human readable string)."/>
             <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=ProductClass}" Content="_ProductClass" ToolTip="Identifier of the class of product for which the serial number applies. That is, for a given manufacturer, this parameter is used to identify the product or class of product over which the SerialNumber parameter is unique."/>
             <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=ProvisioningCode}" Content="_ProvisioningCode" ToolTip="Identifier of the primary service provider, which MAY be used to determine service provider-specific customization and provisioning parameters. If non-empty, this argument SHOULD be in the form of a hierarchical descriptor with one or more nodes specified. Each node in the hierarchy is represented as a 4-character sub-string, containing only numerals or upper-case letters. If there is more than one node indicated, each node is separated by a '.' (dot). Examples: 'TLCO' or 'TLCO.GRP2'"/>
@@ -49,7 +49,7 @@
             <TextBlock x:Name="Description" Grid.Row="0" Grid.Column="1" Text="{Binding Description}"/>
             <TextBlock x:Name="HardwareVersion" Grid.Row="1" Grid.Column="1" Text="{Binding HardwareVersion}"/>
             <TextBlock x:Name="ManufacturerName" Grid.Row="2" Grid.Column="1" Text="{Binding ManufacturerName}"/>
-            <TextBlock x:Name="ManufacturerOUI" Grid.Row="3" Grid.Column="1" Text="{Binding ManufacturerOUI}"/>
+            <TextBlock x:Name="ManufacturerOui" Grid.Row="3" Grid.Column="1" Text="{Binding ManufacturerOui}"/>
             <TextBlock x:Name="ModelName" Grid.Row="4" Grid.Column="1" Text="{Binding ModelName}"/>
             <TextBlock x:Name="ProductClass" Grid.Row="5" Grid.Column="1" Text="{Binding ProductClass}"/>
             <TextBlock x:Name="ProvisioningCode" Grid.Row="6" Grid.Column="1" Text="{Binding ProvisioningCode}"/>

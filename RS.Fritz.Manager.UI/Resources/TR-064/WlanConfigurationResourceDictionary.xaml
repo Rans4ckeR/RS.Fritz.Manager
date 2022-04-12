@@ -66,8 +66,8 @@
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:WlanDeviceInfo}">
-        <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-            <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="WlanDeviceListPath">
+        <Border Style="{StaticResource BorderStyle}">
+            <Expander Header="WlanDeviceListPath">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -86,7 +86,7 @@
                     <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=TotalAssociations}" Content="_TotalAssociations" ToolTip="The number of all connected WIFI devices which are listed in the file independent from the current access point."/>
                     <TextBlock x:Name="TotalAssociations" Grid.Row="2" Grid.Column="1" Text="{Binding WlanDeviceList.TotalAssociations}"/>
                     <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=WlanDeviceList}" Content="_WlanDeviceList" ToolTip="Devices with AssociatedDeviceChannel set to 0 are not listed in this list, because these are not connected to any access point of this CPE."/>
-                    <DataGrid x:Name="WlanDeviceList" Grid.Row="3" Grid.Column="1" Height="150" IsReadOnly="true" ItemsSource="{Binding WlanDeviceList.Items}"/>
+                    <DataGrid x:Name="WlanDeviceList" Grid.Row="3" Grid.Column="1" ItemsSource="{Binding WlanDeviceList.Items}"/>
                 </Grid>
             </Expander>
         </Border>

@@ -8,8 +8,8 @@
              d:DataContext="{d:DesignInstance Type=ui:WanDslInterfaceConfigDslInfoViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Border Background="{StaticResource ForegroundSolidColorBrush}" BorderBrush="{StaticResource TitleBackgroundSolidColorBrush}" BorderThickness="5" CornerRadius="10" Padding="5">
-        <Expander Foreground="{StaticResource TextSolidColorBrush}" IsExpanded="True" Header="DslInfo">
+    <Border Style="{StaticResource BorderStyle}">
+        <Expander Header="DslInfo">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -44,51 +44,51 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AturCountry}" Content="_ATURCountry"/>
-                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=AturVendor}" Content="_ATURVendor"/>
-                <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=CrcErrors}" Content="_CRCErrors"/>
+                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=AturCountry}" Content="_AturCountry"/>
+                <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=AturVendor}" Content="_AturVendor"/>
+                <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=CrcErrors}" Content="_CrcErrors"/>
                 <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=CurrentProfile}" Content="_CurrentProfile"/>
                 <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=DownstreamAttenuation}" Content="_DownstreamAttenuation"/>
                 <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=DownstreamCurrRate}" Content="_DownstreamCurrRate"/>
                 <Label Grid.Row="6" Grid.Column="0" Target="{Binding ElementName=DownstreamMaxRate}" Content="_DownstreamMaxRate"/>
                 <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=DownstreamNoiseMargin}" Content="_DownstreamNoiseMargin"/>
                 <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=DownstreamPower}" Content="_DownstreamPower"/>
-                <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=FecErrors}" Content="_FECErrors"/>
-                <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=LatNds}" Content="_LATNds" ToolTip="Comma-separated list (maximum list length 24) of strings. Indicates the downstream line attenuation per usable band, as computed during initialization. Number of elements is dependent on the number of downstream bands but will exceed one only for G.993.2. Interpretation of LATNds is as defined in ITU-T Rec. G.997.1."/>
-                <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=LatNus}" Content="_LATNus" ToolTip="Comma-separated list (maximum list length 24) of strings. Indicates the upstream line attenuation per usable band, as computed during initialization. Number of elements is dependent on the number of upstream bands but will exceed one only for G.993.2. Interpretation of LATNus is as defined in ITU-T Rec. G.997.1."/>
+                <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=FecErrors}" Content="_FecErrors"/>
+                <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=LAtnDs}" Content="_LAtnDs" ToolTip="Comma-separated list (maximum list length 24) of strings. Indicates the downstream line attenuation per usable band, as computed during initialization. Number of elements is dependent on the number of downstream bands but will exceed one only for G.993.2. Interpretation of LATNds is as defined in ITU-T Rec. G.997.1."/>
+                <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=LAtnUs}" Content="_LAtnUs" ToolTip="Comma-separated list (maximum list length 24) of strings. Indicates the upstream line attenuation per usable band, as computed during initialization. Number of elements is dependent on the number of upstream bands but will exceed one only for G.993.2. Interpretation of LATNus is as defined in ITU-T Rec. G.997.1."/>
                 <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=LinkStatus}" Content="_LinkStatus" ToolTip="Possible values are Up, Down, Initializing, Unavailable."/>
                 <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=ModulationType}" Content="_ModulationType" ToolTip="Possible values are ADSL G.lite, G.shdsl, IDSL, HDSL, SDSL, VDSL."/>
-                <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=SnrGds}" Content="_SNRGds" ToolTip="Number of sub-carriers per sub-carrier group in the downstream direction for SNRpsds. Valid values are 1, 2, 4, and 8."/>
-                <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=SnrGus}" Content="_SNRGus" ToolTip="Number of sub-carriers per sub-carrier group in the upstream direction for SNRpsus. Valid values are 1, 2, 4, and 8. Always returns 1."/>
-                <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=SnrmTds}" Content="_SNRMTds" ToolTip="Indicates the number of symbols over which SNRpsds was measured."/>
-                <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=SnrmTus}" Content="_SNRMTus" ToolTip="Indicates the number of symbols over which SNRpsus was measured."/>
-                <Label Grid.Row="18" Grid.Column="0" Target="{Binding ElementName=SnRpsds}" Content="_SNRpsds" ToolTip="Comma-separated list (maximum list length 2047) of integers. Indicates the downstream SNR per subcarrier group. The maximum number of elements is 256 for G.992.3, and 512 for G.992.5. For G.993.2, the number of elements will depend on the value of SNRGds but will not exceed 512. Interpretation of the values is as defined in ITU-T Rec. G.997.1."/>
-                <Label Grid.Row="19" Grid.Column="0" Target="{Binding ElementName=SnRpsus}" Content="_SNRpsus" ToolTip="Comma-separated list (maximum list length 2047) of strings. Indicates the upstream SNR per subcarrier group. The maximum number of elements is 64 for G.992.3 and G.992.5. For G.993.2, the number of elements will depend on the value of SNRGus but will not exceed 512. Interpretation of the values is as defined in ITU-T Rec. G.997.1."/>
+                <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=SnrGDs}" Content="_SnrGDs" ToolTip="Number of sub-carriers per sub-carrier group in the downstream direction for SNRpsds. Valid values are 1, 2, 4, and 8."/>
+                <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=SnrGUs}" Content="_SnrGUs" ToolTip="Number of sub-carriers per sub-carrier group in the upstream direction for SNRpsus. Valid values are 1, 2, 4, and 8. Always returns 1."/>
+                <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=SnrMtDs}" Content="_SnrMtDs" ToolTip="Indicates the number of symbols over which SNRpsds was measured."/>
+                <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=SnrMtUs}" Content="_SnrMtUs" ToolTip="Indicates the number of symbols over which SNRpsus was measured."/>
+                <Label Grid.Row="18" Grid.Column="0" Target="{Binding ElementName=SnrPsDs}" Content="_SnrPsDs" ToolTip="Comma-separated list (maximum list length 2047) of integers. Indicates the downstream SNR per subcarrier group. The maximum number of elements is 256 for G.992.3, and 512 for G.992.5. For G.993.2, the number of elements will depend on the value of SNRGds but will not exceed 512. Interpretation of the values is as defined in ITU-T Rec. G.997.1."/>
+                <Label Grid.Row="19" Grid.Column="0" Target="{Binding ElementName=SnrPsUs}" Content="_SnrPsUs" ToolTip="Comma-separated list (maximum list length 2047) of strings. Indicates the upstream SNR per subcarrier group. The maximum number of elements is 64 for G.992.3 and G.992.5. For G.993.2, the number of elements will depend on the value of SNRGus but will not exceed 512. Interpretation of the values is as defined in ITU-T Rec. G.997.1."/>
                 <Label Grid.Row="20" Grid.Column="0" Target="{Binding ElementName=UpstreamAttenuation}" Content="_UpstreamAttenuation"/>
                 <Label Grid.Row="21" Grid.Column="0" Target="{Binding ElementName=UpstreamCurrRate}" Content="_UpstreamCurrRate"/>
                 <Label Grid.Row="22" Grid.Column="0" Target="{Binding ElementName=UpstreamMaxRate}" Content="_UpstreamMaxRate"/>
                 <Label Grid.Row="23" Grid.Column="0" Target="{Binding ElementName=UpstreamNoiseMargin}" Content="_UpstreamNoiseMargin"/>
                 <Label Grid.Row="24" Grid.Column="0" Target="{Binding ElementName=UpstreamPower}" Content="_UpstreamPower"/>
-                <TextBlock x:Name="AturCountry" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.ATURCountry}"/>
-                <TextBlock x:Name="AturVendor" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.ATURVendor}"/>
-                <TextBlock x:Name="CrcErrors" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.CRCErrors}"/>
+                <TextBlock x:Name="AturCountry" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.AturCountry}"/>
+                <TextBlock x:Name="AturVendor" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.AturVendor}"/>
+                <TextBlock x:Name="CrcErrors" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.CrcErrors}"/>
                 <TextBlock x:Name="CurrentProfile" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.CurrentProfile}"/>
                 <TextBlock x:Name="DownstreamAttenuation" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.DownstreamAttenuation}"/>
                 <TextBlock x:Name="DownstreamCurrRate" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.DownstreamCurrRate}"/>
                 <TextBlock x:Name="DownstreamMaxRate" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.DownstreamMaxRate}"/>
                 <TextBlock x:Name="DownstreamNoiseMargin" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.DownstreamNoiseMargin}"/>
                 <TextBlock x:Name="DownstreamPower" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.DownstreamPower}"/>
-                <TextBlock x:Name="FecErrors" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.FECErrors}"/>
-                <TextBlock x:Name="LatNds" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.LATNds}"/>
-                <TextBlock x:Name="LatNus" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.LATNus}"/>
+                <TextBlock x:Name="FecErrors" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.FecErrors}"/>
+                <TextBlock x:Name="LAtnDs" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.LAtnDs}"/>
+                <TextBlock x:Name="LAtnUs" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.LAtnUs}"/>
                 <TextBlock x:Name="LinkStatus" Grid.Row="12" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.LinkStatus}"/>
                 <TextBlock x:Name="ModulationType" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.ModulationType}"/>
-                <TextBlock x:Name="SnrGds" Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SNRGds}"/>
-                <TextBlock x:Name="SnrGus" Grid.Row="15" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SNRGus}"/>
-                <TextBlock x:Name="SnrmTds" Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SNRMTds}"/>
-                <TextBlock x:Name="SnrmTus" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SNRMTus}"/>
-                <TextBlock x:Name="SnRpsds" Grid.Row="18" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SNRpsds}"/>
-                <TextBlock x:Name="SnRpsus" Grid.Row="19" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SNRpsus}"/>
+                <TextBlock x:Name="SnrGDs" Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SnrGDs}"/>
+                <TextBlock x:Name="SnrGUs" Grid.Row="15" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SnrGUs}"/>
+                <TextBlock x:Name="SnrMtDs" Grid.Row="16" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SnrMtDs}"/>
+                <TextBlock x:Name="SnrMtUs" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SnrMtUs}"/>
+                <TextBlock x:Name="SnrPsDs" Grid.Row="18" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SnrPsDs}"/>
+                <TextBlock x:Name="SnrPsUs" Grid.Row="19" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.SnrPsUs}"/>
                 <TextBlock x:Name="UpstreamAttenuation" Grid.Row="20" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.UpstreamAttenuation}"/>
                 <TextBlock x:Name="UpstreamCurrRate" Grid.Row="21" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.UpstreamCurrRate}"/>
                 <TextBlock x:Name="UpstreamMaxRate" Grid.Row="22" Grid.Column="1" Text="{Binding WanDslInterfaceConfigGetDslInfoResponse.Key.UpstreamMaxRate}"/>

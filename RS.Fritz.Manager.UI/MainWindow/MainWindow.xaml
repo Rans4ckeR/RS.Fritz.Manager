@@ -84,6 +84,15 @@
                         <RibbonGroup ToolTip="This service allows configuration of the communication between a CPE and a management server using the CPE WAN Management Protocol (CWMP) as currently defined in TR-069. This management server is also known as an Auto-Configuration Server (ACS).">
                             <RibbonButton Label="ManagementServer" Command="{Binding ManagementServerViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                         </RibbonGroup>
+                        <RibbonGroup ToolTip="This service contains parameters relating an NTP or SNTP time client in the CPE.">
+                            <RibbonButton Label="Time" Command="{Binding TimeViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                        <RibbonGroup ToolTip="This service contains parameters relating to the user interface of the CPE.">
+                            <RibbonButton Label="UserInterface" Command="{Binding UserInterfaceViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
+                        <RibbonGroup ToolTip="This service contains general configuration parameters.">
+                            <RibbonButton Label="DeviceConfig" Command="{Binding DeviceConfigViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                        </RibbonGroup>
                     </RibbonTab>
                     <RibbonTab Header="Home network">
                         <RibbonGroup ToolTip="This service provides information about each of the hosts on this LAN, including those whose IP address was allocated by the CPE using DHCP as well as hosts with statically allocated IP addresses. It also allows the IP address of a particular host to be re-allocated by removing it from this table.">
@@ -127,9 +136,9 @@
                             <RibbonButton Label="AvmSpeedtest" Command="{Binding AvmSpeedtestViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                         </RibbonGroup>
                     </RibbonTab>
-                    <RibbonTab Header="Packet tracing">
-                        <RibbonGroup ToolTip="The Capture function enables packet sniffing to be analyzed with Wireshark.">
-                            <RibbonButton Label="Sniffer" Command="{Binding CaptureControlCaptureViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                    <RibbonTab Header="WebUI">
+                        <RibbonGroup ToolTip="For the purpose of diagnostics, FRITZ!Box can record all data packets in Wireshark format when the FRITZ!Box is configured as a router.">
+                            <RibbonButton Label="Packet Trace" Command="{Binding CaptureControlCaptureViewModel.DefaultCommand}" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
                         </RibbonGroup>
                     </RibbonTab>
                 </Ribbon>
@@ -139,7 +148,7 @@
             </Grid>
         </ContentControl>
         <ContentControl Grid.Row="0" Grid.Column="0" Panel.ZIndex="{Binding MessageZIndex}">
-            <Border Margin="200">
+            <Border Style="{StaticResource BorderStyle}" Margin="200">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
