@@ -37,6 +37,7 @@
         <Setter Property="Foreground" Value="{StaticResource TitleTextSolidColorBrush}"/>
         <Setter Property="Background" Value="{StaticResource TitleBackgroundSolidColorBrush}"/>
         <Setter Property="FontFamily" Value="Arial"/>
+        <Setter Property="Margin" Value="4"/>
     </Style>
     <Style TargetType="{x:Type Border}" x:Key="BorderStyle">
         <Setter Property="Padding" Value="5"/>

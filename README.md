@@ -90,16 +90,21 @@ Console.WriteLine($"Session: {webUiSessionInfo.Sid}");
 
 // Capture live network traffic from router to file
 ICaptureControlService captureControlService = serviceScope.ServiceProvider.GetRequiredService<ICaptureControlService>();
-Task.Run(() => StopCaptureAfter1SecondsAsync(device, captureControlService));
-FileInfo fileInfo = await captureControlService.GetStartCaptureResponseAsync(device, "c:\\temp", "capturefile");
+IEnumerable<CaptureInterfaceGroup>? interfaceGroups = await captureControlService.GetInterfacesAsync(device);
+CaptureInterface captureInterface = interfaceGroups.First().CaptureInterfaces.First();
+var fileInfo = new FileInfo(FormattableString.Invariant($"c:\\temp\\{captureInterface.Name}_{DateTime.Now.ToString("s").Replace(":", string.Empty)}.eth"));
+
+Task.Run(() => StopCaptureAsync(device, captureInterface, TimeSpan.FromSeconds(10), captureControlService));
+
+await captureControlService.StartCaptureAsync(device, fileInfo, captureInterface);
 Console.WriteLine($"Network trace written to file: {fileInfo}");
 
 await host.RunAsync();
 
-static async Task StopCaptureAfter1SecondsAsync(InternetGatewayDevice device, ICaptureControlService captureControlService)
+static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterface captureInterface, TimeSpan timeSpan, ICaptureControlService captureControlService)
 {
-    await Task.Delay(1000);
-    await captureControlService.GetStopCaptureResponseAsync(device);
+    await Task.Delay(timeSpan);
+    await captureControlService.StopCaptureAsync(device, captureInterface);
 }
 ```
 
