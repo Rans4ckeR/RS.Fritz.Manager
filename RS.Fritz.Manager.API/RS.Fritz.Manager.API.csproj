@@ -41,8 +41,8 @@
     <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0-preview.2.22152.2" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="7.0.0-preview.2.22152.2" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0-preview.3.22175.4" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="7.0.0-preview.3.22175.4" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />

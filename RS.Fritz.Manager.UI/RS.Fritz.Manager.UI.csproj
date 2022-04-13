@@ -41,7 +41,7 @@
     <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-windows10.0.22000.0'">
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0-preview.2.22152.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0-preview.3.22175.4" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows10.0.22000.0'">
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
