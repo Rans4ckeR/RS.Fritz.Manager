@@ -37,18 +37,15 @@
     <None Remove="Images\Fail.png" />
     <None Remove="Images\Success.png" />
   </ItemGroup>
-  <ItemGroup>
-    <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
-  </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-windows10.0.22000.0'">
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0-preview.3.22175.4" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0-preview.4.22229.4" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows10.0.22000.0'">
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

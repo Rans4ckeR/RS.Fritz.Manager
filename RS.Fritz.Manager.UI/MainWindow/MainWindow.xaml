@@ -71,7 +71,7 @@
                             </RibbonTextBox>
                         </RibbonGroup>
                         <RibbonGroup>
-                            <RibbonButton Label="Login" LargeImageSource="{Binding LoginButtonImage }" Command="{Binding LoginCommand}" CommandParameter="{StaticResource False}"/>
+                            <RibbonButton Label="Login" LargeImageSource="{Binding LoginButtonImage}" Command="{Binding LoginCommand}" CommandParameter="{StaticResource False}"/>
                         </RibbonGroup>
                     </RibbonTab>
                     <RibbonTab Header="System">

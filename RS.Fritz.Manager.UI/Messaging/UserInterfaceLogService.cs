@@ -16,5 +16,6 @@ internal sealed class UserInterfaceLogService : ILogger
 
     public bool IsEnabled(LogLevel logLevel) => logLevel >= LogLevel.Warning;
 
-    public IDisposable BeginScope<TState>(TState state) => throw new NotSupportedException();
+    IDisposable ILogger.BeginScope<TState>(TState state)
+        => throw new NotSupportedException();
 }
