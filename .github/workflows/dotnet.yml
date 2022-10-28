@@ -19,7 +19,7 @@ jobs:
       uses: actions/setup-dotnet@main
       with:
         dotnet-version: '7.x.x'
-        include-prerelease: true
+        dotnet-quality: 'preview'
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@main
       with:
@@ -28,16 +28,16 @@ jobs:
       uses: gittools/actions/gitversion/execute@main
     - name: Publish
       run: |
-        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net6.0-windows10.0.22000.0 --runtime win-x64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
-        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net7.0-windows10.0.22000.0 --runtime win-x64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
-        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net6.0-windows10.0.22000.0 --runtime win-arm64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
-        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net7.0-windows10.0.22000.0 --runtime win-arm64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
+        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net6.0-windows10.0.22621.0 --runtime win-x64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
+        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net7.0-windows10.0.22621.0 --runtime win-x64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
+        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net6.0-windows10.0.22621.0 --runtime win-arm64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
+        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net7.0-windows10.0.22621.0 --runtime win-arm64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
     - name: Zip
       run: |
-        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net6.0-windows-x64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net6.0-windows10.0.22000.0/win-x64/publish/*.*
-        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net7.0-windows-x64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net7.0-windows10.0.22000.0/win-x64/publish/*.*
-        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net6.0-windows-ARM64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net6.0-windows10.0.22000.0/win-arm64/publish/*.*
-        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net7.0-windows-ARM64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net7.0-windows10.0.22000.0/win-arm64/publish/*.*
+        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net6.0-windows-x64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net6.0-windows10.0.22621.0/win-x64/publish/*.*
+        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net7.0-windows-x64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net7.0-windows10.0.22621.0/win-x64/publish/*.*
+        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net6.0-windows-ARM64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net6.0-windows10.0.22621.0/win-arm64/publish/*.*
+        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net7.0-windows-ARM64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net7.0-windows10.0.22621.0/win-arm64/publish/*.*
     - name: Prerelease
       if: ${{ env.GitVersion_PreReleaseTag != '' }}
       run: gh release create ${{ format('v{0}', env.GitVersion_SemVer) }} (get-item *.zip) --generate-notes --target ${{ github.sha }} --prerelease
