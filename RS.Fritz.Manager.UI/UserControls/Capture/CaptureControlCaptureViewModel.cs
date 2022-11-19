@@ -89,7 +89,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 
     private async Task DoExecuteSelectTargetFolderCommandAsync(CancellationToken cancellationToken)
     {
-        IntPtr mainWindowHandle = new WindowInteropHelper(Application.Current.MainWindow).Handle;
+        nint mainWindowHandle = new WindowInteropHelper(Application.Current.MainWindow).Handle;
         var folderPicker = new FolderPicker
         {
             SuggestedStartLocation = PickerLocationId.Downloads

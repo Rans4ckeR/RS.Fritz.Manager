@@ -19,7 +19,6 @@ jobs:
       uses: actions/setup-dotnet@main
       with:
         dotnet-version: '7.x.x'
-        dotnet-quality: 'preview'
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@main
       with:
@@ -28,15 +27,11 @@ jobs:
       uses: gittools/actions/gitversion/execute@main
     - name: Publish
       run: |
-        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net6.0-windows10.0.22621.0 --runtime win-x64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
-        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net7.0-windows10.0.22621.0 --runtime win-x64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
-        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net6.0-windows10.0.22621.0 --runtime win-arm64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
-        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net7.0-windows10.0.22621.0 --runtime win-arm64 -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
+        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net7.0-windows10.0.22621.0 --runtime win-x64 -p:PublishReadyToRun=true -p:PublishReadyToRunComposite=true -p:PublishSingleFile=true -p:DebugType=embedded -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
+        dotnet publish RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj --configuration Release --no-self-contained --framework net7.0-windows10.0.22621.0 --runtime win-arm64 -p:PublishReadyToRun=true -p:PublishReadyToRunComposite=true -p:PublishSingleFile=true -p:DebugType=embedded -p:AssemblyVersion=$env:GitVersion_AssemblySemVer -p:FileVersion=$env:GitVersion_AssemblySemFileVer -p:InformationalVersion=$env:GitVersion_InformationalVersion
     - name: Zip
       run: |
-        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net6.0-windows-x64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net6.0-windows10.0.22621.0/win-x64/publish/*.*
         7z a -r ${{ format('RS.Fritz.Manager-v{0}-net7.0-windows-x64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net7.0-windows10.0.22621.0/win-x64/publish/*.*
-        7z a -r ${{ format('RS.Fritz.Manager-v{0}-net6.0-windows-ARM64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net6.0-windows10.0.22621.0/win-arm64/publish/*.*
         7z a -r ${{ format('RS.Fritz.Manager-v{0}-net7.0-windows-ARM64.zip', env.GitVersion_SemVer) }} ./RS.Fritz.Manager.UI/bin/Release/net7.0-windows10.0.22621.0/win-arm64/publish/*.*
     - name: Prerelease
       if: ${{ env.GitVersion_PreReleaseTag != '' }}
@@ -49,7 +44,7 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
     - name: Package
-      run: dotnet pack RS.Fritz.Manager.API/RS.Fritz.Manager.API.csproj --no-restore --no-build --configuration Release -p:PackageVersion=$env:GitVersion_NuGetVersionV2
+      run: dotnet pack RS.Fritz.Manager.API/RS.Fritz.Manager.API.csproj --no-restore --configuration Release -p:PackageVersion=$env:GitVersion_NuGetVersionV2
     - name: NuGet Push
       run: dotnet nuget push ${{ format('RS.Fritz.Manager.API/bin/Release/RS.Fritz.Manager.API.{0}.nupkg', env.GitVersion_NuGetVersionV2) }} --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
     - name: GitHub Push
