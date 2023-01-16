@@ -17,9 +17,9 @@ internal sealed class DeviceHostsService : IDeviceHostsService
         HostsGetHostListPathResponse hostsGetHostListPathResponse = await internetGatewayDevice.HostsGetHostListPathAsync();
         string hostListPath = hostsGetHostListPathResponse.HostListPath;
         var hostListPathUri = new Uri(FormattableString.Invariant($"https://{internetGatewayDevice.PreferredLocation.Host}:{internetGatewayDevice.SecurityPort}{hostListPath}"));
-        string deviceHostsListXml = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStringAsync(hostListPathUri, cancellationToken);
-        using var stringReader = new StringReader(deviceHostsListXml);
-        using var xmlTextReader = new XmlTextReader(stringReader);
+        await using Stream deviceHostsListXmlStream = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStreamAsync(hostListPathUri, cancellationToken);
+        using var xmlTextReader = new XmlTextReader(deviceHostsListXmlStream);
+
         var deviceHostsList = (DeviceHostsList)new DataContractSerializer(typeof(DeviceHostsList)).ReadObject(xmlTextReader)!;
 
         return new DeviceHostInfo(hostListPath, hostListPathUri, deviceHostsList);

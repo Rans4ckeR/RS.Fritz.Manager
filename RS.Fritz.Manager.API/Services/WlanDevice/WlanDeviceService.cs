@@ -17,9 +17,8 @@ internal sealed class WlanDeviceService : IWlanDeviceService
         WlanConfigurationGetWlanDeviceListPathResponse wlanConfigurationGetWlanDeviceListPathResponse = await internetGatewayDevice.WlanConfigurationGetWlanDeviceListPathAsync(1);
         string wlanDeviceListPath = wlanConfigurationGetWlanDeviceListPathResponse.WlanDeviceListPath;
         var wlanDeviceListPathUri = new Uri(FormattableString.Invariant($"https://{internetGatewayDevice.PreferredLocation.Host}:{internetGatewayDevice.SecurityPort}{wlanDeviceListPath}"));
-        string wlanDeviceListXml = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStringAsync(wlanDeviceListPathUri, cancellationToken);
-        using var stringReader = new StringReader(wlanDeviceListXml);
-        using var xmlTextReader = new XmlTextReader(stringReader);
+        await using Stream wlanDeviceListXmlStream = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStreamAsync(wlanDeviceListPathUri, cancellationToken);
+        using var xmlTextReader = new XmlTextReader(wlanDeviceListXmlStream);
         var wlanDeviceList = (WlanDeviceList)new XmlSerializer(typeof(WlanDeviceList)).Deserialize(xmlTextReader)!;
 
         return new WlanDeviceInfo(wlanDeviceListPath, wlanDeviceListPathUri, wlanDeviceList);

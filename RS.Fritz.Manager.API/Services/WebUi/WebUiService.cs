@@ -20,9 +20,9 @@ internal sealed class WebUiService : IWebUiService
     public async Task<WebUiSessionInfo> GetUsersAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         Uri loginUri = GetLoginUri(internetGatewayDevice);
-        string xmlResponse = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStringAsync(loginUri, cancellationToken);
+        await using Stream xmlResponseStream = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStreamAsync(loginUri, cancellationToken);
 
-        return Deserialize(xmlResponse);
+        return Deserialize(xmlResponseStream);
     }
 
     public async Task<WebUiSessionInfo> LogonAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
@@ -56,10 +56,9 @@ internal sealed class WebUiService : IWebUiService
         return GetResponseAsync(internetGatewayDevice, parameters, cancellationToken);
     }
 
-    private static WebUiSessionInfo Deserialize(string xmlResponse)
+    private static WebUiSessionInfo Deserialize(Stream xmlResponseStream)
     {
-        using var stringReader = new StringReader(xmlResponse);
-        using var xmlTextReader = new XmlTextReader(stringReader);
+        using var xmlTextReader = new XmlTextReader(xmlResponseStream);
 
         return (WebUiSessionInfo)new XmlSerializer(typeof(WebUiSessionInfo)).Deserialize(xmlTextReader)!;
     }
@@ -81,8 +80,8 @@ internal sealed class WebUiService : IWebUiService
         var formContent = new FormUrlEncodedContent(parameters);
         Uri loginUri = GetLoginUri(internetGatewayDevice);
         HttpResponseMessage loginResponse = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).PostAsync(loginUri, formContent, cancellationToken);
-        string xmlResponse = await loginResponse.EnsureSuccessStatusCode().Content.ReadAsStringAsync(cancellationToken);
+        await using Stream xmlResponseStream = await loginResponse.EnsureSuccessStatusCode().Content.ReadAsStreamAsync(cancellationToken);
 
-        return Deserialize(xmlResponse);
+        return Deserialize(xmlResponseStream);
     }
 }

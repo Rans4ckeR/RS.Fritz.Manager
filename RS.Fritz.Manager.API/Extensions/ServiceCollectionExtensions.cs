@@ -45,10 +45,10 @@ public static class ServiceCollectionExtensions
         _ = serviceCollection.AddHttpClient(Constants.HttpClientName)
             .ConfigureHttpClient((_, httpClient) =>
             {
-                httpClient.Timeout = TimeSpan.FromSeconds(60);
-                httpClient.DefaultRequestVersion = Version.Parse("2.0");
+                httpClient.Timeout = TimeSpan.FromSeconds(10);
+                httpClient.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
             })
-            .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
+            .ConfigurePrimaryHttpMessageHandler(_ => new SocketsHttpHandler
             {
                 AutomaticDecompression = DecompressionMethods.All
             });
@@ -56,11 +56,18 @@ public static class ServiceCollectionExtensions
             .ConfigureHttpClient((_, httpClient) =>
             {
                 httpClient.Timeout = TimeSpan.FromSeconds(10);
-                httpClient.DefaultRequestVersion = Version.Parse("2.0");
+                httpClient.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
             })
-            .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
+            .ConfigurePrimaryHttpMessageHandler(_ => new SocketsHttpHandler
             {
-                ServerCertificateCustomValidationCallback = (_, _, _, sslPolicyErrors) => (sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) == 0,
+                SslOptions = new SslClientAuthenticationOptions
+                {
+                    RemoteCertificateValidationCallback = (_, _, _, sslPolicyErrors) => (sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) == 0,
+                    CertificateChainPolicy = new()
+                    {
+                        DisableCertificateDownloads = true
+                    }
+                },
                 AutomaticDecompression = DecompressionMethods.All
             });
 

@@ -1,5 +1,6 @@
 ﻿namespace RS.Fritz.Manager.API;
 
+using System.Buffers;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -11,8 +12,8 @@ internal sealed class DeviceSearchService : IDeviceSearchService
 {
     private const string InternetGatewayDeviceDeviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
     private const int UPnPMultiCastPort = 1900;
-    private const int DefaultReceiveTimeout = 500;
-    private const int DefaultSendCount = 3;
+    private const int ReceiveTimeoutInSeconds = 2;
+    private const int DefaultSendCount = 1;
 
     private readonly IHttpClientFactory httpClientFactory;
     private readonly IFritzServiceOperationHandler fritzServiceOperationHandler;
@@ -26,17 +27,17 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         this.usersService = usersService;
     }
 
-    private static IDictionary<AddressType, IPAddress> SsdpMultiCastAddresses => new Dictionary<AddressType, IPAddress>
+    private static IReadOnlyDictionary<AddressType, IPAddress> SsdpMultiCastAddresses => new Dictionary<AddressType, IPAddress>
     {
         [AddressType.IpV4SiteLocal] = IPAddress.Parse("239.255.255.250"),
         [AddressType.IpV6LinkLocal] = IPAddress.Parse("[FF02::C]"),
         [AddressType.IpV6SiteLocal] = IPAddress.Parse("[FF05::C]")
-    };
+    }.AsReadOnly();
 
-    public async Task<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null, int? sendCount = null, int? timeout = null, CancellationToken cancellationToken = default)
+    public async ValueTask<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null, int? sendCount = null, int? timeout = null, CancellationToken cancellationToken = default)
     {
         deviceType ??= InternetGatewayDeviceDeviceType;
-        timeout ??= DefaultReceiveTimeout;
+        timeout ??= ReceiveTimeoutInSeconds * 1000;
         sendCount ??= DefaultSendCount;
 
         IEnumerable<string> rawDeviceResponses = await GetRawDeviceResponses(deviceType, sendCount.Value, timeout.Value, cancellationToken);
@@ -70,7 +71,8 @@ internal sealed class DeviceSearchService : IDeviceSearchService
                     return value.Replace(":", null, StringComparison.OrdinalIgnoreCase);
 
                 return value.Replace(": ", null, StringComparison.OrdinalIgnoreCase);
-            }));
+            },
+            StringComparer.OrdinalIgnoreCase));
     }
 
     private static async Task<IEnumerable<string>> SearchDevicesAsync(IPAddress localAddress, string deviceType, int sendCount, int receiveTimeout, CancellationToken cancellationToken)
@@ -88,15 +90,21 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         socket.Bind(new IPEndPoint(localAddress, 0));
 
         var multiCastIpEndPoint = new IPEndPoint(SsdpMultiCastAddresses[addressType], UPnPMultiCastPort);
-        string request = FormattableString.Invariant($"M-SEARCH * HTTP/1.1\r\nHOST: {multiCastIpEndPoint}\r\nST: {deviceType}\r\nMAN: \"ssdp:discover\"\r\nMX: 3\r\n\r\n");
-        var buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(request));
+        string request = FormattableString.Invariant($"M-SEARCH * HTTP/1.1\r\nHOST: {multiCastIpEndPoint}\r\nST: {deviceType}\r\nMAN: \"ssdp:discover\"\r\nMX: {ReceiveTimeoutInSeconds}\r\n\r\n");
+        const int charSize = sizeof(char);
+        int bufferSize = request.Length * charSize;
+        using IMemoryOwner<byte> memoryOwner = MemoryPool<byte>.Shared.Rent(bufferSize);
+        Memory<byte> buffer = memoryOwner.Memory[..bufferSize];
+        int bytes = Encoding.UTF8.GetBytes(request.AsSpan(), buffer.Span);
+
+        buffer = buffer[..bytes];
 
         for (int i = 0; i < sendCount; i++)
         {
-            _ = await socket.SendToAsync(buffer, SocketFlags.None, multiCastIpEndPoint);
+            _ = await socket.SendToAsync(buffer, SocketFlags.None, multiCastIpEndPoint, cancellationToken);
         }
 
-        await ReceiveAsync(socket, new ArraySegment<byte>(new byte[4096]), responses, receiveTimeout, cancellationToken);
+        await ReceiveAsync(socket, responses, receiveTimeout, cancellationToken);
 
         return responses;
     }
@@ -115,28 +123,29 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         return AddressType.Unknown;
     }
 
-    private static async Task ReceiveAsync(Socket socket, ArraySegment<byte> buffer, ICollection<string> responses, int receiveTimeout, CancellationToken cancellationToken)
+    private static async ValueTask ReceiveAsync(Socket socket, ICollection<string> responses, int receiveTimeout, CancellationToken cancellationToken)
     {
+        using IMemoryOwner<byte> memoryOwner = MemoryPool<byte>.Shared.Rent(4096);
         using var timeoutCancellationTokenSource = new CancellationTokenSource(receiveTimeout);
         using var linkedCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(timeoutCancellationTokenSource.Token, cancellationToken);
 
         while (!linkedCancellationTokenSource.IsCancellationRequested)
         {
+            Memory<byte> buffer = memoryOwner.Memory[..4096];
+
             try
             {
                 int bytesReceived = await socket.ReceiveAsync(buffer, SocketFlags.None, linkedCancellationTokenSource.Token);
 
-                if (bytesReceived > 0)
-                    responses.Add(Encoding.UTF8.GetString(buffer.Take(bytesReceived).ToArray()));
+                responses.Add(Encoding.UTF8.GetString(buffer.Span[..bytesReceived]));
             }
             catch (OperationCanceledException)
             {
-                // Ignore Task cancellation
             }
         }
     }
 
-    private async Task<IEnumerable<string>> GetRawDeviceResponses(string deviceType, int sendCount, int timeout, CancellationToken cancellationToken)
+    private async ValueTask<IEnumerable<string>> GetRawDeviceResponses(string deviceType, int sendCount, int timeout, CancellationToken cancellationToken)
     {
         IEnumerable<IPAddress> localAddresses = GetLocalAddresses();
         IEnumerable<string>[] localAddressesDeviceResponses = await TaskExtensions.WhenAllSafe(localAddresses.Select(q => SearchDevicesAsync(q, deviceType, sendCount, timeout, cancellationToken)));
@@ -155,11 +164,10 @@ internal sealed class DeviceSearchService : IDeviceSearchService
             .Where(q => supportedAddressFamilies.Contains(q.AddressFamily));
     }
 
-    private async Task<UPnPDescription> GetUPnPDescription(Uri uri, CancellationToken cancellationToken)
+    private async ValueTask<UPnPDescription> GetUPnPDescription(Uri uri, CancellationToken cancellationToken)
     {
-        string uPnPDescription = await httpClientFactory.CreateClient(Constants.HttpClientName).GetStringAsync(uri, cancellationToken);
-        using var stringReader = new StringReader(uPnPDescription);
-        using var xmlTextReader = new XmlTextReader(stringReader);
+        await using Stream uPnPDescription = await httpClientFactory.CreateClient(Constants.HttpClientName).GetStreamAsync(uri, cancellationToken);
+        using var xmlTextReader = new XmlTextReader(uPnPDescription);
 
         return (UPnPDescription)new DataContractSerializer(typeof(UPnPDescription)).ReadObject(xmlTextReader)!;
     }
