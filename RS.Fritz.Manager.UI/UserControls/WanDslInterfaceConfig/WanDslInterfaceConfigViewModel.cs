@@ -16,7 +16,7 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
     {
         WanDslInterfaceConfigInfoViewModel = wanDslInterfaceConfigInfoViewModel;
         WanDslInterfaceConfigDslInfoViewModel = wanDslInterfaceConfigDslInfoViewModel;
-        autoRefreshTimer = new DispatcherTimer
+        autoRefreshTimer = new()
         {
             Interval = TimeSpan.FromSeconds(3d)
         };

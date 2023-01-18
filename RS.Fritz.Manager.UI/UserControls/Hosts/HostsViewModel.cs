@@ -79,12 +79,12 @@ internal sealed class HostsViewModel : FritzServiceViewModel
         {
             ushort capturedIndex = i;
 
-            tasks.Add(ExecuteApiAsync(q => q.HostsGetGenericHostEntryAsync(new HostsGetGenericHostEntryRequest(capturedIndex))));
+            tasks.Add(ExecuteApiAsync(q => q.HostsGetGenericHostEntryAsync(new(capturedIndex))));
         }
 
         KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks);
 
-        HostsGetGenericHostEntryResponses = new ObservableCollection<HostsGetGenericHostEntryResponse>(responses.Select(q => q.Key!.Value));
+        HostsGetGenericHostEntryResponses = new(responses.Select(q => q.Key!.Value));
     }
 
     private async Task GetHostsGetChangeCounterAsync()

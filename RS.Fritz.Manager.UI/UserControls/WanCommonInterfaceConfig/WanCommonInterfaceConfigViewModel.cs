@@ -18,7 +18,7 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
     {
         WanCommonInterfaceConfigSetWanAccessTypeViewModel = wanCommonInterfaceConfigSetWanAccessTypeViewModel;
         WanCommonInterfaceConfigGetOnlineMonitorViewModel = wanCommonInterfaceConfigGetOnlineMonitorViewModel;
-        autoRefreshTimer = new DispatcherTimer
+        autoRefreshTimer = new()
         {
             Interval = TimeSpan.FromSeconds(3d)
         };
@@ -129,6 +129,6 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 
     private async Task GetWanCommonInterfaceConfigGetOnlineMonitorAsync()
     {
-        WanCommonInterfaceConfigGetOnlineMonitorViewModel.WanCommonInterfaceConfigGetOnlineMonitorResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetOnlineMonitorAsync(new WanCommonInterfaceConfigGetOnlineMonitorRequest(0)));
+        WanCommonInterfaceConfigGetOnlineMonitorViewModel.WanCommonInterfaceConfigGetOnlineMonitorResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetOnlineMonitorAsync(new(0)));
     }
 }

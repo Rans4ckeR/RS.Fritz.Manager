@@ -26,7 +26,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     private bool deviceAndLoginControlsEnabled = true;
     private bool loginCommandActive;
     private bool canExecuteLoginCommand;
-    private ImageSource loginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Login.png"));
+    private ImageSource loginButtonImage = new BitmapImage(new("pack://application:,,,/Images/Login.png"));
     private bool discoveryTabSelected = true;
     private double mainContentOpacity = OpacityNoOverlay;
     private bool mainContentIsHitTestVisible = true;
@@ -300,7 +300,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     {
         ActiveView = null;
         DeviceLoginInfo.InternetGatewayDevice = null;
-        Devices = new ObservableCollection<ObservableInternetGatewayDevice>((await deviceSearchService.GetDevicesAsync(cancellationToken: cancellationToken)).Select(q => new ObservableInternetGatewayDevice(q)));
+        Devices = new((await deviceSearchService.GetDevicesAsync(cancellationToken: cancellationToken)).Select(q => new ObservableInternetGatewayDevice(q)));
     }
 
     protected override bool GetCanExecuteDefaultCommand()
@@ -315,7 +315,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
 
         Users = message.PropertyName switch
         {
-            nameof(ObservableInternetGatewayDevice.Users) => new ObservableCollection<User>(message.NewValue.OrderByDescending(q => q.LastUser)),
+            nameof(ObservableInternetGatewayDevice.Users) => new(message.NewValue.OrderByDescending(q => q.LastUser)),
             _ => Users
         };
     }
@@ -330,7 +330,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
             case nameof(DeviceLoginInfo.InternetGatewayDevice):
                 {
                     ActiveView = DeviceLoginInfo.InternetGatewayDevice;
-                    LoginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Login.png"));
+                    LoginButtonImage = new BitmapImage(new("pack://application:,,,/Images/Login.png"));
 
                     UpdateCanExecuteLoginCommand();
                     break;
@@ -351,11 +351,11 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
 
             await DeviceLoginInfo.InternetGatewayDevice!.GetDeviceTypeAsync();
 
-            LoginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Success.png"));
+            LoginButtonImage = new BitmapImage(new("pack://application:,,,/Images/Success.png"));
         }
         catch (MessageSecurityException)
         {
-            LoginButtonImage = new BitmapImage(new Uri("pack://application:,,,/Images/Fail.png"));
+            LoginButtonImage = new BitmapImage(new("pack://application:,,,/Images/Fail.png"));
         }
         catch (Exception ex)
         {

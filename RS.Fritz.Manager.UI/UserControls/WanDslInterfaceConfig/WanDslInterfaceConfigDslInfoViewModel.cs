@@ -19,7 +19,7 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
 
     public WanDslInterfaceConfigDslInfoViewModel()
     {
-        DownstreamSnrElements = new List<UIElement>();
+        DownstreamSnrElements = new();
 
         maxBrush.Freeze();
         minBrush.Freeze();

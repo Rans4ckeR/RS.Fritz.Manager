@@ -8,6 +8,8 @@
         xmlns:api="clr-namespace:RS.Fritz.Manager.API;assembly=RS.Fritz.Manager.API"
         d:DataContext="{d:DesignInstance Type=ui:MainWindowViewModel}"
         mc:Ignorable="d"
+        MinWidth="640px"
+        MinHeight="480px"
         Title="{Binding Title}"
         Style="{DynamicResource TextStyle}">
     <Grid>

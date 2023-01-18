@@ -43,7 +43,7 @@
                     </Grid.ColumnDefinitions>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetForwardNumberOfEntriesResponse.Value}"/>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding Layer3ForwardingGetForwardNumberOfEntriesResponse.Key}"/>
-                    <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Layer3ForwardingGetGenericForwardingEntryResponses}"/>
+                    <ui:NoScrollDataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Layer3ForwardingGetGenericForwardingEntryResponses}"/>
                 </Grid>
             </Expander>
         </Border>

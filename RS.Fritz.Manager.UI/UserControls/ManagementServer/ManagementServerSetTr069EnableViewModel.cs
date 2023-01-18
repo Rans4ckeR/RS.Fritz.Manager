@@ -23,7 +23,7 @@ internal sealed class ManagementServerSetTr069EnableViewModel : ManualOperationV
 
     protected override ManagementServerSetTr069EnableRequest BuildRequest()
     {
-        return new ManagementServerSetTr069EnableRequest(Tr069Enabled!.Value);
+        return new(Tr069Enabled!.Value);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

@@ -23,7 +23,7 @@ internal sealed class ManagementServerSetUpgradeManagementViewModel : ManualOper
 
     protected override ManagementServerSetUpgradeManagementRequest BuildRequest()
     {
-        return new ManagementServerSetUpgradeManagementRequest(UpgradesManaged!.Value);
+        return new(UpgradesManaged!.Value);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

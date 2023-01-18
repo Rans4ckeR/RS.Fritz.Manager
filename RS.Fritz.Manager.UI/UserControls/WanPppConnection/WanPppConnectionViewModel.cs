@@ -157,12 +157,12 @@ internal sealed class WanPppConnectionViewModel : WanAccessTypeAwareFritzService
         {
             ushort capturedIndex = i;
 
-            tasks.Add(ExecuteApiAsync(q => q.WanPppConnectionGetGenericPortMappingEntryAsync(new WanConnectionGetGenericPortMappingEntryRequest(capturedIndex))));
+            tasks.Add(ExecuteApiAsync(q => q.WanPppConnectionGetGenericPortMappingEntryAsync(new(capturedIndex))));
         }
 
         KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks);
 
-        WanConnectionGetGenericPortMappingEntryResponses = new ObservableCollection<WanConnectionGetGenericPortMappingEntryResponse>(responses.Select(q => q.Key!.Value));
+        WanConnectionGetGenericPortMappingEntryResponses = new(responses.Select(q => q.Key!.Value));
     }
 
     private async Task GetWanPppConnectionGetExternalIpAddressAsync()
