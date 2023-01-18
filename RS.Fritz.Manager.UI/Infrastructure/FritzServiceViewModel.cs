@@ -134,21 +134,21 @@ internal abstract class FritzServiceViewModel : ObservableRecipient
 
         try
         {
-            return new KeyValuePair<T?, UPnPFault?>(await operation, null);
+            return new(await operation, null);
         }
         catch (FaultException<UPnPFault1> ex)
         {
-            error = new UPnPFault(ex.Detail.ErrorCode, ex.Detail.ErrorDescription);
+            error = new(ex.Detail.ErrorCode, ex.Detail.ErrorDescription);
         }
         catch (FaultException<UPnPFault2> ex)
         {
-            error = new UPnPFault(ex.Detail.ErrorCode, ex.Detail.ErrorDescription);
+            error = new(ex.Detail.ErrorCode, ex.Detail.ErrorDescription);
         }
 
         if (errorReasons?.TryGetValue(error.ErrorCode, out string? errorReason) ?? false)
             error.ErrorReason = errorReason;
 
-        return new KeyValuePair<T?, UPnPFault?>(null, error);
+        return new(null, error);
     }
 
     private async Task ExecuteDefaultCommandAsync(bool? showView, CancellationToken cancellationToken)

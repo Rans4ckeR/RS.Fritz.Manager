@@ -57,9 +57,9 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         if (CaptureInterfaceGroups is not null)
             return;
 
-        IEnumerable<UserInterfaceCaptureInterfaceGroup> newCaptureInterfaceGroups = (await captureControlService.GetInterfacesAsync(ApiDevice, cancellationToken)).Select(q => new UserInterfaceCaptureInterfaceGroup(q, q.CaptureInterfaces.Select(r => new UserInterfaceCaptureInterface(r, new RelayCommand<UserInterfaceCaptureInterface>(DoExecuteCaptureInterfaceStartCommand, _ => CanExecuteCaptureInterfaceStartCommand(r)), new AsyncRelayCommand<UserInterfaceCaptureInterface>(DoExecuteCaptureInterfaceStopCommandAsync, _ => CanExecuteCaptureInterfaceStopCommand(r)))).ToList()));
+        IEnumerable<UserInterfaceCaptureInterfaceGroup> newCaptureInterfaceGroups = (await captureControlService.GetInterfacesAsync(ApiDevice, cancellationToken)).Select(q => new UserInterfaceCaptureInterfaceGroup(q, q.CaptureInterfaces.Select(r => new UserInterfaceCaptureInterface(r, new(DoExecuteCaptureInterfaceStartCommand, _ => CanExecuteCaptureInterfaceStartCommand(r)), new(DoExecuteCaptureInterfaceStopCommandAsync, _ => CanExecuteCaptureInterfaceStopCommand(r)))).ToList()));
 
-        CaptureInterfaceGroups = new ObservableCollection<UserInterfaceCaptureInterfaceGroup>(newCaptureInterfaceGroups);
+        CaptureInterfaceGroups = new(newCaptureInterfaceGroups);
 
         NotifyAllStartCommandsCanExecuteChanged();
     }

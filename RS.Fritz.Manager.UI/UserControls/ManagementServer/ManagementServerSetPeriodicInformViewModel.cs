@@ -45,7 +45,7 @@ internal sealed class ManagementServerSetPeriodicInformViewModel : ManualOperati
 
     protected override ManagementServerSetPeriodicInformRequest BuildRequest()
     {
-        return new ManagementServerSetPeriodicInformRequest(PeriodicInformEnable!.Value, PeriodicInformInterval!.Value, PeriodicInformTime!.Value);
+        return new(PeriodicInformEnable!.Value, PeriodicInformInterval!.Value, PeriodicInformTime!.Value);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

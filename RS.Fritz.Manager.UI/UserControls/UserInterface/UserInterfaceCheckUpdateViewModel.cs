@@ -23,7 +23,7 @@ internal sealed class UserInterfaceCheckUpdateViewModel : ManualOperationViewMod
 
     protected override UserInterfaceCheckUpdateRequest BuildRequest()
     {
-        return new UserInterfaceCheckUpdateRequest(LaborVersion!);
+        return new(LaborVersion!);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

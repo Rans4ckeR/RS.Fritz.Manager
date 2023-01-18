@@ -135,7 +135,7 @@
                     </Grid.ColumnDefinitions>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WanConnectionGetPortMappingNumberOfEntriesResponse.Value}"/>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding WanConnectionGetPortMappingNumberOfEntriesResponse.Key}"/>
-                    <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding WanConnectionGetGenericPortMappingEntryResponses}"/>
+                    <ui:NoScrollDataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding WanConnectionGetGenericPortMappingEntryResponses}"/>
                 </Grid>
             </Expander>
         </Border>

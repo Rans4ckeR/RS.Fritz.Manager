@@ -32,7 +32,7 @@
                     </Grid.ColumnDefinitions>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding HostsGetHostNumberOfEntriesResponse.Value}"/>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding HostsGetHostNumberOfEntriesResponse.Key}"/>
-                    <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding HostsGetGenericHostEntryResponses}"/>
+                    <ui:NoScrollDataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding HostsGetGenericHostEntryResponses}"/>
                 </Grid>
             </Expander>
         </Border>

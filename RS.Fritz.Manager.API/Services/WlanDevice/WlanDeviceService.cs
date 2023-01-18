@@ -6,21 +6,23 @@ using System.Xml.Serialization;
 internal sealed class WlanDeviceService : IWlanDeviceService
 {
     private readonly IHttpClientFactory httpClientFactory;
+    private readonly INetworkService networkService;
 
-    public WlanDeviceService(IHttpClientFactory httpClientFactory)
+    public WlanDeviceService(IHttpClientFactory httpClientFactory, INetworkService networkService)
     {
         this.httpClientFactory = httpClientFactory;
+        this.networkService = networkService;
     }
 
     public async Task<WlanDeviceInfo> GetWlanDevicesAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         WlanConfigurationGetWlanDeviceListPathResponse wlanConfigurationGetWlanDeviceListPathResponse = await internetGatewayDevice.WlanConfigurationGetWlanDeviceListPathAsync(1);
         string wlanDeviceListPath = wlanConfigurationGetWlanDeviceListPathResponse.WlanDeviceListPath;
-        var wlanDeviceListPathUri = new Uri(FormattableString.Invariant($"https://{internetGatewayDevice.PreferredLocation.Host}:{internetGatewayDevice.SecurityPort}{wlanDeviceListPath}"));
-        await using Stream wlanDeviceListXmlStream = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStreamAsync(wlanDeviceListPathUri, cancellationToken);
+        Uri wlanDeviceListPathUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, internetGatewayDevice.SecurityPort!.Value, wlanDeviceListPath);
+        await using Stream wlanDeviceListXmlStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(wlanDeviceListPathUri, cancellationToken);
         using var xmlTextReader = new XmlTextReader(wlanDeviceListXmlStream);
         var wlanDeviceList = (WlanDeviceList)new XmlSerializer(typeof(WlanDeviceList)).Deserialize(xmlTextReader)!;
 
-        return new WlanDeviceInfo(wlanDeviceListPath, wlanDeviceListPathUri, wlanDeviceList);
+        return new(wlanDeviceListPath, wlanDeviceListPathUri, wlanDeviceList);
     }
 }

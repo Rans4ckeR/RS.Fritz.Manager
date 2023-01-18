@@ -2,6 +2,5 @@
 
 internal static class Constants
 {
-    public const string HttpClientName = "HttpClientName";
-    public const string NonValidatingHttpsClientName = "NonValidatingHttpsClient";
+    public const string DefaultHttpClientName = nameof(DefaultHttpClientName);
 }

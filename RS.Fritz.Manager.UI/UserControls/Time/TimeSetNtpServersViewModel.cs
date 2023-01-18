@@ -34,7 +34,7 @@ internal sealed class TimeSetNtpServersViewModel : ManualOperationViewModel<Time
 
     protected override TimeSetNtpServersRequest BuildRequest()
     {
-        return new TimeSetNtpServersRequest(NtpServer1!, NtpServer2!);
+        return new(NtpServer1!, NtpServer2!);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

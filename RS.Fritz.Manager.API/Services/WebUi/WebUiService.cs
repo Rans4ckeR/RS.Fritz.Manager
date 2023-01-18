@@ -11,16 +11,18 @@ internal sealed class WebUiService : IWebUiService
     private const string LoginPath = "//login_sid.lua?version=2";
 
     private readonly IHttpClientFactory httpClientFactory;
+    private readonly INetworkService networkService;
 
-    public WebUiService(IHttpClientFactory httpClientFactory)
+    public WebUiService(IHttpClientFactory httpClientFactory, INetworkService networkService)
     {
         this.httpClientFactory = httpClientFactory;
+        this.networkService = networkService;
     }
 
     public async Task<WebUiSessionInfo> GetUsersAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         Uri loginUri = GetLoginUri(internetGatewayDevice);
-        await using Stream xmlResponseStream = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).GetStreamAsync(loginUri, cancellationToken);
+        await using Stream xmlResponseStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(loginUri, cancellationToken);
 
         return Deserialize(xmlResponseStream);
     }
@@ -70,16 +72,14 @@ internal sealed class WebUiService : IWebUiService
         return derivedBytes.GetBytes(32);
     }
 
-    private static Uri GetLoginUri(InternetGatewayDevice internetGatewayDevice)
-    {
-        return new Uri(FormattableString.Invariant($"https://{internetGatewayDevice.PreferredLocation.Host}{LoginPath}"));
-    }
+    private Uri GetLoginUri(InternetGatewayDevice internetGatewayDevice)
+        => networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, LoginPath);
 
     private async Task<WebUiSessionInfo> GetResponseAsync(InternetGatewayDevice internetGatewayDevice, IDictionary<string, string> parameters, CancellationToken cancellationToken)
     {
         var formContent = new FormUrlEncodedContent(parameters);
         Uri loginUri = GetLoginUri(internetGatewayDevice);
-        HttpResponseMessage loginResponse = await httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName).PostAsync(loginUri, formContent, cancellationToken);
+        using HttpResponseMessage loginResponse = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).PostAsync(loginUri, formContent, cancellationToken);
         await using Stream xmlResponseStream = await loginResponse.EnsureSuccessStatusCode().Content.ReadAsStreamAsync(cancellationToken);
 
         return Deserialize(xmlResponseStream);

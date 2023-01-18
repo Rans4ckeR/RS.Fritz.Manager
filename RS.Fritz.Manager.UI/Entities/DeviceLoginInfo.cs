@@ -1,6 +1,5 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.Net;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
@@ -92,7 +91,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
         {
             case nameof(Password):
                 if (InternetGatewayDevice is not null)
-                    InternetGatewayDevice!.ApiDevice.NetworkCredential = new NetworkCredential(User?.Name, Password);
+                    InternetGatewayDevice!.ApiDevice.NetworkCredential = new(User?.Name, Password);
 
                 SetLoginInfo();
                 break;
@@ -108,7 +107,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
         {
             case nameof(User):
                 if (InternetGatewayDevice is not null)
-                    InternetGatewayDevice.ApiDevice.NetworkCredential = new NetworkCredential(User?.Name, Password);
+                    InternetGatewayDevice.ApiDevice.NetworkCredential = new(User?.Name, Password);
 
                 SetLoginInfo();
                 break;

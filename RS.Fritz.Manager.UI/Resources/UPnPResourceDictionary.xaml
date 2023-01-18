@@ -170,7 +170,7 @@
                     <ItemsControl x:Name="IconList" Grid.Row="11" Grid.Column="1" ItemsSource="{Binding IconList}"/>
                     <Border Style="{StaticResource BorderStyle}" Grid.Row="12" Grid.Column="1">
                         <Expander Header="ServiceList">
-                            <DataGrid x:Name="ServiceList" ItemsSource="{Binding ServiceList}"/>
+                            <ui:NoScrollDataGrid x:Name="ServiceList" ItemsSource="{Binding ServiceList}"/>
                         </Expander>
                     </Border>
                     <ItemsControl x:Name="DeviceList" Grid.Row="13" Grid.Column="1" ItemsSource="{Binding DeviceList}"/>

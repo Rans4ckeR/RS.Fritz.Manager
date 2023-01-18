@@ -23,7 +23,7 @@ internal sealed class WanCommonInterfaceConfigSetWanAccessTypeViewModel : Manual
 
     protected override WanCommonInterfaceConfigSetWanAccessTypeRequest BuildRequest()
     {
-        return new WanCommonInterfaceConfigSetWanAccessTypeRequest(WanAccessType!);
+        return new(WanAccessType!);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

@@ -23,7 +23,7 @@ internal sealed class ManagementServerSetManagementServerPasswordViewModel : Man
 
     protected override ManagementServerSetManagementServerPasswordRequest BuildRequest()
     {
-        return new ManagementServerSetManagementServerPasswordRequest(Password!);
+        return new(Password!);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

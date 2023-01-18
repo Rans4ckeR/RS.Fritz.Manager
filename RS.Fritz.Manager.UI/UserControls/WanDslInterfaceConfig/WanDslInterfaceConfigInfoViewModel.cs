@@ -27,16 +27,16 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
 
     public WanDslInterfaceConfigInfoViewModel()
     {
-        UpstreamCurrRateHistory = new List<UIElement>();
-        DownstreamCurrRateHistory = new List<UIElement>();
-        UpstreamMaxRateHistory = new List<UIElement>();
-        DownstreamMaxRateHistory = new List<UIElement>();
-        UpstreamNoiseMarginHistory = new List<UIElement>();
-        DownstreamNoiseMarginHistory = new List<UIElement>();
-        UpstreamAttenuationHistory = new List<UIElement>();
-        DownstreamAttenuationHistory = new List<UIElement>();
-        UpstreamPowerHistory = new List<UIElement>();
-        DownstreamPowerHistory = new List<UIElement>();
+        UpstreamCurrRateHistory = new();
+        DownstreamCurrRateHistory = new();
+        UpstreamMaxRateHistory = new();
+        DownstreamMaxRateHistory = new();
+        UpstreamNoiseMarginHistory = new();
+        DownstreamNoiseMarginHistory = new();
+        UpstreamAttenuationHistory = new();
+        DownstreamAttenuationHistory = new();
+        UpstreamPowerHistory = new();
+        DownstreamPowerHistory = new();
 
         maxBrush.Freeze();
         minBrush.Freeze();

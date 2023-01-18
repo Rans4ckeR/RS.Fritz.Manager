@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>()
             .AddSingleton<IUsersService, UsersService>()
             .AddSingleton<IWebUiService, WebUiService>()
+            .AddSingleton<INetworkService, NetworkService>()
             .AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>()
             .AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>()
             .AddSingleton<IClientFactory<IFritzWanDslInterfaceConfigService>, ClientFactory<IFritzWanDslInterfaceConfigService>>()
@@ -42,7 +43,7 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection ConfigureHttpClients(this IServiceCollection serviceCollection)
     {
-        _ = serviceCollection.AddHttpClient(Constants.HttpClientName)
+        _ = serviceCollection.AddHttpClient(Constants.DefaultHttpClientName)
             .ConfigureHttpClient((_, httpClient) =>
             {
                 httpClient.Timeout = TimeSpan.FromSeconds(10);
@@ -50,17 +51,7 @@ public static class ServiceCollectionExtensions
             })
             .ConfigurePrimaryHttpMessageHandler(_ => new SocketsHttpHandler
             {
-                AutomaticDecompression = DecompressionMethods.All
-            });
-        _ = serviceCollection.AddHttpClient(Constants.NonValidatingHttpsClientName)
-            .ConfigureHttpClient((_, httpClient) =>
-            {
-                httpClient.Timeout = TimeSpan.FromSeconds(10);
-                httpClient.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
-            })
-            .ConfigurePrimaryHttpMessageHandler(_ => new SocketsHttpHandler
-            {
-                SslOptions = new SslClientAuthenticationOptions
+                SslOptions = new()
                 {
                     RemoteCertificateValidationCallback = (_, _, _, sslPolicyErrors) => (sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) == 0,
                     CertificateChainPolicy = new()

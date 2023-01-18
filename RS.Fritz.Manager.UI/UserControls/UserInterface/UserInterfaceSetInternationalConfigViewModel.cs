@@ -45,7 +45,7 @@ internal sealed class UserInterfaceSetInternationalConfigViewModel : ManualOpera
 
     protected override UserInterfaceSetInternationalConfigRequest BuildRequest()
     {
-        return new UserInterfaceSetInternationalConfigRequest(Language!, Country!, Annex!);
+        return new(Language!, Country!, Annex!);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
