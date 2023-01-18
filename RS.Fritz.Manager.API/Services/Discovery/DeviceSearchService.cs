@@ -59,8 +59,8 @@ internal sealed class DeviceSearchService : IDeviceSearchService
 
     private static Uri GetPreferredLocation(IReadOnlyCollection<Uri> locations)
     {
-        return locations.FirstOrDefault(q => q.HostNameType is UriHostNameType.IPv6 && !IsPrivateIpAddress(IPAddress.Parse(q.Host)))
-            ?? locations.FirstOrDefault(q => q.HostNameType is UriHostNameType.IPv6 && IsPrivateIpAddress(IPAddress.Parse(q.Host)))
+        return locations.FirstOrDefault(q => q.HostNameType is UriHostNameType.IPv6 && !IsPrivateIpAddress(IPAddress.Parse(q.IdnHost)))
+            ?? locations.FirstOrDefault(q => q.HostNameType is UriHostNameType.IPv6 && IsPrivateIpAddress(IPAddress.Parse(q.IdnHost)))
             ?? locations.First(q => q.HostNameType is UriHostNameType.IPv4);
     }
 
@@ -102,23 +102,6 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         }
     }
 
-    private static Uri ParseLocation((IPAddress LocalIpAddress, Uri Location) location)
-    {
-        if (location.Location.HostNameType is not UriHostNameType.IPv6 || !IPAddress.TryParse(location.Location.Host, out IPAddress? ipAddress)
-            || !IsPrivateIpAddress(ipAddress))
-        {
-            return location.Location;
-        }
-
-        var uriBuilder = new UriBuilder(location.Location);
-
-        uriBuilder.Host = FormattableString.Invariant($"[{uriBuilder.Host
-            .Replace("[", null, StringComparison.OrdinalIgnoreCase)
-            .Replace("]", null, StringComparison.OrdinalIgnoreCase)}%{location.LocalIpAddress.ScopeId}]");
-
-        return uriBuilder.Uri;
-    }
-
     private static bool IsPrivateIpAddress(IPAddress ipAddress)
         => ipAddress.AddressFamily switch
         {
@@ -157,6 +140,14 @@ internal sealed class DeviceSearchService : IDeviceSearchService
             .Select(q => q.GetIPProperties())
             .SelectMany(q => q.MulticastAddresses.Select(r => r.Address))
             .Where(q => SupportedAddressFamilies.Contains(q.AddressFamily));
+
+    private Uri ParseLocation((IPAddress LocalIpAddress, Uri Location) location)
+    {
+        if (location.Location.HostNameType is not UriHostNameType.IPv6 || !IPAddress.TryParse(location.Location.IdnHost, out IPAddress? ipAddress) || !IsPrivateIpAddress(ipAddress))
+            return location.Location;
+
+        return networkService.FormatUri(new(IPAddress.Parse(FormattableString.Invariant($"{location.Location.IdnHost}%{location.LocalIpAddress.ScopeId}")), location.Location.Port), location.Location.Scheme, location.Location.PathAndQuery);
+    }
 
     private async Task<(IPAddress IpAddress, IEnumerable<string> Responses)> SearchDevicesAsync(IPAddress unicastAddress, IPAddress multicastAddress, string deviceType, int sendCount, int receiveTimeout, CancellationToken cancellationToken)
     {

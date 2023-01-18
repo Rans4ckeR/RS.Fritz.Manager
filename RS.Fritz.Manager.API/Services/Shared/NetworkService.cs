@@ -19,9 +19,9 @@ internal sealed class NetworkService : INetworkService
         return uriBuilder.Uri;
     }
 
-    public Uri FormatUri(IPEndPoint ipEndPoint)
+    public Uri FormatUri(IPEndPoint ipEndPoint, string? scheme = null, string? path = null)
     {
-        var uriBuilder = new UriBuilder(Uri.UriSchemeHttps, ipEndPoint.Address.ToString(), ipEndPoint.Port);
+        var uriBuilder = new UriBuilder(scheme ?? Uri.UriSchemeHttps, ipEndPoint.Address.ToString(), ipEndPoint.Port, path);
 
         return uriBuilder.Uri;
     }
