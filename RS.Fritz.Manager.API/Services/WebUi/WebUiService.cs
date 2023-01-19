@@ -22,9 +22,12 @@ internal sealed class WebUiService : IWebUiService
     public async Task<WebUiSessionInfo> GetUsersAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         Uri loginUri = GetLoginUri(internetGatewayDevice);
-        await using Stream xmlResponseStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(loginUri, cancellationToken);
+        Stream xmlResponseStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(loginUri, cancellationToken).ConfigureAwait(false);
 
-        return Deserialize(xmlResponseStream);
+        await using (xmlResponseStream.ConfigureAwait(false))
+        {
+            return Deserialize(xmlResponseStream);
+        }
     }
 
     public async Task<WebUiSessionInfo> LogonAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
@@ -80,8 +83,11 @@ internal sealed class WebUiService : IWebUiService
         var formContent = new FormUrlEncodedContent(parameters);
         Uri loginUri = GetLoginUri(internetGatewayDevice);
         using HttpResponseMessage loginResponse = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).PostAsync(loginUri, formContent, cancellationToken);
-        await using Stream xmlResponseStream = await loginResponse.EnsureSuccessStatusCode().Content.ReadAsStreamAsync(cancellationToken);
+        Stream xmlResponseStream = await loginResponse.EnsureSuccessStatusCode().Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
 
-        return Deserialize(xmlResponseStream);
+        await using (xmlResponseStream.ConfigureAwait(false))
+        {
+            return Deserialize(xmlResponseStream);
+        }
     }
 }

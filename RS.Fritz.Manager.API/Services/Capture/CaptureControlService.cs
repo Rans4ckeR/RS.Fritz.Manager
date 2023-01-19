@@ -66,10 +66,17 @@ internal sealed class CaptureControlService : ICaptureControlService
         Uri captureUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, FormattableString.Invariant($"/cgi-bin/capture_notimeout?sid={sid}&capture=Start&snaplen={packetCaptureSizeLimit}&ifaceorminor={captureInterface.InterfaceOrMinor}"));
         HttpClient httpClient = httpClientFactory.CreateClient(Constants.DefaultHttpClientName);
         using HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(captureUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-        await using Stream downloadStream = await httpResponseMessage.EnsureSuccessStatusCode().Content.ReadAsStreamAsync(cancellationToken);
-        await using FileStream fileStream = fileInfo.Open(new FileStreamOptions { Access = FileAccess.Write, Mode = FileMode.CreateNew, Options = FileOptions.Asynchronous });
+        Stream downloadStream = await httpResponseMessage.EnsureSuccessStatusCode().Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
 
-        await downloadStream.CopyToAsync(fileStream, cancellationToken);
+        await using (downloadStream.ConfigureAwait(false))
+        {
+            FileStream fileStream = fileInfo.Open(new FileStreamOptions { Access = FileAccess.Write, Mode = FileMode.CreateNew, Options = FileOptions.Asynchronous });
+
+            await using (fileStream.ConfigureAwait(false))
+            {
+                await downloadStream.CopyToAsync(fileStream, cancellationToken);
+            }
+        }
     }
 
     public async Task StopCaptureAsync(InternetGatewayDevice internetGatewayDevice, CaptureInterface captureInterface, CancellationToken cancellationToken = default)

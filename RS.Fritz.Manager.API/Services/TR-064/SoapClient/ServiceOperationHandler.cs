@@ -7,9 +7,9 @@ internal abstract class ServiceOperationHandler
         if (client is not ICommunicationObject)
             throw new NotSupportedException();
 
-        await using ((IAsyncDisposable)client)
+        await using (((IAsyncDisposable)client).ConfigureAwait(false))
         {
-            return await operation(client);
+            return await operation(client).ConfigureAwait(false);
         }
     }
 }

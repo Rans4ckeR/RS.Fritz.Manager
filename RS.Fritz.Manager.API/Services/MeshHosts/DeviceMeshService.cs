@@ -18,9 +18,13 @@ internal sealed class DeviceMeshService : IDeviceMeshService
         HostsGetMeshListPathResponse hostsGetMeshListPathResponse = await internetGatewayDevice.HostsGetMeshListPathAsync();
         string meshListPath = hostsGetMeshListPathResponse.MeshListPath;
         Uri meshListPathUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, internetGatewayDevice.SecurityPort!.Value, meshListPath);
-        await using Stream deviceMeshJsonStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(meshListPathUri, cancellationToken);
-        var deviceMesh = (DeviceMesh)(await JsonSerializer.DeserializeAsync(deviceMeshJsonStream, typeof(DeviceMesh), cancellationToken: cancellationToken))!;
+        Stream deviceMeshJsonStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(meshListPathUri, cancellationToken).ConfigureAwait(false);
 
-        return new(meshListPath, meshListPathUri, deviceMesh);
+        await using (deviceMeshJsonStream.ConfigureAwait(false))
+        {
+            var deviceMesh = (DeviceMesh)(await JsonSerializer.DeserializeAsync(deviceMeshJsonStream, typeof(DeviceMesh), cancellationToken: cancellationToken))!;
+
+            return new(meshListPath, meshListPathUri, deviceMesh);
+        }
     }
 }

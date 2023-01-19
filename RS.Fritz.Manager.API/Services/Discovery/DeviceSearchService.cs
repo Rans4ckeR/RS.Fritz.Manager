@@ -2,7 +2,6 @@
 
 using System.Buffers;
 using System.Net;
-using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text;
@@ -14,12 +13,6 @@ internal sealed class DeviceSearchService : IDeviceSearchService
     private const int UPnPMultiCastPort = 1900;
     private const int ReceiveTimeoutInSeconds = 2;
     private const int DefaultSendCount = 1;
-
-    private static readonly IReadOnlyList<AddressFamily> SupportedAddressFamilies = new List<AddressFamily>
-    {
-        AddressFamily.InterNetwork,
-        AddressFamily.InterNetworkV6
-    }.AsReadOnly();
 
     private readonly IHttpClientFactory httpClientFactory;
     private readonly IFritzServiceOperationHandler fritzServiceOperationHandler;
@@ -55,13 +48,6 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         return formattedDeviceResponses
             .SelectMany(q => q.Responses.Select(r => new InternetGatewayDeviceResponse(new(r["LOCATION"]), r["SERVER"], r["CACHE-CONTROL"], r["EXT"], r["ST"], r["USN"], q.LocalIpAddress)))
             .GroupBy(q => q.Usn);
-    }
-
-    private static Uri GetPreferredLocation(IReadOnlyCollection<Uri> locations)
-    {
-        return locations.FirstOrDefault(q => q.HostNameType is UriHostNameType.IPv6 && !IsPrivateIpAddress(IPAddress.Parse(q.IdnHost)))
-            ?? locations.FirstOrDefault(q => q.HostNameType is UriHostNameType.IPv6 && IsPrivateIpAddress(IPAddress.Parse(q.IdnHost)))
-            ?? locations.First(q => q.HostNameType is UriHostNameType.IPv4);
     }
 
     private static IEnumerable<Dictionary<string, string>> GetFormattedDeviceResponses(IEnumerable<string> responses)
@@ -102,48 +88,16 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         }
     }
 
-    private static bool IsPrivateIpAddress(IPAddress ipAddress)
-        => ipAddress.AddressFamily switch
-        {
-            AddressFamily.InterNetworkV6 => ipAddress.IsIPv6SiteLocal
-                || ipAddress.IsIPv6UniqueLocal
-                || ipAddress.IsIPv6LinkLocal,
-            AddressFamily.InterNetwork => IsInRange("10.0.0.0", "10.255.255.255", ipAddress)
-                || IsInRange("172.16.0.0", "172.31.255.255", ipAddress)
-                || IsInRange("172.16.0.0", "172.31.255.255", ipAddress)
-                || IsInRange("192.168.0.0", "192.168.255.255", ipAddress)
-                || IsInRange("169.254.0.0", "169.254.255.255", ipAddress)
-                || IsInRange("127.0.0.0", "127.255.255.255", ipAddress)
-                || IsInRange("0.0.0.0", "0.255.255.255", ipAddress),
-            _ => throw new ArgumentOutOfRangeException(nameof(ipAddress), ipAddress, null),
-        };
-
-    private static bool IsInRange(string startIpAddress, string endIpAddress, IPAddress address)
+    private Uri GetPreferredLocation(IReadOnlyCollection<Uri> locations)
     {
-        uint ipStart = BitConverter.ToUInt32(IPAddress.Parse(startIpAddress).GetAddressBytes().Reverse().ToArray(), 0);
-        uint ipEnd = BitConverter.ToUInt32(IPAddress.Parse(endIpAddress).GetAddressBytes().Reverse().ToArray(), 0);
-        uint ip = BitConverter.ToUInt32(address.GetAddressBytes().Reverse().ToArray(), 0);
-
-        return ip >= ipStart && ip <= ipEnd;
+        return locations.FirstOrDefault(q => q.HostNameType is UriHostNameType.IPv6 && !networkService.IsPrivateIpAddress(IPAddress.Parse(q.IdnHost)))
+            ?? locations.FirstOrDefault(q => q.HostNameType is UriHostNameType.IPv6 && networkService.IsPrivateIpAddress(IPAddress.Parse(q.IdnHost)))
+            ?? locations.First(q => q.HostNameType is UriHostNameType.IPv4);
     }
-
-    private static IEnumerable<IPAddress> GetUnicastAddresses()
-        => NetworkInterface.GetAllNetworkInterfaces()
-            .Where(q => q.OperationalStatus is OperationalStatus.Up && q.NetworkInterfaceType is not NetworkInterfaceType.Loopback)
-            .Select(q => q.GetIPProperties())
-            .SelectMany(q => q.UnicastAddresses.Select(r => r.Address))
-            .Where(q => SupportedAddressFamilies.Contains(q.AddressFamily));
-
-    private static IEnumerable<IPAddress> GetMulticastAddresses()
-        => NetworkInterface.GetAllNetworkInterfaces()
-            .Where(q => q.OperationalStatus is OperationalStatus.Up && q.NetworkInterfaceType is not NetworkInterfaceType.Loopback)
-            .Select(q => q.GetIPProperties())
-            .SelectMany(q => q.MulticastAddresses.Select(r => r.Address))
-            .Where(q => SupportedAddressFamilies.Contains(q.AddressFamily));
 
     private Uri ParseLocation((IPAddress LocalIpAddress, Uri Location) location)
     {
-        if (location.Location.HostNameType is not UriHostNameType.IPv6 || !IPAddress.TryParse(location.Location.IdnHost, out IPAddress? ipAddress) || !IsPrivateIpAddress(ipAddress))
+        if (location.Location.HostNameType is not UriHostNameType.IPv6 || !IPAddress.TryParse(location.Location.IdnHost, out IPAddress? ipAddress) || !networkService.IsPrivateIpAddress(ipAddress))
             return location.Location;
 
         return networkService.FormatUri(new(IPAddress.Parse(FormattableString.Invariant($"{location.Location.IdnHost}%{location.LocalIpAddress.ScopeId}")), location.Location.Port), location.Location.Scheme, location.Location.PathAndQuery);
@@ -178,19 +132,23 @@ internal sealed class DeviceSearchService : IDeviceSearchService
 
     private async ValueTask<IEnumerable<(IPAddress LocalIpAddress, IEnumerable<string> Responses)>> GetRawDeviceResponses(string deviceType, int sendCount, int timeout, CancellationToken cancellationToken)
     {
-        IEnumerable<IPAddress> unicastAddresses = GetUnicastAddresses();
-        IEnumerable<IPAddress> multicastAddresses = GetMulticastAddresses();
-        (IPAddress LocalIpAddress, IEnumerable<string> Responses)[] localAddressesDeviceResponses = await TaskExtensions.WhenAllSafe(multicastAddresses.SelectMany(q => unicastAddresses.Where(r => r.AddressFamily == q.AddressFamily).Select(r => SearchDevicesAsync(r, q, deviceType, sendCount, timeout, cancellationToken))));
+        IEnumerable<IPAddress> unicastAddresses = networkService.GetUnicastAddresses();
+        IEnumerable<IPAddress> multicastAddresses = networkService.GetMulticastAddresses();
+        (IPAddress LocalIpAddress, IEnumerable<string> Responses)[] localAddressesDeviceResponses = await TaskExtensions.WhenAllSafe(multicastAddresses.SelectMany(q => unicastAddresses.Where(r => r.AddressFamily == q.AddressFamily).Select(r => SearchDevicesAsync(r, q, deviceType, sendCount, timeout, cancellationToken)))).ConfigureAwait(false);
 
         return localAddressesDeviceResponses.Where(q => q.Responses.Any(r => r.Any())).Select(q => (q.LocalIpAddress, q.Responses)).Distinct();
     }
 
     private async ValueTask<UPnPDescription> GetUPnPDescription(Uri uri, CancellationToken cancellationToken)
     {
-        await using Stream uPnPDescription = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(uri, cancellationToken);
-        using var xmlTextReader = new XmlTextReader(uPnPDescription);
+        Stream uPnPDescription = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(uri, cancellationToken).ConfigureAwait(false);
 
-        return (UPnPDescription)new DataContractSerializer(typeof(UPnPDescription)).ReadObject(xmlTextReader)!;
+        await using (uPnPDescription.ConfigureAwait(false))
+        {
+            using var xmlTextReader = new XmlTextReader(uPnPDescription);
+
+            return (UPnPDescription)new DataContractSerializer(typeof(UPnPDescription)).ReadObject(xmlTextReader)!;
+        }
     }
 
     private async Task<InternetGatewayDevice> GetInternetGatewayDeviceAsync(IGrouping<string, InternetGatewayDeviceResponse> internetGatewayDeviceResponses, CancellationToken cancellationToken)

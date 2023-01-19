@@ -19,10 +19,14 @@ internal sealed class WlanDeviceService : IWlanDeviceService
         WlanConfigurationGetWlanDeviceListPathResponse wlanConfigurationGetWlanDeviceListPathResponse = await internetGatewayDevice.WlanConfigurationGetWlanDeviceListPathAsync(1);
         string wlanDeviceListPath = wlanConfigurationGetWlanDeviceListPathResponse.WlanDeviceListPath;
         Uri wlanDeviceListPathUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, internetGatewayDevice.SecurityPort!.Value, wlanDeviceListPath);
-        await using Stream wlanDeviceListXmlStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(wlanDeviceListPathUri, cancellationToken);
-        using var xmlTextReader = new XmlTextReader(wlanDeviceListXmlStream);
-        var wlanDeviceList = (WlanDeviceList)new XmlSerializer(typeof(WlanDeviceList)).Deserialize(xmlTextReader)!;
+        Stream wlanDeviceListXmlStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(wlanDeviceListPathUri, cancellationToken).ConfigureAwait(false);
 
-        return new(wlanDeviceListPath, wlanDeviceListPathUri, wlanDeviceList);
+        await using (wlanDeviceListXmlStream.ConfigureAwait(false))
+        {
+            using var xmlTextReader = new XmlTextReader(wlanDeviceListXmlStream);
+            var wlanDeviceList = (WlanDeviceList)new XmlSerializer(typeof(WlanDeviceList)).Deserialize(xmlTextReader)!;
+
+            return new(wlanDeviceListPath, wlanDeviceListPathUri, wlanDeviceList);
+        }
     }
 }
