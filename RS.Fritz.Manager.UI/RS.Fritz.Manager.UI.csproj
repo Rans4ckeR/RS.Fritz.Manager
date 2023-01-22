@@ -32,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Images\Device.png" />
-    <None Remove="Images\Password.png" />
     <None Remove="Images\Search.png" />
     <None Remove="Images\User.png" />
     <None Remove="Images\Login.png" />
@@ -52,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Device.png" />
-    <Resource Include="Images\Password.png" />
     <Resource Include="Images\Search.png" />
     <Resource Include="Images\User.png" />
     <Resource Include="Images\Login.png" />

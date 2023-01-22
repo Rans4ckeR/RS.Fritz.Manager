@@ -1,5 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
+using System.Security;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
@@ -8,7 +9,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
 {
     private ObservableInternetGatewayDevice? internetGatewayDevice;
     private User? user;
-    private string? password;
+    private SecureString? password;
     private bool loginInfoSet;
 
     public DeviceLoginInfo()
@@ -20,7 +21,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
         {
             ((DeviceLoginInfo)r).Receive(m);
         });
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<string?>>(this, (r, m) =>
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<SecureString?>>(this, (r, m) =>
         {
             ((DeviceLoginInfo)r).Receive(m);
         });
@@ -36,7 +37,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
         set => _ = SetProperty(ref internetGatewayDevice, value, true);
     }
 
-    public string? Password
+    public SecureString? Password
     {
         get => password;
         set => _ = SetProperty(ref password, value, true);
@@ -82,7 +83,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
         }
     }
 
-    private void Receive(PropertyChangedMessage<string?> message)
+    private void Receive(PropertyChangedMessage<SecureString?> message)
     {
         if (message.Sender != this)
             return;
@@ -116,6 +117,6 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
 
     private void SetLoginInfo()
     {
-        LoginInfoSet = InternetGatewayDevice is not null && User is not null && !string.IsNullOrWhiteSpace(Password);
+        LoginInfoSet = InternetGatewayDevice is not null && User is not null && Password is not null;
     }
 }
