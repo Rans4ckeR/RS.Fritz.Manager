@@ -39,6 +39,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -47,9 +49,13 @@
             <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=MaxCharsPassword}" Content="_MaxCharsPassword"/>
             <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=MinCharsPassword}" Content="_MinCharsPassword"/>
             <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=AllowedCharsPassword}" Content="_AllowedCharsPassword"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=AllowedCharsUsername}" Content="_AllowedCharsUsername"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=IsDefaultPasswordActive}" Content="_IsDefaultPasswordActive" ToolTip="False if no user with default password, True if at least one user with default password."/>
             <TextBlock x:Name="MaxCharsPassword" Grid.Row="0" Grid.Column="1" Text="{Binding MaxCharsPassword}"/>
             <TextBlock x:Name="MinCharsPassword" Grid.Row="1" Grid.Column="1" Text="{Binding MinCharsPassword}"/>
             <TextBlock x:Name="AllowedCharsPassword" Grid.Row="2" Grid.Column="1" Text="{Binding AllowedCharsPassword}"/>
+            <TextBlock x:Name="AllowedCharsUsername" Grid.Row="3" Grid.Column="1" Text="{Binding AllowedCharsUsername}"/>
+            <TextBlock x:Name="IsDefaultPasswordActive" Grid.Row="4" Grid.Column="1" Text="{Binding IsDefaultPasswordActive}"/>
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:LanConfigSecurityGetUserListResponse}">

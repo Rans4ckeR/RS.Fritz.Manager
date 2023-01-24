@@ -19,4 +19,6 @@ public readonly record struct WlanConfigurationGetInfoResponse(
     [property: MessageBodyMember(Name = "NewAllowedCharsSSID")] string AllowedCharsSsid,
     [property: MessageBodyMember(Name = "NewMinCharsPSK")] byte MinCharsPsk,
     [property: MessageBodyMember(Name = "NewMaxCharsPSK")] byte MaxCharsPsk,
-    [property: MessageBodyMember(Name = "NewAllowedCharsPSK")] string AllowedCharsPsk);
+    [property: MessageBodyMember(Name = "NewAllowedCharsPSK")] string AllowedCharsPsk,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_FrequencyBand")] string FrequencyBand,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_WLANGlobalEnable")] bool WlanGlobalEnable);

@@ -13,17 +13,14 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=LaborVersion}" Content="_LaborVersion" ToolTip="'Current' currently used Version, either Release or Labor XXX Release-Firmware: '' Labor-Firmware: content of CONFIG_LABOR_ID_NAME e.g. phone."/>
-                <TextBox x:Name="LaborVersion" Grid.Row="0" Grid.Column="1" MinWidth="50" Text="{Binding LaborVersion, UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Grid.Row="1" Grid.Column="0" Content="{Binding ButtonText}" Command="{Binding DefaultCommand}" CommandParameter="{StaticResource False}"/>
-                <ContentControl Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Content="{Binding Response.Value}"/>
+                <Button Grid.Row="0" Grid.Column="0" Content="{Binding ButtonText}" Command="{Binding DefaultCommand}" CommandParameter="{StaticResource False}"/>
+                <ContentControl Grid.Row="0" Grid.Column="2" Content="{Binding Response.Value}"/>
             </Grid>
         </Expander>
     </Border>

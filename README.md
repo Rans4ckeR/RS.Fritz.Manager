@@ -177,9 +177,12 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ✅ GetATMEncapsulation
   * ✅ GetAutoConfig
   * ✅ GetStatistics
+* ❌ urn:dslforum-org:service:X_AVM-DE_WANMobileConnection
 * 🔶 urn:dslforum-org:service:X_AVM-DE_Speedtest
   * ✅ GetInfo
   * ❌ SetConfig
+  * ❌ GetStatistics
+  * ❌ ResetStatistics
 * ❌ urn:dslforum-org:service:X_AVM-DE_RemoteAccess
 * ❌ urn:dslforum-org:service:X_AVM-DE_MyFritz
 * ❌ urn:dslforum-org:service:X_AVM-DE_HostFilter
@@ -203,6 +206,7 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ✅ GetHostNumberOfEntries
   * ❌ GetSpecificHostEntry
   * ✅ GetGenericHostEntry
+  * ❌ X_AVM-DE_GetInfo
   * ✅ X_AVM-DE_GetChangeCounter
   * ❌ X_AVM-DE_GetAutoWakeOnLANByMACAddress
   * ❌ X_AVM-DE_SetAutoWakeOnLANByMACAddress
@@ -211,16 +215,19 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ❌ X_AVM-DE_GetSpecificHostEntryByIp
   * ❌ X_AVM-DE_HostsCheckUpdate
   * ❌ X_AVM-DE_HostDoUpdate
+  * ❌ X_AVM-DE_SetPrioritizationByIP
   * ✅ X_AVM-DE_GetHostListPath
   * ✅ X_AVM-DE_GetMeshListPath
+  * ❌ X_AVM-DE_GetFriendlyName
+  * ❌ X_AVM-DE_SetFriendlyName
+  * ❌ X_AVM-DE_SetFriendlyNameByIP
+  * ❌ X_AVM-DE_SetFriendlyNameByMAC
 * 🔶 urn:dslforum-org:service:WLANConfiguration
   * ❌ SetEnable
   * ✅ GetInfo
   * ❌ SetConfig
   * ❌ SetSecurityKeys
   * ❌ GetSecurityKeys
-  * ❌ SetDefaultWEPKeyIndex
-  * ❌ GetDefaultWEPKeyIndex
   * ❌ SetBasBeaconSecurityProperties
   * ✅ GetBasBeaconSecurityProperties
   * ✅ GetBSSID
@@ -269,6 +276,7 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ✅ GetInfo
   * ✅ GetStatistics
 * ❌ urn:dslforum-org:service:X_AVM-DE_Dect
+* ❌ urn:dslforum-org:service:X_AVM-DE_Media
 * ❌ urn:dslforum-org:service:X_AVM-DE_Homeauto
 * ❌ urn:dslforum-org:service:X_AVM-DE_Homeplug
 
@@ -297,6 +305,8 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ✅ X_AVM-DE_CreateUrlSID
   * ✅ X_AVM-DE_GetSupportDataInfo
   * ❌ X_AVM-DE_SendSupportData
+  * ❌ X_AVM-DE_GetSupportDataEnable
+  * ❌ X_AVM-DE_SetSupportDataEnable
 * ✅ urn:dslforum-org:service:LANConfigSecurity
   * ✅ GetInfo
   * ✅ X_AVM-DE_GetAnonymousLogin
@@ -315,6 +325,7 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ✅ X_SetTR069Enable
   * ✅ X_AVM-DE_GetTR069FirmwareDownloadEnabled
   * ✅ X_AVM-DE_SetTR069FirmwareDownloadEnabled
+* ❌ urn:dslforum-org:service:X_AVM-DE_USPController
 * ❌ urn:dslforum-org:service:X_AVM-DE_Auth
 * ✅ urn:dslforum-org:service:Time
   * ✅ GetInfo

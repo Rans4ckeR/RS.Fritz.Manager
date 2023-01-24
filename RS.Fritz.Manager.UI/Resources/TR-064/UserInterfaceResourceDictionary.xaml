@@ -13,6 +13,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -34,8 +35,10 @@
             <ContentControl x:Name="InfoUrl" Grid.Row="6" Grid.Column="1" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding InfoUrl}"/>
             <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=UpdateState}" Content="_UpdateState" ToolTip="Possible values are Started, Stopped, Error, NoUpdate, UpdateAvailable, Unknown."/>
             <TextBlock x:Name="UpdateState" Grid.Row="7" Grid.Column="1" Text="{Binding UpdateState}"/>
-            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=LaborVersion}" Content="_LaborVersion" ToolTip="'Current' currently used Version, either Release or Labor XXX Release-Firmware: '' Labor-Firmware: content of CONFIG_LABOR_ID_NAME e.g. phone."/>
-            <TextBlock x:Name="LaborVersion" Grid.Row="8" Grid.Column="1" Text="{Binding LaborVersion}"/>
+            <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=BuildType}" Content="_BuildType" ToolTip="Possible values are Release, Intern, Work, Personal, Modified, Inhaus, Labor_Beta, Labor_RC, Labor_DSL, Labor_Phone, Labor, Labor_Test, Labor_Plus."/>
+            <TextBlock x:Name="BuildType" Grid.Row="8" Grid.Column="1" Text="{Binding BuildType}"/>
+            <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=SetupAssistantStatus}" Content="_SetupAssistantStatus"/>
+            <TextBlock x:Name="SetupAssistantStatus" Grid.Row="9" Grid.Column="1" Text="{Binding SetupAssistantStatus}"/>
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:UserInterfaceDoPrepareCgiResponse}">
