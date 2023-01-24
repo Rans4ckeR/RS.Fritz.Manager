@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IFritzServiceOperationHandler, FritzServiceOperationHandler>()
             .AddSingleton<IUsersService, UsersService>()
             .AddSingleton<IWebUiService, WebUiService>()
+            .AddSingleton<INetworkService, NetworkService>()
             .AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>()
             .AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>()
             .AddSingleton<IClientFactory<IFritzWanDslInterfaceConfigService>, ClientFactory<IFritzWanDslInterfaceConfigService>>()
@@ -42,25 +43,22 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection ConfigureHttpClients(this IServiceCollection serviceCollection)
     {
-        _ = serviceCollection.AddHttpClient(Constants.HttpClientName)
-            .ConfigureHttpClient((_, httpClient) =>
-            {
-                httpClient.Timeout = TimeSpan.FromSeconds(60);
-                httpClient.DefaultRequestVersion = Version.Parse("2.0");
-            })
-            .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
-            {
-                AutomaticDecompression = DecompressionMethods.All
-            });
-        _ = serviceCollection.AddHttpClient(Constants.NonValidatingHttpsClientName)
+        _ = serviceCollection.AddHttpClient(Constants.DefaultHttpClientName)
             .ConfigureHttpClient((_, httpClient) =>
             {
                 httpClient.Timeout = TimeSpan.FromSeconds(10);
-                httpClient.DefaultRequestVersion = Version.Parse("2.0");
+                httpClient.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
             })
-            .ConfigurePrimaryHttpMessageHandler(_ => new HttpClientHandler
+            .ConfigurePrimaryHttpMessageHandler(_ => new SocketsHttpHandler
             {
-                ServerCertificateCustomValidationCallback = (_, _, _, sslPolicyErrors) => (sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) == 0,
+                SslOptions = new()
+                {
+                    RemoteCertificateValidationCallback = (_, _, _, sslPolicyErrors) => (sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) == 0,
+                    CertificateChainPolicy = new()
+                    {
+                        DisableCertificateDownloads = true
+                    }
+                },
                 AutomaticDecompression = DecompressionMethods.All
             });
 

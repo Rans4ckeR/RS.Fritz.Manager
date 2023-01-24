@@ -23,7 +23,7 @@ internal sealed class ManagementServerSetTr069FirmwareDownloadEnabledViewModel :
 
     protected override ManagementServerSetTr069FirmwareDownloadEnabledRequest BuildRequest()
     {
-        return new ManagementServerSetTr069FirmwareDownloadEnabledRequest(Tr069FirmwareDownloadEnabled!.Value);
+        return new(Tr069FirmwareDownloadEnabled!.Value);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

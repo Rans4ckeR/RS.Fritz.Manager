@@ -23,7 +23,7 @@ internal sealed class UserInterfaceSetConfigViewModel : ManualOperationViewModel
 
     protected override UserInterfaceSetConfigRequest BuildRequest()
     {
-        return new UserInterfaceSetConfigRequest(AutoUpdateMode!);
+        return new(AutoUpdateMode!);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

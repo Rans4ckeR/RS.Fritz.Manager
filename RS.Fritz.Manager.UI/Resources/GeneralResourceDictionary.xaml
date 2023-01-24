@@ -61,11 +61,13 @@
         <Setter Property="Background" Value="{StaticResource TitleBackgroundSolidColorBrush}"/>
     </Style>
     <Style TargetType="{x:Type DataGrid}">
-        <Setter Property="IsReadOnly" Value="True"/>
         <Setter Property="Foreground" Value="{StaticResource TextSolidColorBrush}"/>
         <Setter Property="Background" Value="{StaticResource TitleBackgroundSolidColorBrush}"/>
         <Setter Property="AlternatingRowBackground" Value="{StaticResource NavigationBackgroundSolidColorBrush}"/>
         <Setter Property="RowBackground" Value="{StaticResource TitleBackgroundSolidColorBrush}"/>
+    </Style>
+    <Style TargetType="{x:Type ui:NoScrollDataGrid}" BasedOn="{StaticResource {x:Type DataGrid}}">
+        <Setter Property="IsReadOnly" Value="True"/>
     </Style>
     <DataTemplate DataType="{x:Type system:String}" x:Key="UrlDataTemplate">
         <TextBlock>

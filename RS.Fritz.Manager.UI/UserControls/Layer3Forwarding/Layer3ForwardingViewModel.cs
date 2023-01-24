@@ -63,11 +63,11 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
         {
             ushort capturedIndex = i;
 
-            tasks.Add(ExecuteApiAsync(q => q.Layer3ForwardingGetGenericForwardingEntryAsync(new Layer3ForwardingGetGenericForwardingEntryRequest(capturedIndex))));
+            tasks.Add(ExecuteApiAsync(q => q.Layer3ForwardingGetGenericForwardingEntryAsync(new(capturedIndex))));
         }
 
         KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks);
 
-        Layer3ForwardingGetGenericForwardingEntryResponses = new ObservableCollection<Layer3ForwardingGetGenericForwardingEntryResponse>(responses.Select(q => q.Key!.Value));
+        Layer3ForwardingGetGenericForwardingEntryResponses = new(responses.Select(q => q.Key!.Value));
     }
 }

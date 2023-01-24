@@ -2,7 +2,14 @@
 
 public static class TaskExtensions
 {
-    public static async Task<TResult[]> WhenAllSafe<TResult>(IEnumerable<Task<TResult>> tasks)
+    /// <summary>
+    /// Executes a list of tasks and waits for all of them to complete and throws an <see cref="AggregateException"/> containing all exceptions from all tasks.
+    /// When using <see cref="Task.WhenAll(IEnumerable{Task})"/> only the first thrown exception from a single <see cref="Task"/> may be observed.
+    /// </summary>
+    /// <typeparam name="T">The type of <paramref name="tasks"/>'s return value.</typeparam>
+    /// <param name="tasks">The list of <see cref="Task"/>s who's exceptions will be handled.</param>
+    /// <returns>Returns a <see cref="Task"/> that awaited and handled the original <paramref name="tasks"/>.</returns>
+    public static async Task<T[]> WhenAllSafe<T>(IEnumerable<Task<T>> tasks)
     {
         var whenAllTask = Task.WhenAll(tasks);
 
@@ -12,14 +19,19 @@ public static class TaskExtensions
         }
         catch
         {
-            // Ignore individual task exceptions
-        }
+            if (whenAllTask.Exception is null)
+                throw;
 
-#pragma warning disable CS8597 // Thrown value may be null.
-        throw whenAllTask.Exception;
-#pragma warning restore CS8597 // Thrown value may be null.
+            throw whenAllTask.Exception;
+        }
     }
 
+    /// <summary>
+    /// Executes a list of tasks and waits for all of them to complete and throws an <see cref="AggregateException"/> containing all exceptions from all tasks.
+    /// When using <see cref="Task.WhenAll(IEnumerable{Task})"/> only the first thrown exception from a single <see cref="Task"/> may be observed.
+    /// </summary>
+    /// <param name="tasks">The list of <see cref="Task"/>s who's exceptions will be handled.</param>
+    /// <returns>Returns a <see cref="Task"/> that awaited and handled the original <paramref name="tasks"/>.</returns>
     public static async Task WhenAllSafe(IEnumerable<Task> tasks)
     {
         var whenAllTask = Task.WhenAll(tasks);
@@ -27,16 +39,13 @@ public static class TaskExtensions
         try
         {
             await whenAllTask;
-
-            return;
         }
         catch
         {
-            // Ignore individual task exceptions
-        }
+            if (whenAllTask.Exception is null)
+                throw;
 
-#pragma warning disable CS8597 // Thrown value may be null.
-        throw whenAllTask.Exception;
-#pragma warning restore CS8597 // Thrown value may be null.
+            throw whenAllTask.Exception;
+        }
     }
 }

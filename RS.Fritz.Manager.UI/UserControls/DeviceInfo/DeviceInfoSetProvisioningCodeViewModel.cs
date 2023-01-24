@@ -23,7 +23,7 @@ internal sealed class DeviceInfoSetProvisioningCodeViewModel : ManualOperationVi
 
     protected override DeviceInfoSetProvisioningCodeRequest BuildRequest()
     {
-        return new DeviceInfoSetProvisioningCodeRequest(ProvisioningCode!);
+        return new(ProvisioningCode!);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

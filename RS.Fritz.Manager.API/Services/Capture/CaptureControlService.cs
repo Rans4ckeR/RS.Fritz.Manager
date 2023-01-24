@@ -5,26 +5,27 @@ using System.Globalization;
 internal sealed class CaptureControlService : ICaptureControlService
 {
     private readonly IHttpClientFactory httpClientFactory;
+    private readonly INetworkService networkService;
 
-    public CaptureControlService(IHttpClientFactory httpClientFactory)
+    public CaptureControlService(IHttpClientFactory httpClientFactory, INetworkService networkService)
     {
         this.httpClientFactory = httpClientFactory;
+        this.networkService = networkService;
     }
 
     public async Task<IEnumerable<CaptureInterfaceGroup>> GetInterfacesAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         string sid = await GetSidAsync(internetGatewayDevice);
-        var captureUri = new Uri(FormattableString.Invariant($"https://{internetGatewayDevice.PreferredLocation.Host}/data.lua"));
-        HttpClient httpClient = httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName);
+        Uri captureUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, "/data.lua");
+        HttpClient httpClient = httpClientFactory.CreateClient(Constants.DefaultHttpClientName);
         var content = new FormUrlEncodedContent(new Dictionary<string, string>
         {
             { "xhr", "1" },
             { "sid", sid },
-            { "lang", "en" },
             { "oldpage", "/capture.lua" },
-            { "initalRefreshParamsSaved", "true" }
+            { "page", "cap" }
         });
-        HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(captureUri, content, cancellationToken);
+        using HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(captureUri, content, cancellationToken);
         string responseContent = await httpResponseMessage.EnsureSuccessStatusCode().Content.ReadAsStringAsync(cancellationToken);
         var captureInterfaceGroups = new List<CaptureInterfaceGroup>();
         int groupNameBeginPosition = -1;
@@ -49,11 +50,11 @@ internal sealed class CaptureControlService : ICaptureControlService
                 string stopParameter = responseContent[stopParameterBeginPosition..stopParameterEndPosition];
                 string[] stopParameterParts = stopParameter.Split(';');
 
-                captureInterfaces.Add(new CaptureInterface(interfaceName, startParameter, stopParameterParts[0], stopParameterParts[1], stopParameterParts[2]));
+                captureInterfaces.Add(new(interfaceName, startParameter, stopParameterParts[0], stopParameterParts[1], stopParameterParts[2]));
             }
 
             if (captureInterfaces.Any())
-                captureInterfaceGroups.Add(new CaptureInterfaceGroup(groupName, captureInterfaces));
+                captureInterfaceGroups.Add(new(groupName, captureInterfaces));
         }
 
         return captureInterfaceGroups;
@@ -62,13 +63,20 @@ internal sealed class CaptureControlService : ICaptureControlService
     public async Task StartCaptureAsync(InternetGatewayDevice internetGatewayDevice, FileInfo fileInfo, CaptureInterface captureInterface, int packetCaptureSizeLimit = 1600, CancellationToken cancellationToken = default)
     {
         string sid = await GetSidAsync(internetGatewayDevice);
-        var captureUri = new Uri(FormattableString.Invariant($"https://{internetGatewayDevice.PreferredLocation.Host}/cgi-bin/capture_notimeout?sid={sid}&capture=Start&snaplen={packetCaptureSizeLimit}&ifaceorminor={captureInterface.InterfaceOrMinor}"));
-        HttpClient httpClient = httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName);
-        HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(captureUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-        await using Stream downloadStream = await httpResponseMessage.EnsureSuccessStatusCode().Content.ReadAsStreamAsync(cancellationToken);
-        await using FileStream fileStream = fileInfo.Open(new FileStreamOptions { Access = FileAccess.Write, Mode = FileMode.CreateNew, Options = FileOptions.Asynchronous });
+        Uri captureUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, FormattableString.Invariant($"/cgi-bin/capture_notimeout?sid={sid}&capture=Start&snaplen={packetCaptureSizeLimit}&ifaceorminor={captureInterface.InterfaceOrMinor}"));
+        HttpClient httpClient = httpClientFactory.CreateClient(Constants.DefaultHttpClientName);
+        using HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(captureUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        Stream downloadStream = await httpResponseMessage.EnsureSuccessStatusCode().Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
 
-        await downloadStream.CopyToAsync(fileStream, cancellationToken);
+        await using (downloadStream.ConfigureAwait(false))
+        {
+            FileStream fileStream = fileInfo.Open(new FileStreamOptions { Access = FileAccess.Write, Mode = FileMode.CreateNew, Options = FileOptions.Asynchronous });
+
+            await using (fileStream.ConfigureAwait(false))
+            {
+                await downloadStream.CopyToAsync(fileStream, cancellationToken);
+            }
+        }
     }
 
     public async Task StopCaptureAsync(InternetGatewayDevice internetGatewayDevice, CaptureInterface captureInterface, CancellationToken cancellationToken = default)
@@ -76,9 +84,9 @@ internal sealed class CaptureControlService : ICaptureControlService
         string sid = await GetSidAsync(internetGatewayDevice);
         string timeString20 = DateTime.UtcNow.Ticks.ToString("D20", CultureInfo.InvariantCulture);
         string timeId = FormattableString.Invariant($"t{timeString20[^13..]}");
-        var captureUri = new Uri(FormattableString.Invariant($"https://{internetGatewayDevice.PreferredLocation.Host}/cgi-bin/capture_notimeout?iface={captureInterface.Interface}&minor={captureInterface.Minor}&type={captureInterface.Type}&capture=Stop&sid={sid}&useajax=1&xhr=1&{timeId}=nocache"));
-        HttpClient httpClient = httpClientFactory.CreateClient(Constants.NonValidatingHttpsClientName);
-        HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(captureUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+        Uri captureUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, FormattableString.Invariant($"/cgi-bin/capture_notimeout?iface={captureInterface.Interface}&minor={captureInterface.Minor}&type={captureInterface.Type}&capture=Stop&sid={sid}&useajax=1&xhr=1&{timeId}=nocache"));
+        HttpClient httpClient = httpClientFactory.CreateClient(Constants.DefaultHttpClientName);
+        using HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(captureUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
 
         _ = httpResponseMessage.EnsureSuccessStatusCode();
     }

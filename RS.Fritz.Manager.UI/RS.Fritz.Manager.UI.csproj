@@ -1,18 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net7.0-windows10.0.22000.0;net6.0-windows10.0.22000.0</TargetFrameworks>
+    <TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.22621.0</SupportedOSPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <AssemblyName>RS.Fritz.Manager.UI</AssemblyName>
     <RootNamespace>RS.Fritz.Manager.UI</RootNamespace>
     <Title>RS.Fritz.Manager.UI</Title>
     <Product>RS.Fritz.Manager.UI</Product>
-    <Copyright>Copyright 2022 (c) RS. All rights reserved.</Copyright>
-    <Company>RS</Company>
+    <Copyright>Copyright 2023 (c) RS. All rights reserved.</Copyright>
+    <Company>Rans4ckeR</Company>
     <Configuration></Configuration>
     <Trademark></Trademark>
     <Culture></Culture>
-    <Authors>RS</Authors>
+    <Authors>Rans4ckeR</Authors>
     <ComVisible>false</ComVisible>
     <CLSCompliant>false</CLSCompliant>
     <AnalysisLevel>preview-all</AnalysisLevel>
@@ -27,10 +28,10 @@
     <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
     <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
     <Platforms>x64;ARM64</Platforms>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Images\Device.png" />
-    <None Remove="Images\Password.png" />
     <None Remove="Images\Search.png" />
     <None Remove="Images\User.png" />
     <None Remove="Images\Login.png" />
@@ -38,17 +39,9 @@
     <None Remove="Images\Success.png" />
   </ItemGroup>
   <ItemGroup>
-    <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-windows10.0.22000.0'">
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0-preview.2.22152.2" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows10.0.22000.0'">
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0-preview3" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -58,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Device.png" />
-    <Resource Include="Images\Password.png" />
     <Resource Include="Images\Search.png" />
     <Resource Include="Images\User.png" />
     <Resource Include="Images\Login.png" />

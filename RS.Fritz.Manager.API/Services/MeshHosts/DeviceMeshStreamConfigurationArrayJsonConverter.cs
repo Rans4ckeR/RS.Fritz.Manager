@@ -43,7 +43,7 @@ internal sealed class DeviceMeshStreamConfigurationArrayJsonConverter : JsonConv
             if (reader.TokenType != JsonTokenType.EndArray)
                 throw new JsonException();
 
-            deviceMeshStreamConfigurations.Add(new DeviceMeshStreamConfiguration(channelWidth, supportedStreamCount));
+            deviceMeshStreamConfigurations.Add(new(channelWidth, supportedStreamCount));
         }
 
         throw new JsonException();

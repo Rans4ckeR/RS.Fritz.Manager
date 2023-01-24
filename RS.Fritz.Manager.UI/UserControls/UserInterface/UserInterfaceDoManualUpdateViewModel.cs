@@ -34,7 +34,7 @@ internal sealed class UserInterfaceDoManualUpdateViewModel : ManualOperationView
 
     protected override UserInterfaceDoManualUpdateRequest BuildRequest()
     {
-        return new UserInterfaceDoManualUpdateRequest(DownloadUrl!, AllowDowngrade!.Value);
+        return new(DownloadUrl!, AllowDowngrade!.Value);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)

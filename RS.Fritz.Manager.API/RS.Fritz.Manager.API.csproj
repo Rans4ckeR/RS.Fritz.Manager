@@ -1,16 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net7.0;net6.0</TargetFrameworks>
+    <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>RS.Fritz.Manager.API</AssemblyName>
     <RootNamespace>RS.Fritz.Manager.API</RootNamespace>
     <Title>RS.Fritz.Manager.API</Title>
     <Product>RS.Fritz.Manager.API</Product>
-    <Copyright>Copyright 2022 (c) RS. All rights reserved.</Copyright>
-    <Company>RS</Company>
+    <Copyright>Copyright 2023 (c) RS. All rights reserved.</Copyright>
+    <Company>Rans4ckeR</Company>
     <Configuration></Configuration>
     <Trademark></Trademark>
     <Culture></Culture>
-    <Authors>RS</Authors>
     <ComVisible>false</ComVisible>
     <CLSCompliant>false</CLSCompliant>
     <AnalysisLevel>preview-all</AnalysisLevel>
@@ -37,23 +36,15 @@
     <Platform>AnyCPU</Platform>
   </PropertyGroup>
   <ItemGroup>
-    <AdditionalFiles Include="..\.stylecop.json" Link=".stylecop.json" />
     <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0-preview.2.22152.2" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="7.0.0-preview.2.22152.2" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="6.0.0" />
-  </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.ServiceModel.Http" Version="4.9.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="System.ServiceModel.Http" Version="6.0.0-preview1.23060.3" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
 </Project>

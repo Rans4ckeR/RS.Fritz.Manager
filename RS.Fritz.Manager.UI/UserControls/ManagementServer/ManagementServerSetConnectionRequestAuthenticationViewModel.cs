@@ -34,7 +34,7 @@ internal sealed class ManagementServerSetConnectionRequestAuthenticationViewMode
 
     protected override ManagementServerSetConnectionRequestAuthenticationRequest BuildRequest()
     {
-        return new ManagementServerSetConnectionRequestAuthenticationRequest(ConnectionRequestUsername!, ConnectionRequestPassword!);
+        return new(ConnectionRequestUsername!, ConnectionRequestPassword!);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
