@@ -206,7 +206,7 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ✅ GetHostNumberOfEntries
   * ❌ GetSpecificHostEntry
   * ✅ GetGenericHostEntry
-  * ❌ X_AVM-DE_GetInfo
+  * ✅ X_AVM-DE_GetInfo
   * ✅ X_AVM-DE_GetChangeCounter
   * ❌ X_AVM-DE_GetAutoWakeOnLANByMACAddress
   * ❌ X_AVM-DE_SetAutoWakeOnLANByMACAddress

@@ -87,6 +87,11 @@ internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IF
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzHostsServiceClientFactory, (q, r, t) => new FritzHostsService(q, r, t!), FritzHostsService.ControlUrl), q => q.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest));
     }
 
+    public Task<HostsGetInfoResponse> HostsGetInfoAsync(InternetGatewayDevice internetGatewayDevice)
+    {
+        return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzHostsServiceClientFactory, (q, r, t) => new FritzHostsService(q, r, t!), FritzHostsService.ControlUrl), q => q.GetInfoAsync(default));
+    }
+
     public Task<HostsGetChangeCounterResponse> HostsGetChangeCounterAsync(InternetGatewayDevice internetGatewayDevice)
     {
         return ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzHostsServiceClientFactory, (q, r, t) => new FritzHostsService(q, r, t!), FritzHostsService.ControlUrl), q => q.GetChangeCounterAsync(default));

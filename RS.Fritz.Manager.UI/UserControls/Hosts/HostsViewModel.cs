@@ -8,6 +8,7 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     private readonly IDeviceMeshService deviceMeshService;
 
     private KeyValuePair<HostsGetHostNumberOfEntriesResponse?, UPnPFault?>? hostsGetHostNumberOfEntriesResponse;
+    private KeyValuePair<HostsGetInfoResponse?, UPnPFault?>? hostsGetInfoResponse;
     private KeyValuePair<HostsGetChangeCounterResponse?, UPnPFault?>? hostsGetChangeCounterResponse;
     private DeviceHostInfo? deviceHostInfo;
     private DeviceMeshInfo? deviceMeshInfo;
@@ -31,6 +32,12 @@ internal sealed class HostsViewModel : FritzServiceViewModel
             if (SetProperty(ref hostsGetHostNumberOfEntriesResponse, value))
                 HostsGetGenericHostEntryViewModel.HostNumberOfEntries = HostsGetHostNumberOfEntriesResponse?.Key?.HostNumberOfEntries;
         }
+    }
+
+    public KeyValuePair<HostsGetInfoResponse?, UPnPFault?>? HostsGetInfoResponse
+    {
+        get => hostsGetInfoResponse;
+        private set { _ = SetProperty(ref hostsGetInfoResponse, value); }
     }
 
     public KeyValuePair<HostsGetChangeCounterResponse?, UPnPFault?>? HostsGetChangeCounterResponse
@@ -64,6 +71,7 @@ internal sealed class HostsViewModel : FritzServiceViewModel
                 GetHostsGetHostListPathAsync(cancellationToken),
                 GetHostsGetMeshListPathAsync(cancellationToken),
                 GetHostsGetHostNumberOfEntriesAsync(),
+                GetHostsGetInfoAsync(),
                 GetHostsGetChangeCounterAsync()
             });
     }
@@ -85,6 +93,11 @@ internal sealed class HostsViewModel : FritzServiceViewModel
         KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks);
 
         HostsGetGenericHostEntryResponses = new(responses.Select(q => q.Key!.Value));
+    }
+
+    private async Task GetHostsGetInfoAsync()
+    {
+        HostsGetInfoResponse = await ExecuteApiAsync(q => q.HostsGetInfoAsync());
     }
 
     private async Task GetHostsGetChangeCounterAsync()

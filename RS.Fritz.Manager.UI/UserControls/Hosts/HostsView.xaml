@@ -15,12 +15,27 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding DeviceHostInfo}"/>
         <Border Style="{StaticResource BorderStyle}" Grid.Row="1" Grid.Column="0">
+            <Expander Header="Info">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding HostsGetInfoResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding HostsGetInfoResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="2" Grid.Column="0">
             <Expander Header="NumberOfEntries">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -36,8 +51,8 @@
                 </Grid>
             </Expander>
         </Border>
-        <ContentControl Grid.Row="2" Grid.Column="0" Content="{Binding HostsGetGenericHostEntryViewModel}"/>
-        <Border Style="{StaticResource BorderStyle}" Grid.Row="3" Grid.Column="0">
+        <ContentControl Grid.Row="3" Grid.Column="0" Content="{Binding HostsGetGenericHostEntryViewModel}"/>
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="4" Grid.Column="0">
             <Expander Header="ChangeCounter">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -51,6 +66,6 @@
                 </Grid>
             </Expander>
         </Border>
-        <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding DeviceMeshInfo}"/>
+        <ContentControl Grid.Row="5" Grid.Column="0" Content="{Binding DeviceMeshInfo}"/>
     </Grid>
 </UserControl>

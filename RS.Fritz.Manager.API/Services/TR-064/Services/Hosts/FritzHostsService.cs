@@ -26,6 +26,11 @@ internal sealed class FritzHostsService : FritzServiceClient<IFritzHostsService>
         return Channel.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest);
     }
 
+    public Task<HostsGetInfoResponse> GetInfoAsync(HostsGetInfoRequest hostsGetInfoRequest)
+    {
+        return Channel.GetInfoAsync(hostsGetInfoRequest);
+    }
+
     public Task<HostsGetChangeCounterResponse> GetChangeCounterAsync(HostsGetChangeCounterRequest hostsGetChangeCounterRequest)
     {
         return Channel.GetChangeCounterAsync(hostsGetChangeCounterRequest);

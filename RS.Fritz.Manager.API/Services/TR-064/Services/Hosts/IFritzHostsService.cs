@@ -19,6 +19,11 @@ internal interface IFritzHostsService
     [FaultContract(typeof(UPnPFault2))]
     Task<HostsGetGenericHostEntryResponse> GetGenericHostEntryAsync(HostsGetGenericHostEntryRequest hostsGetGenericHostEntryRequest);
 
+    [OperationContract(Action = "urn:dslforum-org:service:Hosts:1#X_AVM-DE_GetInfo")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    Task<HostsGetInfoResponse> GetInfoAsync(HostsGetInfoRequest hostsGetInfoRequest);
+
     [OperationContract(Action = "urn:dslforum-org:service:Hosts:1#X_AVM-DE_GetChangeCounter")]
     [FaultContract(typeof(UPnPFault1))]
     [FaultContract(typeof(UPnPFault2))]

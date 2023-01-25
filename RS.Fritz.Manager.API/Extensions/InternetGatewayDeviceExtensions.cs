@@ -17,6 +17,11 @@ public static class InternetGatewayDeviceExtensions
         return internetGatewayDevice.ExecuteAsync((h, d) => h.HostsGetGenericHostEntryAsync(d, hostsGetGenericHostEntryRequest));
     }
 
+    public static Task<HostsGetInfoResponse> HostsGetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.HostsGetInfoAsync(d));
+    }
+
     public static Task<HostsGetChangeCounterResponse> HostsGetChangeCounterAsync(this InternetGatewayDevice internetGatewayDevice)
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.HostsGetChangeCounterAsync(d));

@@ -15,6 +15,31 @@
             <TextBlock x:Name="HostNumberOfEntries" Grid.Row="0" Grid.Column="1" Text="{Binding HostNumberOfEntries}"/>
         </Grid>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type api:HostsGetInfoResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=FriendlynameMinChar}" Content="_FriendlynameMinChar"/>
+            <TextBlock x:Name="FriendlynameMinChar" Grid.Row="0" Grid.Column="1" Text="{Binding FriendlynameMinChar}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=FriendlynameMaxChars}" Content="_FriendlynameMaxChars"/>
+            <TextBlock x:Name="FriendlynameMaxChars" Grid.Row="1" Grid.Column="1" Text="{Binding FriendlynameMaxChars}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=HostnameMinChars}" Content="_HostnameMinChars"/>
+            <TextBlock x:Name="HostnameMinChars" Grid.Row="2" Grid.Column="1" Text="{Binding HostnameMinChars}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=HostnameMaxChars}" Content="_HostnameMaxChars"/>
+            <TextBlock x:Name="HostnameMaxChars" Grid.Row="3" Grid.Column="1" Text="{Binding HostnameMaxChars}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=HostnameAllowedChars}" Content="_HostnameAllowedChars"/>
+            <TextBlock x:Name="HostnameAllowedChars" Grid.Row="4" Grid.Column="1" Text="{Binding HostnameAllowedChars}"/>
+        </Grid>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type api:HostsGetChangeCounterResponse}">
         <Grid>
             <Grid.RowDefinitions>
