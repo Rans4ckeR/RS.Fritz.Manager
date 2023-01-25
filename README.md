@@ -181,7 +181,7 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
 * 🔶 urn:dslforum-org:service:X_AVM-DE_Speedtest
   * ✅ GetInfo
   * ❌ SetConfig
-  * ❌ GetStatistics
+  * ✅ GetStatistics
   * ❌ ResetStatistics
 * ❌ urn:dslforum-org:service:X_AVM-DE_RemoteAccess
 * ❌ urn:dslforum-org:service:X_AVM-DE_MyFritz

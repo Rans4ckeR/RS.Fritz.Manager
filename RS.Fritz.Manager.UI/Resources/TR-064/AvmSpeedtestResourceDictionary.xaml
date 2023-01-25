@@ -35,4 +35,32 @@
             <TextBlock x:Name="PortUdpBidirect" Grid.Row="7" Grid.Column="1" Text="{Binding PortUdpBidirect}"/>
         </Grid>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type api:AvmSpeedtestGetStatisticsResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ByteCount}" Content="_ByteCount" ToolTip="Total number of bytes counted since reset."/>
+            <TextBlock x:Name="ByteCount" Grid.Row="0" Grid.Column="1" Text="{Binding ByteCount}"/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=KilobitsCurrent}" Content="_KilobitsCurrent" ToolTip="Current data rate in kbits."/>
+            <TextBlock x:Name="KilobitsCurrent" Grid.Row="1" Grid.Column="1" Text="{Binding KilobitsCurrent}"/>
+            <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=KilobitsAverage}" Content="_KilobitsAverage" ToolTip="Data rate in kbits since start of measurement."/>
+            <TextBlock x:Name="KilobitsAverage" Grid.Row="2" Grid.Column="1" Text="{Binding KilobitsAverage}"/>
+            <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=PacketCount}" Content="_PacketCount" ToolTip="Total number of packets counted since reset."/>
+            <TextBlock x:Name="PacketCount" Grid.Row="3" Grid.Column="1" Text="{Binding PacketCount}"/>
+            <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=PacketsPerSecondCurrent}" Content="_PacketsPerSecondCurrent" ToolTip="Current data rate in packets per second."/>
+            <TextBlock x:Name="PacketsPerSecondCurrent" Grid.Row="4" Grid.Column="1" Text="{Binding PacketsPerSecondCurrent}"/>
+            <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=PacketsPerSecondAverage}" Content="_PacketsPerSecondAverage" ToolTip="Data rate in packets per second since start of measurement."/>
+            <TextBlock x:Name="PacketsPerSecondAverage" Grid.Row="5" Grid.Column="1" Text="{Binding PacketsPerSecondAverage}"/>
+        </Grid>
+    </DataTemplate>
 </ResourceDictionary>

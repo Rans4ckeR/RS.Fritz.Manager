@@ -15,4 +15,9 @@ internal sealed class FritzAvmSpeedtestService : FritzServiceClient<IFritzAvmSpe
     {
         return Channel.GetInfoAsync(avmSpeedtestGetInfoRequest);
     }
+
+    public Task<AvmSpeedtestGetStatisticsResponse> GetStatisticsAsync(AvmSpeedtestGetStatisticsRequest avmSpeedtestGetStatisticsRequest)
+    {
+        return Channel.GetStatisticsAsync(avmSpeedtestGetStatisticsRequest);
+    }
 }

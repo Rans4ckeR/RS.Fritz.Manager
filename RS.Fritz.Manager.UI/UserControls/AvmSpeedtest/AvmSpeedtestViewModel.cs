@@ -3,6 +3,7 @@
 internal sealed class AvmSpeedtestViewModel : FritzServiceViewModel
 {
     private KeyValuePair<AvmSpeedtestGetInfoResponse?, UPnPFault?>? avmSpeedtestGetInfoResponse;
+    private KeyValuePair<AvmSpeedtestGetStatisticsResponse?, UPnPFault?>? avmSpeedtestGetStatisticsResponse;
 
     public AvmSpeedtestViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
         : base(deviceLoginInfo, logger, "X_AVM-DE_Speedtest")
@@ -15,8 +16,28 @@ internal sealed class AvmSpeedtestViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref avmSpeedtestGetInfoResponse, value); }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    public KeyValuePair<AvmSpeedtestGetStatisticsResponse?, UPnPFault?>? AvmSpeedtestGetStatisticsResponse
+    {
+        get => avmSpeedtestGetStatisticsResponse;
+        private set { _ = SetProperty(ref avmSpeedtestGetStatisticsResponse, value); }
+    }
+
+    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    {
+        return API.TaskExtensions.WhenAllSafe(new[]
+            {
+                GetAvmSpeedtestGetInfoAsync(),
+                GetAvmSpeedtestGetStatisticsAsync()
+            });
+    }
+
+    private async Task GetAvmSpeedtestGetInfoAsync()
     {
         AvmSpeedtestGetInfoResponse = await ExecuteApiAsync(q => q.AvmSpeedtestGetInfoAsync());
+    }
+
+    private async Task GetAvmSpeedtestGetStatisticsAsync()
+    {
+        AvmSpeedtestGetStatisticsResponse = await ExecuteApiAsync(q => q.AvmSpeedtestGetStatisticsAsync());
     }
 }
