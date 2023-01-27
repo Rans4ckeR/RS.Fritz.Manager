@@ -16,6 +16,11 @@ internal sealed class FritzHostsService : FritzServiceClient<IFritzHostsService>
         return Channel.GetHostNumberOfEntriesAsync(hostsGetHostNumberOfEntriesRequest);
     }
 
+    public Task<HostsHostsCheckUpdateResponse> HostsCheckUpdateAsync(HostsHostsCheckUpdateRequest hostsHostsCheckUpdateRequest)
+    {
+        return Channel.HostsCheckUpdateAsync(hostsHostsCheckUpdateRequest);
+    }
+
     public Task<HostsGetHostListPathResponse> GetHostListPathAsync(HostsGetHostListPathRequest hostsGetHostListPathRequest)
     {
         return Channel.GetHostListPathAsync(hostsGetHostListPathRequest);
@@ -39,5 +44,10 @@ internal sealed class FritzHostsService : FritzServiceClient<IFritzHostsService>
     public Task<HostsGetMeshListPathResponse> GetMeshListPathAsync(HostsGetMeshListPathRequest hostsGetMeshListPathRequest)
     {
         return Channel.GetMeshListPathAsync(hostsGetMeshListPathRequest);
+    }
+
+    public Task<HostsGetFriendlyNameResponse> GetFriendlyNameAsync(HostsGetFriendlyNameRequest hostsGetFriendlyNameRequest)
+    {
+        return Channel.GetFriendlyNameAsync(hostsGetFriendlyNameRequest);
     }
 }

@@ -4,6 +4,8 @@ public interface IFritzServiceOperationHandler
 {
     Task<HostsGetHostNumberOfEntriesResponse> HostsGetHostNumberOfEntriesAsync(InternetGatewayDevice internetGatewayDevice);
 
+    Task<HostsHostsCheckUpdateResponse> HostsHostsCheckUpdateAsync(InternetGatewayDevice internetGatewayDevice);
+
     Task<HostsGetHostListPathResponse> HostsGetHostListPathAsync(InternetGatewayDevice internetGatewayDevice);
 
     Task<HostsGetGenericHostEntryResponse> HostsGetGenericHostEntryAsync(InternetGatewayDevice internetGatewayDevice, HostsGetGenericHostEntryRequest hostsGetGenericHostEntryRequest);
@@ -13,6 +15,8 @@ public interface IFritzServiceOperationHandler
     Task<HostsGetChangeCounterResponse> HostsGetChangeCounterAsync(InternetGatewayDevice internetGatewayDevice);
 
     Task<HostsGetMeshListPathResponse> HostsGetMeshListPathAsync(InternetGatewayDevice internetGatewayDevice);
+
+    Task<HostsGetFriendlyNameResponse> HostsGetFriendlyNameAsync(InternetGatewayDevice internetGatewayDevice);
 
     Task<WanCommonInterfaceConfigGetTotalBytesReceivedResponse> WanCommonInterfaceConfigGetTotalBytesReceivedAsync(InternetGatewayDevice internetGatewayDevice);
 

@@ -7,6 +7,11 @@ public static class InternetGatewayDeviceExtensions
         return internetGatewayDevice.ExecuteAsync((h, d) => h.HostsGetHostNumberOfEntriesAsync(d));
     }
 
+    public static Task<HostsHostsCheckUpdateResponse> HostsHostsCheckUpdateAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.HostsHostsCheckUpdateAsync(d));
+    }
+
     public static Task<HostsGetHostListPathResponse> HostsGetHostListPathAsync(this InternetGatewayDevice internetGatewayDevice)
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.HostsGetHostListPathAsync(d));
@@ -30,6 +35,11 @@ public static class InternetGatewayDeviceExtensions
     public static Task<HostsGetMeshListPathResponse> HostsGetMeshListPathAsync(this InternetGatewayDevice internetGatewayDevice)
     {
         return internetGatewayDevice.ExecuteAsync((h, d) => h.HostsGetMeshListPathAsync(d));
+    }
+
+    public static Task<HostsGetFriendlyNameResponse> HostsGetFriendlyNameAsync(this InternetGatewayDevice internetGatewayDevice)
+    {
+        return internetGatewayDevice.ExecuteAsync((h, d) => h.HostsGetFriendlyNameAsync(d));
     }
 
     public static Task<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse> WanCommonInterfaceConfigGetCommonLinkPropertiesAsync(this InternetGatewayDevice internetGatewayDevice)

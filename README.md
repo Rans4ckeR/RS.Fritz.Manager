@@ -213,12 +213,12 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ❌ X_AVM-DE_SetHostNameByMACAddress
   * ❌ X_AVM-DE_WakeOnLANByMACAddress
   * ❌ X_AVM-DE_GetSpecificHostEntryByIp
-  * ❌ X_AVM-DE_HostsCheckUpdate
+  * ✅ X_AVM-DE_HostsCheckUpdate
   * ❌ X_AVM-DE_HostDoUpdate
   * ❌ X_AVM-DE_SetPrioritizationByIP
   * ✅ X_AVM-DE_GetHostListPath
   * ✅ X_AVM-DE_GetMeshListPath
-  * ❌ X_AVM-DE_GetFriendlyName
+  * ✅ X_AVM-DE_GetFriendlyName
   * ❌ X_AVM-DE_SetFriendlyName
   * ❌ X_AVM-DE_SetFriendlyNameByIP
   * ❌ X_AVM-DE_SetFriendlyNameByMAC

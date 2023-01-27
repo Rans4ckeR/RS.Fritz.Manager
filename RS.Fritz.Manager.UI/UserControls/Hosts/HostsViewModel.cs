@@ -10,19 +10,23 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     private KeyValuePair<HostsGetHostNumberOfEntriesResponse?, UPnPFault?>? hostsGetHostNumberOfEntriesResponse;
     private KeyValuePair<HostsGetInfoResponse?, UPnPFault?>? hostsGetInfoResponse;
     private KeyValuePair<HostsGetChangeCounterResponse?, UPnPFault?>? hostsGetChangeCounterResponse;
+    private KeyValuePair<HostsGetFriendlyNameResponse?, UPnPFault?>? hostsGetFriendlyNameResponse;
     private DeviceHostInfo? deviceHostInfo;
     private DeviceMeshInfo? deviceMeshInfo;
     private ObservableCollection<HostsGetGenericHostEntryResponse>? hostsGetGenericHostEntryResponses;
 
-    public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IDeviceHostsService deviceHostsService, IDeviceMeshService deviceMeshService, HostsGetGenericHostEntryViewModel hostsGetGenericHostEntryViewModel)
+    public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IDeviceHostsService deviceHostsService, IDeviceMeshService deviceMeshService, HostsGetGenericHostEntryViewModel hostsGetGenericHostEntryViewModel, HostsHostsCheckUpdateViewModel hostsHostsCheckUpdateViewModel)
         : base(deviceLoginInfo, logger, "Hosts")
     {
         HostsGetGenericHostEntryViewModel = hostsGetGenericHostEntryViewModel;
+        HostsHostsCheckUpdateViewModel = hostsHostsCheckUpdateViewModel;
         this.deviceHostsService = deviceHostsService;
         this.deviceMeshService = deviceMeshService;
     }
 
     public HostsGetGenericHostEntryViewModel HostsGetGenericHostEntryViewModel { get; }
+
+    public HostsHostsCheckUpdateViewModel HostsHostsCheckUpdateViewModel { get; }
 
     public KeyValuePair<HostsGetHostNumberOfEntriesResponse?, UPnPFault?>? HostsGetHostNumberOfEntriesResponse
     {
@@ -44,6 +48,12 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     {
         get => hostsGetChangeCounterResponse;
         private set { _ = SetProperty(ref hostsGetChangeCounterResponse, value); }
+    }
+
+    public KeyValuePair<HostsGetFriendlyNameResponse?, UPnPFault?>? HostsGetFriendlyNameResponse
+    {
+        get => hostsGetFriendlyNameResponse;
+        private set { _ = SetProperty(ref hostsGetFriendlyNameResponse, value); }
     }
 
     public DeviceHostInfo? DeviceHostInfo
@@ -72,7 +82,8 @@ internal sealed class HostsViewModel : FritzServiceViewModel
                 GetHostsGetMeshListPathAsync(cancellationToken),
                 GetHostsGetHostNumberOfEntriesAsync(),
                 GetHostsGetInfoAsync(),
-                GetHostsGetChangeCounterAsync()
+                GetHostsGetChangeCounterAsync(),
+                GetHostsGetFriendlyNameAsync()
             });
     }
 
@@ -103,6 +114,11 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     private async Task GetHostsGetChangeCounterAsync()
     {
         HostsGetChangeCounterResponse = await ExecuteApiAsync(q => q.HostsGetChangeCounterAsync());
+    }
+
+    private async Task GetHostsGetFriendlyNameAsync()
+    {
+        HostsGetFriendlyNameResponse = await ExecuteApiAsync(q => q.HostsGetFriendlyNameAsync());
     }
 
     private async Task GetHostsGetHostListPathAsync(CancellationToken cancellationToken)

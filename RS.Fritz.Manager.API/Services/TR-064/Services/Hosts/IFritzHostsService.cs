@@ -9,6 +9,11 @@ internal interface IFritzHostsService
     [FaultContract(typeof(UPnPFault2))]
     Task<HostsGetHostNumberOfEntriesResponse> GetHostNumberOfEntriesAsync(HostsGetHostNumberOfEntriesRequest hostsGetHostNumberOfEntriesRequest);
 
+    [OperationContract(Action = "urn:dslforum-org:service:Hosts:1#X_AVM-DE_HostsCheckUpdate")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    Task<HostsHostsCheckUpdateResponse> HostsCheckUpdateAsync(HostsHostsCheckUpdateRequest hostsHostsCheckUpdateRequest);
+
     [OperationContract(Action = "urn:dslforum-org:service:Hosts:1#X_AVM-DE_GetHostListPath")]
     [FaultContract(typeof(UPnPFault1))]
     [FaultContract(typeof(UPnPFault2))]
@@ -33,4 +38,9 @@ internal interface IFritzHostsService
     [FaultContract(typeof(UPnPFault1))]
     [FaultContract(typeof(UPnPFault2))]
     Task<HostsGetMeshListPathResponse> GetMeshListPathAsync(HostsGetMeshListPathRequest hostsGetMeshListPathRequest);
+
+    [OperationContract(Action = "urn:dslforum-org:service:Hosts:1#X_AVM-DE_GetFriendlyName")]
+    [FaultContract(typeof(UPnPFault1))]
+    [FaultContract(typeof(UPnPFault2))]
+    Task<HostsGetFriendlyNameResponse> GetFriendlyNameAsync(HostsGetFriendlyNameRequest hostsGetFriendlyNameRequest);
 }

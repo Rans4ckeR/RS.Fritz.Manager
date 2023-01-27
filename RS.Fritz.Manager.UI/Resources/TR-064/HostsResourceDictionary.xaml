@@ -53,6 +53,19 @@
             <TextBlock x:Name="ChangeCounter" Grid.Row="0" Grid.Column="1" Text="{Binding ChangeCounter}"/>
         </Grid>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type api:HostsGetFriendlyNameResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=FriendlyName}" Content="_FriendlyName" ToolTip="The own friendly name of the requesting client."/>
+            <TextBlock x:Name="FriendlyName" Grid.Row="0" Grid.Column="1" Text="{Binding FriendlyName}"/>
+        </Grid>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type api:HostsGetGenericHostEntryResponse}">
         <Grid>
             <Grid.RowDefinitions>
