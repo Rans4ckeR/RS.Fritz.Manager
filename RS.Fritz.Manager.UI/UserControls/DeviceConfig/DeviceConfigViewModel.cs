@@ -32,7 +32,7 @@ internal sealed class DeviceConfigViewModel : FritzServiceViewModel
 
     public DeviceConfigCreateUrlSidViewModel DeviceConfigCreateUrlSidViewModel { get; }
 
-    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         return API.TaskExtensions.WhenAllSafe(new[]
             {

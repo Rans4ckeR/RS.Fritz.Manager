@@ -150,7 +150,7 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
         get => interface4Visibility ??= HasWlanConfigurationService(4) ? Visibility.Visible : Visibility.Hidden;
     }
 
-    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         return API.TaskExtensions.WhenAllSafe(new[]
           {
@@ -259,7 +259,7 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
         WlanConfigurationGetWlanConnectionInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanConnectionInfoAsync(i), new Dictionary<ushort, string> { { 714, "Current device is not directly connected to any of the access points." } });
     }
 
-    private async Task<KeyValuePair<T?, UPnPFault?>?[]> ExecuteApiWlanConfigurationAsync<T>(Func<InternetGatewayDevice, int, Task<T>> operation, IDictionary<ushort, string>? errorReasons = null)
+    private async ValueTask<KeyValuePair<T?, UPnPFault?>?[]> ExecuteApiWlanConfigurationAsync<T>(Func<InternetGatewayDevice, int, Task<T>> operation, IDictionary<ushort, string>? errorReasons = null)
         where T : struct
     {
         var responses = new KeyValuePair<T?, UPnPFault?>?[4];

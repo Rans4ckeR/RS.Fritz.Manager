@@ -296,7 +296,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         ActiveView = null;
         DeviceLoginInfo.InternetGatewayDevice = null;

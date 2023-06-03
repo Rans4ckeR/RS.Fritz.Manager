@@ -74,7 +74,7 @@ internal sealed class HostsViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref hostsGetGenericHostEntryResponses, value); }
     }
 
-    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         return API.TaskExtensions.WhenAllSafe(new[]
             {

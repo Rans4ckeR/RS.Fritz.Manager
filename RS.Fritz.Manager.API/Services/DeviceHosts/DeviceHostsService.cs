@@ -14,7 +14,7 @@ internal sealed class DeviceHostsService : IDeviceHostsService
         this.networkService = networkService;
     }
 
-    public async Task<DeviceHostInfo> GetDeviceHostsAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
+    public async ValueTask<DeviceHostInfo> GetDeviceHostsAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         HostsGetHostListPathResponse hostsGetHostListPathResponse = await internetGatewayDevice.HostsGetHostListPathAsync();
         string hostListPath = hostsGetHostListPathResponse.HostListPath;

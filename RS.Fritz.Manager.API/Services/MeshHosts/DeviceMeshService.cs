@@ -13,7 +13,7 @@ internal sealed class DeviceMeshService : IDeviceMeshService
         this.networkService = networkService;
     }
 
-    public async Task<DeviceMeshInfo> GetDeviceMeshAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
+    public async ValueTask<DeviceMeshInfo> GetDeviceMeshAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         HostsGetMeshListPathResponse hostsGetMeshListPathResponse = await internetGatewayDevice.HostsGetMeshListPathAsync();
         string meshListPath = hostsGetMeshListPathResponse.MeshListPath;

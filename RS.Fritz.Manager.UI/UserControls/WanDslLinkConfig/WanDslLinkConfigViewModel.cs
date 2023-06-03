@@ -50,7 +50,7 @@ internal sealed class WanDslLinkConfigViewModel : WanAccessTypeAwareFritzService
         private set { _ = SetProperty(ref wanDslLinkConfigGetStatisticsResponse, value); }
     }
 
-    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         return API.TaskExtensions.WhenAllSafe(new[]
           {

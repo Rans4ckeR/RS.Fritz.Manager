@@ -19,7 +19,7 @@ internal sealed class WebUiService : IWebUiService
         this.networkService = networkService;
     }
 
-    public async Task<WebUiSessionInfo> GetUsersAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
+    public async ValueTask<WebUiSessionInfo> GetUsersAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         Uri loginUri = GetLoginUri(internetGatewayDevice);
         Stream xmlResponseStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(loginUri, cancellationToken).ConfigureAwait(false);
@@ -30,7 +30,7 @@ internal sealed class WebUiService : IWebUiService
         }
     }
 
-    public async Task<WebUiSessionInfo> LogonAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
+    public async ValueTask<WebUiSessionInfo> LogonAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         WebUiSessionInfo webUiSessionInfo = await GetUsersAsync(internetGatewayDevice, cancellationToken);
         string[] challengeParts = webUiSessionInfo.Challenge.Split('$');
@@ -47,14 +47,14 @@ internal sealed class WebUiService : IWebUiService
         return await GetResponseAsync(internetGatewayDevice, parameters, cancellationToken);
     }
 
-    public Task<WebUiSessionInfo> LogoffAsync(InternetGatewayDevice internetGatewayDevice, string sessionId, CancellationToken cancellationToken = default)
+    public ValueTask<WebUiSessionInfo> LogoffAsync(InternetGatewayDevice internetGatewayDevice, string sessionId, CancellationToken cancellationToken = default)
     {
         var parameters = new Dictionary<string, string> { { "logout", string.Empty }, { "sid", sessionId } };
 
         return GetResponseAsync(internetGatewayDevice, parameters, cancellationToken);
     }
 
-    public Task<WebUiSessionInfo> ValidateSessionAsync(InternetGatewayDevice internetGatewayDevice, string sessionId, CancellationToken cancellationToken = default)
+    public ValueTask<WebUiSessionInfo> ValidateSessionAsync(InternetGatewayDevice internetGatewayDevice, string sessionId, CancellationToken cancellationToken = default)
     {
         var parameters = new Dictionary<string, string> { { "sid", sessionId } };
 
@@ -78,7 +78,7 @@ internal sealed class WebUiService : IWebUiService
     private Uri GetLoginUri(InternetGatewayDevice internetGatewayDevice)
         => networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, LoginPath);
 
-    private async Task<WebUiSessionInfo> GetResponseAsync(InternetGatewayDevice internetGatewayDevice, IDictionary<string, string> parameters, CancellationToken cancellationToken)
+    private async ValueTask<WebUiSessionInfo> GetResponseAsync(InternetGatewayDevice internetGatewayDevice, IDictionary<string, string> parameters, CancellationToken cancellationToken)
     {
         var formContent = new FormUrlEncodedContent(parameters);
         Uri loginUri = GetLoginUri(internetGatewayDevice);

@@ -52,7 +52,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         private set => _ = SetProperty(ref captureInterfaceGroups, value);
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         if (CaptureInterfaceGroups is not null)
             return;
@@ -87,9 +87,9 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         return CaptureInterfaceGroups?.SelectMany(q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false;
     }
 
-    private async Task DoExecuteSelectTargetFolderCommandAsync(CancellationToken cancellationToken)
+    private async Task DoExecuteSelectTargetFolderCommandAsync()
     {
-        nint mainWindowHandle = new WindowInteropHelper(Application.Current.MainWindow).Handle;
+        nint mainWindowHandle = new WindowInteropHelper(Application.Current.MainWindow!).Handle;
         var folderPicker = new FolderPicker
         {
             SuggestedStartLocation = PickerLocationId.Downloads
@@ -112,7 +112,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         await StartBackgroundCaptureAsync(userInterfaceCaptureInterface, fileInfo);
     }
 
-    private async Task StartBackgroundCaptureAsync(UserInterfaceCaptureInterface userInterfaceCaptureInterface, FileInfo fileInfo)
+    private async ValueTask StartBackgroundCaptureAsync(UserInterfaceCaptureInterface userInterfaceCaptureInterface, FileInfo fileInfo)
     {
         try
         {

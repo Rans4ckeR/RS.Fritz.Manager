@@ -94,7 +94,7 @@ internal sealed class WanPppConnectionViewModel : WanAccessTypeAwareFritzService
         private set { _ = SetProperty(ref wanConnectionGetGenericPortMappingEntryResponses, value); }
     }
 
-    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         return API.TaskExtensions.WhenAllSafe(new[]
           {

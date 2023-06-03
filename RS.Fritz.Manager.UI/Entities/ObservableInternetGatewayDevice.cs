@@ -36,7 +36,7 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
         set => _ = SetProperty(ref wanAccessType, value, true);
     }
 
-    public async Task GetDeviceTypeAsync()
+    public async ValueTask GetDeviceTypeAsync()
     {
         WanCommonInterfaceConfigGetCommonLinkPropertiesResponse wanCommonInterfaceConfigGetCommonLinkProperties;
 

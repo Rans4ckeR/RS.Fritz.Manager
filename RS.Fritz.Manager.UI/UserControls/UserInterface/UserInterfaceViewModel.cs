@@ -55,7 +55,7 @@ internal sealed class UserInterfaceViewModel : FritzServiceViewModel
 
     public UserInterfaceSetConfigViewModel UserInterfaceSetConfigViewModel { get; }
 
-    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         return API.TaskExtensions.WhenAllSafe(new[]
             {

@@ -30,7 +30,7 @@ internal abstract class ManualOperationViewModel<TRequest, TResponse> : FritzSer
         return default;
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         Response = await ExecuteApiAsync(operation, BuildRequest());
     }

@@ -12,7 +12,7 @@ internal sealed class UsersService : IUsersService
         this.fritzServiceOperationHandler = fritzServiceOperationHandler;
     }
 
-    public async Task<IEnumerable<User>> GetUsersAsync(InternetGatewayDevice internetGatewayDevice)
+    public async ValueTask<IEnumerable<User>> GetUsersAsync(InternetGatewayDevice internetGatewayDevice)
     {
         LanConfigSecurityGetUserListResponse lanConfigSecurityGetUserListResponse = await fritzServiceOperationHandler.LanConfigSecurityGetUserListAsync(internetGatewayDevice);
         using var stringReader = new StringReader(lanConfigSecurityGetUserListResponse.UserList);

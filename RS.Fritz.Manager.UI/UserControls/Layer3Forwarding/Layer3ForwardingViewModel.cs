@@ -38,7 +38,7 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponses, value); }
     }
 
-    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         return API.TaskExtensions.WhenAllSafe(new[]
             {

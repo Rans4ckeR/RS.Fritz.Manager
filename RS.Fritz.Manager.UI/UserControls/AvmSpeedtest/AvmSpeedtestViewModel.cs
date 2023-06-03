@@ -22,7 +22,7 @@ internal sealed class AvmSpeedtestViewModel : FritzServiceViewModel
         private set { _ = SetProperty(ref avmSpeedtestGetStatisticsResponse, value); }
     }
 
-    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         return API.TaskExtensions.WhenAllSafe(new[]
             {

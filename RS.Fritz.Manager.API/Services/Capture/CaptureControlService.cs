@@ -13,7 +13,7 @@ internal sealed class CaptureControlService : ICaptureControlService
         this.networkService = networkService;
     }
 
-    public async Task<IEnumerable<CaptureInterfaceGroup>> GetInterfacesAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
+    public async ValueTask<IEnumerable<CaptureInterfaceGroup>> GetInterfacesAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         string sid = await GetSidAsync(internetGatewayDevice);
         Uri captureUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, "/data.lua");
@@ -60,7 +60,7 @@ internal sealed class CaptureControlService : ICaptureControlService
         return captureInterfaceGroups;
     }
 
-    public async Task StartCaptureAsync(InternetGatewayDevice internetGatewayDevice, FileInfo fileInfo, CaptureInterface captureInterface, int packetCaptureSizeLimit = 1600, CancellationToken cancellationToken = default)
+    public async ValueTask StartCaptureAsync(InternetGatewayDevice internetGatewayDevice, FileInfo fileInfo, CaptureInterface captureInterface, int packetCaptureSizeLimit = 1600, CancellationToken cancellationToken = default)
     {
         string sid = await GetSidAsync(internetGatewayDevice);
         Uri captureUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, FormattableString.Invariant($"/cgi-bin/capture_notimeout?sid={sid}&capture=Start&snaplen={packetCaptureSizeLimit}&ifaceorminor={captureInterface.InterfaceOrMinor}"));
@@ -79,7 +79,7 @@ internal sealed class CaptureControlService : ICaptureControlService
         }
     }
 
-    public async Task StopCaptureAsync(InternetGatewayDevice internetGatewayDevice, CaptureInterface captureInterface, CancellationToken cancellationToken = default)
+    public async ValueTask StopCaptureAsync(InternetGatewayDevice internetGatewayDevice, CaptureInterface captureInterface, CancellationToken cancellationToken = default)
     {
         string sid = await GetSidAsync(internetGatewayDevice);
         string timeString20 = DateTime.UtcNow.Ticks.ToString("D20", CultureInfo.InvariantCulture);
@@ -91,7 +91,7 @@ internal sealed class CaptureControlService : ICaptureControlService
         _ = httpResponseMessage.EnsureSuccessStatusCode();
     }
 
-    private static async Task<string> GetSidAsync(InternetGatewayDevice internetGatewayDevice)
+    private static async ValueTask<string> GetSidAsync(InternetGatewayDevice internetGatewayDevice)
     {
         DeviceConfigCreateUrlSidResponse deviceConfigCreateUrlSidResponse = await internetGatewayDevice.DeviceConfigCreateUrlSidAsync();
 

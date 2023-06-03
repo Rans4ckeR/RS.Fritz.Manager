@@ -58,7 +58,7 @@ internal abstract class FritzServiceViewModel : ObservableRecipient
         }
     }
 
-    protected abstract Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken);
+    protected abstract ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken);
 
     protected virtual void Receive(PropertyChangedMessage<bool> message)
     {
