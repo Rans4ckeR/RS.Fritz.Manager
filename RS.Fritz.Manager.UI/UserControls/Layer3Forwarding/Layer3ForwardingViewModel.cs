@@ -19,7 +19,7 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
     public KeyValuePair<Layer3ForwardingGetDefaultConnectionServiceResponse?, UPnPFault?>? Layer3ForwardingGetDefaultConnectionServiceResponse
     {
         get => layer3ForwardingGetDefaultConnectionServiceResponse;
-        private set { _ = SetProperty(ref layer3ForwardingGetDefaultConnectionServiceResponse, value); }
+        private set => _ = SetProperty(ref layer3ForwardingGetDefaultConnectionServiceResponse, value);
     }
 
     public KeyValuePair<Layer3ForwardingGetForwardNumberOfEntriesResponse?, UPnPFault?>? Layer3ForwardingGetForwardNumberOfEntriesResponse
@@ -35,7 +35,7 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
     public ObservableCollection<Layer3ForwardingGetGenericForwardingEntryResponse>? Layer3ForwardingGetGenericForwardingEntryResponses
     {
         get => layer3ForwardingGetGenericForwardingEntryResponses;
-        private set { _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponses, value); }
+        private set => _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponses, value);
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
@@ -48,9 +48,7 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
     }
 
     private async Task GetLayer3ForwardingGetDefaultConnectionServiceAsync()
-    {
-        Layer3ForwardingGetDefaultConnectionServiceResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetDefaultConnectionServiceAsync());
-    }
+        => Layer3ForwardingGetDefaultConnectionServiceResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetDefaultConnectionServiceAsync());
 
     private async Task GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
     {

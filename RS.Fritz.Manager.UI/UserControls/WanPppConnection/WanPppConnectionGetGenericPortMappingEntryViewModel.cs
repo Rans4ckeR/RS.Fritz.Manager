@@ -8,7 +8,5 @@ internal sealed class WanPppConnectionGetGenericPortMappingEntryViewModel : WanC
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        WanConnectionGetGenericPortMappingEntryResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetGenericPortMappingEntryAsync(new(Index!.Value)));
-    }
+        => WanConnectionGetGenericPortMappingEntryResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetGenericPortMappingEntryAsync(new(Index!.Value)));
 }

@@ -15,11 +15,9 @@ internal sealed class TimeViewModel : FritzServiceViewModel
     public KeyValuePair<TimeGetInfoResponse?, UPnPFault?>? TimeGetInfoResponse
     {
         get => timeGetInfoResponse;
-        private set { _ = SetProperty(ref timeGetInfoResponse, value); }
+        private set => _ = SetProperty(ref timeGetInfoResponse, value);
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        TimeGetInfoResponse = await ExecuteApiAsync(q => q.TimeGetInfoAsync());
-    }
+        => TimeGetInfoResponse = await ExecuteApiAsync(q => q.TimeGetInfoAsync());
 }

@@ -22,16 +22,11 @@ internal abstract class ManualOperationViewModel<TRequest, TResponse> : FritzSer
     public KeyValuePair<TResponse?, UPnPFault?>? Response
     {
         get => response;
-        private set { _ = SetProperty(ref response, value); }
+        private set => _ = SetProperty(ref response, value);
     }
 
-    protected virtual TRequest BuildRequest()
-    {
-        return default;
-    }
+    protected virtual TRequest BuildRequest() => default;
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        Response = await ExecuteApiAsync(operation, BuildRequest());
-    }
+        => Response = await ExecuteApiAsync(operation, BuildRequest());
 }

@@ -13,13 +13,13 @@ internal sealed class AvmSpeedtestViewModel : FritzServiceViewModel
     public KeyValuePair<AvmSpeedtestGetInfoResponse?, UPnPFault?>? AvmSpeedtestGetInfoResponse
     {
         get => avmSpeedtestGetInfoResponse;
-        private set { _ = SetProperty(ref avmSpeedtestGetInfoResponse, value); }
+        private set => _ = SetProperty(ref avmSpeedtestGetInfoResponse, value);
     }
 
     public KeyValuePair<AvmSpeedtestGetStatisticsResponse?, UPnPFault?>? AvmSpeedtestGetStatisticsResponse
     {
         get => avmSpeedtestGetStatisticsResponse;
-        private set { _ = SetProperty(ref avmSpeedtestGetStatisticsResponse, value); }
+        private set => _ = SetProperty(ref avmSpeedtestGetStatisticsResponse, value);
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
@@ -32,12 +32,8 @@ internal sealed class AvmSpeedtestViewModel : FritzServiceViewModel
     }
 
     private async Task GetAvmSpeedtestGetInfoAsync()
-    {
-        AvmSpeedtestGetInfoResponse = await ExecuteApiAsync(q => q.AvmSpeedtestGetInfoAsync());
-    }
+        => AvmSpeedtestGetInfoResponse = await ExecuteApiAsync(q => q.AvmSpeedtestGetInfoAsync());
 
     private async Task GetAvmSpeedtestGetStatisticsAsync()
-    {
-        AvmSpeedtestGetStatisticsResponse = await ExecuteApiAsync(q => q.AvmSpeedtestGetStatisticsAsync());
-    }
+        => AvmSpeedtestGetStatisticsResponse = await ExecuteApiAsync(q => q.AvmSpeedtestGetStatisticsAsync());
 }

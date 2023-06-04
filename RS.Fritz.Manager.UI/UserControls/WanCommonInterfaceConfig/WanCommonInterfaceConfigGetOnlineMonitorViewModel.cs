@@ -87,49 +87,49 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
     public List<UIElement>? OnlineMonitorUpstreamElements
     {
         get => onlineMonitorUpstreamElements;
-        private set { _ = SetProperty(ref onlineMonitorUpstreamElements, value); }
+        private set => _ = SetProperty(ref onlineMonitorUpstreamElements, value);
     }
 
     public uint? CurrentDownstreamInternetBps
     {
         get => currentDownstreamInternetBps;
-        private set { _ = SetProperty(ref currentDownstreamInternetBps, value); }
+        private set => _ = SetProperty(ref currentDownstreamInternetBps, value);
     }
 
     public uint? CurrentDownstreamIpTvBps
     {
         get => currentDownstreamIpTvBps;
-        private set { _ = SetProperty(ref currentDownstreamIpTvBps, value); }
+        private set => _ = SetProperty(ref currentDownstreamIpTvBps, value);
     }
 
     public uint? CurrentUpstreamTotalBps
     {
         get => currentUpstreamTotalBps;
-        private set { _ = SetProperty(ref currentUpstreamTotalBps, value); }
+        private set => _ = SetProperty(ref currentUpstreamTotalBps, value);
     }
 
     public uint? CurrentUpstreamRealTimeApplicationsBps
     {
         get => currentUpstreamRealTimeApplicationsBps;
-        private set { _ = SetProperty(ref currentUpstreamRealTimeApplicationsBps, value); }
+        private set => _ = SetProperty(ref currentUpstreamRealTimeApplicationsBps, value);
     }
 
     public uint? CurrentUpstreamPrioritizedApplicationsBps
     {
         get => currentUpstreamPrioritizedApplicationsBps;
-        private set { _ = SetProperty(ref currentUpstreamPrioritizedApplicationsBps, value); }
+        private set => _ = SetProperty(ref currentUpstreamPrioritizedApplicationsBps, value);
     }
 
     public uint? CurrentUpstreamNormalApplicationsBps
     {
         get => currentUpstreamNormalApplicationsBps;
-        private set { _ = SetProperty(ref currentUpstreamNormalApplicationsBps, value); }
+        private set => _ = SetProperty(ref currentUpstreamNormalApplicationsBps, value);
     }
 
     public uint? CurrentUpstreamBackgroundApplicationsBps
     {
         get => currentUpstreamBackgroundApplicationsBps;
-        private set { _ = SetProperty(ref currentUpstreamBackgroundApplicationsBps, value); }
+        private set => _ = SetProperty(ref currentUpstreamBackgroundApplicationsBps, value);
     }
 
     public KeyValuePair<WanCommonInterfaceConfigGetOnlineMonitorResponse?, UPnPFault?>? WanCommonInterfaceConfigGetOnlineMonitorResponse
@@ -153,9 +153,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        WanCommonInterfaceConfigGetOnlineMonitorResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetOnlineMonitorAsync(new(SyncGroupIndex)));
-    }
+        => WanCommonInterfaceConfigGetOnlineMonitorResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetOnlineMonitorAsync(new(SyncGroupIndex)));
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -172,9 +170,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && (WanCommonInterfaceConfigGetOnlineMonitorResponse is null || SyncGroupIndex < WanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.Key!.Value.TotalNumberSyncGroups);
-    }
+        => base.GetCanExecuteDefaultCommand() && (WanCommonInterfaceConfigGetOnlineMonitorResponse is null || SyncGroupIndex < WanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.Key!.Value.TotalNumberSyncGroups);
 
     private static void CreateUiElements(double yScale, double xScale, uint min, uint range, ICollection<UIElement> uiElements, IReadOnlyList<uint> values, Brush brush)
     {

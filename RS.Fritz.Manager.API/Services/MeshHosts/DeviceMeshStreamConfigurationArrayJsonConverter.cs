@@ -50,7 +50,5 @@ internal sealed class DeviceMeshStreamConfigurationArrayJsonConverter : JsonConv
     }
 
     public override void Write(Utf8JsonWriter writer, DeviceMeshStreamConfiguration[] value, JsonSerializerOptions options)
-    {
-        throw new NotSupportedException();
-    }
+        => throw new NotSupportedException();
 }

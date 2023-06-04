@@ -12,22 +12,14 @@ internal sealed class FritzDeviceInfoService : FritzServiceClient<IFritzDeviceIn
     }
 
     public Task<DeviceInfoGetSecurityPortResponse> GetSecurityPortAsync(DeviceInfoGetSecurityPortRequest deviceInfoGetSecurityPortRequest)
-    {
-        return Channel.GetSecurityPortAsync(deviceInfoGetSecurityPortRequest);
-    }
+        => Channel.GetSecurityPortAsync(deviceInfoGetSecurityPortRequest);
 
     public Task<DeviceInfoGetInfoResponse> GetInfoAsync(DeviceInfoGetInfoRequest deviceInfoGetInfoRequest)
-    {
-        return Channel.GetInfoAsync(deviceInfoGetInfoRequest);
-    }
+        => Channel.GetInfoAsync(deviceInfoGetInfoRequest);
 
     public Task<DeviceInfoGetDeviceLogResponse> GetDeviceLogAsync(DeviceInfoGetDeviceLogRequest deviceInfoGetDeviceLogRequest)
-    {
-        return Channel.GetDeviceLogAsync(deviceInfoGetDeviceLogRequest);
-    }
+        => Channel.GetDeviceLogAsync(deviceInfoGetDeviceLogRequest);
 
     public Task<DeviceInfoSetProvisioningCodeResponse> SetProvisioningCodeAsync(DeviceInfoSetProvisioningCodeRequest setProvisioningCodeRequest)
-    {
-        return Channel.SetProvisioningCodeAsync(setProvisioningCodeRequest);
-    }
+        => Channel.SetProvisioningCodeAsync(setProvisioningCodeRequest);
 }

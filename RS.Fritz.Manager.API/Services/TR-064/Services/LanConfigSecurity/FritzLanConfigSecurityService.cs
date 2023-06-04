@@ -12,27 +12,17 @@ internal sealed class FritzLanConfigSecurityService : FritzServiceClient<IFritzL
     }
 
     public Task<LanConfigSecurityGetAnonymousLoginResponse> GetAnonymousLoginAsync(LanConfigSecurityGetAnonymousLoginRequest lanConfigSecurityGetAnonymousLoginRequest)
-    {
-        return Channel.GetAnonymousLoginAsync(lanConfigSecurityGetAnonymousLoginRequest);
-    }
+        => Channel.GetAnonymousLoginAsync(lanConfigSecurityGetAnonymousLoginRequest);
 
     public Task<LanConfigSecurityGetCurrentUserResponse> GetCurrentUserAsync(LanConfigSecurityGetCurrentUserRequest lanConfigSecurityGetCurrentUserRequest)
-    {
-        return Channel.GetCurrentUserAsync(lanConfigSecurityGetCurrentUserRequest);
-    }
+        => Channel.GetCurrentUserAsync(lanConfigSecurityGetCurrentUserRequest);
 
     public Task<LanConfigSecurityGetInfoResponse> GetInfoAsync(LanConfigSecurityGetInfoRequest lanConfigSecurityGetInfoRequest)
-    {
-        return Channel.GetInfoAsync(lanConfigSecurityGetInfoRequest);
-    }
+        => Channel.GetInfoAsync(lanConfigSecurityGetInfoRequest);
 
     public Task<LanConfigSecurityGetUserListResponse> GetUserListAsync(LanConfigSecurityGetUserListRequest lanConfigSecurityGetUserListRequest)
-    {
-        return Channel.GetUserListAsync(lanConfigSecurityGetUserListRequest);
-    }
+        => Channel.GetUserListAsync(lanConfigSecurityGetUserListRequest);
 
     public Task<LanConfigSecuritySetConfigPasswordResponse> SetConfigPasswordAsync(LanConfigSecuritySetConfigPasswordRequest lanConfigSecuritySetConfigPasswordRequest)
-    {
-        return Channel.SetConfigPasswordAsync(lanConfigSecuritySetConfigPasswordRequest);
-    }
+        => Channel.SetConfigPasswordAsync(lanConfigSecuritySetConfigPasswordRequest);
 }

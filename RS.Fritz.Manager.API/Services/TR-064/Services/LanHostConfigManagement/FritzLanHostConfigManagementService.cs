@@ -12,32 +12,20 @@ internal sealed class FritzLanHostConfigManagementService : FritzServiceClient<I
     }
 
     public Task<LanHostConfigManagementGetInfoResponse> GetInfoAsync(LanHostConfigManagementGetInfoRequest lanHostConfigManagementGetInfoRequest)
-    {
-        return Channel.GetInfoAsync(lanHostConfigManagementGetInfoRequest);
-    }
+        => Channel.GetInfoAsync(lanHostConfigManagementGetInfoRequest);
 
     public Task<LanHostConfigManagementGetAddressRangeResponse> GetAddressRangeAsync(LanHostConfigManagementGetAddressRangeRequest lanHostConfigManagementGetAddressRangeRequest)
-    {
-        return Channel.GetAddressRangeAsync(lanHostConfigManagementGetAddressRangeRequest);
-    }
+        => Channel.GetAddressRangeAsync(lanHostConfigManagementGetAddressRangeRequest);
 
     public Task<LanHostConfigManagementGetDnsServersResponse> GetDnsServersAsync(LanHostConfigManagementGetDnsServersRequest lanHostConfigManagementGetDnsServersRequest)
-    {
-        return Channel.GetDnsServersAsync(lanHostConfigManagementGetDnsServersRequest);
-    }
+        => Channel.GetDnsServersAsync(lanHostConfigManagementGetDnsServersRequest);
 
     public Task<LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse> GetIpInterfaceNumberOfEntriesAsync(LanHostConfigManagementGetIpInterfaceNumberOfEntriesRequest lanHostConfigManagementGetIpInterfaceNumberOfEntriesRequest)
-    {
-        return Channel.GetIpInterfaceNumberOfEntriesAsync(lanHostConfigManagementGetIpInterfaceNumberOfEntriesRequest);
-    }
+        => Channel.GetIpInterfaceNumberOfEntriesAsync(lanHostConfigManagementGetIpInterfaceNumberOfEntriesRequest);
 
     public Task<LanHostConfigManagementGetIpRoutersListResponse> GetIpRoutersListAsync(LanHostConfigManagementGetIpRoutersListRequest lanHostConfigManagementGetIpRoutersListRequest)
-    {
-        return Channel.GetIpRoutersListAsync(lanHostConfigManagementGetIpRoutersListRequest);
-    }
+        => Channel.GetIpRoutersListAsync(lanHostConfigManagementGetIpRoutersListRequest);
 
     public Task<LanHostConfigManagementGetSubnetMaskResponse> GetSubnetMaskAsync(LanHostConfigManagementGetSubnetMaskRequest lanHostConfigManagementGetSubnetMaskRequest)
-    {
-        return Channel.GetSubnetMaskAsync(lanHostConfigManagementGetSubnetMaskRequest);
-    }
+        => Channel.GetSubnetMaskAsync(lanHostConfigManagementGetSubnetMaskRequest);
 }

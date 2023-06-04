@@ -36,119 +36,110 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
     public WlanDeviceInfo? WlanDeviceInfo
     {
         get => wlanDeviceInfo;
-        private set { _ = SetProperty(ref wlanDeviceInfo, value); }
+        private set => _ = SetProperty(ref wlanDeviceInfo, value);
     }
 
     public KeyValuePair<WlanConfigurationGetInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetInfoResponses
     {
         get => wlanConfigurationGetInfoResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetInfoResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetInfoResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetBasBeaconSecurityPropertiesResponse?, UPnPFault?>?[]? WlanConfigurationGetBasBeaconSecurityPropertiesResponses
     {
         get => wlanConfigurationGetBasBeaconSecurityPropertiesResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetBasBeaconSecurityPropertiesResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetBasBeaconSecurityPropertiesResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetBssIdResponse?, UPnPFault?>?[]? WlanConfigurationGetBssIdResponses
     {
         get => wlanConfigurationGetBssIdResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetBssIdResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetBssIdResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetSsIdResponse?, UPnPFault?>?[]? WlanConfigurationGetSsIdResponses
     {
         get => wlanConfigurationGetSsIdResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetSsIdResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetSsIdResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetBeaconTypeResponse?, UPnPFault?>?[]? WlanConfigurationGetBeaconTypeResponses
     {
         get => wlanConfigurationGetBeaconTypeResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetBeaconTypeResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetBeaconTypeResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetChannelInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetChannelInfoResponses
     {
         get => wlanConfigurationGetChannelInfoResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetChannelInfoResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetChannelInfoResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetBeaconAdvertisementResponse?, UPnPFault?>?[]? WlanConfigurationGetBeaconAdvertisementResponses
     {
         get => wlanConfigurationGetBeaconAdvertisementResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetBeaconAdvertisementResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetBeaconAdvertisementResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetTotalAssociationsResponse?, UPnPFault?>?[]? WlanConfigurationGetTotalAssociationsResponses
     {
         get => wlanConfigurationGetTotalAssociationsResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetTotalAssociationsResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetTotalAssociationsResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetIpTvOptimizedResponse?, UPnPFault?>?[]? WlanConfigurationGetIpTvOptimizedResponses
     {
         get => wlanConfigurationGetIpTvOptimizedResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetIpTvOptimizedResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetIpTvOptimizedResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetStatisticsResponse?, UPnPFault?>?[]? WlanConfigurationGetStatisticsResponses
     {
         get => wlanConfigurationGetStatisticsResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetStatisticsResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetStatisticsResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetPacketStatisticsResponse?, UPnPFault?>?[]? WlanConfigurationGetPacketStatisticsResponses
     {
         get => wlanConfigurationGetPacketStatisticsResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetPacketStatisticsResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetPacketStatisticsResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetNightControlResponse?, UPnPFault?>?[]? WlanConfigurationGetNightControlResponses
     {
         get => wlanConfigurationGetNightControlResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetNightControlResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetNightControlResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetWlanHybridModeResponse?, UPnPFault?>?[]? WlanConfigurationGetWlanHybridModeResponses
     {
         get => wlanConfigurationGetWlanHybridModeResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetWlanHybridModeResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetWlanHybridModeResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetWlanExtInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetWlanExtInfoResponses
     {
         get => wlanConfigurationGetWlanExtInfoResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetWlanExtInfoResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetWlanExtInfoResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetWpsInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetWpsInfoResponses
     {
         get => wlanConfigurationGetWpsInfoResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetWpsInfoResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetWpsInfoResponses, value);
     }
 
     public KeyValuePair<WlanConfigurationGetWlanConnectionInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetWlanConnectionInfoResponses
     {
         get => wlanConfigurationGetWlanConnectionInfoResponses;
-        private set { _ = SetProperty(ref wlanConfigurationGetWlanConnectionInfoResponses, value); }
+        private set => _ = SetProperty(ref wlanConfigurationGetWlanConnectionInfoResponses, value);
     }
 
-    public Visibility Interface2Visibility
-    {
-        get => interface2Visibility ??= HasWlanConfigurationService(2) ? Visibility.Visible : Visibility.Hidden;
-    }
+    public Visibility Interface2Visibility => interface2Visibility ??= HasWlanConfigurationService(2) ? Visibility.Visible : Visibility.Hidden;
 
-    public Visibility Interface3Visibility
-    {
-        get => interface3Visibility ??= HasWlanConfigurationService(3) ? Visibility.Visible : Visibility.Hidden;
-    }
+    public Visibility Interface3Visibility => interface3Visibility ??= HasWlanConfigurationService(3) ? Visibility.Visible : Visibility.Hidden;
 
-    public Visibility Interface4Visibility
-    {
-        get => interface4Visibility ??= HasWlanConfigurationService(4) ? Visibility.Visible : Visibility.Hidden;
-    }
+    public Visibility Interface4Visibility => interface4Visibility ??= HasWlanConfigurationService(4) ? Visibility.Visible : Visibility.Hidden;
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
@@ -175,89 +166,55 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
     }
 
     private async Task GetWlanConfigurationGetHostListPathAsync(CancellationToken cancellationToken)
-    {
-        WlanDeviceInfo = await wlanDeviceService.GetWlanDevicesAsync(ApiDevice, cancellationToken);
-    }
+        => WlanDeviceInfo = await wlanDeviceService.GetWlanDevicesAsync(ApiDevice, cancellationToken);
 
     private async Task GetWlanConfigurationGetInfoAsync()
-    {
-        WlanConfigurationGetInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetInfoAsync(i));
-    }
+        => WlanConfigurationGetInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetInfoAsync(i));
 
     private async Task GetWlanConfigurationGetBasBeaconSecurityPropertiesAsync()
-    {
-        WlanConfigurationGetBasBeaconSecurityPropertiesResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBasBeaconSecurityPropertiesAsync(i));
-    }
+        => WlanConfigurationGetBasBeaconSecurityPropertiesResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBasBeaconSecurityPropertiesAsync(i));
 
     private async Task GetWlanConfigurationGetBssIdAsync()
-    {
-        WlanConfigurationGetBssIdResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBssIdAsync(i));
-    }
+        => WlanConfigurationGetBssIdResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBssIdAsync(i));
 
     private async Task GetWlanConfigurationGetSsIdAsync()
-    {
-        WlanConfigurationGetSsIdResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetSsIdAsync(i));
-    }
+        => WlanConfigurationGetSsIdResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetSsIdAsync(i));
 
     private async Task GetWlanConfigurationGetBeaconTypeAsync()
-    {
-        WlanConfigurationGetBeaconTypeResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBeaconTypeAsync(i));
-    }
+        => WlanConfigurationGetBeaconTypeResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBeaconTypeAsync(i));
 
     private async Task GetWlanConfigurationGetChannelInfoAsync()
-    {
-        WlanConfigurationGetChannelInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetChannelInfoAsync(i));
-    }
+        => WlanConfigurationGetChannelInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetChannelInfoAsync(i));
 
     private async Task GetWlanConfigurationGetBeaconAdvertisementAsync()
-    {
-        WlanConfigurationGetBeaconAdvertisementResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBeaconAdvertisementAsync(i));
-    }
+        => WlanConfigurationGetBeaconAdvertisementResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBeaconAdvertisementAsync(i));
 
     private async Task GetWlanConfigurationGetTotalAssociationsAsync()
-    {
-        WlanConfigurationGetTotalAssociationsResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetTotalAssociationsAsync(i));
-    }
+        => WlanConfigurationGetTotalAssociationsResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetTotalAssociationsAsync(i));
 
     private async Task GetWlanConfigurationGetIpTvOptimizedAsync()
-    {
-        WlanConfigurationGetIpTvOptimizedResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetIpTvOptimizedAsync(i));
-    }
+        => WlanConfigurationGetIpTvOptimizedResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetIpTvOptimizedAsync(i));
 
     private async Task GetWlanConfigurationGetStatisticsAsync()
-    {
-        WlanConfigurationGetStatisticsResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetStatisticsAsync(i));
-    }
+        => WlanConfigurationGetStatisticsResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetStatisticsAsync(i));
 
     private async Task GetWlanConfigurationGetPacketStatisticsAsync()
-    {
-        WlanConfigurationGetPacketStatisticsResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetPacketStatisticsAsync(i));
-    }
+        => WlanConfigurationGetPacketStatisticsResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetPacketStatisticsAsync(i));
 
     private async Task GetWlanConfigurationGetNightControlAsync()
-    {
-        WlanConfigurationGetNightControlResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetNightControlAsync(i));
-    }
+        => WlanConfigurationGetNightControlResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetNightControlAsync(i));
 
     private async Task GetWlanConfigurationGetWlanHybridModeAsync()
-    {
-        WlanConfigurationGetWlanHybridModeResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanHybridModeAsync(i));
-    }
+        => WlanConfigurationGetWlanHybridModeResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanHybridModeAsync(i));
 
     private async Task GetWlanConfigurationGetWlanExtInfoAsync()
-    {
-        WlanConfigurationGetWlanExtInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanExtInfoAsync(i));
-    }
+        => WlanConfigurationGetWlanExtInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanExtInfoAsync(i));
 
     private async Task GetWlanConfigurationGetWpsInfoAsync()
-    {
-        WlanConfigurationGetWpsInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWpsInfoAsync(i));
-    }
+        => WlanConfigurationGetWpsInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWpsInfoAsync(i));
 
     private async Task GetWlanConfigurationGetWlanConnectionInfoAsync()
-    {
-        WlanConfigurationGetWlanConnectionInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanConnectionInfoAsync(i), new Dictionary<ushort, string> { { 714, "Current device is not directly connected to any of the access points." } });
-    }
+        => WlanConfigurationGetWlanConnectionInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanConnectionInfoAsync(i), new Dictionary<ushort, string> { { 714, "Current device is not directly connected to any of the access points." } });
 
     private async ValueTask<KeyValuePair<T?, UPnPFault?>?[]> ExecuteApiWlanConfigurationAsync<T>(Func<InternetGatewayDevice, int, Task<T>> operation, IDictionary<ushort, string>? errorReasons = null)
         where T : struct
@@ -274,7 +231,5 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
     }
 
     private bool HasWlanConfigurationService(int interfaceNumber)
-    {
-        return ApiDevice.Services.Any(r => FormattableString.Invariant($"urn:dslforum-org:service:WLANConfiguration:{interfaceNumber}").Equals(r.ServiceType, StringComparison.OrdinalIgnoreCase));
-    }
+        => ApiDevice.Services.Any(r => FormattableString.Invariant($"urn:dslforum-org:service:WLANConfiguration:{interfaceNumber}").Equals(r.ServiceType, StringComparison.OrdinalIgnoreCase));
 }

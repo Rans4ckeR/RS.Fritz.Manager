@@ -15,19 +15,19 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
     public KeyValuePair<DeviceInfoGetSecurityPortResponse?, UPnPFault?>? DeviceInfoGetSecurityPortResponse
     {
         get => deviceInfoGetSecurityPortResponse;
-        private set { _ = SetProperty(ref deviceInfoGetSecurityPortResponse, value); }
+        private set => _ = SetProperty(ref deviceInfoGetSecurityPortResponse, value);
     }
 
     public KeyValuePair<DeviceInfoGetInfoResponse?, UPnPFault?>? DeviceInfoGetInfoResponse
     {
         get => deviceInfoGetInfoResponse;
-        private set { _ = SetProperty(ref deviceInfoGetInfoResponse, value); }
+        private set => _ = SetProperty(ref deviceInfoGetInfoResponse, value);
     }
 
     public KeyValuePair<DeviceInfoGetDeviceLogResponse?, UPnPFault?>? DeviceInfoGetDeviceLogResponse
     {
         get => deviceInfoGetDeviceLogResponse;
-        private set { _ = SetProperty(ref deviceInfoGetDeviceLogResponse, value); }
+        private set => _ = SetProperty(ref deviceInfoGetDeviceLogResponse, value);
     }
 
     public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel { get; }
@@ -42,18 +42,9 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
             });
     }
 
-    private async Task GetDeviceInfoGetSecurityPortAsync()
-    {
-        DeviceInfoGetSecurityPortResponse = await ExecuteApiAsync(q => q.DeviceInfoGetSecurityPortAsync());
-    }
+    private async Task GetDeviceInfoGetSecurityPortAsync() => DeviceInfoGetSecurityPortResponse = await ExecuteApiAsync(q => q.DeviceInfoGetSecurityPortAsync());
 
-    private async Task GetDeviceInfoGetInfoAsync()
-    {
-        DeviceInfoGetInfoResponse = await ExecuteApiAsync(q => q.DeviceInfoGetInfoAsync());
-    }
+    private async Task GetDeviceInfoGetInfoAsync() => DeviceInfoGetInfoResponse = await ExecuteApiAsync(q => q.DeviceInfoGetInfoAsync());
 
-    private async Task GetDeviceInfoGetDeviceLogAsync()
-    {
-        DeviceInfoGetDeviceLogResponse = await ExecuteApiAsync(q => q.DeviceInfoGetDeviceLogAsync());
-    }
+    private async Task GetDeviceInfoGetDeviceLogAsync() => DeviceInfoGetDeviceLogResponse = await ExecuteApiAsync(q => q.DeviceInfoGetDeviceLogAsync());
 }

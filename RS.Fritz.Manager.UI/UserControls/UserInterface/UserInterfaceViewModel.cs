@@ -28,19 +28,19 @@ internal sealed class UserInterfaceViewModel : FritzServiceViewModel
     public KeyValuePair<UserInterfaceGetInfoResponse?, UPnPFault?>? UserInterfaceGetInfoResponse
     {
         get => userInterfaceGetInfoResponse;
-        private set { _ = SetProperty(ref userInterfaceGetInfoResponse, value); }
+        private set => _ = SetProperty(ref userInterfaceGetInfoResponse, value);
     }
 
     public KeyValuePair<UserInterfaceGetInternationalConfigResponse?, UPnPFault?>? UserInterfaceGetInternationalConfigResponse
     {
         get => userInterfaceGetInternationalConfigResponse;
-        private set { _ = SetProperty(ref userInterfaceGetInternationalConfigResponse, value); }
+        private set => _ = SetProperty(ref userInterfaceGetInternationalConfigResponse, value);
     }
 
     public KeyValuePair<UserInterfaceAvmGetInfoResponse?, UPnPFault?>? UserInterfaceAvmGetInfoResponse
     {
         get => userInterfaceAvmGetInfoResponse;
-        private set { _ = SetProperty(ref userInterfaceAvmGetInfoResponse, value); }
+        private set => _ = SetProperty(ref userInterfaceAvmGetInfoResponse, value);
     }
 
     public UserInterfaceCheckUpdateViewModel UserInterfaceCheckUpdateViewModel { get; }
@@ -66,17 +66,11 @@ internal sealed class UserInterfaceViewModel : FritzServiceViewModel
     }
 
     private async Task GetUserInterfaceGetInfoAsync()
-    {
-        UserInterfaceGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInfoAsync());
-    }
+        => UserInterfaceGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInfoAsync());
 
     private async Task GetUserInterfaceGetInternationalConfigAsync()
-    {
-        UserInterfaceGetInternationalConfigResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInternationalConfigAsync());
-    }
+        => UserInterfaceGetInternationalConfigResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInternationalConfigAsync());
 
     private async Task GetUserInterfaceAvmGetInfoAsync()
-    {
-        UserInterfaceAvmGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceAvmGetInfoAsync());
-    }
+        => UserInterfaceAvmGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceAvmGetInfoAsync());
 }

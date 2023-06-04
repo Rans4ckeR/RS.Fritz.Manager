@@ -13,14 +13,10 @@ internal sealed class ClientFactory<T> : IClientFactory<T>
     }
 
     public T Build(Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createClient, Uri location, bool secure, string controlUrl, ushort? port, NetworkCredential? networkCredential)
-    {
-        return createClient(GetEndpointConfiguration(secure), GetEndpointAddress(location, secure, controlUrl, port), networkCredential);
-    }
+        => createClient(GetEndpointConfiguration(secure), GetEndpointAddress(location, secure, controlUrl, port), networkCredential);
 
     private static FritzServiceEndpointConfiguration GetEndpointConfiguration(bool secure)
-    {
-        return secure ? FritzServiceEndpointConfiguration.BasicHttpsBindingIFritzService : FritzServiceEndpointConfiguration.BasicHttpBindingIFritzService;
-    }
+        => secure ? FritzServiceEndpointConfiguration.BasicHttpsBindingIFritzService : FritzServiceEndpointConfiguration.BasicHttpBindingIFritzService;
 
     private EndpointAddress GetEndpointAddress(Uri location, bool secure, string controlUrl, ushort? port = null)
     {

@@ -12,12 +12,11 @@ public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzSe
 
     public NetworkCredential? NetworkCredential { get; set; }
 
-    public IEnumerable<ServiceListItem> Services { get => services ??= UPnPDescription.Device.GetServices().ToArray(); }
+    public IEnumerable<ServiceListItem> Services
+        => services ??= UPnPDescription.Device.GetServices().ToArray();
 
     internal Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
-    {
-        return operation(FritzServiceOperationHandler, this);
-    }
+        => operation(FritzServiceOperationHandler, this);
 
     public async ValueTask InitializeAsync()
     {

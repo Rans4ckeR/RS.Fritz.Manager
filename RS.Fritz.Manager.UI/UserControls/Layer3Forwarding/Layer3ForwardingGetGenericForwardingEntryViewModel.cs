@@ -36,13 +36,11 @@ internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel : Fritz
     public KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>? Layer3ForwardingGetGenericForwardingEntryResponse
     {
         get => layer3ForwardingGetGenericForwardingEntryResponse;
-        private set { _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponse, value); }
+        private set => _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponse, value);
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        Layer3ForwardingGetGenericForwardingEntryResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetGenericForwardingEntryAsync(new(Index!.Value)));
-    }
+        => Layer3ForwardingGetGenericForwardingEntryResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetGenericForwardingEntryAsync(new(Index!.Value)));
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -59,7 +57,5 @@ internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel : Fritz
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && Index >= 0 && Index < ForwardNumberOfEntries;
-    }
+        => base.GetCanExecuteDefaultCommand() && Index >= 0 && Index < ForwardNumberOfEntries;
 }

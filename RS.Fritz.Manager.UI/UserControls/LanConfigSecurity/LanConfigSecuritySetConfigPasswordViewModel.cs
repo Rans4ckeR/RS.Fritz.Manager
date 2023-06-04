@@ -22,9 +22,7 @@ internal sealed class LanConfigSecuritySetConfigPasswordViewModel : ManualOperat
     }
 
     protected override LanConfigSecuritySetConfigPasswordRequest BuildRequest()
-    {
-        return new(Password!);
-    }
+        => new(Password!);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {

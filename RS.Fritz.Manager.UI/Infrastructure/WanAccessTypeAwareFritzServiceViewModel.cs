@@ -18,9 +18,7 @@ internal abstract class WanAccessTypeAwareFritzServiceViewModel : FritzServiceVi
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType == wanAccessType;
-    }
+        => base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType == wanAccessType;
 
     private void Receive(PropertyChangedMessage<WanAccessType?> message)
     {

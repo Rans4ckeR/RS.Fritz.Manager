@@ -33,9 +33,7 @@ internal sealed class UserInterfaceDoManualUpdateViewModel : ManualOperationView
     }
 
     protected override UserInterfaceDoManualUpdateRequest BuildRequest()
-    {
-        return new(DownloadUrl!, AllowDowngrade!.Value);
-    }
+        => new(DownloadUrl!, AllowDowngrade!.Value);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -53,7 +51,5 @@ internal sealed class UserInterfaceDoManualUpdateViewModel : ManualOperationView
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && AllowDowngrade.HasValue;
-    }
+        => base.GetCanExecuteDefaultCommand() && AllowDowngrade.HasValue;
 }

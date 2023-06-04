@@ -99,33 +99,23 @@ internal abstract class FritzServiceViewModel : ObservableRecipient
     }
 
     protected virtual bool GetCanExecuteDefaultCommand()
-    {
-        return (DeviceLoginInfo.InternetGatewayDevice?.Authenticated ?? false) && !DefaultCommandActive && (requiredServiceType is null || ApiDevice.Services.Any(r => r.ServiceType.StartsWith(FormattableString.Invariant($"urn:dslforum-org:service:{requiredServiceType}:"), StringComparison.OrdinalIgnoreCase)));
-    }
+        => (DeviceLoginInfo.InternetGatewayDevice?.Authenticated ?? false) && !DefaultCommandActive && (requiredServiceType is null || ApiDevice.Services.Any(r => r.ServiceType.StartsWith(FormattableString.Invariant($"urn:dslforum-org:service:{requiredServiceType}:"), StringComparison.OrdinalIgnoreCase)));
 
     protected void UpdateCanExecuteDefaultCommand()
-    {
-        CanExecuteDefaultCommand = GetCanExecuteDefaultCommand();
-    }
+        => CanExecuteDefaultCommand = GetCanExecuteDefaultCommand();
 
     protected Task<KeyValuePair<T?, UPnPFault?>> ExecuteApiAsync<T>(Func<InternetGatewayDevice, Task<T>> operation, IDictionary<ushort, string>? errorReasons = null)
         where T : struct
-    {
-        return DoExecuteApiAsync(operation(ApiDevice), errorReasons);
-    }
+        => DoExecuteApiAsync(operation(ApiDevice), errorReasons);
 
     protected Task<KeyValuePair<T?, UPnPFault?>> ExecuteApiAsync<T>(Func<InternetGatewayDevice, int, Task<T>> operation, int interfaceNumber, IDictionary<ushort, string>? errorReasons = null)
         where T : struct
-    {
-        return DoExecuteApiAsync(operation(ApiDevice, interfaceNumber), errorReasons);
-    }
+        => DoExecuteApiAsync(operation(ApiDevice, interfaceNumber), errorReasons);
 
     protected Task<KeyValuePair<TResponse?, UPnPFault?>> ExecuteApiAsync<TRequest, TResponse>(Func<InternetGatewayDevice, TRequest, Task<TResponse>> operation, TRequest request, IDictionary<ushort, string>? errorReasons = null)
         where TRequest : struct
         where TResponse : struct
-    {
-        return DoExecuteApiAsync(operation(ApiDevice, request), errorReasons);
-    }
+        => DoExecuteApiAsync(operation(ApiDevice, request), errorReasons);
 
     private static async Task<KeyValuePair<T?, UPnPFault?>> DoExecuteApiAsync<T>(Task<T> operation, IDictionary<ushort, string>? errorReasons)
         where T : struct

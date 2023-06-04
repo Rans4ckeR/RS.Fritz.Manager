@@ -12,12 +12,8 @@ internal sealed class FritzLanEthernetInterfaceConfigService : FritzServiceClien
     }
 
     public Task<LanEthernetInterfaceConfigGetInfoResponse> GetInfoAsync(LanEthernetInterfaceConfigGetInfoRequest lanEthernetInterfaceConfigGetInfoRequest)
-    {
-        return Channel.GetInfoAsync(lanEthernetInterfaceConfigGetInfoRequest);
-    }
+        => Channel.GetInfoAsync(lanEthernetInterfaceConfigGetInfoRequest);
 
     public Task<LanEthernetInterfaceConfigGetStatisticsResponse> GetStatisticsAsync(LanEthernetInterfaceConfigGetStatisticsRequest lanEthernetInterfaceConfigGetStatisticsRequest)
-    {
-        return Channel.GetStatisticsAsync(lanEthernetInterfaceConfigGetStatisticsRequest);
-    }
+        => Channel.GetStatisticsAsync(lanEthernetInterfaceConfigGetStatisticsRequest);
 }

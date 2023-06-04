@@ -22,9 +22,7 @@ internal sealed class ManagementServerSetManagementServerUrlViewModel : ManualOp
     }
 
     protected override ManagementServerSetManagementServerUrlRequest BuildRequest()
-    {
-        return new(Url!);
-    }
+        => new(Url!);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {

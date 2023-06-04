@@ -22,9 +22,7 @@ internal sealed class ManagementServerSetTr069EnableViewModel : ManualOperationV
     }
 
     protected override ManagementServerSetTr069EnableRequest BuildRequest()
-    {
-        return new(Tr069Enabled!.Value);
-    }
+        => new(Tr069Enabled!.Value);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -41,7 +39,5 @@ internal sealed class ManagementServerSetTr069EnableViewModel : ManualOperationV
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && Tr069Enabled.HasValue;
-    }
+        => base.GetCanExecuteDefaultCommand() && Tr069Enabled.HasValue;
 }

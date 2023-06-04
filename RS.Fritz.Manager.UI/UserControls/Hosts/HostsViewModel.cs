@@ -41,37 +41,37 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     public KeyValuePair<HostsGetInfoResponse?, UPnPFault?>? HostsGetInfoResponse
     {
         get => hostsGetInfoResponse;
-        private set { _ = SetProperty(ref hostsGetInfoResponse, value); }
+        private set => _ = SetProperty(ref hostsGetInfoResponse, value);
     }
 
     public KeyValuePair<HostsGetChangeCounterResponse?, UPnPFault?>? HostsGetChangeCounterResponse
     {
         get => hostsGetChangeCounterResponse;
-        private set { _ = SetProperty(ref hostsGetChangeCounterResponse, value); }
+        private set => _ = SetProperty(ref hostsGetChangeCounterResponse, value);
     }
 
     public KeyValuePair<HostsGetFriendlyNameResponse?, UPnPFault?>? HostsGetFriendlyNameResponse
     {
         get => hostsGetFriendlyNameResponse;
-        private set { _ = SetProperty(ref hostsGetFriendlyNameResponse, value); }
+        private set => _ = SetProperty(ref hostsGetFriendlyNameResponse, value);
     }
 
     public DeviceHostInfo? DeviceHostInfo
     {
         get => deviceHostInfo;
-        private set { _ = SetProperty(ref deviceHostInfo, value); }
+        private set => _ = SetProperty(ref deviceHostInfo, value);
     }
 
     public DeviceMeshInfo? DeviceMeshInfo
     {
         get => deviceMeshInfo;
-        private set { _ = SetProperty(ref deviceMeshInfo, value); }
+        private set => _ = SetProperty(ref deviceMeshInfo, value);
     }
 
     public ObservableCollection<HostsGetGenericHostEntryResponse>? HostsGetGenericHostEntryResponses
     {
         get => hostsGetGenericHostEntryResponses;
-        private set { _ = SetProperty(ref hostsGetGenericHostEntryResponses, value); }
+        private set => _ = SetProperty(ref hostsGetGenericHostEntryResponses, value);
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
@@ -107,27 +107,17 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     }
 
     private async Task GetHostsGetInfoAsync()
-    {
-        HostsGetInfoResponse = await ExecuteApiAsync(q => q.HostsGetInfoAsync());
-    }
+        => HostsGetInfoResponse = await ExecuteApiAsync(q => q.HostsGetInfoAsync());
 
     private async Task GetHostsGetChangeCounterAsync()
-    {
-        HostsGetChangeCounterResponse = await ExecuteApiAsync(q => q.HostsGetChangeCounterAsync());
-    }
+        => HostsGetChangeCounterResponse = await ExecuteApiAsync(q => q.HostsGetChangeCounterAsync());
 
     private async Task GetHostsGetFriendlyNameAsync()
-    {
-        HostsGetFriendlyNameResponse = await ExecuteApiAsync(q => q.HostsGetFriendlyNameAsync());
-    }
+        => HostsGetFriendlyNameResponse = await ExecuteApiAsync(q => q.HostsGetFriendlyNameAsync());
 
     private async Task GetHostsGetHostListPathAsync(CancellationToken cancellationToken)
-    {
-        DeviceHostInfo = await deviceHostsService.GetDeviceHostsAsync(ApiDevice, cancellationToken);
-    }
+        => DeviceHostInfo = await deviceHostsService.GetDeviceHostsAsync(ApiDevice, cancellationToken);
 
     private async Task GetHostsGetMeshListPathAsync(CancellationToken cancellationToken)
-    {
-        DeviceMeshInfo = await deviceMeshService.GetDeviceMeshAsync(ApiDevice, cancellationToken);
-    }
+        => DeviceMeshInfo = await deviceMeshService.GetDeviceMeshAsync(ApiDevice, cancellationToken);
 }

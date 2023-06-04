@@ -12,11 +12,9 @@ internal sealed class WanEthernetLinkConfigViewModel : FritzServiceViewModel
     public KeyValuePair<WanEthernetLinkConfigGetEthernetLinkStatusResponse?, UPnPFault?>? WanEthernetLinkConfigGetEthernetLinkStatusResponse
     {
         get => wanEthernetLinkConfigGetEthernetLinkStatusResponse;
-        private set { _ = SetProperty(ref wanEthernetLinkConfigGetEthernetLinkStatusResponse, value); }
+        private set => _ = SetProperty(ref wanEthernetLinkConfigGetEthernetLinkStatusResponse, value);
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        WanEthernetLinkConfigGetEthernetLinkStatusResponse = await ExecuteApiAsync(q => q.WanEthernetLinkConfigGetEthernetLinkStatusAsync());
-    }
+        => WanEthernetLinkConfigGetEthernetLinkStatusResponse = await ExecuteApiAsync(q => q.WanEthernetLinkConfigGetEthernetLinkStatusAsync());
 }

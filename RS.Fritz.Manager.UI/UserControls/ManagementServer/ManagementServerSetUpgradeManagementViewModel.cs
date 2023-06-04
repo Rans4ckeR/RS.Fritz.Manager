@@ -22,9 +22,7 @@ internal sealed class ManagementServerSetUpgradeManagementViewModel : ManualOper
     }
 
     protected override ManagementServerSetUpgradeManagementRequest BuildRequest()
-    {
-        return new(UpgradesManaged!.Value);
-    }
+        => new(UpgradesManaged!.Value);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -41,7 +39,5 @@ internal sealed class ManagementServerSetUpgradeManagementViewModel : ManualOper
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && UpgradesManaged.HasValue;
-    }
+        => base.GetCanExecuteDefaultCommand() && UpgradesManaged.HasValue;
 }

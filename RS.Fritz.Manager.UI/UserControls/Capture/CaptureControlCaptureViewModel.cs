@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Interop;
+using CommunityToolkit.Mvvm.Input;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using CommunityToolkit.Mvvm.Input;
 using WinRT.Interop;
 
 internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
@@ -73,19 +73,13 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
     }
 
     private void NotifyAllStartCommandsCanExecuteChanged()
-    {
-        CaptureInterfaceGroups?.ToList().ForEach(q => q.CaptureInterfaces.ForEach(r => r.StartCommand.NotifyCanExecuteChanged()));
-    }
+        => CaptureInterfaceGroups?.ToList().ForEach(q => q.CaptureInterfaces.ForEach(r => r.StartCommand.NotifyCanExecuteChanged()));
 
     private bool CanExecuteCaptureInterfaceStartCommand(CaptureInterface captureInterface)
-    {
-        return PacketCaptureSizeLimit > 0 && !string.IsNullOrWhiteSpace(FolderName) && (!CaptureInterfaceGroups?.SelectMany(q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false);
-    }
+        => PacketCaptureSizeLimit > 0 && !string.IsNullOrWhiteSpace(FolderName) && (!CaptureInterfaceGroups?.SelectMany(q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false);
 
     private bool CanExecuteCaptureInterfaceStopCommand(CaptureInterface captureInterface)
-    {
-        return CaptureInterfaceGroups?.SelectMany(q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false;
-    }
+        => CaptureInterfaceGroups?.SelectMany(q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false;
 
     private async Task DoExecuteSelectTargetFolderCommandAsync()
     {
@@ -107,7 +101,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
     {
         SetCaptureInterfaceStatus(userInterfaceCaptureInterface!, true);
 
-        var fileInfo = new FileInfo(FormattableString.Invariant($"{FolderName}\\{userInterfaceCaptureInterface!.CaptureInterface.Name}_{DateTime.Now.ToString("s").Replace(":", string.Empty)}.eth"));
+        var fileInfo = new FileInfo(FormattableString.Invariant($"{FolderName}\\{userInterfaceCaptureInterface!.CaptureInterface.Name}_{DateTime.Now.ToString("s").Replace(":", string.Empty, StringComparison.OrdinalIgnoreCase)}.eth"));
 
         await StartBackgroundCaptureAsync(userInterfaceCaptureInterface, fileInfo);
     }

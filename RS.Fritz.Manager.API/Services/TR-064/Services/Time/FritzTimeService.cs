@@ -12,12 +12,8 @@ internal sealed class FritzTimeService : FritzServiceClient<IFritzTimeService>, 
     }
 
     public Task<TimeGetInfoResponse> GetInfoAsync(TimeGetInfoRequest timeGetInfoRequest)
-    {
-        return Channel.GetInfoAsync(timeGetInfoRequest);
-    }
+        => Channel.GetInfoAsync(timeGetInfoRequest);
 
     public Task<TimeSetNtpServersResponse> SetNtpServersAsync(TimeSetNtpServersRequest timeSetNtpServersRequest)
-    {
-        return Channel.SetNtpServersAsync(timeSetNtpServersRequest);
-    }
+        => Channel.SetNtpServersAsync(timeSetNtpServersRequest);
 }

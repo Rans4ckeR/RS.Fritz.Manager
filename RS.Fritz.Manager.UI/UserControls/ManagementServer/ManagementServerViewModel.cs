@@ -31,13 +31,13 @@ internal sealed class ManagementServerViewModel : FritzServiceViewModel
     public KeyValuePair<ManagementServerGetInfoResponse?, UPnPFault?>? ManagementServerGetInfoResponse
     {
         get => managementServerGetInfoResponse;
-        private set { _ = SetProperty(ref managementServerGetInfoResponse, value); }
+        private set => _ = SetProperty(ref managementServerGetInfoResponse, value);
     }
 
     public KeyValuePair<ManagementServerGetTr069FirmwareDownloadEnabledResponse?, UPnPFault?>? ManagementServerGetTr069FirmwareDownloadEnabledResponse
     {
         get => managementServerGetTr069FirmwareDownloadEnabledResponse;
-        private set { _ = SetProperty(ref managementServerGetTr069FirmwareDownloadEnabledResponse, value); }
+        private set => _ = SetProperty(ref managementServerGetTr069FirmwareDownloadEnabledResponse, value);
     }
 
     public ManagementServerSetManagementServerUrlViewModel ManagementServerSetManagementServerUrlViewModel { get; }
@@ -66,12 +66,8 @@ internal sealed class ManagementServerViewModel : FritzServiceViewModel
     }
 
     private async Task GetManagementServerGetInfoAsync()
-    {
-        ManagementServerGetInfoResponse = await ExecuteApiAsync(q => q.ManagementServerGetInfoAsync());
-    }
+        => ManagementServerGetInfoResponse = await ExecuteApiAsync(q => q.ManagementServerGetInfoAsync());
 
     private async Task GetManagementServerGetTr069FirmwareDownloadEnabledAsync()
-    {
-        ManagementServerGetTr069FirmwareDownloadEnabledResponse = await ExecuteApiAsync(q => q.ManagementServerGetTr069FirmwareDownloadEnabledAsync());
-    }
+        => ManagementServerGetTr069FirmwareDownloadEnabledResponse = await ExecuteApiAsync(q => q.ManagementServerGetTr069FirmwareDownloadEnabledAsync());
 }

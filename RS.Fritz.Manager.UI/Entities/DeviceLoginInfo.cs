@@ -116,7 +116,5 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
     }
 
     private void SetLoginInfo()
-    {
-        LoginInfoSet = InternetGatewayDevice is not null && User is not null && Password is not null;
-    }
+        => LoginInfoSet = InternetGatewayDevice is not null && User is not null && Password is not null;
 }

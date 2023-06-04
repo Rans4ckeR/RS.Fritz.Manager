@@ -13,13 +13,13 @@ internal sealed class LanEthernetInterfaceConfigViewModel : FritzServiceViewMode
     public KeyValuePair<LanEthernetInterfaceConfigGetInfoResponse?, UPnPFault?>? LanEthernetInterfaceConfigGetInfoResponse
     {
         get => lanEthernetInterfaceConfigGetInfoResponse;
-        private set { _ = SetProperty(ref lanEthernetInterfaceConfigGetInfoResponse, value); }
+        private set => _ = SetProperty(ref lanEthernetInterfaceConfigGetInfoResponse, value);
     }
 
     public KeyValuePair<LanEthernetInterfaceConfigGetStatisticsResponse?, UPnPFault?>? LanEthernetInterfaceConfigGetStatisticsResponse
     {
         get => lanEthernetInterfaceConfigGetStatisticsResponse;
-        private set { _ = SetProperty(ref lanEthernetInterfaceConfigGetStatisticsResponse, value); }
+        private set => _ = SetProperty(ref lanEthernetInterfaceConfigGetStatisticsResponse, value);
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
@@ -32,12 +32,8 @@ internal sealed class LanEthernetInterfaceConfigViewModel : FritzServiceViewMode
     }
 
     private async Task GetLanEthernetInterfaceConfigGetInfoAsync()
-    {
-        LanEthernetInterfaceConfigGetInfoResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetInfoAsync());
-    }
+        => LanEthernetInterfaceConfigGetInfoResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetInfoAsync());
 
     private async Task GetLanEthernetInterfaceConfigGetStatisticsAsync()
-    {
-        LanEthernetInterfaceConfigGetStatisticsResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetStatisticsAsync());
-    }
+        => LanEthernetInterfaceConfigGetStatisticsResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetStatisticsAsync());
 }

@@ -12,22 +12,14 @@ internal sealed class FritzWanDslInterfaceConfigService : FritzServiceClient<IFr
     }
 
     public Task<WanDslInterfaceConfigGetDslDiagnoseInfoResponse> GetDslDiagnoseInfoAsync(WanDslInterfaceConfigGetDslDiagnoseInfoRequest wanDslInterfaceConfigGetDslDiagnoseInfoRequest)
-    {
-        return Channel.GetDslDiagnoseInfoAsync(wanDslInterfaceConfigGetDslDiagnoseInfoRequest);
-    }
+        => Channel.GetDslDiagnoseInfoAsync(wanDslInterfaceConfigGetDslDiagnoseInfoRequest);
 
     public Task<WanDslInterfaceConfigGetDslInfoResponse> GetDslInfoAsync(WanDslInterfaceConfigGetDslInfoRequest wanDslInterfaceConfigGetDslInfoRequest)
-    {
-        return Channel.GetDslInfoAsync(wanDslInterfaceConfigGetDslInfoRequest);
-    }
+        => Channel.GetDslInfoAsync(wanDslInterfaceConfigGetDslInfoRequest);
 
     public Task<WanDslInterfaceConfigGetInfoResponse> GetInfoAsync(WanDslInterfaceConfigGetInfoRequest wanDslInterfaceConfigGetInfo)
-    {
-        return Channel.GetInfoAsync(wanDslInterfaceConfigGetInfo);
-    }
+        => Channel.GetInfoAsync(wanDslInterfaceConfigGetInfo);
 
     public Task<WanDslInterfaceConfigGetStatisticsTotalResponse> GetStatisticsTotalAsync(WanDslInterfaceConfigGetStatisticsTotalRequest wanDslInterfaceConfigGetStatisticsTotalRequest)
-    {
-        return Channel.GetStatisticsTotalAsync(wanDslInterfaceConfigGetStatisticsTotalRequest);
-    }
+        => Channel.GetStatisticsTotalAsync(wanDslInterfaceConfigGetStatisticsTotalRequest);
 }

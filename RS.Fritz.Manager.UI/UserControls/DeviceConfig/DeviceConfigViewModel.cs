@@ -19,13 +19,13 @@ internal sealed class DeviceConfigViewModel : FritzServiceViewModel
     public KeyValuePair<DeviceConfigGetPersistentDataResponse?, UPnPFault?>? DeviceConfigGetPersistentDataResponse
     {
         get => deviceConfigGetPersistentDataResponse;
-        private set { _ = SetProperty(ref deviceConfigGetPersistentDataResponse, value); }
+        private set => _ = SetProperty(ref deviceConfigGetPersistentDataResponse, value);
     }
 
     public KeyValuePair<DeviceConfigGetSupportDataInfoResponse?, UPnPFault?>? DeviceConfigGetSupportDataInfoResponse
     {
         get => deviceConfigGetSupportDataInfoResponse;
-        private set { _ = SetProperty(ref deviceConfigGetSupportDataInfoResponse, value); }
+        private set => _ = SetProperty(ref deviceConfigGetSupportDataInfoResponse, value);
     }
 
     public DeviceConfigGenerateUuIdViewModel DeviceConfigGenerateUuIdViewModel { get; }
@@ -42,12 +42,8 @@ internal sealed class DeviceConfigViewModel : FritzServiceViewModel
     }
 
     private async Task GetDeviceConfigGetPersistentDataAsync()
-    {
-        DeviceConfigGetPersistentDataResponse = await ExecuteApiAsync(q => q.DeviceConfigGetPersistentDataAsync());
-    }
+        => DeviceConfigGetPersistentDataResponse = await ExecuteApiAsync(q => q.DeviceConfigGetPersistentDataAsync());
 
     private async Task GetDeviceConfigGetSupportDataInfoResponseAsync()
-    {
-        DeviceConfigGetSupportDataInfoResponse = await ExecuteApiAsync(q => q.DeviceConfigGetSupportDataInfoAsync());
-    }
+        => DeviceConfigGetSupportDataInfoResponse = await ExecuteApiAsync(q => q.DeviceConfigGetSupportDataInfoAsync());
 }

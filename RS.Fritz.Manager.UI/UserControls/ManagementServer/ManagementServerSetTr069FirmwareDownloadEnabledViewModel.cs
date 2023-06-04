@@ -22,9 +22,7 @@ internal sealed class ManagementServerSetTr069FirmwareDownloadEnabledViewModel :
     }
 
     protected override ManagementServerSetTr069FirmwareDownloadEnabledRequest BuildRequest()
-    {
-        return new(Tr069FirmwareDownloadEnabled!.Value);
-    }
+        => new(Tr069FirmwareDownloadEnabled!.Value);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -41,7 +39,5 @@ internal sealed class ManagementServerSetTr069FirmwareDownloadEnabledViewModel :
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && Tr069FirmwareDownloadEnabled.HasValue;
-    }
+        => base.GetCanExecuteDefaultCommand() && Tr069FirmwareDownloadEnabled.HasValue;
 }

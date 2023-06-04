@@ -44,9 +44,7 @@ internal sealed class ManagementServerSetPeriodicInformViewModel : ManualOperati
     }
 
     protected override ManagementServerSetPeriodicInformRequest BuildRequest()
-    {
-        return new(PeriodicInformEnable!.Value, PeriodicInformInterval!.Value, PeriodicInformTime!.Value);
-    }
+        => new(PeriodicInformEnable!.Value, PeriodicInformInterval!.Value, PeriodicInformTime!.Value);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -65,7 +63,5 @@ internal sealed class ManagementServerSetPeriodicInformViewModel : ManualOperati
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && PeriodicInformEnable.HasValue && PeriodicInformInterval.HasValue && PeriodicInformTime.HasValue;
-    }
+        => base.GetCanExecuteDefaultCommand() && PeriodicInformEnable.HasValue && PeriodicInformInterval.HasValue && PeriodicInformTime.HasValue;
 }

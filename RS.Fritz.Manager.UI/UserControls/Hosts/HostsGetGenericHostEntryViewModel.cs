@@ -36,13 +36,11 @@ internal sealed class HostsGetGenericHostEntryViewModel : FritzServiceViewModel
     public KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>? HostsGetGenericHostEntryResponse
     {
         get => hostsGetGenericHostEntryResponse;
-        private set { _ = SetProperty(ref hostsGetGenericHostEntryResponse, value); }
+        private set => _ = SetProperty(ref hostsGetGenericHostEntryResponse, value);
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        HostsGetGenericHostEntryResponse = await ExecuteApiAsync(q => q.HostsGetGenericHostEntryAsync(new(Index!.Value)));
-    }
+        => HostsGetGenericHostEntryResponse = await ExecuteApiAsync(q => q.HostsGetGenericHostEntryAsync(new(Index!.Value)));
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -59,7 +57,5 @@ internal sealed class HostsGetGenericHostEntryViewModel : FritzServiceViewModel
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && Index >= 0 && Index < HostNumberOfEntries;
-    }
+        => base.GetCanExecuteDefaultCommand() && Index >= 0 && Index < HostNumberOfEntries;
 }
