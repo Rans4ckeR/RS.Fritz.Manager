@@ -75,8 +75,9 @@ internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceV
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
-          {
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
+            {
                 GetWanIpConnectionGetInfoAsync(),
                 GetWanIpConnectionGetConnectionTypeInfoAsync(),
                 GetWanIpConnectionGetStatusInfoAsync(),
@@ -84,27 +85,28 @@ internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceV
                 GetWanIpConnectionGetDnsServersAsync(),
                 GetWanIpConnectionGetPortMappingNumberOfEntriesAsync(),
                 GetWanIpConnectionGetExternalIpAddressAsync()
-          });
+            },
+            true);
     }
 
     private async Task GetWanIpConnectionGetInfoAsync()
-        => WanIpConnectionGetInfoResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetInfoAsync());
+        => WanIpConnectionGetInfoResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanIpConnectionGetConnectionTypeInfoAsync()
-        => WanConnectionGetConnectionTypeInfoResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetConnectionTypeInfoAsync());
+        => WanConnectionGetConnectionTypeInfoResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetConnectionTypeInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanIpConnectionGetStatusInfoAsync()
-        => WanConnectionGetStatusInfoResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetStatusInfoAsync());
+        => WanConnectionGetStatusInfoResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetStatusInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanIpConnectionGetNatRsipStatusAsync()
-        => WanConnectionGetNatRsipStatusResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetNatRsipStatusAsync());
+        => WanConnectionGetNatRsipStatusResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetNatRsipStatusAsync()).ConfigureAwait(true);
 
     private async Task GetWanIpConnectionGetDnsServersAsync()
-        => WanConnectionGetDnsServersResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetDnsServersAsync());
+        => WanConnectionGetDnsServersResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetDnsServersAsync()).ConfigureAwait(true);
 
     private async Task GetWanIpConnectionGetPortMappingNumberOfEntriesAsync()
     {
-        WanConnectionGetPortMappingNumberOfEntriesResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetPortMappingNumberOfEntriesAsync());
+        WanConnectionGetPortMappingNumberOfEntriesResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetPortMappingNumberOfEntriesAsync()).ConfigureAwait(true);
 
         ushort numberOfEntries = WanConnectionGetPortMappingNumberOfEntriesResponse!.Value.Key!.Value.PortMappingNumberOfEntries;
         var tasks = new List<Task<KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>>>();
@@ -116,11 +118,11 @@ internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceV
             tasks.Add(ExecuteApiAsync(q => q.WanIpConnectionGetGenericPortMappingEntryAsync(new(capturedIndex))));
         }
 
-        KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks);
+        KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
 
         WanConnectionGetGenericPortMappingEntryResponses = new(responses.Select(q => q.Key!.Value));
     }
 
     private async Task GetWanIpConnectionGetExternalIpAddressAsync()
-        => WanConnectionGetExternalIpAddressResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetExternalIpAddressAsync());
+        => WanConnectionGetExternalIpAddressResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetExternalIpAddressAsync()).ConfigureAwait(true);
 }

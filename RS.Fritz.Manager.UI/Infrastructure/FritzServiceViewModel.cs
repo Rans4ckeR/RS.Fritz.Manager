@@ -62,7 +62,7 @@ internal abstract class FritzServiceViewModel : ObservableRecipient
 
     protected virtual void Receive(PropertyChangedMessage<bool> message)
     {
-        if (message.Sender == DeviceLoginInfo)
+        if (message.Sender is DeviceLoginInfo)
         {
             switch (message.PropertyName)
             {
@@ -124,7 +124,7 @@ internal abstract class FritzServiceViewModel : ObservableRecipient
 
         try
         {
-            return new(await operation, null);
+            return new(await operation.ConfigureAwait(true), null);
         }
         catch (FaultException<UPnPFault1> ex)
         {
@@ -147,7 +147,7 @@ internal abstract class FritzServiceViewModel : ObservableRecipient
         {
             DefaultCommandActive = true;
 
-            await DoExecuteDefaultCommandAsync(cancellationToken);
+            await DoExecuteDefaultCommandAsync(cancellationToken).ConfigureAwait(true);
 
             if (showView ?? true)
                 _ = StrongReferenceMessenger.Default.Send(new ActiveViewValueChangedMessage(this));

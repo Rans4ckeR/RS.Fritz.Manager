@@ -71,7 +71,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
                     }
                     else
                     {
-                        await message.NewValue.ApiDevice.InitializeAsync();
+                        await message.NewValue.ApiDevice.InitializeAsync().ConfigureAwait(true);
 
                         message.NewValue.Users = message.NewValue.ApiDevice.Users!;
                     }

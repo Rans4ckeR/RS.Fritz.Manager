@@ -16,5 +16,5 @@ internal sealed class WanEthernetLinkConfigViewModel : FritzServiceViewModel
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => WanEthernetLinkConfigGetEthernetLinkStatusResponse = await ExecuteApiAsync(q => q.WanEthernetLinkConfigGetEthernetLinkStatusAsync());
+        => WanEthernetLinkConfigGetEthernetLinkStatusResponse = await ExecuteApiAsync(q => q.WanEthernetLinkConfigGetEthernetLinkStatusAsync()).ConfigureAwait(true);
 }

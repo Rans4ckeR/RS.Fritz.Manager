@@ -24,16 +24,18 @@ internal sealed class AvmSpeedtestViewModel : FritzServiceViewModel
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
             {
                 GetAvmSpeedtestGetInfoAsync(),
                 GetAvmSpeedtestGetStatisticsAsync()
-            });
+            },
+            true);
     }
 
     private async Task GetAvmSpeedtestGetInfoAsync()
-        => AvmSpeedtestGetInfoResponse = await ExecuteApiAsync(q => q.AvmSpeedtestGetInfoAsync());
+        => AvmSpeedtestGetInfoResponse = await ExecuteApiAsync(q => q.AvmSpeedtestGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetAvmSpeedtestGetStatisticsAsync()
-        => AvmSpeedtestGetStatisticsResponse = await ExecuteApiAsync(q => q.AvmSpeedtestGetStatisticsAsync());
+        => AvmSpeedtestGetStatisticsResponse = await ExecuteApiAsync(q => q.AvmSpeedtestGetStatisticsAsync()).ConfigureAwait(true);
 }

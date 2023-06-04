@@ -41,24 +41,26 @@ internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
             {
                 GetLanConfigSecurityGetAnonymousLoginAsync(),
                 GetLanConfigSecurityGetCurrentUserAsync(),
                 GetLanConfigSecurityGetInfoAsync(),
                 GetLanConfigSecurityGetUserListAsync()
-            });
+            },
+            true);
     }
 
     private async Task GetLanConfigSecurityGetAnonymousLoginAsync()
-        => LanConfigSecurityGetAnonymousLoginResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetAnonymousLoginAsync());
+        => LanConfigSecurityGetAnonymousLoginResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetAnonymousLoginAsync()).ConfigureAwait(true);
 
     private async Task GetLanConfigSecurityGetCurrentUserAsync()
-        => LanConfigSecurityGetCurrentUserResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetCurrentUserAsync());
+        => LanConfigSecurityGetCurrentUserResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetCurrentUserAsync()).ConfigureAwait(true);
 
     private async Task GetLanConfigSecurityGetInfoAsync()
-        => LanConfigSecurityGetInfoResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetInfoAsync());
+        => LanConfigSecurityGetInfoResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetLanConfigSecurityGetUserListAsync()
-        => LanConfigSecurityGetUserListResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetUserListAsync());
+        => LanConfigSecurityGetUserListResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetUserListAsync()).ConfigureAwait(true);
 }

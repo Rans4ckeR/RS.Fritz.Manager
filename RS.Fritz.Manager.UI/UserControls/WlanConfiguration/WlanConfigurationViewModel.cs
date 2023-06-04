@@ -143,8 +143,9 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
-          {
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
+            {
                 GetWlanConfigurationGetHostListPathAsync(cancellationToken),
                 GetWlanConfigurationGetInfoAsync(),
                 GetWlanConfigurationGetBasBeaconSecurityPropertiesAsync(),
@@ -162,59 +163,60 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
                 GetWlanConfigurationGetWlanExtInfoAsync(),
                 GetWlanConfigurationGetWpsInfoAsync(),
                 GetWlanConfigurationGetWlanConnectionInfoAsync()
-          });
+            },
+            true);
     }
 
     private async Task GetWlanConfigurationGetHostListPathAsync(CancellationToken cancellationToken)
-        => WlanDeviceInfo = await wlanDeviceService.GetWlanDevicesAsync(ApiDevice, cancellationToken);
+        => WlanDeviceInfo = await wlanDeviceService.GetWlanDevicesAsync(ApiDevice, cancellationToken).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetInfoAsync()
-        => WlanConfigurationGetInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetInfoAsync(i));
+        => WlanConfigurationGetInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetInfoAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetBasBeaconSecurityPropertiesAsync()
-        => WlanConfigurationGetBasBeaconSecurityPropertiesResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBasBeaconSecurityPropertiesAsync(i));
+        => WlanConfigurationGetBasBeaconSecurityPropertiesResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBasBeaconSecurityPropertiesAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetBssIdAsync()
-        => WlanConfigurationGetBssIdResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBssIdAsync(i));
+        => WlanConfigurationGetBssIdResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBssIdAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetSsIdAsync()
-        => WlanConfigurationGetSsIdResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetSsIdAsync(i));
+        => WlanConfigurationGetSsIdResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetSsIdAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetBeaconTypeAsync()
-        => WlanConfigurationGetBeaconTypeResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBeaconTypeAsync(i));
+        => WlanConfigurationGetBeaconTypeResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBeaconTypeAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetChannelInfoAsync()
-        => WlanConfigurationGetChannelInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetChannelInfoAsync(i));
+        => WlanConfigurationGetChannelInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetChannelInfoAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetBeaconAdvertisementAsync()
-        => WlanConfigurationGetBeaconAdvertisementResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBeaconAdvertisementAsync(i));
+        => WlanConfigurationGetBeaconAdvertisementResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetBeaconAdvertisementAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetTotalAssociationsAsync()
-        => WlanConfigurationGetTotalAssociationsResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetTotalAssociationsAsync(i));
+        => WlanConfigurationGetTotalAssociationsResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetTotalAssociationsAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetIpTvOptimizedAsync()
-        => WlanConfigurationGetIpTvOptimizedResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetIpTvOptimizedAsync(i));
+        => WlanConfigurationGetIpTvOptimizedResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetIpTvOptimizedAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetStatisticsAsync()
-        => WlanConfigurationGetStatisticsResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetStatisticsAsync(i));
+        => WlanConfigurationGetStatisticsResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetStatisticsAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetPacketStatisticsAsync()
-        => WlanConfigurationGetPacketStatisticsResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetPacketStatisticsAsync(i));
+        => WlanConfigurationGetPacketStatisticsResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetPacketStatisticsAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetNightControlAsync()
-        => WlanConfigurationGetNightControlResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetNightControlAsync(i));
+        => WlanConfigurationGetNightControlResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetNightControlAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetWlanHybridModeAsync()
-        => WlanConfigurationGetWlanHybridModeResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanHybridModeAsync(i));
+        => WlanConfigurationGetWlanHybridModeResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanHybridModeAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetWlanExtInfoAsync()
-        => WlanConfigurationGetWlanExtInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanExtInfoAsync(i));
+        => WlanConfigurationGetWlanExtInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanExtInfoAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetWpsInfoAsync()
-        => WlanConfigurationGetWpsInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWpsInfoAsync(i));
+        => WlanConfigurationGetWpsInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWpsInfoAsync(i)).ConfigureAwait(true);
 
     private async Task GetWlanConfigurationGetWlanConnectionInfoAsync()
-        => WlanConfigurationGetWlanConnectionInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanConnectionInfoAsync(i), new Dictionary<ushort, string> { { 714, "Current device is not directly connected to any of the access points." } });
+        => WlanConfigurationGetWlanConnectionInfoResponses = await ExecuteApiWlanConfigurationAsync((q, i) => q.WlanConfigurationGetWlanConnectionInfoAsync(i), new Dictionary<ushort, string> { { 714, "Current device is not directly connected to any of the access points." } }).ConfigureAwait(true);
 
     private async ValueTask<KeyValuePair<T?, UPnPFault?>?[]> ExecuteApiWlanConfigurationAsync<T>(Func<InternetGatewayDevice, int, Task<T>> operation, IDictionary<ushort, string>? errorReasons = null)
         where T : struct
@@ -224,7 +226,7 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
         for (int i = 0; i < 4; i++)
         {
             if (HasWlanConfigurationService(i + 1))
-                responses[i] = await ExecuteApiAsync(operation, i + 1, errorReasons);
+                responses[i] = await ExecuteApiAsync(operation, i + 1, errorReasons).ConfigureAwait(true);
         }
 
         return responses;

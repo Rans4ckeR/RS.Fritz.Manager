@@ -40,19 +40,21 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
             {
                 GetLayer3ForwardingGetDefaultConnectionServiceAsync(),
                 GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
-            });
+            },
+            true);
     }
 
     private async Task GetLayer3ForwardingGetDefaultConnectionServiceAsync()
-        => Layer3ForwardingGetDefaultConnectionServiceResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetDefaultConnectionServiceAsync());
+        => Layer3ForwardingGetDefaultConnectionServiceResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetDefaultConnectionServiceAsync()).ConfigureAwait(true);
 
     private async Task GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
     {
-        Layer3ForwardingGetForwardNumberOfEntriesResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetForwardNumberOfEntriesAsync());
+        Layer3ForwardingGetForwardNumberOfEntriesResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetForwardNumberOfEntriesAsync()).ConfigureAwait(true);
 
         ushort numberOfEntries = Layer3ForwardingGetForwardNumberOfEntriesResponse!.Value.Key!.Value.ForwardNumberOfEntries;
         var tasks = new List<Task<KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>>>();
@@ -64,7 +66,7 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
             tasks.Add(ExecuteApiAsync(q => q.Layer3ForwardingGetGenericForwardingEntryAsync(new(capturedIndex))));
         }
 
-        KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks);
+        KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
 
         Layer3ForwardingGetGenericForwardingEntryResponses = new(responses.Select(q => q.Key!.Value));
     }

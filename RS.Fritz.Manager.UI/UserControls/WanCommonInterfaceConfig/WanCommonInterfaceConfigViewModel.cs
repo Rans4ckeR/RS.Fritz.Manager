@@ -76,7 +76,8 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
             {
                GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(),
                GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(),
@@ -84,7 +85,8 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
                GetWanCommonInterfaceConfigGetTotalPacketsReceivedAsync(),
                GetWanCommonInterfaceConfigGetTotalPacketsSentAsync(),
                GetWanCommonInterfaceConfigGetOnlineMonitorAsync()
-            });
+            },
+            true);
     }
 
     private async void AutoRefreshTimerTick(object? sender, EventArgs e)
@@ -92,7 +94,7 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
         try
         {
             if (CanExecuteDefaultCommand)
-                await DefaultCommand.ExecuteAsync(false);
+                await DefaultCommand.ExecuteAsync(false).ConfigureAwait(true);
         }
         catch (Exception ex)
         {
@@ -103,20 +105,20 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
     }
 
     private async Task GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync()
-        => WanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetCommonLinkPropertiesAsync());
+        => WanCommonInterfaceConfigGetCommonLinkPropertiesResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetCommonLinkPropertiesAsync()).ConfigureAwait(true);
 
     private async Task GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync()
-        => WanCommonInterfaceConfigGetTotalBytesReceivedResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetTotalBytesReceivedAsync());
+        => WanCommonInterfaceConfigGetTotalBytesReceivedResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetTotalBytesReceivedAsync()).ConfigureAwait(true);
 
     private async Task GetWanCommonInterfaceConfigGetTotalBytesSentAsync()
-        => WanCommonInterfaceConfigGetTotalBytesSentResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetTotalBytesSentAsync());
+        => WanCommonInterfaceConfigGetTotalBytesSentResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetTotalBytesSentAsync()).ConfigureAwait(true);
 
     private async Task GetWanCommonInterfaceConfigGetTotalPacketsReceivedAsync()
-        => WanCommonInterfaceConfigGetTotalPacketsReceivedResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetTotalPacketsReceivedAsync());
+        => WanCommonInterfaceConfigGetTotalPacketsReceivedResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetTotalPacketsReceivedAsync()).ConfigureAwait(true);
 
     private async Task GetWanCommonInterfaceConfigGetTotalPacketsSentAsync()
-        => WanCommonInterfaceConfigGetTotalPacketsSentResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetTotalPacketsSentAsync());
+        => WanCommonInterfaceConfigGetTotalPacketsSentResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetTotalPacketsSentAsync()).ConfigureAwait(true);
 
     private async Task GetWanCommonInterfaceConfigGetOnlineMonitorAsync()
-        => WanCommonInterfaceConfigGetOnlineMonitorViewModel.WanCommonInterfaceConfigGetOnlineMonitorResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetOnlineMonitorAsync(new(0)));
+        => WanCommonInterfaceConfigGetOnlineMonitorViewModel.WanCommonInterfaceConfigGetOnlineMonitorResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetOnlineMonitorAsync(new(0))).ConfigureAwait(true);
 }

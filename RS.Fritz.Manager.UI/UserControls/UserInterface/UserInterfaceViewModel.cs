@@ -57,20 +57,22 @@ internal sealed class UserInterfaceViewModel : FritzServiceViewModel
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
             {
                GetUserInterfaceGetInfoAsync(),
                GetUserInterfaceGetInternationalConfigAsync(),
                GetUserInterfaceAvmGetInfoAsync()
-            });
+            },
+            true);
     }
 
     private async Task GetUserInterfaceGetInfoAsync()
-        => UserInterfaceGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInfoAsync());
+        => UserInterfaceGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetUserInterfaceGetInternationalConfigAsync()
-        => UserInterfaceGetInternationalConfigResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInternationalConfigAsync());
+        => UserInterfaceGetInternationalConfigResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInternationalConfigAsync()).ConfigureAwait(true);
 
     private async Task GetUserInterfaceAvmGetInfoAsync()
-        => UserInterfaceAvmGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceAvmGetInfoAsync());
+        => UserInterfaceAvmGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceAvmGetInfoAsync()).ConfigureAwait(true);
 }

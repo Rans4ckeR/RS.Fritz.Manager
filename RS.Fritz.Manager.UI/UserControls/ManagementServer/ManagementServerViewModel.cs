@@ -58,16 +58,18 @@ internal sealed class ManagementServerViewModel : FritzServiceViewModel
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
             {
                GetManagementServerGetInfoAsync(),
                GetManagementServerGetTr069FirmwareDownloadEnabledAsync()
-            });
+            },
+            true);
     }
 
     private async Task GetManagementServerGetInfoAsync()
-        => ManagementServerGetInfoResponse = await ExecuteApiAsync(q => q.ManagementServerGetInfoAsync());
+        => ManagementServerGetInfoResponse = await ExecuteApiAsync(q => q.ManagementServerGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetManagementServerGetTr069FirmwareDownloadEnabledAsync()
-        => ManagementServerGetTr069FirmwareDownloadEnabledResponse = await ExecuteApiAsync(q => q.ManagementServerGetTr069FirmwareDownloadEnabledAsync());
+        => ManagementServerGetTr069FirmwareDownloadEnabledResponse = await ExecuteApiAsync(q => q.ManagementServerGetTr069FirmwareDownloadEnabledAsync()).ConfigureAwait(true);
 }

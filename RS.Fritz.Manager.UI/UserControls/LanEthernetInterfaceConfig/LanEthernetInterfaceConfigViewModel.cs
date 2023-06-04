@@ -24,16 +24,18 @@ internal sealed class LanEthernetInterfaceConfigViewModel : FritzServiceViewMode
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
             {
                 GetLanEthernetInterfaceConfigGetInfoAsync(),
                 GetLanEthernetInterfaceConfigGetStatisticsAsync()
-            });
+            },
+            true);
     }
 
     private async Task GetLanEthernetInterfaceConfigGetInfoAsync()
-        => LanEthernetInterfaceConfigGetInfoResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetInfoAsync());
+        => LanEthernetInterfaceConfigGetInfoResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetLanEthernetInterfaceConfigGetStatisticsAsync()
-        => LanEthernetInterfaceConfigGetStatisticsResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetStatisticsAsync());
+        => LanEthernetInterfaceConfigGetStatisticsResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetStatisticsAsync()).ConfigureAwait(true);
 }

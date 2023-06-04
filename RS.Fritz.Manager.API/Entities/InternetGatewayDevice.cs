@@ -20,7 +20,7 @@ public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzSe
 
     public async ValueTask InitializeAsync()
     {
-        SecurityPort = (await this.DeviceInfoGetSecurityPortAsync()).SecurityPort;
-        Users = (await UsersService.GetUsersAsync(this)).ToArray();
+        SecurityPort = (await this.DeviceInfoGetSecurityPortAsync().ConfigureAwait(false)).SecurityPort;
+        Users = (await UsersService.GetUsersAsync(this).ConfigureAwait(false)).ToArray();
     }
 }

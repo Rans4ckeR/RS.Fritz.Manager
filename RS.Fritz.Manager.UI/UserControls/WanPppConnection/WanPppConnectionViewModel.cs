@@ -96,8 +96,9 @@ internal sealed class WanPppConnectionViewModel : WanAccessTypeAwareFritzService
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
-          {
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
+            {
                 GetWanPppConnectionGetInfoAsync(),
                 GetWanPppConnectionGetConnectionTypeInfoAsync(),
                 GetWanPppConnectionGetStatusInfoAsync(),
@@ -108,33 +109,34 @@ internal sealed class WanPppConnectionViewModel : WanAccessTypeAwareFritzService
                 GetWanPppConnectionGetPortMappingNumberOfEntriesAsync(),
                 GetWanPppConnectionGetExternalIpAddressAsync(),
                 GetWanPppConnectionGetAutoDisconnectTimeSpanAsync()
-          });
+            },
+            true);
     }
 
     private async Task GetWanPppConnectionGetInfoAsync()
-        => WanPppConnectionGetInfoResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetInfoAsync());
+        => WanPppConnectionGetInfoResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanPppConnectionGetConnectionTypeInfoAsync()
-        => WanConnectionGetConnectionTypeInfoResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetConnectionTypeInfoAsync());
+        => WanConnectionGetConnectionTypeInfoResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetConnectionTypeInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanPppConnectionGetStatusInfoAsync()
-        => WanConnectionGetStatusInfoResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetStatusInfoAsync());
+        => WanConnectionGetStatusInfoResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetStatusInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanPppConnectionGetLinkLayerMaxBitRatesAsync()
-        => WanPppConnectionGetLinkLayerMaxBitRatesResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetLinkLayerMaxBitRatesAsync());
+        => WanPppConnectionGetLinkLayerMaxBitRatesResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetLinkLayerMaxBitRatesAsync()).ConfigureAwait(true);
 
     private async Task GetWanPppConnectionGetUserNameAsync()
-        => WanPppConnectionGetUserNameResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetUserNameAsync());
+        => WanPppConnectionGetUserNameResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetUserNameAsync()).ConfigureAwait(true);
 
     private async Task GetWanPppConnectionGetNatRsipStatusAsync()
-        => WanConnectionGetNatRsipStatusResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetNatRsipStatusAsync());
+        => WanConnectionGetNatRsipStatusResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetNatRsipStatusAsync()).ConfigureAwait(true);
 
     private async Task GetWanPppConnectionGetDnsServersAsync()
-        => WanConnectionGetDnsServersResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetDnsServersAsync());
+        => WanConnectionGetDnsServersResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetDnsServersAsync()).ConfigureAwait(true);
 
     private async Task GetWanPppConnectionGetPortMappingNumberOfEntriesAsync()
     {
-        WanConnectionGetPortMappingNumberOfEntriesResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetPortMappingNumberOfEntriesAsync());
+        WanConnectionGetPortMappingNumberOfEntriesResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetPortMappingNumberOfEntriesAsync()).ConfigureAwait(true);
 
         ushort numberOfEntries = WanConnectionGetPortMappingNumberOfEntriesResponse!.Value.Key!.Value.PortMappingNumberOfEntries;
         var tasks = new List<Task<KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>>>();
@@ -146,14 +148,14 @@ internal sealed class WanPppConnectionViewModel : WanAccessTypeAwareFritzService
             tasks.Add(ExecuteApiAsync(q => q.WanPppConnectionGetGenericPortMappingEntryAsync(new(capturedIndex))));
         }
 
-        KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks);
+        KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
 
         WanConnectionGetGenericPortMappingEntryResponses = new(responses.Select(q => q.Key!.Value));
     }
 
     private async Task GetWanPppConnectionGetExternalIpAddressAsync()
-        => WanConnectionGetExternalIpAddressResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetExternalIpAddressAsync());
+        => WanConnectionGetExternalIpAddressResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetExternalIpAddressAsync()).ConfigureAwait(true);
 
     private async Task GetWanPppConnectionGetAutoDisconnectTimeSpanAsync()
-        => WanPppConnectionGetAutoDisconnectTimeSpanResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetAutoDisconnectTimeSpanAsync());
+        => WanPppConnectionGetAutoDisconnectTimeSpanResponse = await ExecuteApiAsync(q => q.WanPppConnectionGetAutoDisconnectTimeSpanAsync()).ConfigureAwait(true);
 }

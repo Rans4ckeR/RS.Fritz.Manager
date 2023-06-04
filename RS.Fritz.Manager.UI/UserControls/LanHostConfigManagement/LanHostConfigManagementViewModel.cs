@@ -52,7 +52,8 @@ internal sealed class LanHostConfigManagementViewModel : FritzServiceViewModel
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
             {
                 GetLanHostConfigManagementGetInfoAsync(),
                 LanHostConfigManagementGetSubnetMaskAsync(),
@@ -60,24 +61,25 @@ internal sealed class LanHostConfigManagementViewModel : FritzServiceViewModel
                 LanHostConfigManagementGetAddressRangeAsync(),
                 LanHostConfigManagementGetIpInterfaceNumberOfEntriesAsync(),
                 LanHostConfigManagementGetDnsServersAsync()
-            });
+            },
+            true);
     }
 
     private async Task GetLanHostConfigManagementGetInfoAsync()
-        => LanHostConfigManagementGetInfoResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetInfoAsync());
+        => LanHostConfigManagementGetInfoResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetInfoAsync()).ConfigureAwait(true);
 
     private async Task LanHostConfigManagementGetSubnetMaskAsync()
-        => LanHostConfigManagementGetSubnetMaskResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetSubnetMaskAsync());
+        => LanHostConfigManagementGetSubnetMaskResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetSubnetMaskAsync()).ConfigureAwait(true);
 
     private async Task LanHostConfigManagementGetIpRoutersListAsync()
-        => LanHostConfigManagementGetIpRoutersListResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetIpRoutersListAsync());
+        => LanHostConfigManagementGetIpRoutersListResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetIpRoutersListAsync()).ConfigureAwait(true);
 
     private async Task LanHostConfigManagementGetAddressRangeAsync()
-        => LanHostConfigManagementGetAddressRangeResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetAddressRangeAsync());
+        => LanHostConfigManagementGetAddressRangeResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetAddressRangeAsync()).ConfigureAwait(true);
 
     private async Task LanHostConfigManagementGetIpInterfaceNumberOfEntriesAsync()
-        => LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetIpInterfaceNumberOfEntriesAsync());
+        => LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetIpInterfaceNumberOfEntriesAsync()).ConfigureAwait(true);
 
     private async Task LanHostConfigManagementGetDnsServersAsync()
-        => LanHostConfigManagementGetDnsServersResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetDnsServersAsync());
+        => LanHostConfigManagementGetDnsServersResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetDnsServersAsync()).ConfigureAwait(true);
 }

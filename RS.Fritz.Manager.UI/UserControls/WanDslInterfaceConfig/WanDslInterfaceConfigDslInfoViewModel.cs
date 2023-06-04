@@ -71,7 +71,7 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
         uint max = downstreamSnrValues.Max();
         uint range = max - min;
 
-        if (range == 0)
+        if (range is 0)
             range = 1;
 
         var uiElements = new List<UIElement>();

@@ -76,7 +76,8 @@ internal sealed class HostsViewModel : FritzServiceViewModel
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
             {
                 GetHostsGetHostListPathAsync(cancellationToken),
                 GetHostsGetMeshListPathAsync(cancellationToken),
@@ -84,12 +85,13 @@ internal sealed class HostsViewModel : FritzServiceViewModel
                 GetHostsGetInfoAsync(),
                 GetHostsGetChangeCounterAsync(),
                 GetHostsGetFriendlyNameAsync()
-            });
+            },
+            true);
     }
 
     private async Task GetHostsGetHostNumberOfEntriesAsync()
     {
-        HostsGetHostNumberOfEntriesResponse = await ExecuteApiAsync(q => q.HostsGetHostNumberOfEntriesAsync());
+        HostsGetHostNumberOfEntriesResponse = await ExecuteApiAsync(q => q.HostsGetHostNumberOfEntriesAsync()).ConfigureAwait(true);
 
         ushort numberOfEntries = HostsGetHostNumberOfEntriesResponse!.Value.Key!.Value.HostNumberOfEntries;
         var tasks = new List<Task<KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>>>();
@@ -101,23 +103,23 @@ internal sealed class HostsViewModel : FritzServiceViewModel
             tasks.Add(ExecuteApiAsync(q => q.HostsGetGenericHostEntryAsync(new(capturedIndex))));
         }
 
-        KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks);
+        KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
 
         HostsGetGenericHostEntryResponses = new(responses.Select(q => q.Key!.Value));
     }
 
     private async Task GetHostsGetInfoAsync()
-        => HostsGetInfoResponse = await ExecuteApiAsync(q => q.HostsGetInfoAsync());
+        => HostsGetInfoResponse = await ExecuteApiAsync(q => q.HostsGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetHostsGetChangeCounterAsync()
-        => HostsGetChangeCounterResponse = await ExecuteApiAsync(q => q.HostsGetChangeCounterAsync());
+        => HostsGetChangeCounterResponse = await ExecuteApiAsync(q => q.HostsGetChangeCounterAsync()).ConfigureAwait(true);
 
     private async Task GetHostsGetFriendlyNameAsync()
-        => HostsGetFriendlyNameResponse = await ExecuteApiAsync(q => q.HostsGetFriendlyNameAsync());
+        => HostsGetFriendlyNameResponse = await ExecuteApiAsync(q => q.HostsGetFriendlyNameAsync()).ConfigureAwait(true);
 
     private async Task GetHostsGetHostListPathAsync(CancellationToken cancellationToken)
-        => DeviceHostInfo = await deviceHostsService.GetDeviceHostsAsync(ApiDevice, cancellationToken);
+        => DeviceHostInfo = await deviceHostsService.GetDeviceHostsAsync(ApiDevice, cancellationToken).ConfigureAwait(true);
 
     private async Task GetHostsGetMeshListPathAsync(CancellationToken cancellationToken)
-        => DeviceMeshInfo = await deviceMeshService.GetDeviceMeshAsync(ApiDevice, cancellationToken);
+        => DeviceMeshInfo = await deviceMeshService.GetDeviceMeshAsync(ApiDevice, cancellationToken).ConfigureAwait(true);
 }

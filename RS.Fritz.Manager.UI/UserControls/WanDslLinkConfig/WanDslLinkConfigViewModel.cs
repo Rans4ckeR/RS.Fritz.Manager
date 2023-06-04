@@ -52,32 +52,34 @@ internal sealed class WanDslLinkConfigViewModel : WanAccessTypeAwareFritzService
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
-          {
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
+            {
                 GetWanDslLinkConfigGetInfoAsync(),
                 GetWanDslLinkConfigGetDslLinkInfoAsync(),
                 GetWanDslLinkConfigGetDestinationAddressAsync(),
                 GetWanDslLinkConfigGetAtmEncapsulationAsync(),
                 GetWanDslLinkConfigGetAutoConfigAsync(),
                 GetWanDslLinkConfigGetStatisticsAsync()
-          });
+            },
+            true);
     }
 
     private async Task GetWanDslLinkConfigGetInfoAsync()
-        => WanDslLinkConfigGetInfoResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetInfoAsync());
+        => WanDslLinkConfigGetInfoResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanDslLinkConfigGetDslLinkInfoAsync()
-        => WanDslLinkConfigGetDslLinkInfoResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetDslLinkInfoAsync());
+        => WanDslLinkConfigGetDslLinkInfoResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetDslLinkInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanDslLinkConfigGetDestinationAddressAsync()
-        => WanDslLinkConfigGetDestinationAddressResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetDestinationAddressAsync());
+        => WanDslLinkConfigGetDestinationAddressResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetDestinationAddressAsync()).ConfigureAwait(true);
 
     private async Task GetWanDslLinkConfigGetAtmEncapsulationAsync()
-        => WanDslLinkConfigGetAtmEncapsulationResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetAtmEncapsulationAsync());
+        => WanDslLinkConfigGetAtmEncapsulationResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetAtmEncapsulationAsync()).ConfigureAwait(true);
 
     private async Task GetWanDslLinkConfigGetAutoConfigAsync()
-        => WanDslLinkConfigGetAutoConfigResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetAutoConfigAsync());
+        => WanDslLinkConfigGetAutoConfigResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetAutoConfigAsync()).ConfigureAwait(true);
 
     private async Task GetWanDslLinkConfigGetStatisticsAsync()
-        => WanDslLinkConfigGetStatisticsResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetStatisticsAsync());
+        => WanDslLinkConfigGetStatisticsResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetStatisticsAsync()).ConfigureAwait(true);
 }

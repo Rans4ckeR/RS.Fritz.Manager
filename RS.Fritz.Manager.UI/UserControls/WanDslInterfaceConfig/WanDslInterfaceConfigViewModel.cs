@@ -74,13 +74,15 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
             {
                 GetWanDslInterfaceConfigGetDslDiagnoseInfoAsync(),
                 GetWanDslInterfaceConfigGetDslInfoAsync(),
                 GetWanDslInterfaceConfigGetInfoAsync(),
                 GetWanDslInterfaceConfigGetStatisticsTotalAsync()
-            });
+            },
+            true);
     }
 
     private async void AutoRefreshTimerTick(object? sender, EventArgs e)
@@ -88,7 +90,7 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
         try
         {
             if (CanExecuteDefaultCommand)
-                await DefaultCommand.ExecuteAsync(false);
+                await DefaultCommand.ExecuteAsync(false).ConfigureAwait(true);
         }
         catch (Exception ex)
         {
@@ -99,14 +101,14 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
     }
 
     private async Task GetWanDslInterfaceConfigGetDslDiagnoseInfoAsync()
-        => WanDslInterfaceConfigGetDslDiagnoseInfoResponse = await ExecuteApiAsync(q => q.WanDslInterfaceConfigGetDslDiagnoseInfoAsync());
+        => WanDslInterfaceConfigGetDslDiagnoseInfoResponse = await ExecuteApiAsync(q => q.WanDslInterfaceConfigGetDslDiagnoseInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanDslInterfaceConfigGetDslInfoAsync()
-        => WanDslInterfaceConfigDslInfoViewModel.WanDslInterfaceConfigGetDslInfoResponse = await ExecuteApiAsync(q => q.WanDslInterfaceConfigGetDslInfoAsync());
+        => WanDslInterfaceConfigDslInfoViewModel.WanDslInterfaceConfigGetDslInfoResponse = await ExecuteApiAsync(q => q.WanDslInterfaceConfigGetDslInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanDslInterfaceConfigGetInfoAsync()
-        => WanDslInterfaceConfigInfoViewModel.WanDslInterfaceConfigGetInfoResponse = await ExecuteApiAsync(q => q.WanDslInterfaceConfigGetInfoAsync());
+        => WanDslInterfaceConfigInfoViewModel.WanDslInterfaceConfigGetInfoResponse = await ExecuteApiAsync(q => q.WanDslInterfaceConfigGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanDslInterfaceConfigGetStatisticsTotalAsync()
-        => WanDslInterfaceConfigGetStatisticsTotalResponse = await ExecuteApiAsync(q => q.WanDslInterfaceConfigGetStatisticsTotalAsync());
+        => WanDslInterfaceConfigGetStatisticsTotalResponse = await ExecuteApiAsync(q => q.WanDslInterfaceConfigGetStatisticsTotalAsync()).ConfigureAwait(true);
 }

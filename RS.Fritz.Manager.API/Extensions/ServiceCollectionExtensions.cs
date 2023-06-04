@@ -53,7 +53,7 @@ public static class ServiceCollectionExtensions
             {
                 SslOptions = new()
                 {
-                    RemoteCertificateValidationCallback = (_, _, _, sslPolicyErrors) => (sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) == 0,
+                    RemoteCertificateValidationCallback = (_, _, _, sslPolicyErrors) => (sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) is 0,
                     CertificateChainPolicy = new()
                     {
                         DisableCertificateDownloads = true

@@ -16,7 +16,7 @@ internal sealed class DeviceHostsService : IDeviceHostsService
 
     public async ValueTask<DeviceHostInfo> GetDeviceHostsAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
-        HostsGetHostListPathResponse hostsGetHostListPathResponse = await internetGatewayDevice.HostsGetHostListPathAsync();
+        HostsGetHostListPathResponse hostsGetHostListPathResponse = await internetGatewayDevice.HostsGetHostListPathAsync().ConfigureAwait(false);
         string hostListPath = hostsGetHostListPathResponse.HostListPath;
         Uri hostListPathUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, internetGatewayDevice.SecurityPort!.Value, hostListPath);
         Stream deviceHostsListXmlStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(hostListPathUri, cancellationToken).ConfigureAwait(false);

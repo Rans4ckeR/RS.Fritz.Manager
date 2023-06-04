@@ -141,7 +141,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
         uint labelMaxValue = values.Max();
         uint range = max - min;
 
-        if (range == 0)
+        if (range is 0)
             range = 1;
 
         var uiElements = new List<UIElement>();

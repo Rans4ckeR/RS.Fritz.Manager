@@ -19,5 +19,5 @@ internal sealed class TimeViewModel : FritzServiceViewModel
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => TimeGetInfoResponse = await ExecuteApiAsync(q => q.TimeGetInfoAsync());
+        => TimeGetInfoResponse = await ExecuteApiAsync(q => q.TimeGetInfoAsync()).ConfigureAwait(true);
 }

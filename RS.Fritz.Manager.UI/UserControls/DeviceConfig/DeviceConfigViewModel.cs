@@ -34,16 +34,18 @@ internal sealed class DeviceConfigViewModel : FritzServiceViewModel
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
             {
                 GetDeviceConfigGetPersistentDataAsync(),
                 GetDeviceConfigGetSupportDataInfoResponseAsync()
-            });
+            },
+            true);
     }
 
     private async Task GetDeviceConfigGetPersistentDataAsync()
-        => DeviceConfigGetPersistentDataResponse = await ExecuteApiAsync(q => q.DeviceConfigGetPersistentDataAsync());
+        => DeviceConfigGetPersistentDataResponse = await ExecuteApiAsync(q => q.DeviceConfigGetPersistentDataAsync()).ConfigureAwait(true);
 
     private async Task GetDeviceConfigGetSupportDataInfoResponseAsync()
-        => DeviceConfigGetSupportDataInfoResponse = await ExecuteApiAsync(q => q.DeviceConfigGetSupportDataInfoAsync());
+        => DeviceConfigGetSupportDataInfoResponse = await ExecuteApiAsync(q => q.DeviceConfigGetSupportDataInfoAsync()).ConfigureAwait(true);
 }

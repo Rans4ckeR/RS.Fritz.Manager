@@ -300,7 +300,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     {
         ActiveView = null;
         DeviceLoginInfo.InternetGatewayDevice = null;
-        Devices = new((await deviceSearchService.GetDevicesAsync(cancellationToken: cancellationToken)).Select(q => new ObservableInternetGatewayDevice(q)));
+        Devices = new((await deviceSearchService.GetDevicesAsync(cancellationToken: cancellationToken).ConfigureAwait(true)).Select(q => new ObservableInternetGatewayDevice(q)));
     }
 
     protected override bool GetCanExecuteDefaultCommand() => !DefaultCommandActive;
@@ -344,7 +344,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         {
             LoginCommandActive = true;
 
-            await DeviceLoginInfo.InternetGatewayDevice!.GetDeviceTypeAsync();
+            await DeviceLoginInfo.InternetGatewayDevice!.GetDeviceTypeAsync().ConfigureAwait(true);
 
             LoginButtonImage = new BitmapImage(new("pack://application:,,,/Images/Success.png"));
         }

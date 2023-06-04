@@ -153,7 +153,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => WanCommonInterfaceConfigGetOnlineMonitorResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetOnlineMonitorAsync(new(SyncGroupIndex)));
+        => WanCommonInterfaceConfigGetOnlineMonitorResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetOnlineMonitorAsync(new(SyncGroupIndex))).ConfigureAwait(true);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -200,7 +200,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
         uint max = streamBps.Max();
         uint range = max - min;
 
-        if (range == 0)
+        if (range is 0)
             range = 1;
 
         var uiElements = new List<UIElement>();
@@ -234,7 +234,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
         uint max = upstreamTotalBps!.Max();
         uint range = max - min;
 
-        if (range == 0)
+        if (range is 0)
             range = 1;
 
         var uiElements = new List<UIElement>();

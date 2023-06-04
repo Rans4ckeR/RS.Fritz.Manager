@@ -72,5 +72,5 @@ internal sealed class NetworkService : INetworkService
         => NetworkInterface.GetAllNetworkInterfaces()
             .Where(q => q.OperationalStatus is OperationalStatus.Up && q.NetworkInterfaceType is not NetworkInterfaceType.Loopback)
             .Select(q => q.GetIPProperties())
-            .Where(q => q.GatewayAddresses.Any());
+            .Where(q => q.GatewayAddresses.Count is not 0);
 }

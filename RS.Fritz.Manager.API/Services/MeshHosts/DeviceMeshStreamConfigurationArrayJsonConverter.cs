@@ -11,36 +11,36 @@ internal sealed class DeviceMeshStreamConfigurationArrayJsonConverter : JsonConv
 
     public override DeviceMeshStreamConfiguration[] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        if (reader.TokenType != JsonTokenType.StartArray)
+        if (reader.TokenType is not JsonTokenType.StartArray)
             throw new JsonException();
 
         var deviceMeshStreamConfigurations = new Collection<DeviceMeshStreamConfiguration>();
 
         while (reader.Read())
         {
-            if (reader.TokenType == JsonTokenType.EndArray)
+            if (reader.TokenType is JsonTokenType.EndArray)
                 return deviceMeshStreamConfigurations.ToArray();
 
-            if (reader.TokenType != JsonTokenType.StartArray)
+            if (reader.TokenType is not JsonTokenType.StartArray)
                 throw new JsonException();
 
             _ = reader.Read();
 
-            if (reader.TokenType != JsonTokenType.String)
+            if (reader.TokenType is not JsonTokenType.String)
                 throw new JsonException();
 
             string channelWidth = reader.GetString()!;
 
             _ = reader.Read();
 
-            if (reader.TokenType != JsonTokenType.Number)
+            if (reader.TokenType is not JsonTokenType.Number)
                 throw new JsonException();
 
             int supportedStreamCount = reader.GetInt32();
 
             _ = reader.Read();
 
-            if (reader.TokenType != JsonTokenType.EndArray)
+            if (reader.TokenType is not JsonTokenType.EndArray)
                 throw new JsonException();
 
             deviceMeshStreamConfigurations.Add(new(channelWidth, supportedStreamCount));

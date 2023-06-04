@@ -32,7 +32,7 @@ internal sealed class WebUiService : IWebUiService
 
     public async ValueTask<WebUiSessionInfo> LogonAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
-        WebUiSessionInfo webUiSessionInfo = await GetUsersAsync(internetGatewayDevice, cancellationToken);
+        WebUiSessionInfo webUiSessionInfo = await GetUsersAsync(internetGatewayDevice, cancellationToken).ConfigureAwait(false);
         string[] challengeParts = webUiSessionInfo.Challenge.Split('$');
         int firstIterationCount = int.Parse(challengeParts[1], CultureInfo.InvariantCulture);
         byte[] firstSalt = Convert.FromHexString(challengeParts[2]);
@@ -44,7 +44,7 @@ internal sealed class WebUiService : IWebUiService
         string challengeResponse = FormattableString.Invariant($"{challengeParts[4]}${Convert.ToHexString(secondHash)}");
         var parameters = new Dictionary<string, string> { { "username", internetGatewayDevice.NetworkCredential.UserName }, { "response", challengeResponse } };
 
-        return await GetResponseAsync(internetGatewayDevice, parameters, cancellationToken);
+        return await GetResponseAsync(internetGatewayDevice, parameters, cancellationToken).ConfigureAwait(false);
     }
 
     public ValueTask<WebUiSessionInfo> LogoffAsync(InternetGatewayDevice internetGatewayDevice, string sessionId, CancellationToken cancellationToken = default)
@@ -80,9 +80,9 @@ internal sealed class WebUiService : IWebUiService
 
     private async ValueTask<WebUiSessionInfo> GetResponseAsync(InternetGatewayDevice internetGatewayDevice, IDictionary<string, string> parameters, CancellationToken cancellationToken)
     {
-        var formContent = new FormUrlEncodedContent(parameters);
+        using var formContent = new FormUrlEncodedContent(parameters);
         Uri loginUri = GetLoginUri(internetGatewayDevice);
-        using HttpResponseMessage loginResponse = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).PostAsync(loginUri, formContent, cancellationToken);
+        using HttpResponseMessage loginResponse = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).PostAsync(loginUri, formContent, cancellationToken).ConfigureAwait(false);
         Stream xmlResponseStream = await loginResponse.EnsureSuccessStatusCode().Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
 
         await using (xmlResponseStream.ConfigureAwait(false))
