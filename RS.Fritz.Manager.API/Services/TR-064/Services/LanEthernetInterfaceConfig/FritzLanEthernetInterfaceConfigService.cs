@@ -2,14 +2,10 @@
 
 using System.Net;
 
-internal sealed class FritzLanEthernetInterfaceConfigService : FritzServiceClient<IFritzLanEthernetInterfaceConfigService>, IFritzLanEthernetInterfaceConfigService
+internal sealed class FritzLanEthernetInterfaceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
+    : FritzServiceClient<IFritzLanEthernetInterfaceConfigService>(endpointConfiguration, remoteAddress, networkCredential), IFritzLanEthernetInterfaceConfigService
 {
     public const string ControlUrl = "/upnp/control/lanethernetifcfg";
-
-    public FritzLanEthernetInterfaceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-        : base(endpointConfiguration, remoteAddress, networkCredential)
-    {
-    }
 
     public Task<LanEthernetInterfaceConfigGetInfoResponse> GetInfoAsync(LanEthernetInterfaceConfigGetInfoRequest lanEthernetInterfaceConfigGetInfoRequest)
         => Channel.GetInfoAsync(lanEthernetInterfaceConfigGetInfoRequest);

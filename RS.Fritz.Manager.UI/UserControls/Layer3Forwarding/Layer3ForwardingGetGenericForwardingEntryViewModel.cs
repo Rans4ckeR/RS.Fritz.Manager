@@ -2,16 +2,12 @@
 
 using System.ComponentModel;
 
-internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel : FritzServiceViewModel
+internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : FritzServiceViewModel(deviceLoginInfo, logger)
 {
     private ushort? index;
     private ushort? forwardNumberOfEntries;
     private KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>? layer3ForwardingGetGenericForwardingEntryResponse;
-
-    public Layer3ForwardingGetGenericForwardingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
-    {
-    }
 
     public ushort? Index
     {

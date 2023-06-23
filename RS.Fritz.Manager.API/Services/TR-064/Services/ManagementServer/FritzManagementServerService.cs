@@ -2,14 +2,10 @@
 
 using System.Net;
 
-internal sealed class FritzManagementServerService : FritzServiceClient<IFritzManagementServerService>, IFritzManagementServerService
+internal sealed class FritzManagementServerService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
+    : FritzServiceClient<IFritzManagementServerService>(endpointConfiguration, remoteAddress, networkCredential), IFritzManagementServerService
 {
     public const string ControlUrl = "/upnp/control/mgmsrv";
-
-    public FritzManagementServerService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-        : base(endpointConfiguration, remoteAddress, networkCredential)
-    {
-    }
 
     public Task<ManagementServerGetInfoResponse> GetInfoAsync(ManagementServerGetInfoRequest managementServerGetInfoRequest)
         => Channel.GetInfoAsync(managementServerGetInfoRequest);

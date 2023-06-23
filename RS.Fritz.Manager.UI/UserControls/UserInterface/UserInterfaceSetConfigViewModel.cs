@@ -2,14 +2,10 @@
 
 using System.ComponentModel;
 
-internal sealed class UserInterfaceSetConfigViewModel : ManualOperationViewModel<UserInterfaceSetConfigRequest, UserInterfaceSetConfigResponse>
+internal sealed class UserInterfaceSetConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<UserInterfaceSetConfigRequest, UserInterfaceSetConfigResponse>(deviceLoginInfo, logger, "SetConfig", "Set Config", (d, r) => d.UserInterfaceSetConfigAsync(r))
 {
     private string? autoUpdateMode;
-
-    public UserInterfaceSetConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetConfig", "Set Config", (d, r) => d.UserInterfaceSetConfigAsync(r))
-    {
-    }
 
     public string? AutoUpdateMode
     {

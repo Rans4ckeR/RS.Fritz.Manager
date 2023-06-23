@@ -2,19 +2,14 @@
 
 using System.Collections.ObjectModel;
 
-internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
+internal sealed class Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, Layer3ForwardingGetGenericForwardingEntryViewModel layer3ForwardingGetGenericForwardingEntryViewModel)
+    : FritzServiceViewModel(deviceLoginInfo, logger, "Layer3Forwarding")
 {
     private KeyValuePair<Layer3ForwardingGetDefaultConnectionServiceResponse?, UPnPFault?>? layer3ForwardingGetDefaultConnectionServiceResponse;
     private KeyValuePair<Layer3ForwardingGetForwardNumberOfEntriesResponse?, UPnPFault?>? layer3ForwardingGetForwardNumberOfEntriesResponse;
     private ObservableCollection<Layer3ForwardingGetGenericForwardingEntryResponse>? layer3ForwardingGetGenericForwardingEntryResponses;
 
-    public Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, Layer3ForwardingGetGenericForwardingEntryViewModel layer3ForwardingGetGenericForwardingEntryViewModel)
-        : base(deviceLoginInfo, logger, "Layer3Forwarding")
-    {
-        Layer3ForwardingGetGenericForwardingEntryViewModel = layer3ForwardingGetGenericForwardingEntryViewModel;
-    }
-
-    public Layer3ForwardingGetGenericForwardingEntryViewModel Layer3ForwardingGetGenericForwardingEntryViewModel { get; }
+    public Layer3ForwardingGetGenericForwardingEntryViewModel Layer3ForwardingGetGenericForwardingEntryViewModel { get; } = layer3ForwardingGetGenericForwardingEntryViewModel;
 
     public KeyValuePair<Layer3ForwardingGetDefaultConnectionServiceResponse?, UPnPFault?>? Layer3ForwardingGetDefaultConnectionServiceResponse
     {

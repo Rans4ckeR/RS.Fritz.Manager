@@ -2,7 +2,8 @@
 
 using System.Collections.ObjectModel;
 
-internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceViewModel
+internal sealed class WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanIpConnectionGetGenericPortMappingEntryViewModel wanIpConnectionGetGenericPortMappingEntryViewModel)
+    : WanAccessTypeAwareFritzServiceViewModel(deviceLoginInfo, logger, WanAccessType.Ethernet, "WANIPConnection")
 {
     private KeyValuePair<WanIpConnectionGetInfoResponse?, UPnPFault?>? wanIpConnectionGetInfoResponse;
     private KeyValuePair<WanConnectionGetConnectionTypeInfoResponse?, UPnPFault?>? wanConnectionGetConnectionTypeInfoResponse;
@@ -13,13 +14,7 @@ internal sealed class WanIpConnectionViewModel : WanAccessTypeAwareFritzServiceV
     private KeyValuePair<WanConnectionGetExternalIpAddressResponse?, UPnPFault?>? wanConnectionGetExternalIpAddressResponse;
     private ObservableCollection<WanConnectionGetGenericPortMappingEntryResponse>? wanConnectionGetGenericPortMappingEntryResponses;
 
-    public WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanIpConnectionGetGenericPortMappingEntryViewModel wanIpConnectionGetGenericPortMappingEntryViewModel)
-        : base(deviceLoginInfo, logger, WanAccessType.Ethernet, "WANIPConnection")
-    {
-        WanIpConnectionGetGenericPortMappingEntryViewModel = wanIpConnectionGetGenericPortMappingEntryViewModel;
-    }
-
-    public WanIpConnectionGetGenericPortMappingEntryViewModel WanIpConnectionGetGenericPortMappingEntryViewModel { get; }
+    public WanIpConnectionGetGenericPortMappingEntryViewModel WanIpConnectionGetGenericPortMappingEntryViewModel { get; } = wanIpConnectionGetGenericPortMappingEntryViewModel;
 
     public KeyValuePair<WanIpConnectionGetInfoResponse?, UPnPFault?>? WanIpConnectionGetInfoResponse
     {

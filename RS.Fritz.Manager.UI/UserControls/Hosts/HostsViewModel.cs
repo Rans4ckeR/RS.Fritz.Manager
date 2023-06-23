@@ -2,11 +2,15 @@
 
 using System.Collections.ObjectModel;
 
-internal sealed class HostsViewModel : FritzServiceViewModel
+internal sealed class HostsViewModel(
+    DeviceLoginInfo deviceLoginInfo,
+    ILogger logger,
+    IDeviceHostsService deviceHostsService,
+    IDeviceMeshService deviceMeshService,
+    HostsGetGenericHostEntryViewModel hostsGetGenericHostEntryViewModel,
+    HostsHostsCheckUpdateViewModel hostsHostsCheckUpdateViewModel)
+    : FritzServiceViewModel(deviceLoginInfo, logger, "Hosts")
 {
-    private readonly IDeviceHostsService deviceHostsService;
-    private readonly IDeviceMeshService deviceMeshService;
-
     private KeyValuePair<HostsGetHostNumberOfEntriesResponse?, UPnPFault?>? hostsGetHostNumberOfEntriesResponse;
     private KeyValuePair<HostsGetInfoResponse?, UPnPFault?>? hostsGetInfoResponse;
     private KeyValuePair<HostsGetChangeCounterResponse?, UPnPFault?>? hostsGetChangeCounterResponse;
@@ -15,18 +19,9 @@ internal sealed class HostsViewModel : FritzServiceViewModel
     private DeviceMeshInfo? deviceMeshInfo;
     private ObservableCollection<HostsGetGenericHostEntryResponse>? hostsGetGenericHostEntryResponses;
 
-    public HostsViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, IDeviceHostsService deviceHostsService, IDeviceMeshService deviceMeshService, HostsGetGenericHostEntryViewModel hostsGetGenericHostEntryViewModel, HostsHostsCheckUpdateViewModel hostsHostsCheckUpdateViewModel)
-        : base(deviceLoginInfo, logger, "Hosts")
-    {
-        HostsGetGenericHostEntryViewModel = hostsGetGenericHostEntryViewModel;
-        HostsHostsCheckUpdateViewModel = hostsHostsCheckUpdateViewModel;
-        this.deviceHostsService = deviceHostsService;
-        this.deviceMeshService = deviceMeshService;
-    }
+    public HostsGetGenericHostEntryViewModel HostsGetGenericHostEntryViewModel { get; } = hostsGetGenericHostEntryViewModel;
 
-    public HostsGetGenericHostEntryViewModel HostsGetGenericHostEntryViewModel { get; }
-
-    public HostsHostsCheckUpdateViewModel HostsHostsCheckUpdateViewModel { get; }
+    public HostsHostsCheckUpdateViewModel HostsHostsCheckUpdateViewModel { get; } = hostsHostsCheckUpdateViewModel;
 
     public KeyValuePair<HostsGetHostNumberOfEntriesResponse?, UPnPFault?>? HostsGetHostNumberOfEntriesResponse
     {

@@ -2,17 +2,8 @@
 
 using System.Globalization;
 
-internal sealed class CaptureControlService : ICaptureControlService
+internal sealed class CaptureControlService(IHttpClientFactory httpClientFactory, INetworkService networkService) : ICaptureControlService
 {
-    private readonly IHttpClientFactory httpClientFactory;
-    private readonly INetworkService networkService;
-
-    public CaptureControlService(IHttpClientFactory httpClientFactory, INetworkService networkService)
-    {
-        this.httpClientFactory = httpClientFactory;
-        this.networkService = networkService;
-    }
-
     public async ValueTask<IEnumerable<CaptureInterfaceGroup>> GetInterfacesAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         string sid = await GetSidAsync(internetGatewayDevice).ConfigureAwait(false);

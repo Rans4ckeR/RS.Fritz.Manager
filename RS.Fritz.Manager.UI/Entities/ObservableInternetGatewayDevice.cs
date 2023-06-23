@@ -4,19 +4,13 @@ using System.ServiceModel.Security;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 
-internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
+internal sealed class ObservableInternetGatewayDevice(InternetGatewayDevice internetGatewayDevice) : ObservableRecipient(StrongReferenceMessenger.Default)
 {
     private IEnumerable<User> users = Enumerable.Empty<User>();
     private WanAccessType? wanAccessType;
     private bool authenticated;
 
-    public ObservableInternetGatewayDevice(InternetGatewayDevice internetGatewayDevice)
-        : base(StrongReferenceMessenger.Default)
-    {
-        ApiDevice = internetGatewayDevice;
-    }
-
-    public InternetGatewayDevice ApiDevice { get; }
+    public InternetGatewayDevice ApiDevice { get; } = internetGatewayDevice;
 
     public IEnumerable<User> Users
     {

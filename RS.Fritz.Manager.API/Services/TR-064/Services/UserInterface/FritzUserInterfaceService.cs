@@ -2,14 +2,10 @@
 
 using System.Net;
 
-internal sealed class FritzUserInterfaceService : FritzServiceClient<IFritzUserInterfaceService>, IFritzUserInterfaceService
+internal sealed class FritzUserInterfaceService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
+    : FritzServiceClient<IFritzUserInterfaceService>(endpointConfiguration, remoteAddress, networkCredential), IFritzUserInterfaceService
 {
     public const string ControlUrl = "/upnp/control/userif";
-
-    public FritzUserInterfaceService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-        : base(endpointConfiguration, remoteAddress, networkCredential)
-    {
-    }
 
     public Task<UserInterfaceGetInfoResponse> GetInfoAsync(UserInterfaceGetInfoRequest userInterfaceGetInfoRequest)
         => Channel.GetInfoAsync(userInterfaceGetInfoRequest);

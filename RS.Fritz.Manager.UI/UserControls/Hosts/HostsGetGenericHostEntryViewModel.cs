@@ -2,16 +2,12 @@
 
 using System.ComponentModel;
 
-internal sealed class HostsGetGenericHostEntryViewModel : FritzServiceViewModel
+internal sealed class HostsGetGenericHostEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : FritzServiceViewModel(deviceLoginInfo, logger)
 {
     private ushort? index;
     private ushort? hostNumberOfEntries;
     private KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>? hostsGetGenericHostEntryResponse;
-
-    public HostsGetGenericHostEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
-    {
-    }
 
     public ushort? Index
     {

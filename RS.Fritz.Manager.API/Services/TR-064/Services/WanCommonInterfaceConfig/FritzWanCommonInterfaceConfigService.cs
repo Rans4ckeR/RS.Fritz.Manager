@@ -2,14 +2,10 @@
 
 using System.Net;
 
-internal sealed class FritzWanCommonInterfaceConfigService : FritzServiceClient<IFritzWanCommonInterfaceConfigService>, IFritzWanCommonInterfaceConfigService
+internal sealed class FritzWanCommonInterfaceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
+    : FritzServiceClient<IFritzWanCommonInterfaceConfigService>(endpointConfiguration, remoteAddress, networkCredential), IFritzWanCommonInterfaceConfigService
 {
     public const string ControlUrl = "/upnp/control/wancommonifconfig1";
-
-    public FritzWanCommonInterfaceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-        : base(endpointConfiguration, remoteAddress, networkCredential)
-    {
-    }
 
     public Task<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse> GetCommonLinkPropertiesAsync(WanCommonInterfaceConfigGetCommonLinkPropertiesRequest wanCommonInterfaceConfigGetCommonLinkPropertiesRequest)
         => Channel.GetCommonLinkPropertiesAsync(wanCommonInterfaceConfigGetCommonLinkPropertiesRequest);

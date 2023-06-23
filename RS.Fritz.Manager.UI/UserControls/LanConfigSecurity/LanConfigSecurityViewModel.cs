@@ -1,19 +1,14 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class LanConfigSecurityViewModel : FritzServiceViewModel
+internal sealed class LanConfigSecurityViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel)
+    : FritzServiceViewModel(deviceLoginInfo, logger, "LANConfigSecurity")
 {
     private KeyValuePair<LanConfigSecurityGetAnonymousLoginResponse?, UPnPFault?>? lanConfigSecurityGetAnonymousLoginResponse;
     private KeyValuePair<LanConfigSecurityGetCurrentUserResponse?, UPnPFault?>? lanConfigSecurityGetCurrentUserResponse;
     private KeyValuePair<LanConfigSecurityGetInfoResponse?, UPnPFault?>? lanConfigSecurityGetInfoResponse;
     private KeyValuePair<LanConfigSecurityGetUserListResponse?, UPnPFault?>? lanConfigSecurityGetUserListResponse;
 
-    public LanConfigSecurityViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel)
-        : base(deviceLoginInfo, logger, "LANConfigSecurity")
-    {
-        LanConfigSecuritySetConfigPasswordViewModel = lanConfigSecuritySetConfigPasswordViewModel;
-    }
-
-    public LanConfigSecuritySetConfigPasswordViewModel LanConfigSecuritySetConfigPasswordViewModel { get; }
+    public LanConfigSecuritySetConfigPasswordViewModel LanConfigSecuritySetConfigPasswordViewModel { get; } = lanConfigSecuritySetConfigPasswordViewModel;
 
     public KeyValuePair<LanConfigSecurityGetAnonymousLoginResponse?, UPnPFault?>? LanConfigSecurityGetAnonymousLoginResponse
     {

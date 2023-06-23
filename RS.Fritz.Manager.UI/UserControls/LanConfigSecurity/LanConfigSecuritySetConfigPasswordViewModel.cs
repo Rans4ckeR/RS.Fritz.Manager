@@ -2,14 +2,10 @@
 
 using System.ComponentModel;
 
-internal sealed class LanConfigSecuritySetConfigPasswordViewModel : ManualOperationViewModel<LanConfigSecuritySetConfigPasswordRequest, LanConfigSecuritySetConfigPasswordResponse>
+internal sealed class LanConfigSecuritySetConfigPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<LanConfigSecuritySetConfigPasswordRequest, LanConfigSecuritySetConfigPasswordResponse>(deviceLoginInfo, logger, "SetConfigPassword", "Update Password", (d, r) => d.LanConfigSecuritySetConfigPasswordAsync(r))
 {
     private string? password;
-
-    public LanConfigSecuritySetConfigPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetConfigPassword", "Update Password", (d, r) => d.LanConfigSecuritySetConfigPasswordAsync(r))
-    {
-    }
 
     public string? Password
     {

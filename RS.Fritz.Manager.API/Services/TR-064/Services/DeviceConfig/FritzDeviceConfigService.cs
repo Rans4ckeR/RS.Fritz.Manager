@@ -2,14 +2,10 @@
 
 using System.Net;
 
-internal sealed class FritzDeviceConfigService : FritzServiceClient<IFritzDeviceConfigService>, IFritzDeviceConfigService
+internal sealed class FritzDeviceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
+    : FritzServiceClient<IFritzDeviceConfigService>(endpointConfiguration, remoteAddress, networkCredential), IFritzDeviceConfigService
 {
     public const string ControlUrl = "/upnp/control/deviceconfig";
-
-    public FritzDeviceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-        : base(endpointConfiguration, remoteAddress, networkCredential)
-    {
-    }
 
     public Task<DeviceConfigGetPersistentDataResponse> GetPersistentDataAsync(DeviceConfigGetPersistentDataRequest deviceConfigGetPersistentDataRequest)
         => Channel.GetPersistentDataAsync(deviceConfigGetPersistentDataRequest);

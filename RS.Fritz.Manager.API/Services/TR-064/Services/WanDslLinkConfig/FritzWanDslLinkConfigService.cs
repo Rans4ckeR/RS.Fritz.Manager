@@ -2,14 +2,10 @@
 
 using System.Net;
 
-internal sealed class FritzWanDslLinkConfigService : FritzServiceClient<IFritzWanDslLinkConfigService>, IFritzWanDslLinkConfigService
+internal sealed class FritzWanDslLinkConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
+    : FritzServiceClient<IFritzWanDslLinkConfigService>(endpointConfiguration, remoteAddress, networkCredential), IFritzWanDslLinkConfigService
 {
     public const string ControlUrl = "/upnp/control/wandsllinkconfig1";
-
-    public FritzWanDslLinkConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-        : base(endpointConfiguration, remoteAddress, networkCredential)
-    {
-    }
 
     public Task<WanDslLinkConfigGetInfoResponse> GetInfoAsync(WanDslLinkConfigGetInfoRequest wanDslLinkConfigGetInfoRequest)
         => Channel.GetInfoAsync(wanDslLinkConfigGetInfoRequest);

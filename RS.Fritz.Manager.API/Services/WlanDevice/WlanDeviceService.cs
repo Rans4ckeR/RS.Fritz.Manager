@@ -3,17 +3,8 @@
 using System.Xml;
 using System.Xml.Serialization;
 
-internal sealed class WlanDeviceService : IWlanDeviceService
+internal sealed class WlanDeviceService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IWlanDeviceService
 {
-    private readonly IHttpClientFactory httpClientFactory;
-    private readonly INetworkService networkService;
-
-    public WlanDeviceService(IHttpClientFactory httpClientFactory, INetworkService networkService)
-    {
-        this.httpClientFactory = httpClientFactory;
-        this.networkService = networkService;
-    }
-
     public async ValueTask<WlanDeviceInfo> GetWlanDevicesAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         WlanConfigurationGetWlanDeviceListPathResponse wlanConfigurationGetWlanDeviceListPathResponse = await internetGatewayDevice.WlanConfigurationGetWlanDeviceListPathAsync(1).ConfigureAwait(false);

@@ -3,15 +3,8 @@
 using System.Xml;
 using System.Xml.Serialization;
 
-internal sealed class UsersService : IUsersService
+internal sealed class UsersService(IFritzServiceOperationHandler fritzServiceOperationHandler) : IUsersService
 {
-    private readonly IFritzServiceOperationHandler fritzServiceOperationHandler;
-
-    public UsersService(IFritzServiceOperationHandler fritzServiceOperationHandler)
-    {
-        this.fritzServiceOperationHandler = fritzServiceOperationHandler;
-    }
-
     public async ValueTask<IEnumerable<User>> GetUsersAsync(InternetGatewayDevice internetGatewayDevice)
     {
         LanConfigSecurityGetUserListResponse lanConfigSecurityGetUserListResponse = await fritzServiceOperationHandler.LanConfigSecurityGetUserListAsync(internetGatewayDevice).ConfigureAwait(false);

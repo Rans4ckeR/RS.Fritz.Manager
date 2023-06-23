@@ -1,6 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class LanHostConfigManagementViewModel : FritzServiceViewModel
+internal sealed class LanHostConfigManagementViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : FritzServiceViewModel(deviceLoginInfo, logger, "LANHostConfigManagement")
 {
     private KeyValuePair<LanHostConfigManagementGetInfoResponse?, UPnPFault?>? lanHostConfigManagementGetInfoResponse;
     private KeyValuePair<LanHostConfigManagementGetSubnetMaskResponse?, UPnPFault?>? lanHostConfigManagementGetSubnetMaskResponse;
@@ -8,11 +9,6 @@ internal sealed class LanHostConfigManagementViewModel : FritzServiceViewModel
     private KeyValuePair<LanHostConfigManagementGetAddressRangeResponse?, UPnPFault?>? lanHostConfigManagementGetAddressRangeResponse;
     private KeyValuePair<LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse?, UPnPFault?>? lanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse;
     private KeyValuePair<LanHostConfigManagementGetDnsServersResponse?, UPnPFault?>? lanHostConfigManagementGetDnsServersResponse;
-
-    public LanHostConfigManagementViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "LANHostConfigManagement")
-    {
-    }
 
     public KeyValuePair<LanHostConfigManagementGetInfoResponse?, UPnPFault?>? LanHostConfigManagementGetInfoResponse
     {

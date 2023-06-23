@@ -1,20 +1,14 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class DeviceConfigViewModel : FritzServiceViewModel
+internal sealed class DeviceConfigViewModel(
+    DeviceLoginInfo deviceLoginInfo,
+    ILogger logger,
+    DeviceConfigGenerateUuIdViewModel deviceConfigGenerateUuIdViewModel,
+    DeviceConfigCreateUrlSidViewModel deviceConfigCreateUrlSidViewModel)
+    : FritzServiceViewModel(deviceLoginInfo, logger, "DeviceConfig")
 {
     private KeyValuePair<DeviceConfigGetPersistentDataResponse?, UPnPFault?>? deviceConfigGetPersistentDataResponse;
     private KeyValuePair<DeviceConfigGetSupportDataInfoResponse?, UPnPFault?>? deviceConfigGetSupportDataInfoResponse;
-
-    public DeviceConfigViewModel(
-        DeviceLoginInfo deviceLoginInfo,
-        ILogger logger,
-        DeviceConfigGenerateUuIdViewModel deviceConfigGenerateUuIdViewModel,
-        DeviceConfigCreateUrlSidViewModel deviceConfigCreateUrlSidViewModel)
-        : base(deviceLoginInfo, logger, "DeviceConfig")
-    {
-        DeviceConfigGenerateUuIdViewModel = deviceConfigGenerateUuIdViewModel;
-        DeviceConfigCreateUrlSidViewModel = deviceConfigCreateUrlSidViewModel;
-    }
 
     public KeyValuePair<DeviceConfigGetPersistentDataResponse?, UPnPFault?>? DeviceConfigGetPersistentDataResponse
     {
@@ -28,9 +22,9 @@ internal sealed class DeviceConfigViewModel : FritzServiceViewModel
         private set => _ = SetProperty(ref deviceConfigGetSupportDataInfoResponse, value);
     }
 
-    public DeviceConfigGenerateUuIdViewModel DeviceConfigGenerateUuIdViewModel { get; }
+    public DeviceConfigGenerateUuIdViewModel DeviceConfigGenerateUuIdViewModel { get; } = deviceConfigGenerateUuIdViewModel;
 
-    public DeviceConfigCreateUrlSidViewModel DeviceConfigCreateUrlSidViewModel { get; }
+    public DeviceConfigCreateUrlSidViewModel DeviceConfigCreateUrlSidViewModel { get; } = deviceConfigCreateUrlSidViewModel;
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {

@@ -2,14 +2,10 @@
 
 using System.Net;
 
-internal sealed class FritzWlanConfiguration4Service : FritzServiceClient<IFritzWlanConfiguration4Service>, IFritzWlanConfiguration4Service
+internal sealed class FritzWlanConfiguration4Service(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
+    : FritzServiceClient<IFritzWlanConfiguration4Service>(endpointConfiguration, remoteAddress, networkCredential), IFritzWlanConfiguration4Service
 {
     public const string ControlUrl = "/upnp/control/wlanconfig4";
-
-    public FritzWlanConfiguration4Service(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-        : base(endpointConfiguration, remoteAddress, networkCredential)
-    {
-    }
 
     public Task<WlanConfigurationGetInfoResponse> GetInfoAsync(WlanConfigurationGetInfoRequest wlanConfigurationGetInfoRequest)
         => Channel.GetInfoAsync(wlanConfigurationGetInfoRequest);

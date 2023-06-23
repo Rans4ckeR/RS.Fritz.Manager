@@ -6,18 +6,9 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-internal sealed class WebUiService : IWebUiService
+internal sealed class WebUiService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IWebUiService
 {
     private const string LoginPath = "//login_sid.lua?version=2";
-
-    private readonly IHttpClientFactory httpClientFactory;
-    private readonly INetworkService networkService;
-
-    public WebUiService(IHttpClientFactory httpClientFactory, INetworkService networkService)
-    {
-        this.httpClientFactory = httpClientFactory;
-        this.networkService = networkService;
-    }
 
     public async ValueTask<WebUiSessionInfo> GetUsersAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {

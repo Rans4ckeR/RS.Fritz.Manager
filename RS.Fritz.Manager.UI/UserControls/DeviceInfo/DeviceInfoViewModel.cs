@@ -1,16 +1,11 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class DeviceInfoViewModel : FritzServiceViewModel
+internal sealed class DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel)
+    : FritzServiceViewModel(deviceLoginInfo, logger, "DeviceInfo")
 {
     private KeyValuePair<DeviceInfoGetSecurityPortResponse?, UPnPFault?>? deviceInfoGetSecurityPortResponse;
     private KeyValuePair<DeviceInfoGetInfoResponse?, UPnPFault?>? deviceInfoGetInfoResponse;
     private KeyValuePair<DeviceInfoGetDeviceLogResponse?, UPnPFault?>? deviceInfoGetDeviceLogResponse;
-
-    public DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, DeviceInfoSetProvisioningCodeViewModel deviceInfoSetProvisioningCodeViewModel)
-        : base(deviceLoginInfo, logger, "DeviceInfo")
-    {
-        DeviceInfoSetProvisioningCodeViewModel = deviceInfoSetProvisioningCodeViewModel;
-    }
 
     public KeyValuePair<DeviceInfoGetSecurityPortResponse?, UPnPFault?>? DeviceInfoGetSecurityPortResponse
     {
@@ -30,7 +25,7 @@ internal sealed class DeviceInfoViewModel : FritzServiceViewModel
         private set => _ = SetProperty(ref deviceInfoGetDeviceLogResponse, value);
     }
 
-    public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel { get; }
+    public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel { get; } = deviceInfoSetProvisioningCodeViewModel;
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {

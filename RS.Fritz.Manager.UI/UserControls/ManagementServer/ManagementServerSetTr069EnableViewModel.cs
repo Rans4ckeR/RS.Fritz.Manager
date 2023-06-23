@@ -2,14 +2,10 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetTr069EnableViewModel : ManualOperationViewModel<ManagementServerSetTr069EnableRequest, ManagementServerSetTr069EnableResponse>
+internal sealed class ManagementServerSetTr069EnableViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<ManagementServerSetTr069EnableRequest, ManagementServerSetTr069EnableResponse>(deviceLoginInfo, logger, "SetTr069Enable", "Update Tr069Enable", (d, r) => d.ManagementServerSetTr069EnableAsync(r))
 {
     private bool? tr069Enabled;
-
-    public ManagementServerSetTr069EnableViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetTr069Enable", "Update Tr069Enable", (d, r) => d.ManagementServerSetTr069EnableAsync(r))
-    {
-    }
 
     public bool? Tr069Enabled
     {

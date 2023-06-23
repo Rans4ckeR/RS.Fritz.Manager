@@ -2,14 +2,10 @@
 
 using System.Net;
 
-internal sealed class FritzLanConfigSecurityService : FritzServiceClient<IFritzLanConfigSecurityService>, IFritzLanConfigSecurityService
+internal sealed class FritzLanConfigSecurityService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential = null)
+    : FritzServiceClient<IFritzLanConfigSecurityService>(endpointConfiguration, remoteAddress, networkCredential), IFritzLanConfigSecurityService
 {
     public const string ControlUrl = "/upnp/control/lanconfigsecurity";
-
-    public FritzLanConfigSecurityService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential = null)
-        : base(endpointConfiguration, remoteAddress, networkCredential)
-    {
-    }
 
     public Task<LanConfigSecurityGetAnonymousLoginResponse> GetAnonymousLoginAsync(LanConfigSecurityGetAnonymousLoginRequest lanConfigSecurityGetAnonymousLoginRequest)
         => Channel.GetAnonymousLoginAsync(lanConfigSecurityGetAnonymousLoginRequest);

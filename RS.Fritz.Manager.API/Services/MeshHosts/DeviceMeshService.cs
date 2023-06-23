@@ -2,17 +2,8 @@
 
 using System.Text.Json;
 
-internal sealed class DeviceMeshService : IDeviceMeshService
+internal sealed class DeviceMeshService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IDeviceMeshService
 {
-    private readonly IHttpClientFactory httpClientFactory;
-    private readonly INetworkService networkService;
-
-    public DeviceMeshService(IHttpClientFactory httpClientFactory, INetworkService networkService)
-    {
-        this.httpClientFactory = httpClientFactory;
-        this.networkService = networkService;
-    }
-
     public async ValueTask<DeviceMeshInfo> GetDeviceMeshAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         HostsGetMeshListPathResponse hostsGetMeshListPathResponse = await internetGatewayDevice.HostsGetMeshListPathAsync().ConfigureAwait(false);

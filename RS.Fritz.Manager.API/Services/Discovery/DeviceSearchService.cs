@@ -7,25 +7,13 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
 
-internal sealed class DeviceSearchService : IDeviceSearchService
+internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, IFritzServiceOperationHandler fritzServiceOperationHandler, IUsersService usersService, INetworkService networkService)
+    : IDeviceSearchService
 {
     private const string InternetGatewayDeviceDeviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
     private const int UPnPMultiCastPort = 1900;
     private const int ReceiveTimeoutInSeconds = 2;
     private const int DefaultSendCount = 1;
-
-    private readonly IHttpClientFactory httpClientFactory;
-    private readonly IFritzServiceOperationHandler fritzServiceOperationHandler;
-    private readonly IUsersService usersService;
-    private readonly INetworkService networkService;
-
-    public DeviceSearchService(IHttpClientFactory httpClientFactory, IFritzServiceOperationHandler fritzServiceOperationHandler, IUsersService usersService, INetworkService networkService)
-    {
-        this.httpClientFactory = httpClientFactory;
-        this.fritzServiceOperationHandler = fritzServiceOperationHandler;
-        this.usersService = usersService;
-        this.networkService = networkService;
-    }
 
     public async ValueTask<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null, int? sendCount = null, int? timeout = null, CancellationToken cancellationToken = default)
     {

@@ -3,17 +3,8 @@
 using System.Runtime.Serialization;
 using System.Xml;
 
-internal sealed class DeviceHostsService : IDeviceHostsService
+internal sealed class DeviceHostsService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IDeviceHostsService
 {
-    private readonly IHttpClientFactory httpClientFactory;
-    private readonly INetworkService networkService;
-
-    public DeviceHostsService(IHttpClientFactory httpClientFactory, INetworkService networkService)
-    {
-        this.httpClientFactory = httpClientFactory;
-        this.networkService = networkService;
-    }
-
     public async ValueTask<DeviceHostInfo> GetDeviceHostsAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         HostsGetHostListPathResponse hostsGetHostListPathResponse = await internetGatewayDevice.HostsGetHostListPathAsync().ConfigureAwait(false);

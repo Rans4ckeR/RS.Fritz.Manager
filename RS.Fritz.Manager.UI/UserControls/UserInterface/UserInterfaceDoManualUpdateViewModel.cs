@@ -2,15 +2,11 @@
 
 using System.ComponentModel;
 
-internal sealed class UserInterfaceDoManualUpdateViewModel : ManualOperationViewModel<UserInterfaceDoManualUpdateRequest, UserInterfaceDoManualUpdateResponse>
+internal sealed class UserInterfaceDoManualUpdateViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<UserInterfaceDoManualUpdateRequest, UserInterfaceDoManualUpdateResponse>(deviceLoginInfo, logger, "DoManualUpdate", "Manual Update", (d, r) => d.UserInterfaceDoManualUpdateAsync(r))
 {
     private string? downloadUrl;
     private bool? allowDowngrade;
-
-    public UserInterfaceDoManualUpdateViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "DoManualUpdate", "Manual Update", (d, r) => d.UserInterfaceDoManualUpdateAsync(r))
-    {
-    }
 
     public string? DownloadUrl
     {

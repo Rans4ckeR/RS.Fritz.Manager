@@ -2,76 +2,30 @@
 
 using System.Net;
 
-internal sealed class FritzServiceOperationHandler : ServiceOperationHandler, IFritzServiceOperationHandler
+internal sealed class FritzServiceOperationHandler(
+    IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,
+    IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory,
+    IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory,
+    IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory,
+    IClientFactory<IFritzLayer3ForwardingService> fritzLayer3ForwardingServiceClientFactory,
+    IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory,
+    IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory,
+    IClientFactory<IFritzWanIpConnectionService> fritzWanIpConnectionServiceClientFactory,
+    IClientFactory<IFritzWanEthernetLinkConfigService> fritzWanEthernetLinkConfigServiceClientFactory,
+    IClientFactory<IFritzWanDslLinkConfigService> fritzWanDslLinkConfigServiceClientFactory,
+    IClientFactory<IFritzAvmSpeedtestService> fritzAvmSpeedtestServiceClientFactory,
+    IClientFactory<IFritzLanEthernetInterfaceConfigService> fritzLanEthernetInterfaceConfigServiceClientFactory,
+    IClientFactory<IFritzLanHostConfigManagementService> fritzLanHostConfigManagementServiceClientFactory,
+    IClientFactory<IFritzWlanConfiguration1Service> fritzWlanConfiguration1ServiceClientFactory,
+    IClientFactory<IFritzWlanConfiguration2Service> fritzWlanConfiguration2ServiceClientFactory,
+    IClientFactory<IFritzWlanConfiguration3Service> fritzWlanConfiguration3ServiceClientFactory,
+    IClientFactory<IFritzWlanConfiguration4Service> fritzWlanConfiguration4ServiceClientFactory,
+    IClientFactory<IFritzManagementServerService> fritzManagementServerServiceClientFactory,
+    IClientFactory<IFritzTimeService> fritzTimeServiceClientFactory,
+    IClientFactory<IFritzUserInterfaceService> fritzUserInterfaceServiceClientFactory,
+    IClientFactory<IFritzDeviceConfigService> fritzDeviceConfigServiceClientFactory)
+    : ServiceOperationHandler, IFritzServiceOperationHandler
 {
-    private readonly IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory;
-    private readonly IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory;
-    private readonly IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory;
-    private readonly IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory;
-    private readonly IClientFactory<IFritzLayer3ForwardingService> fritzLayer3ForwardingServiceClientFactory;
-    private readonly IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory;
-    private readonly IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory;
-    private readonly IClientFactory<IFritzWanIpConnectionService> fritzWanIpConnectionServiceClientFactory;
-    private readonly IClientFactory<IFritzWanEthernetLinkConfigService> fritzWanEthernetLinkConfigServiceClientFactory;
-    private readonly IClientFactory<IFritzWanDslLinkConfigService> fritzWanDslLinkConfigServiceClientFactory;
-    private readonly IClientFactory<IFritzAvmSpeedtestService> fritzAvmSpeedtestServiceClientFactory;
-    private readonly IClientFactory<IFritzLanEthernetInterfaceConfigService> fritzLanEthernetInterfaceConfigServiceClientFactory;
-    private readonly IClientFactory<IFritzLanHostConfigManagementService> fritzLanHostConfigManagementServiceClientFactory;
-    private readonly IClientFactory<IFritzWlanConfiguration1Service> fritzWlanConfiguration1ServiceClientFactory;
-    private readonly IClientFactory<IFritzWlanConfiguration2Service> fritzWlanConfiguration2ServiceClientFactory;
-    private readonly IClientFactory<IFritzWlanConfiguration3Service> fritzWlanConfiguration3ServiceClientFactory;
-    private readonly IClientFactory<IFritzWlanConfiguration4Service> fritzWlanConfiguration4ServiceClientFactory;
-    private readonly IClientFactory<IFritzManagementServerService> fritzManagementServerServiceClientFactory;
-    private readonly IClientFactory<IFritzTimeService> fritzTimeServiceClientFactory;
-    private readonly IClientFactory<IFritzUserInterfaceService> fritzUserInterfaceServiceClientFactory;
-    private readonly IClientFactory<IFritzDeviceConfigService> fritzDeviceConfigServiceClientFactory;
-
-    public FritzServiceOperationHandler(
-        IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,
-        IClientFactory<IFritzWanCommonInterfaceConfigService> fritzWanCommonInterfaceConfigServiceClientFactory,
-        IClientFactory<IFritzDeviceInfoService> fritzDeviceInfoServiceClientFactory,
-        IClientFactory<IFritzLanConfigSecurityService> fritzLanConfigSecurityServiceClientFactory,
-        IClientFactory<IFritzLayer3ForwardingService> fritzLayer3ForwardingServiceClientFactory,
-        IClientFactory<IFritzWanDslInterfaceConfigService> fritzWanDslInterfaceConfigServiceClientFactory,
-        IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory,
-        IClientFactory<IFritzWanIpConnectionService> fritzWanIpConnectionServiceClientFactory,
-        IClientFactory<IFritzWanEthernetLinkConfigService> fritzWanEthernetLinkConfigServiceClientFactory,
-        IClientFactory<IFritzWanDslLinkConfigService> fritzWanDslLinkConfigServiceClientFactory,
-        IClientFactory<IFritzAvmSpeedtestService> fritzAvmSpeedtestServiceClientFactory,
-        IClientFactory<IFritzLanEthernetInterfaceConfigService> fritzLanEthernetInterfaceConfigServiceClientFactory,
-        IClientFactory<IFritzLanHostConfigManagementService> fritzLanHostConfigManagementServiceClientFactory,
-        IClientFactory<IFritzWlanConfiguration1Service> fritzWlanConfiguration1ServiceClientFactory,
-        IClientFactory<IFritzWlanConfiguration2Service> fritzWlanConfiguration2ServiceClientFactory,
-        IClientFactory<IFritzWlanConfiguration3Service> fritzWlanConfiguration3ServiceClientFactory,
-        IClientFactory<IFritzWlanConfiguration4Service> fritzWlanConfiguration4ServiceClientFactory,
-        IClientFactory<IFritzManagementServerService> fritzManagementServerServiceClientFactory,
-        IClientFactory<IFritzTimeService> fritzTimeServiceClientFactory,
-        IClientFactory<IFritzUserInterfaceService> fritzUserInterfaceServiceClientFactory,
-        IClientFactory<IFritzDeviceConfigService> fritzDeviceConfigServiceClientFactory)
-    {
-        this.fritzHostsServiceClientFactory = fritzHostsServiceClientFactory;
-        this.fritzWanCommonInterfaceConfigServiceClientFactory = fritzWanCommonInterfaceConfigServiceClientFactory;
-        this.fritzDeviceInfoServiceClientFactory = fritzDeviceInfoServiceClientFactory;
-        this.fritzLanConfigSecurityServiceClientFactory = fritzLanConfigSecurityServiceClientFactory;
-        this.fritzLayer3ForwardingServiceClientFactory = fritzLayer3ForwardingServiceClientFactory;
-        this.fritzWanDslInterfaceConfigServiceClientFactory = fritzWanDslInterfaceConfigServiceClientFactory;
-        this.fritzWanPppConnectionServiceClientFactory = fritzWanPppConnectionServiceClientFactory;
-        this.fritzWanIpConnectionServiceClientFactory = fritzWanIpConnectionServiceClientFactory;
-        this.fritzWanEthernetLinkConfigServiceClientFactory = fritzWanEthernetLinkConfigServiceClientFactory;
-        this.fritzWanDslLinkConfigServiceClientFactory = fritzWanDslLinkConfigServiceClientFactory;
-        this.fritzAvmSpeedtestServiceClientFactory = fritzAvmSpeedtestServiceClientFactory;
-        this.fritzLanEthernetInterfaceConfigServiceClientFactory = fritzLanEthernetInterfaceConfigServiceClientFactory;
-        this.fritzLanHostConfigManagementServiceClientFactory = fritzLanHostConfigManagementServiceClientFactory;
-        this.fritzWlanConfiguration1ServiceClientFactory = fritzWlanConfiguration1ServiceClientFactory;
-        this.fritzWlanConfiguration2ServiceClientFactory = fritzWlanConfiguration2ServiceClientFactory;
-        this.fritzWlanConfiguration3ServiceClientFactory = fritzWlanConfiguration3ServiceClientFactory;
-        this.fritzWlanConfiguration4ServiceClientFactory = fritzWlanConfiguration4ServiceClientFactory;
-        this.fritzManagementServerServiceClientFactory = fritzManagementServerServiceClientFactory;
-        this.fritzTimeServiceClientFactory = fritzTimeServiceClientFactory;
-        this.fritzUserInterfaceServiceClientFactory = fritzUserInterfaceServiceClientFactory;
-        this.fritzDeviceConfigServiceClientFactory = fritzDeviceConfigServiceClientFactory;
-    }
-
     public Task<HostsGetHostNumberOfEntriesResponse> HostsGetHostNumberOfEntriesAsync(InternetGatewayDevice internetGatewayDevice)
         => ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzHostsServiceClientFactory, (q, r, t) => new FritzHostsService(q, r, t!), FritzHostsService.ControlUrl), q => q.GetHostNumberOfEntriesAsync(default));
 

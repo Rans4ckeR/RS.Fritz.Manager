@@ -2,14 +2,10 @@
 
 using System.ComponentModel;
 
-internal sealed class DeviceInfoSetProvisioningCodeViewModel : ManualOperationViewModel<DeviceInfoSetProvisioningCodeRequest, DeviceInfoSetProvisioningCodeResponse>
+internal sealed class DeviceInfoSetProvisioningCodeViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<DeviceInfoSetProvisioningCodeRequest, DeviceInfoSetProvisioningCodeResponse>(deviceLoginInfo, logger, "SetProvisioningCode", "Update ProvisioningCode", (d, r) => d.DeviceInfoSetProvisioningCodeAsync(r))
 {
     private string? provisioningCode;
-
-    public DeviceInfoSetProvisioningCodeViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetProvisioningCode", "Update ProvisioningCode", (d, r) => d.DeviceInfoSetProvisioningCodeAsync(r))
-    {
-    }
 
     public string? ProvisioningCode
     {

@@ -1,14 +1,10 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class LanEthernetInterfaceConfigViewModel : FritzServiceViewModel
+internal sealed class LanEthernetInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : FritzServiceViewModel(deviceLoginInfo, logger, "LANEthernetInterfaceConfig")
 {
     private KeyValuePair<LanEthernetInterfaceConfigGetInfoResponse?, UPnPFault?>? lanEthernetInterfaceConfigGetInfoResponse;
     private KeyValuePair<LanEthernetInterfaceConfigGetStatisticsResponse?, UPnPFault?>? lanEthernetInterfaceConfigGetStatisticsResponse;
-
-    public LanEthernetInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "LANEthernetInterfaceConfig")
-    {
-    }
 
     public KeyValuePair<LanEthernetInterfaceConfigGetInfoResponse?, UPnPFault?>? LanEthernetInterfaceConfigGetInfoResponse
     {

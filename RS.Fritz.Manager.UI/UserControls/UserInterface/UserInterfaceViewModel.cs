@@ -1,29 +1,19 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class UserInterfaceViewModel : FritzServiceViewModel
+internal sealed class UserInterfaceViewModel(
+    DeviceLoginInfo deviceLoginInfo,
+    UserInterfaceCheckUpdateViewModel userInterfaceCheckUpdateViewModel,
+    UserInterfaceDoPrepareCgiViewModel userInterfaceDoPrepareCgiViewModel,
+    UserInterfaceDoUpdateViewModel userInterfaceDoUpdateViewModel,
+    UserInterfaceDoManualUpdateViewModel userInterfaceDoManualUpdateViewModel,
+    UserInterfaceSetInternationalConfigViewModel userInterfaceSetInternationalConfigViewModel,
+    UserInterfaceSetConfigViewModel userInterfaceSetConfigViewModel,
+    ILogger logger)
+    : FritzServiceViewModel(deviceLoginInfo, logger, "UserInterface")
 {
     private KeyValuePair<UserInterfaceGetInfoResponse?, UPnPFault?>? userInterfaceGetInfoResponse;
     private KeyValuePair<UserInterfaceGetInternationalConfigResponse?, UPnPFault?>? userInterfaceGetInternationalConfigResponse;
     private KeyValuePair<UserInterfaceAvmGetInfoResponse?, UPnPFault?>? userInterfaceAvmGetInfoResponse;
-
-    public UserInterfaceViewModel(
-        DeviceLoginInfo deviceLoginInfo,
-        UserInterfaceCheckUpdateViewModel userInterfaceCheckUpdateViewModel,
-        UserInterfaceDoPrepareCgiViewModel userInterfaceDoPrepareCgiViewModel,
-        UserInterfaceDoUpdateViewModel userInterfaceDoUpdateViewModel,
-        UserInterfaceDoManualUpdateViewModel userInterfaceDoManualUpdateViewModel,
-        UserInterfaceSetInternationalConfigViewModel userInterfaceSetInternationalConfigViewModel,
-        UserInterfaceSetConfigViewModel userInterfaceSetConfigViewModel,
-        ILogger logger)
-        : base(deviceLoginInfo, logger, "UserInterface")
-    {
-        UserInterfaceCheckUpdateViewModel = userInterfaceCheckUpdateViewModel;
-        UserInterfaceDoPrepareCgiViewModel = userInterfaceDoPrepareCgiViewModel;
-        UserInterfaceDoUpdateViewModel = userInterfaceDoUpdateViewModel;
-        UserInterfaceDoManualUpdateViewModel = userInterfaceDoManualUpdateViewModel;
-        UserInterfaceSetInternationalConfigViewModel = userInterfaceSetInternationalConfigViewModel;
-        UserInterfaceSetConfigViewModel = userInterfaceSetConfigViewModel;
-    }
 
     public KeyValuePair<UserInterfaceGetInfoResponse?, UPnPFault?>? UserInterfaceGetInfoResponse
     {
@@ -43,17 +33,17 @@ internal sealed class UserInterfaceViewModel : FritzServiceViewModel
         private set => _ = SetProperty(ref userInterfaceAvmGetInfoResponse, value);
     }
 
-    public UserInterfaceCheckUpdateViewModel UserInterfaceCheckUpdateViewModel { get; }
+    public UserInterfaceCheckUpdateViewModel UserInterfaceCheckUpdateViewModel { get; } = userInterfaceCheckUpdateViewModel;
 
-    public UserInterfaceDoPrepareCgiViewModel UserInterfaceDoPrepareCgiViewModel { get; }
+    public UserInterfaceDoPrepareCgiViewModel UserInterfaceDoPrepareCgiViewModel { get; } = userInterfaceDoPrepareCgiViewModel;
 
-    public UserInterfaceDoUpdateViewModel UserInterfaceDoUpdateViewModel { get; }
+    public UserInterfaceDoUpdateViewModel UserInterfaceDoUpdateViewModel { get; } = userInterfaceDoUpdateViewModel;
 
-    public UserInterfaceDoManualUpdateViewModel UserInterfaceDoManualUpdateViewModel { get; }
+    public UserInterfaceDoManualUpdateViewModel UserInterfaceDoManualUpdateViewModel { get; } = userInterfaceDoManualUpdateViewModel;
 
-    public UserInterfaceSetInternationalConfigViewModel UserInterfaceSetInternationalConfigViewModel { get; }
+    public UserInterfaceSetInternationalConfigViewModel UserInterfaceSetInternationalConfigViewModel { get; } = userInterfaceSetInternationalConfigViewModel;
 
-    public UserInterfaceSetConfigViewModel UserInterfaceSetConfigViewModel { get; }
+    public UserInterfaceSetConfigViewModel UserInterfaceSetConfigViewModel { get; } = userInterfaceSetConfigViewModel;
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {

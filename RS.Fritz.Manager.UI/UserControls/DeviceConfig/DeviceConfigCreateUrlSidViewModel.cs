@@ -1,9 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class DeviceConfigCreateUrlSidViewModel : ManualOperationViewModel<DeviceConfigCreateUrlSidRequest, DeviceConfigCreateUrlSidResponse>
+internal sealed class DeviceConfigCreateUrlSidViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<DeviceConfigCreateUrlSidRequest, DeviceConfigCreateUrlSidResponse>(deviceLoginInfo, logger, "CreateUrlSid", "Create Url Sid", (d, _) => d.DeviceConfigCreateUrlSidAsync())
 {
-    public DeviceConfigCreateUrlSidViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "CreateUrlSid", "Create Url Sid", (d, _) => d.DeviceConfigCreateUrlSidAsync())
-    {
-    }
 }

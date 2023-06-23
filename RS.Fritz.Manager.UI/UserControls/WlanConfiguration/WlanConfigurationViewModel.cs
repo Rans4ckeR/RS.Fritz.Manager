@@ -2,10 +2,9 @@
 
 using System.Windows;
 
-internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
+internal sealed class WlanConfigurationViewModel(DeviceLoginInfo deviceLoginInfo, IWlanDeviceService wlanDeviceService, ILogger logger)
+    : FritzServiceViewModel(deviceLoginInfo, logger, "WLANConfiguration")
 {
-    private readonly IWlanDeviceService wlanDeviceService;
-
     private WlanDeviceInfo? wlanDeviceInfo;
     private KeyValuePair<WlanConfigurationGetInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetInfoResponses;
     private KeyValuePair<WlanConfigurationGetBasBeaconSecurityPropertiesResponse?, UPnPFault?>?[]? wlanConfigurationGetBasBeaconSecurityPropertiesResponses;
@@ -26,12 +25,6 @@ internal sealed class WlanConfigurationViewModel : FritzServiceViewModel
     private Visibility? interface2Visibility;
     private Visibility? interface3Visibility;
     private Visibility? interface4Visibility;
-
-    public WlanConfigurationViewModel(DeviceLoginInfo deviceLoginInfo, IWlanDeviceService wlanDeviceService, ILogger logger)
-        : base(deviceLoginInfo, logger, "WLANConfiguration")
-    {
-        this.wlanDeviceService = wlanDeviceService;
-    }
 
     public WlanDeviceInfo? WlanDeviceInfo
     {

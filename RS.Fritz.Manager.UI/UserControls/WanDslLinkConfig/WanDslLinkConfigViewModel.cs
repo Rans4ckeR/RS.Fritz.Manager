@@ -1,6 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class WanDslLinkConfigViewModel : WanAccessTypeAwareFritzServiceViewModel
+internal sealed class WanDslLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : WanAccessTypeAwareFritzServiceViewModel(deviceLoginInfo, logger, WanAccessType.Dsl, "WANDSLLinkConfig")
 {
     private KeyValuePair<WanDslLinkConfigGetInfoResponse?, UPnPFault?>? wanDslLinkConfigGetInfoResponse;
     private KeyValuePair<WanDslLinkConfigGetDslLinkInfoResponse?, UPnPFault?>? wanDslLinkConfigGetDslLinkInfoResponse;
@@ -8,11 +9,6 @@ internal sealed class WanDslLinkConfigViewModel : WanAccessTypeAwareFritzService
     private KeyValuePair<WanDslLinkConfigGetAtmEncapsulationResponse?, UPnPFault?>? wanDslLinkConfigGetAtmEncapsulationResponse;
     private KeyValuePair<WanDslLinkConfigGetAutoConfigResponse?, UPnPFault?>? wanDslLinkConfigGetAutoConfigResponse;
     private KeyValuePair<WanDslLinkConfigGetStatisticsResponse?, UPnPFault?>? wanDslLinkConfigGetStatisticsResponse;
-
-    public WanDslLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, WanAccessType.Dsl, "WANDSLLinkConfig")
-    {
-    }
 
     public KeyValuePair<WanDslLinkConfigGetInfoResponse?, UPnPFault?>? WanDslLinkConfigGetInfoResponse
     {
