@@ -2,7 +2,7 @@
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:DeviceInfo:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzDeviceInfoService
+internal interface IFritzDeviceInfoService : IAsyncDisposable
 {
     [OperationContract(Action = "urn:dslforum-org:service:DeviceInfo:1#GetSecurityPort")]
     [FaultContract(typeof(UPnPFault1))]

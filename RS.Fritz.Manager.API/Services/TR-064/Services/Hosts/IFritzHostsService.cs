@@ -2,7 +2,7 @@
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:Hosts:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzHostsService
+internal interface IFritzHostsService : IAsyncDisposable
 {
     [OperationContract(Action = "urn:dslforum-org:service:Hosts:1#GetHostNumberOfEntries")]
     [FaultContract(typeof(UPnPFault1))]

@@ -2,7 +2,7 @@
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:Layer3Forwarding:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzLayer3ForwardingService
+internal interface IFritzLayer3ForwardingService : IAsyncDisposable
 {
     [OperationContract(Action = "urn:dslforum-org:service:Layer3Forwarding:1#GetDefaultConnectionService")]
     [FaultContract(typeof(UPnPFault1))]

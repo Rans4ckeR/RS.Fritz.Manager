@@ -46,7 +46,7 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
             {
                 string value = s[s.IndexOf(':', StringComparison.OrdinalIgnoreCase)..];
 
-                if (value.EndsWith(":", StringComparison.OrdinalIgnoreCase))
+                if (value.EndsWith(':'))
                     return value.Replace(":", null, StringComparison.OrdinalIgnoreCase);
 
                 return value.Replace(": ", null, StringComparison.OrdinalIgnoreCase);

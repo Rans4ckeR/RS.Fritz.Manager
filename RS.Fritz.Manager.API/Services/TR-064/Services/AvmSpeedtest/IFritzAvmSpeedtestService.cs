@@ -2,7 +2,7 @@
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:X_AVM-DE_Speedtest:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzAvmSpeedtestService
+internal interface IFritzAvmSpeedtestService : IAsyncDisposable
 {
     [OperationContract(Action = "urn:dslforum-org:service:X_AVM-DE_Speedtest:1#GetInfo")]
     [FaultContract(typeof(UPnPFault1))]

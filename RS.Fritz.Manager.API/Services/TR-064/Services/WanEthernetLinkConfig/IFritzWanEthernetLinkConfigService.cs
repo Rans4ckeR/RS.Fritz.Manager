@@ -2,7 +2,7 @@
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:WANEthernetLinkConfig:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzWanEthernetLinkConfigService
+internal interface IFritzWanEthernetLinkConfigService : IAsyncDisposable
 {
     [OperationContract(Action = "urn:dslforum-org:service:WANEthernetLinkConfig:1#GetEthernetLinkStatus")]
     [FaultContract(typeof(UPnPFault1))]

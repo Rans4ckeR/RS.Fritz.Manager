@@ -34,10 +34,10 @@ internal sealed class CaptureControlService(IHttpClientFactory httpClientFactory
                 int interfaceNameEndPosition = responseContent.IndexOf("</th>", interfaceNameBeginPosition + 1, StringComparison.OrdinalIgnoreCase);
                 string interfaceName = responseContent[(interfaceNameBeginPosition + "<th>".Length)..interfaceNameEndPosition];
                 int startParameterBeginPosition = responseContent.IndexOf("\" value=\"", interfaceNameEndPosition + 1, StringComparison.OrdinalIgnoreCase) + "\" value=\"".Length;
-                int startParameterEndPosition = responseContent.IndexOf("\"", startParameterBeginPosition + 1, StringComparison.OrdinalIgnoreCase);
+                int startParameterEndPosition = responseContent.IndexOf('"', startParameterBeginPosition + 1);
                 string startParameter = responseContent[startParameterBeginPosition..startParameterEndPosition];
                 int stopParameterBeginPosition = responseContent.IndexOf("\" value=\"", startParameterEndPosition + 1, StringComparison.OrdinalIgnoreCase) + "\" value=\"".Length;
-                int stopParameterEndPosition = responseContent.IndexOf("\"", stopParameterBeginPosition + 1, StringComparison.OrdinalIgnoreCase);
+                int stopParameterEndPosition = responseContent.IndexOf('"', stopParameterBeginPosition + 1);
                 string stopParameter = responseContent[stopParameterBeginPosition..stopParameterEndPosition];
                 string[] stopParameterParts = stopParameter.Split(';');
 

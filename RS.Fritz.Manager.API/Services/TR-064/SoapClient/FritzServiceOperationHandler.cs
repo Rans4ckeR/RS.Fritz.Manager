@@ -24,7 +24,7 @@ internal sealed class FritzServiceOperationHandler(
     IClientFactory<IFritzTimeService> fritzTimeServiceClientFactory,
     IClientFactory<IFritzUserInterfaceService> fritzUserInterfaceServiceClientFactory,
     IClientFactory<IFritzDeviceConfigService> fritzDeviceConfigServiceClientFactory)
-    : ServiceOperationHandler, IFritzServiceOperationHandler
+    : IFritzServiceOperationHandler
 {
     public Task<HostsGetHostNumberOfEntriesResponse> HostsGetHostNumberOfEntriesAsync(InternetGatewayDevice internetGatewayDevice)
         => ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzHostsServiceClientFactory, (q, r, t) => new FritzHostsService(q, r, t!), FritzHostsService.ControlUrl), q => q.GetHostNumberOfEntriesAsync(default));
@@ -508,4 +508,13 @@ internal sealed class FritzServiceOperationHandler(
 
     private static T GetFritzServiceClient<T>(InternetGatewayDevice internetGatewayDevice, IClientFactory<T> clientFactory, Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createService, string controlUrl, bool secure = true)
         => clientFactory.Build(createService, internetGatewayDevice.PreferredLocation, secure, controlUrl, secure ? internetGatewayDevice.SecurityPort : null, internetGatewayDevice.NetworkCredential);
+
+    private static async Task<TResult> ExecuteAsync<T, TResult>(T client, Func<T, Task<TResult>> operation)
+        where T : IAsyncDisposable
+    {
+        await using (client.ConfigureAwait(false))
+        {
+            return await operation(client).ConfigureAwait(false);
+        }
+    }
 }

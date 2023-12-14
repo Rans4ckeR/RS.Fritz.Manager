@@ -2,7 +2,7 @@
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:UserInterface:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzUserInterfaceService
+internal interface IFritzUserInterfaceService : IAsyncDisposable
 {
     [OperationContract(Action = "urn:dslforum-org:service:UserInterface:1#GetInfo")]
     [FaultContract(typeof(UPnPFault1))]

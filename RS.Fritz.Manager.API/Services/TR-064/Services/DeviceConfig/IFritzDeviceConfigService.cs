@@ -2,7 +2,7 @@
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:DeviceConfig:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzDeviceConfigService
+internal interface IFritzDeviceConfigService : IAsyncDisposable
 {
     [OperationContract(Action = "urn:dslforum-org:service:DeviceConfig:1#GetPersistentData")]
     [FaultContract(typeof(UPnPFault1))]
