@@ -2,14 +2,10 @@
 
 using System.ComponentModel;
 
-internal sealed class UserInterfaceSetConfigViewModel : ManualOperationViewModel<UserInterfaceSetConfigRequest, UserInterfaceSetConfigResponse>
+internal sealed class UserInterfaceSetConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<UserInterfaceSetConfigRequest, UserInterfaceSetConfigResponse>(deviceLoginInfo, logger, "SetConfig", "Set Config", (d, r) => d.UserInterfaceSetConfigAsync(r))
 {
     private string? autoUpdateMode;
-
-    public UserInterfaceSetConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetConfig", "Set Config", (d, r) => d.UserInterfaceSetConfigAsync(r))
-    {
-    }
 
     public string? AutoUpdateMode
     {
@@ -22,9 +18,7 @@ internal sealed class UserInterfaceSetConfigViewModel : ManualOperationViewModel
     }
 
     protected override UserInterfaceSetConfigRequest BuildRequest()
-    {
-        return new(AutoUpdateMode!);
-    }
+        => new(AutoUpdateMode!);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {

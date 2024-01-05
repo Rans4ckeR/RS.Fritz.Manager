@@ -33,7 +33,7 @@ internal sealed partial class App
 
     protected override async void OnStartup(StartupEventArgs e)
     {
-        await host.StartAsync();
+        await host.StartAsync().ConfigureAwait(true);
 
         SetUiCulture();
 
@@ -52,7 +52,7 @@ internal sealed partial class App
 
         using (host)
         {
-            await host.StopAsync();
+            await host.StopAsync().ConfigureAwait(true);
         }
 
         base.OnExit(e);

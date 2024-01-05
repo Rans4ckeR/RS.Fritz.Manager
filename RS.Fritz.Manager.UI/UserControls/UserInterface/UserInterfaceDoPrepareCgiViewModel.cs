@@ -1,8 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
-internal sealed class UserInterfaceDoPrepareCgiViewModel : ManualOperationViewModel<UserInterfaceDoPrepareCgiRequest, UserInterfaceDoPrepareCgiResponse>
+
+internal sealed class UserInterfaceDoPrepareCgiViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<UserInterfaceDoPrepareCgiRequest, UserInterfaceDoPrepareCgiResponse>(deviceLoginInfo, logger, "DoPrepareCgi", "Prepare Cgi", (d, _) => d.UserInterfaceDoPrepareCgiAsync())
 {
-    public UserInterfaceDoPrepareCgiViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "DoPrepareCgi", "Prepare Cgi", (d, _) => d.UserInterfaceDoPrepareCgiAsync())
-    {
-    }
 }

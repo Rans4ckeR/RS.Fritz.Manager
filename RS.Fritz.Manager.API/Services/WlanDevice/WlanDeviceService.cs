@@ -3,20 +3,11 @@
 using System.Xml;
 using System.Xml.Serialization;
 
-internal sealed class WlanDeviceService : IWlanDeviceService
+internal sealed class WlanDeviceService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IWlanDeviceService
 {
-    private readonly IHttpClientFactory httpClientFactory;
-    private readonly INetworkService networkService;
-
-    public WlanDeviceService(IHttpClientFactory httpClientFactory, INetworkService networkService)
+    public async ValueTask<WlanDeviceInfo> GetWlanDevicesAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
-        this.httpClientFactory = httpClientFactory;
-        this.networkService = networkService;
-    }
-
-    public async Task<WlanDeviceInfo> GetWlanDevicesAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
-    {
-        WlanConfigurationGetWlanDeviceListPathResponse wlanConfigurationGetWlanDeviceListPathResponse = await internetGatewayDevice.WlanConfigurationGetWlanDeviceListPathAsync(1);
+        WlanConfigurationGetWlanDeviceListPathResponse wlanConfigurationGetWlanDeviceListPathResponse = await internetGatewayDevice.WlanConfigurationGetWlanDeviceListPathAsync(1).ConfigureAwait(false);
         string wlanDeviceListPath = wlanConfigurationGetWlanDeviceListPathResponse.WlanDeviceListPath;
         Uri wlanDeviceListPathUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, internetGatewayDevice.SecurityPort!.Value, wlanDeviceListPath);
         Stream wlanDeviceListXmlStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(wlanDeviceListPathUri, cancellationToken).ConfigureAwait(false);

@@ -2,14 +2,10 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetManagementServerUsernameViewModel : ManualOperationViewModel<ManagementServerSetManagementServerUsernameRequest, ManagementServerSetManagementServerUsernameResponse>
+internal sealed class ManagementServerSetManagementServerUsernameViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<ManagementServerSetManagementServerUsernameRequest, ManagementServerSetManagementServerUsernameResponse>(deviceLoginInfo, logger, "SetManagementServerUsername", "Update ManagementServerUsername", (d, r) => d.ManagementServerSetManagementServerUsernameAsync(r))
 {
     private string? username;
-
-    public ManagementServerSetManagementServerUsernameViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetManagementServerUsername", "Update ManagementServerUsername", (d, r) => d.ManagementServerSetManagementServerUsernameAsync(r))
-    {
-    }
 
     public string? Username
     {
@@ -22,9 +18,7 @@ internal sealed class ManagementServerSetManagementServerUsernameViewModel : Man
     }
 
     protected override ManagementServerSetManagementServerUsernameRequest BuildRequest()
-    {
-        return new(Username!);
-    }
+        => new(Username!);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {

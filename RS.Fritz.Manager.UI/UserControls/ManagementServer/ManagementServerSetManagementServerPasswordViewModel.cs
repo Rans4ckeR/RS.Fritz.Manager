@@ -2,14 +2,10 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetManagementServerPasswordViewModel : ManualOperationViewModel<ManagementServerSetManagementServerPasswordRequest, ManagementServerSetManagementServerPasswordResponse>
+internal sealed class ManagementServerSetManagementServerPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<ManagementServerSetManagementServerPasswordRequest, ManagementServerSetManagementServerPasswordResponse>(deviceLoginInfo, logger, "SetManagementServerPassword", "Update ManagementServerPassword", (d, r) => d.ManagementServerSetManagementServerPasswordAsync(r))
 {
     private string? password;
-
-    public ManagementServerSetManagementServerPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetManagementServerPassword", "Update ManagementServerPassword", (d, r) => d.ManagementServerSetManagementServerPasswordAsync(r))
-    {
-    }
 
     public string? Password
     {
@@ -22,9 +18,7 @@ internal sealed class ManagementServerSetManagementServerPasswordViewModel : Man
     }
 
     protected override ManagementServerSetManagementServerPasswordRequest BuildRequest()
-    {
-        return new(Password!);
-    }
+        => new(Password!);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {

@@ -19,8 +19,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     private const int ZIndexNoOverlay = -1;
 
     private readonly IDeviceSearchService deviceSearchService;
-    private ObservableCollection<ObservableInternetGatewayDevice> devices = new();
-    private ObservableCollection<User> users = new();
+    private ObservableCollection<ObservableInternetGatewayDevice> devices = [];
+    private ObservableCollection<User> users = [];
     private ObservableObject? activeView;
     private string? userMessage;
     private bool deviceAndLoginControlsEnabled = true;
@@ -146,17 +146,17 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
 
     public double MainContentOpacity
     {
-        get => mainContentOpacity; set { _ = SetProperty(ref mainContentOpacity, value); }
+        get => mainContentOpacity; set => _ = SetProperty(ref mainContentOpacity, value);
     }
 
     public bool MainContentIsHitTestVisible
     {
-        get => mainContentIsHitTestVisible; set { _ = SetProperty(ref mainContentIsHitTestVisible, value); }
+        get => mainContentIsHitTestVisible; set => _ = SetProperty(ref mainContentIsHitTestVisible, value);
     }
 
     public int MessageZIndex
     {
-        get => messageZIndex; set { _ = SetProperty(ref messageZIndex, value); }
+        get => messageZIndex; set => _ = SetProperty(ref messageZIndex, value);
     }
 
     public string? UserMessage
@@ -184,7 +184,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
 
     public bool DeviceAndLoginControlsEnabled
     {
-        get => deviceAndLoginControlsEnabled; set { _ = SetProperty(ref deviceAndLoginControlsEnabled, value); }
+        get => deviceAndLoginControlsEnabled; set => _ = SetProperty(ref deviceAndLoginControlsEnabled, value);
     }
 
     public ObservableCollection<User> Users
@@ -296,17 +296,14 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         }
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         ActiveView = null;
         DeviceLoginInfo.InternetGatewayDevice = null;
-        Devices = new((await deviceSearchService.GetDevicesAsync(cancellationToken: cancellationToken)).Select(q => new ObservableInternetGatewayDevice(q)));
+        Devices = new((await deviceSearchService.GetDevicesAsync(cancellationToken: cancellationToken).ConfigureAwait(true)).Select(q => new ObservableInternetGatewayDevice(q)));
     }
 
-    protected override bool GetCanExecuteDefaultCommand()
-    {
-        return !DefaultCommandActive;
-    }
+    protected override bool GetCanExecuteDefaultCommand() => !DefaultCommandActive;
 
     private void Receive(PropertyChangedMessage<IEnumerable<User>> message)
     {
@@ -339,9 +336,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     }
 
     private void UpdateCanExecuteLoginCommand()
-    {
-        CanExecuteLoginCommand = !LoginCommandActive && DeviceLoginInfo.LoginInfoSet;
-    }
+        => CanExecuteLoginCommand = !LoginCommandActive && DeviceLoginInfo.LoginInfoSet;
 
     private async Task ExecuteLoginCommandAsync(bool? showView)
     {
@@ -349,7 +344,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         {
             LoginCommandActive = true;
 
-            await DeviceLoginInfo.InternetGatewayDevice!.GetDeviceTypeAsync();
+            await DeviceLoginInfo.InternetGatewayDevice!.GetDeviceTypeAsync().ConfigureAwait(true);
 
             LoginButtonImage = new BitmapImage(new("pack://application:,,,/Images/Success.png"));
         }
@@ -368,12 +363,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     }
 
     private void ExecuteCopyMessageCommand()
-    {
-        Clipboard.SetText(UserMessage);
-    }
+        => Clipboard.SetText(UserMessage);
 
     private void ExecuteCloseMessageCommand()
-    {
-        UserMessage = null;
-    }
+        => UserMessage = null;
 }

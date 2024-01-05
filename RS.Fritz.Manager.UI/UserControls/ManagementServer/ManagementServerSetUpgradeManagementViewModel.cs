@@ -2,14 +2,10 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetUpgradeManagementViewModel : ManualOperationViewModel<ManagementServerSetUpgradeManagementRequest, ManagementServerSetUpgradeManagementResponse>
+internal sealed class ManagementServerSetUpgradeManagementViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<ManagementServerSetUpgradeManagementRequest, ManagementServerSetUpgradeManagementResponse>(deviceLoginInfo, logger, "SetUpgradeManagement", "Update UpgradeManagement", (d, r) => d.ManagementServerSetUpgradeManagementAsync(r))
 {
     private bool? upgradesManaged;
-
-    public ManagementServerSetUpgradeManagementViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetUpgradeManagement", "Update UpgradeManagement", (d, r) => d.ManagementServerSetUpgradeManagementAsync(r))
-    {
-    }
 
     public bool? UpgradesManaged
     {
@@ -22,9 +18,7 @@ internal sealed class ManagementServerSetUpgradeManagementViewModel : ManualOper
     }
 
     protected override ManagementServerSetUpgradeManagementRequest BuildRequest()
-    {
-        return new(UpgradesManaged!.Value);
-    }
+        => new(UpgradesManaged!.Value);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -41,7 +35,5 @@ internal sealed class ManagementServerSetUpgradeManagementViewModel : ManualOper
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && UpgradesManaged.HasValue;
-    }
+        => base.GetCanExecuteDefaultCommand() && UpgradesManaged.HasValue;
 }

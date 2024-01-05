@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Interop;
+using CommunityToolkit.Mvvm.Input;
 using Windows.Storage;
 using Windows.Storage.Pickers;
-using CommunityToolkit.Mvvm.Input;
 using WinRT.Interop;
 
 internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
@@ -52,12 +52,12 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         private set => _ = SetProperty(ref captureInterfaceGroups, value);
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
         if (CaptureInterfaceGroups is not null)
             return;
 
-        IEnumerable<UserInterfaceCaptureInterfaceGroup> newCaptureInterfaceGroups = (await captureControlService.GetInterfacesAsync(ApiDevice, cancellationToken)).Select(q => new UserInterfaceCaptureInterfaceGroup(q, q.CaptureInterfaces.Select(r => new UserInterfaceCaptureInterface(r, new(DoExecuteCaptureInterfaceStartCommand, _ => CanExecuteCaptureInterfaceStartCommand(r)), new(DoExecuteCaptureInterfaceStopCommandAsync, _ => CanExecuteCaptureInterfaceStopCommand(r)))).ToList()));
+        IEnumerable<UserInterfaceCaptureInterfaceGroup> newCaptureInterfaceGroups = (await captureControlService.GetInterfacesAsync(ApiDevice, cancellationToken).ConfigureAwait(true)).Select(q => new UserInterfaceCaptureInterfaceGroup(q, q.CaptureInterfaces.Select(r => new UserInterfaceCaptureInterface(r, new(DoExecuteCaptureInterfaceStartCommand, _ => CanExecuteCaptureInterfaceStartCommand(r)), new(DoExecuteCaptureInterfaceStopCommandAsync, _ => CanExecuteCaptureInterfaceStopCommand(r)))).ToList()));
 
         CaptureInterfaceGroups = new(newCaptureInterfaceGroups);
 
@@ -73,23 +73,17 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
     }
 
     private void NotifyAllStartCommandsCanExecuteChanged()
-    {
-        CaptureInterfaceGroups?.ToList().ForEach(q => q.CaptureInterfaces.ForEach(r => r.StartCommand.NotifyCanExecuteChanged()));
-    }
+        => CaptureInterfaceGroups?.ToList().ForEach(q => q.CaptureInterfaces.ForEach(r => r.StartCommand.NotifyCanExecuteChanged()));
 
     private bool CanExecuteCaptureInterfaceStartCommand(CaptureInterface captureInterface)
-    {
-        return PacketCaptureSizeLimit > 0 && !string.IsNullOrWhiteSpace(FolderName) && (!CaptureInterfaceGroups?.SelectMany(q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false);
-    }
+        => PacketCaptureSizeLimit > 0 && !string.IsNullOrWhiteSpace(FolderName) && (!CaptureInterfaceGroups?.SelectMany(q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false);
 
     private bool CanExecuteCaptureInterfaceStopCommand(CaptureInterface captureInterface)
-    {
-        return CaptureInterfaceGroups?.SelectMany(q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false;
-    }
+        => CaptureInterfaceGroups?.SelectMany(q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false;
 
-    private async Task DoExecuteSelectTargetFolderCommandAsync(CancellationToken cancellationToken)
+    private async Task DoExecuteSelectTargetFolderCommandAsync()
     {
-        nint mainWindowHandle = new WindowInteropHelper(Application.Current.MainWindow).Handle;
+        nint mainWindowHandle = new WindowInteropHelper(Application.Current.MainWindow!).Handle;
         var folderPicker = new FolderPicker
         {
             SuggestedStartLocation = PickerLocationId.Downloads
@@ -107,16 +101,16 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
     {
         SetCaptureInterfaceStatus(userInterfaceCaptureInterface!, true);
 
-        var fileInfo = new FileInfo(FormattableString.Invariant($"{FolderName}\\{userInterfaceCaptureInterface!.CaptureInterface.Name}_{DateTime.Now.ToString("s").Replace(":", string.Empty)}.eth"));
+        var fileInfo = new FileInfo(FormattableString.Invariant($"{FolderName}\\{userInterfaceCaptureInterface!.CaptureInterface.Name}_{DateTime.Now.ToString("s").Replace(":", string.Empty, StringComparison.OrdinalIgnoreCase)}.eth"));
 
-        await StartBackgroundCaptureAsync(userInterfaceCaptureInterface, fileInfo);
+        await StartBackgroundCaptureAsync(userInterfaceCaptureInterface, fileInfo).ConfigureAwait(true);
     }
 
-    private async Task StartBackgroundCaptureAsync(UserInterfaceCaptureInterface userInterfaceCaptureInterface, FileInfo fileInfo)
+    private async ValueTask StartBackgroundCaptureAsync(UserInterfaceCaptureInterface userInterfaceCaptureInterface, FileInfo fileInfo)
     {
         try
         {
-            await captureControlService.StartCaptureAsync(ApiDevice, fileInfo, userInterfaceCaptureInterface.CaptureInterface, PacketCaptureSizeLimit);
+            await captureControlService.StartCaptureAsync(ApiDevice, fileInfo, userInterfaceCaptureInterface.CaptureInterface, PacketCaptureSizeLimit).ConfigureAwait(true);
         }
         catch (Exception ex)
         {
@@ -127,7 +121,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 
     private async Task DoExecuteCaptureInterfaceStopCommandAsync(UserInterfaceCaptureInterface? userInterfaceCaptureInterface, CancellationToken cancellationToken)
     {
-        await captureControlService.StopCaptureAsync(ApiDevice, userInterfaceCaptureInterface!.CaptureInterface, cancellationToken);
+        await captureControlService.StopCaptureAsync(ApiDevice, userInterfaceCaptureInterface!.CaptureInterface, cancellationToken).ConfigureAwait(true);
         SetCaptureInterfaceStatus(userInterfaceCaptureInterface, false);
     }
 }

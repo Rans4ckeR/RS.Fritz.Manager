@@ -20,6 +20,7 @@ internal static class ServiceCollectionExtensions
             .AddSingleton<WanCommonInterfaceConfigGetOnlineMonitorViewModel>()
             .AddSingleton<HostsViewModel>()
             .AddSingleton<HostsGetGenericHostEntryViewModel>()
+            .AddSingleton<HostsHostsCheckUpdateViewModel>()
             .AddSingleton<Layer3ForwardingViewModel>()
             .AddSingleton<Layer3ForwardingGetGenericForwardingEntryViewModel>()
             .AddSingleton<WanPppConnectionViewModel>()

@@ -2,25 +2,14 @@
 
 using System.Net;
 
-internal sealed class ClientFactory<T> : IClientFactory<T>
+internal sealed class ClientFactory<T>(INetworkService networkService) : IClientFactory<T>
     where T : class
 {
-    private readonly INetworkService networkService;
-
-    public ClientFactory(INetworkService networkService)
-    {
-        this.networkService = networkService;
-    }
-
     public T Build(Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createClient, Uri location, bool secure, string controlUrl, ushort? port, NetworkCredential? networkCredential)
-    {
-        return createClient(GetEndpointConfiguration(secure), GetEndpointAddress(location, secure, controlUrl, port), networkCredential);
-    }
+        => createClient(GetEndpointConfiguration(secure), GetEndpointAddress(location, secure, controlUrl, port), networkCredential);
 
     private static FritzServiceEndpointConfiguration GetEndpointConfiguration(bool secure)
-    {
-        return secure ? FritzServiceEndpointConfiguration.BasicHttpsBindingIFritzService : FritzServiceEndpointConfiguration.BasicHttpBindingIFritzService;
-    }
+        => secure ? FritzServiceEndpointConfiguration.BasicHttpsBindingIFritzService : FritzServiceEndpointConfiguration.BasicHttpBindingIFritzService;
 
     private EndpointAddress GetEndpointAddress(Uri location, bool secure, string controlUrl, ushort? port = null)
     {

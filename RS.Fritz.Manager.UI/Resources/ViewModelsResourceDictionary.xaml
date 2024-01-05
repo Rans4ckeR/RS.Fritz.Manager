@@ -10,6 +10,9 @@
     <DataTemplate DataType="{x:Type ui:HostsGetGenericHostEntryViewModel}">
         <ui:HostsGetGenericHostEntryView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:HostsHostsCheckUpdateViewModel}">
+        <ui:HostsHostsCheckUpdateView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type ui:DeviceInfoViewModel}">
         <ui:DeviceInfoView/>
     </DataTemplate>

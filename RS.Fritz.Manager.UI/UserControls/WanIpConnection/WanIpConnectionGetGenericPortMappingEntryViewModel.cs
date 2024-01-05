@@ -1,14 +1,8 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class WanIpConnectionGetGenericPortMappingEntryViewModel : WanConnectionGetGenericPortMappingEntryViewModel
+internal sealed class WanIpConnectionGetGenericPortMappingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : WanConnectionGetGenericPortMappingEntryViewModel(deviceLoginInfo, logger)
 {
-    public WanIpConnectionGetGenericPortMappingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
-    {
-    }
-
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        WanConnectionGetGenericPortMappingEntryResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetGenericPortMappingEntryAsync(new(Index!.Value)));
-    }
+    protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+        => WanConnectionGetGenericPortMappingEntryResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetGenericPortMappingEntryAsync(new(Index!.Value))).ConfigureAwait(true);
 }

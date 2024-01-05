@@ -7,25 +7,13 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
 
-internal sealed class DeviceSearchService : IDeviceSearchService
+internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, IFritzServiceOperationHandler fritzServiceOperationHandler, IUsersService usersService, INetworkService networkService)
+    : IDeviceSearchService
 {
     private const string InternetGatewayDeviceDeviceType = "urn:dslforum-org:device:InternetGatewayDevice:1";
     private const int UPnPMultiCastPort = 1900;
     private const int ReceiveTimeoutInSeconds = 2;
     private const int DefaultSendCount = 1;
-
-    private readonly IHttpClientFactory httpClientFactory;
-    private readonly IFritzServiceOperationHandler fritzServiceOperationHandler;
-    private readonly IUsersService usersService;
-    private readonly INetworkService networkService;
-
-    public DeviceSearchService(IHttpClientFactory httpClientFactory, IFritzServiceOperationHandler fritzServiceOperationHandler, IUsersService usersService, INetworkService networkService)
-    {
-        this.httpClientFactory = httpClientFactory;
-        this.fritzServiceOperationHandler = fritzServiceOperationHandler;
-        this.usersService = usersService;
-        this.networkService = networkService;
-    }
 
     public async ValueTask<IEnumerable<InternetGatewayDevice>> GetDevicesAsync(string? deviceType = null, int? sendCount = null, int? timeout = null, CancellationToken cancellationToken = default)
     {
@@ -33,13 +21,13 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         timeout ??= ReceiveTimeoutInSeconds * 1000;
         sendCount ??= DefaultSendCount;
 
-        IEnumerable<(IPAddress LocalIpAddress, IEnumerable<string> Responses)> rawDeviceResponses = await GetRawDeviceResponses(deviceType, sendCount.Value, timeout.Value, cancellationToken);
+        IEnumerable<(IPAddress LocalIpAddress, IEnumerable<string> Responses)> rawDeviceResponses = await GetRawDeviceResponses(deviceType, sendCount.Value, timeout.Value, cancellationToken).ConfigureAwait(false);
         IEnumerable<(IPAddress LocalIpAddress, IEnumerable<Dictionary<string, string>> Responses)> formattedDeviceResponses =
             rawDeviceResponses.Select(q => (q.LocalIpAddress, GetFormattedDeviceResponses(q.Responses)));
         IEnumerable<IGrouping<string, InternetGatewayDeviceResponse>> groupedInternetGatewayDeviceResponses =
             GetGroupedInternetGatewayDeviceResponses(formattedDeviceResponses);
 
-        return await TaskExtensions.WhenAllSafe(groupedInternetGatewayDeviceResponses.Select(q => GetInternetGatewayDeviceAsync(q, cancellationToken)));
+        return await TaskExtensions.WhenAllSafe(groupedInternetGatewayDeviceResponses.Select(q => GetInternetGatewayDeviceAsync(q, cancellationToken))).ConfigureAwait(false);
     }
 
     private static IEnumerable<IGrouping<string, InternetGatewayDeviceResponse>> GetGroupedInternetGatewayDeviceResponses(
@@ -58,7 +46,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
             {
                 string value = s[s.IndexOf(':', StringComparison.OrdinalIgnoreCase)..];
 
-                if (value.EndsWith(":", StringComparison.OrdinalIgnoreCase))
+                if (value.EndsWith(':'))
                     return value.Replace(":", null, StringComparison.OrdinalIgnoreCase);
 
                 return value.Replace(": ", null, StringComparison.OrdinalIgnoreCase);
@@ -66,7 +54,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
             StringComparer.OrdinalIgnoreCase));
     }
 
-    private static async ValueTask ReceiveAsync(Socket socket, ICollection<string> responses, int receiveTimeout, CancellationToken cancellationToken)
+    private static async ValueTask ReceiveAsync(Socket socket, List<string> responses, int receiveTimeout, CancellationToken cancellationToken)
     {
         using IMemoryOwner<byte> memoryOwner = MemoryPool<byte>.Shared.Rent(4096);
         using var timeoutCancellationTokenSource = new CancellationTokenSource(receiveTimeout);
@@ -78,7 +66,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
 
             try
             {
-                int bytesReceived = await socket.ReceiveAsync(buffer, SocketFlags.None, linkedCancellationTokenSource.Token);
+                int bytesReceived = await socket.ReceiveAsync(buffer, SocketFlags.None, linkedCancellationTokenSource.Token).ConfigureAwait(false);
 
                 responses.Add(Encoding.UTF8.GetString(buffer.Span[..bytesReceived]));
             }
@@ -122,10 +110,10 @@ internal sealed class DeviceSearchService : IDeviceSearchService
 
         for (int i = 0; i < sendCount; i++)
         {
-            _ = await socket.SendToAsync(buffer, SocketFlags.None, multiCastIpEndPoint, cancellationToken);
+            _ = await socket.SendToAsync(buffer, SocketFlags.None, multiCastIpEndPoint, cancellationToken).ConfigureAwait(false);
         }
 
-        await ReceiveAsync(socket, responses, receiveTimeout, cancellationToken);
+        await ReceiveAsync(socket, responses, receiveTimeout, cancellationToken).ConfigureAwait(false);
 
         return new(unicastAddress, responses);
     }
@@ -136,7 +124,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
         IEnumerable<IPAddress> multicastAddresses = networkService.GetMulticastAddresses();
         (IPAddress LocalIpAddress, IEnumerable<string> Responses)[] localAddressesDeviceResponses = await TaskExtensions.WhenAllSafe(multicastAddresses.SelectMany(q => unicastAddresses.Where(r => r.AddressFamily == q.AddressFamily).Select(r => SearchDevicesAsync(r, q, deviceType, sendCount, timeout, cancellationToken)))).ConfigureAwait(false);
 
-        return localAddressesDeviceResponses.Where(q => q.Responses.Any(r => r.Any())).Select(q => (q.LocalIpAddress, q.Responses)).Distinct();
+        return localAddressesDeviceResponses.Where(q => q.Responses.Any(r => r.Length is not 0)).Select(q => (q.LocalIpAddress, q.Responses)).Distinct();
     }
 
     private async ValueTask<UPnPDescription> GetUPnPDescription(Uri uri, CancellationToken cancellationToken)
@@ -165,7 +153,7 @@ internal sealed class DeviceSearchService : IDeviceSearchService
             internetGatewayDeviceResponses.Select(r => r.Ext).Distinct().Single(),
             internetGatewayDeviceResponses.Select(r => r.SearchTarget).Distinct().Single(),
             internetGatewayDeviceResponses.Key,
-            await GetUPnPDescription(preferredLocation, cancellationToken),
+            await GetUPnPDescription(preferredLocation, cancellationToken).ConfigureAwait(false),
             preferredLocation,
             internetGatewayDeviceResponses.Select(r => r.LocalIpAddress).Distinct().ToList().AsReadOnly());
     }

@@ -4,6 +4,7 @@
 public readonly record struct WlanConfigurationGetWlanExtInfoResponse(
     [property: MessageBodyMember(Name = "NewX_AVM-DE_APEnabled")] string ApEnabled,
     [property: MessageBodyMember(Name = "NewX_AVM-DE_APType")] string ApType,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_FrequencyBand")] string FrequencyBand,
     [property: MessageBodyMember(Name = "NewX_AVM-DE_TimeoutActive")] string TimeoutActive,
     [property: MessageBodyMember(Name = "NewX_AVM-DE_Timeout")] string Timeout,
     [property: MessageBodyMember(Name = "NewX_AVM-DE_TimeRemain")] string TimeRemain,

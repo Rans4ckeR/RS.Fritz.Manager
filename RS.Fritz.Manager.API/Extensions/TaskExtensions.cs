@@ -8,14 +8,15 @@ public static class TaskExtensions
     /// </summary>
     /// <typeparam name="T">The type of <paramref name="tasks"/>'s return value.</typeparam>
     /// <param name="tasks">The list of <see cref="Task"/>s who's exceptions will be handled.</param>
-    /// <returns>Returns a <see cref="Task"/> that awaited and handled the original <paramref name="tasks"/>.</returns>
-    public static async Task<T[]> WhenAllSafe<T>(IEnumerable<Task<T>> tasks)
+    /// <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false.</param>
+    /// <returns>Returns a <see cref="ValueTask"/> that awaited and handled the original <paramref name="tasks"/>.</returns>
+    public static async ValueTask<T[]> WhenAllSafe<T>(IEnumerable<Task<T>> tasks, bool continueOnCapturedContext = false)
     {
         var whenAllTask = Task.WhenAll(tasks);
 
         try
         {
-            return await whenAllTask;
+            return await whenAllTask.ConfigureAwait(continueOnCapturedContext);
         }
         catch
         {
@@ -31,14 +32,15 @@ public static class TaskExtensions
     /// When using <see cref="Task.WhenAll(IEnumerable{Task})"/> only the first thrown exception from a single <see cref="Task"/> may be observed.
     /// </summary>
     /// <param name="tasks">The list of <see cref="Task"/>s who's exceptions will be handled.</param>
-    /// <returns>Returns a <see cref="Task"/> that awaited and handled the original <paramref name="tasks"/>.</returns>
-    public static async Task WhenAllSafe(IEnumerable<Task> tasks)
+    /// <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false.</param>
+    /// <returns>Returns a <see cref="ValueTask"/> that awaited and handled the original <paramref name="tasks"/>.</returns>
+    public static async ValueTask WhenAllSafe(IEnumerable<Task> tasks, bool continueOnCapturedContext = false)
     {
         var whenAllTask = Task.WhenAll(tasks);
 
         try
         {
-            await whenAllTask;
+            await whenAllTask.ConfigureAwait(continueOnCapturedContext);
         }
         catch
         {

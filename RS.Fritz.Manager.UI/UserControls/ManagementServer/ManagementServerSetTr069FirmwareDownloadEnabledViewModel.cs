@@ -2,14 +2,10 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetTr069FirmwareDownloadEnabledViewModel : ManualOperationViewModel<ManagementServerSetTr069FirmwareDownloadEnabledRequest, ManagementServerSetTr069FirmwareDownloadEnabledResponse>
+internal sealed class ManagementServerSetTr069FirmwareDownloadEnabledViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<ManagementServerSetTr069FirmwareDownloadEnabledRequest, ManagementServerSetTr069FirmwareDownloadEnabledResponse>(deviceLoginInfo, logger, "SetTr069FirmwareDownloadEnabled", "Update Tr069FirmwareDownloadEnabled", (d, r) => d.ManagementServerSetTr069FirmwareDownloadEnabledAsync(r))
 {
     private bool? tr069FirmwareDownloadEnabled;
-
-    public ManagementServerSetTr069FirmwareDownloadEnabledViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetTr069FirmwareDownloadEnabled", "Update Tr069FirmwareDownloadEnabled", (d, r) => d.ManagementServerSetTr069FirmwareDownloadEnabledAsync(r))
-    {
-    }
 
     public bool? Tr069FirmwareDownloadEnabled
     {
@@ -22,9 +18,7 @@ internal sealed class ManagementServerSetTr069FirmwareDownloadEnabledViewModel :
     }
 
     protected override ManagementServerSetTr069FirmwareDownloadEnabledRequest BuildRequest()
-    {
-        return new(Tr069FirmwareDownloadEnabled!.Value);
-    }
+        => new(Tr069FirmwareDownloadEnabled!.Value);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -41,7 +35,5 @@ internal sealed class ManagementServerSetTr069FirmwareDownloadEnabledViewModel :
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && Tr069FirmwareDownloadEnabled.HasValue;
-    }
+        => base.GetCanExecuteDefaultCommand() && Tr069FirmwareDownloadEnabled.HasValue;
 }

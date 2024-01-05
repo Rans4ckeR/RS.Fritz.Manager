@@ -1,82 +1,68 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class UserInterfaceViewModel : FritzServiceViewModel
+internal sealed class UserInterfaceViewModel(
+    DeviceLoginInfo deviceLoginInfo,
+    UserInterfaceCheckUpdateViewModel userInterfaceCheckUpdateViewModel,
+    UserInterfaceDoPrepareCgiViewModel userInterfaceDoPrepareCgiViewModel,
+    UserInterfaceDoUpdateViewModel userInterfaceDoUpdateViewModel,
+    UserInterfaceDoManualUpdateViewModel userInterfaceDoManualUpdateViewModel,
+    UserInterfaceSetInternationalConfigViewModel userInterfaceSetInternationalConfigViewModel,
+    UserInterfaceSetConfigViewModel userInterfaceSetConfigViewModel,
+    ILogger logger)
+    : FritzServiceViewModel(deviceLoginInfo, logger, "UserInterface")
 {
     private KeyValuePair<UserInterfaceGetInfoResponse?, UPnPFault?>? userInterfaceGetInfoResponse;
     private KeyValuePair<UserInterfaceGetInternationalConfigResponse?, UPnPFault?>? userInterfaceGetInternationalConfigResponse;
     private KeyValuePair<UserInterfaceAvmGetInfoResponse?, UPnPFault?>? userInterfaceAvmGetInfoResponse;
 
-    public UserInterfaceViewModel(
-        DeviceLoginInfo deviceLoginInfo,
-        UserInterfaceCheckUpdateViewModel userInterfaceCheckUpdateViewModel,
-        UserInterfaceDoPrepareCgiViewModel userInterfaceDoPrepareCgiViewModel,
-        UserInterfaceDoUpdateViewModel userInterfaceDoUpdateViewModel,
-        UserInterfaceDoManualUpdateViewModel userInterfaceDoManualUpdateViewModel,
-        UserInterfaceSetInternationalConfigViewModel userInterfaceSetInternationalConfigViewModel,
-        UserInterfaceSetConfigViewModel userInterfaceSetConfigViewModel,
-        ILogger logger)
-        : base(deviceLoginInfo, logger, "UserInterface")
-    {
-        UserInterfaceCheckUpdateViewModel = userInterfaceCheckUpdateViewModel;
-        UserInterfaceDoPrepareCgiViewModel = userInterfaceDoPrepareCgiViewModel;
-        UserInterfaceDoUpdateViewModel = userInterfaceDoUpdateViewModel;
-        UserInterfaceDoManualUpdateViewModel = userInterfaceDoManualUpdateViewModel;
-        UserInterfaceSetInternationalConfigViewModel = userInterfaceSetInternationalConfigViewModel;
-        UserInterfaceSetConfigViewModel = userInterfaceSetConfigViewModel;
-    }
-
     public KeyValuePair<UserInterfaceGetInfoResponse?, UPnPFault?>? UserInterfaceGetInfoResponse
     {
         get => userInterfaceGetInfoResponse;
-        private set { _ = SetProperty(ref userInterfaceGetInfoResponse, value); }
+        private set => _ = SetProperty(ref userInterfaceGetInfoResponse, value);
     }
 
     public KeyValuePair<UserInterfaceGetInternationalConfigResponse?, UPnPFault?>? UserInterfaceGetInternationalConfigResponse
     {
         get => userInterfaceGetInternationalConfigResponse;
-        private set { _ = SetProperty(ref userInterfaceGetInternationalConfigResponse, value); }
+        private set => _ = SetProperty(ref userInterfaceGetInternationalConfigResponse, value);
     }
 
     public KeyValuePair<UserInterfaceAvmGetInfoResponse?, UPnPFault?>? UserInterfaceAvmGetInfoResponse
     {
         get => userInterfaceAvmGetInfoResponse;
-        private set { _ = SetProperty(ref userInterfaceAvmGetInfoResponse, value); }
+        private set => _ = SetProperty(ref userInterfaceAvmGetInfoResponse, value);
     }
 
-    public UserInterfaceCheckUpdateViewModel UserInterfaceCheckUpdateViewModel { get; }
+    public UserInterfaceCheckUpdateViewModel UserInterfaceCheckUpdateViewModel { get; } = userInterfaceCheckUpdateViewModel;
 
-    public UserInterfaceDoPrepareCgiViewModel UserInterfaceDoPrepareCgiViewModel { get; }
+    public UserInterfaceDoPrepareCgiViewModel UserInterfaceDoPrepareCgiViewModel { get; } = userInterfaceDoPrepareCgiViewModel;
 
-    public UserInterfaceDoUpdateViewModel UserInterfaceDoUpdateViewModel { get; }
+    public UserInterfaceDoUpdateViewModel UserInterfaceDoUpdateViewModel { get; } = userInterfaceDoUpdateViewModel;
 
-    public UserInterfaceDoManualUpdateViewModel UserInterfaceDoManualUpdateViewModel { get; }
+    public UserInterfaceDoManualUpdateViewModel UserInterfaceDoManualUpdateViewModel { get; } = userInterfaceDoManualUpdateViewModel;
 
-    public UserInterfaceSetInternationalConfigViewModel UserInterfaceSetInternationalConfigViewModel { get; }
+    public UserInterfaceSetInternationalConfigViewModel UserInterfaceSetInternationalConfigViewModel { get; } = userInterfaceSetInternationalConfigViewModel;
 
-    public UserInterfaceSetConfigViewModel UserInterfaceSetConfigViewModel { get; }
+    public UserInterfaceSetConfigViewModel UserInterfaceSetConfigViewModel { get; } = userInterfaceSetConfigViewModel;
 
-    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
             {
                GetUserInterfaceGetInfoAsync(),
                GetUserInterfaceGetInternationalConfigAsync(),
                GetUserInterfaceAvmGetInfoAsync()
-            });
+            },
+            true);
     }
 
     private async Task GetUserInterfaceGetInfoAsync()
-    {
-        UserInterfaceGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInfoAsync());
-    }
+        => UserInterfaceGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetUserInterfaceGetInternationalConfigAsync()
-    {
-        UserInterfaceGetInternationalConfigResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInternationalConfigAsync());
-    }
+        => UserInterfaceGetInternationalConfigResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInternationalConfigAsync()).ConfigureAwait(true);
 
     private async Task GetUserInterfaceAvmGetInfoAsync()
-    {
-        UserInterfaceAvmGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceAvmGetInfoAsync());
-    }
+        => UserInterfaceAvmGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceAvmGetInfoAsync()).ConfigureAwait(true);
 }

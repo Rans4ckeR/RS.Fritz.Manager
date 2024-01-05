@@ -2,37 +2,32 @@
 
 using System.Net;
 
-internal sealed class FritzHostsService : FritzServiceClient<IFritzHostsService>, IFritzHostsService
+internal sealed class FritzHostsService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
+    : FritzServiceClient<IFritzHostsService>(endpointConfiguration, remoteAddress, networkCredential), IFritzHostsService
 {
     public const string ControlUrl = "/upnp/control/hosts";
 
-    public FritzHostsService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-        : base(endpointConfiguration, remoteAddress, networkCredential)
-    {
-    }
-
     public Task<HostsGetHostNumberOfEntriesResponse> GetHostNumberOfEntriesAsync(HostsGetHostNumberOfEntriesRequest hostsGetHostNumberOfEntriesRequest)
-    {
-        return Channel.GetHostNumberOfEntriesAsync(hostsGetHostNumberOfEntriesRequest);
-    }
+        => Channel.GetHostNumberOfEntriesAsync(hostsGetHostNumberOfEntriesRequest);
+
+    public Task<HostsHostsCheckUpdateResponse> HostsCheckUpdateAsync(HostsHostsCheckUpdateRequest hostsHostsCheckUpdateRequest)
+        => Channel.HostsCheckUpdateAsync(hostsHostsCheckUpdateRequest);
 
     public Task<HostsGetHostListPathResponse> GetHostListPathAsync(HostsGetHostListPathRequest hostsGetHostListPathRequest)
-    {
-        return Channel.GetHostListPathAsync(hostsGetHostListPathRequest);
-    }
+        => Channel.GetHostListPathAsync(hostsGetHostListPathRequest);
 
     public Task<HostsGetGenericHostEntryResponse> GetGenericHostEntryAsync(HostsGetGenericHostEntryRequest hostsGetGenericHostEntryRequest)
-    {
-        return Channel.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest);
-    }
+        => Channel.GetGenericHostEntryAsync(hostsGetGenericHostEntryRequest);
+
+    public Task<HostsGetInfoResponse> GetInfoAsync(HostsGetInfoRequest hostsGetInfoRequest)
+        => Channel.GetInfoAsync(hostsGetInfoRequest);
 
     public Task<HostsGetChangeCounterResponse> GetChangeCounterAsync(HostsGetChangeCounterRequest hostsGetChangeCounterRequest)
-    {
-        return Channel.GetChangeCounterAsync(hostsGetChangeCounterRequest);
-    }
+        => Channel.GetChangeCounterAsync(hostsGetChangeCounterRequest);
 
     public Task<HostsGetMeshListPathResponse> GetMeshListPathAsync(HostsGetMeshListPathRequest hostsGetMeshListPathRequest)
-    {
-        return Channel.GetMeshListPathAsync(hostsGetMeshListPathRequest);
-    }
+        => Channel.GetMeshListPathAsync(hostsGetMeshListPathRequest);
+
+    public Task<HostsGetFriendlyNameResponse> GetFriendlyNameAsync(HostsGetFriendlyNameRequest hostsGetFriendlyNameRequest)
+        => Channel.GetFriendlyNameAsync(hostsGetFriendlyNameRequest);
 }

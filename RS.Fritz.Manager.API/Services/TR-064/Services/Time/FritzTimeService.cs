@@ -2,22 +2,14 @@
 
 using System.Net;
 
-internal sealed class FritzTimeService : FritzServiceClient<IFritzTimeService>, IFritzTimeService
+internal sealed class FritzTimeService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
+    : FritzServiceClient<IFritzTimeService>(endpointConfiguration, remoteAddress, networkCredential), IFritzTimeService
 {
     public const string ControlUrl = "/upnp/control/time";
 
-    public FritzTimeService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-        : base(endpointConfiguration, remoteAddress, networkCredential)
-    {
-    }
-
     public Task<TimeGetInfoResponse> GetInfoAsync(TimeGetInfoRequest timeGetInfoRequest)
-    {
-        return Channel.GetInfoAsync(timeGetInfoRequest);
-    }
+        => Channel.GetInfoAsync(timeGetInfoRequest);
 
     public Task<TimeSetNtpServersResponse> SetNtpServersAsync(TimeSetNtpServersRequest timeSetNtpServersRequest)
-    {
-        return Channel.SetNtpServersAsync(timeSetNtpServersRequest);
-    }
+        => Channel.SetNtpServersAsync(timeSetNtpServersRequest);
 }

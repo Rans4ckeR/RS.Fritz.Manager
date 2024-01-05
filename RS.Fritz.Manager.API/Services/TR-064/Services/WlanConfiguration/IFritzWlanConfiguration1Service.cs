@@ -2,7 +2,7 @@
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:WLANConfiguration:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzWlanConfiguration1Service
+internal interface IFritzWlanConfiguration1Service : IAsyncDisposable
 {
     [OperationContract(Action = "urn:dslforum-org:service:WLANConfiguration:1#GetInfo")]
     [FaultContract(typeof(UPnPFault1))]

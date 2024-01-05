@@ -2,16 +2,12 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetPeriodicInformViewModel : ManualOperationViewModel<ManagementServerSetPeriodicInformRequest, ManagementServerSetPeriodicInformResponse>
+internal sealed class ManagementServerSetPeriodicInformViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<ManagementServerSetPeriodicInformRequest, ManagementServerSetPeriodicInformResponse>(deviceLoginInfo, logger, "SetPeriodicInform", "Update PeriodicInform", (d, r) => d.ManagementServerSetPeriodicInformAsync(r))
 {
     private bool? periodicInformEnable;
     private ushort? periodicInformInterval;
     private DateTime? periodicInformTime;
-
-    public ManagementServerSetPeriodicInformViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetPeriodicInform", "Update PeriodicInform", (d, r) => d.ManagementServerSetPeriodicInformAsync(r))
-    {
-    }
 
     public bool? PeriodicInformEnable
     {
@@ -44,9 +40,7 @@ internal sealed class ManagementServerSetPeriodicInformViewModel : ManualOperati
     }
 
     protected override ManagementServerSetPeriodicInformRequest BuildRequest()
-    {
-        return new(PeriodicInformEnable!.Value, PeriodicInformInterval!.Value, PeriodicInformTime!.Value);
-    }
+        => new(PeriodicInformEnable!.Value, PeriodicInformInterval!.Value, PeriodicInformTime!.Value);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -65,7 +59,5 @@ internal sealed class ManagementServerSetPeriodicInformViewModel : ManualOperati
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && PeriodicInformEnable.HasValue && PeriodicInformInterval.HasValue && PeriodicInformTime.HasValue;
-    }
+        => base.GetCanExecuteDefaultCommand() && PeriodicInformEnable.HasValue && PeriodicInformInterval.HasValue && PeriodicInformTime.HasValue;
 }

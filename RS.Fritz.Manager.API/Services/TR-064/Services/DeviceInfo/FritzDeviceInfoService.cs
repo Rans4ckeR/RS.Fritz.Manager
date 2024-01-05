@@ -2,32 +2,20 @@
 
 using System.Net;
 
-internal sealed class FritzDeviceInfoService : FritzServiceClient<IFritzDeviceInfoService>, IFritzDeviceInfoService
+internal sealed class FritzDeviceInfoService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential = null)
+    : FritzServiceClient<IFritzDeviceInfoService>(endpointConfiguration, remoteAddress, networkCredential), IFritzDeviceInfoService
 {
     public const string ControlUrl = "/upnp/control/deviceinfo";
 
-    public FritzDeviceInfoService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential = null)
-        : base(endpointConfiguration, remoteAddress, networkCredential)
-    {
-    }
-
     public Task<DeviceInfoGetSecurityPortResponse> GetSecurityPortAsync(DeviceInfoGetSecurityPortRequest deviceInfoGetSecurityPortRequest)
-    {
-        return Channel.GetSecurityPortAsync(deviceInfoGetSecurityPortRequest);
-    }
+        => Channel.GetSecurityPortAsync(deviceInfoGetSecurityPortRequest);
 
     public Task<DeviceInfoGetInfoResponse> GetInfoAsync(DeviceInfoGetInfoRequest deviceInfoGetInfoRequest)
-    {
-        return Channel.GetInfoAsync(deviceInfoGetInfoRequest);
-    }
+        => Channel.GetInfoAsync(deviceInfoGetInfoRequest);
 
     public Task<DeviceInfoGetDeviceLogResponse> GetDeviceLogAsync(DeviceInfoGetDeviceLogRequest deviceInfoGetDeviceLogRequest)
-    {
-        return Channel.GetDeviceLogAsync(deviceInfoGetDeviceLogRequest);
-    }
+        => Channel.GetDeviceLogAsync(deviceInfoGetDeviceLogRequest);
 
     public Task<DeviceInfoSetProvisioningCodeResponse> SetProvisioningCodeAsync(DeviceInfoSetProvisioningCodeRequest setProvisioningCodeRequest)
-    {
-        return Channel.SetProvisioningCodeAsync(setProvisioningCodeRequest);
-    }
+        => Channel.SetProvisioningCodeAsync(setProvisioningCodeRequest);
 }

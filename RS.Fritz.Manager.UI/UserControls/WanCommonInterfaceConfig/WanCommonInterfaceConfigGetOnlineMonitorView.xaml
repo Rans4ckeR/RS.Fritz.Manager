@@ -39,32 +39,32 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalNumberSyncGroups}" Content="_TotalNumberSyncGroups"/>
+                    <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=TotalNumberSyncGroups}" Content="_TotalNumberSyncGroups" ToolTip="Number of sync groups."/>
                     <TextBlock x:Name="TotalNumberSyncGroups" Grid.Row="0" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.Key.TotalNumberSyncGroups}"/>
-                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=SyncGroupName}" Content="_SyncGroupName"/>
+                    <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=SyncGroupName}" Content="_SyncGroupName" ToolTip="Name of sync group."/>
                     <TextBlock x:Name="SyncGroupName" Grid.Row="1" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.Key.SyncGroupName}"/>
-                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=SyncGroupMode}" Content="_SyncGroupMode"/>
+                    <Label Grid.Row="2" Grid.Column="0" Target="{Binding ElementName=SyncGroupMode}" Content="_SyncGroupMode" ToolTip="Connection mode of sync group."/>
                     <TextBlock x:Name="SyncGroupMode" Grid.Row="2" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.Key.SyncGroupMode}"/>
-                    <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=MaxDownstream}" Content="_MaxDownstream"/>
+                    <Label Grid.Row="3" Grid.Column="0" Target="{Binding ElementName=MaxDownstream}" Content="_MaxDownstream" ToolTip="Max number of bytes per second in downstream direction."/>
                     <TextBlock x:Name="MaxDownstream" Grid.Row="3" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.Key.MaxDownstream}"/>
-                    <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=MaxUpstream}" Content="_MaxUpstream"/>
+                    <Label Grid.Row="4" Grid.Column="0" Target="{Binding ElementName=MaxUpstream}" Content="_MaxUpstream" ToolTip="Max number of bytes per second in upstream direction."/>
                     <TextBlock x:Name="MaxUpstream" Grid.Row="4" Grid.Column="1" Text="{Binding WanCommonInterfaceConfigGetOnlineMonitorResponse.Key.MaxUpstream}"/>
-                    <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=SyncGroupIndex}" Content="_SyncGroupIndex"/>
+                    <Label Grid.Row="5" Grid.Column="0" Target="{Binding ElementName=SyncGroupIndex}" Content="_SyncGroupIndex" ToolTip="0..TotalNumberSyncGroups-1."/>
                     <TextBox x:Name="SyncGroupIndex" Grid.Row="5" Grid.Column="1" MinWidth="50" Text="{Binding SyncGroupIndex, UpdateSourceTrigger=PropertyChanged}"/>
                     <Button Grid.Row="6" Grid.Column="0" Content="Get OnlineMonitor" Command="{Binding DefaultCommand}" CommandParameter="{StaticResource False}"/>
-                    <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=CurrentDownstreamInternetBps}" Content="_CurrentDownstreamInternetBps"/>
+                    <Label Grid.Row="7" Grid.Column="0" Target="{Binding ElementName=CurrentDownstreamInternetBps}" Content="_CurrentDownstreamInternetBps" ToolTip="Current number of bytes per second in downstream direction of multicast traffic."/>
                     <TextBlock x:Name="CurrentDownstreamInternetBps" Grid.Row="7" Grid.Column="1" Text="{Binding CurrentDownstreamInternetBps}"/>
-                    <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=CurrentDownstreamIpTvBps}" Content="_CurrentDownstreamIpTvBps"/>
+                    <Label Grid.Row="8" Grid.Column="0" Target="{Binding ElementName=CurrentDownstreamIpTvBps}" Content="_CurrentDownstreamIpTvBps" ToolTip="Current number of bytes per second in downstream direction of home, guest and multicast traffic."/>
                     <TextBlock x:Name="CurrentDownstreamIpTvBps" Grid.Row="8" Grid.Column="1" Text="{Binding CurrentDownstreamIpTvBps}"/>
-                    <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=CurrentUpstreamTotalBps}" Content="_CurrentUpstreamTotalBps"/>
+                    <Label Grid.Row="9" Grid.Column="0" Target="{Binding ElementName=CurrentUpstreamTotalBps}" Content="_CurrentUpstreamTotalBps" ToolTip="Current number of bytes per second in upstream direction."/>
                     <TextBlock x:Name="CurrentUpstreamTotalBps" Grid.Row="9" Grid.Column="1" Text="{Binding CurrentUpstreamTotalBps}"/>
-                    <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=CurrentUpstreamRealTimeApplicationsBps}" Content="_CurrentUpstreamRealTimeApplicationsBps"/>
+                    <Label Grid.Row="10" Grid.Column="0" Target="{Binding ElementName=CurrentUpstreamRealTimeApplicationsBps}" Content="_CurrentUpstreamRealTimeApplicationsBps" ToolTip="Current number of bytes per second in upstream direction of real-time home traffic."/>
                     <TextBlock x:Name="CurrentUpstreamRealTimeApplicationsBps" Grid.Row="10" Grid.Column="1" Text="{Binding CurrentUpstreamRealTimeApplicationsBps}"/>
-                    <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=CurrentUpstreamPrioritizedApplicationsBps}" Content="_CurrentUpstreamPrioritizedApplicationsBps"/>
+                    <Label Grid.Row="11" Grid.Column="0" Target="{Binding ElementName=CurrentUpstreamPrioritizedApplicationsBps}" Content="_CurrentUpstreamPrioritizedApplicationsBps" ToolTip="Current number of bytes per second in upstream direction of important home traffic."/>
                     <TextBlock x:Name="CurrentUpstreamPrioritizedApplicationsBps" Grid.Row="11" Grid.Column="1" Text="{Binding CurrentUpstreamPrioritizedApplicationsBps}"/>
-                    <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=CurrentUpstreamNormalApplicationsBps}" Content="_CurrentUpstreamNormalApplicationsBps"/>
+                    <Label Grid.Row="12" Grid.Column="0" Target="{Binding ElementName=CurrentUpstreamNormalApplicationsBps}" Content="_CurrentUpstreamNormalApplicationsBps" ToolTip="Current number of bytes per second in upstream direction of default home traffic."/>
                     <TextBlock x:Name="CurrentUpstreamNormalApplicationsBps" Grid.Row="12" Grid.Column="1" Text="{Binding CurrentUpstreamNormalApplicationsBps}"/>
-                    <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=CurrentUpstreamBackgroundApplicationsBps}" Content="_CurrentUpstreamBackgroundApplicationsBps"/>
+                    <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=CurrentUpstreamBackgroundApplicationsBps}" Content="_CurrentUpstreamBackgroundApplicationsBps" ToolTip="Current number of bytes per second in upstream direction of background home traffic."/>
                     <TextBlock x:Name="CurrentUpstreamBackgroundApplicationsBps" Grid.Row="13" Grid.Column="1" Text="{Binding CurrentUpstreamBackgroundApplicationsBps}"/>
                 </Grid>
                 <Grid Grid.Row="0" Grid.Column="1">

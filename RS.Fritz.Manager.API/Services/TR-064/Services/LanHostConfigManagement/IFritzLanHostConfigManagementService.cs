@@ -2,7 +2,7 @@
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:LANHostConfigManagement:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzLanHostConfigManagementService
+internal interface IFritzLanHostConfigManagementService : IAsyncDisposable
 {
     [OperationContract(Action = "urn:dslforum-org:service:LANHostConfigManagement:1#GetInfo")]
     [FaultContract(typeof(UPnPFault1))]

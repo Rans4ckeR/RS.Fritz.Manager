@@ -5,9 +5,7 @@ using System.Text;
 public static class ExceptionMessageBuilder
 {
     public static string GetDetailedExceptionInfo(this Exception ex)
-    {
-        return new StringBuilder().GetExceptionInfo(ex).ToString();
-    }
+        => new StringBuilder().GetExceptionInfo(ex).ToString();
 
     private static StringBuilder GetExceptionInfo(this StringBuilder sb, Exception ex)
     {

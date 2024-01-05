@@ -2,5 +2,5 @@
 
 public interface IUsersService
 {
-    Task<IEnumerable<User>> GetUsersAsync(InternetGatewayDevice internetGatewayDevice);
+    ValueTask<IEnumerable<User>> GetUsersAsync(InternetGatewayDevice internetGatewayDevice);
 }

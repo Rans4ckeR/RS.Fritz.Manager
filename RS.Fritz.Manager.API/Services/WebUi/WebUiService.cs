@@ -6,20 +6,11 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-internal sealed class WebUiService : IWebUiService
+internal sealed class WebUiService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IWebUiService
 {
     private const string LoginPath = "//login_sid.lua?version=2";
 
-    private readonly IHttpClientFactory httpClientFactory;
-    private readonly INetworkService networkService;
-
-    public WebUiService(IHttpClientFactory httpClientFactory, INetworkService networkService)
-    {
-        this.httpClientFactory = httpClientFactory;
-        this.networkService = networkService;
-    }
-
-    public async Task<WebUiSessionInfo> GetUsersAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
+    public async ValueTask<WebUiSessionInfo> GetUsersAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         Uri loginUri = GetLoginUri(internetGatewayDevice);
         Stream xmlResponseStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(loginUri, cancellationToken).ConfigureAwait(false);
@@ -30,9 +21,9 @@ internal sealed class WebUiService : IWebUiService
         }
     }
 
-    public async Task<WebUiSessionInfo> LogonAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
+    public async ValueTask<WebUiSessionInfo> LogonAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
-        WebUiSessionInfo webUiSessionInfo = await GetUsersAsync(internetGatewayDevice, cancellationToken);
+        WebUiSessionInfo webUiSessionInfo = await GetUsersAsync(internetGatewayDevice, cancellationToken).ConfigureAwait(false);
         string[] challengeParts = webUiSessionInfo.Challenge.Split('$');
         int firstIterationCount = int.Parse(challengeParts[1], CultureInfo.InvariantCulture);
         byte[] firstSalt = Convert.FromHexString(challengeParts[2]);
@@ -44,17 +35,17 @@ internal sealed class WebUiService : IWebUiService
         string challengeResponse = FormattableString.Invariant($"{challengeParts[4]}${Convert.ToHexString(secondHash)}");
         var parameters = new Dictionary<string, string> { { "username", internetGatewayDevice.NetworkCredential.UserName }, { "response", challengeResponse } };
 
-        return await GetResponseAsync(internetGatewayDevice, parameters, cancellationToken);
+        return await GetResponseAsync(internetGatewayDevice, parameters, cancellationToken).ConfigureAwait(false);
     }
 
-    public Task<WebUiSessionInfo> LogoffAsync(InternetGatewayDevice internetGatewayDevice, string sessionId, CancellationToken cancellationToken = default)
+    public ValueTask<WebUiSessionInfo> LogoffAsync(InternetGatewayDevice internetGatewayDevice, string sessionId, CancellationToken cancellationToken = default)
     {
         var parameters = new Dictionary<string, string> { { "logout", string.Empty }, { "sid", sessionId } };
 
         return GetResponseAsync(internetGatewayDevice, parameters, cancellationToken);
     }
 
-    public Task<WebUiSessionInfo> ValidateSessionAsync(InternetGatewayDevice internetGatewayDevice, string sessionId, CancellationToken cancellationToken = default)
+    public ValueTask<WebUiSessionInfo> ValidateSessionAsync(InternetGatewayDevice internetGatewayDevice, string sessionId, CancellationToken cancellationToken = default)
     {
         var parameters = new Dictionary<string, string> { { "sid", sessionId } };
 
@@ -78,11 +69,11 @@ internal sealed class WebUiService : IWebUiService
     private Uri GetLoginUri(InternetGatewayDevice internetGatewayDevice)
         => networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, LoginPath);
 
-    private async Task<WebUiSessionInfo> GetResponseAsync(InternetGatewayDevice internetGatewayDevice, IDictionary<string, string> parameters, CancellationToken cancellationToken)
+    private async ValueTask<WebUiSessionInfo> GetResponseAsync(InternetGatewayDevice internetGatewayDevice, IDictionary<string, string> parameters, CancellationToken cancellationToken)
     {
-        var formContent = new FormUrlEncodedContent(parameters);
+        using var formContent = new FormUrlEncodedContent(parameters);
         Uri loginUri = GetLoginUri(internetGatewayDevice);
-        using HttpResponseMessage loginResponse = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).PostAsync(loginUri, formContent, cancellationToken);
+        using HttpResponseMessage loginResponse = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).PostAsync(loginUri, formContent, cancellationToken).ConfigureAwait(false);
         Stream xmlResponseStream = await loginResponse.EnsureSuccessStatusCode().Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
 
         await using (xmlResponseStream.ConfigureAwait(false))

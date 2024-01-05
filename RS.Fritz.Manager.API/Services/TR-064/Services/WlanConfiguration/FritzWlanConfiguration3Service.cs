@@ -2,97 +2,59 @@
 
 using System.Net;
 
-internal sealed class FritzWlanConfiguration3Service : FritzServiceClient<IFritzWlanConfiguration3Service>, IFritzWlanConfiguration3Service
+internal sealed class FritzWlanConfiguration3Service(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
+    : FritzServiceClient<IFritzWlanConfiguration3Service>(endpointConfiguration, remoteAddress, networkCredential), IFritzWlanConfiguration3Service
 {
     public const string ControlUrl = "/upnp/control/wlanconfig3";
 
-    public FritzWlanConfiguration3Service(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-        : base(endpointConfiguration, remoteAddress, networkCredential)
-    {
-    }
-
     public Task<WlanConfigurationGetInfoResponse> GetInfoAsync(WlanConfigurationGetInfoRequest wlanConfigurationGetInfoRequest)
-    {
-        return Channel.GetInfoAsync(wlanConfigurationGetInfoRequest);
-    }
+        => Channel.GetInfoAsync(wlanConfigurationGetInfoRequest);
 
     public Task<WlanConfigurationGetWlanDeviceListPathResponse> GetWlanDeviceListPathAsync(WlanConfigurationGetWlanDeviceListPathRequest wlanConfigurationGetWlanDeviceListPathRequest)
-    {
-        return Channel.GetWlanDeviceListPathAsync(wlanConfigurationGetWlanDeviceListPathRequest);
-    }
+        => Channel.GetWlanDeviceListPathAsync(wlanConfigurationGetWlanDeviceListPathRequest);
 
     public Task<WlanConfigurationGetBasBeaconSecurityPropertiesResponse> GetBasBeaconSecurityPropertiesAsync(WlanConfigurationGetBasBeaconSecurityPropertiesRequest wlanConfigurationGetBasBeaconSecurityPropertiesRequest)
-    {
-        return Channel.GetBasBeaconSecurityPropertiesAsync(wlanConfigurationGetBasBeaconSecurityPropertiesRequest);
-    }
+        => Channel.GetBasBeaconSecurityPropertiesAsync(wlanConfigurationGetBasBeaconSecurityPropertiesRequest);
 
     public Task<WlanConfigurationGetBssIdResponse> GetBssIdAsync(WlanConfigurationGetBssIdRequest wlanConfigurationGetBssIdRequest)
-    {
-        return Channel.GetBssIdAsync(wlanConfigurationGetBssIdRequest);
-    }
+        => Channel.GetBssIdAsync(wlanConfigurationGetBssIdRequest);
 
     public Task<WlanConfigurationGetSsIdResponse> GetSsIdAsync(WlanConfigurationGetSsIdRequest wlanConfigurationGetSsIdRequest)
-    {
-        return Channel.GetSsIdAsync(wlanConfigurationGetSsIdRequest);
-    }
+        => Channel.GetSsIdAsync(wlanConfigurationGetSsIdRequest);
 
     public Task<WlanConfigurationGetBeaconTypeResponse> GetBeaconTypeAsync(WlanConfigurationGetBeaconTypeRequest wlanConfigurationGetBeaconTypeRequest)
-    {
-        return Channel.GetBeaconTypeAsync(wlanConfigurationGetBeaconTypeRequest);
-    }
+        => Channel.GetBeaconTypeAsync(wlanConfigurationGetBeaconTypeRequest);
 
     public Task<WlanConfigurationGetChannelInfoResponse> GetChannelInfoAsync(WlanConfigurationGetChannelInfoRequest wlanConfigurationGetChannelInfoRequest)
-    {
-        return Channel.GetChannelInfoAsync(wlanConfigurationGetChannelInfoRequest);
-    }
+        => Channel.GetChannelInfoAsync(wlanConfigurationGetChannelInfoRequest);
 
     public Task<WlanConfigurationGetBeaconAdvertisementResponse> GetBeaconAdvertisementAsync(WlanConfigurationGetBeaconAdvertisementRequest wlanConfigurationGetBeaconAdvertisementRequest)
-    {
-        return Channel.GetBeaconAdvertisementAsync(wlanConfigurationGetBeaconAdvertisementRequest);
-    }
+        => Channel.GetBeaconAdvertisementAsync(wlanConfigurationGetBeaconAdvertisementRequest);
 
     public Task<WlanConfigurationGetTotalAssociationsResponse> GetTotalAssociationsAsync(WlanConfigurationGetTotalAssociationsRequest wlanConfigurationGetTotalAssociationsRequest)
-    {
-        return Channel.GetTotalAssociationsAsync(wlanConfigurationGetTotalAssociationsRequest);
-    }
+        => Channel.GetTotalAssociationsAsync(wlanConfigurationGetTotalAssociationsRequest);
 
     public Task<WlanConfigurationGetIpTvOptimizedResponse> GetIpTvOptimizedAsync(WlanConfigurationGetIpTvOptimizedRequest wlanConfigurationGetIpTvOptimizedRequest)
-    {
-        return Channel.GetIpTvOptimizedAsync(wlanConfigurationGetIpTvOptimizedRequest);
-    }
+        => Channel.GetIpTvOptimizedAsync(wlanConfigurationGetIpTvOptimizedRequest);
 
     public Task<WlanConfigurationGetStatisticsResponse> GetStatisticsAsync(WlanConfigurationGetStatisticsRequest wlanConfigurationGetStatisticsRequest)
-    {
-        return Channel.GetStatisticsAsync(wlanConfigurationGetStatisticsRequest);
-    }
+        => Channel.GetStatisticsAsync(wlanConfigurationGetStatisticsRequest);
 
     public Task<WlanConfigurationGetPacketStatisticsResponse> GetPacketStatisticsAsync(WlanConfigurationGetPacketStatisticsRequest wlanConfigurationGetPacketStatisticsRequest)
-    {
-        return Channel.GetPacketStatisticsAsync(wlanConfigurationGetPacketStatisticsRequest);
-    }
+        => Channel.GetPacketStatisticsAsync(wlanConfigurationGetPacketStatisticsRequest);
 
     public Task<WlanConfigurationGetNightControlResponse> GetNightControlAsync(WlanConfigurationGetNightControlRequest wlanConfigurationGetNightControlRequest)
-    {
-        return Channel.GetNightControlAsync(wlanConfigurationGetNightControlRequest);
-    }
+        => Channel.GetNightControlAsync(wlanConfigurationGetNightControlRequest);
 
     public Task<WlanConfigurationGetWlanHybridModeResponse> GetWlanHybridModeAsync(WlanConfigurationGetWlanHybridModeRequest wlanConfigurationGetWlanHybridModeRequest)
-    {
-        return Channel.GetWlanHybridModeAsync(wlanConfigurationGetWlanHybridModeRequest);
-    }
+        => Channel.GetWlanHybridModeAsync(wlanConfigurationGetWlanHybridModeRequest);
 
     public Task<WlanConfigurationGetWlanExtInfoResponse> GetWlanExtInfoAsync(WlanConfigurationGetWlanExtInfoRequest wlanConfigurationGetWlanExtInfoRequest)
-    {
-        return Channel.GetWlanExtInfoAsync(wlanConfigurationGetWlanExtInfoRequest);
-    }
+        => Channel.GetWlanExtInfoAsync(wlanConfigurationGetWlanExtInfoRequest);
 
     public Task<WlanConfigurationGetWpsInfoResponse> GetWpsInfoAsync(WlanConfigurationGetWpsInfoRequest wlanConfigurationGetWpsInfoRequest)
-    {
-        return Channel.GetWpsInfoAsync(wlanConfigurationGetWpsInfoRequest);
-    }
+        => Channel.GetWpsInfoAsync(wlanConfigurationGetWpsInfoRequest);
 
     public Task<WlanConfigurationGetWlanConnectionInfoResponse> GetWlanConnectionInfoAsync(WlanConfigurationGetWlanConnectionInfoRequest wlanConfigurationGetWlanConnectionInfoRequest)
-    {
-        return Channel.GetWlanConnectionInfoAsync(wlanConfigurationGetWlanConnectionInfoRequest);
-    }
+        => Channel.GetWlanConnectionInfoAsync(wlanConfigurationGetWlanConnectionInfoRequest);
 }

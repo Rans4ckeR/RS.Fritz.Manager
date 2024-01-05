@@ -1,25 +1,18 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class TimeViewModel : FritzServiceViewModel
+internal sealed class TimeViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, TimeSetNtpServersViewModel timeSetNtpServersViewModel)
+    : FritzServiceViewModel(deviceLoginInfo, logger, "Time")
 {
     private KeyValuePair<TimeGetInfoResponse?, UPnPFault?>? timeGetInfoResponse;
 
-    public TimeViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, TimeSetNtpServersViewModel timeSetNtpServersViewModel)
-        : base(deviceLoginInfo, logger, "Time")
-    {
-        TimeSetNtpServersViewModel = timeSetNtpServersViewModel;
-    }
-
-    public TimeSetNtpServersViewModel TimeSetNtpServersViewModel { get; }
+    public TimeSetNtpServersViewModel TimeSetNtpServersViewModel { get; } = timeSetNtpServersViewModel;
 
     public KeyValuePair<TimeGetInfoResponse?, UPnPFault?>? TimeGetInfoResponse
     {
         get => timeGetInfoResponse;
-        private set { _ = SetProperty(ref timeGetInfoResponse, value); }
+        private set => _ = SetProperty(ref timeGetInfoResponse, value);
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        TimeGetInfoResponse = await ExecuteApiAsync(q => q.TimeGetInfoAsync());
-    }
+    protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+        => TimeGetInfoResponse = await ExecuteApiAsync(q => q.TimeGetInfoAsync()).ConfigureAwait(true);
 }

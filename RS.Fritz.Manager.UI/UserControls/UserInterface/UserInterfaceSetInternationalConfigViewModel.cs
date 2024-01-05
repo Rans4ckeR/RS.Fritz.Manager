@@ -2,16 +2,12 @@
 
 using System.ComponentModel;
 
-internal sealed class UserInterfaceSetInternationalConfigViewModel : ManualOperationViewModel<UserInterfaceSetInternationalConfigRequest, UserInterfaceSetInternationalConfigResponse>
+internal sealed class UserInterfaceSetInternationalConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<UserInterfaceSetInternationalConfigRequest, UserInterfaceSetInternationalConfigResponse>(deviceLoginInfo, logger, "SetInternationalConfig", "Set InternationalConfig", (d, r) => d.UserInterfaceSetInternationalConfigAsync(r))
 {
     private string? language;
     private string? country;
     private string? annex;
-
-    public UserInterfaceSetInternationalConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetInternationalConfig", "Set InternationalConfig", (d, r) => d.UserInterfaceSetInternationalConfigAsync(r))
-    {
-    }
 
     public string? Language
     {
@@ -44,9 +40,7 @@ internal sealed class UserInterfaceSetInternationalConfigViewModel : ManualOpera
     }
 
     protected override UserInterfaceSetInternationalConfigRequest BuildRequest()
-    {
-        return new(Language!, Country!, Annex!);
-    }
+        => new(Language!, Country!, Annex!);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {

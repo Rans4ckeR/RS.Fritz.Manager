@@ -3,20 +3,11 @@
 using System.Runtime.Serialization;
 using System.Xml;
 
-internal sealed class DeviceHostsService : IDeviceHostsService
+internal sealed class DeviceHostsService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IDeviceHostsService
 {
-    private readonly IHttpClientFactory httpClientFactory;
-    private readonly INetworkService networkService;
-
-    public DeviceHostsService(IHttpClientFactory httpClientFactory, INetworkService networkService)
+    public async ValueTask<DeviceHostInfo> GetDeviceHostsAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
-        this.httpClientFactory = httpClientFactory;
-        this.networkService = networkService;
-    }
-
-    public async Task<DeviceHostInfo> GetDeviceHostsAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
-    {
-        HostsGetHostListPathResponse hostsGetHostListPathResponse = await internetGatewayDevice.HostsGetHostListPathAsync();
+        HostsGetHostListPathResponse hostsGetHostListPathResponse = await internetGatewayDevice.HostsGetHostListPathAsync().ConfigureAwait(false);
         string hostListPath = hostsGetHostListPathResponse.HostListPath;
         Uri hostListPathUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, internetGatewayDevice.SecurityPort!.Value, hostListPath);
         Stream deviceHostsListXmlStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(hostListPathUri, cancellationToken).ConfigureAwait(false);

@@ -2,7 +2,7 @@
 
 [ServiceContract(Namespace = "urn:dslforum-org:service:LANConfigSecurity:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzLanConfigSecurityService
+internal interface IFritzLanConfigSecurityService : IAsyncDisposable
 {
     [OperationContract(Action = "urn:dslforum-org:service:LANConfigSecurity:1#X_AVM-DE_GetCurrentUser")]
     [FaultContract(typeof(UPnPFault1))]

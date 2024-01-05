@@ -2,15 +2,11 @@
 
 using System.ComponentModel;
 
-internal sealed class ManagementServerSetConnectionRequestAuthenticationViewModel : ManualOperationViewModel<ManagementServerSetConnectionRequestAuthenticationRequest, ManagementServerSetConnectionRequestAuthenticationResponse>
+internal sealed class ManagementServerSetConnectionRequestAuthenticationViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<ManagementServerSetConnectionRequestAuthenticationRequest, ManagementServerSetConnectionRequestAuthenticationResponse>(deviceLoginInfo, logger, "SetConnectionRequestAuthentication", "Update ConnectionRequestAuthentication", (d, r) => d.ManagementServerSetConnectionRequestAuthenticationAsync(r))
 {
     private string? connectionRequestUsername;
     private string? connectionRequestPassword;
-
-    public ManagementServerSetConnectionRequestAuthenticationViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetConnectionRequestAuthentication", "Update ConnectionRequestAuthentication", (d, r) => d.ManagementServerSetConnectionRequestAuthenticationAsync(r))
-    {
-    }
 
     public string? ConnectionRequestUsername
     {
@@ -33,9 +29,7 @@ internal sealed class ManagementServerSetConnectionRequestAuthenticationViewMode
     }
 
     protected override ManagementServerSetConnectionRequestAuthenticationRequest BuildRequest()
-    {
-        return new(ConnectionRequestUsername!, ConnectionRequestPassword!);
-    }
+        => new(ConnectionRequestUsername!, ConnectionRequestPassword!);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {

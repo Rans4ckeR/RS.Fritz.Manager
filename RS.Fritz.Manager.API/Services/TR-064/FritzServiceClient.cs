@@ -14,7 +14,7 @@ internal abstract class FritzServiceClient<T> : ClientBase<T>
     {
         Endpoint.Name = endpointConfiguration.ToString();
 
-        SetSslProtocols(SslProtocols.Tls12);
+        SetSslProtocols(SslProtocols.None);
         SetCredentials(networkCredential);
     }
 

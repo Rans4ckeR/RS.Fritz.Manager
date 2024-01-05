@@ -1,12 +1,14 @@
+
 # RS.Fritz.Manager
+
 Allows FritzBox device detection, monitoring, configuring and packet capturing.
 
 Available as a standalone Windows application ([UI](#rsfritzmanagerui)) and as a NuGet package ([API](#rsfritzmanagerapi)).
 
 For a list of implemented services check the [Service implementation status](#tr-064-service-implementation-status)
 
-
 ## RS.Fritz.Manager.UI
+
 A Windows .NET WPF application for x64 and ARM64.
 
 * [Releases](https://github.com/Rans4ckeR/RS.Fritz.Manager/releases)
@@ -20,6 +22,7 @@ A Windows .NET WPF application for x64 and ARM64.
 ![Untitled4](https://user-images.githubusercontent.com/25006126/163052588-4f1be776-9190-4ff9-8326-9c9615bf3e82.png)
 
 ## RS.Fritz.Manager.API
+
 A NuGet package to manage FritzBox devices using pure WCF calls.
 
 * [NuGet](https://www.nuget.org/packages/RS.Fritz.Manager.API)
@@ -109,6 +112,7 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
 ## TR-064 Service implementation status
 
 ### WAN
+
 * 🔶 urn:dslforum-org:service:WANIPConnection
   * ✅ GetInfo
   * ✅ GetConnectionTypeInfo
@@ -177,9 +181,12 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ✅ GetATMEncapsulation
   * ✅ GetAutoConfig
   * ✅ GetStatistics
+* ❌ urn:dslforum-org:service:X_AVM-DE_WANMobileConnection
 * 🔶 urn:dslforum-org:service:X_AVM-DE_Speedtest
   * ✅ GetInfo
   * ❌ SetConfig
+  * ✅ GetStatistics
+  * ❌ ResetStatistics
 * ❌ urn:dslforum-org:service:X_AVM-DE_RemoteAccess
 * ❌ urn:dslforum-org:service:X_AVM-DE_MyFritz
 * ❌ urn:dslforum-org:service:X_AVM-DE_HostFilter
@@ -194,33 +201,39 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ❌ SetForwardingEntryEnable
 
 ### Telephony
+
 * ❌ urn:dslforum-org:service:X_AVM-DE_OnTel
 * ❌ urn:dslforum-org:service:X_AVM-DE_TAM
 * ❌ urn:dslforum-org:service:X_VoIP
 
 ### Home network
+
 * 🔶 urn:dslforum-org:service:Hosts
   * ✅ GetHostNumberOfEntries
   * ❌ GetSpecificHostEntry
   * ✅ GetGenericHostEntry
+  * ✅ X_AVM-DE_GetInfo
   * ✅ X_AVM-DE_GetChangeCounter
   * ❌ X_AVM-DE_GetAutoWakeOnLANByMACAddress
   * ❌ X_AVM-DE_SetAutoWakeOnLANByMACAddress
   * ❌ X_AVM-DE_SetHostNameByMACAddress
   * ❌ X_AVM-DE_WakeOnLANByMACAddress
   * ❌ X_AVM-DE_GetSpecificHostEntryByIp
-  * ❌ X_AVM-DE_HostsCheckUpdate
+  * ✅ X_AVM-DE_HostsCheckUpdate
   * ❌ X_AVM-DE_HostDoUpdate
+  * ❌ X_AVM-DE_SetPrioritizationByIP
   * ✅ X_AVM-DE_GetHostListPath
   * ✅ X_AVM-DE_GetMeshListPath
+  * ✅ X_AVM-DE_GetFriendlyName
+  * ❌ X_AVM-DE_SetFriendlyName
+  * ❌ X_AVM-DE_SetFriendlyNameByIP
+  * ❌ X_AVM-DE_SetFriendlyNameByMAC
 * 🔶 urn:dslforum-org:service:WLANConfiguration
   * ❌ SetEnable
   * ✅ GetInfo
   * ❌ SetConfig
   * ❌ SetSecurityKeys
   * ❌ GetSecurityKeys
-  * ❌ SetDefaultWEPKeyIndex
-  * ❌ GetDefaultWEPKeyIndex
   * ❌ SetBasBeaconSecurityProperties
   * ✅ GetBasBeaconSecurityProperties
   * ✅ GetBSSID
@@ -269,16 +282,19 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ✅ GetInfo
   * ✅ GetStatistics
 * ❌ urn:dslforum-org:service:X_AVM-DE_Dect
+* ❌ urn:dslforum-org:service:X_AVM-DE_Media
 * ❌ urn:dslforum-org:service:X_AVM-DE_Homeauto
 * ❌ urn:dslforum-org:service:X_AVM-DE_Homeplug
 
 ### Storage/NAS
+
 * ❌ urn:dslforum-org:service:X_AVM-DE_Storage
 * ❌ urn:dslforum-org:service:X_AVM-DE_UPnP
 * ❌ urn:dslforum-org:service:X_AVM-DE_WebDAVClient
 * ❌ urn:dslforum-org:service:X_AVM-DE_Filelinks
 
 ### System
+
 * ✅ urn:dslforum-org:service:DeviceInfo
   * ✅ GetInfo
   * ✅ SetProvisioningCode
@@ -297,6 +313,8 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ✅ X_AVM-DE_CreateUrlSID
   * ✅ X_AVM-DE_GetSupportDataInfo
   * ❌ X_AVM-DE_SendSupportData
+  * ❌ X_AVM-DE_GetSupportDataEnable
+  * ❌ X_AVM-DE_SetSupportDataEnable
 * ✅ urn:dslforum-org:service:LANConfigSecurity
   * ✅ GetInfo
   * ✅ X_AVM-DE_GetAnonymousLogin
@@ -315,6 +333,7 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ✅ X_SetTR069Enable
   * ✅ X_AVM-DE_GetTR069FirmwareDownloadEnabled
   * ✅ X_AVM-DE_SetTR069FirmwareDownloadEnabled
+* ❌ urn:dslforum-org:service:X_AVM-DE_USPController
 * ❌ urn:dslforum-org:service:X_AVM-DE_Auth
 * ✅ urn:dslforum-org:service:Time
   * ✅ GetInfo

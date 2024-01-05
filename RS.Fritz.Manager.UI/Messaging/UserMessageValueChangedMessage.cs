@@ -2,10 +2,6 @@
 
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
-internal sealed class UserMessageValueChangedMessage : ValueChangedMessage<UserMessage>
+internal sealed class UserMessageValueChangedMessage(UserMessage userMessage) : ValueChangedMessage<UserMessage>(userMessage)
 {
-    public UserMessageValueChangedMessage(UserMessage userMessage)
-        : base(userMessage)
-    {
-    }
 }

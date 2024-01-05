@@ -2,16 +2,12 @@
 
 using System.ComponentModel;
 
-internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel : FritzServiceViewModel
+internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : FritzServiceViewModel(deviceLoginInfo, logger)
 {
     private ushort? index;
     private ushort? forwardNumberOfEntries;
     private KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>? layer3ForwardingGetGenericForwardingEntryResponse;
-
-    public Layer3ForwardingGetGenericForwardingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
-    {
-    }
 
     public ushort? Index
     {
@@ -36,13 +32,11 @@ internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel : Fritz
     public KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>? Layer3ForwardingGetGenericForwardingEntryResponse
     {
         get => layer3ForwardingGetGenericForwardingEntryResponse;
-        private set { _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponse, value); }
+        private set => _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponse, value);
     }
 
-    protected override async Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        Layer3ForwardingGetGenericForwardingEntryResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetGenericForwardingEntryAsync(new(Index!.Value)));
-    }
+    protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+        => Layer3ForwardingGetGenericForwardingEntryResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetGenericForwardingEntryAsync(new(Index!.Value))).ConfigureAwait(true);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -59,7 +53,5 @@ internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel : Fritz
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && Index >= 0 && Index < ForwardNumberOfEntries;
-    }
+        => base.GetCanExecuteDefaultCommand() && Index >= 0 && Index < ForwardNumberOfEntries;
 }

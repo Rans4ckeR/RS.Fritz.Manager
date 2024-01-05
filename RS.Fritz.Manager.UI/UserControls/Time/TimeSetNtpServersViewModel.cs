@@ -2,15 +2,11 @@
 
 using System.ComponentModel;
 
-internal sealed class TimeSetNtpServersViewModel : ManualOperationViewModel<TimeSetNtpServersRequest, TimeSetNtpServersResponse>
+internal sealed class TimeSetNtpServersViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    : ManualOperationViewModel<TimeSetNtpServersRequest, TimeSetNtpServersResponse>(deviceLoginInfo, logger, "SetNtpServers", "Update NtpServers", (d, r) => d.TimeSetNtpServersAsync(r))
 {
     private string? ntpServer1;
     private string? ntpServer2;
-
-    public TimeSetNtpServersViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger, "SetNtpServers", "Update NtpServers", (d, r) => d.TimeSetNtpServersAsync(r))
-    {
-    }
 
     public string? NtpServer1
     {
@@ -33,9 +29,7 @@ internal sealed class TimeSetNtpServersViewModel : ManualOperationViewModel<Time
     }
 
     protected override TimeSetNtpServersRequest BuildRequest()
-    {
-        return new(NtpServer1!, NtpServer2!);
-    }
+        => new(NtpServer1!, NtpServer2!);
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {

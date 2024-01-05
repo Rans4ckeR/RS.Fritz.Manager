@@ -12,8 +12,5 @@ internal sealed partial class MainWindow
         DataContext = mainWindowViewModel;
     }
 
-    private void PasswordBoxPasswordChanged(object sender, RoutedEventArgs e)
-    {
-        ((MainWindowViewModel)DataContext).DeviceLoginInfo.Password = ((PasswordBox)sender).SecurePassword;
-    }
+    private void PasswordBoxPasswordChanged(object sender, RoutedEventArgs e) => ((MainWindowViewModel)DataContext).DeviceLoginInfo.Password = ((PasswordBox)sender).SecurePassword;
 }

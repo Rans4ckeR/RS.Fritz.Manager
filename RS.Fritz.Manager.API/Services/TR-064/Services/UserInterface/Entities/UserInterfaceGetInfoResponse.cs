@@ -10,4 +10,5 @@ public readonly record struct UserInterfaceGetInfoResponse(
     [property: MessageBodyMember(Name = "NewX_AVM-DE_DownloadURL")] string DownloadUrl,
     [property: MessageBodyMember(Name = "NewX_AVM-DE_InfoURL")] string InfoUrl,
     [property: MessageBodyMember(Name = "NewX_AVM-DE_UpdateState")] string UpdateState,
-    [property: MessageBodyMember(Name = "NewX_AVM-DE_LaborVersion")] string LaborVersion);
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_BuildType")] string BuildType,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_SetupAssistantStatus")] bool SetupAssistantStatus);

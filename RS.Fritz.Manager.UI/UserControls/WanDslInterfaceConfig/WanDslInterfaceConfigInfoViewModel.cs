@@ -12,7 +12,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
     private readonly Brush minBrush = Brushes.Orange;
     private readonly Brush lineBrush = Brushes.Green;
     private readonly ScaleTransform scaleYTransform = new() { ScaleY = -1d };
-    private readonly List<WanDslInterfaceConfigGetInfoResponse> wanDslInterfaceConfigGetInfoResponses = new();
+    private readonly List<WanDslInterfaceConfigGetInfoResponse> wanDslInterfaceConfigGetInfoResponses = [];
 
     private KeyValuePair<WanDslInterfaceConfigGetInfoResponse?, UPnPFault?>? wanDslInterfaceConfigGetInfoResponse;
     private List<UIElement>? downstreamMaxRateHistory;
@@ -27,16 +27,16 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
 
     public WanDslInterfaceConfigInfoViewModel()
     {
-        UpstreamCurrRateHistory = new();
-        DownstreamCurrRateHistory = new();
-        UpstreamMaxRateHistory = new();
-        DownstreamMaxRateHistory = new();
-        UpstreamNoiseMarginHistory = new();
-        DownstreamNoiseMarginHistory = new();
-        UpstreamAttenuationHistory = new();
-        DownstreamAttenuationHistory = new();
-        UpstreamPowerHistory = new();
-        DownstreamPowerHistory = new();
+        UpstreamCurrRateHistory = [];
+        DownstreamCurrRateHistory = [];
+        UpstreamMaxRateHistory = [];
+        DownstreamMaxRateHistory = [];
+        UpstreamNoiseMarginHistory = [];
+        DownstreamNoiseMarginHistory = [];
+        UpstreamAttenuationHistory = [];
+        DownstreamAttenuationHistory = [];
+        UpstreamPowerHistory = [];
+        DownstreamPowerHistory = [];
 
         maxBrush.Freeze();
         minBrush.Freeze();
@@ -72,61 +72,61 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
     public List<UIElement>? UpstreamCurrRateHistory
     {
         get => upstreamCurrRateHistory;
-        private set { _ = SetProperty(ref upstreamCurrRateHistory, value); }
+        private set => _ = SetProperty(ref upstreamCurrRateHistory, value);
     }
 
     public List<UIElement>? DownstreamCurrRateHistory
     {
         get => downstreamCurrRateHistory;
-        private set { _ = SetProperty(ref downstreamCurrRateHistory, value); }
+        private set => _ = SetProperty(ref downstreamCurrRateHistory, value);
     }
 
     public List<UIElement>? UpstreamMaxRateHistory
     {
         get => upstreamMaxRateHistory;
-        private set { _ = SetProperty(ref upstreamMaxRateHistory, value); }
+        private set => _ = SetProperty(ref upstreamMaxRateHistory, value);
     }
 
     public List<UIElement>? DownstreamMaxRateHistory
     {
         get => downstreamMaxRateHistory;
-        private set { _ = SetProperty(ref downstreamMaxRateHistory, value); }
+        private set => _ = SetProperty(ref downstreamMaxRateHistory, value);
     }
 
     public List<UIElement>? UpstreamNoiseMarginHistory
     {
         get => upstreamMaxRateHistory;
-        private set { _ = SetProperty(ref upstreamMaxRateHistory, value); }
+        private set => _ = SetProperty(ref upstreamMaxRateHistory, value);
     }
 
     public List<UIElement>? DownstreamNoiseMarginHistory
     {
         get => downstreamNoiseMarginHistory;
-        private set { _ = SetProperty(ref downstreamNoiseMarginHistory, value); }
+        private set => _ = SetProperty(ref downstreamNoiseMarginHistory, value);
     }
 
     public List<UIElement>? UpstreamAttenuationHistory
     {
         get => upstreamAttenuationHistory;
-        private set { _ = SetProperty(ref upstreamAttenuationHistory, value); }
+        private set => _ = SetProperty(ref upstreamAttenuationHistory, value);
     }
 
     public List<UIElement>? DownstreamAttenuationHistory
     {
         get => downstreamAttenuationHistory;
-        private set { _ = SetProperty(ref downstreamAttenuationHistory, value); }
+        private set => _ = SetProperty(ref downstreamAttenuationHistory, value);
     }
 
     public List<UIElement>? UpstreamPowerHistory
     {
         get => upstreamPowerHistory;
-        private set { _ = SetProperty(ref upstreamPowerHistory, value); }
+        private set => _ = SetProperty(ref upstreamPowerHistory, value);
     }
 
     public List<UIElement>? DownstreamPowerHistory
     {
         get => downstreamPowerHistory;
-        private set { _ = SetProperty(ref downstreamPowerHistory, value); }
+        private set => _ = SetProperty(ref downstreamPowerHistory, value);
     }
 
     private List<UIElement> UpdateHistory(IReadOnlyList<uint> values)
@@ -141,7 +141,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
         uint labelMaxValue = values.Max();
         uint range = max - min;
 
-        if (range == 0)
+        if (range is 0)
             range = 1;
 
         var uiElements = new List<UIElement>();

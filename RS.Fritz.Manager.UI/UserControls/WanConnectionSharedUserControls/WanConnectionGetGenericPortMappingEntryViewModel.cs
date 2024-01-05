@@ -36,7 +36,7 @@ internal abstract class WanConnectionGetGenericPortMappingEntryViewModel : Fritz
     public KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>? WanConnectionGetGenericPortMappingEntryResponse
     {
         get => wanConnectionGetGenericPortMappingEntryResponse;
-        protected set { _ = SetProperty(ref wanConnectionGetGenericPortMappingEntryResponse, value); }
+        protected set => _ = SetProperty(ref wanConnectionGetGenericPortMappingEntryResponse, value);
     }
 
     protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -54,7 +54,5 @@ internal abstract class WanConnectionGetGenericPortMappingEntryViewModel : Fritz
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-    {
-        return base.GetCanExecuteDefaultCommand() && Index >= 0 && Index < PortMappingNumberOfEntries;
-    }
+        => base.GetCanExecuteDefaultCommand() && Index >= 0 && Index < PortMappingNumberOfEntries;
 }

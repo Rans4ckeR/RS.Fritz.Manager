@@ -11,6 +11,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -26,6 +27,20 @@
                     </Grid.ColumnDefinitions>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding AvmSpeedtestGetInfoResponse.Value}"/>
                     <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding AvmSpeedtestGetInfoResponse.Key}"/>
+                </Grid>
+            </Expander>
+        </Border>
+        <Border Style="{StaticResource BorderStyle}" Grid.Row="1" Grid.Column="0">
+            <Expander Header="Statistics">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding AvmSpeedtestGetStatisticsResponse.Value}"/>
+                    <ContentControl Grid.Row="0" Grid.Column="0" Content="{Binding AvmSpeedtestGetStatisticsResponse.Key}"/>
                 </Grid>
             </Expander>
         </Border>

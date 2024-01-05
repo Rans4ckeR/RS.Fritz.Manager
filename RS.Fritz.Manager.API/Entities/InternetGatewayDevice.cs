@@ -12,16 +12,15 @@ public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzSe
 
     public NetworkCredential? NetworkCredential { get; set; }
 
-    public IEnumerable<ServiceListItem> Services { get => services ??= UPnPDescription.Device.GetServices().ToArray(); }
+    public IEnumerable<ServiceListItem> Services
+        => services ??= UPnPDescription.Device.GetServices().ToArray();
+
+    public async ValueTask InitializeAsync()
+    {
+        SecurityPort = (await this.DeviceInfoGetSecurityPortAsync().ConfigureAwait(false)).SecurityPort;
+        Users = (await UsersService.GetUsersAsync(this).ConfigureAwait(false)).ToArray();
+    }
 
     internal Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
-    {
-        return operation(FritzServiceOperationHandler, this);
-    }
-
-    public async Task InitializeAsync()
-    {
-        SecurityPort = (await this.DeviceInfoGetSecurityPortAsync()).SecurityPort;
-        Users = (await UsersService.GetUsersAsync(this)).ToArray();
-    }
+        => operation(FritzServiceOperationHandler, this);
 }

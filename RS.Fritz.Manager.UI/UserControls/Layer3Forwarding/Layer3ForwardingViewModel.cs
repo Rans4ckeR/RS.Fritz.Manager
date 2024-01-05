@@ -2,24 +2,19 @@
 
 using System.Collections.ObjectModel;
 
-internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
+internal sealed class Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, Layer3ForwardingGetGenericForwardingEntryViewModel layer3ForwardingGetGenericForwardingEntryViewModel)
+    : FritzServiceViewModel(deviceLoginInfo, logger, "Layer3Forwarding")
 {
     private KeyValuePair<Layer3ForwardingGetDefaultConnectionServiceResponse?, UPnPFault?>? layer3ForwardingGetDefaultConnectionServiceResponse;
     private KeyValuePair<Layer3ForwardingGetForwardNumberOfEntriesResponse?, UPnPFault?>? layer3ForwardingGetForwardNumberOfEntriesResponse;
     private ObservableCollection<Layer3ForwardingGetGenericForwardingEntryResponse>? layer3ForwardingGetGenericForwardingEntryResponses;
 
-    public Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, Layer3ForwardingGetGenericForwardingEntryViewModel layer3ForwardingGetGenericForwardingEntryViewModel)
-        : base(deviceLoginInfo, logger, "Layer3Forwarding")
-    {
-        Layer3ForwardingGetGenericForwardingEntryViewModel = layer3ForwardingGetGenericForwardingEntryViewModel;
-    }
-
-    public Layer3ForwardingGetGenericForwardingEntryViewModel Layer3ForwardingGetGenericForwardingEntryViewModel { get; }
+    public Layer3ForwardingGetGenericForwardingEntryViewModel Layer3ForwardingGetGenericForwardingEntryViewModel { get; } = layer3ForwardingGetGenericForwardingEntryViewModel;
 
     public KeyValuePair<Layer3ForwardingGetDefaultConnectionServiceResponse?, UPnPFault?>? Layer3ForwardingGetDefaultConnectionServiceResponse
     {
         get => layer3ForwardingGetDefaultConnectionServiceResponse;
-        private set { _ = SetProperty(ref layer3ForwardingGetDefaultConnectionServiceResponse, value); }
+        private set => _ = SetProperty(ref layer3ForwardingGetDefaultConnectionServiceResponse, value);
     }
 
     public KeyValuePair<Layer3ForwardingGetForwardNumberOfEntriesResponse?, UPnPFault?>? Layer3ForwardingGetForwardNumberOfEntriesResponse
@@ -35,26 +30,26 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
     public ObservableCollection<Layer3ForwardingGetGenericForwardingEntryResponse>? Layer3ForwardingGetGenericForwardingEntryResponses
     {
         get => layer3ForwardingGetGenericForwardingEntryResponses;
-        private set { _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponses, value); }
+        private set => _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponses, value);
     }
 
-    protected override Task DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
+    protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
     {
-        return API.TaskExtensions.WhenAllSafe(new[]
+        return API.TaskExtensions.WhenAllSafe(
+            new[]
             {
                 GetLayer3ForwardingGetDefaultConnectionServiceAsync(),
                 GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
-            });
+            },
+            true);
     }
 
     private async Task GetLayer3ForwardingGetDefaultConnectionServiceAsync()
-    {
-        Layer3ForwardingGetDefaultConnectionServiceResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetDefaultConnectionServiceAsync());
-    }
+        => Layer3ForwardingGetDefaultConnectionServiceResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetDefaultConnectionServiceAsync()).ConfigureAwait(true);
 
     private async Task GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
     {
-        Layer3ForwardingGetForwardNumberOfEntriesResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetForwardNumberOfEntriesAsync());
+        Layer3ForwardingGetForwardNumberOfEntriesResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetForwardNumberOfEntriesAsync()).ConfigureAwait(true);
 
         ushort numberOfEntries = Layer3ForwardingGetForwardNumberOfEntriesResponse!.Value.Key!.Value.ForwardNumberOfEntries;
         var tasks = new List<Task<KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>>>();
@@ -66,7 +61,7 @@ internal sealed class Layer3ForwardingViewModel : FritzServiceViewModel
             tasks.Add(ExecuteApiAsync(q => q.Layer3ForwardingGetGenericForwardingEntryAsync(new(capturedIndex))));
         }
 
-        KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks);
+        KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
 
         Layer3ForwardingGetGenericForwardingEntryResponses = new(responses.Select(q => q.Key!.Value));
     }

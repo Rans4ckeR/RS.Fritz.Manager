@@ -18,6 +18,11 @@ public readonly record struct DeviceHost(
     [property: DataMember(Name = "X_AVM-DE_Model", Order = 11)] string Model,
     [property: DataMember(Name = "X_AVM-DE_URL", Order = 12)] string Url,
     [property: DataMember(Name = "X_AVM-DE_Guest", Order = 13)] bool Guest,
-    [property: DataMember(Name = "X_AVM-DE_VPN", Order = 14)] bool Vpn,
-    [property: DataMember(Name = "X_AVM-DE_WANAccess", Order = 15)] string WanAccess,
-    [property: DataMember(Name = "X_AVM-DE_Disallow", Order = 16)] bool Disallow);
+    [property: DataMember(Name = "X_AVM-DE_RequestClient", Order = 14)] bool RequestClient,
+    [property: DataMember(Name = "X_AVM-DE_VPN", Order = 15)] bool Vpn,
+    [property: DataMember(Name = "X_AVM-DE_WANAccess", Order = 16)] string WanAccess,
+    [property: DataMember(Name = "X_AVM-DE_Disallow", Order = 17)] bool Disallow,
+    [property: DataMember(Name = "X_AVM-DE_IsMeshable", Order = 18)] bool IsMeshable,
+    [property: DataMember(Name = "X_AVM-DE_Priority", Order = 19)] bool Priority,
+    [property: DataMember(Name = "X_AVM-DE_FriendlyName", Order = 20)] string FriendlyName,
+    [property: DataMember(Name = "X_AVM-DE_FriendlyNameIsWriteable", Order = 21)] bool FriendlyNameIsWriteable);
