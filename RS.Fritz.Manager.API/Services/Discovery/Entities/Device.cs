@@ -13,8 +13,9 @@ public readonly record struct Device(
     [property: DataMember(Name = "modelNumber", Order = 6)] string ModelNumber,
     [property: DataMember(Name = "modelURL", Order = 7)] string ModelUrl,
     [property: DataMember(Name = "UDN", Order = 8)] string UniqueDeviceName,
-    [property: DataMember(Name = "UPC", Order = 9)] string Upc,
-    [property: DataMember(Name = "iconList", Order = 10)] IconListItem[] IconList,
-    [property: DataMember(Name = "serviceList", Order = 11)] ServiceListItem[] ServiceList,
-    [property: DataMember(Name = "deviceList", Order = 12)] Device[]? DeviceList,
-    [property: DataMember(Name = "presentationURL", Order = 13)] string PresentationUrl);
+    [property: DataMember(Name = "serialNumber", Order = 9)] string SerialNumber,
+    [property: DataMember(Name = "UPC", Order = 10)] string Upc,
+    [property: DataMember(Name = "iconList", Order = 11)] IconListItem[] IconList,
+    [property: DataMember(Name = "serviceList", Order = 12)] ServiceListItem[] ServiceList,
+    [property: DataMember(Name = "deviceList", Order = 13)] Device[]? DeviceList,
+    [property: DataMember(Name = "presentationURL", Order = 14)] string PresentationUrl);

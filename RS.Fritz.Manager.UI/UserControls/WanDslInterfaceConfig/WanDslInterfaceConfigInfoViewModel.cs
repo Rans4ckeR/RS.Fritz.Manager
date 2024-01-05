@@ -12,7 +12,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
     private readonly Brush minBrush = Brushes.Orange;
     private readonly Brush lineBrush = Brushes.Green;
     private readonly ScaleTransform scaleYTransform = new() { ScaleY = -1d };
-    private readonly List<WanDslInterfaceConfigGetInfoResponse> wanDslInterfaceConfigGetInfoResponses = new();
+    private readonly List<WanDslInterfaceConfigGetInfoResponse> wanDslInterfaceConfigGetInfoResponses = [];
 
     private KeyValuePair<WanDslInterfaceConfigGetInfoResponse?, UPnPFault?>? wanDslInterfaceConfigGetInfoResponse;
     private List<UIElement>? downstreamMaxRateHistory;
@@ -27,16 +27,16 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
 
     public WanDslInterfaceConfigInfoViewModel()
     {
-        UpstreamCurrRateHistory = new();
-        DownstreamCurrRateHistory = new();
-        UpstreamMaxRateHistory = new();
-        DownstreamMaxRateHistory = new();
-        UpstreamNoiseMarginHistory = new();
-        DownstreamNoiseMarginHistory = new();
-        UpstreamAttenuationHistory = new();
-        DownstreamAttenuationHistory = new();
-        UpstreamPowerHistory = new();
-        DownstreamPowerHistory = new();
+        UpstreamCurrRateHistory = [];
+        DownstreamCurrRateHistory = [];
+        UpstreamMaxRateHistory = [];
+        DownstreamMaxRateHistory = [];
+        UpstreamNoiseMarginHistory = [];
+        DownstreamNoiseMarginHistory = [];
+        UpstreamAttenuationHistory = [];
+        DownstreamAttenuationHistory = [];
+        UpstreamPowerHistory = [];
+        DownstreamPowerHistory = [];
 
         maxBrush.Freeze();
         minBrush.Freeze();

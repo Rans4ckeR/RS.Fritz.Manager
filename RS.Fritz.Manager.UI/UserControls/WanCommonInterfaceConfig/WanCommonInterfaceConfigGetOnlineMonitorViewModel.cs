@@ -172,7 +172,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
     protected override bool GetCanExecuteDefaultCommand()
         => base.GetCanExecuteDefaultCommand() && (WanCommonInterfaceConfigGetOnlineMonitorResponse is null || SyncGroupIndex < WanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.Key!.Value.TotalNumberSyncGroups);
 
-    private static void CreateUiElements(double yScale, double xScale, uint min, uint range, ICollection<UIElement> uiElements, IReadOnlyList<uint> values, Brush brush)
+    private static void CreateUiElements(double yScale, double xScale, uint min, uint range, List<UIElement> uiElements, IReadOnlyList<uint> values, Brush brush)
     {
         for (int i = 1; i < values.Count; i++)
         {

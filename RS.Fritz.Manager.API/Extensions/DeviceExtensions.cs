@@ -6,7 +6,7 @@ public static class DeviceExtensions
     {
         IEnumerable<ServiceListItem> serviceListItems = device.ServiceList;
 
-        foreach (Device deviceListItem in device.DeviceList ?? Array.Empty<Device>())
+        foreach (Device deviceListItem in device.DeviceList ?? [])
         {
             serviceListItems = serviceListItems.Concat(GetServices(deviceListItem));
         }

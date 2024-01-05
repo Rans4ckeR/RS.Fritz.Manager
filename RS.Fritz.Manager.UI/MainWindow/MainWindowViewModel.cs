@@ -19,8 +19,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     private const int ZIndexNoOverlay = -1;
 
     private readonly IDeviceSearchService deviceSearchService;
-    private ObservableCollection<ObservableInternetGatewayDevice> devices = new();
-    private ObservableCollection<User> users = new();
+    private ObservableCollection<ObservableInternetGatewayDevice> devices = [];
+    private ObservableCollection<User> users = [];
     private ObservableObject? activeView;
     private string? userMessage;
     private bool deviceAndLoginControlsEnabled = true;

@@ -15,12 +15,12 @@ public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzSe
     public IEnumerable<ServiceListItem> Services
         => services ??= UPnPDescription.Device.GetServices().ToArray();
 
-    internal Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
-        => operation(FritzServiceOperationHandler, this);
-
     public async ValueTask InitializeAsync()
     {
         SecurityPort = (await this.DeviceInfoGetSecurityPortAsync().ConfigureAwait(false)).SecurityPort;
         Users = (await UsersService.GetUsersAsync(this).ConfigureAwait(false)).ToArray();
     }
+
+    internal Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)
+        => operation(FritzServiceOperationHandler, this);
 }

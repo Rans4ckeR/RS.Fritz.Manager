@@ -8,7 +8,7 @@
     <RootNamespace>RS.Fritz.Manager.UI</RootNamespace>
     <Title>RS.Fritz.Manager.UI</Title>
     <Product>RS.Fritz.Manager.UI</Product>
-    <Copyright>Copyright 2023 (c) RS. All rights reserved.</Copyright>
+    <Copyright>Copyright 2021-2024 (c) RS. All rights reserved.</Copyright>
     <Company>Rans4ckeR</Company>
     <Configuration></Configuration>
     <Trademark></Trademark>
@@ -41,7 +41,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.507">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

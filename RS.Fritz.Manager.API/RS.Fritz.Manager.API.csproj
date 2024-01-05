@@ -5,7 +5,7 @@
     <RootNamespace>RS.Fritz.Manager.API</RootNamespace>
     <Title>RS.Fritz.Manager.API</Title>
     <Product>RS.Fritz.Manager.API</Product>
-    <Copyright>Copyright 2023 (c) RS. All rights reserved.</Copyright>
+    <Copyright>Copyright 2021-2024 (c) RS. All rights reserved.</Copyright>
     <Company>Rans4ckeR</Company>
     <Configuration></Configuration>
     <Trademark></Trademark>
@@ -39,7 +39,7 @@
     <None Include="..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.507">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

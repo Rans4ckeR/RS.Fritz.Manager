@@ -54,7 +54,7 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
             StringComparer.OrdinalIgnoreCase));
     }
 
-    private static async ValueTask ReceiveAsync(Socket socket, ICollection<string> responses, int receiveTimeout, CancellationToken cancellationToken)
+    private static async ValueTask ReceiveAsync(Socket socket, List<string> responses, int receiveTimeout, CancellationToken cancellationToken)
     {
         using IMemoryOwner<byte> memoryOwner = MemoryPool<byte>.Shared.Rent(4096);
         using var timeoutCancellationTokenSource = new CancellationTokenSource(receiveTimeout);

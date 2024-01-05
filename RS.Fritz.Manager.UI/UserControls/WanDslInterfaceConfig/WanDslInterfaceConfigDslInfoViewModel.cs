@@ -19,7 +19,7 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
 
     public WanDslInterfaceConfigDslInfoViewModel()
     {
-        DownstreamSnrElements = new();
+        DownstreamSnrElements = [];
 
         maxBrush.Freeze();
         minBrush.Freeze();
@@ -43,7 +43,7 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
         private set => _ = SetProperty(ref downstreamSnrElements, value);
     }
 
-    private static void CreateUiElements(double yScale, double xScale, uint min, uint range, ICollection<UIElement> uiElements, IReadOnlyList<uint> values, Brush brush)
+    private static void CreateUiElements(double yScale, double xScale, uint min, uint range, List<UIElement> uiElements, IReadOnlyList<uint> values, Brush brush)
     {
         for (int i = 1; i < values.Count; i++)
         {
