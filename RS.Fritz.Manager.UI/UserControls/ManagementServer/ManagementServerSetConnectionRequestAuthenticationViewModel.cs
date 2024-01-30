@@ -1,8 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.ComponentModel;
-
-internal sealed class ManagementServerSetConnectionRequestAuthenticationViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+internal sealed class
+    ManagementServerSetConnectionRequestAuthenticationViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : ManualOperationViewModel<ManagementServerSetConnectionRequestAuthenticationRequest, ManagementServerSetConnectionRequestAuthenticationResponse>(deviceLoginInfo, logger, "SetConnectionRequestAuthentication", "Update ConnectionRequestAuthentication", (d, r) => d.ManagementServerSetConnectionRequestAuthenticationAsync(r))
 {
     private string? connectionRequestUsername;
@@ -14,7 +13,7 @@ internal sealed class ManagementServerSetConnectionRequestAuthenticationViewMode
         set
         {
             if (SetProperty(ref connectionRequestUsername, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
@@ -24,25 +23,10 @@ internal sealed class ManagementServerSetConnectionRequestAuthenticationViewMode
         set
         {
             if (SetProperty(ref connectionRequestPassword, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     protected override ManagementServerSetConnectionRequestAuthenticationRequest BuildRequest()
         => new(ConnectionRequestUsername!, ConnectionRequestPassword!);
-
-    protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        base.FritzServiceViewModelPropertyChanged(sender, e);
-
-        switch (e.PropertyName)
-        {
-            case nameof(ConnectionRequestUsername):
-            case nameof(ConnectionRequestPassword):
-                {
-                    UpdateCanExecuteDefaultCommand();
-                    break;
-                }
-        }
-    }
 }

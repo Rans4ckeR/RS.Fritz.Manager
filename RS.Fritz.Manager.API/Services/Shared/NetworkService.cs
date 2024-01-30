@@ -1,16 +1,17 @@
 ﻿namespace RS.Fritz.Manager.API;
 
+using System.Collections.Frozen;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
 internal sealed class NetworkService : INetworkService
 {
-    private static readonly IReadOnlyList<AddressFamily> SupportedAddressFamilies = new List<AddressFamily>
+    private static readonly FrozenSet<AddressFamily> SupportedAddressFamilies = new[]
     {
         AddressFamily.InterNetwork,
         AddressFamily.InterNetworkV6
-    }.AsReadOnly();
+    }.ToFrozenSet();
 
     public Uri FormatUri(string scheme, Uri uri, ushort port, string path)
     {
@@ -39,12 +40,12 @@ internal sealed class NetworkService : INetworkService
         => ipAddress.AddressFamily switch
         {
             AddressFamily.InterNetworkV6 => ipAddress.IsIPv6SiteLocal || ipAddress.IsIPv6UniqueLocal || ipAddress.IsIPv6LinkLocal,
-            AddressFamily.InterNetwork => IsInRange("10.0.0.0", "10.255.255.255", ipAddress)
-                || IsInRange("172.16.0.0", "172.31.255.255", ipAddress)
-                || IsInRange("192.168.0.0", "192.168.255.255", ipAddress)
-                || IsInRange("169.254.0.0", "169.254.255.255", ipAddress)
-                || IsInRange("127.0.0.0", "127.255.255.255", ipAddress)
-                || IsInRange("0.0.0.0", "0.255.255.255", ipAddress),
+            AddressFamily.InterNetwork => IPNetwork.Parse("10.0.0.0/8").Contains(ipAddress)
+                || IPNetwork.Parse("172.16.0.0/12").Contains(ipAddress)
+                || IPNetwork.Parse("192.168.0.0/16").Contains(ipAddress)
+                || IPNetwork.Parse("169.254.0.0/16").Contains(ipAddress)
+                || IPNetwork.Parse("127.0.0.0/8").Contains(ipAddress)
+                || IPNetwork.Parse("0.0.0.0/8").Contains(ipAddress),
             _ => throw new ArgumentOutOfRangeException(nameof(ipAddress), ipAddress, null)
         };
 #pragma warning restore IDE0072 // Add missing cases
@@ -58,15 +59,6 @@ internal sealed class NetworkService : INetworkService
         => GetIpInterfaces()
             .SelectMany(q => q.MulticastAddresses.Select(r => r.Address))
             .Where(q => SupportedAddressFamilies.Contains(q.AddressFamily));
-
-    private static bool IsInRange(string startIpAddress, string endIpAddress, IPAddress address)
-    {
-        uint ipStart = BitConverter.ToUInt32(IPAddress.Parse(startIpAddress).GetAddressBytes().Reverse().ToArray(), 0);
-        uint ipEnd = BitConverter.ToUInt32(IPAddress.Parse(endIpAddress).GetAddressBytes().Reverse().ToArray(), 0);
-        uint ip = BitConverter.ToUInt32(address.GetAddressBytes().Reverse().ToArray(), 0);
-
-        return ip >= ipStart && ip <= ipEnd;
-    }
 
     private static IEnumerable<IPInterfaceProperties> GetIpInterfaces()
         => NetworkInterface.GetAllNetworkInterfaces()

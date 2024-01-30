@@ -1,6 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 using System.Windows.Threading;
+using CommunityToolkit.Mvvm.Messaging.Messages;
 
 internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 {
@@ -72,6 +73,24 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
     {
         get => wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
         private set => _ = SetProperty(ref wanCommonInterfaceConfigGetCommonLinkPropertiesResponse, value);
+    }
+
+    protected override void Receive(PropertyChangedMessage<bool> message)
+    {
+        base.Receive(message);
+
+        if (message.Sender == DeviceLoginInfo)
+        {
+            switch (message.PropertyName)
+            {
+                case nameof(DeviceLoginInfo.LoginInfoSet):
+                    {
+                        if (!message.NewValue)
+                            AutoRefresh = false;
+                        break;
+                    }
+            }
+        }
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)

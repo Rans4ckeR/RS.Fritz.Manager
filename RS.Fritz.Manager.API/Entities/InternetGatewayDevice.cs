@@ -1,8 +1,28 @@
 ﻿namespace RS.Fritz.Manager.API;
 
+using System.Collections.Frozen;
 using System.Net;
 
-public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzServiceOperationHandler, IUsersService UsersService, IEnumerable<Uri> Locations, string Server, string CacheControl, string? Ext, string SearchTarget, string UniqueServiceName, UPnPDescription UPnPDescription, Uri PreferredLocation, IReadOnlyCollection<IPAddress> LocalIpAddresses)
+public sealed record InternetGatewayDevice(
+    IFritzServiceOperationHandler FritzServiceOperationHandler,
+    IUsersService UsersService,
+    string? CacheControl,
+    string? Date,
+    string? Ext,
+    IEnumerable<Uri?>? Locations,
+    string? Server,
+    string? SearchTarget,
+    string? UniqueServiceName,
+    string? Options,
+    string? Nls,
+    int? BootId,
+    int? ConfigId,
+    ushort? SearchPort,
+    IEnumerable<Uri?>? SecureLocations,
+    UPnPDescription? UPnPDescription,
+    Uri? PreferredLocation,
+    FrozenSet<IPAddress> LocalIpAddresses,
+    ushort? Version)
 {
     private IReadOnlyCollection<ServiceListItem>? services;
 
@@ -13,7 +33,7 @@ public sealed record InternetGatewayDevice(IFritzServiceOperationHandler FritzSe
     public NetworkCredential? NetworkCredential { get; set; }
 
     public IEnumerable<ServiceListItem> Services
-        => services ??= UPnPDescription.Device.GetServices().ToArray();
+        => services ??= UPnPDescription?.Device?.GetServices().ToArray() ?? [];
 
     public async ValueTask InitializeAsync()
     {

@@ -97,7 +97,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
             FolderName = storageFolder.Path;
     }
 
-    private async void DoExecuteCaptureInterfaceStartCommand(UserInterfaceCaptureInterface? userInterfaceCaptureInterface)
+    private async Task DoExecuteCaptureInterfaceStartCommand(UserInterfaceCaptureInterface? userInterfaceCaptureInterface, CancellationToken cancellationToken)
     {
         SetCaptureInterfaceStatus(userInterfaceCaptureInterface!, true);
 

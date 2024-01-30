@@ -1,17 +1,10 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.ComponentModel;
-
-internal abstract class WanConnectionGetGenericPortMappingEntryViewModel : FritzServiceViewModel
+internal abstract class WanConnectionGetGenericPortMappingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger) : FritzServiceViewModel(deviceLoginInfo, logger)
 {
     private ushort? index;
     private ushort? portMappingNumberOfEntries;
     private KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>? wanConnectionGetGenericPortMappingEntryResponse;
-
-    protected WanConnectionGetGenericPortMappingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
-    {
-    }
 
     public ushort? Index
     {
@@ -19,7 +12,7 @@ internal abstract class WanConnectionGetGenericPortMappingEntryViewModel : Fritz
         set
         {
             if (SetProperty(ref index, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
@@ -29,7 +22,7 @@ internal abstract class WanConnectionGetGenericPortMappingEntryViewModel : Fritz
         set
         {
             if (SetProperty(ref portMappingNumberOfEntries, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
@@ -37,20 +30,6 @@ internal abstract class WanConnectionGetGenericPortMappingEntryViewModel : Fritz
     {
         get => wanConnectionGetGenericPortMappingEntryResponse;
         protected set => _ = SetProperty(ref wanConnectionGetGenericPortMappingEntryResponse, value);
-    }
-
-    protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        base.FritzServiceViewModelPropertyChanged(sender, e);
-
-        switch (e.PropertyName)
-        {
-            case nameof(Index):
-                {
-                    UpdateCanExecuteDefaultCommand();
-                    break;
-                }
-        }
     }
 
     protected override bool GetCanExecuteDefaultCommand()

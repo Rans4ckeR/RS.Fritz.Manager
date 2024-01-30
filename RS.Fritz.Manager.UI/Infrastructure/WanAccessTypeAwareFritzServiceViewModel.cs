@@ -11,23 +11,20 @@ internal abstract class WanAccessTypeAwareFritzServiceViewModel : FritzServiceVi
         : base(deviceLoginInfo, logger, requiredServiceType)
     {
         this.wanAccessType = wanAccessType;
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<WanAccessType?>>(this, (r, m) =>
-        {
-            ((WanAccessTypeAwareFritzServiceViewModel)r).Receive(m);
-        });
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<WanAccessType?>>(this, (r, m) => ((WanAccessTypeAwareFritzServiceViewModel)r).Receive(m));
     }
 
     protected override bool GetCanExecuteDefaultCommand()
-        => base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.InternetGatewayDevice!.WanAccessType == wanAccessType;
+        => base.GetCanExecuteDefaultCommand() && DeviceLoginInfo.WanAccessType == wanAccessType;
 
     private void Receive(PropertyChangedMessage<WanAccessType?> message)
     {
-        if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
+        if (message.Sender != DeviceLoginInfo)
             return;
 
         switch (message.PropertyName)
         {
-            case nameof(ObservableInternetGatewayDevice.WanAccessType):
+            case nameof(DeviceLoginInfo.WanAccessType):
                 {
                     UpdateCanExecuteDefaultCommand();
                     break;

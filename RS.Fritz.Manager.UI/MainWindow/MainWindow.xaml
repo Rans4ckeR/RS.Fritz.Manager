@@ -45,7 +45,20 @@
                                     <RibbonGalleryCategory ItemsSource="{Binding Devices}">
                                         <RibbonGalleryCategory.ItemTemplate>
                                             <DataTemplate DataType="{x:Type ui:ObservableInternetGatewayDevice}">
-                                                <TextBlock Text="{Binding ApiDevice.Server}"/>
+                                                <TextBlock Text="{Binding Servers[0]}"/>
+                                            </DataTemplate>
+                                        </RibbonGalleryCategory.ItemTemplate>
+                                    </RibbonGalleryCategory>
+                                </RibbonGallery>
+                            </RibbonComboBox>
+                        </RibbonGroup>
+                        <RibbonGroup>
+                            <RibbonComboBox Label="Select A Device:" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Device.png">
+                                <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.SelectedInternetGatewayDevice}">
+                                    <RibbonGalleryCategory ItemsSource="{Binding DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevices}">
+                                        <RibbonGalleryCategory.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type api:InternetGatewayDevice}">
+                                                <TextBlock Text="{Binding SearchTarget}"/>
                                             </DataTemplate>
                                         </RibbonGalleryCategory.ItemTemplate>
                                     </RibbonGalleryCategory>
@@ -55,7 +68,7 @@
                         <RibbonGroup>
                             <RibbonComboBox Label="Select A User:" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/User.png">
                                 <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.User}">
-                                    <RibbonGalleryCategory ItemsSource="{Binding Users}">
+                                    <RibbonGalleryCategory ItemsSource="{Binding DeviceLoginInfo.Users}">
                                         <RibbonGalleryCategory.ItemTemplate>
                                             <DataTemplate DataType="{x:Type api:User}">
                                                 <TextBlock Text="{Binding Name}"/>

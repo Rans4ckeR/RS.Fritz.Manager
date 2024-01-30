@@ -226,5 +226,5 @@ internal sealed class WlanConfigurationViewModel(DeviceLoginInfo deviceLoginInfo
     }
 
     private bool HasWlanConfigurationService(int interfaceNumber)
-        => ApiDevice.Services.Any(r => FormattableString.Invariant($"urn:dslforum-org:service:WLANConfiguration:{interfaceNumber}").Equals(r.ServiceType, StringComparison.OrdinalIgnoreCase));
+        => ApiDevice.Services.Any(r => FormattableString.Invariant($"{UPnPConstants.AvmServiceNamespace}:WLANConfiguration:{interfaceNumber}").Equals(r.ServiceType, StringComparison.OrdinalIgnoreCase));
 }

@@ -1,7 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.ServiceModel.Security;
 using System.Windows;
 using System.Windows.Media;
@@ -20,7 +19,6 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
 
     private readonly IDeviceSearchService deviceSearchService;
     private ObservableCollection<ObservableInternetGatewayDevice> devices = [];
-    private ObservableCollection<User> users = [];
     private ObservableObject? activeView;
     private string? userMessage;
     private bool deviceAndLoginControlsEnabled = true;
@@ -81,22 +79,9 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         CopyMessageCommand = new RelayCommand(ExecuteCopyMessageCommand);
         CloseMessageCommand = new RelayCommand(ExecuteCloseMessageCommand);
 
-        StrongReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) =>
-        {
-            ((MainWindowViewModel)r).UserMessage = m.Value.Message;
-        });
-        StrongReferenceMessenger.Default.Register<ActiveViewValueChangedMessage>(this, (r, m) =>
-        {
-            ((MainWindowViewModel)r).ActiveView = m.Value;
-        });
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<IEnumerable<User>>>(this, (r, m) =>
-        {
-            ((MainWindowViewModel)r).Receive(m);
-        });
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<ObservableInternetGatewayDevice?>>(this, (r, m) =>
-        {
-            ((MainWindowViewModel)r).Receive(m);
-        });
+        StrongReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) => ((MainWindowViewModel)r).UserMessage = m.Value.Message);
+        StrongReferenceMessenger.Default.Register<ActiveViewValueChangedMessage>(this, (r, m) => ((MainWindowViewModel)r).ActiveView = m.Value);
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<ObservableInternetGatewayDevice?>>(this, (r, m) => ((MainWindowViewModel)r).Receive(m));
         UpdateCanExecuteDefaultCommand();
     }
 
@@ -184,17 +169,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
 
     public bool DeviceAndLoginControlsEnabled
     {
-        get => deviceAndLoginControlsEnabled; set => _ = SetProperty(ref deviceAndLoginControlsEnabled, value);
-    }
-
-    public ObservableCollection<User> Users
-    {
-        get => users;
-        private set
-        {
-            if (SetProperty(ref users, value))
-                DeviceLoginInfo.User = Users.SingleOrDefault(q => q.LastUser);
-        }
+        get => deviceAndLoginControlsEnabled;
+        set => _ = SetProperty(ref deviceAndLoginControlsEnabled, value);
     }
 
     public ObservableObject? ActiveView
@@ -262,37 +238,47 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     {
         base.Receive(message);
 
-        if (message.Sender != DeviceLoginInfo)
-            return;
-
-        switch (message.PropertyName)
+        if (message.Sender == this)
         {
-            case nameof(DeviceLoginInfo.LoginInfoSet):
-                {
-                    if (message.NewValue)
+            switch (message.PropertyName)
+            {
+                case nameof(LoginCommandActive):
+                    {
                         UpdateCanExecuteLoginCommand();
-                    break;
-                }
+                        break;
+                    }
+
+                case nameof(DefaultCommandActive):
+                    {
+                        DeviceAndLoginControlsEnabled = !DefaultCommandActive;
+                        break;
+                    }
+            }
         }
-    }
-
-    protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        base.FritzServiceViewModelPropertyChanged(sender, e);
-
-        switch (e.PropertyName)
+        else if (message.Sender == DeviceLoginInfo)
         {
-            case nameof(LoginCommandActive):
-                {
-                    UpdateCanExecuteLoginCommand();
-                    break;
-                }
+            switch (message.PropertyName)
+            {
+                case nameof(DeviceLoginInfo.LoginInfoSet):
+                    {
+                        if (message.NewValue)
+                            UpdateCanExecuteLoginCommand();
+                        break;
+                    }
 
-            case nameof(DefaultCommandActive):
-                {
-                    DeviceAndLoginControlsEnabled = !DefaultCommandActive;
-                    break;
-                }
+                case nameof(DeviceLoginInfo.Authenticated):
+                    {
+                        if (!message.NewValue)
+                        {
+                            ActiveView = DeviceLoginInfo.InternetGatewayDevice;
+                            LoginButtonImage = new BitmapImage(new("pack://application:,,,/Images/Login.png"));
+
+                            UpdateCanExecuteLoginCommand();
+                        }
+
+                        break;
+                    }
+            }
         }
     }
 
@@ -300,22 +286,10 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     {
         ActiveView = null;
         DeviceLoginInfo.InternetGatewayDevice = null;
-        Devices = new((await deviceSearchService.GetDevicesAsync(cancellationToken: cancellationToken).ConfigureAwait(true)).Select(q => new ObservableInternetGatewayDevice(q)));
+        Devices = new((await deviceSearchService.GetInternetGatewayDevicesAsync(cancellationToken: cancellationToken).ConfigureAwait(true)).Select(q => new ObservableInternetGatewayDevice(q)));
     }
 
     protected override bool GetCanExecuteDefaultCommand() => !DefaultCommandActive;
-
-    private void Receive(PropertyChangedMessage<IEnumerable<User>> message)
-    {
-        if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
-            return;
-
-        Users = message.PropertyName switch
-        {
-            nameof(ObservableInternetGatewayDevice.Users) => new(message.NewValue.OrderByDescending(q => q.LastUser)),
-            _ => Users
-        };
-    }
 
     private void Receive(PropertyChangedMessage<ObservableInternetGatewayDevice?> message)
     {
@@ -336,7 +310,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     }
 
     private void UpdateCanExecuteLoginCommand()
-        => CanExecuteLoginCommand = !LoginCommandActive && DeviceLoginInfo.LoginInfoSet;
+        => CanExecuteLoginCommand = !LoginCommandActive && (DeviceLoginInfo.SelectedInternetGatewayDevice?.SearchTarget?.StartsWith(UPnPConstants.InternetGatewayDeviceAvmNamespace, StringComparison.OrdinalIgnoreCase) ?? false) && DeviceLoginInfo.LoginInfoSet;
 
     private async Task ExecuteLoginCommandAsync(bool? showView)
     {
@@ -344,7 +318,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         {
             LoginCommandActive = true;
 
-            await DeviceLoginInfo.InternetGatewayDevice!.GetDeviceTypeAsync().ConfigureAwait(true);
+            await DeviceLoginInfo.GetDeviceTypeAsync().ConfigureAwait(true);
 
             LoginButtonImage = new BitmapImage(new("pack://application:,,,/Images/Success.png"));
         }
@@ -363,7 +337,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     }
 
     private void ExecuteCopyMessageCommand()
-        => Clipboard.SetText(UserMessage);
+        => Clipboard.SetText(UserMessage!);
 
     private void ExecuteCloseMessageCommand()
         => UserMessage = null;

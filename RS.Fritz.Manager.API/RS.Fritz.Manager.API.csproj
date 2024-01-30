@@ -34,6 +34,7 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <EnablePackageValidation>true</EnablePackageValidation>
     <Platform>AnyCPU</Platform>
+    <EnableSourceControlManagerQueries Condition="$(Configuration) == 'Debug'">true</EnableSourceControlManagerQueries> <!--https://github.com/dotnet/sdk/issues/36666-->
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\README.md" Pack="true" PackagePath="\" />

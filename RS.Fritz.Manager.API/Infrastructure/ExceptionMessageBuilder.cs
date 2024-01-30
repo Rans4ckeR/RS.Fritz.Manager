@@ -42,15 +42,15 @@ public static class ExceptionMessageBuilder
                 .GetFaultCode(faultException.Code);
 
 #pragma warning disable IDE0045 // Convert to conditional expression
-            if (ex is FaultException<UPnPFault1> upnpFaultFault1Exception)
+            if (ex is FaultException<UPnPFault> upnpFaultFaultException)
             {
-                _ = sb.AppendLine(FormattableString.Invariant($"{nameof(UPnPFault1)}.{nameof(UPnPFault1.ErrorCode)}: {upnpFaultFault1Exception.Detail.ErrorCode}"))
-                    .AppendLine(FormattableString.Invariant($"{nameof(UPnPFault1)}.{nameof(UPnPFault1.ErrorDescription)}: {upnpFaultFault1Exception.Detail.ErrorDescription}"));
+                _ = sb.AppendLine(FormattableString.Invariant($"{nameof(UPnPFault)}.{nameof(UPnPFault.ErrorCode)}: {upnpFaultFaultException.Detail.ErrorCode}"))
+                    .AppendLine(FormattableString.Invariant($"{nameof(UPnPFault)}.{nameof(UPnPFault.ErrorDescription)}: {upnpFaultFaultException.Detail.ErrorDescription}"));
             }
-            else if (ex is FaultException<UPnPFault2> upnpFaultFault2Exception)
+            else if (ex is FaultException<AvmUPnPFault> avmUpnpFaultFaultException)
             {
-                _ = sb.AppendLine(FormattableString.Invariant($"{nameof(UPnPFault2)}.{nameof(UPnPFault2.ErrorCode)}: {upnpFaultFault2Exception.Detail.ErrorCode}"))
-                    .AppendLine(FormattableString.Invariant($"{nameof(UPnPFault2)}.{nameof(UPnPFault2.ErrorDescription)}: {upnpFaultFault2Exception.Detail.ErrorDescription}"));
+                _ = sb.AppendLine(FormattableString.Invariant($"{nameof(AvmUPnPFault)}.{nameof(AvmUPnPFault.ErrorCode)}: {avmUpnpFaultFaultException.Detail.ErrorCode}"))
+                    .AppendLine(FormattableString.Invariant($"{nameof(AvmUPnPFault)}.{nameof(AvmUPnPFault.ErrorDescription)}: {avmUpnpFaultFaultException.Detail.ErrorDescription}"));
             }
             else
             {

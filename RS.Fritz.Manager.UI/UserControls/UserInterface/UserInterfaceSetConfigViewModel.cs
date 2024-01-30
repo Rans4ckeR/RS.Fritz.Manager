@@ -1,7 +1,5 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.ComponentModel;
-
 internal sealed class UserInterfaceSetConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : ManualOperationViewModel<UserInterfaceSetConfigRequest, UserInterfaceSetConfigResponse>(deviceLoginInfo, logger, "SetConfig", "Set Config", (d, r) => d.UserInterfaceSetConfigAsync(r))
 {
@@ -13,24 +11,10 @@ internal sealed class UserInterfaceSetConfigViewModel(DeviceLoginInfo deviceLogi
         set
         {
             if (SetProperty(ref autoUpdateMode, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     protected override UserInterfaceSetConfigRequest BuildRequest()
         => new(AutoUpdateMode!);
-
-    protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        base.FritzServiceViewModelPropertyChanged(sender, e);
-
-        switch (e.PropertyName)
-        {
-            case nameof(AutoUpdateMode):
-                {
-                    UpdateCanExecuteDefaultCommand();
-                    break;
-                }
-        }
-    }
 }

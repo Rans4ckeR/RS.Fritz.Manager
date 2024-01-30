@@ -58,17 +58,17 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
     {
         base.Receive(message);
 
-        if (message.Sender != DeviceLoginInfo)
-            return;
-
-        switch (message.PropertyName)
+        if (message.Sender == DeviceLoginInfo)
         {
-            case nameof(DeviceLoginInfo.LoginInfoSet):
-                {
-                    if (!message.NewValue)
-                        AutoRefresh = false;
-                    break;
-                }
+            switch (message.PropertyName)
+            {
+                case nameof(DeviceLoginInfo.LoginInfoSet):
+                    {
+                        if (!message.NewValue)
+                            AutoRefresh = false;
+                        break;
+                    }
+            }
         }
     }
 

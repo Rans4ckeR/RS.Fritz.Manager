@@ -1,6 +1,5 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.ComponentModel;
 using System.ServiceModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -22,12 +21,8 @@ internal abstract class FritzServiceViewModel : ObservableRecipient
         DeviceLoginInfo = deviceLoginInfo;
         this.requiredServiceType = requiredServiceType;
         DefaultCommand = new AsyncRelayCommand<bool?>(ExecuteDefaultCommandAsync, _ => CanExecuteDefaultCommand);
-        PropertyChanged += FritzServiceViewModelPropertyChanged;
 
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<bool>>(this, (r, m) =>
-        {
-            ((FritzServiceViewModel)r).Receive(m);
-        });
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<bool>>(this, (r, m) => ((FritzServiceViewModel)r).Receive(m));
     }
 
     public DeviceLoginInfo DeviceLoginInfo { get; }
@@ -39,12 +34,12 @@ internal abstract class FritzServiceViewModel : ObservableRecipient
         get => defaultCommandActive;
         set
         {
-            if (SetProperty(ref defaultCommandActive, value))
+            if (SetProperty(ref defaultCommandActive, value, true))
                 DefaultCommand.NotifyCanExecuteChanged();
         }
     }
 
-    protected InternetGatewayDevice ApiDevice => DeviceLoginInfo.InternetGatewayDevice!.ApiDevice;
+    protected InternetGatewayDevice ApiDevice => DeviceLoginInfo.SelectedInternetGatewayDevice!;
 
     protected ILogger Logger { get; }
 
@@ -62,47 +57,42 @@ internal abstract class FritzServiceViewModel : ObservableRecipient
 
     protected virtual void Receive(PropertyChangedMessage<bool> message)
     {
-        if (message.Sender is DeviceLoginInfo)
+        if (message.Sender is FritzServiceViewModel)
+        {
+            switch (message.PropertyName)
+            {
+                case nameof(DefaultCommandActive):
+                    {
+                        UpdateCanExecuteDefaultCommand();
+                        break;
+                    }
+            }
+        }
+        else if (message.Sender == DeviceLoginInfo)
         {
             switch (message.PropertyName)
             {
                 case nameof(DeviceLoginInfo.LoginInfoSet):
+                case nameof(DeviceLoginInfo.Authenticated):
                     {
                         UpdateCanExecuteDefaultCommand();
                         break;
                     }
             }
-        }
-        else if (message.Sender == DeviceLoginInfo.InternetGatewayDevice)
-        {
-            switch (message.PropertyName)
-            {
-                case nameof(DeviceLoginInfo.InternetGatewayDevice.Authenticated):
-                    {
-                        UpdateCanExecuteDefaultCommand();
-                        break;
-                    }
-            }
-        }
-    }
-
-    protected virtual void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        switch (e.PropertyName)
-        {
-            case nameof(DefaultCommandActive):
-                {
-                    UpdateCanExecuteDefaultCommand();
-                    break;
-                }
         }
     }
 
     protected virtual bool GetCanExecuteDefaultCommand()
-        => (DeviceLoginInfo.InternetGatewayDevice?.Authenticated ?? false) && !DefaultCommandActive && (requiredServiceType is null || ApiDevice.Services.Any(r => r.ServiceType.StartsWith(FormattableString.Invariant($"urn:dslforum-org:service:{requiredServiceType}:"), StringComparison.OrdinalIgnoreCase)));
+        => DeviceLoginInfo.Authenticated && !DefaultCommandActive && (requiredServiceType is null || ApiDevice.Services.Any(r => r.ServiceType.Contains(FormattableString.Invariant($":{requiredServiceType}:"), StringComparison.OrdinalIgnoreCase)));
 
     protected void UpdateCanExecuteDefaultCommand()
         => CanExecuteDefaultCommand = GetCanExecuteDefaultCommand();
+
+    protected void UpdateAndNotifyCanExecuteDefaultCommand()
+    {
+        UpdateCanExecuteDefaultCommand();
+        DefaultCommand.NotifyCanExecuteChanged();
+    }
 
     protected Task<KeyValuePair<T?, UPnPFault?>> ExecuteApiAsync<T>(Func<InternetGatewayDevice, Task<T>> operation, IDictionary<ushort, string>? errorReasons = null)
         where T : struct
@@ -126,11 +116,11 @@ internal abstract class FritzServiceViewModel : ObservableRecipient
         {
             return new(await operation.ConfigureAwait(true), null);
         }
-        catch (FaultException<UPnPFault1> ex)
+        catch (FaultException<API.UPnPFault> ex)
         {
             error = new(ex.Detail.ErrorCode, ex.Detail.ErrorDescription);
         }
-        catch (FaultException<UPnPFault2> ex)
+        catch (FaultException<AvmUPnPFault> ex)
         {
             error = new(ex.Detail.ErrorCode, ex.Detail.ErrorDescription);
         }

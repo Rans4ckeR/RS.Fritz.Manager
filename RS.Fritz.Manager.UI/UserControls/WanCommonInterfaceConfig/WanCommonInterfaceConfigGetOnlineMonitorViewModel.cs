@@ -1,6 +1,5 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -62,7 +61,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
         set
         {
             if (SetProperty(ref syncGroupIndex, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
@@ -154,20 +153,6 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
         => WanCommonInterfaceConfigGetOnlineMonitorResponse = await ExecuteApiAsync(q => q.WanCommonInterfaceConfigGetOnlineMonitorAsync(new(SyncGroupIndex))).ConfigureAwait(true);
-
-    protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        base.FritzServiceViewModelPropertyChanged(sender, e);
-
-        switch (e.PropertyName)
-        {
-            case nameof(SyncGroupIndex):
-                {
-                    UpdateCanExecuteDefaultCommand();
-                    break;
-                }
-        }
-    }
 
     protected override bool GetCanExecuteDefaultCommand()
         => base.GetCanExecuteDefaultCommand() && (WanCommonInterfaceConfigGetOnlineMonitorResponse is null || SyncGroupIndex < WanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.Key!.Value.TotalNumberSyncGroups);

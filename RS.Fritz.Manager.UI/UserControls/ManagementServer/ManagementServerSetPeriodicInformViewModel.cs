@@ -1,7 +1,5 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.ComponentModel;
-
 internal sealed class ManagementServerSetPeriodicInformViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : ManualOperationViewModel<ManagementServerSetPeriodicInformRequest, ManagementServerSetPeriodicInformResponse>(deviceLoginInfo, logger, "SetPeriodicInform", "Update PeriodicInform", (d, r) => d.ManagementServerSetPeriodicInformAsync(r))
 {
@@ -15,7 +13,7 @@ internal sealed class ManagementServerSetPeriodicInformViewModel(DeviceLoginInfo
         set
         {
             if (SetProperty(ref periodicInformEnable, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
@@ -25,7 +23,7 @@ internal sealed class ManagementServerSetPeriodicInformViewModel(DeviceLoginInfo
         set
         {
             if (SetProperty(ref periodicInformInterval, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
@@ -35,28 +33,12 @@ internal sealed class ManagementServerSetPeriodicInformViewModel(DeviceLoginInfo
         set
         {
             if (SetProperty(ref periodicInformTime, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     protected override ManagementServerSetPeriodicInformRequest BuildRequest()
         => new(PeriodicInformEnable!.Value, PeriodicInformInterval!.Value, PeriodicInformTime!.Value);
-
-    protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        base.FritzServiceViewModelPropertyChanged(sender, e);
-
-        switch (e.PropertyName)
-        {
-            case nameof(PeriodicInformEnable):
-            case nameof(PeriodicInformInterval):
-            case nameof(PeriodicInformTime):
-                {
-                    UpdateCanExecuteDefaultCommand();
-                    break;
-                }
-        }
-    }
 
     protected override bool GetCanExecuteDefaultCommand()
         => base.GetCanExecuteDefaultCommand() && PeriodicInformEnable.HasValue && PeriodicInformInterval.HasValue && PeriodicInformTime.HasValue;
