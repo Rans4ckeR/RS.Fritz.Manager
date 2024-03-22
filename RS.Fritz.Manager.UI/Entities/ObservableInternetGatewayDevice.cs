@@ -18,6 +18,8 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
         private init => SetProperty(ref internetGatewayDevices, value, true);
     }
 
+    public bool IsAvm => InternetGatewayDevices.Any(q => q.IsAvm);
+
     public ObservableCollection<string?> Servers => new(InternetGatewayDevices.Select(q => q.Server).Distinct().OrderBy(q => q));
 
     public ObservableCollection<Uri?> Locations => new(InternetGatewayDevices.SelectMany(q => q.Locations ?? []).Distinct().OrderBy(q => q?.AbsoluteUri));

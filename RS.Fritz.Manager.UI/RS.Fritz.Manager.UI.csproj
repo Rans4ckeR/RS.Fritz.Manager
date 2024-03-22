@@ -32,8 +32,10 @@
     <EnableSourceControlManagerQueries Condition="$(Configuration) == 'Debug'">true</EnableSourceControlManagerQueries> <!--https://github.com/dotnet/sdk/issues/36666-->
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Images\Avm.png" />
     <None Remove="Images\Device.png" />
     <None Remove="Images\Search.png" />
+    <None Remove="Images\UPnP.png" />
     <None Remove="Images\User.png" />
     <None Remove="Images\Login.png" />
     <None Remove="Images\Fail.png" />
@@ -51,8 +53,10 @@
     <ProjectReference Include="..\RS.Fritz.Manager.API\RS.Fritz.Manager.API.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Avm.png" />
     <Resource Include="Images\Device.png" />
     <Resource Include="Images\Search.png" />
+    <Resource Include="Images\UPnP.png" />
     <Resource Include="Images\User.png" />
     <Resource Include="Images\Login.png" />
     <Resource Include="Images\Fail.png" />

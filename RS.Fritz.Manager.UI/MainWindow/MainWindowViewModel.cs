@@ -310,7 +310,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     }
 
     private void UpdateCanExecuteLoginCommand()
-        => CanExecuteLoginCommand = !LoginCommandActive && (DeviceLoginInfo.SelectedInternetGatewayDevice?.SearchTarget?.StartsWith(UPnPConstants.InternetGatewayDeviceAvmNamespace, StringComparison.OrdinalIgnoreCase) ?? false) && DeviceLoginInfo.LoginInfoSet;
+        => CanExecuteLoginCommand = !LoginCommandActive && (DeviceLoginInfo.SelectedInternetGatewayDevice?.IsAvm ?? false) && DeviceLoginInfo.LoginInfoSet;
 
     private async Task ExecuteLoginCommandAsync(bool? showView)
     {

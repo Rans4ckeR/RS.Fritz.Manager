@@ -44,8 +44,49 @@
                                 <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.InternetGatewayDevice}">
                                     <RibbonGalleryCategory ItemsSource="{Binding Devices}">
                                         <RibbonGalleryCategory.ItemTemplate>
-                                            <DataTemplate DataType="{x:Type ui:ObservableInternetGatewayDevice}">
-                                                <TextBlock Text="{Binding Servers[0]}"/>
+                                            <DataTemplate>
+                                                <ContentControl Content="{Binding}">
+                                                    <ContentControl.Resources>
+                                                        <DataTemplate x:Key="AvmDataTemplate">
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="*"/>
+                                                                </Grid.RowDefinitions>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="40px"/>
+                                                                    <ColumnDefinition Width="Auto"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Image Grid.Row="0" Grid.Column="0" Source="../Images/Avm.png"/>
+                                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Servers[0]}"/>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                        <DataTemplate x:Key="UPnPDataTemplate">
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="*"/>
+                                                                </Grid.RowDefinitions>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="40px"/>
+                                                                    <ColumnDefinition Width="Auto"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Image Grid.Row="0" Grid.Column="0" Source="../Images/UPnP.png"/>
+                                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Servers[0]}"/>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </ContentControl.Resources>
+                                                    <ContentControl.Style>
+                                                        <Style TargetType="ContentControl">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsAvm}" Value="true">
+                                                                    <Setter Property="ContentTemplate" Value="{StaticResource AvmDataTemplate}" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding IsAvm}" Value="false">
+                                                                    <Setter Property="ContentTemplate" Value="{StaticResource UPnPDataTemplate}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </ContentControl.Style>
+                                                </ContentControl>
                                             </DataTemplate>
                                         </RibbonGalleryCategory.ItemTemplate>
                                     </RibbonGalleryCategory>
@@ -53,12 +94,53 @@
                             </RibbonComboBox>
                         </RibbonGroup>
                         <RibbonGroup>
-                            <RibbonComboBox Label="Select A Device:" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Device.png">
+                            <RibbonComboBox Label="Select A Sub-device:" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Device.png">
                                 <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.SelectedInternetGatewayDevice}">
                                     <RibbonGalleryCategory ItemsSource="{Binding DeviceLoginInfo.InternetGatewayDevice.InternetGatewayDevices}">
                                         <RibbonGalleryCategory.ItemTemplate>
-                                            <DataTemplate DataType="{x:Type api:InternetGatewayDevice}">
-                                                <TextBlock Text="{Binding SearchTarget}"/>
+                                            <DataTemplate>
+                                                <ContentControl Content="{Binding}">
+                                                    <ContentControl.Resources>
+                                                        <DataTemplate x:Key="AvmDataTemplate">
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="*"/>
+                                                                </Grid.RowDefinitions>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="40px"/>
+                                                                    <ColumnDefinition Width="Auto"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Image Grid.Row="0" Grid.Column="0" Source="../Images/Avm.png"/>
+                                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SearchTarget}"/>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                        <DataTemplate x:Key="UPnPDataTemplate">
+                                                            <Grid>
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="*"/>
+                                                                </Grid.RowDefinitions>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="40px"/>
+                                                                    <ColumnDefinition Width="Auto"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Image Grid.Row="0" Grid.Column="0" Source="../Images/UPnP.png"/>
+                                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding SearchTarget}"/>
+                                                            </Grid>
+                                                        </DataTemplate>
+                                                    </ContentControl.Resources>
+                                                    <ContentControl.Style>
+                                                        <Style TargetType="ContentControl">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsAvm}" Value="true">
+                                                                    <Setter Property="ContentTemplate" Value="{StaticResource AvmDataTemplate}" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding IsAvm}" Value="false">
+                                                                    <Setter Property="ContentTemplate" Value="{StaticResource UPnPDataTemplate}" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </ContentControl.Style>
+                                                </ContentControl>
                                             </DataTemplate>
                                         </RibbonGalleryCategory.ItemTemplate>
                                     </RibbonGalleryCategory>

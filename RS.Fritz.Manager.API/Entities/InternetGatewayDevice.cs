@@ -32,6 +32,8 @@ public sealed record InternetGatewayDevice(
 
     public NetworkCredential? NetworkCredential { get; set; }
 
+    public bool IsAvm => SearchTarget?.StartsWith(UPnPConstants.InternetGatewayDeviceAvmNamespace, StringComparison.OrdinalIgnoreCase) ?? false;
+
     public IEnumerable<ServiceListItem> Services
         => services ??= UPnPDescription?.Device?.GetServices().ToArray() ?? [];
 
