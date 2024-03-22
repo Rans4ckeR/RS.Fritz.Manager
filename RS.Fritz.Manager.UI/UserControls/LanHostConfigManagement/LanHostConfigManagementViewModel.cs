@@ -47,19 +47,16 @@ internal sealed class LanHostConfigManagementViewModel(DeviceLoginInfo deviceLog
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
+        => API.TaskExtensions.WhenAllSafe(
+            [
                 GetLanHostConfigManagementGetInfoAsync(),
                 LanHostConfigManagementGetSubnetMaskAsync(),
                 LanHostConfigManagementGetIpRoutersListAsync(),
                 LanHostConfigManagementGetAddressRangeAsync(),
                 LanHostConfigManagementGetIpInterfaceNumberOfEntriesAsync(),
                 LanHostConfigManagementGetDnsServersAsync()
-            },
+            ],
             true);
-    }
 
     private async Task GetLanHostConfigManagementGetInfoAsync()
         => LanHostConfigManagementGetInfoResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetInfoAsync()).ConfigureAwait(true);

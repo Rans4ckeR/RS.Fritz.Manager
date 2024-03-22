@@ -36,7 +36,6 @@ internal sealed class NetworkService : INetworkService
     }
 
     public bool IsPrivateIpAddress(IPAddress ipAddress)
-#pragma warning disable IDE0072 // Add missing cases
         => ipAddress.AddressFamily switch
         {
             AddressFamily.InterNetworkV6 => ipAddress.IsIPv6SiteLocal || ipAddress.IsIPv6UniqueLocal || ipAddress.IsIPv6LinkLocal,
@@ -48,7 +47,6 @@ internal sealed class NetworkService : INetworkService
                 || IPNetwork.Parse("0.0.0.0/8").Contains(ipAddress),
             _ => throw new ArgumentOutOfRangeException(nameof(ipAddress), ipAddress, null)
         };
-#pragma warning restore IDE0072 // Add missing cases
 
     public IEnumerable<IPAddress> GetUnicastAddresses()
         => GetIpInterfaces()

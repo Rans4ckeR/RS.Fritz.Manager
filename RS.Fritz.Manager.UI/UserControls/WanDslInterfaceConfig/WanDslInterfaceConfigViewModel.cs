@@ -28,13 +28,13 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
         get => autoRefresh;
         set
         {
-            if (SetProperty(ref autoRefresh, value))
-            {
-                if (value)
-                    autoRefreshTimer.Start();
-                else
-                    autoRefreshTimer.Stop();
-            }
+            if (!SetProperty(ref autoRefresh, value))
+                return;
+
+            if (value)
+                autoRefreshTimer.Start();
+            else
+                autoRefreshTimer.Stop();
         }
     }
 
@@ -58,32 +58,29 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
     {
         base.Receive(message);
 
-        if (message.Sender == DeviceLoginInfo)
+        if (message.Sender != DeviceLoginInfo)
+            return;
+
+        switch (message.PropertyName)
         {
-            switch (message.PropertyName)
-            {
-                case nameof(DeviceLoginInfo.LoginInfoSet):
-                    {
-                        if (!message.NewValue)
-                            AutoRefresh = false;
-                        break;
-                    }
-            }
+            case nameof(DeviceLoginInfo.LoginInfoSet):
+                {
+                    if (!message.NewValue)
+                        AutoRefresh = false;
+                    break;
+                }
         }
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
+        => API.TaskExtensions.WhenAllSafe(
+            [
                 GetWanDslInterfaceConfigGetDslDiagnoseInfoAsync(),
                 GetWanDslInterfaceConfigGetDslInfoAsync(),
                 GetWanDslInterfaceConfigGetInfoAsync(),
                 GetWanDslInterfaceConfigGetStatisticsTotalAsync()
-            },
+            ],
             true);
-    }
 
     private async void AutoRefreshTimerTick(object? sender, EventArgs e)
     {

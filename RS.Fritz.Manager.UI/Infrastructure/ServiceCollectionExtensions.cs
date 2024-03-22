@@ -4,9 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddViewModels(this IServiceCollection serviceCollection)
-    {
-        return serviceCollection.AddSingleton<MainWindowViewModel>()
+    public static IServiceCollection AddViewModels(this IServiceCollection serviceCollection) =>
+        serviceCollection.AddSingleton<MainWindowViewModel>()
             .AddSingleton<DeviceInfoViewModel>()
             .AddSingleton<DeviceInfoSetProvisioningCodeViewModel>()
             .AddSingleton<LanConfigSecurityViewModel>()
@@ -54,5 +53,4 @@ internal static class ServiceCollectionExtensions
             .AddSingleton<DeviceConfigViewModel>()
             .AddSingleton<DeviceConfigGenerateUuIdViewModel>()
             .AddSingleton<DeviceConfigCreateUrlSidViewModel>();
-    }
 }

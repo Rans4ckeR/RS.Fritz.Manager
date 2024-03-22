@@ -2,8 +2,5 @@
 
 internal sealed partial class UserInterfaceView
 {
-    public UserInterfaceView()
-    {
-        InitializeComponent();
-    }
+    public UserInterfaceView() => InitializeComponent();
 }

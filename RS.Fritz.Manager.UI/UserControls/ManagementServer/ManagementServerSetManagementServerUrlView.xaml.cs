@@ -2,8 +2,5 @@
 
 internal sealed partial class ManagementServerSetManagementServerUrlView
 {
-    public ManagementServerSetManagementServerUrlView()
-    {
-        InitializeComponent();
-    }
+    public ManagementServerSetManagementServerUrlView() => InitializeComponent();
 }

@@ -2,8 +2,5 @@
 
 internal sealed partial class ManagementServerSetConnectionRequestAuthenticationView
 {
-    public ManagementServerSetConnectionRequestAuthenticationView()
-    {
-        InitializeComponent();
-    }
+    public ManagementServerSetConnectionRequestAuthenticationView() => InitializeComponent();
 }

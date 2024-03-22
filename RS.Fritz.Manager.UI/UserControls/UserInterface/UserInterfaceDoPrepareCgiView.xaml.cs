@@ -2,8 +2,5 @@
 
 internal sealed partial class UserInterfaceDoPrepareCgiView
 {
-    public UserInterfaceDoPrepareCgiView()
-    {
-        InitializeComponent();
-    }
+    public UserInterfaceDoPrepareCgiView() => InitializeComponent();
 }

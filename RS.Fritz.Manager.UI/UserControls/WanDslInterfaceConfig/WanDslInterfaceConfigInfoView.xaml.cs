@@ -2,8 +2,5 @@
 
 internal sealed partial class WanDslInterfaceConfigInfoView
 {
-    public WanDslInterfaceConfigInfoView()
-    {
-        InitializeComponent();
-    }
+    public WanDslInterfaceConfigInfoView() => InitializeComponent();
 }

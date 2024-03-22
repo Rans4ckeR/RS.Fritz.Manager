@@ -2,8 +2,5 @@
 
 internal sealed partial class LanConfigSecurityView
 {
-    public LanConfigSecurityView()
-    {
-        InitializeComponent();
-    }
+    public LanConfigSecurityView() => InitializeComponent();
 }

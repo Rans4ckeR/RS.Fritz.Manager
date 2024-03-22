@@ -2,8 +2,5 @@
 
 internal sealed partial class ManagementServerView
 {
-    public ManagementServerView()
-    {
-        InitializeComponent();
-    }
+    public ManagementServerView() => InitializeComponent();
 }

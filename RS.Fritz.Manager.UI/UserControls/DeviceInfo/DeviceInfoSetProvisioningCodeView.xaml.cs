@@ -2,8 +2,5 @@
 
 internal sealed partial class DeviceInfoSetProvisioningCodeView
 {
-    public DeviceInfoSetProvisioningCodeView()
-    {
-        InitializeComponent();
-    }
+    public DeviceInfoSetProvisioningCodeView() => InitializeComponent();
 }

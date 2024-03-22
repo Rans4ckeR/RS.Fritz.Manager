@@ -66,12 +66,10 @@ internal sealed partial class App
         window.WindowState = WindowState.Minimized;
     }
 
-    private static void SetUiCulture()
-    {
+    private static void SetUiCulture() =>
         FrameworkElement.LanguageProperty.OverrideMetadata(
             typeof(FrameworkElement),
             new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
-    }
 
     private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {

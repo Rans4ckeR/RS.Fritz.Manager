@@ -34,15 +34,7 @@ internal sealed class Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo,
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
-                GetLayer3ForwardingGetDefaultConnectionServiceAsync(),
-                GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
-            },
-            true);
-    }
+        => API.TaskExtensions.WhenAllSafe([GetLayer3ForwardingGetDefaultConnectionServiceAsync(), GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()], true);
 
     private async Task GetLayer3ForwardingGetDefaultConnectionServiceAsync()
         => Layer3ForwardingGetDefaultConnectionServiceResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetDefaultConnectionServiceAsync()).ConfigureAwait(true);

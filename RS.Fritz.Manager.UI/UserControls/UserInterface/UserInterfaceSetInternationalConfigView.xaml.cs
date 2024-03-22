@@ -2,8 +2,5 @@
 
 internal sealed partial class UserInterfaceSetInternationalConfigView
 {
-    public UserInterfaceSetInternationalConfigView()
-    {
-        InitializeComponent();
-    }
+    public UserInterfaceSetInternationalConfigView() => InitializeComponent();
 }

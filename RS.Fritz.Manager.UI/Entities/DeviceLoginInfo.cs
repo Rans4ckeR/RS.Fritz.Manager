@@ -78,6 +78,34 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
         set => _ = SetProperty(ref users, value, true);
     }
 
+    public async ValueTask GetDeviceTypeAsync()
+    {
+        WanCommonInterfaceConfigGetCommonLinkPropertiesResponse wanCommonInterfaceConfigGetCommonLinkProperties;
+
+        try
+        {
+            wanCommonInterfaceConfigGetCommonLinkProperties = await SelectedInternetGatewayDevice!.WanCommonInterfaceConfigGetCommonLinkPropertiesAsync().ConfigureAwait(true);
+        }
+        catch (MessageSecurityException)
+        {
+            Authenticated = false;
+
+            throw;
+        }
+
+        Authenticated = true;
+        WanAccessType = wanCommonInterfaceConfigGetCommonLinkProperties.WanAccessType switch
+        {
+            "DSL" => UI.WanAccessType.Dsl,
+            "Ethernet" => UI.WanAccessType.Ethernet,
+            "X_AVM-DE_Fiber" => UI.WanAccessType.Ethernet,
+            "X_AVM-DE_UMTS" => UI.WanAccessType.Ethernet,
+            "X_AVM-DE_Cable" => UI.WanAccessType.Ethernet,
+            "X_AVM-DE_LTE" => UI.WanAccessType.Ethernet,
+            _ => throw new ArgumentOutOfRangeException(nameof(WanCommonInterfaceConfigGetCommonLinkPropertiesResponse.WanAccessType), wanCommonInterfaceConfigGetCommonLinkProperties.WanAccessType, null)
+        };
+    }
+
     // ReSharper disable once AsyncVoidMethod
     private async void Receive(PropertyChangedMessage<ObservableInternetGatewayDevice?> message)
     {
@@ -170,32 +198,4 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
 
     private void SetLoginInfo()
         => LoginInfoSet = SelectedInternetGatewayDevice is not null && User is not null && Password is not null;
-
-    public async ValueTask GetDeviceTypeAsync()
-    {
-        WanCommonInterfaceConfigGetCommonLinkPropertiesResponse wanCommonInterfaceConfigGetCommonLinkProperties;
-
-        try
-        {
-            wanCommonInterfaceConfigGetCommonLinkProperties = await SelectedInternetGatewayDevice!.WanCommonInterfaceConfigGetCommonLinkPropertiesAsync().ConfigureAwait(true);
-        }
-        catch (MessageSecurityException)
-        {
-            Authenticated = false;
-
-            throw;
-        }
-
-        Authenticated = true;
-        WanAccessType = wanCommonInterfaceConfigGetCommonLinkProperties.WanAccessType switch
-        {
-            "DSL" => UI.WanAccessType.Dsl,
-            "Ethernet" => UI.WanAccessType.Ethernet,
-            "X_AVM-DE_Fiber" => UI.WanAccessType.Ethernet,
-            "X_AVM-DE_UMTS" => UI.WanAccessType.Ethernet,
-            "X_AVM-DE_Cable" => UI.WanAccessType.Ethernet,
-            "X_AVM-DE_LTE" => UI.WanAccessType.Ethernet,
-            _ => throw new ArgumentOutOfRangeException(nameof(WanCommonInterfaceConfigGetCommonLinkPropertiesResponse.WanAccessType), wanCommonInterfaceConfigGetCommonLinkProperties.WanAccessType, null)
-        };
-    }
 }

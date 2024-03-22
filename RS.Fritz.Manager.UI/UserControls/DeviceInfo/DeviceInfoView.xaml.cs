@@ -2,8 +2,5 @@
 
 internal sealed partial class DeviceInfoView
 {
-    public DeviceInfoView()
-    {
-        InitializeComponent();
-    }
+    public DeviceInfoView() => InitializeComponent();
 }

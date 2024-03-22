@@ -6,10 +6,7 @@ using System.Windows.Navigation;
 
 internal sealed class ExternalBrowserHyperlink : Hyperlink
 {
-    public ExternalBrowserHyperlink()
-    {
-        RequestNavigate += OnRequestNavigate;
-    }
+    public ExternalBrowserHyperlink() => RequestNavigate += OnRequestNavigate;
 
     private static void OnRequestNavigate(object sender, RequestNavigateEventArgs e)
     {

@@ -19,15 +19,7 @@ internal sealed class LanEthernetInterfaceConfigViewModel(DeviceLoginInfo device
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
-                GetLanEthernetInterfaceConfigGetInfoAsync(),
-                GetLanEthernetInterfaceConfigGetStatisticsAsync()
-            },
-            true);
-    }
+        => API.TaskExtensions.WhenAllSafe([GetLanEthernetInterfaceConfigGetInfoAsync(), GetLanEthernetInterfaceConfigGetStatisticsAsync()], true);
 
     private async Task GetLanEthernetInterfaceConfigGetInfoAsync()
         => LanEthernetInterfaceConfigGetInfoResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetInfoAsync()).ConfigureAwait(true);

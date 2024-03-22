@@ -20,7 +20,7 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
             GetRawDeviceResponses(UPnPConstants.InternetGatewayDeviceV1DeviceType, sendCount, timeout, cancellationToken),
             GetRawDeviceResponses(UPnPConstants.InternetGatewayDeviceV1AvmDeviceType, sendCount, timeout, cancellationToken)
         ];
-        IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)>[] responses = await TaskExtensions.WhenAllSafe(tasks);
+        IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)>[] responses = await TaskExtensions.WhenAllSafe(tasks).ConfigureAwait(false);
         IEnumerable<ServerDeviceResponse> serverDeviceResponses = GetServerDeviceResponses(responses.SelectMany(q => q));
 
         return await TaskExtensions.WhenAllSafe(serverDeviceResponses.Select(q => ParseInternetGatewayDeviceAsync(q, cancellationToken))).ConfigureAwait(false);
@@ -33,7 +33,7 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
         return GetServerDeviceResponses(rawDeviceResponses);
     }
 
-    private static IEnumerable<ServerDeviceResponse> GetServerDeviceResponses(IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)> rawDeviceResponses)
+    private static List<ServerDeviceResponse> GetServerDeviceResponses(IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)> rawDeviceResponses)
     {
         IEnumerable<(IPAddress LocalIpAddress, IEnumerable<(IPAddress IPAddress, FrozenDictionary<string, string> Values)> Responses)> formattedDeviceResponses =
             rawDeviceResponses.Select(q => (q.LocalIpAddress, GetFormattedDeviceResponses(q.Responses)));
@@ -191,13 +191,10 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
             ?? locations.FirstOrDefault(q => Socket.OSSupportsIPv6 && q?.HostNameType is UriHostNameType.IPv6 && networkService.IsPrivateIpAddress(IPAddress.Parse(q.IdnHost)))
             ?? locations.FirstOrDefault(q => Socket.OSSupportsIPv4 && q?.HostNameType is UriHostNameType.IPv4);
 
-    private Uri? ParseLocation((IPAddress LocalIpAddress, Uri? Location) location)
-    {
-        if (location.Location?.HostNameType is not UriHostNameType.IPv6 || !IPAddress.TryParse(location.Location.IdnHost, out IPAddress? ipAddress) || !networkService.IsPrivateIpAddress(ipAddress))
-            return location.Location;
-
-        return networkService.FormatUri(new(IPAddress.Parse(FormattableString.Invariant($"{location.Location.IdnHost}%{location.LocalIpAddress.ScopeId}")), location.Location.Port), location.Location.Scheme, location.Location.PathAndQuery);
-    }
+    private Uri? ParseLocation((IPAddress LocalIpAddress, Uri? Location) location) =>
+        location.Location?.HostNameType is not UriHostNameType.IPv6 || !IPAddress.TryParse(location.Location.IdnHost, out IPAddress? ipAddress) || !networkService.IsPrivateIpAddress(ipAddress)
+            ? location.Location
+            : networkService.FormatUri(new(IPAddress.Parse(FormattableString.Invariant($"{location.Location.IdnHost}%{location.LocalIpAddress.ScopeId}")), location.Location.Port), location.Location.Scheme, location.Location.PathAndQuery);
 
     private async Task<(IPAddress IpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)> SearchDevicesAsync(IPAddress localAddress, IPAddress multicastAddress, string deviceType, int sendCount, int receiveTimeout, CancellationToken cancellationToken)
     {

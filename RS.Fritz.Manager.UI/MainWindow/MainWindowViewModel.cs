@@ -149,20 +149,20 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         get => userMessage;
         private set
         {
-            if (SetProperty(ref userMessage, value))
+            if (!SetProperty(ref userMessage, value))
+                return;
+
+            if (value is null)
             {
-                if (value is null)
-                {
-                    MessageZIndex = ZIndexNoOverlay;
-                    MainContentOpacity = OpacityNoOverlay;
-                    MainContentIsHitTestVisible = true;
-                }
-                else
-                {
-                    MessageZIndex = ZIndexOverlay;
-                    MainContentOpacity = OpacityOverlay;
-                    MainContentIsHitTestVisible = false;
-                }
+                MessageZIndex = ZIndexNoOverlay;
+                MainContentOpacity = OpacityNoOverlay;
+                MainContentIsHitTestVisible = true;
+            }
+            else
+            {
+                MessageZIndex = ZIndexOverlay;
+                MainContentOpacity = OpacityOverlay;
+                MainContentIsHitTestVisible = false;
             }
         }
     }
@@ -216,11 +216,11 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         get => discoveryTabSelected;
         set
         {
-            if (SetProperty(ref discoveryTabSelected, value))
-            {
-                if (value && ActiveView != DeviceLoginInfo.InternetGatewayDevice)
-                    ActiveView = DeviceLoginInfo.InternetGatewayDevice;
-            }
+            if (!SetProperty(ref discoveryTabSelected, value))
+                return;
+
+            if (value && ActiveView != DeviceLoginInfo.InternetGatewayDevice)
+                ActiveView = DeviceLoginInfo.InternetGatewayDevice;
         }
     }
 

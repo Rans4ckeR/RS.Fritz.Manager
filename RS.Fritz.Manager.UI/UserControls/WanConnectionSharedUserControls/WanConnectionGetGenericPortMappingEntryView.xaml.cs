@@ -2,8 +2,5 @@
 
 internal sealed partial class WanConnectionGetGenericPortMappingEntryView
 {
-    public WanConnectionGetGenericPortMappingEntryView()
-    {
-        InitializeComponent();
-    }
+    public WanConnectionGetGenericPortMappingEntryView() => InitializeComponent();
 }

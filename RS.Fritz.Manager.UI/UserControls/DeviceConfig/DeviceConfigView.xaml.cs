@@ -2,8 +2,5 @@
 
 internal sealed partial class DeviceConfigView
 {
-    public DeviceConfigView()
-    {
-        InitializeComponent();
-    }
+    public DeviceConfigView() => InitializeComponent();
 }

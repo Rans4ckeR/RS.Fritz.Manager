@@ -2,8 +2,5 @@
 
 internal sealed partial class WlanConfigurationView
 {
-    public WlanConfigurationView()
-    {
-        InitializeComponent();
-    }
+    public WlanConfigurationView() => InitializeComponent();
 }

@@ -69,10 +69,8 @@ internal sealed class WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, 
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
+        => API.TaskExtensions.WhenAllSafe(
+            [
                 GetWanIpConnectionGetInfoAsync(),
                 GetWanIpConnectionGetConnectionTypeInfoAsync(),
                 GetWanIpConnectionGetStatusInfoAsync(),
@@ -80,9 +78,8 @@ internal sealed class WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, 
                 GetWanIpConnectionGetDnsServersAsync(),
                 GetWanIpConnectionGetPortMappingNumberOfEntriesAsync(),
                 GetWanIpConnectionGetExternalIpAddressAsync()
-            },
+            ],
             true);
-    }
 
     private async Task GetWanIpConnectionGetInfoAsync()
         => WanIpConnectionGetInfoResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetInfoAsync()).ConfigureAwait(true);

@@ -2,8 +2,5 @@
 
 internal sealed partial class HostsHostsCheckUpdateView
 {
-    public HostsHostsCheckUpdateView()
-    {
-        InitializeComponent();
-    }
+    public HostsHostsCheckUpdateView() => InitializeComponent();
 }

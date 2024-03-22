@@ -70,19 +70,16 @@ internal sealed class HostsViewModel(
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
+        => API.TaskExtensions.WhenAllSafe(
+            [
                 GetHostsGetHostListPathAsync(cancellationToken),
                 GetHostsGetMeshListPathAsync(cancellationToken),
                 GetHostsGetHostNumberOfEntriesAsync(),
                 GetHostsGetInfoAsync(),
                 GetHostsGetChangeCounterAsync(),
                 GetHostsGetFriendlyNameAsync()
-            },
+            ],
             true);
-    }
 
     private async Task GetHostsGetHostNumberOfEntriesAsync()
     {

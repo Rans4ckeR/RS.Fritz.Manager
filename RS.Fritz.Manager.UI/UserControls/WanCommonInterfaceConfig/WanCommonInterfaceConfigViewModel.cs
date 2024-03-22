@@ -31,13 +31,13 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
         get => autoRefresh;
         set
         {
-            if (SetProperty(ref autoRefresh, value))
-            {
-                if (value)
-                    autoRefreshTimer.Start();
-                else
-                    autoRefreshTimer.Stop();
-            }
+            if (!SetProperty(ref autoRefresh, value))
+                return;
+
+            if (value)
+                autoRefreshTimer.Start();
+            else
+                autoRefreshTimer.Stop();
         }
     }
 
@@ -79,34 +79,31 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
     {
         base.Receive(message);
 
-        if (message.Sender == DeviceLoginInfo)
+        if (message.Sender != DeviceLoginInfo)
+            return;
+
+        switch (message.PropertyName)
         {
-            switch (message.PropertyName)
-            {
-                case nameof(DeviceLoginInfo.LoginInfoSet):
-                    {
-                        if (!message.NewValue)
-                            AutoRefresh = false;
-                        break;
-                    }
-            }
+            case nameof(DeviceLoginInfo.LoginInfoSet):
+                {
+                    if (!message.NewValue)
+                        AutoRefresh = false;
+                    break;
+                }
         }
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
-               GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(),
-               GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(),
-               GetWanCommonInterfaceConfigGetTotalBytesSentAsync(),
-               GetWanCommonInterfaceConfigGetTotalPacketsReceivedAsync(),
-               GetWanCommonInterfaceConfigGetTotalPacketsSentAsync(),
-               GetWanCommonInterfaceConfigGetOnlineMonitorAsync()
-            },
+        => API.TaskExtensions.WhenAllSafe(
+            [
+                GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(),
+                GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(),
+                GetWanCommonInterfaceConfigGetTotalBytesSentAsync(),
+                GetWanCommonInterfaceConfigGetTotalPacketsReceivedAsync(),
+                GetWanCommonInterfaceConfigGetTotalPacketsSentAsync(),
+                GetWanCommonInterfaceConfigGetOnlineMonitorAsync()
+            ],
             true);
-    }
 
     private async void AutoRefreshTimerTick(object? sender, EventArgs e)
     {

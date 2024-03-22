@@ -70,16 +70,16 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
         get => onlineMonitorDownstreamElements;
         private set
         {
-            if (SetProperty(ref onlineMonitorDownstreamElements, value))
-            {
-                CurrentDownstreamInternetBps = downstreamInternetBps!.First();
-                CurrentDownstreamIpTvBps = downstreamIpTvBps!.First();
-                CurrentUpstreamTotalBps = upstreamTotalBps!.First();
-                CurrentUpstreamRealTimeApplicationsBps = upstreamRealTimeApplicationsBps!.First();
-                CurrentUpstreamPrioritizedApplicationsBps = upstreamPrioritizedApplicationsBps!.First();
-                CurrentUpstreamNormalApplicationsBps = upstreamNormalApplicationsBps!.First();
-                CurrentUpstreamBackgroundApplicationsBps = upstreamBackgroundApplicationsBps!.First();
-            }
+            if (!SetProperty(ref onlineMonitorDownstreamElements, value))
+                return;
+
+            CurrentDownstreamInternetBps = downstreamInternetBps!.First();
+            CurrentDownstreamIpTvBps = downstreamIpTvBps!.First();
+            CurrentUpstreamTotalBps = upstreamTotalBps!.First();
+            CurrentUpstreamRealTimeApplicationsBps = upstreamRealTimeApplicationsBps!.First();
+            CurrentUpstreamPrioritizedApplicationsBps = upstreamPrioritizedApplicationsBps!.First();
+            CurrentUpstreamNormalApplicationsBps = upstreamNormalApplicationsBps!.First();
+            CurrentUpstreamBackgroundApplicationsBps = upstreamBackgroundApplicationsBps!.First();
         }
     }
 
@@ -157,7 +157,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
     protected override bool GetCanExecuteDefaultCommand()
         => base.GetCanExecuteDefaultCommand() && (WanCommonInterfaceConfigGetOnlineMonitorResponse is null || SyncGroupIndex < WanCommonInterfaceConfigGetOnlineMonitorResponse!.Value.Key!.Value.TotalNumberSyncGroups);
 
-    private static void CreateUiElements(double yScale, double xScale, uint min, uint range, List<UIElement> uiElements, IReadOnlyList<uint> values, Brush brush)
+    private static void CreateUiElements(double yScale, double xScale, uint min, uint range, List<UIElement> uiElements, List<uint> values, Brush brush)
     {
         for (int i = 1; i < values.Count; i++)
         {
@@ -206,7 +206,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
         Canvas.SetTop(labelInternet, 50d);
         Canvas.SetLeft(labelIpTvInternet, 0d);
         Canvas.SetTop(labelIpTvInternet, 25d);
-        uiElements.AddRange(new[] { labelMax, labelMin, labelInternet, labelIpTvInternet });
+        uiElements.AddRange([labelMax, labelMin, labelInternet, labelIpTvInternet]);
 
         OnlineMonitorDownstreamElements = uiElements;
     }
@@ -252,7 +252,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
         Canvas.SetTop(labelNormal, 50d);
         Canvas.SetLeft(labelBackground, 0d);
         Canvas.SetTop(labelBackground, 25d);
-        uiElements.AddRange(new[] { labelMax, labelMin, labelTotal, labelRealtime, labelPrioritized, labelNormal, labelBackground });
+        uiElements.AddRange([labelMax, labelMin, labelTotal, labelRealtime, labelPrioritized, labelNormal, labelBackground]);
 
         OnlineMonitorUpstreamElements = uiElements;
     }

@@ -43,7 +43,7 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
         private set => _ = SetProperty(ref downstreamSnrElements, value);
     }
 
-    private static void CreateUiElements(double yScale, double xScale, uint min, uint range, List<UIElement> uiElements, IReadOnlyList<uint> values, Brush brush)
+    private static void CreateUiElements(double yScale, double xScale, uint min, uint range, List<UIElement> uiElements, List<uint> values, Brush brush)
     {
         for (int i = 1; i < values.Count; i++)
         {
@@ -85,7 +85,7 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
         Canvas.SetTop(labelMax, 200);
         Canvas.SetLeft(labelMin, uiElements.OfType<Line>().Last().X2);
         Canvas.SetTop(labelMin, -15d);
-        uiElements.AddRange(new[] { labelMax, labelMin });
+        uiElements.AddRange([labelMax, labelMin]);
 
         DownstreamSnrElements = uiElements;
     }

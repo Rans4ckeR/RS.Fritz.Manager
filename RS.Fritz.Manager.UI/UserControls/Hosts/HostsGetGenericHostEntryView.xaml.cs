@@ -2,8 +2,5 @@
 
 internal sealed partial class HostsGetGenericHostEntryView
 {
-    public HostsGetGenericHostEntryView()
-    {
-        InitializeComponent();
-    }
+    public HostsGetGenericHostEntryView() => InitializeComponent();
 }

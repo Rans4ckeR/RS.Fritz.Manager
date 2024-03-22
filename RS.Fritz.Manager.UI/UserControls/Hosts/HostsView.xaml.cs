@@ -2,8 +2,5 @@
 
 internal sealed partial class HostsView
 {
-    public HostsView()
-    {
-        InitializeComponent();
-    }
+    public HostsView() => InitializeComponent();
 }

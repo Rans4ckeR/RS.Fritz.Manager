@@ -2,8 +2,5 @@
 
 internal sealed partial class LanHostConfigManagementView
 {
-    public LanHostConfigManagementView()
-    {
-        InitializeComponent();
-    }
+    public LanHostConfigManagementView() => InitializeComponent();
 }

@@ -2,8 +2,5 @@
 
 internal sealed partial class TimeSetNtpServersView
 {
-    public TimeSetNtpServersView()
-    {
-        InitializeComponent();
-    }
+    public TimeSetNtpServersView() => InitializeComponent();
 }

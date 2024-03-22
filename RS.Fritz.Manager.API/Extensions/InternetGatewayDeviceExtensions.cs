@@ -334,8 +334,7 @@ public static class InternetGatewayDeviceExtensions
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface2Operation,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface3Operation,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface4Operation)
-    {
-        return interfaceNumber switch
+        => interfaceNumber switch
         {
             1 => interface1Operation,
             2 => interface2Operation,
@@ -343,5 +342,4 @@ public static class InternetGatewayDeviceExtensions
             4 => interface4Operation,
             _ => throw new ArgumentOutOfRangeException(nameof(interfaceNumber), interfaceNumber, null)
         };
-    }
 }

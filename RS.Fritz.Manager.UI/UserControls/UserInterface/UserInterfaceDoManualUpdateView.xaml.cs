@@ -2,8 +2,5 @@
 
 internal sealed partial class UserInterfaceDoManualUpdateView
 {
-    public UserInterfaceDoManualUpdateView()
-    {
-        InitializeComponent();
-    }
+    public UserInterfaceDoManualUpdateView() => InitializeComponent();
 }

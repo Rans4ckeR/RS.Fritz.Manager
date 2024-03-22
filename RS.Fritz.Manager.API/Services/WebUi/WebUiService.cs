@@ -67,7 +67,7 @@ internal sealed class WebUiService(IHttpClientFactory httpClientFactory, INetwor
     }
 
     private Uri GetLoginUri(InternetGatewayDevice internetGatewayDevice)
-        => networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, LoginPath);
+        => networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation!, 443, LoginPath);
 
     private async ValueTask<WebUiSessionInfo> GetResponseAsync(InternetGatewayDevice internetGatewayDevice, IDictionary<string, string> parameters, CancellationToken cancellationToken)
     {

@@ -6,9 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddFritzApi(this IServiceCollection serviceCollection)
-    {
-        return serviceCollection.AddSingleton<IDeviceSearchService, DeviceSearchService>()
+    public static IServiceCollection AddFritzApi(this IServiceCollection serviceCollection) =>
+        serviceCollection.AddSingleton<IDeviceSearchService, DeviceSearchService>()
             .AddSingleton<IDeviceHostsService, DeviceHostsService>()
             .AddSingleton<IDeviceMeshService, DeviceMeshService>()
             .AddSingleton<IWlanDeviceService, WlanDeviceService>()
@@ -39,7 +38,6 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IClientFactory<IFritzUserInterfaceService>, ClientFactory<IFritzUserInterfaceService>>()
             .AddSingleton<IClientFactory<IFritzDeviceConfigService>, ClientFactory<IFritzDeviceConfigService>>()
             .ConfigureHttpClients();
-    }
 
     private static IServiceCollection ConfigureHttpClients(this IServiceCollection serviceCollection)
     {

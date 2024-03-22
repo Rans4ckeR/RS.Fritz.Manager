@@ -2,8 +2,5 @@
 
 internal sealed partial class ManagementServerSetManagementServerPasswordView
 {
-    public ManagementServerSetManagementServerPasswordView()
-    {
-        InitializeComponent();
-    }
+    public ManagementServerSetManagementServerPasswordView() => InitializeComponent();
 }

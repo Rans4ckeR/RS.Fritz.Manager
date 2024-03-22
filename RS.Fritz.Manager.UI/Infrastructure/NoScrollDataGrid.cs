@@ -6,10 +6,7 @@ using System.Windows.Input;
 
 internal sealed class NoScrollDataGrid : DataGrid
 {
-    public NoScrollDataGrid()
-    {
-        PreviewMouseWheel += OnPreviewMouseWheel;
-    }
+    public NoScrollDataGrid() => PreviewMouseWheel += OnPreviewMouseWheel;
 
     private static void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
     {

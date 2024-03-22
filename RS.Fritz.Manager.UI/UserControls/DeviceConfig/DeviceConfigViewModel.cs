@@ -27,15 +27,7 @@ internal sealed class DeviceConfigViewModel(
     public DeviceConfigCreateUrlSidViewModel DeviceConfigCreateUrlSidViewModel { get; } = deviceConfigCreateUrlSidViewModel;
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
-                GetDeviceConfigGetPersistentDataAsync(),
-                GetDeviceConfigGetSupportDataInfoResponseAsync()
-            },
-            true);
-    }
+        => API.TaskExtensions.WhenAllSafe([GetDeviceConfigGetPersistentDataAsync(), GetDeviceConfigGetSupportDataInfoResponseAsync()], true);
 
     private async Task GetDeviceConfigGetPersistentDataAsync()
         => DeviceConfigGetPersistentDataResponse = await ExecuteApiAsync(q => q.DeviceConfigGetPersistentDataAsync()).ConfigureAwait(true);

@@ -2,8 +2,5 @@
 
 internal sealed partial class WanCommonInterfaceConfigSetWanAccessTypeView
 {
-    public WanCommonInterfaceConfigSetWanAccessTypeView()
-    {
-        InitializeComponent();
-    }
+    public WanCommonInterfaceConfigSetWanAccessTypeView() => InitializeComponent();
 }

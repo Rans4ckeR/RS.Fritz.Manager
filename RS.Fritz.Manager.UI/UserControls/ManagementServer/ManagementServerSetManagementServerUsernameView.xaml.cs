@@ -2,8 +2,5 @@
 
 internal sealed partial class ManagementServerSetManagementServerUsernameView
 {
-    public ManagementServerSetManagementServerUsernameView()
-    {
-        InitializeComponent();
-    }
+    public ManagementServerSetManagementServerUsernameView() => InitializeComponent();
 }

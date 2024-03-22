@@ -129,7 +129,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
         private set => _ = SetProperty(ref downstreamPowerHistory, value);
     }
 
-    private List<UIElement> UpdateHistory(IReadOnlyList<uint> values)
+    private List<UIElement> UpdateHistory(List<uint> values)
     {
         const double yScale = 30d;
         const double xScale = 5d;
@@ -169,7 +169,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
         Canvas.SetTop(labelMax, 0.5);
         Canvas.SetLeft(labelMin, uiElements.OfType<Line>().Last().X2);
         Canvas.SetTop(labelMin, 0.5 - 15d);
-        uiElements.AddRange(new[] { labelMax, labelMin });
+        uiElements.AddRange([labelMax, labelMin]);
 
         return uiElements;
     }
