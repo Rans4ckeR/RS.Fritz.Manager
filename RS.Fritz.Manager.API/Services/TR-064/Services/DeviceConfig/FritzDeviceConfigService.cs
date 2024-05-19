@@ -18,4 +18,7 @@ internal sealed class FritzDeviceConfigService(FritzServiceEndpointConfiguration
 
     public Task<DeviceConfigGetSupportDataInfoResponse> GetSupportDataInfoAsync(DeviceConfigGetSupportDataInfoRequest deviceConfigGetSupportDataInfoRequest)
         => Channel.GetSupportDataInfoAsync(deviceConfigGetSupportDataInfoRequest);
+
+    public Task<DeviceConfigGetConfigFileResponse> GetConfigFileAsync(DeviceConfigGetConfigFileRequest deviceConfigGetConfigFileRequest)
+        => Channel.GetConfigFileAsync(deviceConfigGetConfigFileRequest);
 }

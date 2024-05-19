@@ -321,4 +321,6 @@ public interface IFritzServiceOperationHandler
     Task<DeviceConfigCreateUrlSidResponse> DeviceConfigCreateUrlSidAsync(InternetGatewayDevice internetGatewayDevice);
 
     Task<DeviceConfigGetSupportDataInfoResponse> DeviceConfigGetSupportDataInfoAsync(InternetGatewayDevice internetGatewayDevice);
+
+    Task<DeviceConfigGetConfigFileResponse> DeviceConfigGetConfigFileAsync(InternetGatewayDevice internetGatewayDevice, DeviceConfigGetConfigFileRequest deviceConfigGetConfigFileRequest);
 }

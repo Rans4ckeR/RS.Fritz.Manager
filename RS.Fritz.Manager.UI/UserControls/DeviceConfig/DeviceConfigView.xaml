@@ -14,6 +14,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -48,5 +49,6 @@
                 </Grid>
             </Expander>
         </Border>
+        <ContentControl Grid.Row="4" Grid.Column="0" Content="{Binding DeviceConfigGetConfigFileViewModel}"/>
     </Grid>
 </UserControl>

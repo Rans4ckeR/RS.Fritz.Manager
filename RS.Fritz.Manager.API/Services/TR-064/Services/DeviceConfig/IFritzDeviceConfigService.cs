@@ -23,4 +23,9 @@ internal interface IFritzDeviceConfigService : IAsyncDisposable
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]
     Task<DeviceConfigGetSupportDataInfoResponse> GetSupportDataInfoAsync(DeviceConfigGetSupportDataInfoRequest deviceConfigGetSupportDataInfoRequest);
+
+    [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:DeviceConfig:1#X_AVM-DE_GetConfigFile")]
+    [FaultContract(typeof(UPnPFault))]
+    [FaultContract(typeof(AvmUPnPFault))]
+    Task<DeviceConfigGetConfigFileResponse> GetConfigFileAsync(DeviceConfigGetConfigFileRequest deviceConfigGetConfigFileRequest);
 }

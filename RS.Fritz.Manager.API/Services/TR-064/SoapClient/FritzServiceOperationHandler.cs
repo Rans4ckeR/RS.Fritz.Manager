@@ -506,6 +506,9 @@ internal sealed class FritzServiceOperationHandler(
     public Task<DeviceConfigGetSupportDataInfoResponse> DeviceConfigGetSupportDataInfoAsync(InternetGatewayDevice internetGatewayDevice)
         => ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzDeviceConfigServiceClientFactory, (q, r, t) => new FritzDeviceConfigService(q, r, t!), FritzDeviceConfigService.ControlUrl), q => q.GetSupportDataInfoAsync(default));
 
+    public Task<DeviceConfigGetConfigFileResponse> DeviceConfigGetConfigFileAsync(InternetGatewayDevice internetGatewayDevice, DeviceConfigGetConfigFileRequest deviceConfigGetConfigFileRequest)
+        => ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzDeviceConfigServiceClientFactory, (q, r, t) => new FritzDeviceConfigService(q, r, t!), FritzDeviceConfigService.ControlUrl), q => q.GetConfigFileAsync(deviceConfigGetConfigFileRequest));
+
     private static T GetFritzServiceClient<T>(InternetGatewayDevice internetGatewayDevice, IClientFactory<T> clientFactory, Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createService, string controlUrl, bool secure = true)
         => clientFactory.Build(createService, internetGatewayDevice.PreferredLocation!, secure, controlUrl, secure ? internetGatewayDevice.SecurityPort : null, internetGatewayDevice.NetworkCredential);
 

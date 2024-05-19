@@ -328,6 +328,9 @@ public static class InternetGatewayDeviceExtensions
     public static Task<DeviceConfigGetSupportDataInfoResponse> DeviceConfigGetSupportDataInfoAsync(this InternetGatewayDevice internetGatewayDevice)
         => internetGatewayDevice.ExecuteAsync((h, d) => h.DeviceConfigGetSupportDataInfoAsync(d));
 
+    public static Task<DeviceConfigGetConfigFileResponse> DeviceConfigGetConfigFileAsync(this InternetGatewayDevice internetGatewayDevice, DeviceConfigGetConfigFileRequest deviceConfigGetConfigFileRequest)
+        => internetGatewayDevice.ExecuteAsync((h, d) => h.DeviceConfigGetConfigFileAsync(d, deviceConfigGetConfigFileRequest));
+
     private static Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> GetWlanOperation<T>(
         int interfaceNumber,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface1Operation,
