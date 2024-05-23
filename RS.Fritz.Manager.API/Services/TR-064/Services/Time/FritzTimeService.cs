@@ -1,12 +1,10 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.Net;
+using System.ServiceModel.Channels;
 
-internal sealed class FritzTimeService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-    : FritzServiceClient<IFritzTimeService>(endpointConfiguration, remoteAddress, networkCredential), IFritzTimeService
+internal sealed class FritzTimeService(Binding binding, EndpointAddress remoteAddress)
+    : ClientBase<IFritzTimeService>(binding, remoteAddress), IFritzTimeService
 {
-    public const string ControlUrl = "/upnp/control/time";
-
     public Task<TimeGetInfoResponse> GetInfoAsync(TimeGetInfoRequest timeGetInfoRequest)
         => Channel.GetInfoAsync(timeGetInfoRequest);
 

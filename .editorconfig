@@ -606,6 +606,19 @@ dotnet_diagnostic.CA1506.severity = warning
 
 # CA1509: Invalid entry in code metrics rule specification file
 dotnet_diagnostic.CA1509.severity = warning
+dotnet_diagnostic.MSTEST0015.severity = warning
+dotnet_diagnostic.MSTEST0016.severity = warning
+dotnet_diagnostic.CA1871.severity = warning
+dotnet_diagnostic.MSTEST0007.severity = warning
+dotnet_diagnostic.CA1872.severity = warning
+dotnet_diagnostic.MSTEST0019.severity = warning
+dotnet_diagnostic.MSTEST0020.severity = warning
+dotnet_diagnostic.MSTEST0021.severity = warning
+dotnet_diagnostic.MSTEST0022.severity = warning
+dotnet_diagnostic.MSTEST0025.severity = warning
+dotnet_diagnostic.MSTEST0017.severity = warning
+dotnet_diagnostic.MSTEST0023.severity = warning
+dotnet_diagnostic.MSTEST0024.severity = warning
 
 [*.vb]
 dotnet_diagnostic.CA1047.severity = warning

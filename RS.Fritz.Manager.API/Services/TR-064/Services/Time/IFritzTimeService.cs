@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:Time:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzTimeService : IAsyncDisposable
+internal interface IFritzTimeService : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/time";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:Time:1#GetInfo")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]

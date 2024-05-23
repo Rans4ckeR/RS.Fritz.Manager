@@ -2,6 +2,7 @@
 
 using System.Net;
 using System.Net.Security;
+using System.ServiceModel.Channels;
 using Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions
@@ -16,27 +17,27 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IUsersService, UsersService>()
             .AddSingleton<IWebUiService, WebUiService>()
             .AddSingleton<INetworkService, NetworkService>()
-            .AddSingleton<IClientFactory<IFritzLanConfigSecurityService>, ClientFactory<IFritzLanConfigSecurityService>>()
-            .AddSingleton<IClientFactory<IFritzDeviceInfoService>, ClientFactory<IFritzDeviceInfoService>>()
-            .AddSingleton<IClientFactory<IFritzWanDslInterfaceConfigService>, ClientFactory<IFritzWanDslInterfaceConfigService>>()
-            .AddSingleton<IClientFactory<IFritzHostsService>, ClientFactory<IFritzHostsService>>()
-            .AddSingleton<IClientFactory<IFritzWanCommonInterfaceConfigService>, ClientFactory<IFritzWanCommonInterfaceConfigService>>()
-            .AddSingleton<IClientFactory<IFritzLayer3ForwardingService>, ClientFactory<IFritzLayer3ForwardingService>>()
-            .AddSingleton<IClientFactory<IFritzWanPppConnectionService>, ClientFactory<IFritzWanPppConnectionService>>()
-            .AddSingleton<IClientFactory<IFritzWanIpConnectionService>, ClientFactory<IFritzWanIpConnectionService>>()
-            .AddSingleton<IClientFactory<IFritzWanEthernetLinkConfigService>, ClientFactory<IFritzWanEthernetLinkConfigService>>()
-            .AddSingleton<IClientFactory<IFritzWanDslLinkConfigService>, ClientFactory<IFritzWanDslLinkConfigService>>()
-            .AddSingleton<IClientFactory<IFritzAvmSpeedtestService>, ClientFactory<IFritzAvmSpeedtestService>>()
-            .AddSingleton<IClientFactory<IFritzLanEthernetInterfaceConfigService>, ClientFactory<IFritzLanEthernetInterfaceConfigService>>()
-            .AddSingleton<IClientFactory<IFritzLanHostConfigManagementService>, ClientFactory<IFritzLanHostConfigManagementService>>()
-            .AddSingleton<IClientFactory<IFritzWlanConfiguration1Service>, ClientFactory<IFritzWlanConfiguration1Service>>()
-            .AddSingleton<IClientFactory<IFritzWlanConfiguration2Service>, ClientFactory<IFritzWlanConfiguration2Service>>()
-            .AddSingleton<IClientFactory<IFritzWlanConfiguration3Service>, ClientFactory<IFritzWlanConfiguration3Service>>()
-            .AddSingleton<IClientFactory<IFritzWlanConfiguration4Service>, ClientFactory<IFritzWlanConfiguration4Service>>()
-            .AddSingleton<IClientFactory<IFritzManagementServerService>, ClientFactory<IFritzManagementServerService>>()
-            .AddSingleton<IClientFactory<IFritzTimeService>, ClientFactory<IFritzTimeService>>()
-            .AddSingleton<IClientFactory<IFritzUserInterfaceService>, ClientFactory<IFritzUserInterfaceService>>()
-            .AddSingleton<IClientFactory<IFritzDeviceConfigService>, ClientFactory<IFritzDeviceConfigService>>()
+            .AddWcfClient<IFritzLanConfigSecurityService, FritzLanConfigSecurityService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzDeviceInfoService, FritzDeviceInfoService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzWanDslInterfaceConfigService, FritzWanDslInterfaceConfigService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzHostsService, FritzHostsService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzWanCommonInterfaceConfigService, FritzWanCommonInterfaceConfigService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzLayer3ForwardingService, FritzLayer3ForwardingService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzWanPppConnectionService, FritzWanPppConnectionService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzWanIpConnectionService, FritzWanIpConnectionService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzWanEthernetLinkConfigService, FritzWanEthernetLinkConfigService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzWanDslLinkConfigService, FritzWanDslLinkConfigService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzAvmSpeedtestService, FritzAvmSpeedtestService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzLanEthernetInterfaceConfigService, FritzLanEthernetInterfaceConfigService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzLanHostConfigManagementService, FritzLanHostConfigManagementService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzWlanConfiguration1Service, FritzWlanConfiguration1Service>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzWlanConfiguration2Service, FritzWlanConfiguration2Service>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzWlanConfiguration3Service, FritzWlanConfiguration3Service>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzWlanConfiguration4Service, FritzWlanConfiguration4Service>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzManagementServerService, FritzManagementServerService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzTimeService, FritzTimeService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzUserInterfaceService, FritzUserInterfaceService>((binding, endpointAddress) => new(binding, endpointAddress))
+            .AddWcfClient<IFritzDeviceConfigService, FritzDeviceConfigService>((binding, endpointAddress) => new(binding, endpointAddress))
             .ConfigureHttpClients();
 
     private static IServiceCollection ConfigureHttpClients(this IServiceCollection serviceCollection)
@@ -57,8 +58,31 @@ public static class ServiceCollectionExtensions
                         DisableCertificateDownloads = true
                     }
                 },
-                AutomaticDecompression = DecompressionMethods.All
-            });
+                AutomaticDecompression = DecompressionMethods.All,
+                PooledConnectionLifetime = TimeSpan.FromMinutes(15)
+            })
+            .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
+
+        return serviceCollection;
+    }
+
+    private static IServiceCollection AddWcfClient<TInterface, TClient>(this IServiceCollection serviceCollection, Func<Binding, EndpointAddress, TClient> clientFactoryFunc)
+        where TInterface : class, IFritzService
+        where TClient : ClientBase<TInterface>, TInterface
+    {
+        ClientBase<TInterface>.CacheSetting = CacheSetting.AlwaysOn;
+
+        _ = serviceCollection
+            .AddSingleton(clientFactoryFunc)
+            .AddSingleton<IClientFactory<TClient>, ClientFactory<TInterface, TClient>>()
+            .AddHttpClient(typeof(TInterface).ToString())
+            .ConfigurePrimaryHttpMessageHandler(_ => new SocketsHttpHandler
+            {
+                AutomaticDecompression = DecompressionMethods.All,
+                PooledConnectionLifetime = TimeSpan.FromMinutes(15),
+                PreAuthenticate = true
+            })
+            .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
 
         return serviceCollection;
     }

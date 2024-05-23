@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:WLANConfiguration:4")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzWlanConfiguration4Service : IAsyncDisposable
+internal interface IFritzWlanConfiguration4Service : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/wlanconfig4";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:WLANConfiguration:4#GetInfo")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]

@@ -1,12 +1,10 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.Net;
+using System.ServiceModel.Channels;
 
-internal sealed class FritzUserInterfaceService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-    : FritzServiceClient<IFritzUserInterfaceService>(endpointConfiguration, remoteAddress, networkCredential), IFritzUserInterfaceService
+internal sealed class FritzUserInterfaceService(Binding binding, EndpointAddress remoteAddress)
+    : ClientBase<IFritzUserInterfaceService>(binding, remoteAddress), IFritzUserInterfaceService
 {
-    public const string ControlUrl = "/upnp/control/userif";
-
     public Task<UserInterfaceGetInfoResponse> GetInfoAsync(UserInterfaceGetInfoRequest userInterfaceGetInfoRequest)
         => Channel.GetInfoAsync(userInterfaceGetInfoRequest);
 

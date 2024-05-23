@@ -1,12 +1,10 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.Net;
+using System.ServiceModel.Channels;
 
-internal sealed class FritzDeviceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-    : FritzServiceClient<IFritzDeviceConfigService>(endpointConfiguration, remoteAddress, networkCredential), IFritzDeviceConfigService
+internal sealed class FritzDeviceConfigService(Binding binding, EndpointAddress remoteAddress)
+    : ClientBase<IFritzDeviceConfigService>(binding, remoteAddress), IFritzDeviceConfigService
 {
-    public const string ControlUrl = "/upnp/control/deviceconfig";
-
     public Task<DeviceConfigGetPersistentDataResponse> GetPersistentDataAsync(DeviceConfigGetPersistentDataRequest deviceConfigGetPersistentDataRequest)
         => Channel.GetPersistentDataAsync(deviceConfigGetPersistentDataRequest);
 

@@ -1,12 +1,10 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.Net;
+using System.ServiceModel.Channels;
 
-internal sealed class FritzLayer3ForwardingService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-    : FritzServiceClient<IFritzLayer3ForwardingService>(endpointConfiguration, remoteAddress, networkCredential), IFritzLayer3ForwardingService
+internal sealed class FritzLayer3ForwardingService(Binding binding, EndpointAddress remoteAddress)
+    : ClientBase<IFritzLayer3ForwardingService>(binding, remoteAddress), IFritzLayer3ForwardingService
 {
-    public const string ControlUrl = "/upnp/control/layer3forwarding";
-
     public Task<Layer3ForwardingGetDefaultConnectionServiceResponse> GetDefaultConnectionServiceAsync(Layer3ForwardingGetDefaultConnectionServiceRequest layer3ForwardingGetDefaultConnectionServiceRequest)
         => Channel.GetDefaultConnectionServiceAsync(layer3ForwardingGetDefaultConnectionServiceRequest);
 

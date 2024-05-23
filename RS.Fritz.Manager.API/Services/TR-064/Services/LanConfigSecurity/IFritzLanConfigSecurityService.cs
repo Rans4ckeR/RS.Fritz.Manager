@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:LANConfigSecurity:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzLanConfigSecurityService : IAsyncDisposable
+internal interface IFritzLanConfigSecurityService : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/lanconfigsecurity";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:LANConfigSecurity:1#X_AVM-DE_GetCurrentUser")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]

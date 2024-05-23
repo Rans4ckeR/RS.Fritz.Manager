@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:LANEthernetInterfaceConfig:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzLanEthernetInterfaceConfigService : IAsyncDisposable
+internal interface IFritzLanEthernetInterfaceConfigService : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/lanethernetifcfg";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:LANEthernetInterfaceConfig:1#GetInfo")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]

@@ -1,12 +1,10 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.Net;
+using System.ServiceModel.Channels;
 
-internal sealed class FritzDeviceInfoService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential = null)
-    : FritzServiceClient<IFritzDeviceInfoService>(endpointConfiguration, remoteAddress, networkCredential), IFritzDeviceInfoService
+internal sealed class FritzDeviceInfoService(Binding binding, EndpointAddress remoteAddress)
+    : ClientBase<IFritzDeviceInfoService>(binding, remoteAddress), IFritzDeviceInfoService
 {
-    public const string ControlUrl = "/upnp/control/deviceinfo";
-
     public Task<DeviceInfoGetSecurityPortResponse> GetSecurityPortAsync(DeviceInfoGetSecurityPortRequest deviceInfoGetSecurityPortRequest)
         => Channel.GetSecurityPortAsync(deviceInfoGetSecurityPortRequest);
 

@@ -1,12 +1,10 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.Net;
+using System.ServiceModel.Channels;
 
-internal sealed class FritzLanConfigSecurityService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential = null)
-    : FritzServiceClient<IFritzLanConfigSecurityService>(endpointConfiguration, remoteAddress, networkCredential), IFritzLanConfigSecurityService
+internal sealed class FritzLanConfigSecurityService(Binding binding, EndpointAddress remoteAddress)
+    : ClientBase<IFritzLanConfigSecurityService>(binding, remoteAddress), IFritzLanConfigSecurityService
 {
-    public const string ControlUrl = "/upnp/control/lanconfigsecurity";
-
     public Task<LanConfigSecurityGetAnonymousLoginResponse> GetAnonymousLoginAsync(LanConfigSecurityGetAnonymousLoginRequest lanConfigSecurityGetAnonymousLoginRequest)
         => Channel.GetAnonymousLoginAsync(lanConfigSecurityGetAnonymousLoginRequest);
 

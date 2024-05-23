@@ -1,12 +1,10 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.Net;
+using System.ServiceModel.Channels;
 
-internal sealed class FritzLanEthernetInterfaceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-    : FritzServiceClient<IFritzLanEthernetInterfaceConfigService>(endpointConfiguration, remoteAddress, networkCredential), IFritzLanEthernetInterfaceConfigService
+internal sealed class FritzLanEthernetInterfaceConfigService(Binding binding, EndpointAddress remoteAddress)
+    : ClientBase<IFritzLanEthernetInterfaceConfigService>(binding, remoteAddress), IFritzLanEthernetInterfaceConfigService
 {
-    public const string ControlUrl = "/upnp/control/lanethernetifcfg";
-
     public Task<LanEthernetInterfaceConfigGetInfoResponse> GetInfoAsync(LanEthernetInterfaceConfigGetInfoRequest lanEthernetInterfaceConfigGetInfoRequest)
         => Channel.GetInfoAsync(lanEthernetInterfaceConfigGetInfoRequest);
 

@@ -1,12 +1,10 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.Net;
+using System.ServiceModel.Channels;
 
-internal sealed class FritzWlanConfiguration3Service(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-    : FritzServiceClient<IFritzWlanConfiguration3Service>(endpointConfiguration, remoteAddress, networkCredential), IFritzWlanConfiguration3Service
+internal sealed class FritzWlanConfiguration3Service(Binding binding, EndpointAddress remoteAddress)
+    : ClientBase<IFritzWlanConfiguration3Service>(binding, remoteAddress), IFritzWlanConfiguration3Service
 {
-    public const string ControlUrl = "/upnp/control/wlanconfig3";
-
     public Task<WlanConfigurationGetInfoResponse> GetInfoAsync(WlanConfigurationGetInfoRequest wlanConfigurationGetInfoRequest)
         => Channel.GetInfoAsync(wlanConfigurationGetInfoRequest);
 

@@ -1,12 +1,10 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-using System.Net;
+using System.ServiceModel.Channels;
 
-internal sealed class FritzAvmSpeedtestService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-    : FritzServiceClient<IFritzAvmSpeedtestService>(endpointConfiguration, remoteAddress, networkCredential), IFritzAvmSpeedtestService
+internal sealed class FritzAvmSpeedtestService(Binding binding, EndpointAddress remoteAddress)
+    : ClientBase<IFritzAvmSpeedtestService>(binding, remoteAddress), IFritzAvmSpeedtestService
 {
-    public const string ControlUrl = "/upnp/control/x_speedtest";
-
     public Task<AvmSpeedtestGetInfoResponse> GetInfoAsync(AvmSpeedtestGetInfoRequest avmSpeedtestGetInfoRequest)
         => Channel.GetInfoAsync(avmSpeedtestGetInfoRequest);
 

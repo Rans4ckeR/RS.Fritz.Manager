@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:X_AVM-DE_Speedtest:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzAvmSpeedtestService : IAsyncDisposable
+internal interface IFritzAvmSpeedtestService : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/x_speedtest";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:X_AVM-DE_Speedtest:1#GetInfo")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]
