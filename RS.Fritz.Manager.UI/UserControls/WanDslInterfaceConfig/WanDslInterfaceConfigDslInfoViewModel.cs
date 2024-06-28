@@ -11,7 +11,8 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
 {
     private readonly Brush maxBrush = Brushes.LightGreen;
     private readonly Brush minBrush = Brushes.Orange;
-    private readonly Brush lineBrush = Brushes.Green;
+    private readonly Brush downstreamLineBrush = Brushes.Green;
+    private readonly Brush upstreamLineBrush = Brushes.Yellow;
     private readonly ScaleTransform scaleYTransform = new() { ScaleY = -1d };
 
     private KeyValuePair<WanDslInterfaceConfigGetDslInfoResponse?, UPnPFault?>? wanDslInterfaceConfigGetDslInfoResponse;
@@ -23,7 +24,8 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
 
         maxBrush.Freeze();
         minBrush.Freeze();
-        lineBrush.Freeze();
+        downstreamLineBrush.Freeze();
+        upstreamLineBrush.Freeze();
         scaleYTransform.Freeze();
     }
 
@@ -33,7 +35,7 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
         set
         {
             if (SetProperty(ref wanDslInterfaceConfigGetDslInfoResponse, value))
-                UpdateDownstreamSnrElements();
+                UpdateSnrElements();
         }
     }
 
@@ -62,13 +64,15 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
         }
     }
 
-    private void UpdateDownstreamSnrElements()
+    private void UpdateSnrElements()
     {
         const double yScale = 200d;
         const double xScale = 2d;
         var downstreamSnrValues = WanDslInterfaceConfigGetDslInfoResponse!.Value.Key!.Value.SnrPsDs.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
-        uint min = downstreamSnrValues.Min();
-        uint max = downstreamSnrValues.Max();
+        var upstreamSnrValues = WanDslInterfaceConfigGetDslInfoResponse!.Value.Key!.Value.SnrPsUs.Split(',').Select(q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
+        var snrValues = downstreamSnrValues.Concat(upstreamSnrValues).ToList();
+        uint min = snrValues.Min();
+        uint max = snrValues.Max();
         uint range = max - min;
 
         if (range is 0)
@@ -76,7 +80,8 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
 
         var uiElements = new List<UIElement>();
 
-        CreateUiElements(yScale, xScale, min, range, uiElements, downstreamSnrValues, lineBrush);
+        CreateUiElements(yScale, xScale, min, range, uiElements, downstreamSnrValues, downstreamLineBrush);
+        CreateUiElements(yScale, xScale, min, range, uiElements, upstreamSnrValues, upstreamLineBrush);
 
         var labelMax = new Label { Content = max, Foreground = maxBrush, LayoutTransform = scaleYTransform };
         var labelMin = new Label { Content = min, Foreground = minBrush, LayoutTransform = scaleYTransform };
