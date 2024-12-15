@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:Layer3Forwarding:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzLayer3ForwardingService : IAsyncDisposable
+internal interface IFritzLayer3ForwardingService : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/layer3forwarding";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:Layer3Forwarding:1#GetDefaultConnectionService")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]

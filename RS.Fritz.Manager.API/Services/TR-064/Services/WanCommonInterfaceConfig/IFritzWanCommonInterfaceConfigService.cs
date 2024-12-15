@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:WANCommonInterfaceConfig:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzWanCommonInterfaceConfigService : IAsyncDisposable
+internal interface IFritzWanCommonInterfaceConfigService : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/wancommonifconfig1";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:WANCommonInterfaceConfig:1#GetTotalBytesReceived")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]

@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:DeviceConfig:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzDeviceConfigService : IAsyncDisposable
+internal interface IFritzDeviceConfigService : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/deviceconfig";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:DeviceConfig:1#GetPersistentData")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]

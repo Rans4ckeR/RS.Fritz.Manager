@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:Hosts:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzHostsService : IAsyncDisposable
+internal interface IFritzHostsService : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/hosts";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:Hosts:1#GetHostNumberOfEntries")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]

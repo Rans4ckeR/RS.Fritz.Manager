@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:WANDSLInterfaceConfig:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzWanDslInterfaceConfigService : IAsyncDisposable
+internal interface IFritzWanDslInterfaceConfigService : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/wandslifconfig1";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:WANDSLInterfaceConfig:1#GetInfo")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]

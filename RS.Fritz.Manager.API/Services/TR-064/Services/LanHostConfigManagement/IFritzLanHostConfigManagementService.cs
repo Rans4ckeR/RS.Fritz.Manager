@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:LANHostConfigManagement:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzLanHostConfigManagementService : IAsyncDisposable
+internal interface IFritzLanHostConfigManagementService : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/lanhostconfigmgm";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:LANHostConfigManagement:1#GetInfo")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]

@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:UserInterface:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzUserInterfaceService : IAsyncDisposable
+internal interface IFritzUserInterfaceService : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/userif";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:UserInterface:1#GetInfo")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]

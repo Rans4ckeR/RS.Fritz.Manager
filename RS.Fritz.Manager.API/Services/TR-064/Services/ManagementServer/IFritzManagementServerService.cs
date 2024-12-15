@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:ManagementServer:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzManagementServerService : IAsyncDisposable
+internal interface IFritzManagementServerService : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/mgmsrv";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:ManagementServer:1#GetInfo")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]

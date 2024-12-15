@@ -5,8 +5,6 @@ namespace RS.Fritz.Manager.API;
 internal sealed class FritzWanCommonInterfaceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
     : FritzServiceClient<IFritzWanCommonInterfaceConfigService>(endpointConfiguration, remoteAddress, networkCredential), IFritzWanCommonInterfaceConfigService
 {
-    public const string ControlUrl = "/upnp/control/wancommonifconfig1";
-
     public Task<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse> GetCommonLinkPropertiesAsync(WanCommonInterfaceConfigGetCommonLinkPropertiesRequest wanCommonInterfaceConfigGetCommonLinkPropertiesRequest)
         => Channel.GetCommonLinkPropertiesAsync(wanCommonInterfaceConfigGetCommonLinkPropertiesRequest);
 

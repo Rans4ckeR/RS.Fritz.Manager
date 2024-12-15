@@ -5,8 +5,6 @@ namespace RS.Fritz.Manager.API;
 internal sealed class FritzWanDslInterfaceConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
     : FritzServiceClient<IFritzWanDslInterfaceConfigService>(endpointConfiguration, remoteAddress, networkCredential), IFritzWanDslInterfaceConfigService
 {
-    public const string ControlUrl = "/upnp/control/wandslifconfig1";
-
     public Task<WanDslInterfaceConfigGetDslDiagnoseInfoResponse> GetDslDiagnoseInfoAsync(WanDslInterfaceConfigGetDslDiagnoseInfoRequest wanDslInterfaceConfigGetDslDiagnoseInfoRequest)
         => Channel.GetDslDiagnoseInfoAsync(wanDslInterfaceConfigGetDslDiagnoseInfoRequest);
 

@@ -2,8 +2,10 @@
 
 [ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:WANIPConnection:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzWanIpConnectionService : IAsyncDisposable
+internal interface IFritzWanIpConnectionService : IFritzService
 {
+    static string IFritzService.ControlUrl => "/upnp/control/wanipconnection1";
+
     [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:WANIPConnection:1#GetInfo")]
     [FaultContract(typeof(UPnPFault))]
     [FaultContract(typeof(AvmUPnPFault))]
