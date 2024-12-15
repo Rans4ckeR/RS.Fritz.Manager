@@ -2,8 +2,5 @@
 
 internal sealed partial class DeviceConfigCreateUrlSidView
 {
-    public DeviceConfigCreateUrlSidView()
-    {
-        InitializeComponent();
-    }
+    public DeviceConfigCreateUrlSidView() => InitializeComponent();
 }

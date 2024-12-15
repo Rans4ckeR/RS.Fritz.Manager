@@ -1,60 +1,38 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.ComponentModel;
-
 internal sealed class UserInterfaceSetInternationalConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : ManualOperationViewModel<UserInterfaceSetInternationalConfigRequest, UserInterfaceSetInternationalConfigResponse>(deviceLoginInfo, logger, "SetInternationalConfig", "Set InternationalConfig", (d, r) => d.UserInterfaceSetInternationalConfigAsync(r))
 {
-    private string? language;
-    private string? country;
-    private string? annex;
-
     public string? Language
     {
-        get => language;
+        get;
         set
         {
-            if (SetProperty(ref language, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+            if (SetProperty(ref field, value))
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public string? Country
     {
-        get => country;
+        get;
         set
         {
-            if (SetProperty(ref country, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+            if (SetProperty(ref field, value))
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public string? Annex
     {
-        get => annex;
+        get;
         set
         {
-            if (SetProperty(ref annex, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+            if (SetProperty(ref field, value))
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     protected override UserInterfaceSetInternationalConfigRequest BuildRequest()
         => new(Language!, Country!, Annex!);
-
-    protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        base.FritzServiceViewModelPropertyChanged(sender, e);
-
-        switch (e.PropertyName)
-        {
-            case nameof(Language):
-            case nameof(Country):
-            case nameof(Annex):
-                {
-                    UpdateCanExecuteDefaultCommand();
-                    break;
-                }
-        }
-    }
 }

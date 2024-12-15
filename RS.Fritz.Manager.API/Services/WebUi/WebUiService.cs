@@ -1,10 +1,10 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Globalization;
+﻿using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+
+namespace RS.Fritz.Manager.API;
 
 internal sealed class WebUiService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IWebUiService
 {
@@ -67,7 +67,7 @@ internal sealed class WebUiService(IHttpClientFactory httpClientFactory, INetwor
     }
 
     private Uri GetLoginUri(InternetGatewayDevice internetGatewayDevice)
-        => networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, LoginPath);
+        => networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation!, 443, LoginPath);
 
     private async ValueTask<WebUiSessionInfo> GetResponseAsync(InternetGatewayDevice internetGatewayDevice, IDictionary<string, string> parameters, CancellationToken cancellationToken)
     {

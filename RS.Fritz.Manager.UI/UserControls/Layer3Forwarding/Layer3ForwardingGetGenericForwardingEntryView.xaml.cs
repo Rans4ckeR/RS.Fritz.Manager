@@ -2,8 +2,5 @@
 
 internal sealed partial class Layer3ForwardingGetGenericForwardingEntryView
 {
-    public Layer3ForwardingGetGenericForwardingEntryView()
-    {
-        InitializeComponent();
-    }
+    public Layer3ForwardingGetGenericForwardingEntryView() => InitializeComponent();
 }

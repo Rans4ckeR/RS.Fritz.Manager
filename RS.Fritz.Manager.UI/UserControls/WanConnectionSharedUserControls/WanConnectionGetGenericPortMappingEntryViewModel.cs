@@ -1,56 +1,31 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.ComponentModel;
-
-internal abstract class WanConnectionGetGenericPortMappingEntryViewModel : FritzServiceViewModel
+internal abstract class WanConnectionGetGenericPortMappingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger) : FritzServiceViewModel(deviceLoginInfo, logger)
 {
-    private ushort? index;
-    private ushort? portMappingNumberOfEntries;
-    private KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>? wanConnectionGetGenericPortMappingEntryResponse;
-
-    protected WanConnectionGetGenericPortMappingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-        : base(deviceLoginInfo, logger)
-    {
-    }
-
     public ushort? Index
     {
-        get => index;
+        get;
         set
         {
-            if (SetProperty(ref index, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+            if (SetProperty(ref field, value))
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public ushort? PortMappingNumberOfEntries
     {
-        get => portMappingNumberOfEntries;
+        get;
         set
         {
-            if (SetProperty(ref portMappingNumberOfEntries, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+            if (SetProperty(ref field, value))
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>? WanConnectionGetGenericPortMappingEntryResponse
     {
-        get => wanConnectionGetGenericPortMappingEntryResponse;
-        protected set => _ = SetProperty(ref wanConnectionGetGenericPortMappingEntryResponse, value);
-    }
-
-    protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        base.FritzServiceViewModelPropertyChanged(sender, e);
-
-        switch (e.PropertyName)
-        {
-            case nameof(Index):
-                {
-                    UpdateCanExecuteDefaultCommand();
-                    break;
-                }
-        }
+        get;
+        protected set => _ = SetProperty(ref field, value);
     }
 
     protected override bool GetCanExecuteDefaultCommand()

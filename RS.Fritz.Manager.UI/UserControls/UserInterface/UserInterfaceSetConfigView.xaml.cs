@@ -2,8 +2,5 @@
 
 internal sealed partial class UserInterfaceSetConfigView
 {
-    public UserInterfaceSetConfigView()
-    {
-        InitializeComponent();
-    }
+    public UserInterfaceSetConfigView() => InitializeComponent();
 }

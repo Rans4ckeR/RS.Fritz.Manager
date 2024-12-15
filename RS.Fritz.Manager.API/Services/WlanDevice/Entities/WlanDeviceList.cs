@@ -1,6 +1,6 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Xml.Serialization;
 
-using System.Xml.Serialization;
+namespace RS.Fritz.Manager.API;
 
 [XmlRoot(ElementName = "List")]
 public readonly record struct WlanDeviceList(

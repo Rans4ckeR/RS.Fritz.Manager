@@ -1,6 +1,6 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Xml.Serialization;
 
-using System.Xml.Serialization;
+namespace RS.Fritz.Manager.API;
 
 public sealed record WebUiRightAccess : WebUiRight
 {

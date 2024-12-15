@@ -1,12 +1,10 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Net;
 
-using System.Net;
+namespace RS.Fritz.Manager.API;
 
 internal sealed class FritzWanDslLinkConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
     : FritzServiceClient<IFritzWanDslLinkConfigService>(endpointConfiguration, remoteAddress, networkCredential), IFritzWanDslLinkConfigService
 {
-    public const string ControlUrl = "/upnp/control/wandsllinkconfig1";
-
     public Task<WanDslLinkConfigGetInfoResponse> GetInfoAsync(WanDslLinkConfigGetInfoRequest wanDslLinkConfigGetInfoRequest)
         => Channel.GetInfoAsync(wanDslLinkConfigGetInfoRequest);
 

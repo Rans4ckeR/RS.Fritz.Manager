@@ -13,19 +13,17 @@ internal sealed class ManagementServerViewModel(
     ManagementServerSetTr069FirmwareDownloadEnabledViewModel managementServerSetTr069FirmwareDownloadEnabledViewModel)
     : FritzServiceViewModel(deviceLoginInfo, logger, "ManagementServer")
 {
-    private KeyValuePair<ManagementServerGetInfoResponse?, UPnPFault?>? managementServerGetInfoResponse;
-    private KeyValuePair<ManagementServerGetTr069FirmwareDownloadEnabledResponse?, UPnPFault?>? managementServerGetTr069FirmwareDownloadEnabledResponse;
-
     public KeyValuePair<ManagementServerGetInfoResponse?, UPnPFault?>? ManagementServerGetInfoResponse
     {
-        get => managementServerGetInfoResponse;
-        private set => _ = SetProperty(ref managementServerGetInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
-    public KeyValuePair<ManagementServerGetTr069FirmwareDownloadEnabledResponse?, UPnPFault?>? ManagementServerGetTr069FirmwareDownloadEnabledResponse
+    public KeyValuePair<ManagementServerGetTr069FirmwareDownloadEnabledResponse?, UPnPFault?>?
+        ManagementServerGetTr069FirmwareDownloadEnabledResponse
     {
-        get => managementServerGetTr069FirmwareDownloadEnabledResponse;
-        private set => _ = SetProperty(ref managementServerGetTr069FirmwareDownloadEnabledResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public ManagementServerSetManagementServerUrlViewModel ManagementServerSetManagementServerUrlViewModel { get; } = managementServerSetManagementServerUrlViewModel;
@@ -45,15 +43,7 @@ internal sealed class ManagementServerViewModel(
     public ManagementServerSetTr069FirmwareDownloadEnabledViewModel ManagementServerSetTr069FirmwareDownloadEnabledViewModel { get; } = managementServerSetTr069FirmwareDownloadEnabledViewModel;
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
-               GetManagementServerGetInfoAsync(),
-               GetManagementServerGetTr069FirmwareDownloadEnabledAsync()
-            },
-            true);
-    }
+        => API.TaskExtensions.WhenAllSafe([GetManagementServerGetInfoAsync(), GetManagementServerGetTr069FirmwareDownloadEnabledAsync()], true);
 
     private async Task GetManagementServerGetInfoAsync()
         => ManagementServerGetInfoResponse = await ExecuteApiAsync(q => q.ManagementServerGetInfoAsync()).ConfigureAwait(true);

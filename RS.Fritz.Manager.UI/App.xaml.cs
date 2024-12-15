@@ -1,12 +1,12 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
+namespace RS.Fritz.Manager.UI;
 
 internal sealed partial class App
 {
@@ -66,12 +66,10 @@ internal sealed partial class App
         window.WindowState = WindowState.Minimized;
     }
 
-    private static void SetUiCulture()
-    {
+    private static void SetUiCulture() =>
         FrameworkElement.LanguageProperty.OverrideMetadata(
             typeof(FrameworkElement),
             new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
-    }
 
     private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {

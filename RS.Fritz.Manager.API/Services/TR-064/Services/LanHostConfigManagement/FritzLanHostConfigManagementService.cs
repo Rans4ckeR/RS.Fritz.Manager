@@ -1,12 +1,10 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Net;
 
-using System.Net;
+namespace RS.Fritz.Manager.API;
 
 internal sealed class FritzLanHostConfigManagementService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
     : FritzServiceClient<IFritzLanHostConfigManagementService>(endpointConfiguration, remoteAddress, networkCredential), IFritzLanHostConfigManagementService
 {
-    public const string ControlUrl = "/upnp/control/lanhostconfigmgm";
-
     public Task<LanHostConfigManagementGetInfoResponse> GetInfoAsync(LanHostConfigManagementGetInfoRequest lanHostConfigManagementGetInfoRequest)
         => Channel.GetInfoAsync(lanHostConfigManagementGetInfoRequest);
 

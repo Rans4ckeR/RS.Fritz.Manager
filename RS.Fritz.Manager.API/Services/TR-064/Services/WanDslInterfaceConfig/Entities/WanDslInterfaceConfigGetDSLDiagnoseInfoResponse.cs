@@ -34,8 +34,10 @@ public readonly record struct WanDslInterfaceConfigGetDslDiagnoseInfoResponse(
             if ("DONE_CABLE_OK".Equals(DslDiagnoseState, StringComparison.OrdinalIgnoreCase) && CableNokDistance is -1 && DslLastDiagnoseTime > 0 && DslSignalLossTime > 300 && DslActive && !DslSync)
                 return "The measurement for cable cut is finished but the distance could not be detected or is too inaccurate.";
 
+#pragma warning disable IDE0046 // Convert to conditional expression
             if ("NONE".Equals(DslDiagnoseState, StringComparison.OrdinalIgnoreCase) && CableNokDistance is -1 && DslLastDiagnoseTime > 0 && DslSignalLossTime is 0 && DslActive && DslSync)
                 return FormattableString.CurrentCulture($"When the DSL signal is sync again, all values will be set to default values. Except the {nameof(DslLastDiagnoseTime)} which remains at the value of time in seconds between the last measurement and the resync.");
+#pragma warning restore IDE0046 // Convert to conditional expression
 
             return null;
         }

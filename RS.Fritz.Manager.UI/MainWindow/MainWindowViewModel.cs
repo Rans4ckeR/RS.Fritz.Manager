@@ -1,7 +1,4 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.ServiceModel.Security;
 using System.Windows;
 using System.Windows.Media;
@@ -11,6 +8,8 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
+namespace RS.Fritz.Manager.UI;
+
 internal sealed class MainWindowViewModel : FritzServiceViewModel
 {
     private const double OpacityOverlay = 0.75;
@@ -19,18 +18,6 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     private const int ZIndexNoOverlay = -1;
 
     private readonly IDeviceSearchService deviceSearchService;
-    private ObservableCollection<ObservableInternetGatewayDevice> devices = [];
-    private ObservableCollection<User> users = [];
-    private ObservableObject? activeView;
-    private string? userMessage;
-    private bool deviceAndLoginControlsEnabled = true;
-    private bool loginCommandActive;
-    private bool canExecuteLoginCommand;
-    private ImageSource loginButtonImage = new BitmapImage(new("pack://application:,,,/Images/Login.png"));
-    private bool discoveryTabSelected = true;
-    private double mainContentOpacity = OpacityNoOverlay;
-    private bool mainContentIsHitTestVisible = true;
-    private int messageZIndex = ZIndexNoOverlay;
 
     public MainWindowViewModel(
         DeviceLoginInfo deviceLoginInfo,
@@ -81,22 +68,9 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         CopyMessageCommand = new RelayCommand(ExecuteCopyMessageCommand);
         CloseMessageCommand = new RelayCommand(ExecuteCloseMessageCommand);
 
-        StrongReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) =>
-        {
-            ((MainWindowViewModel)r).UserMessage = m.Value.Message;
-        });
-        StrongReferenceMessenger.Default.Register<ActiveViewValueChangedMessage>(this, (r, m) =>
-        {
-            ((MainWindowViewModel)r).ActiveView = m.Value;
-        });
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<IEnumerable<User>>>(this, (r, m) =>
-        {
-            ((MainWindowViewModel)r).Receive(m);
-        });
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<ObservableInternetGatewayDevice?>>(this, (r, m) =>
-        {
-            ((MainWindowViewModel)r).Receive(m);
-        });
+        StrongReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) => ((MainWindowViewModel)r).UserMessage = m.Value.Message);
+        StrongReferenceMessenger.Default.Register<ActiveViewValueChangedMessage>(this, (r, m) => ((MainWindowViewModel)r).ActiveView = m.Value);
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<ObservableInternetGatewayDevice?>>(this, (r, m) => ((MainWindowViewModel)r).Receive(m));
         UpdateCanExecuteDefaultCommand();
     }
 
@@ -144,116 +118,114 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
 
     public DeviceConfigViewModel DeviceConfigViewModel { get; }
 
+#pragma warning disable SA1500 // Braces for multi-line statements should not share line
+#pragma warning disable SA1513 // Closing brace should be followed by blank line
     public double MainContentOpacity
     {
-        get => mainContentOpacity; set => _ = SetProperty(ref mainContentOpacity, value);
-    }
+        get;
+        set => _ = SetProperty(ref field, value);
+    } = OpacityNoOverlay;
 
     public bool MainContentIsHitTestVisible
     {
-        get => mainContentIsHitTestVisible; set => _ = SetProperty(ref mainContentIsHitTestVisible, value);
-    }
+        get;
+        set => _ = SetProperty(ref field, value);
+    } = true;
 
     public int MessageZIndex
     {
-        get => messageZIndex; set => _ = SetProperty(ref messageZIndex, value);
-    }
+        get;
+        set => _ = SetProperty(ref field, value);
+    } = ZIndexNoOverlay;
 
     public string? UserMessage
     {
-        get => userMessage;
+        get;
         private set
         {
-            if (SetProperty(ref userMessage, value))
+            if (!SetProperty(ref field, value))
+                return;
+
+            if (value is null)
             {
-                if (value is null)
-                {
-                    MessageZIndex = ZIndexNoOverlay;
-                    MainContentOpacity = OpacityNoOverlay;
-                    MainContentIsHitTestVisible = true;
-                }
-                else
-                {
-                    MessageZIndex = ZIndexOverlay;
-                    MainContentOpacity = OpacityOverlay;
-                    MainContentIsHitTestVisible = false;
-                }
+                MessageZIndex = ZIndexNoOverlay;
+                MainContentOpacity = OpacityNoOverlay;
+                MainContentIsHitTestVisible = true;
+            }
+            else
+            {
+                MessageZIndex = ZIndexOverlay;
+                MainContentOpacity = OpacityOverlay;
+                MainContentIsHitTestVisible = false;
             }
         }
     }
 
     public bool DeviceAndLoginControlsEnabled
     {
-        get => deviceAndLoginControlsEnabled; set => _ = SetProperty(ref deviceAndLoginControlsEnabled, value);
-    }
-
-    public ObservableCollection<User> Users
-    {
-        get => users;
-        private set
-        {
-            if (SetProperty(ref users, value))
-                DeviceLoginInfo.User = Users.SingleOrDefault(q => q.LastUser);
-        }
-    }
+        get;
+        set => _ = SetProperty(ref field, value);
+    } = true;
 
     public ObservableObject? ActiveView
     {
-        get => activeView;
-        private set => _ = SetProperty(ref activeView, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public ObservableCollection<ObservableInternetGatewayDevice> Devices
     {
-        get => devices;
+        get;
         private set
         {
-            if (SetProperty(ref devices, value) && value.Count is 1)
+            if (SetProperty(ref field, value) && value.Count is 1)
                 DeviceLoginInfo.InternetGatewayDevice = Devices.Single();
         }
-    }
+    } = [];
 
     public IAsyncRelayCommand LoginCommand { get; }
 
     public bool LoginCommandActive
     {
-        get => loginCommandActive;
+        get;
         set
         {
-            if (SetProperty(ref loginCommandActive, value))
+            if (SetProperty(ref field, value))
                 LoginCommand.NotifyCanExecuteChanged();
         }
     }
 
     public ImageSource LoginButtonImage
     {
-        get => loginButtonImage;
+        get;
         private set
         {
-            if (SetProperty(ref loginButtonImage, value))
+            if (SetProperty(ref field, value))
                 value.Freeze();
         }
-    }
+    } = new BitmapImage(new("pack://application:,,,/Images/Login.png"));
 
     public bool DiscoveryTabSelected
     {
-        get => discoveryTabSelected;
+        get;
         set
         {
-            if (SetProperty(ref discoveryTabSelected, value))
-            {
-                if (value && ActiveView != DeviceLoginInfo.InternetGatewayDevice)
-                    ActiveView = DeviceLoginInfo.InternetGatewayDevice;
-            }
+            if (!SetProperty(ref field, value))
+                return;
+
+            if (value && ActiveView != DeviceLoginInfo.InternetGatewayDevice)
+                ActiveView = DeviceLoginInfo.InternetGatewayDevice;
         }
-    }
+    } = true;
+#pragma warning restore SA1500 // Braces for multi-line statements should not share line
+#pragma warning restore SA1513 // Closing brace should be followed by blank line
 
     private bool CanExecuteLoginCommand
     {
-        get => canExecuteLoginCommand;
+        get;
         set
         {
-            if (SetProperty(ref canExecuteLoginCommand, value))
+            if (SetProperty(ref field, value))
                 LoginCommand.NotifyCanExecuteChanged();
         }
     }
@@ -262,37 +234,47 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     {
         base.Receive(message);
 
-        if (message.Sender != DeviceLoginInfo)
-            return;
-
-        switch (message.PropertyName)
+        if (message.Sender == this)
         {
-            case nameof(DeviceLoginInfo.LoginInfoSet):
-                {
-                    if (message.NewValue)
+            switch (message.PropertyName)
+            {
+                case nameof(LoginCommandActive):
+                    {
                         UpdateCanExecuteLoginCommand();
-                    break;
-                }
+                        break;
+                    }
+
+                case nameof(DefaultCommandActive):
+                    {
+                        DeviceAndLoginControlsEnabled = !DefaultCommandActive;
+                        break;
+                    }
+            }
         }
-    }
-
-    protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        base.FritzServiceViewModelPropertyChanged(sender, e);
-
-        switch (e.PropertyName)
+        else if (message.Sender == DeviceLoginInfo)
         {
-            case nameof(LoginCommandActive):
-                {
-                    UpdateCanExecuteLoginCommand();
-                    break;
-                }
+            switch (message.PropertyName)
+            {
+                case nameof(DeviceLoginInfo.LoginInfoSet):
+                    {
+                        if (message.NewValue)
+                            UpdateCanExecuteLoginCommand();
+                        break;
+                    }
 
-            case nameof(DefaultCommandActive):
-                {
-                    DeviceAndLoginControlsEnabled = !DefaultCommandActive;
-                    break;
-                }
+                case nameof(DeviceLoginInfo.Authenticated):
+                    {
+                        if (!message.NewValue)
+                        {
+                            ActiveView = DeviceLoginInfo.InternetGatewayDevice;
+                            LoginButtonImage = new BitmapImage(new("pack://application:,,,/Images/Login.png"));
+
+                            UpdateCanExecuteLoginCommand();
+                        }
+
+                        break;
+                    }
+            }
         }
     }
 
@@ -300,22 +282,10 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     {
         ActiveView = null;
         DeviceLoginInfo.InternetGatewayDevice = null;
-        Devices = new((await deviceSearchService.GetDevicesAsync(cancellationToken: cancellationToken).ConfigureAwait(true)).Select(q => new ObservableInternetGatewayDevice(q)));
+        Devices = [.. (await deviceSearchService.GetInternetGatewayDevicesAsync(cancellationToken: cancellationToken).ConfigureAwait(true)).Select(q => new ObservableInternetGatewayDevice(q))];
     }
 
     protected override bool GetCanExecuteDefaultCommand() => !DefaultCommandActive;
-
-    private void Receive(PropertyChangedMessage<IEnumerable<User>> message)
-    {
-        if (message.Sender != DeviceLoginInfo.InternetGatewayDevice)
-            return;
-
-        Users = message.PropertyName switch
-        {
-            nameof(ObservableInternetGatewayDevice.Users) => new(message.NewValue.OrderByDescending(q => q.LastUser)),
-            _ => Users
-        };
-    }
 
     private void Receive(PropertyChangedMessage<ObservableInternetGatewayDevice?> message)
     {
@@ -336,7 +306,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     }
 
     private void UpdateCanExecuteLoginCommand()
-        => CanExecuteLoginCommand = !LoginCommandActive && DeviceLoginInfo.LoginInfoSet;
+        => CanExecuteLoginCommand = !LoginCommandActive && (DeviceLoginInfo.SelectedInternetGatewayDevice?.IsAvm ?? false) && DeviceLoginInfo.LoginInfoSet;
 
     private async Task ExecuteLoginCommandAsync(bool? showView)
     {
@@ -344,7 +314,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         {
             LoginCommandActive = true;
 
-            await DeviceLoginInfo.InternetGatewayDevice!.GetDeviceTypeAsync().ConfigureAwait(true);
+            await DeviceLoginInfo.GetDeviceTypeAsync().ConfigureAwait(true);
 
             LoginButtonImage = new BitmapImage(new("pack://application:,,,/Images/Success.png"));
         }
@@ -363,7 +333,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     }
 
     private void ExecuteCopyMessageCommand()
-        => Clipboard.SetText(UserMessage);
+        => Clipboard.SetText(UserMessage!);
 
     private void ExecuteCloseMessageCommand()
         => UserMessage = null;

@@ -1,16 +1,15 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Security.Authentication;
+﻿using System.Security.Authentication;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
+
+namespace RS.Fritz.Manager.API;
 
 internal sealed class SslProtocolCertificateEndpointBehavior : IEndpointBehavior
 {
     public SslProtocols SslProtocols { get; set; }
 
-    public void AddBindingParameters(ServiceEndpoint endpoint, BindingParameterCollection bindingParameters)
-    {
+    public void AddBindingParameters(ServiceEndpoint endpoint, BindingParameterCollection bindingParameters) =>
         bindingParameters.Add(new Func<HttpClientHandler, HttpMessageHandler>(q =>
         {
             q.SslProtocols = SslProtocols;
@@ -18,7 +17,6 @@ internal sealed class SslProtocolCertificateEndpointBehavior : IEndpointBehavior
 
             return q;
         }));
-    }
 
     public void ApplyClientBehavior(ServiceEndpoint endpoint, ClientRuntime clientRuntime)
     {

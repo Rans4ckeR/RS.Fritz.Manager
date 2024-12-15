@@ -1,6 +1,7 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Text;
+using System.Xml.Linq;
 
-using System.Text;
+namespace RS.Fritz.Manager.API;
 
 public static class ExceptionMessageBuilder
 {
@@ -41,22 +42,16 @@ public static class ExceptionMessageBuilder
                 .AppendLine(FormattableString.Invariant($"{nameof(FaultException)}.{nameof(FaultException.Reason)}: {faultException.Reason}"))
                 .GetFaultCode(faultException.Code);
 
-#pragma warning disable IDE0045 // Convert to conditional expression
-            if (ex is FaultException<UPnPFault1> upnpFaultFault1Exception)
+            _ = ex switch
             {
-                _ = sb.AppendLine(FormattableString.Invariant($"{nameof(UPnPFault1)}.{nameof(UPnPFault1.ErrorCode)}: {upnpFaultFault1Exception.Detail.ErrorCode}"))
-                    .AppendLine(FormattableString.Invariant($"{nameof(UPnPFault1)}.{nameof(UPnPFault1.ErrorDescription)}: {upnpFaultFault1Exception.Detail.ErrorDescription}"));
-            }
-            else if (ex is FaultException<UPnPFault2> upnpFaultFault2Exception)
-            {
-                _ = sb.AppendLine(FormattableString.Invariant($"{nameof(UPnPFault2)}.{nameof(UPnPFault2.ErrorCode)}: {upnpFaultFault2Exception.Detail.ErrorCode}"))
-                    .AppendLine(FormattableString.Invariant($"{nameof(UPnPFault2)}.{nameof(UPnPFault2.ErrorDescription)}: {upnpFaultFault2Exception.Detail.ErrorDescription}"));
-            }
-            else
-            {
-                throw new NotSupportedException(FormattableString.Invariant($"Encountered unexpected {nameof(FaultException)}."));
-            }
-#pragma warning restore IDE0045 // Convert to conditional expression
+                FaultException<UPnPFault> upnpFaultFaultException => sb
+                    .AppendLine(FormattableString.Invariant($"{nameof(UPnPFault)}.{nameof(UPnPFault.ErrorCode)}: {upnpFaultFaultException.Detail.ErrorCode}"))
+                    .AppendLine(FormattableString.Invariant($"{nameof(UPnPFault)}.{nameof(UPnPFault.ErrorDescription)}: {upnpFaultFaultException.Detail.ErrorDescription}")),
+                FaultException<AvmUPnPFault> avmUpnpFaultFaultException => sb
+                    .AppendLine(FormattableString.Invariant($"{nameof(AvmUPnPFault)}.{nameof(AvmUPnPFault.ErrorCode)}: {avmUpnpFaultFaultException.Detail.ErrorCode}"))
+                    .AppendLine(FormattableString.Invariant($"{nameof(AvmUPnPFault)}.{nameof(AvmUPnPFault.ErrorDescription)}: {avmUpnpFaultFaultException.Detail.ErrorDescription}")),
+                _ => sb.AppendLine(GetFaultReasonContent(faultException))
+            };
         }
 
         _ = sb.AppendLine(FormattableString.Invariant($"{nameof(Exception)}.{nameof(Exception.StackTrace)}: {ex.StackTrace}"));
@@ -76,4 +71,7 @@ public static class ExceptionMessageBuilder
                 .GetFaultCode(faultCode.SubCode);
         }
     }
+
+    private static string GetFaultReasonContent(FaultException ex)
+        => FormattableString.Invariant($"{nameof(FaultException)}.{nameof(FaultException.Reason)}.Content: {XElement.Parse(ex.CreateMessageFault().GetReaderAtDetailContents().ReadOuterXml())}");
 }

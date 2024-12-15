@@ -139,4 +139,7 @@
     <DataTemplate DataType="{x:Type ui:DeviceConfigCreateUrlSidViewModel}">
         <ui:DeviceConfigCreateUrlSidView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type ui:DeviceConfigGetConfigFileViewModel}">
+        <ui:DeviceConfigGetConfigFileView/>
+    </DataTemplate>
 </ResourceDictionary>

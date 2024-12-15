@@ -1,8 +1,8 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+
+namespace RS.Fritz.Manager.API;
 
 internal sealed class DeviceMeshStreamConfigurationArrayJsonConverter : JsonConverter<DeviceMeshStreamConfiguration[]>
 {
@@ -19,7 +19,7 @@ internal sealed class DeviceMeshStreamConfigurationArrayJsonConverter : JsonConv
         while (reader.Read())
         {
             if (reader.TokenType is JsonTokenType.EndArray)
-                return deviceMeshStreamConfigurations.ToArray();
+                return [.. deviceMeshStreamConfigurations];
 
             if (reader.TokenType is not JsonTokenType.StartArray)
                 throw new JsonException();

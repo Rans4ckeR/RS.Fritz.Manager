@@ -3,31 +3,20 @@
 internal sealed class LanEthernetInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : FritzServiceViewModel(deviceLoginInfo, logger, "LANEthernetInterfaceConfig")
 {
-    private KeyValuePair<LanEthernetInterfaceConfigGetInfoResponse?, UPnPFault?>? lanEthernetInterfaceConfigGetInfoResponse;
-    private KeyValuePair<LanEthernetInterfaceConfigGetStatisticsResponse?, UPnPFault?>? lanEthernetInterfaceConfigGetStatisticsResponse;
-
     public KeyValuePair<LanEthernetInterfaceConfigGetInfoResponse?, UPnPFault?>? LanEthernetInterfaceConfigGetInfoResponse
     {
-        get => lanEthernetInterfaceConfigGetInfoResponse;
-        private set => _ = SetProperty(ref lanEthernetInterfaceConfigGetInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<LanEthernetInterfaceConfigGetStatisticsResponse?, UPnPFault?>? LanEthernetInterfaceConfigGetStatisticsResponse
     {
-        get => lanEthernetInterfaceConfigGetStatisticsResponse;
-        private set => _ = SetProperty(ref lanEthernetInterfaceConfigGetStatisticsResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
-                GetLanEthernetInterfaceConfigGetInfoAsync(),
-                GetLanEthernetInterfaceConfigGetStatisticsAsync()
-            },
-            true);
-    }
+        => API.TaskExtensions.WhenAllSafe([GetLanEthernetInterfaceConfigGetInfoAsync(), GetLanEthernetInterfaceConfigGetStatisticsAsync()], true);
 
     private async Task GetLanEthernetInterfaceConfigGetInfoAsync()
         => LanEthernetInterfaceConfigGetInfoResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetInfoAsync()).ConfigureAwait(true);

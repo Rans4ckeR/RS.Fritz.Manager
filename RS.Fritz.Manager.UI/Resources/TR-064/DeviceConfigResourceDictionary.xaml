@@ -62,4 +62,17 @@
             <TextBlock x:Name="SupportDataStatus" Grid.Row="3" Grid.Column="1" Text="{Binding SupportDataStatus}"/>
         </Grid>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type api:DeviceConfigGetConfigFileResponse}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ConfigFileUrl}" Content="_ConfigFileUrl" ToolTip="Encrypted config file URL, valid for less than 30 seconds."/>
+            <ContentControl x:Name="ConfigFileUrl" Grid.Row="0" Grid.Column="1" ContentTemplate="{StaticResource UrlDataTemplate}" Content="{Binding ConfigFileUrl}"/>
+        </Grid>
+    </DataTemplate>
 </ResourceDictionary>

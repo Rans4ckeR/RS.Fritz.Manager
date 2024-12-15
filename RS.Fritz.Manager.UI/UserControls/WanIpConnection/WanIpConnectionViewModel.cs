@@ -1,78 +1,67 @@
-﻿namespace RS.Fritz.Manager.UI;
+﻿using System.Collections.ObjectModel;
 
-using System.Collections.ObjectModel;
+namespace RS.Fritz.Manager.UI;
 
 internal sealed class WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanIpConnectionGetGenericPortMappingEntryViewModel wanIpConnectionGetGenericPortMappingEntryViewModel)
     : WanAccessTypeAwareFritzServiceViewModel(deviceLoginInfo, logger, WanAccessType.Ethernet, "WANIPConnection")
 {
-    private KeyValuePair<WanIpConnectionGetInfoResponse?, UPnPFault?>? wanIpConnectionGetInfoResponse;
-    private KeyValuePair<WanConnectionGetConnectionTypeInfoResponse?, UPnPFault?>? wanConnectionGetConnectionTypeInfoResponse;
-    private KeyValuePair<WanConnectionGetStatusInfoResponse?, UPnPFault?>? wanConnectionGetStatusInfoResponse;
-    private KeyValuePair<WanConnectionGetNatRsipStatusResponse?, UPnPFault?>? wanConnectionGetNatRsipStatusResponse;
-    private KeyValuePair<WanConnectionGetDnsServersResponse?, UPnPFault?>? wanConnectionGetDnsServersResponse;
-    private KeyValuePair<WanConnectionGetPortMappingNumberOfEntriesResponse?, UPnPFault?>? wanConnectionGetPortMappingNumberOfEntriesResponse;
-    private KeyValuePair<WanConnectionGetExternalIpAddressResponse?, UPnPFault?>? wanConnectionGetExternalIpAddressResponse;
-    private ObservableCollection<WanConnectionGetGenericPortMappingEntryResponse>? wanConnectionGetGenericPortMappingEntryResponses;
-
     public WanIpConnectionGetGenericPortMappingEntryViewModel WanIpConnectionGetGenericPortMappingEntryViewModel { get; } = wanIpConnectionGetGenericPortMappingEntryViewModel;
 
     public KeyValuePair<WanIpConnectionGetInfoResponse?, UPnPFault?>? WanIpConnectionGetInfoResponse
     {
-        get => wanIpConnectionGetInfoResponse;
-        private set => _ = SetProperty(ref wanIpConnectionGetInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanConnectionGetConnectionTypeInfoResponse?, UPnPFault?>? WanConnectionGetConnectionTypeInfoResponse
     {
-        get => wanConnectionGetConnectionTypeInfoResponse;
-        private set => _ = SetProperty(ref wanConnectionGetConnectionTypeInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanConnectionGetStatusInfoResponse?, UPnPFault?>? WanConnectionGetStatusInfoResponse
     {
-        get => wanConnectionGetStatusInfoResponse;
-        private set => _ = SetProperty(ref wanConnectionGetStatusInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanConnectionGetNatRsipStatusResponse?, UPnPFault?>? WanConnectionGetNatRsipStatusResponse
     {
-        get => wanConnectionGetNatRsipStatusResponse;
-        private set => _ = SetProperty(ref wanConnectionGetNatRsipStatusResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanConnectionGetDnsServersResponse?, UPnPFault?>? WanConnectionGetDnsServersResponse
     {
-        get => wanConnectionGetDnsServersResponse;
-        private set => _ = SetProperty(ref wanConnectionGetDnsServersResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanConnectionGetPortMappingNumberOfEntriesResponse?, UPnPFault?>? WanConnectionGetPortMappingNumberOfEntriesResponse
     {
-        get => wanConnectionGetPortMappingNumberOfEntriesResponse;
+        get;
         private set
         {
-            if (SetProperty(ref wanConnectionGetPortMappingNumberOfEntriesResponse, value))
+            if (SetProperty(ref field, value))
                 WanIpConnectionGetGenericPortMappingEntryViewModel.PortMappingNumberOfEntries = WanConnectionGetPortMappingNumberOfEntriesResponse?.Key!.Value.PortMappingNumberOfEntries;
         }
     }
 
     public KeyValuePair<WanConnectionGetExternalIpAddressResponse?, UPnPFault?>? WanConnectionGetExternalIpAddressResponse
     {
-        get => wanConnectionGetExternalIpAddressResponse;
-        private set => _ = SetProperty(ref wanConnectionGetExternalIpAddressResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public ObservableCollection<WanConnectionGetGenericPortMappingEntryResponse>? WanConnectionGetGenericPortMappingEntryResponses
     {
-        get => wanConnectionGetGenericPortMappingEntryResponses;
-        private set => _ = SetProperty(ref wanConnectionGetGenericPortMappingEntryResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
+        => API.TaskExtensions.WhenAllSafe(
+            [
                 GetWanIpConnectionGetInfoAsync(),
                 GetWanIpConnectionGetConnectionTypeInfoAsync(),
                 GetWanIpConnectionGetStatusInfoAsync(),
@@ -80,9 +69,8 @@ internal sealed class WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, 
                 GetWanIpConnectionGetDnsServersAsync(),
                 GetWanIpConnectionGetPortMappingNumberOfEntriesAsync(),
                 GetWanIpConnectionGetExternalIpAddressAsync()
-            },
+            ],
             true);
-    }
 
     private async Task GetWanIpConnectionGetInfoAsync()
         => WanIpConnectionGetInfoResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetInfoAsync()).ConfigureAwait(true);
@@ -115,7 +103,7 @@ internal sealed class WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, 
 
         KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
 
-        WanConnectionGetGenericPortMappingEntryResponses = new(responses.Select(q => q.Key!.Value));
+        WanConnectionGetGenericPortMappingEntryResponses = [.. responses.Select(q => q.Key!.Value)];
     }
 
     private async Task GetWanIpConnectionGetExternalIpAddressAsync()

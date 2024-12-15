@@ -328,14 +328,16 @@ public static class InternetGatewayDeviceExtensions
     public static Task<DeviceConfigGetSupportDataInfoResponse> DeviceConfigGetSupportDataInfoAsync(this InternetGatewayDevice internetGatewayDevice)
         => internetGatewayDevice.ExecuteAsync((h, d) => h.DeviceConfigGetSupportDataInfoAsync(d));
 
+    public static Task<DeviceConfigGetConfigFileResponse> DeviceConfigGetConfigFileAsync(this InternetGatewayDevice internetGatewayDevice, DeviceConfigGetConfigFileRequest deviceConfigGetConfigFileRequest)
+        => internetGatewayDevice.ExecuteAsync((h, d) => h.DeviceConfigGetConfigFileAsync(d, deviceConfigGetConfigFileRequest));
+
     private static Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> GetWlanOperation<T>(
         int interfaceNumber,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface1Operation,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface2Operation,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface3Operation,
         Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<T>> interface4Operation)
-    {
-        return interfaceNumber switch
+        => interfaceNumber switch
         {
             1 => interface1Operation,
             2 => interface2Operation,
@@ -343,5 +345,4 @@ public static class InternetGatewayDeviceExtensions
             4 => interface4Operation,
             _ => throw new ArgumentOutOfRangeException(nameof(interfaceNumber), interfaceNumber, null)
         };
-    }
 }

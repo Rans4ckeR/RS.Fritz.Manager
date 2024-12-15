@@ -3,63 +3,58 @@
 internal sealed class LanHostConfigManagementViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : FritzServiceViewModel(deviceLoginInfo, logger, "LANHostConfigManagement")
 {
-    private KeyValuePair<LanHostConfigManagementGetInfoResponse?, UPnPFault?>? lanHostConfigManagementGetInfoResponse;
-    private KeyValuePair<LanHostConfigManagementGetSubnetMaskResponse?, UPnPFault?>? lanHostConfigManagementGetSubnetMaskResponse;
-    private KeyValuePair<LanHostConfigManagementGetIpRoutersListResponse?, UPnPFault?>? lanHostConfigManagementGetIpRoutersListResponse;
-    private KeyValuePair<LanHostConfigManagementGetAddressRangeResponse?, UPnPFault?>? lanHostConfigManagementGetAddressRangeResponse;
-    private KeyValuePair<LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse?, UPnPFault?>? lanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse;
-    private KeyValuePair<LanHostConfigManagementGetDnsServersResponse?, UPnPFault?>? lanHostConfigManagementGetDnsServersResponse;
-
     public KeyValuePair<LanHostConfigManagementGetInfoResponse?, UPnPFault?>? LanHostConfigManagementGetInfoResponse
     {
-        get => lanHostConfigManagementGetInfoResponse;
-        private set => _ = SetProperty(ref lanHostConfigManagementGetInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
-    public KeyValuePair<LanHostConfigManagementGetSubnetMaskResponse?, UPnPFault?>? LanHostConfigManagementGetSubnetMaskResponse
+    public KeyValuePair<LanHostConfigManagementGetSubnetMaskResponse?, UPnPFault?>?
+        LanHostConfigManagementGetSubnetMaskResponse
     {
-        get => lanHostConfigManagementGetSubnetMaskResponse;
-        private set => _ = SetProperty(ref lanHostConfigManagementGetSubnetMaskResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
-    public KeyValuePair<LanHostConfigManagementGetIpRoutersListResponse?, UPnPFault?>? LanHostConfigManagementGetIpRoutersListResponse
+    public KeyValuePair<LanHostConfigManagementGetIpRoutersListResponse?, UPnPFault?>?
+        LanHostConfigManagementGetIpRoutersListResponse
     {
-        get => lanHostConfigManagementGetIpRoutersListResponse;
-        private set => _ = SetProperty(ref lanHostConfigManagementGetIpRoutersListResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
-    public KeyValuePair<LanHostConfigManagementGetAddressRangeResponse?, UPnPFault?>? LanHostConfigManagementGetAddressRangeResponse
+    public KeyValuePair<LanHostConfigManagementGetAddressRangeResponse?, UPnPFault?>?
+        LanHostConfigManagementGetAddressRangeResponse
     {
-        get => lanHostConfigManagementGetAddressRangeResponse;
-        private set => _ = SetProperty(ref lanHostConfigManagementGetAddressRangeResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
-    public KeyValuePair<LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse?, UPnPFault?>? LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse
+    public KeyValuePair<LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse?, UPnPFault?>?
+        LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse
     {
-        get => lanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse;
-        private set => _ = SetProperty(ref lanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
-    public KeyValuePair<LanHostConfigManagementGetDnsServersResponse?, UPnPFault?>? LanHostConfigManagementGetDnsServersResponse
+    public KeyValuePair<LanHostConfigManagementGetDnsServersResponse?, UPnPFault?>?
+        LanHostConfigManagementGetDnsServersResponse
     {
-        get => lanHostConfigManagementGetDnsServersResponse;
-        private set => _ = SetProperty(ref lanHostConfigManagementGetDnsServersResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
+        => API.TaskExtensions.WhenAllSafe(
+            [
                 GetLanHostConfigManagementGetInfoAsync(),
                 LanHostConfigManagementGetSubnetMaskAsync(),
                 LanHostConfigManagementGetIpRoutersListAsync(),
                 LanHostConfigManagementGetAddressRangeAsync(),
                 LanHostConfigManagementGetIpInterfaceNumberOfEntriesAsync(),
                 LanHostConfigManagementGetDnsServersAsync()
-            },
+            ],
             true);
-    }
 
     private async Task GetLanHostConfigManagementGetInfoAsync()
         => LanHostConfigManagementGetInfoResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetInfoAsync()).ConfigureAwait(true);

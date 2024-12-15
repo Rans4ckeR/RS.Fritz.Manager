@@ -1,28 +1,23 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal abstract class ManualOperationViewModel<TRequest, TResponse> : FritzServiceViewModel
+internal abstract class ManualOperationViewModel<TRequest, TResponse>(
+    DeviceLoginInfo deviceLoginInfo,
+    ILogger logger,
+    string title,
+    string buttonText,
+    Func<InternetGatewayDevice, TRequest, Task<TResponse>> operation)
+    : FritzServiceViewModel(deviceLoginInfo, logger)
     where TRequest : struct
     where TResponse : struct
 {
-    private readonly Func<InternetGatewayDevice, TRequest, Task<TResponse>> operation;
-    private KeyValuePair<TResponse?, UPnPFault?>? response;
+    public string Title { get; } = title;
 
-    protected ManualOperationViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, string title, string buttonText, Func<InternetGatewayDevice, TRequest, Task<TResponse>> operation)
-        : base(deviceLoginInfo, logger)
-    {
-        this.operation = operation;
-        Title = title;
-        ButtonText = buttonText;
-    }
-
-    public string Title { get; }
-
-    public string ButtonText { get; }
+    public string ButtonText { get; } = buttonText;
 
     public KeyValuePair<TResponse?, UPnPFault?>? Response
     {
-        get => response;
-        private set => _ = SetProperty(ref response, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected virtual TRequest BuildRequest() => default;

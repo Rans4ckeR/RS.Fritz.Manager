@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
-    <SupportedOSPlatformVersion>10.0.22621.0</SupportedOSPlatformVersion>
+    <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <AssemblyName>RS.Fritz.Manager.UI</AssemblyName>
     <RootNamespace>RS.Fritz.Manager.UI</RootNamespace>
@@ -31,16 +31,18 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Images\Avm.png" />
     <None Remove="Images\Device.png" />
     <None Remove="Images\Search.png" />
+    <None Remove="Images\UPnP.png" />
     <None Remove="Images\User.png" />
     <None Remove="Images\Login.png" />
     <None Remove="Images\Fail.png" />
     <None Remove="Images\Success.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -50,8 +52,10 @@
     <ProjectReference Include="..\RS.Fritz.Manager.API\RS.Fritz.Manager.API.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\Avm.png" />
     <Resource Include="Images\Device.png" />
     <Resource Include="Images\Search.png" />
+    <Resource Include="Images\UPnP.png" />
     <Resource Include="Images\User.png" />
     <Resource Include="Images\Login.png" />
     <Resource Include="Images\Fail.png" />
@@ -161,6 +165,9 @@
     <Page Update="UserControls\DeviceConfig\DeviceConfigGenerateUuIdView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControls\DeviceConfig\DeviceConfigGetConfigFileView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
     <Page Update="UserControls\Hosts\HostsHostsCheckUpdateView.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>

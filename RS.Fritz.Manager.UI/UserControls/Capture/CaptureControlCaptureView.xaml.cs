@@ -2,8 +2,5 @@
 
 internal sealed partial class CaptureControlCaptureView
 {
-    public CaptureControlCaptureView()
-    {
-        InitializeComponent();
-    }
+    public CaptureControlCaptureView() => InitializeComponent();
 }

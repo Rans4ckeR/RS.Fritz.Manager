@@ -1,56 +1,37 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-using System.ComponentModel;
-
 internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : FritzServiceViewModel(deviceLoginInfo, logger)
 {
-    private ushort? index;
-    private ushort? forwardNumberOfEntries;
-    private KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>? layer3ForwardingGetGenericForwardingEntryResponse;
-
     public ushort? Index
     {
-        get => index;
+        get;
         set
         {
-            if (SetProperty(ref index, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+            if (SetProperty(ref field, value))
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public ushort? ForwardNumberOfEntries
     {
-        get => forwardNumberOfEntries;
+        get;
         set
         {
-            if (SetProperty(ref forwardNumberOfEntries, value))
-                DefaultCommand.NotifyCanExecuteChanged();
+            if (SetProperty(ref field, value))
+                UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
-    public KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>? Layer3ForwardingGetGenericForwardingEntryResponse
+    public KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>?
+        Layer3ForwardingGetGenericForwardingEntryResponse
     {
-        get => layer3ForwardingGetGenericForwardingEntryResponse;
-        private set => _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
         => Layer3ForwardingGetGenericForwardingEntryResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetGenericForwardingEntryAsync(new(Index!.Value))).ConfigureAwait(true);
-
-    protected override void FritzServiceViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        base.FritzServiceViewModelPropertyChanged(sender, e);
-
-        switch (e.PropertyName)
-        {
-            case nameof(Index):
-                {
-                    UpdateCanExecuteDefaultCommand();
-                    break;
-                }
-        }
-    }
 
     protected override bool GetCanExecuteDefaultCommand()
         => base.GetCanExecuteDefaultCommand() && Index >= 0 && Index < ForwardNumberOfEntries;

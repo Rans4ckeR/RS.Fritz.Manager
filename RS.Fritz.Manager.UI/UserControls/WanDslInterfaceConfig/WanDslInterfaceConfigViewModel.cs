@@ -1,15 +1,11 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using System.Windows.Threading;
+﻿using System.Windows.Threading;
 using CommunityToolkit.Mvvm.Messaging.Messages;
+
+namespace RS.Fritz.Manager.UI;
 
 internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzServiceViewModel
 {
     private readonly DispatcherTimer autoRefreshTimer;
-
-    private bool autoRefresh;
-    private KeyValuePair<WanDslInterfaceConfigGetDslDiagnoseInfoResponse?, UPnPFault?>? wanDslInterfaceConfigGetDslDiagnoseInfoResponse;
-    private KeyValuePair<WanDslInterfaceConfigGetStatisticsTotalResponse?, UPnPFault?>? wanDslInterfaceConfigGetStatisticsTotalResponse;
 
     public WanDslInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanDslInterfaceConfigInfoViewModel wanDslInterfaceConfigInfoViewModel, WanDslInterfaceConfigDslInfoViewModel wanDslInterfaceConfigDslInfoViewModel)
         : base(deviceLoginInfo, logger, WanAccessType.Dsl, "WANDSLInterfaceConfig")
@@ -25,29 +21,29 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
 
     public bool AutoRefresh
     {
-        get => autoRefresh;
+        get;
         set
         {
-            if (SetProperty(ref autoRefresh, value))
-            {
-                if (value)
-                    autoRefreshTimer.Start();
-                else
-                    autoRefreshTimer.Stop();
-            }
+            if (!SetProperty(ref field, value))
+                return;
+
+            if (value)
+                autoRefreshTimer.Start();
+            else
+                autoRefreshTimer.Stop();
         }
     }
 
     public KeyValuePair<WanDslInterfaceConfigGetDslDiagnoseInfoResponse?, UPnPFault?>? WanDslInterfaceConfigGetDslDiagnoseInfoResponse
     {
-        get => wanDslInterfaceConfigGetDslDiagnoseInfoResponse;
-        private set => _ = SetProperty(ref wanDslInterfaceConfigGetDslDiagnoseInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanDslInterfaceConfigGetStatisticsTotalResponse?, UPnPFault?>? WanDslInterfaceConfigGetStatisticsTotalResponse
     {
-        get => wanDslInterfaceConfigGetStatisticsTotalResponse;
-        private set => _ = SetProperty(ref wanDslInterfaceConfigGetStatisticsTotalResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public WanDslInterfaceConfigInfoViewModel WanDslInterfaceConfigInfoViewModel { get; }
@@ -73,17 +69,14 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
+        => API.TaskExtensions.WhenAllSafe(
+            [
                 GetWanDslInterfaceConfigGetDslDiagnoseInfoAsync(),
                 GetWanDslInterfaceConfigGetDslInfoAsync(),
                 GetWanDslInterfaceConfigGetInfoAsync(),
                 GetWanDslInterfaceConfigGetStatisticsTotalAsync()
-            },
+            ],
             true);
-    }
 
     private async void AutoRefreshTimerTick(object? sender, EventArgs e)
     {

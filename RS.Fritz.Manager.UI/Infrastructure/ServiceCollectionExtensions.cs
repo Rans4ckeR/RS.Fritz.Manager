@@ -1,12 +1,11 @@
-﻿namespace RS.Fritz.Manager.UI;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-using Microsoft.Extensions.DependencyInjection;
+namespace RS.Fritz.Manager.UI;
 
 internal static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddViewModels(this IServiceCollection serviceCollection)
-    {
-        return serviceCollection.AddSingleton<MainWindowViewModel>()
+    public static IServiceCollection AddViewModels(this IServiceCollection serviceCollection) =>
+        serviceCollection.AddSingleton<MainWindowViewModel>()
             .AddSingleton<DeviceInfoViewModel>()
             .AddSingleton<DeviceInfoSetProvisioningCodeViewModel>()
             .AddSingleton<LanConfigSecurityViewModel>()
@@ -53,6 +52,6 @@ internal static class ServiceCollectionExtensions
             .AddSingleton<UserInterfaceSetConfigViewModel>()
             .AddSingleton<DeviceConfigViewModel>()
             .AddSingleton<DeviceConfigGenerateUuIdViewModel>()
-            .AddSingleton<DeviceConfigCreateUrlSidViewModel>();
-    }
+            .AddSingleton<DeviceConfigCreateUrlSidViewModel>()
+            .AddSingleton<DeviceConfigGetConfigFileViewModel>();
 }

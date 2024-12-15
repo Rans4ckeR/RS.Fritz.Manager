@@ -4,7 +4,7 @@ public static class DeviceExtensions
 {
     public static IEnumerable<ServiceListItem> GetServices(this Device device)
     {
-        IEnumerable<ServiceListItem> serviceListItems = device.ServiceList;
+        IEnumerable<ServiceListItem> serviceListItems = device.ServiceList ?? [];
 
         foreach (Device deviceListItem in device.DeviceList ?? [])
         {

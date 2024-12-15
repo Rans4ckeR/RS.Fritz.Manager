@@ -1,16 +1,18 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-[ServiceContract(Namespace = "urn:dslforum-org:service:LANEthernetInterfaceConfig:1")]
+[ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:LANEthernetInterfaceConfig:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzLanEthernetInterfaceConfigService : IAsyncDisposable
+internal interface IFritzLanEthernetInterfaceConfigService : IFritzService
 {
-    [OperationContract(Action = "urn:dslforum-org:service:LANEthernetInterfaceConfig:1#GetInfo")]
-    [FaultContract(typeof(UPnPFault1))]
-    [FaultContract(typeof(UPnPFault2))]
+    static string IFritzService.ControlUrl => "/upnp/control/lanethernetifcfg";
+
+    [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:LANEthernetInterfaceConfig:1#GetInfo")]
+    [FaultContract(typeof(UPnPFault))]
+    [FaultContract(typeof(AvmUPnPFault))]
     Task<LanEthernetInterfaceConfigGetInfoResponse> GetInfoAsync(LanEthernetInterfaceConfigGetInfoRequest lanEthernetInterfaceConfigGetInfoRequest);
 
-    [OperationContract(Action = "urn:dslforum-org:service:LANEthernetInterfaceConfig:1#GetStatistics")]
-    [FaultContract(typeof(UPnPFault1))]
-    [FaultContract(typeof(UPnPFault2))]
+    [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:LANEthernetInterfaceConfig:1#GetStatistics")]
+    [FaultContract(typeof(UPnPFault))]
+    [FaultContract(typeof(AvmUPnPFault))]
     Task<LanEthernetInterfaceConfigGetStatisticsResponse> GetStatisticsAsync(LanEthernetInterfaceConfigGetStatisticsRequest lanEthernetInterfaceConfigGetStatisticsRequest);
 }

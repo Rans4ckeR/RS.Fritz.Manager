@@ -2,8 +2,5 @@
 
 internal sealed partial class TimeView
 {
-    public TimeView()
-    {
-        InitializeComponent();
-    }
+    public TimeView() => InitializeComponent();
 }

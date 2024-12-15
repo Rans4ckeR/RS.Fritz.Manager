@@ -2,8 +2,5 @@
 
 internal sealed partial class WanCommonInterfaceConfigGetOnlineMonitorView
 {
-    public WanCommonInterfaceConfigGetOnlineMonitorView()
-    {
-        InitializeComponent();
-    }
+    public WanCommonInterfaceConfigGetOnlineMonitorView() => InitializeComponent();
 }

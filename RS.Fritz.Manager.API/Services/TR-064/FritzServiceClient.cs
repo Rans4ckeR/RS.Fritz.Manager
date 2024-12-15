@@ -1,10 +1,10 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Net;
+﻿using System.Net;
 using System.Security.Authentication;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.Xml;
+
+namespace RS.Fritz.Manager.API;
 
 internal abstract class FritzServiceClient<T> : ClientBase<T>
     where T : class
@@ -18,9 +18,8 @@ internal abstract class FritzServiceClient<T> : ClientBase<T>
         SetCredentials(networkCredential);
     }
 
-    private static Binding GetBindingForEndpoint(FritzServiceEndpointConfiguration endpointConfiguration)
-    {
-        return endpointConfiguration switch
+    private static Binding GetBindingForEndpoint(FritzServiceEndpointConfiguration endpointConfiguration) =>
+        endpointConfiguration switch
         {
             FritzServiceEndpointConfiguration.BasicHttpBindingIFritzService => new BasicHttpBinding
             {
@@ -46,7 +45,6 @@ internal abstract class FritzServiceClient<T> : ClientBase<T>
             },
             _ => throw new ArgumentOutOfRangeException(nameof(endpointConfiguration), endpointConfiguration, null)
         };
-    }
 
     private void SetSslProtocols(SslProtocols sslProtocols)
     {

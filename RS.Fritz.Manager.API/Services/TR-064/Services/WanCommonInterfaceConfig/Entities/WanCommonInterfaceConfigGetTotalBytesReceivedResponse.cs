@@ -2,4 +2,4 @@
 
 [MessageContract(WrapperName = "GetTotalBytesReceivedResponse")]
 public readonly record struct WanCommonInterfaceConfigGetTotalBytesReceivedResponse(
-    [property: MessageBodyMember(Name = "NewTotalBytesReceived")] uint TotalBytesReceived);
+    [property: MessageBodyMember(Name = "NewTotalBytesReceived")] long TotalBytesReceived);

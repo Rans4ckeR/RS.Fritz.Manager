@@ -1,7 +1,7 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Xml;
+﻿using System.Xml;
 using System.Xml.Serialization;
+
+namespace RS.Fritz.Manager.API;
 
 internal sealed class WlanDeviceService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IWlanDeviceService
 {
@@ -9,7 +9,7 @@ internal sealed class WlanDeviceService(IHttpClientFactory httpClientFactory, IN
     {
         WlanConfigurationGetWlanDeviceListPathResponse wlanConfigurationGetWlanDeviceListPathResponse = await internetGatewayDevice.WlanConfigurationGetWlanDeviceListPathAsync(1).ConfigureAwait(false);
         string wlanDeviceListPath = wlanConfigurationGetWlanDeviceListPathResponse.WlanDeviceListPath;
-        Uri wlanDeviceListPathUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, internetGatewayDevice.SecurityPort!.Value, wlanDeviceListPath);
+        Uri wlanDeviceListPathUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation!, internetGatewayDevice.SecurityPort!.Value, wlanDeviceListPath);
         Stream wlanDeviceListXmlStream = await httpClientFactory.CreateClient(Constants.DefaultHttpClientName).GetStreamAsync(wlanDeviceListPathUri, cancellationToken).ConfigureAwait(false);
 
         await using (wlanDeviceListXmlStream.ConfigureAwait(false))

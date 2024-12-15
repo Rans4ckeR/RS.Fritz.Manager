@@ -2,8 +2,5 @@
 
 internal sealed partial class ManagementServerSetTr069EnableView
 {
-    public ManagementServerSetTr069EnableView()
-    {
-        InitializeComponent();
-    }
+    public ManagementServerSetTr069EnableView() => InitializeComponent();
 }

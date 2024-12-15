@@ -1,60 +1,36 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using System.ServiceModel.Security;
+﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 
-internal sealed class ObservableInternetGatewayDevice(InternetGatewayDevice internetGatewayDevice) : ObservableRecipient(StrongReferenceMessenger.Default)
+namespace RS.Fritz.Manager.UI;
+
+internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
 {
-    private IEnumerable<User> users = Enumerable.Empty<User>();
-    private WanAccessType? wanAccessType;
-    private bool authenticated;
+    public ObservableInternetGatewayDevice(GroupedInternetGatewayDevice groupedInternetGatewayDevice)
+        : base(StrongReferenceMessenger.Default)
+        => InternetGatewayDevices = [.. groupedInternetGatewayDevice.Devices.OrderByDescending(q => q.UniqueServiceName?.Contains(UPnPConstants.InternetGatewayDeviceV1AvmDeviceType, StringComparison.OrdinalIgnoreCase))];
 
-    public InternetGatewayDevice ApiDevice { get; } = internetGatewayDevice;
-
-    public IEnumerable<User> Users
+#pragma warning disable SA1500 // Braces for multi-line statements should not share line
+#pragma warning disable SA1513 // Closing brace should be followed by blank line
+    public ObservableCollection<InternetGatewayDevice> InternetGatewayDevices
     {
-        get => users;
-        set => _ = SetProperty(ref users, value, true);
-    }
+        get;
+        private init => SetProperty(ref field, value, true);
+    } = [];
+#pragma warning restore SA1500 // Braces for multi-line statements should not share line
+#pragma warning restore SA1513 // Closing brace should be followed by blank line
 
-    public bool Authenticated
-    {
-        get => authenticated;
-        private set => _ = SetProperty(ref authenticated, value, true);
-    }
+    public bool IsAvm => InternetGatewayDevices.Any(q => q.IsAvm);
 
-    public WanAccessType? WanAccessType
-    {
-        get => wanAccessType;
-        set => _ = SetProperty(ref wanAccessType, value, true);
-    }
+    public ObservableCollection<string?> Servers => [.. InternetGatewayDevices.Select(q => q.Server).Distinct().OrderBy(q => q)];
 
-    public async ValueTask GetDeviceTypeAsync()
-    {
-        WanCommonInterfaceConfigGetCommonLinkPropertiesResponse wanCommonInterfaceConfigGetCommonLinkProperties;
+    public ObservableCollection<Uri?> Locations => [.. InternetGatewayDevices.SelectMany(q => q.Locations ?? []).Distinct().OrderBy(q => q?.AbsoluteUri)];
 
-        try
-        {
-            wanCommonInterfaceConfigGetCommonLinkProperties = await ApiDevice.WanCommonInterfaceConfigGetCommonLinkPropertiesAsync().ConfigureAwait(true);
-        }
-        catch (MessageSecurityException)
-        {
-            Authenticated = false;
+    public ObservableCollection<string?> SearchTargets => [.. InternetGatewayDevices.Select(q => q.SearchTarget).Distinct().OrderBy(q => q)];
 
-            throw;
-        }
+    public ObservableCollection<string?> CacheControls => [.. InternetGatewayDevices.Select(q => q.CacheControl).Distinct().OrderBy(q => q)];
 
-        Authenticated = true;
-        WanAccessType = wanCommonInterfaceConfigGetCommonLinkProperties.WanAccessType switch
-        {
-            "DSL" => UI.WanAccessType.Dsl,
-            "Ethernet" => UI.WanAccessType.Ethernet,
-            "X_AVM-DE_Fiber" => UI.WanAccessType.Ethernet,
-            "X_AVM-DE_UMTS" => UI.WanAccessType.Ethernet,
-            "X_AVM-DE_Cable" => UI.WanAccessType.Ethernet,
-            "X_AVM-DE_LTE" => UI.WanAccessType.Ethernet,
-            _ => throw new ArgumentOutOfRangeException(nameof(WanCommonInterfaceConfigGetCommonLinkPropertiesResponse.WanAccessType), wanCommonInterfaceConfigGetCommonLinkProperties.WanAccessType, null)
-        };
-    }
+    public ObservableCollection<string?> Exts => [.. InternetGatewayDevices.Select(q => q.Ext).Distinct().OrderBy(q => q)];
+
+    public ObservableCollection<string?> UniqueServiceNames => [.. InternetGatewayDevices.Select(q => q.UniqueServiceName).Distinct().OrderBy(q => q)];
 }

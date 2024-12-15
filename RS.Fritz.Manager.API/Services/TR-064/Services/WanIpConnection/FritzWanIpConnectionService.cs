@@ -1,12 +1,10 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Net;
 
-using System.Net;
+namespace RS.Fritz.Manager.API;
 
 internal sealed class FritzWanIpConnectionService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
     : FritzServiceClient<IFritzWanIpConnectionService>(endpointConfiguration, remoteAddress, networkCredential), IFritzWanIpConnectionService
 {
-    public const string ControlUrl = "/upnp/control/wanipconnection1";
-
     public Task<WanIpConnectionGetInfoResponse> GetInfoAsync(WanConnectionGetInfoRequest wanConnectionGetInfoRequest)
         => Channel.GetInfoAsync(wanConnectionGetInfoRequest);
 

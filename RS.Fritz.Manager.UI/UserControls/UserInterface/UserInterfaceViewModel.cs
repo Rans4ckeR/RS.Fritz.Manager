@@ -11,26 +11,22 @@ internal sealed class UserInterfaceViewModel(
     ILogger logger)
     : FritzServiceViewModel(deviceLoginInfo, logger, "UserInterface")
 {
-    private KeyValuePair<UserInterfaceGetInfoResponse?, UPnPFault?>? userInterfaceGetInfoResponse;
-    private KeyValuePair<UserInterfaceGetInternationalConfigResponse?, UPnPFault?>? userInterfaceGetInternationalConfigResponse;
-    private KeyValuePair<UserInterfaceAvmGetInfoResponse?, UPnPFault?>? userInterfaceAvmGetInfoResponse;
-
     public KeyValuePair<UserInterfaceGetInfoResponse?, UPnPFault?>? UserInterfaceGetInfoResponse
     {
-        get => userInterfaceGetInfoResponse;
-        private set => _ = SetProperty(ref userInterfaceGetInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<UserInterfaceGetInternationalConfigResponse?, UPnPFault?>? UserInterfaceGetInternationalConfigResponse
     {
-        get => userInterfaceGetInternationalConfigResponse;
-        private set => _ = SetProperty(ref userInterfaceGetInternationalConfigResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<UserInterfaceAvmGetInfoResponse?, UPnPFault?>? UserInterfaceAvmGetInfoResponse
     {
-        get => userInterfaceAvmGetInfoResponse;
-        private set => _ = SetProperty(ref userInterfaceAvmGetInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public UserInterfaceCheckUpdateViewModel UserInterfaceCheckUpdateViewModel { get; } = userInterfaceCheckUpdateViewModel;
@@ -46,16 +42,13 @@ internal sealed class UserInterfaceViewModel(
     public UserInterfaceSetConfigViewModel UserInterfaceSetConfigViewModel { get; } = userInterfaceSetConfigViewModel;
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
-               GetUserInterfaceGetInfoAsync(),
-               GetUserInterfaceGetInternationalConfigAsync(),
-               GetUserInterfaceAvmGetInfoAsync()
-            },
+        => API.TaskExtensions.WhenAllSafe(
+            [
+                GetUserInterfaceGetInfoAsync(),
+                GetUserInterfaceGetInternationalConfigAsync(),
+                GetUserInterfaceAvmGetInfoAsync()
+            ],
             true);
-    }
 
     private async Task GetUserInterfaceGetInfoAsync()
         => UserInterfaceGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInfoAsync()).ConfigureAwait(true);

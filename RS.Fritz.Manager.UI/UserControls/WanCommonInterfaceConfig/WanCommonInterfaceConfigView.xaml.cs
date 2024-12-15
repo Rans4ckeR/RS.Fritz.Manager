@@ -2,8 +2,5 @@
 
 internal sealed partial class WanCommonInterfaceConfigView
 {
-    public WanCommonInterfaceConfigView()
-    {
-        InitializeComponent();
-    }
+    public WanCommonInterfaceConfigView() => InitializeComponent();
 }

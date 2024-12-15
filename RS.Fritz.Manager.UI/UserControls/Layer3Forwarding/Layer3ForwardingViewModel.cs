@@ -1,48 +1,39 @@
-﻿namespace RS.Fritz.Manager.UI;
+﻿using System.Collections.ObjectModel;
 
-using System.Collections.ObjectModel;
+namespace RS.Fritz.Manager.UI;
 
 internal sealed class Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, Layer3ForwardingGetGenericForwardingEntryViewModel layer3ForwardingGetGenericForwardingEntryViewModel)
     : FritzServiceViewModel(deviceLoginInfo, logger, "Layer3Forwarding")
 {
-    private KeyValuePair<Layer3ForwardingGetDefaultConnectionServiceResponse?, UPnPFault?>? layer3ForwardingGetDefaultConnectionServiceResponse;
-    private KeyValuePair<Layer3ForwardingGetForwardNumberOfEntriesResponse?, UPnPFault?>? layer3ForwardingGetForwardNumberOfEntriesResponse;
-    private ObservableCollection<Layer3ForwardingGetGenericForwardingEntryResponse>? layer3ForwardingGetGenericForwardingEntryResponses;
-
     public Layer3ForwardingGetGenericForwardingEntryViewModel Layer3ForwardingGetGenericForwardingEntryViewModel { get; } = layer3ForwardingGetGenericForwardingEntryViewModel;
 
-    public KeyValuePair<Layer3ForwardingGetDefaultConnectionServiceResponse?, UPnPFault?>? Layer3ForwardingGetDefaultConnectionServiceResponse
+    public KeyValuePair<Layer3ForwardingGetDefaultConnectionServiceResponse?, UPnPFault?>?
+        Layer3ForwardingGetDefaultConnectionServiceResponse
     {
-        get => layer3ForwardingGetDefaultConnectionServiceResponse;
-        private set => _ = SetProperty(ref layer3ForwardingGetDefaultConnectionServiceResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
-    public KeyValuePair<Layer3ForwardingGetForwardNumberOfEntriesResponse?, UPnPFault?>? Layer3ForwardingGetForwardNumberOfEntriesResponse
+    public KeyValuePair<Layer3ForwardingGetForwardNumberOfEntriesResponse?, UPnPFault?>?
+        Layer3ForwardingGetForwardNumberOfEntriesResponse
     {
-        get => layer3ForwardingGetForwardNumberOfEntriesResponse;
+        get;
         private set
         {
-            if (SetProperty(ref layer3ForwardingGetForwardNumberOfEntriesResponse, value))
+            if (SetProperty(ref field, value))
                 Layer3ForwardingGetGenericForwardingEntryViewModel.ForwardNumberOfEntries = Layer3ForwardingGetForwardNumberOfEntriesResponse?.Key?.ForwardNumberOfEntries;
         }
     }
 
-    public ObservableCollection<Layer3ForwardingGetGenericForwardingEntryResponse>? Layer3ForwardingGetGenericForwardingEntryResponses
+    public ObservableCollection<Layer3ForwardingGetGenericForwardingEntryResponse>?
+        Layer3ForwardingGetGenericForwardingEntryResponses
     {
-        get => layer3ForwardingGetGenericForwardingEntryResponses;
-        private set => _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-    {
-        return API.TaskExtensions.WhenAllSafe(
-            new[]
-            {
-                GetLayer3ForwardingGetDefaultConnectionServiceAsync(),
-                GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
-            },
-            true);
-    }
+        => API.TaskExtensions.WhenAllSafe([GetLayer3ForwardingGetDefaultConnectionServiceAsync(), GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()], true);
 
     private async Task GetLayer3ForwardingGetDefaultConnectionServiceAsync()
         => Layer3ForwardingGetDefaultConnectionServiceResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetDefaultConnectionServiceAsync()).ConfigureAwait(true);
@@ -63,6 +54,6 @@ internal sealed class Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo,
 
         KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
 
-        Layer3ForwardingGetGenericForwardingEntryResponses = new(responses.Select(q => q.Key!.Value));
+        Layer3ForwardingGetGenericForwardingEntryResponses = [.. responses.Select(q => q.Key!.Value)];
     }
 }

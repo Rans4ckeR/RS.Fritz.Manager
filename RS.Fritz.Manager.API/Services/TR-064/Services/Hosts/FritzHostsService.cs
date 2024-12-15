@@ -1,12 +1,10 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Net;
 
-using System.Net;
+namespace RS.Fritz.Manager.API;
 
 internal sealed class FritzHostsService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
     : FritzServiceClient<IFritzHostsService>(endpointConfiguration, remoteAddress, networkCredential), IFritzHostsService
 {
-    public const string ControlUrl = "/upnp/control/hosts";
-
     public Task<HostsGetHostNumberOfEntriesResponse> GetHostNumberOfEntriesAsync(HostsGetHostNumberOfEntriesRequest hostsGetHostNumberOfEntriesRequest)
         => Channel.GetHostNumberOfEntriesAsync(hostsGetHostNumberOfEntriesRequest);
 

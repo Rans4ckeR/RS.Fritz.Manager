@@ -2,8 +2,5 @@
 
 internal sealed partial class WanDslLinkConfigView
 {
-    public WanDslLinkConfigView()
-    {
-        InitializeComponent();
-    }
+    public WanDslLinkConfigView() => InitializeComponent();
 }

@@ -2,8 +2,5 @@
 
 internal sealed partial class WanIpConnectionView
 {
-    public WanIpConnectionView()
-    {
-        InitializeComponent();
-    }
+    public WanIpConnectionView() => InitializeComponent();
 }

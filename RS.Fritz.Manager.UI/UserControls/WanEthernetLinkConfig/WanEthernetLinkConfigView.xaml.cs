@@ -2,8 +2,5 @@
 
 internal sealed partial class WanEthernetLinkConfigView
 {
-    public WanEthernetLinkConfigView()
-    {
-        InitializeComponent();
-    }
+    public WanEthernetLinkConfigView() => InitializeComponent();
 }

@@ -2,8 +2,5 @@
 
 internal sealed partial class WanPppConnectionView
 {
-    public WanPppConnectionView()
-    {
-        InitializeComponent();
-    }
+    public WanPppConnectionView() => InitializeComponent();
 }

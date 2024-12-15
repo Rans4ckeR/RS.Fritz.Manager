@@ -1,26 +1,33 @@
 ﻿namespace RS.Fritz.Manager.API;
 
-[ServiceContract(Namespace = "urn:dslforum-org:service:DeviceConfig:1")]
+[ServiceContract(Namespace = $"{UPnPConstants.AvmServiceNamespace}:DeviceConfig:1")]
 [XmlSerializerFormat(Style = OperationFormatStyle.Rpc, Use = OperationFormatUse.Encoded)]
-internal interface IFritzDeviceConfigService : IAsyncDisposable
+internal interface IFritzDeviceConfigService : IFritzService
 {
-    [OperationContract(Action = "urn:dslforum-org:service:DeviceConfig:1#GetPersistentData")]
-    [FaultContract(typeof(UPnPFault1))]
-    [FaultContract(typeof(UPnPFault2))]
+    static string IFritzService.ControlUrl => "/upnp/control/deviceconfig";
+
+    [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:DeviceConfig:1#GetPersistentData")]
+    [FaultContract(typeof(UPnPFault))]
+    [FaultContract(typeof(AvmUPnPFault))]
     Task<DeviceConfigGetPersistentDataResponse> GetPersistentDataAsync(DeviceConfigGetPersistentDataRequest deviceConfigGetPersistentDataRequest);
 
-    [OperationContract(Action = "urn:dslforum-org:service:DeviceConfig:1#X_GenerateUUID")]
-    [FaultContract(typeof(UPnPFault1))]
-    [FaultContract(typeof(UPnPFault2))]
+    [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:DeviceConfig:1#X_GenerateUUID")]
+    [FaultContract(typeof(UPnPFault))]
+    [FaultContract(typeof(AvmUPnPFault))]
     Task<DeviceConfigGenerateUuIdResponse> GenerateUuIdAsync(DeviceConfigGenerateUuIdRequest deviceConfigGenerateUuIdRequest);
 
-    [OperationContract(Action = "urn:dslforum-org:service:DeviceConfig:1#X_AVM-DE_CreateUrlSID")]
-    [FaultContract(typeof(UPnPFault1))]
-    [FaultContract(typeof(UPnPFault2))]
+    [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:DeviceConfig:1#X_AVM-DE_CreateUrlSID")]
+    [FaultContract(typeof(UPnPFault))]
+    [FaultContract(typeof(AvmUPnPFault))]
     Task<DeviceConfigCreateUrlSidResponse> CreateUrlSidAsync(DeviceConfigCreateUrlSidRequest deviceConfigCreateUrlSidRequest);
 
-    [OperationContract(Action = "urn:dslforum-org:service:DeviceConfig:1#X_AVM-DE_GetSupportDataInfo")]
-    [FaultContract(typeof(UPnPFault1))]
-    [FaultContract(typeof(UPnPFault2))]
+    [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:DeviceConfig:1#X_AVM-DE_GetSupportDataInfo")]
+    [FaultContract(typeof(UPnPFault))]
+    [FaultContract(typeof(AvmUPnPFault))]
     Task<DeviceConfigGetSupportDataInfoResponse> GetSupportDataInfoAsync(DeviceConfigGetSupportDataInfoRequest deviceConfigGetSupportDataInfoRequest);
+
+    [OperationContract(Action = $"{UPnPConstants.AvmServiceNamespace}:DeviceConfig:1#X_AVM-DE_GetConfigFile")]
+    [FaultContract(typeof(UPnPFault))]
+    [FaultContract(typeof(AvmUPnPFault))]
+    Task<DeviceConfigGetConfigFileResponse> GetConfigFileAsync(DeviceConfigGetConfigFileRequest deviceConfigGetConfigFileRequest);
 }

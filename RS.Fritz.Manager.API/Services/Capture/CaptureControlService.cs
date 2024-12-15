@@ -1,13 +1,13 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Globalization;
 
-using System.Globalization;
+namespace RS.Fritz.Manager.API;
 
 internal sealed class CaptureControlService(IHttpClientFactory httpClientFactory, INetworkService networkService) : ICaptureControlService
 {
     public async ValueTask<IEnumerable<CaptureInterfaceGroup>> GetInterfacesAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         string sid = await GetSidAsync(internetGatewayDevice).ConfigureAwait(false);
-        Uri captureUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, "/data.lua");
+        Uri captureUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation!, 443, "/data.lua");
         HttpClient httpClient = httpClientFactory.CreateClient(Constants.DefaultHttpClientName);
         using var content = new FormUrlEncodedContent(new Dictionary<string, string>
         {
@@ -54,7 +54,7 @@ internal sealed class CaptureControlService(IHttpClientFactory httpClientFactory
     public async ValueTask StartCaptureAsync(InternetGatewayDevice internetGatewayDevice, FileInfo fileInfo, CaptureInterface captureInterface, int packetCaptureSizeLimit = 1600, CancellationToken cancellationToken = default)
     {
         string sid = await GetSidAsync(internetGatewayDevice).ConfigureAwait(false);
-        Uri captureUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, FormattableString.Invariant($"/cgi-bin/capture_notimeout?sid={sid}&capture=Start&snaplen={packetCaptureSizeLimit}&ifaceorminor={captureInterface.InterfaceOrMinor}"));
+        Uri captureUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation!, 443, FormattableString.Invariant($"/cgi-bin/capture_notimeout?sid={sid}&capture=Start&snaplen={packetCaptureSizeLimit}&ifaceorminor={captureInterface.InterfaceOrMinor}"));
         HttpClient httpClient = httpClientFactory.CreateClient(Constants.DefaultHttpClientName);
         using HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(captureUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
         Stream downloadStream = await httpResponseMessage.EnsureSuccessStatusCode().Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
@@ -75,7 +75,7 @@ internal sealed class CaptureControlService(IHttpClientFactory httpClientFactory
         string sid = await GetSidAsync(internetGatewayDevice).ConfigureAwait(false);
         string timeString20 = DateTime.UtcNow.Ticks.ToString("D20", CultureInfo.InvariantCulture);
         string timeId = FormattableString.Invariant($"t{timeString20[^13..]}");
-        Uri captureUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation, 443, FormattableString.Invariant($"/cgi-bin/capture_notimeout?iface={captureInterface.Interface}&minor={captureInterface.Minor}&type={captureInterface.Type}&capture=Stop&sid={sid}&useajax=1&xhr=1&{timeId}=nocache"));
+        Uri captureUri = networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation!, 443, FormattableString.Invariant($"/cgi-bin/capture_notimeout?iface={captureInterface.Interface}&minor={captureInterface.Minor}&type={captureInterface.Type}&capture=Stop&sid={sid}&useajax=1&xhr=1&{timeId}=nocache"));
         HttpClient httpClient = httpClientFactory.CreateClient(Constants.DefaultHttpClientName);
         using HttpResponseMessage httpResponseMessage = await httpClient.GetAsync(captureUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
 

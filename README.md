@@ -308,7 +308,7 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ❌ FactoryReset
   * ❌ Reboot
   * ✅ X_GenerateUUID
-  * ❌ X_AVM-DE_GetConfigFile
+  * ✅ X_AVM-DE_GetConfigFile
   * ❌ X_AVM-DE_SetConfigFile
   * ✅ X_AVM-DE_CreateUrlSID
   * ✅ X_AVM-DE_GetSupportDataInfo

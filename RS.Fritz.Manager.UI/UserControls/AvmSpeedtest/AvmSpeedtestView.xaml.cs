@@ -2,8 +2,5 @@
 
 internal sealed partial class AvmSpeedtestView
 {
-    public AvmSpeedtestView()
-    {
-        InitializeComponent();
-    }
+    public AvmSpeedtestView() => InitializeComponent();
 }

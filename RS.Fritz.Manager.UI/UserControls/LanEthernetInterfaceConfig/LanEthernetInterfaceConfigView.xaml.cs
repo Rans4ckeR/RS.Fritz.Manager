@@ -2,8 +2,5 @@
 
 internal sealed partial class LanEthernetInterfaceConfigView
 {
-    public LanEthernetInterfaceConfigView()
-    {
-        InitializeComponent();
-    }
+    public LanEthernetInterfaceConfigView() => InitializeComponent();
 }

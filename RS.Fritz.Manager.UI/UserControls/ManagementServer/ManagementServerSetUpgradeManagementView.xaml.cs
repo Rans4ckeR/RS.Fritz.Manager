@@ -2,8 +2,5 @@
 
 internal sealed partial class ManagementServerSetUpgradeManagementView
 {
-    public ManagementServerSetUpgradeManagementView()
-    {
-        InitializeComponent();
-    }
+    public ManagementServerSetUpgradeManagementView() => InitializeComponent();
 }

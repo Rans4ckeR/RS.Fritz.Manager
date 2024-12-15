@@ -2,8 +2,5 @@
 
 internal sealed partial class LanConfigSecuritySetConfigPasswordView
 {
-    public LanConfigSecuritySetConfigPasswordView()
-    {
-        InitializeComponent();
-    }
+    public LanConfigSecuritySetConfigPasswordView() => InitializeComponent();
 }

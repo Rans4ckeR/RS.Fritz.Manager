@@ -76,4 +76,5 @@
             </ui:ExternalBrowserHyperlink>
         </TextBlock>
     </DataTemplate>
+    <ui:NullVisibilityValueConverter x:Key="NullVisibilityValueConverter"/>
 </ResourceDictionary>

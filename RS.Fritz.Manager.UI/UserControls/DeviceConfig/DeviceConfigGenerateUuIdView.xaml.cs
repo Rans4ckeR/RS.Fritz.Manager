@@ -2,8 +2,5 @@
 
 internal sealed partial class DeviceConfigGenerateUuIdView
 {
-    public DeviceConfigGenerateUuIdView()
-    {
-        InitializeComponent();
-    }
+    public DeviceConfigGenerateUuIdView() => InitializeComponent();
 }

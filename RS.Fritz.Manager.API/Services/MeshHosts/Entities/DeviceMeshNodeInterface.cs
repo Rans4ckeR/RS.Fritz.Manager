@@ -1,6 +1,6 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Text.Json.Serialization;
 
-using System.Text.Json.Serialization;
+namespace RS.Fritz.Manager.API;
 
 public readonly record struct DeviceMeshNodeInterface(
     [property: JsonPropertyName("uid")] string Uid,

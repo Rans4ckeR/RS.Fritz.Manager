@@ -2,8 +2,5 @@
 
 internal sealed partial class ManagementServerSetTr069FirmwareDownloadEnabledView
 {
-    public ManagementServerSetTr069FirmwareDownloadEnabledView()
-    {
-        InitializeComponent();
-    }
+    public ManagementServerSetTr069FirmwareDownloadEnabledView() => InitializeComponent();
 }
