@@ -1,18 +1,11 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using System.Windows.Threading;
+﻿using System.Windows.Threading;
 using CommunityToolkit.Mvvm.Messaging.Messages;
+
+namespace RS.Fritz.Manager.UI;
 
 internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 {
     private readonly DispatcherTimer autoRefreshTimer;
-
-    private bool autoRefresh;
-    private KeyValuePair<WanCommonInterfaceConfigGetTotalBytesReceivedResponse?, UPnPFault?>? wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
-    private KeyValuePair<WanCommonInterfaceConfigGetTotalBytesSentResponse?, UPnPFault?>? wanCommonInterfaceConfigGetTotalBytesSentResponse;
-    private KeyValuePair<WanCommonInterfaceConfigGetTotalPacketsReceivedResponse?, UPnPFault?>? wanCommonInterfaceConfigGetTotalPacketsReceivedResponse;
-    private KeyValuePair<WanCommonInterfaceConfigGetTotalPacketsSentResponse?, UPnPFault?>? wanCommonInterfaceConfigGetTotalPacketsSentResponse;
-    private KeyValuePair<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse?, UPnPFault?>? wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
 
     public WanCommonInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, WanCommonInterfaceConfigSetWanAccessTypeViewModel wanCommonInterfaceConfigSetWanAccessTypeViewModel, WanCommonInterfaceConfigGetOnlineMonitorViewModel wanCommonInterfaceConfigGetOnlineMonitorViewModel, ILogger logger)
         : base(deviceLoginInfo, logger, "WANCommonInterfaceConfig")
@@ -28,10 +21,10 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 
     public bool AutoRefresh
     {
-        get => autoRefresh;
+        get;
         set
         {
-            if (!SetProperty(ref autoRefresh, value))
+            if (!SetProperty(ref field, value))
                 return;
 
             if (value)
@@ -47,32 +40,32 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
 
     public KeyValuePair<WanCommonInterfaceConfigGetTotalBytesReceivedResponse?, UPnPFault?>? WanCommonInterfaceConfigGetTotalBytesReceivedResponse
     {
-        get => wanCommonInterfaceConfigGetTotalBytesReceivedResponse;
-        private set => _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesReceivedResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanCommonInterfaceConfigGetTotalBytesSentResponse?, UPnPFault?>? WanCommonInterfaceConfigGetTotalBytesSentResponse
     {
-        get => wanCommonInterfaceConfigGetTotalBytesSentResponse;
-        private set => _ = SetProperty(ref wanCommonInterfaceConfigGetTotalBytesSentResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanCommonInterfaceConfigGetTotalPacketsReceivedResponse?, UPnPFault?>? WanCommonInterfaceConfigGetTotalPacketsReceivedResponse
     {
-        get => wanCommonInterfaceConfigGetTotalPacketsReceivedResponse;
-        private set => _ = SetProperty(ref wanCommonInterfaceConfigGetTotalPacketsReceivedResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanCommonInterfaceConfigGetTotalPacketsSentResponse?, UPnPFault?>? WanCommonInterfaceConfigGetTotalPacketsSentResponse
     {
-        get => wanCommonInterfaceConfigGetTotalPacketsSentResponse;
-        private set => _ = SetProperty(ref wanCommonInterfaceConfigGetTotalPacketsSentResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanCommonInterfaceConfigGetCommonLinkPropertiesResponse?, UPnPFault?>? WanCommonInterfaceConfigGetCommonLinkPropertiesResponse
     {
-        get => wanCommonInterfaceConfigGetCommonLinkPropertiesResponse;
-        private set => _ = SetProperty(ref wanCommonInterfaceConfigGetCommonLinkPropertiesResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected override void Receive(PropertyChangedMessage<bool> message)

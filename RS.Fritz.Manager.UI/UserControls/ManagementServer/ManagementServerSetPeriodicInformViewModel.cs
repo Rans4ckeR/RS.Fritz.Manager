@@ -3,36 +3,32 @@
 internal sealed class ManagementServerSetPeriodicInformViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : ManualOperationViewModel<ManagementServerSetPeriodicInformRequest, ManagementServerSetPeriodicInformResponse>(deviceLoginInfo, logger, "SetPeriodicInform", "Update PeriodicInform", (d, r) => d.ManagementServerSetPeriodicInformAsync(r))
 {
-    private bool? periodicInformEnable;
-    private ushort? periodicInformInterval;
-    private DateTime? periodicInformTime;
-
     public bool? PeriodicInformEnable
     {
-        get => periodicInformEnable;
+        get;
         set
         {
-            if (SetProperty(ref periodicInformEnable, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public ushort? PeriodicInformInterval
     {
-        get => periodicInformInterval;
+        get;
         set
         {
-            if (SetProperty(ref periodicInformInterval, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public DateTime? PeriodicInformTime
     {
-        get => periodicInformTime;
+        get;
         set
         {
-            if (SetProperty(ref periodicInformTime, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }

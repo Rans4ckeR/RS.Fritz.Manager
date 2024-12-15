@@ -1,7 +1,7 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Collections.Frozen;
+﻿using System.Collections.Frozen;
 using System.Net;
+
+namespace RS.Fritz.Manager.API;
 
 public sealed record InternetGatewayDevice(
     IFritzServiceOperationHandler FritzServiceOperationHandler,
@@ -40,7 +40,7 @@ public sealed record InternetGatewayDevice(
     public async ValueTask InitializeAsync()
     {
         SecurityPort = (await this.DeviceInfoGetSecurityPortAsync().ConfigureAwait(false)).SecurityPort;
-        Users = (await UsersService.GetUsersAsync(this).ConfigureAwait(false)).ToArray();
+        Users = [.. await UsersService.GetUsersAsync(this).ConfigureAwait(false)];
     }
 
     internal Task<TResult> ExecuteAsync<TResult>(Func<IFritzServiceOperationHandler, InternetGatewayDevice, Task<TResult>> operation)

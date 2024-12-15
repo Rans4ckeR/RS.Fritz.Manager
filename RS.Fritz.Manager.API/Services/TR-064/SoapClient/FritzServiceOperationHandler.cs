@@ -1,6 +1,6 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Net;
 
-using System.Net;
+namespace RS.Fritz.Manager.API;
 
 internal sealed class FritzServiceOperationHandler(
     IClientFactory<IFritzHostsService> fritzHostsServiceClientFactory,

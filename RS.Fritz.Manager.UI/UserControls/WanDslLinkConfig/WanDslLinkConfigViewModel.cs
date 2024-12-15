@@ -3,47 +3,40 @@
 internal sealed class WanDslLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : WanAccessTypeAwareFritzServiceViewModel(deviceLoginInfo, logger, WanAccessType.Dsl, "WANDSLLinkConfig")
 {
-    private KeyValuePair<WanDslLinkConfigGetInfoResponse?, UPnPFault?>? wanDslLinkConfigGetInfoResponse;
-    private KeyValuePair<WanDslLinkConfigGetDslLinkInfoResponse?, UPnPFault?>? wanDslLinkConfigGetDslLinkInfoResponse;
-    private KeyValuePair<WanDslLinkConfigGetDestinationAddressResponse?, UPnPFault?>? wanDslLinkConfigGetDestinationAddressResponse;
-    private KeyValuePair<WanDslLinkConfigGetAtmEncapsulationResponse?, UPnPFault?>? wanDslLinkConfigGetAtmEncapsulationResponse;
-    private KeyValuePair<WanDslLinkConfigGetAutoConfigResponse?, UPnPFault?>? wanDslLinkConfigGetAutoConfigResponse;
-    private KeyValuePair<WanDslLinkConfigGetStatisticsResponse?, UPnPFault?>? wanDslLinkConfigGetStatisticsResponse;
-
     public KeyValuePair<WanDslLinkConfigGetInfoResponse?, UPnPFault?>? WanDslLinkConfigGetInfoResponse
     {
-        get => wanDslLinkConfigGetInfoResponse;
-        private set => _ = SetProperty(ref wanDslLinkConfigGetInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanDslLinkConfigGetDslLinkInfoResponse?, UPnPFault?>? WanDslLinkConfigGetDslLinkInfoResponse
     {
-        get => wanDslLinkConfigGetDslLinkInfoResponse;
-        private set => _ = SetProperty(ref wanDslLinkConfigGetDslLinkInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanDslLinkConfigGetDestinationAddressResponse?, UPnPFault?>? WanDslLinkConfigGetDestinationAddressResponse
     {
-        get => wanDslLinkConfigGetDestinationAddressResponse;
-        private set => _ = SetProperty(ref wanDslLinkConfigGetDestinationAddressResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanDslLinkConfigGetAtmEncapsulationResponse?, UPnPFault?>? WanDslLinkConfigGetAtmEncapsulationResponse
     {
-        get => wanDslLinkConfigGetAtmEncapsulationResponse;
-        private set => _ = SetProperty(ref wanDslLinkConfigGetAtmEncapsulationResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanDslLinkConfigGetAutoConfigResponse?, UPnPFault?>? WanDslLinkConfigGetAutoConfigResponse
     {
-        get => wanDslLinkConfigGetAutoConfigResponse;
-        private set => _ = SetProperty(ref wanDslLinkConfigGetAutoConfigResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanDslLinkConfigGetStatisticsResponse?, UPnPFault?>? WanDslLinkConfigGetStatisticsResponse
     {
-        get => wanDslLinkConfigGetStatisticsResponse;
-        private set => _ = SetProperty(ref wanDslLinkConfigGetStatisticsResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)

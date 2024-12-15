@@ -1,9 +1,9 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Security.Authentication;
+﻿using System.Security.Authentication;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
+
+namespace RS.Fritz.Manager.API;
 
 internal sealed class SslProtocolCertificateEndpointBehavior : IEndpointBehavior
 {

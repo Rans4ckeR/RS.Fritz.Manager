@@ -1,8 +1,8 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+
+namespace RS.Fritz.Manager.UI;
 
 internal sealed class NoScrollDataGrid : DataGrid
 {

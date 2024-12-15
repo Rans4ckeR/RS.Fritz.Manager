@@ -3,14 +3,12 @@
 internal sealed class ManagementServerSetUpgradeManagementViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : ManualOperationViewModel<ManagementServerSetUpgradeManagementRequest, ManagementServerSetUpgradeManagementResponse>(deviceLoginInfo, logger, "SetUpgradeManagement", "Update UpgradeManagement", (d, r) => d.ManagementServerSetUpgradeManagementAsync(r))
 {
-    private bool? upgradesManaged;
-
     public bool? UpgradesManaged
     {
-        get => upgradesManaged;
+        get;
         set
         {
-            if (SetProperty(ref upgradesManaged, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }

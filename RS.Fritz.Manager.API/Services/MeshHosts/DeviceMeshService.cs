@@ -1,6 +1,6 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Text.Json;
 
-using System.Text.Json;
+namespace RS.Fritz.Manager.API;
 
 internal sealed class DeviceMeshService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IDeviceMeshService
 {

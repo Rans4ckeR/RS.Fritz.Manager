@@ -3,14 +3,12 @@
 internal sealed class WanCommonInterfaceConfigSetWanAccessTypeViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : ManualOperationViewModel<WanCommonInterfaceConfigSetWanAccessTypeRequest, WanCommonInterfaceConfigSetWanAccessTypeResponse>(deviceLoginInfo, logger, "SetWanAccessType", "Update WanAccessType", (d, r) => d.WanCommonInterfaceConfigSetWanAccessTypeAsync(r))
 {
-    private string? wanAccessType;
-
     public string? WanAccessType
     {
-        get => wanAccessType;
+        get;
         set
         {
-            if (SetProperty(ref wanAccessType, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }

@@ -1,5 +1,5 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Collections.Frozen;
 
-using System.Collections.Frozen;
+namespace RS.Fritz.Manager.API;
 
 public readonly record struct UsnDeviceResponse(string? Server, string? Usn, FrozenSet<DeviceSearchResponse> DeviceSearchResponses);

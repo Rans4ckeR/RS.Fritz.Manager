@@ -1,6 +1,4 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Buffers;
+﻿using System.Buffers;
 using System.Collections.Frozen;
 using System.Globalization;
 using System.Net;
@@ -8,6 +6,8 @@ using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
+
+namespace RS.Fritz.Manager.API;
 
 internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, IFritzServiceOperationHandler fritzServiceOperationHandler, IUsersService usersService, INetworkService networkService)
     : IDeviceSearchService
@@ -21,12 +21,12 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
             GetRawDeviceResponses(UPnPConstants.InternetGatewayDeviceV1AvmDeviceType, sendCount, timeout, cancellationToken)
         ];
         IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)>[] responses = await TaskExtensions.WhenAllSafe(tasks).ConfigureAwait(false);
-        IEnumerable<ServerDeviceResponse> serverDeviceResponses = GetServerDeviceResponses(responses.SelectMany(q => q));
+        List<ServerDeviceResponse> serverDeviceResponses = GetServerDeviceResponses(responses.SelectMany(q => q));
 
         return await TaskExtensions.WhenAllSafe(serverDeviceResponses.Select(q => ParseInternetGatewayDeviceAsync(q, cancellationToken))).ConfigureAwait(false);
     }
 
-    public async ValueTask<IEnumerable<ServerDeviceResponse>> GetDevicesAsync(string deviceType = UPnPConstants.RootDeviceDeviceType, int sendCount = 1, int timeout = 2000, CancellationToken cancellationToken = default)
+    public async ValueTask<List<ServerDeviceResponse>> GetDevicesAsync(string deviceType = UPnPConstants.RootDeviceDeviceType, int sendCount = 1, int timeout = 2000, CancellationToken cancellationToken = default)
     {
         IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)> rawDeviceResponses = await GetRawDeviceResponses(deviceType, sendCount, timeout, cancellationToken).ConfigureAwait(false);
 
@@ -198,7 +198,7 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
 
     private async Task<(IPAddress IpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)> SearchDevicesAsync(IPAddress localAddress, IPAddress multicastAddress, string deviceType, int sendCount, int receiveTimeout, CancellationToken cancellationToken)
     {
-        FrozenSet<(IPAddress IPAddress, string Response)> responses = FrozenSet<(IPAddress IPAddress, string Response)>.Empty;
+        FrozenSet<(IPAddress IPAddress, string Response)> responses = [];
         var localEndPoint = new IPEndPoint(localAddress, 0);
         using var socket = new Socket(localAddress.AddressFamily, SocketType.Dgram, ProtocolType.Udp);
 

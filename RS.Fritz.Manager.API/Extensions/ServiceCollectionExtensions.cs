@@ -1,8 +1,8 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Net;
+﻿using System.Net;
 using System.Net.Security;
 using Microsoft.Extensions.DependencyInjection;
+
+namespace RS.Fritz.Manager.API;
 
 public static class ServiceCollectionExtensions
 {

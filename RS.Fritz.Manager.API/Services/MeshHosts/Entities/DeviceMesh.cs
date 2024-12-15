@@ -1,6 +1,6 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Text.Json.Serialization;
 
-using System.Text.Json.Serialization;
+namespace RS.Fritz.Manager.API;
 
 public readonly record struct DeviceMesh(
     [property: JsonPropertyName("schema_version")] string SchemaVersion,

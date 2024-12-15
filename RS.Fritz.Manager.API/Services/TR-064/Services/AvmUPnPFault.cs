@@ -1,6 +1,6 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Runtime.Serialization;
 
-using System.Runtime.Serialization;
+namespace RS.Fritz.Manager.API;
 
 [DataContract(Name = "UPnPError", Namespace = UPnPConstants.Control10AvmNamespace)]
 public readonly record struct AvmUPnPFault(

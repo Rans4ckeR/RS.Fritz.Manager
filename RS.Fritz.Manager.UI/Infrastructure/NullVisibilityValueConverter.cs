@@ -1,8 +1,8 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+
+namespace RS.Fritz.Manager.UI;
 
 internal sealed class NullVisibilityValueConverter : IValueConverter
 {

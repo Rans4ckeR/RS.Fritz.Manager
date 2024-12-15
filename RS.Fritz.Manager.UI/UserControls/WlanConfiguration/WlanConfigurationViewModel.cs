@@ -1,131 +1,114 @@
-﻿namespace RS.Fritz.Manager.UI;
+﻿using System.Windows;
 
-using System.Windows;
+namespace RS.Fritz.Manager.UI;
 
 internal sealed class WlanConfigurationViewModel(DeviceLoginInfo deviceLoginInfo, IWlanDeviceService wlanDeviceService, ILogger logger)
     : FritzServiceViewModel(deviceLoginInfo, logger, "WLANConfiguration")
 {
-    private WlanDeviceInfo? wlanDeviceInfo;
-    private KeyValuePair<WlanConfigurationGetInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetInfoResponses;
-    private KeyValuePair<WlanConfigurationGetBasBeaconSecurityPropertiesResponse?, UPnPFault?>?[]? wlanConfigurationGetBasBeaconSecurityPropertiesResponses;
-    private KeyValuePair<WlanConfigurationGetBssIdResponse?, UPnPFault?>?[]? wlanConfigurationGetBssIdResponses;
-    private KeyValuePair<WlanConfigurationGetSsIdResponse?, UPnPFault?>?[]? wlanConfigurationGetSsIdResponses;
-    private KeyValuePair<WlanConfigurationGetBeaconTypeResponse?, UPnPFault?>?[]? wlanConfigurationGetBeaconTypeResponses;
-    private KeyValuePair<WlanConfigurationGetChannelInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetChannelInfoResponses;
-    private KeyValuePair<WlanConfigurationGetBeaconAdvertisementResponse?, UPnPFault?>?[]? wlanConfigurationGetBeaconAdvertisementResponses;
-    private KeyValuePair<WlanConfigurationGetTotalAssociationsResponse?, UPnPFault?>?[]? wlanConfigurationGetTotalAssociationsResponses;
-    private KeyValuePair<WlanConfigurationGetIpTvOptimizedResponse?, UPnPFault?>?[]? wlanConfigurationGetIpTvOptimizedResponses;
-    private KeyValuePair<WlanConfigurationGetStatisticsResponse?, UPnPFault?>?[]? wlanConfigurationGetStatisticsResponses;
-    private KeyValuePair<WlanConfigurationGetPacketStatisticsResponse?, UPnPFault?>?[]? wlanConfigurationGetPacketStatisticsResponses;
-    private KeyValuePair<WlanConfigurationGetNightControlResponse?, UPnPFault?>?[]? wlanConfigurationGetNightControlResponses;
-    private KeyValuePair<WlanConfigurationGetWlanHybridModeResponse?, UPnPFault?>?[]? wlanConfigurationGetWlanHybridModeResponses;
-    private KeyValuePair<WlanConfigurationGetWlanExtInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetWlanExtInfoResponses;
-    private KeyValuePair<WlanConfigurationGetWpsInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetWpsInfoResponses;
-    private KeyValuePair<WlanConfigurationGetWlanConnectionInfoResponse?, UPnPFault?>?[]? wlanConfigurationGetWlanConnectionInfoResponses;
     private Visibility? interface2Visibility;
     private Visibility? interface3Visibility;
     private Visibility? interface4Visibility;
 
     public WlanDeviceInfo? WlanDeviceInfo
     {
-        get => wlanDeviceInfo;
-        private set => _ = SetProperty(ref wlanDeviceInfo, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetInfoResponses
     {
-        get => wlanConfigurationGetInfoResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetInfoResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetBasBeaconSecurityPropertiesResponse?, UPnPFault?>?[]? WlanConfigurationGetBasBeaconSecurityPropertiesResponses
     {
-        get => wlanConfigurationGetBasBeaconSecurityPropertiesResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetBasBeaconSecurityPropertiesResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetBssIdResponse?, UPnPFault?>?[]? WlanConfigurationGetBssIdResponses
     {
-        get => wlanConfigurationGetBssIdResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetBssIdResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetSsIdResponse?, UPnPFault?>?[]? WlanConfigurationGetSsIdResponses
     {
-        get => wlanConfigurationGetSsIdResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetSsIdResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetBeaconTypeResponse?, UPnPFault?>?[]? WlanConfigurationGetBeaconTypeResponses
     {
-        get => wlanConfigurationGetBeaconTypeResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetBeaconTypeResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetChannelInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetChannelInfoResponses
     {
-        get => wlanConfigurationGetChannelInfoResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetChannelInfoResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetBeaconAdvertisementResponse?, UPnPFault?>?[]? WlanConfigurationGetBeaconAdvertisementResponses
     {
-        get => wlanConfigurationGetBeaconAdvertisementResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetBeaconAdvertisementResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetTotalAssociationsResponse?, UPnPFault?>?[]? WlanConfigurationGetTotalAssociationsResponses
     {
-        get => wlanConfigurationGetTotalAssociationsResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetTotalAssociationsResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetIpTvOptimizedResponse?, UPnPFault?>?[]? WlanConfigurationGetIpTvOptimizedResponses
     {
-        get => wlanConfigurationGetIpTvOptimizedResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetIpTvOptimizedResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetStatisticsResponse?, UPnPFault?>?[]? WlanConfigurationGetStatisticsResponses
     {
-        get => wlanConfigurationGetStatisticsResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetStatisticsResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetPacketStatisticsResponse?, UPnPFault?>?[]? WlanConfigurationGetPacketStatisticsResponses
     {
-        get => wlanConfigurationGetPacketStatisticsResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetPacketStatisticsResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetNightControlResponse?, UPnPFault?>?[]? WlanConfigurationGetNightControlResponses
     {
-        get => wlanConfigurationGetNightControlResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetNightControlResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetWlanHybridModeResponse?, UPnPFault?>?[]? WlanConfigurationGetWlanHybridModeResponses
     {
-        get => wlanConfigurationGetWlanHybridModeResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetWlanHybridModeResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetWlanExtInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetWlanExtInfoResponses
     {
-        get => wlanConfigurationGetWlanExtInfoResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetWlanExtInfoResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetWpsInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetWpsInfoResponses
     {
-        get => wlanConfigurationGetWpsInfoResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetWpsInfoResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WlanConfigurationGetWlanConnectionInfoResponse?, UPnPFault?>?[]? WlanConfigurationGetWlanConnectionInfoResponses
     {
-        get => wlanConfigurationGetWlanConnectionInfoResponses;
-        private set => _ = SetProperty(ref wlanConfigurationGetWlanConnectionInfoResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public Visibility Interface2Visibility => interface2Visibility ??= HasWlanConfigurationService(2) ? Visibility.Visible : Visibility.Hidden;

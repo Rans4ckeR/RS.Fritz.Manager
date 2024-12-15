@@ -1,10 +1,10 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Net;
+﻿using System.Net;
 using System.Security.Authentication;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.Xml;
+
+namespace RS.Fritz.Manager.API;
 
 internal abstract class FritzServiceClient<T> : ClientBase<T>
     where T : class

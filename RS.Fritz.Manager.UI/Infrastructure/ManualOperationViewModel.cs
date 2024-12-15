@@ -10,16 +10,14 @@ internal abstract class ManualOperationViewModel<TRequest, TResponse>(
     where TRequest : struct
     where TResponse : struct
 {
-    private KeyValuePair<TResponse?, UPnPFault?>? response;
-
     public string Title { get; } = title;
 
     public string ButtonText { get; } = buttonText;
 
     public KeyValuePair<TResponse?, UPnPFault?>? Response
     {
-        get => response;
-        private set => _ = SetProperty(ref response, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected virtual TRequest BuildRequest() => default;

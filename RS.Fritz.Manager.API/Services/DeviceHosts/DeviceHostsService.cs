@@ -1,7 +1,7 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.Xml;
+
+namespace RS.Fritz.Manager.API;
 
 internal sealed class DeviceHostsService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IDeviceHostsService
 {

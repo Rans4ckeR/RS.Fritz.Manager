@@ -1,9 +1,9 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Collections.Frozen;
+﻿using System.Collections.Frozen;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+
+namespace RS.Fritz.Manager.API;
 
 internal sealed class NetworkService : INetworkService
 {

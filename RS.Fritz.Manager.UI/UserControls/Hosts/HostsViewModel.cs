@@ -1,6 +1,6 @@
-﻿namespace RS.Fritz.Manager.UI;
+﻿using System.Collections.ObjectModel;
 
-using System.Collections.ObjectModel;
+namespace RS.Fritz.Manager.UI;
 
 internal sealed class HostsViewModel(
     DeviceLoginInfo deviceLoginInfo,
@@ -11,62 +11,54 @@ internal sealed class HostsViewModel(
     HostsHostsCheckUpdateViewModel hostsHostsCheckUpdateViewModel)
     : FritzServiceViewModel(deviceLoginInfo, logger, "Hosts")
 {
-    private KeyValuePair<HostsGetHostNumberOfEntriesResponse?, UPnPFault?>? hostsGetHostNumberOfEntriesResponse;
-    private KeyValuePair<HostsGetInfoResponse?, UPnPFault?>? hostsGetInfoResponse;
-    private KeyValuePair<HostsGetChangeCounterResponse?, UPnPFault?>? hostsGetChangeCounterResponse;
-    private KeyValuePair<HostsGetFriendlyNameResponse?, UPnPFault?>? hostsGetFriendlyNameResponse;
-    private DeviceHostInfo? deviceHostInfo;
-    private DeviceMeshInfo? deviceMeshInfo;
-    private ObservableCollection<HostsGetGenericHostEntryResponse>? hostsGetGenericHostEntryResponses;
-
     public HostsGetGenericHostEntryViewModel HostsGetGenericHostEntryViewModel { get; } = hostsGetGenericHostEntryViewModel;
 
     public HostsHostsCheckUpdateViewModel HostsHostsCheckUpdateViewModel { get; } = hostsHostsCheckUpdateViewModel;
 
     public KeyValuePair<HostsGetHostNumberOfEntriesResponse?, UPnPFault?>? HostsGetHostNumberOfEntriesResponse
     {
-        get => hostsGetHostNumberOfEntriesResponse;
+        get;
         private set
         {
-            if (SetProperty(ref hostsGetHostNumberOfEntriesResponse, value))
+            if (SetProperty(ref field, value))
                 HostsGetGenericHostEntryViewModel.HostNumberOfEntries = HostsGetHostNumberOfEntriesResponse?.Key?.HostNumberOfEntries;
         }
     }
 
     public KeyValuePair<HostsGetInfoResponse?, UPnPFault?>? HostsGetInfoResponse
     {
-        get => hostsGetInfoResponse;
-        private set => _ = SetProperty(ref hostsGetInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<HostsGetChangeCounterResponse?, UPnPFault?>? HostsGetChangeCounterResponse
     {
-        get => hostsGetChangeCounterResponse;
-        private set => _ = SetProperty(ref hostsGetChangeCounterResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<HostsGetFriendlyNameResponse?, UPnPFault?>? HostsGetFriendlyNameResponse
     {
-        get => hostsGetFriendlyNameResponse;
-        private set => _ = SetProperty(ref hostsGetFriendlyNameResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public DeviceHostInfo? DeviceHostInfo
     {
-        get => deviceHostInfo;
-        private set => _ = SetProperty(ref deviceHostInfo, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public DeviceMeshInfo? DeviceMeshInfo
     {
-        get => deviceMeshInfo;
-        private set => _ = SetProperty(ref deviceMeshInfo, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public ObservableCollection<HostsGetGenericHostEntryResponse>? HostsGetGenericHostEntryResponses
     {
-        get => hostsGetGenericHostEntryResponses;
-        private set => _ = SetProperty(ref hostsGetGenericHostEntryResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
@@ -97,7 +89,7 @@ internal sealed class HostsViewModel(
 
         KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
 
-        HostsGetGenericHostEntryResponses = new(responses.Select(q => q.Key!.Value));
+        HostsGetGenericHostEntryResponses = [.. responses.Select(q => q.Key!.Value)];
     }
 
     private async Task GetHostsGetInfoAsync()

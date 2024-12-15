@@ -1,17 +1,14 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using System.ServiceModel;
+﻿using System.ServiceModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
+namespace RS.Fritz.Manager.UI;
+
 internal abstract class FritzServiceViewModel : ObservableRecipient
 {
     private readonly string? requiredServiceType;
-
-    private bool defaultCommandActive;
-    private bool canExecuteDefaultCommand;
 
     protected FritzServiceViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, string? requiredServiceType = null)
         : base(StrongReferenceMessenger.Default)
@@ -31,10 +28,10 @@ internal abstract class FritzServiceViewModel : ObservableRecipient
 
     public bool DefaultCommandActive
     {
-        get => defaultCommandActive;
+        get;
         set
         {
-            if (SetProperty(ref defaultCommandActive, value, true))
+            if (SetProperty(ref field, value, true))
                 DefaultCommand.NotifyCanExecuteChanged();
         }
     }
@@ -45,10 +42,10 @@ internal abstract class FritzServiceViewModel : ObservableRecipient
 
     protected bool CanExecuteDefaultCommand
     {
-        get => canExecuteDefaultCommand;
+        get;
         private set
         {
-            if (SetProperty(ref canExecuteDefaultCommand, value))
+            if (SetProperty(ref field, value))
                 DefaultCommand.NotifyCanExecuteChanged();
         }
     }

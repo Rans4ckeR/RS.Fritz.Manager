@@ -1,92 +1,80 @@
-﻿namespace RS.Fritz.Manager.UI;
+﻿using System.Collections.ObjectModel;
 
-using System.Collections.ObjectModel;
+namespace RS.Fritz.Manager.UI;
 
 internal sealed class WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanPppConnectionGetGenericPortMappingEntryViewModel wanPppConnectionGetGenericPortMappingEntryViewModel)
     : WanAccessTypeAwareFritzServiceViewModel(deviceLoginInfo, logger, WanAccessType.Dsl, "WANPPPConnection")
 {
-    private KeyValuePair<WanPppConnectionGetInfoResponse?, UPnPFault?>? wanPppConnectionGetInfoResponse;
-    private KeyValuePair<WanConnectionGetConnectionTypeInfoResponse?, UPnPFault?>? wanConnectionGetConnectionTypeInfoResponse;
-    private KeyValuePair<WanConnectionGetStatusInfoResponse?, UPnPFault?>? wanConnectionGetStatusInfoResponse;
-    private KeyValuePair<WanPppConnectionGetLinkLayerMaxBitRatesResponse?, UPnPFault?>? wanPppConnectionGetLinkLayerMaxBitRatesResponse;
-    private KeyValuePair<WanPppConnectionGetUserNameResponse?, UPnPFault?>? wanPppConnectionGetUserNameResponse;
-    private KeyValuePair<WanConnectionGetNatRsipStatusResponse?, UPnPFault?>? wanConnectionGetNatRsipStatusResponse;
-    private KeyValuePair<WanConnectionGetDnsServersResponse?, UPnPFault?>? wanConnectionGetDnsServersResponse;
-    private KeyValuePair<WanConnectionGetPortMappingNumberOfEntriesResponse?, UPnPFault?>? wanConnectionGetPortMappingNumberOfEntriesResponse;
-    private KeyValuePair<WanConnectionGetExternalIpAddressResponse?, UPnPFault?>? wanConnectionGetExternalIpAddressResponse;
-    private KeyValuePair<WanPppConnectionGetAutoDisconnectTimeSpanResponse?, UPnPFault?>? wanPppConnectionGetAutoDisconnectTimeSpanResponse;
-    private ObservableCollection<WanConnectionGetGenericPortMappingEntryResponse>? wanConnectionGetGenericPortMappingEntryResponses;
-
     public WanPppConnectionGetGenericPortMappingEntryViewModel WanPppConnectionGetGenericPortMappingEntryViewModel { get; } = wanPppConnectionGetGenericPortMappingEntryViewModel;
 
     public KeyValuePair<WanPppConnectionGetInfoResponse?, UPnPFault?>? WanPppConnectionGetInfoResponse
     {
-        get => wanPppConnectionGetInfoResponse;
-        private set => _ = SetProperty(ref wanPppConnectionGetInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanConnectionGetConnectionTypeInfoResponse?, UPnPFault?>? WanConnectionGetConnectionTypeInfoResponse
     {
-        get => wanConnectionGetConnectionTypeInfoResponse;
-        private set => _ = SetProperty(ref wanConnectionGetConnectionTypeInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanConnectionGetStatusInfoResponse?, UPnPFault?>? WanConnectionGetStatusInfoResponse
     {
-        get => wanConnectionGetStatusInfoResponse;
-        private set => _ = SetProperty(ref wanConnectionGetStatusInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanPppConnectionGetLinkLayerMaxBitRatesResponse?, UPnPFault?>? WanPppConnectionGetLinkLayerMaxBitRatesResponse
     {
-        get => wanPppConnectionGetLinkLayerMaxBitRatesResponse;
-        private set => _ = SetProperty(ref wanPppConnectionGetLinkLayerMaxBitRatesResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanPppConnectionGetUserNameResponse?, UPnPFault?>? WanPppConnectionGetUserNameResponse
     {
-        get => wanPppConnectionGetUserNameResponse;
-        private set => _ = SetProperty(ref wanPppConnectionGetUserNameResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanConnectionGetNatRsipStatusResponse?, UPnPFault?>? WanConnectionGetNatRsipStatusResponse
     {
-        get => wanConnectionGetNatRsipStatusResponse;
-        private set => _ = SetProperty(ref wanConnectionGetNatRsipStatusResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanConnectionGetDnsServersResponse?, UPnPFault?>? WanConnectionGetDnsServersResponse
     {
-        get => wanConnectionGetDnsServersResponse;
-        private set => _ = SetProperty(ref wanConnectionGetDnsServersResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanConnectionGetPortMappingNumberOfEntriesResponse?, UPnPFault?>? WanConnectionGetPortMappingNumberOfEntriesResponse
     {
-        get => wanConnectionGetPortMappingNumberOfEntriesResponse;
+        get;
         private set
         {
-            if (SetProperty(ref wanConnectionGetPortMappingNumberOfEntriesResponse, value))
+            if (SetProperty(ref field, value))
                 WanPppConnectionGetGenericPortMappingEntryViewModel.PortMappingNumberOfEntries = WanConnectionGetPortMappingNumberOfEntriesResponse?.Key!.Value.PortMappingNumberOfEntries;
         }
     }
 
     public KeyValuePair<WanConnectionGetExternalIpAddressResponse?, UPnPFault?>? WanConnectionGetExternalIpAddressResponse
     {
-        get => wanConnectionGetExternalIpAddressResponse;
-        private set => _ = SetProperty(ref wanConnectionGetExternalIpAddressResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<WanPppConnectionGetAutoDisconnectTimeSpanResponse?, UPnPFault?>? WanPppConnectionGetAutoDisconnectTimeSpanResponse
     {
-        get => wanPppConnectionGetAutoDisconnectTimeSpanResponse;
-        private set => _ = SetProperty(ref wanPppConnectionGetAutoDisconnectTimeSpanResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public ObservableCollection<WanConnectionGetGenericPortMappingEntryResponse>? WanConnectionGetGenericPortMappingEntryResponses
     {
-        get => wanConnectionGetGenericPortMappingEntryResponses;
-        private set => _ = SetProperty(ref wanConnectionGetGenericPortMappingEntryResponses, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
@@ -142,7 +130,7 @@ internal sealed class WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo,
 
         KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
 
-        WanConnectionGetGenericPortMappingEntryResponses = new(responses.Select(q => q.Key!.Value));
+        WanConnectionGetGenericPortMappingEntryResponses = [.. responses.Select(q => q.Key!.Value)];
     }
 
     private async Task GetWanPppConnectionGetExternalIpAddressAsync()

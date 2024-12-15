@@ -1,10 +1,10 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Globalization;
+﻿using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+
+namespace RS.Fritz.Manager.API;
 
 internal sealed class WebUiService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IWebUiService
 {

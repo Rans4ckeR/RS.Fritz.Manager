@@ -1,11 +1,11 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace RS.Fritz.Manager.UI;
 
 internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
 {
@@ -14,9 +14,6 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
     private readonly Brush downstreamLineBrush = Brushes.Green;
     private readonly Brush upstreamLineBrush = Brushes.Yellow;
     private readonly ScaleTransform scaleYTransform = new() { ScaleY = -1d };
-
-    private KeyValuePair<WanDslInterfaceConfigGetDslInfoResponse?, UPnPFault?>? wanDslInterfaceConfigGetDslInfoResponse;
-    private List<UIElement>? downstreamSnrElements;
 
     public WanDslInterfaceConfigDslInfoViewModel()
     {
@@ -31,18 +28,18 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
 
     public KeyValuePair<WanDslInterfaceConfigGetDslInfoResponse?, UPnPFault?>? WanDslInterfaceConfigGetDslInfoResponse
     {
-        get => wanDslInterfaceConfigGetDslInfoResponse;
+        get;
         set
         {
-            if (SetProperty(ref wanDslInterfaceConfigGetDslInfoResponse, value))
+            if (SetProperty(ref field, value))
                 UpdateSnrElements();
         }
     }
 
     public List<UIElement>? DownstreamSnrElements
     {
-        get => downstreamSnrElements;
-        private set => _ = SetProperty(ref downstreamSnrElements, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     private static void CreateUiElements(double yScale, double xScale, uint min, uint range, List<UIElement> uiElements, List<uint> values, Brush brush)

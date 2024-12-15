@@ -3,14 +3,12 @@
 internal sealed class ManagementServerSetTr069FirmwareDownloadEnabledViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : ManualOperationViewModel<ManagementServerSetTr069FirmwareDownloadEnabledRequest, ManagementServerSetTr069FirmwareDownloadEnabledResponse>(deviceLoginInfo, logger, "SetTr069FirmwareDownloadEnabled", "Update Tr069FirmwareDownloadEnabled", (d, r) => d.ManagementServerSetTr069FirmwareDownloadEnabledAsync(r))
 {
-    private bool? tr069FirmwareDownloadEnabled;
-
     public bool? Tr069FirmwareDownloadEnabled
     {
-        get => tr069FirmwareDownloadEnabled;
+        get;
         set
         {
-            if (SetProperty(ref tr069FirmwareDownloadEnabled, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }

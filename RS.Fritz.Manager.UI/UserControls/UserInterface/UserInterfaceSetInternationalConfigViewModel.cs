@@ -3,36 +3,32 @@
 internal sealed class UserInterfaceSetInternationalConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : ManualOperationViewModel<UserInterfaceSetInternationalConfigRequest, UserInterfaceSetInternationalConfigResponse>(deviceLoginInfo, logger, "SetInternationalConfig", "Set InternationalConfig", (d, r) => d.UserInterfaceSetInternationalConfigAsync(r))
 {
-    private string? language;
-    private string? country;
-    private string? annex;
-
     public string? Language
     {
-        get => language;
+        get;
         set
         {
-            if (SetProperty(ref language, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public string? Country
     {
-        get => country;
+        get;
         set
         {
-            if (SetProperty(ref country, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public string? Annex
     {
-        get => annex;
+        get;
         set
         {
-            if (SetProperty(ref annex, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }

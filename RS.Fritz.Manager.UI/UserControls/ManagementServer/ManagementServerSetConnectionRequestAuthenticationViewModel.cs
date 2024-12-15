@@ -4,25 +4,22 @@ internal sealed class
     ManagementServerSetConnectionRequestAuthenticationViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : ManualOperationViewModel<ManagementServerSetConnectionRequestAuthenticationRequest, ManagementServerSetConnectionRequestAuthenticationResponse>(deviceLoginInfo, logger, "SetConnectionRequestAuthentication", "Update ConnectionRequestAuthentication", (d, r) => d.ManagementServerSetConnectionRequestAuthenticationAsync(r))
 {
-    private string? connectionRequestUsername;
-    private string? connectionRequestPassword;
-
     public string? ConnectionRequestUsername
     {
-        get => connectionRequestUsername;
+        get;
         set
         {
-            if (SetProperty(ref connectionRequestUsername, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public string? ConnectionRequestPassword
     {
-        get => connectionRequestPassword;
+        get;
         set
         {
-            if (SetProperty(ref connectionRequestPassword, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }

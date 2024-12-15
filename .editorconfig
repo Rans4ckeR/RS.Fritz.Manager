@@ -20,7 +20,7 @@ insert_final_newline = false
 # Organize usings
 dotnet_separate_import_directive_groups = false
 dotnet_sort_system_directives_first = true
-file_header_template = unset
+file_header_template =
 
 # this. and Me. preferences
 dotnet_style_qualification_for_event = false:warning
@@ -82,14 +82,14 @@ csharp_style_var_for_built_in_types = false:warning
 csharp_style_var_when_type_is_apparent = true:warning
 
 # Expression-bodied members
-csharp_style_expression_bodied_accessors = true:warning
-csharp_style_expression_bodied_constructors = true:warning
-csharp_style_expression_bodied_indexers = true:warning
-csharp_style_expression_bodied_lambdas = true:warning
-csharp_style_expression_bodied_local_functions = true:warning
-csharp_style_expression_bodied_methods = true:warning
-csharp_style_expression_bodied_operators = true:warning
-csharp_style_expression_bodied_properties = true:warning
+csharp_style_expression_bodied_accessors = when_on_single_line:warning
+csharp_style_expression_bodied_constructors = when_on_single_line:warning
+csharp_style_expression_bodied_indexers = when_on_single_line:warning
+csharp_style_expression_bodied_lambdas = when_on_single_line:warning
+csharp_style_expression_bodied_local_functions = when_on_single_line:warning
+csharp_style_expression_bodied_methods = when_on_single_line:warning
+csharp_style_expression_bodied_operators = when_on_single_line:warning
+csharp_style_expression_bodied_properties = when_on_single_line:warning
 
 # Pattern matching preferences
 csharp_style_pattern_matching_over_as_with_null_check = true:warning
@@ -132,7 +132,7 @@ csharp_style_unused_value_assignment_preference = discard_variable:warning
 csharp_style_unused_value_expression_statement_preference = discard_variable:warning
 
 # 'using' directive preferences
-csharp_using_directive_placement = inside_namespace:warning
+csharp_using_directive_placement = outside_namespace:warning
 
 # New line preferences
 csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = false:warning
@@ -405,6 +405,16 @@ dotnet_diagnostic.CA1008.severity = none
 dotnet_diagnostic.API1002.severity = none
 dotnet_diagnostic.API1003.severity = warning
 dotnet_diagnostic.CA2263.severity = warning
+csharp_prefer_static_anonymous_function = true:warning
+csharp_prefer_system_threading_lock = true:warning
+dotnet_diagnostic.IDE0330.severity = warning
+dotnet_diagnostic.IDE0320.severity = warning
+
+# ReSharper properties
+resharper_braces_redundant = false
+dotnet_diagnostic.MVVMTK0042.severity = warning
+dotnet_diagnostic.MVVMTK0051.severity = warning
+dotnet_diagnostic.MVVMTK0056.severity = warning
 
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
@@ -606,6 +616,26 @@ dotnet_diagnostic.CA1506.severity = warning
 
 # CA1509: Invalid entry in code metrics rule specification file
 dotnet_diagnostic.CA1509.severity = warning
+dotnet_diagnostic.MSTEST0015.severity = warning
+dotnet_diagnostic.MSTEST0016.severity = warning
+dotnet_diagnostic.CA1871.severity = warning
+dotnet_diagnostic.MSTEST0007.severity = warning
+dotnet_diagnostic.CA1872.severity = warning
+dotnet_diagnostic.MSTEST0019.severity = none
+dotnet_diagnostic.MSTEST0020.severity = warning
+dotnet_diagnostic.MSTEST0021.severity = warning
+dotnet_diagnostic.MSTEST0022.severity = warning
+dotnet_diagnostic.MSTEST0025.severity = warning
+dotnet_diagnostic.MSTEST0017.severity = warning
+dotnet_diagnostic.MSTEST0023.severity = warning
+dotnet_diagnostic.MSTEST0024.severity = warning
+dotnet_diagnostic.MSTEST0032.severity = warning
+dotnet_diagnostic.MSTEST0029.severity = warning
+dotnet_diagnostic.MSTEST0026.severity = warning
+dotnet_diagnostic.MSTEST0030.severity = warning
+dotnet_diagnostic.MSTEST0031.severity = warning
+dotnet_diagnostic.MSTEST0034.severity = warning
+dotnet_diagnostic.MSTEST0035.severity = warning
 
 [*.vb]
 dotnet_diagnostic.CA1047.severity = warning

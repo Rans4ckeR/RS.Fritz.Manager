@@ -1,6 +1,6 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Globalization;
 
-using System.Globalization;
+namespace RS.Fritz.Manager.API;
 
 internal sealed class CaptureControlService(IHttpClientFactory httpClientFactory, INetworkService networkService) : ICaptureControlService
 {

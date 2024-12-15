@@ -2,7 +2,7 @@
 
 [MessageContract(WrapperName = "GetStatisticsResponse")]
 public readonly record struct LanEthernetInterfaceConfigGetStatisticsResponse(
-    [property: MessageBodyMember(Name = "NewBytesSent")] uint BytesSent,
-    [property: MessageBodyMember(Name = "NewBytesReceived")] uint BytesReceived,
-    [property: MessageBodyMember(Name = "NewPacketsSent")] uint PacketsSent,
-    [property: MessageBodyMember(Name = "NewPacketsReceived")] uint PacketsReceived);
+    [property: MessageBodyMember(Name = "NewBytesSent")] long BytesSent,
+    [property: MessageBodyMember(Name = "NewBytesReceived")] long BytesReceived,
+    [property: MessageBodyMember(Name = "NewPacketsSent")] long PacketsSent,
+    [property: MessageBodyMember(Name = "NewPacketsReceived")] long PacketsReceived);

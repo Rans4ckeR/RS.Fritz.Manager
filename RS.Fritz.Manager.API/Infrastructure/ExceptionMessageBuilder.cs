@@ -1,7 +1,7 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Text;
+﻿using System.Text;
 using System.Xml.Linq;
+
+namespace RS.Fritz.Manager.API;
 
 public static class ExceptionMessageBuilder
 {

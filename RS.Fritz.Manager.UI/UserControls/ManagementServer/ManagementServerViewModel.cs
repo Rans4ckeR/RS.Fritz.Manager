@@ -13,19 +13,17 @@ internal sealed class ManagementServerViewModel(
     ManagementServerSetTr069FirmwareDownloadEnabledViewModel managementServerSetTr069FirmwareDownloadEnabledViewModel)
     : FritzServiceViewModel(deviceLoginInfo, logger, "ManagementServer")
 {
-    private KeyValuePair<ManagementServerGetInfoResponse?, UPnPFault?>? managementServerGetInfoResponse;
-    private KeyValuePair<ManagementServerGetTr069FirmwareDownloadEnabledResponse?, UPnPFault?>? managementServerGetTr069FirmwareDownloadEnabledResponse;
-
     public KeyValuePair<ManagementServerGetInfoResponse?, UPnPFault?>? ManagementServerGetInfoResponse
     {
-        get => managementServerGetInfoResponse;
-        private set => _ = SetProperty(ref managementServerGetInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
-    public KeyValuePair<ManagementServerGetTr069FirmwareDownloadEnabledResponse?, UPnPFault?>? ManagementServerGetTr069FirmwareDownloadEnabledResponse
+    public KeyValuePair<ManagementServerGetTr069FirmwareDownloadEnabledResponse?, UPnPFault?>?
+        ManagementServerGetTr069FirmwareDownloadEnabledResponse
     {
-        get => managementServerGetTr069FirmwareDownloadEnabledResponse;
-        private set => _ = SetProperty(ref managementServerGetTr069FirmwareDownloadEnabledResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public ManagementServerSetManagementServerUrlViewModel ManagementServerSetManagementServerUrlViewModel { get; } = managementServerSetManagementServerUrlViewModel;

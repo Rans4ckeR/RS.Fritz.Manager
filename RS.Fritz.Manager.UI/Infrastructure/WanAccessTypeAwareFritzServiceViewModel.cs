@@ -1,7 +1,7 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
+
+namespace RS.Fritz.Manager.UI;
 
 internal abstract class WanAccessTypeAwareFritzServiceViewModel : FritzServiceViewModel
 {

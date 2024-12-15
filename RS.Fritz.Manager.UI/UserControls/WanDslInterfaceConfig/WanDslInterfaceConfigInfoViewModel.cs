@@ -1,10 +1,10 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace RS.Fritz.Manager.UI;
 
 internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
 {
@@ -14,16 +14,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
     private readonly ScaleTransform scaleYTransform = new() { ScaleY = -1d };
     private readonly List<WanDslInterfaceConfigGetInfoResponse> wanDslInterfaceConfigGetInfoResponses = [];
 
-    private KeyValuePair<WanDslInterfaceConfigGetInfoResponse?, UPnPFault?>? wanDslInterfaceConfigGetInfoResponse;
-    private List<UIElement>? downstreamMaxRateHistory;
-    private List<UIElement>? upstreamCurrRateHistory;
-    private List<UIElement>? downstreamCurrRateHistory;
     private List<UIElement>? upstreamMaxRateHistory;
-    private List<UIElement>? downstreamNoiseMarginHistory;
-    private List<UIElement>? upstreamAttenuationHistory;
-    private List<UIElement>? downstreamAttenuationHistory;
-    private List<UIElement>? upstreamPowerHistory;
-    private List<UIElement>? downstreamPowerHistory;
 
     public WanDslInterfaceConfigInfoViewModel()
     {
@@ -46,39 +37,39 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
 
     public KeyValuePair<WanDslInterfaceConfigGetInfoResponse?, UPnPFault?>? WanDslInterfaceConfigGetInfoResponse
     {
-        get => wanDslInterfaceConfigGetInfoResponse;
+        get;
         set
         {
             wanDslInterfaceConfigGetInfoResponses.Add(value!.Value.Key!.Value);
 
             if (wanDslInterfaceConfigGetInfoResponses.Count > 1)
             {
-                UpstreamCurrRateHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => (uint)(q.UpstreamCurrRate < 0 ? 0 : q.UpstreamCurrRate)).ToList());
-                DownstreamCurrRateHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamCurrRate).ToList());
-                UpstreamMaxRateHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => q.UpstreamMaxRate).ToList());
-                DownstreamMaxRateHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamMaxRate).ToList());
-                UpstreamNoiseMarginHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => q.UpstreamNoiseMargin).ToList());
-                DownstreamNoiseMarginHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamNoiseMargin).ToList());
-                UpstreamAttenuationHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => q.UpstreamAttenuation).ToList());
-                DownstreamAttenuationHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamAttenuation).ToList());
-                UpstreamPowerHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => (uint)q.UpstreamPower).ToList());
-                DownstreamPowerHistory = UpdateHistory(wanDslInterfaceConfigGetInfoResponses.Select(q => (uint)q.DownstreamPower).ToList());
+                UpstreamCurrRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => (uint)(q.UpstreamCurrRate < 0 ? 0 : q.UpstreamCurrRate))]);
+                DownstreamCurrRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamCurrRate)]);
+                UpstreamMaxRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.UpstreamMaxRate)]);
+                DownstreamMaxRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamMaxRate)]);
+                UpstreamNoiseMarginHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.UpstreamNoiseMargin)]);
+                DownstreamNoiseMarginHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamNoiseMargin)]);
+                UpstreamAttenuationHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.UpstreamAttenuation)]);
+                DownstreamAttenuationHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamAttenuation)]);
+                UpstreamPowerHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => (uint)q.UpstreamPower)]);
+                DownstreamPowerHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => (uint)q.DownstreamPower)]);
             }
 
-            _ = SetProperty(ref wanDslInterfaceConfigGetInfoResponse, value);
+            _ = SetProperty(ref field, value);
         }
     }
 
     public List<UIElement>? UpstreamCurrRateHistory
     {
-        get => upstreamCurrRateHistory;
-        private set => _ = SetProperty(ref upstreamCurrRateHistory, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public List<UIElement>? DownstreamCurrRateHistory
     {
-        get => downstreamCurrRateHistory;
-        private set => _ = SetProperty(ref downstreamCurrRateHistory, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public List<UIElement>? UpstreamMaxRateHistory
@@ -89,8 +80,8 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
 
     public List<UIElement>? DownstreamMaxRateHistory
     {
-        get => downstreamMaxRateHistory;
-        private set => _ = SetProperty(ref downstreamMaxRateHistory, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public List<UIElement>? UpstreamNoiseMarginHistory
@@ -101,32 +92,32 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
 
     public List<UIElement>? DownstreamNoiseMarginHistory
     {
-        get => downstreamNoiseMarginHistory;
-        private set => _ = SetProperty(ref downstreamNoiseMarginHistory, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public List<UIElement>? UpstreamAttenuationHistory
     {
-        get => upstreamAttenuationHistory;
-        private set => _ = SetProperty(ref upstreamAttenuationHistory, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public List<UIElement>? DownstreamAttenuationHistory
     {
-        get => downstreamAttenuationHistory;
-        private set => _ = SetProperty(ref downstreamAttenuationHistory, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public List<UIElement>? UpstreamPowerHistory
     {
-        get => upstreamPowerHistory;
-        private set => _ = SetProperty(ref upstreamPowerHistory, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public List<UIElement>? DownstreamPowerHistory
     {
-        get => downstreamPowerHistory;
-        private set => _ = SetProperty(ref downstreamPowerHistory, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     private List<UIElement> UpdateHistory(List<uint> values)

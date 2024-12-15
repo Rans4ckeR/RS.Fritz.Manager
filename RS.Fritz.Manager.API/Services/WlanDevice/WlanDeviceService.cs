@@ -1,7 +1,7 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Xml;
+﻿using System.Xml;
 using System.Xml.Serialization;
+
+namespace RS.Fritz.Manager.API;
 
 internal sealed class WlanDeviceService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IWlanDeviceService
 {

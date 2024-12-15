@@ -1,6 +1,6 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Runtime.Serialization;
 
-using System.Runtime.Serialization;
+namespace RS.Fritz.Manager.API;
 
 [DataContract(Name = UPnPConstants.Device, Namespace = UPnPConstants.Device10AvmNamespace)]
 internal readonly record struct AvmDeviceListDevice(

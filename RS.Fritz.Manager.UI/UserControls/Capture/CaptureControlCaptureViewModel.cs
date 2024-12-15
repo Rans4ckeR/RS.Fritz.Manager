@@ -1,6 +1,4 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Interop;
@@ -9,13 +7,11 @@ using Windows.Storage;
 using Windows.Storage.Pickers;
 using WinRT.Interop;
 
+namespace RS.Fritz.Manager.UI;
+
 internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 {
     private readonly ICaptureControlService captureControlService;
-
-    private string folderName = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-    private int packetCaptureSizeLimit = 1600;
-    private ObservableCollection<UserInterfaceCaptureInterfaceGroup>? captureInterfaceGroups;
 
     public CaptureControlCaptureViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, ICaptureControlService captureControlService)
            : base(deviceLoginInfo, logger)
@@ -26,30 +22,34 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 
     public IAsyncRelayCommand SelectTargetFolderCommand { get; }
 
+#pragma warning disable SA1500 // Braces for multi-line statements should not share line
+#pragma warning disable SA1513 // Closing brace should be followed by blank line
     public string FolderName
     {
-        get => folderName;
+        get;
         set
         {
-            if (SetProperty(ref folderName, value))
+            if (SetProperty(ref field, value))
                 NotifyAllStartCommandsCanExecuteChanged();
         }
-    }
+    } = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
 
     public int PacketCaptureSizeLimit
     {
-        get => packetCaptureSizeLimit;
+        get;
         set
         {
-            if (SetProperty(ref packetCaptureSizeLimit, value))
+            if (SetProperty(ref field, value))
                 NotifyAllStartCommandsCanExecuteChanged();
         }
-    }
+    } = 1600;
+#pragma warning restore SA1500 // Braces for multi-line statements should not share line
+#pragma warning restore SA1513 // Closing brace should be followed by blank line
 
     public ObservableCollection<UserInterfaceCaptureInterfaceGroup>? CaptureInterfaceGroups
     {
-        get => captureInterfaceGroups;
-        private set => _ = SetProperty(ref captureInterfaceGroups, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
@@ -57,9 +57,9 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
         if (CaptureInterfaceGroups is not null)
             return;
 
-        IEnumerable<UserInterfaceCaptureInterfaceGroup> newCaptureInterfaceGroups = (await captureControlService.GetInterfacesAsync(ApiDevice, cancellationToken).ConfigureAwait(true)).Select(q => new UserInterfaceCaptureInterfaceGroup(q, q.CaptureInterfaces.Select(r => new UserInterfaceCaptureInterface(r, new(DoExecuteCaptureInterfaceStartCommand, _ => CanExecuteCaptureInterfaceStartCommand(r)), new(DoExecuteCaptureInterfaceStopCommandAsync, _ => CanExecuteCaptureInterfaceStopCommand(r)))).ToList()));
+        IEnumerable<UserInterfaceCaptureInterfaceGroup> newCaptureInterfaceGroups = (await captureControlService.GetInterfacesAsync(ApiDevice, cancellationToken).ConfigureAwait(true)).Select(q => new UserInterfaceCaptureInterfaceGroup(q, [.. q.CaptureInterfaces.Select(r => new UserInterfaceCaptureInterface(r, new(DoExecuteCaptureInterfaceStartCommand, _ => CanExecuteCaptureInterfaceStartCommand(r)), new(DoExecuteCaptureInterfaceStopCommandAsync, _ => CanExecuteCaptureInterfaceStopCommand(r))))]));
 
-        CaptureInterfaceGroups = new(newCaptureInterfaceGroups);
+        CaptureInterfaceGroups = [.. newCaptureInterfaceGroups];
 
         NotifyAllStartCommandsCanExecuteChanged();
     }

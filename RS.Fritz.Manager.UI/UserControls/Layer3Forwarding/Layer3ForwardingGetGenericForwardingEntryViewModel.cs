@@ -3,34 +3,31 @@
 internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : FritzServiceViewModel(deviceLoginInfo, logger)
 {
-    private ushort? index;
-    private ushort? forwardNumberOfEntries;
-    private KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>? layer3ForwardingGetGenericForwardingEntryResponse;
-
     public ushort? Index
     {
-        get => index;
+        get;
         set
         {
-            if (SetProperty(ref index, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public ushort? ForwardNumberOfEntries
     {
-        get => forwardNumberOfEntries;
+        get;
         set
         {
-            if (SetProperty(ref forwardNumberOfEntries, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
-    public KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>? Layer3ForwardingGetGenericForwardingEntryResponse
+    public KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>?
+        Layer3ForwardingGetGenericForwardingEntryResponse
     {
-        get => layer3ForwardingGetGenericForwardingEntryResponse;
-        private set => _ = SetProperty(ref layer3ForwardingGetGenericForwardingEntryResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)

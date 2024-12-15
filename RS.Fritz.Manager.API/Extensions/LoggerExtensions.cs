@@ -1,6 +1,6 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using Microsoft.Extensions.Logging;
 
-using Microsoft.Extensions.Logging;
+namespace RS.Fritz.Manager.API;
 
 public static class LoggerExtensions
 {

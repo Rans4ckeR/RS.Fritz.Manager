@@ -1,8 +1,8 @@
-﻿namespace RS.Fritz.Manager.API;
-
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+
+namespace RS.Fritz.Manager.API;
 
 internal sealed class DeviceMeshStreamConfigurationArrayJsonConverter : JsonConverter<DeviceMeshStreamConfiguration[]>
 {

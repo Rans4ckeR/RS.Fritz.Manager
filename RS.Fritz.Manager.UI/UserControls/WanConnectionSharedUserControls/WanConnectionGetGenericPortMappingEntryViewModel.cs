@@ -2,34 +2,30 @@
 
 internal abstract class WanConnectionGetGenericPortMappingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger) : FritzServiceViewModel(deviceLoginInfo, logger)
 {
-    private ushort? index;
-    private ushort? portMappingNumberOfEntries;
-    private KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>? wanConnectionGetGenericPortMappingEntryResponse;
-
     public ushort? Index
     {
-        get => index;
+        get;
         set
         {
-            if (SetProperty(ref index, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public ushort? PortMappingNumberOfEntries
     {
-        get => portMappingNumberOfEntries;
+        get;
         set
         {
-            if (SetProperty(ref portMappingNumberOfEntries, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>? WanConnectionGetGenericPortMappingEntryResponse
     {
-        get => wanConnectionGetGenericPortMappingEntryResponse;
-        protected set => _ = SetProperty(ref wanConnectionGetGenericPortMappingEntryResponse, value);
+        get;
+        protected set => _ = SetProperty(ref field, value);
     }
 
     protected override bool GetCanExecuteDefaultCommand()

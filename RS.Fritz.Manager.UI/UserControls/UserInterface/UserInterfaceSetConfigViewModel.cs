@@ -3,14 +3,12 @@
 internal sealed class UserInterfaceSetConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : ManualOperationViewModel<UserInterfaceSetConfigRequest, UserInterfaceSetConfigResponse>(deviceLoginInfo, logger, "SetConfig", "Set Config", (d, r) => d.UserInterfaceSetConfigAsync(r))
 {
-    private string? autoUpdateMode;
-
     public string? AutoUpdateMode
     {
-        get => autoUpdateMode;
+        get;
         set
         {
-            if (SetProperty(ref autoUpdateMode, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }

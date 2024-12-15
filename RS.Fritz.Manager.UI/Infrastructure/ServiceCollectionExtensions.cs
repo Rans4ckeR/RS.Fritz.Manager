@@ -1,6 +1,6 @@
-﻿namespace RS.Fritz.Manager.UI;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-using Microsoft.Extensions.DependencyInjection;
+namespace RS.Fritz.Manager.UI;
 
 internal static class ServiceCollectionExtensions
 {

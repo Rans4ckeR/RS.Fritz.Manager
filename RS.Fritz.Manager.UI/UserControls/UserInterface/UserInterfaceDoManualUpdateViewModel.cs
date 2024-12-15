@@ -3,25 +3,22 @@
 internal sealed class UserInterfaceDoManualUpdateViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : ManualOperationViewModel<UserInterfaceDoManualUpdateRequest, UserInterfaceDoManualUpdateResponse>(deviceLoginInfo, logger, "DoManualUpdate", "Manual Update", (d, r) => d.UserInterfaceDoManualUpdateAsync(r))
 {
-    private string? downloadUrl;
-    private bool? allowDowngrade;
-
     public string? DownloadUrl
     {
-        get => downloadUrl;
+        get;
         set
         {
-            if (SetProperty(ref downloadUrl, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public bool? AllowDowngrade
     {
-        get => allowDowngrade;
+        get;
         set
         {
-            if (SetProperty(ref allowDowngrade, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }

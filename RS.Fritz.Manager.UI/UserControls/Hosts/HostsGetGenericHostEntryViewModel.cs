@@ -3,34 +3,30 @@
 internal sealed class HostsGetGenericHostEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : FritzServiceViewModel(deviceLoginInfo, logger)
 {
-    private ushort? index;
-    private ushort? hostNumberOfEntries;
-    private KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>? hostsGetGenericHostEntryResponse;
-
     public ushort? Index
     {
-        get => index;
+        get;
         set
         {
-            if (SetProperty(ref index, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public ushort? HostNumberOfEntries
     {
-        get => hostNumberOfEntries;
+        get;
         set
         {
-            if (SetProperty(ref hostNumberOfEntries, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>? HostsGetGenericHostEntryResponse
     {
-        get => hostsGetGenericHostEntryResponse;
-        private set => _ = SetProperty(ref hostsGetGenericHostEntryResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)

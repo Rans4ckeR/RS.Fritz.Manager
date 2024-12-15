@@ -3,25 +3,22 @@
 internal sealed class TimeSetNtpServersViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
     : ManualOperationViewModel<TimeSetNtpServersRequest, TimeSetNtpServersResponse>(deviceLoginInfo, logger, "SetNtpServers", "Update NtpServers", (d, r) => d.TimeSetNtpServersAsync(r))
 {
-    private string? ntpServer1;
-    private string? ntpServer2;
-
     public string? NtpServer1
     {
-        get => ntpServer1;
+        get;
         set
         {
-            if (SetProperty(ref ntpServer1, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }
 
     public string? NtpServer2
     {
-        get => ntpServer2;
+        get;
         set
         {
-            if (SetProperty(ref ntpServer2, value))
+            if (SetProperty(ref field, value))
                 UpdateAndNotifyCanExecuteDefaultCommand();
         }
     }

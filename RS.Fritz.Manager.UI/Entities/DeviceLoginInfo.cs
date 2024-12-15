@@ -1,22 +1,14 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using System.Security;
+﻿using System.Security;
 using System.ServiceModel.Security;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
+namespace RS.Fritz.Manager.UI;
+
 internal sealed class DeviceLoginInfo : ObservableRecipient
 {
     private readonly ILogger logger;
-    private ObservableInternetGatewayDevice? internetGatewayDevice;
-    private InternetGatewayDevice? selectedInternetGatewayDevice;
-    private User? user;
-    private SecureString? password;
-    private bool loginInfoSet;
-    private bool authenticated;
-    private WanAccessType? wanAccessType;
-    private IEnumerable<User> users = [];
 
     public DeviceLoginInfo(ILogger logger)
         : base(StrongReferenceMessenger.Default)
@@ -32,51 +24,55 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
 
     public ObservableInternetGatewayDevice? InternetGatewayDevice
     {
-        get => internetGatewayDevice;
-        set => _ = SetProperty(ref internetGatewayDevice, value, true);
+        get;
+        set => _ = SetProperty(ref field, value, true);
     }
 
     public InternetGatewayDevice? SelectedInternetGatewayDevice
     {
-        get => selectedInternetGatewayDevice;
-        set => _ = SetProperty(ref selectedInternetGatewayDevice, value, true);
+        get;
+        set => _ = SetProperty(ref field, value, true);
     }
 
     public SecureString? Password
     {
-        get => password;
-        set => _ = SetProperty(ref password, value, true);
+        get;
+        set => _ = SetProperty(ref field, value, true);
     }
 
     public User? User
     {
-        get => user;
-        set => _ = SetProperty(ref user, value, true);
+        get;
+        set => _ = SetProperty(ref field, value, true);
     }
 
     public bool LoginInfoSet
     {
-        get => loginInfoSet;
-        private set => _ = SetProperty(ref loginInfoSet, value, true);
+        get;
+        private set => _ = SetProperty(ref field, value, true);
     }
 
     public bool Authenticated
     {
-        get => authenticated;
-        private set => _ = SetProperty(ref authenticated, value, true);
+        get;
+        private set => _ = SetProperty(ref field, value, true);
     }
 
     public WanAccessType? WanAccessType
     {
-        get => wanAccessType;
-        set => _ = SetProperty(ref wanAccessType, value, true);
+        get;
+        set => _ = SetProperty(ref field, value, true);
     }
 
+#pragma warning disable SA1500 // Braces for multi-line statements should not share line
+#pragma warning disable SA1513 // Closing brace should be followed by blank line
     public IEnumerable<User> Users
     {
-        get => users;
-        set => _ = SetProperty(ref users, value, true);
-    }
+        get;
+        private set => _ = SetProperty(ref field, value, true);
+    } = [];
+#pragma warning restore SA1500 // Braces for multi-line statements should not share line
+#pragma warning restore SA1513 // Closing brace should be followed by blank line
 
     public async ValueTask GetDeviceTypeAsync()
     {

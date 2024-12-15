@@ -1,7 +1,6 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Net;
 
-using System;
-using System.Net;
+namespace RS.Fritz.Manager.API;
 
 public readonly record struct DeviceSearchResponse(
     string? CacheControl,

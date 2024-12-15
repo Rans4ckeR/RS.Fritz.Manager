@@ -1,12 +1,12 @@
-﻿namespace RS.Fritz.Manager.UI;
-
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+
+namespace RS.Fritz.Manager.UI;
 
 internal sealed partial class App
 {

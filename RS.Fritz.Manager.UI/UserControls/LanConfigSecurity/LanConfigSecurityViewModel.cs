@@ -3,35 +3,30 @@
 internal sealed class LanConfigSecurityViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel)
     : FritzServiceViewModel(deviceLoginInfo, logger, "LANConfigSecurity")
 {
-    private KeyValuePair<LanConfigSecurityGetAnonymousLoginResponse?, UPnPFault?>? lanConfigSecurityGetAnonymousLoginResponse;
-    private KeyValuePair<LanConfigSecurityGetCurrentUserResponse?, UPnPFault?>? lanConfigSecurityGetCurrentUserResponse;
-    private KeyValuePair<LanConfigSecurityGetInfoResponse?, UPnPFault?>? lanConfigSecurityGetInfoResponse;
-    private KeyValuePair<LanConfigSecurityGetUserListResponse?, UPnPFault?>? lanConfigSecurityGetUserListResponse;
-
     public LanConfigSecuritySetConfigPasswordViewModel LanConfigSecuritySetConfigPasswordViewModel { get; } = lanConfigSecuritySetConfigPasswordViewModel;
 
     public KeyValuePair<LanConfigSecurityGetAnonymousLoginResponse?, UPnPFault?>? LanConfigSecurityGetAnonymousLoginResponse
     {
-        get => lanConfigSecurityGetAnonymousLoginResponse;
-        private set => _ = SetProperty(ref lanConfigSecurityGetAnonymousLoginResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<LanConfigSecurityGetCurrentUserResponse?, UPnPFault?>? LanConfigSecurityGetCurrentUserResponse
     {
-        get => lanConfigSecurityGetCurrentUserResponse;
-        private set => _ = SetProperty(ref lanConfigSecurityGetCurrentUserResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<LanConfigSecurityGetInfoResponse?, UPnPFault?>? LanConfigSecurityGetInfoResponse
     {
-        get => lanConfigSecurityGetInfoResponse;
-        private set => _ = SetProperty(ref lanConfigSecurityGetInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<LanConfigSecurityGetUserListResponse?, UPnPFault?>? LanConfigSecurityGetUserListResponse
     {
-        get => lanConfigSecurityGetUserListResponse;
-        private set => _ = SetProperty(ref lanConfigSecurityGetUserListResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)

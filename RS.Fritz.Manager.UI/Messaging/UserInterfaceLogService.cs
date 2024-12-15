@@ -1,6 +1,6 @@
-﻿namespace RS.Fritz.Manager.UI;
+﻿using CommunityToolkit.Mvvm.Messaging;
 
-using CommunityToolkit.Mvvm.Messaging;
+namespace RS.Fritz.Manager.UI;
 
 internal sealed class UserInterfaceLogService : ILogger
 {

@@ -8,19 +8,16 @@ internal sealed class DeviceConfigViewModel(
     DeviceConfigGetConfigFileViewModel deviceConfigGetConfigFileViewModel)
     : FritzServiceViewModel(deviceLoginInfo, logger, "DeviceConfig")
 {
-    private KeyValuePair<DeviceConfigGetPersistentDataResponse?, UPnPFault?>? deviceConfigGetPersistentDataResponse;
-    private KeyValuePair<DeviceConfigGetSupportDataInfoResponse?, UPnPFault?>? deviceConfigGetSupportDataInfoResponse;
-
     public KeyValuePair<DeviceConfigGetPersistentDataResponse?, UPnPFault?>? DeviceConfigGetPersistentDataResponse
     {
-        get => deviceConfigGetPersistentDataResponse;
-        private set => _ = SetProperty(ref deviceConfigGetPersistentDataResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public KeyValuePair<DeviceConfigGetSupportDataInfoResponse?, UPnPFault?>? DeviceConfigGetSupportDataInfoResponse
     {
-        get => deviceConfigGetSupportDataInfoResponse;
-        private set => _ = SetProperty(ref deviceConfigGetSupportDataInfoResponse, value);
+        get;
+        private set => _ = SetProperty(ref field, value);
     }
 
     public DeviceConfigGenerateUuIdViewModel DeviceConfigGenerateUuIdViewModel { get; } = deviceConfigGenerateUuIdViewModel;
