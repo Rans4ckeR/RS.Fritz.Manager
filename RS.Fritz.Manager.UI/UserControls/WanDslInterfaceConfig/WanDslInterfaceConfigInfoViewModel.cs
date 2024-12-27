@@ -44,16 +44,16 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
 
             if (wanDslInterfaceConfigGetInfoResponses.Count > 1)
             {
-                UpstreamCurrRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => (uint)(q.UpstreamCurrRate < 0 ? 0 : q.UpstreamCurrRate))]);
-                DownstreamCurrRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamCurrRate)]);
-                UpstreamMaxRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.UpstreamMaxRate)]);
-                DownstreamMaxRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamMaxRate)]);
-                UpstreamNoiseMarginHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.UpstreamNoiseMargin)]);
-                DownstreamNoiseMarginHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamNoiseMargin)]);
-                UpstreamAttenuationHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.UpstreamAttenuation)]);
-                DownstreamAttenuationHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => q.DownstreamAttenuation)]);
-                UpstreamPowerHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => (uint)q.UpstreamPower)]);
-                DownstreamPowerHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(q => (uint)q.DownstreamPower)]);
+                UpstreamCurrRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => (uint)(q.UpstreamCurrRate < 0 ? 0 : q.UpstreamCurrRate))]);
+                DownstreamCurrRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.DownstreamCurrRate)]);
+                UpstreamMaxRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.UpstreamMaxRate)]);
+                DownstreamMaxRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.DownstreamMaxRate)]);
+                UpstreamNoiseMarginHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.UpstreamNoiseMargin)]);
+                DownstreamNoiseMarginHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.DownstreamNoiseMargin)]);
+                UpstreamAttenuationHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.UpstreamAttenuation)]);
+                DownstreamAttenuationHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.DownstreamAttenuation)]);
+                UpstreamPowerHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => (uint)q.UpstreamPower)]);
+                DownstreamPowerHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => (uint)q.DownstreamPower)]);
             }
 
             _ = SetProperty(ref field, value);

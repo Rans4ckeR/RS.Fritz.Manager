@@ -1,7 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 internal sealed class ManagementServerSetUpgradeManagementViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-    : ManualOperationViewModel<ManagementServerSetUpgradeManagementRequest, ManagementServerSetUpgradeManagementResponse>(deviceLoginInfo, logger, "SetUpgradeManagement", "Update UpgradeManagement", (d, r) => d.ManagementServerSetUpgradeManagementAsync(r))
+    : ManualOperationViewModel<ManagementServerSetUpgradeManagementRequest, ManagementServerSetUpgradeManagementResponse>(deviceLoginInfo, logger, "SetUpgradeManagement", "Update UpgradeManagement", static (d, r) => d.ManagementServerSetUpgradeManagementAsync(r))
 {
     public bool? UpgradesManaged
     {

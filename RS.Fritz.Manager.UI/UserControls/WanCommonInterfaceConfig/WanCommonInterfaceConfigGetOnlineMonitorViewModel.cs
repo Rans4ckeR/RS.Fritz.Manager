@@ -130,37 +130,37 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
             downstreamInternetBps =
             [
                 .. field!.Value.Key!.Value.DownstreamInternetBps.Split(',')
-                    .Select(q => uint.Parse(q, CultureInfo.InvariantCulture))
+                    .Select(static q => uint.Parse(q, CultureInfo.InvariantCulture))
             ];
             downstreamIpTvBps =
             [
                 .. field!.Value.Key!.Value.DownstreamIpTvBps.Split(',')
-                    .Select(q => uint.Parse(q, CultureInfo.InvariantCulture))
+                    .Select(static q => uint.Parse(q, CultureInfo.InvariantCulture))
             ];
             upstreamTotalBps =
             [
                 .. field!.Value.Key!.Value.UpstreamTotalBps.Split(',')
-                    .Select(q => uint.Parse(q, CultureInfo.InvariantCulture))
+                    .Select(static q => uint.Parse(q, CultureInfo.InvariantCulture))
             ];
             upstreamRealTimeApplicationsBps =
             [
                 .. field!.Value.Key!.Value.UpstreamRealTimeApplicationsBps.Split(',')
-                    .Select(q => uint.Parse(q, CultureInfo.InvariantCulture))
+                    .Select(static q => uint.Parse(q, CultureInfo.InvariantCulture))
             ];
             upstreamPrioritizedApplicationsBps =
             [
                 .. field!.Value.Key!.Value.UpstreamPrioritizedApplicationsBps.Split(',')
-                    .Select(q => uint.Parse(q, CultureInfo.InvariantCulture))
+                    .Select(static q => uint.Parse(q, CultureInfo.InvariantCulture))
             ];
             upstreamNormalApplicationsBps =
             [
                 .. field!.Value.Key!.Value.UpstreamNormalApplicationsBps.Split(',')
-                    .Select(q => uint.Parse(q, CultureInfo.InvariantCulture))
+                    .Select(static q => uint.Parse(q, CultureInfo.InvariantCulture))
             ];
             upstreamBackgroundApplicationsBps =
             [
                 .. field!.Value.Key!.Value.UpstreamBackgroundApplicationsBps.Split(',')
-                    .Select(q => uint.Parse(q, CultureInfo.InvariantCulture))
+                    .Select(static q => uint.Parse(q, CultureInfo.InvariantCulture))
             ];
 
             UpdateOnlineMonitorDownstreamElements();

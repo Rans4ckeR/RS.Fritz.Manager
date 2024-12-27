@@ -46,8 +46,8 @@ internal sealed class ManagementServerViewModel(
         => API.TaskExtensions.WhenAllSafe([GetManagementServerGetInfoAsync(), GetManagementServerGetTr069FirmwareDownloadEnabledAsync()], true);
 
     private async Task GetManagementServerGetInfoAsync()
-        => ManagementServerGetInfoResponse = await ExecuteApiAsync(q => q.ManagementServerGetInfoAsync()).ConfigureAwait(true);
+        => ManagementServerGetInfoResponse = await ExecuteApiAsync(static q => q.ManagementServerGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetManagementServerGetTr069FirmwareDownloadEnabledAsync()
-        => ManagementServerGetTr069FirmwareDownloadEnabledResponse = await ExecuteApiAsync(q => q.ManagementServerGetTr069FirmwareDownloadEnabledAsync()).ConfigureAwait(true);
+        => ManagementServerGetTr069FirmwareDownloadEnabledResponse = await ExecuteApiAsync(static q => q.ManagementServerGetTr069FirmwareDownloadEnabledAsync()).ConfigureAwait(true);
 }

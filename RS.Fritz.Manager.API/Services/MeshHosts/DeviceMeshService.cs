@@ -4,6 +4,9 @@ namespace RS.Fritz.Manager.API;
 
 internal sealed class DeviceMeshService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IDeviceMeshService
 {
+    private readonly INetworkService networkService = networkService;
+    private readonly IHttpClientFactory httpClientFactory = httpClientFactory;
+
     public async ValueTask<DeviceMeshInfo> GetDeviceMeshAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         HostsGetMeshListPathResponse hostsGetMeshListPathResponse = await internetGatewayDevice.HostsGetMeshListPathAsync().ConfigureAwait(false);

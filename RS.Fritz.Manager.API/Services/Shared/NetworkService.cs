@@ -50,17 +50,17 @@ internal sealed class NetworkService : INetworkService
 
     public IEnumerable<IPAddress> GetUnicastAddresses()
         => GetIpInterfaces()
-            .SelectMany(q => q.UnicastAddresses.Select(r => r.Address))
-            .Where(q => SupportedAddressFamilies.Contains(q.AddressFamily));
+            .SelectMany(static q => q.UnicastAddresses.Select(static r => r.Address))
+            .Where(static q => SupportedAddressFamilies.Contains(q.AddressFamily));
 
     public IEnumerable<IPAddress> GetMulticastAddresses()
         => GetIpInterfaces()
-            .SelectMany(q => q.MulticastAddresses.Select(r => r.Address))
-            .Where(q => SupportedAddressFamilies.Contains(q.AddressFamily));
+            .SelectMany(static q => q.MulticastAddresses.Select(static r => r.Address))
+            .Where(static q => SupportedAddressFamilies.Contains(q.AddressFamily));
 
     private static IEnumerable<IPInterfaceProperties> GetIpInterfaces()
         => NetworkInterface.GetAllNetworkInterfaces()
-            .Where(q => q.OperationalStatus is OperationalStatus.Up && q.NetworkInterfaceType is not NetworkInterfaceType.Loopback)
-            .Select(q => q.GetIPProperties())
-            .Where(q => q.GatewayAddresses.Count is not 0);
+            .Where(static q => q.OperationalStatus is OperationalStatus.Up && q.NetworkInterfaceType is not NetworkInterfaceType.Loopback)
+            .Select(static q => q.GetIPProperties())
+            .Where(static q => q.GatewayAddresses.Count is not 0);
 }

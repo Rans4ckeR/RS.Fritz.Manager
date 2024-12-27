@@ -1,7 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 internal sealed class ManagementServerSetTr069EnableViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-    : ManualOperationViewModel<ManagementServerSetTr069EnableRequest, ManagementServerSetTr069EnableResponse>(deviceLoginInfo, logger, "SetTr069Enable", "Update Tr069Enable", (d, r) => d.ManagementServerSetTr069EnableAsync(r))
+    : ManualOperationViewModel<ManagementServerSetTr069EnableRequest, ManagementServerSetTr069EnableResponse>(deviceLoginInfo, logger, "SetTr069Enable", "Update Tr069Enable", static (d, r) => d.ManagementServerSetTr069EnableAsync(r))
 {
     public bool? Tr069Enabled
     {

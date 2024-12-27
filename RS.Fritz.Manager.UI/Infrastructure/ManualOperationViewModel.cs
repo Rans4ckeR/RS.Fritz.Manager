@@ -10,6 +10,8 @@ internal abstract class ManualOperationViewModel<TRequest, TResponse>(
     where TRequest : struct
     where TResponse : struct
 {
+    private readonly Func<InternetGatewayDevice, TRequest, Task<TResponse>> operation = operation;
+
     public string Title { get; } = title;
 
     public string ButtonText { get; } = buttonText;

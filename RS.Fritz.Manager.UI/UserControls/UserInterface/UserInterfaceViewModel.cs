@@ -51,11 +51,11 @@ internal sealed class UserInterfaceViewModel(
             true);
 
     private async Task GetUserInterfaceGetInfoAsync()
-        => UserInterfaceGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInfoAsync()).ConfigureAwait(true);
+        => UserInterfaceGetInfoResponse = await ExecuteApiAsync(static q => q.UserInterfaceGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetUserInterfaceGetInternationalConfigAsync()
-        => UserInterfaceGetInternationalConfigResponse = await ExecuteApiAsync(q => q.UserInterfaceGetInternationalConfigAsync()).ConfigureAwait(true);
+        => UserInterfaceGetInternationalConfigResponse = await ExecuteApiAsync(static q => q.UserInterfaceGetInternationalConfigAsync()).ConfigureAwait(true);
 
     private async Task GetUserInterfaceAvmGetInfoAsync()
-        => UserInterfaceAvmGetInfoResponse = await ExecuteApiAsync(q => q.UserInterfaceAvmGetInfoAsync()).ConfigureAwait(true);
+        => UserInterfaceAvmGetInfoResponse = await ExecuteApiAsync(static q => q.UserInterfaceAvmGetInfoAsync()).ConfigureAwait(true);
 }

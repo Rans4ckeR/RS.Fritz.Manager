@@ -10,6 +10,9 @@ internal sealed class WebUiService(IHttpClientFactory httpClientFactory, INetwor
 {
     private const string LoginPath = "//login_sid.lua?version=2";
 
+    private readonly IHttpClientFactory httpClientFactory = httpClientFactory;
+    private readonly INetworkService networkService = networkService;
+
     public async ValueTask<WebUiSessionInfo> GetUsersAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         Uri loginUri = GetLoginUri(internetGatewayDevice);

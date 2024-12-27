@@ -25,15 +25,13 @@ internal abstract class FritzServiceClient<T> : ClientBase<T>
             {
                 MaxBufferSize = int.MaxValue,
                 ReaderQuotas = XmlDictionaryReaderQuotas.Max,
-                MaxReceivedMessageSize = int.MaxValue,
-                AllowCookies = true
+                MaxReceivedMessageSize = int.MaxValue
             },
             FritzServiceEndpointConfiguration.BasicHttpsBindingIFritzService => new BasicHttpsBinding
             {
                 MaxBufferSize = int.MaxValue,
                 ReaderQuotas = XmlDictionaryReaderQuotas.Max,
                 MaxReceivedMessageSize = int.MaxValue,
-                AllowCookies = true,
                 Security =
                 {
                     Mode = BasicHttpsSecurityMode.Transport,

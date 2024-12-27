@@ -68,9 +68,9 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         CopyMessageCommand = new RelayCommand(ExecuteCopyMessageCommand);
         CloseMessageCommand = new RelayCommand(ExecuteCloseMessageCommand);
 
-        StrongReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, (r, m) => ((MainWindowViewModel)r).UserMessage = m.Value.Message);
-        StrongReferenceMessenger.Default.Register<ActiveViewValueChangedMessage>(this, (r, m) => ((MainWindowViewModel)r).ActiveView = m.Value);
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<ObservableInternetGatewayDevice?>>(this, (r, m) => ((MainWindowViewModel)r).Receive(m));
+        StrongReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, static (r, m) => ((MainWindowViewModel)r).UserMessage = m.Value.Message);
+        StrongReferenceMessenger.Default.Register<ActiveViewValueChangedMessage>(this, static (r, m) => ((MainWindowViewModel)r).ActiveView = m.Value);
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<ObservableInternetGatewayDevice?>>(this, static (r, m) => ((MainWindowViewModel)r).Receive(m));
         UpdateCanExecuteDefaultCommand();
     }
 
@@ -282,7 +282,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     {
         ActiveView = null;
         DeviceLoginInfo.InternetGatewayDevice = null;
-        Devices = [.. (await deviceSearchService.GetInternetGatewayDevicesAsync(cancellationToken: cancellationToken).ConfigureAwait(true)).Select(q => new ObservableInternetGatewayDevice(q))];
+        Devices = [.. (await deviceSearchService.GetInternetGatewayDevicesAsync(cancellationToken: cancellationToken).ConfigureAwait(true)).Select(static q => new ObservableInternetGatewayDevice(q))];
     }
 
     protected override bool GetCanExecuteDefaultCommand() => !DefaultCommandActive;

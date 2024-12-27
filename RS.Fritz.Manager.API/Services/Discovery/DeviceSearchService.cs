@@ -12,6 +12,11 @@ namespace RS.Fritz.Manager.API;
 internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, IFritzServiceOperationHandler fritzServiceOperationHandler, IUsersService usersService, INetworkService networkService)
     : IDeviceSearchService
 {
+    private readonly INetworkService networkService = networkService;
+    private readonly IHttpClientFactory httpClientFactory = httpClientFactory;
+    private readonly IFritzServiceOperationHandler fritzServiceOperationHandler = fritzServiceOperationHandler;
+    private readonly IUsersService usersService = usersService;
+
     public async ValueTask<IEnumerable<GroupedInternetGatewayDevice>> GetInternetGatewayDevicesAsync(int sendCount = 1, int timeout = 2000, CancellationToken cancellationToken = default)
     {
         Task<IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)>>[] tasks =
@@ -21,7 +26,7 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
             GetRawDeviceResponses(UPnPConstants.InternetGatewayDeviceV1AvmDeviceType, sendCount, timeout, cancellationToken)
         ];
         IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)>[] responses = await TaskExtensions.WhenAllSafe(tasks).ConfigureAwait(false);
-        List<ServerDeviceResponse> serverDeviceResponses = GetServerDeviceResponses(responses.SelectMany(q => q));
+        List<ServerDeviceResponse> serverDeviceResponses = GetServerDeviceResponses(responses.SelectMany(static q => q));
 
         return await TaskExtensions.WhenAllSafe(serverDeviceResponses.Select(q => ParseInternetGatewayDeviceAsync(q, cancellationToken))).ConfigureAwait(false);
     }
@@ -36,8 +41,8 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
     private static List<ServerDeviceResponse> GetServerDeviceResponses(IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)> rawDeviceResponses)
     {
         IEnumerable<(IPAddress LocalIpAddress, IEnumerable<(IPAddress IPAddress, FrozenDictionary<string, string> Values)> Responses)> formattedDeviceResponses =
-            rawDeviceResponses.Select(q => (q.LocalIpAddress, GetFormattedDeviceResponses(q.Responses)));
-        IEnumerable<DeviceSearchResponse> deviceSearchResponses = formattedDeviceResponses.SelectMany(q => q.Responses.Select(r => new DeviceSearchResponse(
+            rawDeviceResponses.Select(static q => (q.LocalIpAddress, GetFormattedDeviceResponses(q.Responses)));
+        IEnumerable<DeviceSearchResponse> deviceSearchResponses = formattedDeviceResponses.SelectMany(static q => q.Responses.Select(r => new DeviceSearchResponse(
                r.Values.GetValueOrDefault("CACHE-CONTROL"),
                r.Values.GetValueOrDefault("DATE"),
                r.Values.GetValueOrDefault("EXT"),
@@ -53,27 +58,27 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
                r.Values.TryGetValue("SECURELOCATION.UPNP.ORG", out string? secureLocation) ? new(secureLocation) : null,
                r.IPAddress,
                q.LocalIpAddress))).Distinct();
-        IEnumerable<IGrouping<string?, DeviceSearchResponse>> usnGrouping = deviceSearchResponses.GroupBy(q => q.Usn);
-        var usnDeviceResponses = usnGrouping.Select(q => new UsnDeviceResponse { Usn = q.Key, Server = q.Select(r => r.Server).Distinct().Single(), DeviceSearchResponses = q.ToFrozenSet() }).ToFrozenSet();
+        IEnumerable<IGrouping<string?, DeviceSearchResponse>> usnGrouping = deviceSearchResponses.GroupBy(static q => q.Usn);
+        var usnDeviceResponses = usnGrouping.Select(static q => new UsnDeviceResponse { Usn = q.Key, Server = q.Select(static r => r.Server).Distinct().Single(), DeviceSearchResponses = q.ToFrozenSet() }).ToFrozenSet();
         var serverDeviceResponses = new List<ServerDeviceResponse>();
 
         foreach (UsnDeviceResponse usnDeviceResponse in usnDeviceResponses)
         {
-            if (serverDeviceResponses.Any(q => q.IpAddresses.OrderBy(r => r.GetHashCode()).SequenceEqual(usnDeviceResponse.DeviceSearchResponses.Select(r => r.IpAddress).Distinct().OrderBy(r => r.GetHashCode()))))
+            if (serverDeviceResponses.Any(q => q.IpAddresses.OrderBy(static r => r.GetHashCode()).SequenceEqual(usnDeviceResponse.DeviceSearchResponses.Select(static r => r.IpAddress).Distinct().OrderBy(static r => r.GetHashCode()))))
                 continue;
 
-            var serverDeviceUsnDeviceResponses = usnDeviceResponses.Where(q => q.DeviceSearchResponses.Any(r => usnDeviceResponse.DeviceSearchResponses.Select(s => s.IpAddress).Contains(r.IpAddress))).ToFrozenSet();
+            var serverDeviceUsnDeviceResponses = usnDeviceResponses.Where(q => q.DeviceSearchResponses.Any(r => usnDeviceResponse.DeviceSearchResponses.Select(static s => s.IpAddress).Contains(r.IpAddress))).ToFrozenSet();
 
-            serverDeviceResponses.Add(new(usnDeviceResponse.Server, serverDeviceUsnDeviceResponses.SelectMany(q => q.DeviceSearchResponses.Select(r => r.IpAddress)).Distinct().ToFrozenSet(), serverDeviceUsnDeviceResponses));
+            serverDeviceResponses.Add(new(usnDeviceResponse.Server, serverDeviceUsnDeviceResponses.SelectMany(static q => q.DeviceSearchResponses.Select(static r => r.IpAddress)).Distinct().ToFrozenSet(), serverDeviceUsnDeviceResponses));
         }
 
         return serverDeviceResponses;
     }
 
     private static IEnumerable<(IPAddress IPAddress, FrozenDictionary<string, string> Values)> GetFormattedDeviceResponses(IEnumerable<(IPAddress IPAddress, string Response)> responses)
-        => responses.Select(q => (q.IPAddress, q.Response.Split("\r\n").Where(r => r.Contains(':', StringComparison.OrdinalIgnoreCase)).ToFrozenDictionary(
-            s => s[..s.IndexOf(':', StringComparison.OrdinalIgnoreCase)],
-            s =>
+        => responses.Select(static q => (q.IPAddress, q.Response.Split("\r\n").Where(static r => r.Contains(':', StringComparison.OrdinalIgnoreCase)).ToFrozenDictionary(
+            static s => s[..s.IndexOf(':', StringComparison.OrdinalIgnoreCase)],
+            static s =>
             {
                 string value = s[s.IndexOf(':', StringComparison.OrdinalIgnoreCase)..];
 
@@ -186,10 +191,10 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
     private Uri? GetPreferredLocation(IReadOnlyCollection<Uri?> secureLocations, IReadOnlyCollection<Uri?> locations)
         => secureLocations.FirstOrDefault(q => Socket.OSSupportsIPv6 && q?.HostNameType is UriHostNameType.IPv6 && !networkService.IsPrivateIpAddress(IPAddress.Parse(q.IdnHost)))
             ?? secureLocations.FirstOrDefault(q => Socket.OSSupportsIPv6 && q?.HostNameType is UriHostNameType.IPv6 && networkService.IsPrivateIpAddress(IPAddress.Parse(q.IdnHost)))
-            ?? secureLocations.FirstOrDefault(q => Socket.OSSupportsIPv4 && q?.HostNameType is UriHostNameType.IPv4)
+            ?? secureLocations.FirstOrDefault(static q => Socket.OSSupportsIPv4 && q?.HostNameType is UriHostNameType.IPv4)
             ?? locations.FirstOrDefault(q => Socket.OSSupportsIPv6 && q?.HostNameType is UriHostNameType.IPv6 && !networkService.IsPrivateIpAddress(IPAddress.Parse(q.IdnHost)))
             ?? locations.FirstOrDefault(q => Socket.OSSupportsIPv6 && q?.HostNameType is UriHostNameType.IPv6 && networkService.IsPrivateIpAddress(IPAddress.Parse(q.IdnHost)))
-            ?? locations.FirstOrDefault(q => Socket.OSSupportsIPv4 && q?.HostNameType is UriHostNameType.IPv4);
+            ?? locations.FirstOrDefault(static q => Socket.OSSupportsIPv4 && q?.HostNameType is UriHostNameType.IPv4);
 
     private Uri? ParseLocation((IPAddress LocalIpAddress, Uri? Location) location) =>
         location.Location?.HostNameType is not UriHostNameType.IPv6 || !IPAddress.TryParse(location.Location.IdnHost, out IPAddress? ipAddress) || !networkService.IsPrivateIpAddress(ipAddress)
@@ -238,7 +243,7 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
         IEnumerable<IPAddress> multicastAddresses = networkService.GetMulticastAddresses();
         (IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)[] localAddressesDeviceResponses = await TaskExtensions.WhenAllSafe(multicastAddresses.SelectMany(q => unicastAddresses.Where(r => r.AddressFamily == q.AddressFamily).Select(r => SearchDevicesAsync(r, q, deviceType, sendCount, timeout, cancellationToken)))).ConfigureAwait(false);
 
-        return localAddressesDeviceResponses.Where(q => q.Responses.Any(r => r.Response.Length is not 0)).Select(q => (q.LocalIpAddress, q.Responses)).Distinct();
+        return localAddressesDeviceResponses.Where(static q => q.Responses.Any(static r => r.Response.Length is not 0)).Select(static q => (q.LocalIpAddress, q.Responses)).Distinct();
     }
 
     private async ValueTask<UPnPDescription> GetUPnPDescription(Uri uri, string usn, CancellationToken cancellationToken)
@@ -270,8 +275,8 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
 
         foreach (UsnDeviceResponse usnDeviceResponse in serverDeviceResponse.UsnDeviceResponses)
         {
-            var locations = usnDeviceResponse.DeviceSearchResponses.Where(r => r.Location is not null).Select(r => (r.IpAddress, r.Location)).Distinct().Select(ParseLocation).ToFrozenSet();
-            var secureLocations = usnDeviceResponse.DeviceSearchResponses.Where(r => r.SecureLocation is not null).Select(r => (r.IpAddress, r.SecureLocation)).Distinct().Select(ParseLocation).ToFrozenSet();
+            var locations = usnDeviceResponse.DeviceSearchResponses.Where(static r => r.Location is not null).Select(static r => (r.IpAddress, r.Location)).Distinct().Select(ParseLocation).ToFrozenSet();
+            var secureLocations = usnDeviceResponse.DeviceSearchResponses.Where(static r => r.SecureLocation is not null).Select(static r => (r.IpAddress, r.SecureLocation)).Distinct().Select(ParseLocation).ToFrozenSet();
             Uri? preferredLocation = GetPreferredLocation(secureLocations, locations);
             UPnPDescription? description = null;
 
@@ -283,12 +288,12 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
                 }
                 catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
                 {
-                    if (preferredLocation.HostNameType is UriHostNameType.IPv6 && Socket.OSSupportsIPv4 && locations.Any(q => q?.HostNameType is UriHostNameType.IPv4))
+                    if (preferredLocation.HostNameType is UriHostNameType.IPv6 && Socket.OSSupportsIPv4 && locations.Any(static q => q?.HostNameType is UriHostNameType.IPv4))
                     {
                         try
                         {
-                            preferredLocation = locations.First(q => q?.HostNameType is UriHostNameType.IPv4);
-                            description = await GetUPnPDescription(preferredLocation!, serverDeviceResponse.UsnDeviceResponses.Select(q => q.Usn).Distinct().Single()!, cancellationToken).ConfigureAwait(false);
+                            preferredLocation = locations.First(static q => q?.HostNameType is UriHostNameType.IPv4);
+                            description = await GetUPnPDescription(preferredLocation!, serverDeviceResponse.UsnDeviceResponses.Select(static q => q.Usn).Distinct().Single()!, cancellationToken).ConfigureAwait(false);
                         }
                         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
                         {
@@ -300,30 +305,30 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
             internetGatewayDevices.Add(new(
                 fritzServiceOperationHandler,
                 usersService,
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.CacheControl).Distinct().SingleOrDefault(),
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.Date).Distinct().SingleOrDefault(),
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.Ext).Distinct().SingleOrDefault(),
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.Location),
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.Server).Distinct().SingleOrDefault(),
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.SearchTarget).Distinct().SingleOrDefault(),
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.Usn).Distinct().SingleOrDefault(),
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.Opt).Distinct().SingleOrDefault(),
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.Nls).Distinct().SingleOrDefault(),
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.BootId).Distinct().SingleOrDefault(),
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.ConfigId).Distinct().SingleOrDefault(),
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.SearchPort).Distinct().SingleOrDefault(),
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.SecureLocation),
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.CacheControl).Distinct().SingleOrDefault(),
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.Date).Distinct().SingleOrDefault(),
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.Ext).Distinct().SingleOrDefault(),
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.Location),
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.Server).Distinct().SingleOrDefault(),
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.SearchTarget).Distinct().SingleOrDefault(),
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.Usn).Distinct().SingleOrDefault(),
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.Opt).Distinct().SingleOrDefault(),
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.Nls).Distinct().SingleOrDefault(),
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.BootId).Distinct().SingleOrDefault(),
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.ConfigId).Distinct().SingleOrDefault(),
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.SearchPort).Distinct().SingleOrDefault(),
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.SecureLocation),
                 description,
                 preferredLocation,
-                usnDeviceResponse.DeviceSearchResponses.Select(r => r.LocalIpAddress).ToFrozenSet(),
-                ushort.TryParse(usnDeviceResponse.DeviceSearchResponses.Select(r => r.Usn).Distinct().SingleOrDefault()?[..1], out ushort version) ? version : null));
+                usnDeviceResponse.DeviceSearchResponses.Select(static r => r.LocalIpAddress).ToFrozenSet(),
+                ushort.TryParse(usnDeviceResponse.DeviceSearchResponses.Select(static r => r.Usn).Distinct().SingleOrDefault()?[..1], out ushort version) ? version : null));
         }
 
         return new(
-            internetGatewayDevices.SelectMany(q => q.Locations ?? []),
+            internetGatewayDevices.SelectMany(static q => q.Locations ?? []),
             serverDeviceResponse.Server,
             internetGatewayDevices,
-            internetGatewayDevices.MaxBy(q => q.Version)?.PreferredLocation,
+            internetGatewayDevices.MaxBy(static q => q.Version)?.PreferredLocation,
             serverDeviceResponse.IpAddresses);
     }
 }

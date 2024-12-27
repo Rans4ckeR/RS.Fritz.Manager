@@ -5,6 +5,9 @@ namespace RS.Fritz.Manager.API;
 
 internal sealed class DeviceHostsService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IDeviceHostsService
 {
+    private readonly INetworkService networkService = networkService;
+    private readonly IHttpClientFactory httpClientFactory = httpClientFactory;
+
     public async ValueTask<DeviceHostInfo> GetDeviceHostsAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         HostsGetHostListPathResponse hostsGetHostListPathResponse = await internetGatewayDevice.HostsGetHostListPathAsync().ConfigureAwait(false);

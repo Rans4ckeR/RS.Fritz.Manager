@@ -5,6 +5,8 @@ namespace RS.Fritz.Manager.API;
 
 internal sealed class UsersService(IFritzServiceOperationHandler fritzServiceOperationHandler) : IUsersService
 {
+    private readonly IFritzServiceOperationHandler fritzServiceOperationHandler = fritzServiceOperationHandler;
+
     public async ValueTask<IEnumerable<User>> GetUsersAsync(InternetGatewayDevice internetGatewayDevice)
     {
         LanConfigSecurityGetUserListResponse lanConfigSecurityGetUserListResponse = await fritzServiceOperationHandler.LanConfigSecurityGetUserListAsync(internetGatewayDevice).ConfigureAwait(false);

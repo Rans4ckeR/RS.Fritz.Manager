@@ -11,7 +11,7 @@ internal abstract class WanAccessTypeAwareFritzServiceViewModel : FritzServiceVi
         : base(deviceLoginInfo, logger, requiredServiceType)
     {
         this.wanAccessType = wanAccessType;
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<WanAccessType?>>(this, (r, m) => ((WanAccessTypeAwareFritzServiceViewModel)r).Receive(m));
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<WanAccessType?>>(this, static (r, m) => ((WanAccessTypeAwareFritzServiceViewModel)r).Receive(m));
     }
 
     protected override bool GetCanExecuteDefaultCommand()

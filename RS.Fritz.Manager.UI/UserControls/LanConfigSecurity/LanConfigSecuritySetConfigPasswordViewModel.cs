@@ -1,7 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 internal sealed class LanConfigSecuritySetConfigPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-    : ManualOperationViewModel<LanConfigSecuritySetConfigPasswordRequest, LanConfigSecuritySetConfigPasswordResponse>(deviceLoginInfo, logger, "SetConfigPassword", "Update Password", (d, r) => d.LanConfigSecuritySetConfigPasswordAsync(r))
+    : ManualOperationViewModel<LanConfigSecuritySetConfigPasswordRequest, LanConfigSecuritySetConfigPasswordResponse>(deviceLoginInfo, logger, "SetConfigPassword", "Update Password", static (d, r) => d.LanConfigSecuritySetConfigPasswordAsync(r))
 {
     public string? Password
     {

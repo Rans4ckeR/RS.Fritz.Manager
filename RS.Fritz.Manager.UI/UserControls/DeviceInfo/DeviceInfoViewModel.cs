@@ -26,9 +26,9 @@ internal sealed class DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogg
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
         => API.TaskExtensions.WhenAllSafe([GetDeviceInfoGetSecurityPortAsync(), GetDeviceInfoGetInfoAsync(), GetDeviceInfoGetDeviceLogAsync()], true);
 
-    private async Task GetDeviceInfoGetSecurityPortAsync() => DeviceInfoGetSecurityPortResponse = await ExecuteApiAsync(q => q.DeviceInfoGetSecurityPortAsync()).ConfigureAwait(true);
+    private async Task GetDeviceInfoGetSecurityPortAsync() => DeviceInfoGetSecurityPortResponse = await ExecuteApiAsync(static q => q.DeviceInfoGetSecurityPortAsync()).ConfigureAwait(true);
 
-    private async Task GetDeviceInfoGetInfoAsync() => DeviceInfoGetInfoResponse = await ExecuteApiAsync(q => q.DeviceInfoGetInfoAsync()).ConfigureAwait(true);
+    private async Task GetDeviceInfoGetInfoAsync() => DeviceInfoGetInfoResponse = await ExecuteApiAsync(static q => q.DeviceInfoGetInfoAsync()).ConfigureAwait(true);
 
-    private async Task GetDeviceInfoGetDeviceLogAsync() => DeviceInfoGetDeviceLogResponse = await ExecuteApiAsync(q => q.DeviceInfoGetDeviceLogAsync()).ConfigureAwait(true);
+    private async Task GetDeviceInfoGetDeviceLogAsync() => DeviceInfoGetDeviceLogResponse = await ExecuteApiAsync(static q => q.DeviceInfoGetDeviceLogAsync()).ConfigureAwait(true);
 }

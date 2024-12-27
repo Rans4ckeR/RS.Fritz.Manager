@@ -5,6 +5,9 @@ namespace RS.Fritz.Manager.API;
 
 internal sealed class WlanDeviceService(IHttpClientFactory httpClientFactory, INetworkService networkService) : IWlanDeviceService
 {
+    private readonly INetworkService networkService = networkService;
+    private readonly IHttpClientFactory httpClientFactory = httpClientFactory;
+
     public async ValueTask<WlanDeviceInfo> GetWlanDevicesAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         WlanConfigurationGetWlanDeviceListPathResponse wlanConfigurationGetWlanDeviceListPathResponse = await internetGatewayDevice.WlanConfigurationGetWlanDeviceListPathAsync(1).ConfigureAwait(false);

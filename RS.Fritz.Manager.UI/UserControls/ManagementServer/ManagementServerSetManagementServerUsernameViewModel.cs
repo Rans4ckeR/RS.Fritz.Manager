@@ -2,7 +2,7 @@
 
 internal sealed class
     ManagementServerSetManagementServerUsernameViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-    : ManualOperationViewModel<ManagementServerSetManagementServerUsernameRequest, ManagementServerSetManagementServerUsernameResponse>(deviceLoginInfo, logger, "SetManagementServerUsername", "Update ManagementServerUsername", (d, r) => d.ManagementServerSetManagementServerUsernameAsync(r))
+    : ManualOperationViewModel<ManagementServerSetManagementServerUsernameRequest, ManagementServerSetManagementServerUsernameResponse>(deviceLoginInfo, logger, "SetManagementServerUsername", "Update ManagementServerUsername", static (d, r) => d.ManagementServerSetManagementServerUsernameAsync(r))
 {
     public string? Username
     {

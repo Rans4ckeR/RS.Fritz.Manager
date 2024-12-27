@@ -73,23 +73,23 @@ internal sealed class WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, 
             true);
 
     private async Task GetWanIpConnectionGetInfoAsync()
-        => WanIpConnectionGetInfoResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetInfoAsync()).ConfigureAwait(true);
+        => WanIpConnectionGetInfoResponse = await ExecuteApiAsync(static q => q.WanIpConnectionGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanIpConnectionGetConnectionTypeInfoAsync()
-        => WanConnectionGetConnectionTypeInfoResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetConnectionTypeInfoAsync()).ConfigureAwait(true);
+        => WanConnectionGetConnectionTypeInfoResponse = await ExecuteApiAsync(static q => q.WanIpConnectionGetConnectionTypeInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanIpConnectionGetStatusInfoAsync()
-        => WanConnectionGetStatusInfoResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetStatusInfoAsync()).ConfigureAwait(true);
+        => WanConnectionGetStatusInfoResponse = await ExecuteApiAsync(static q => q.WanIpConnectionGetStatusInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanIpConnectionGetNatRsipStatusAsync()
-        => WanConnectionGetNatRsipStatusResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetNatRsipStatusAsync()).ConfigureAwait(true);
+        => WanConnectionGetNatRsipStatusResponse = await ExecuteApiAsync(static q => q.WanIpConnectionGetNatRsipStatusAsync()).ConfigureAwait(true);
 
     private async Task GetWanIpConnectionGetDnsServersAsync()
-        => WanConnectionGetDnsServersResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetDnsServersAsync()).ConfigureAwait(true);
+        => WanConnectionGetDnsServersResponse = await ExecuteApiAsync(static q => q.WanIpConnectionGetDnsServersAsync()).ConfigureAwait(true);
 
     private async Task GetWanIpConnectionGetPortMappingNumberOfEntriesAsync()
     {
-        WanConnectionGetPortMappingNumberOfEntriesResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetPortMappingNumberOfEntriesAsync()).ConfigureAwait(true);
+        WanConnectionGetPortMappingNumberOfEntriesResponse = await ExecuteApiAsync(static q => q.WanIpConnectionGetPortMappingNumberOfEntriesAsync()).ConfigureAwait(true);
 
         ushort numberOfEntries = WanConnectionGetPortMappingNumberOfEntriesResponse!.Value.Key!.Value.PortMappingNumberOfEntries;
         var tasks = new List<Task<KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>>>();
@@ -103,9 +103,9 @@ internal sealed class WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, 
 
         KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
 
-        WanConnectionGetGenericPortMappingEntryResponses = [.. responses.Select(q => q.Key!.Value)];
+        WanConnectionGetGenericPortMappingEntryResponses = [.. responses.Select(static q => q.Key!.Value)];
     }
 
     private async Task GetWanIpConnectionGetExternalIpAddressAsync()
-        => WanConnectionGetExternalIpAddressResponse = await ExecuteApiAsync(q => q.WanIpConnectionGetExternalIpAddressAsync()).ConfigureAwait(true);
+        => WanConnectionGetExternalIpAddressResponse = await ExecuteApiAsync(static q => q.WanIpConnectionGetExternalIpAddressAsync()).ConfigureAwait(true);
 }

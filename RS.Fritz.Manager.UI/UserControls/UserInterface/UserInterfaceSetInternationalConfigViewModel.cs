@@ -1,7 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 internal sealed class UserInterfaceSetInternationalConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-    : ManualOperationViewModel<UserInterfaceSetInternationalConfigRequest, UserInterfaceSetInternationalConfigResponse>(deviceLoginInfo, logger, "SetInternationalConfig", "Set InternationalConfig", (d, r) => d.UserInterfaceSetInternationalConfigAsync(r))
+    : ManualOperationViewModel<UserInterfaceSetInternationalConfigRequest, UserInterfaceSetInternationalConfigResponse>(deviceLoginInfo, logger, "SetInternationalConfig", "Set InternationalConfig", static (d, r) => d.UserInterfaceSetInternationalConfigAsync(r))
 {
     public string? Language
     {

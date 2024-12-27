@@ -36,11 +36,11 @@ internal sealed class Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo,
         => API.TaskExtensions.WhenAllSafe([GetLayer3ForwardingGetDefaultConnectionServiceAsync(), GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()], true);
 
     private async Task GetLayer3ForwardingGetDefaultConnectionServiceAsync()
-        => Layer3ForwardingGetDefaultConnectionServiceResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetDefaultConnectionServiceAsync()).ConfigureAwait(true);
+        => Layer3ForwardingGetDefaultConnectionServiceResponse = await ExecuteApiAsync(static q => q.Layer3ForwardingGetDefaultConnectionServiceAsync()).ConfigureAwait(true);
 
     private async Task GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()
     {
-        Layer3ForwardingGetForwardNumberOfEntriesResponse = await ExecuteApiAsync(q => q.Layer3ForwardingGetForwardNumberOfEntriesAsync()).ConfigureAwait(true);
+        Layer3ForwardingGetForwardNumberOfEntriesResponse = await ExecuteApiAsync(static q => q.Layer3ForwardingGetForwardNumberOfEntriesAsync()).ConfigureAwait(true);
 
         ushort numberOfEntries = Layer3ForwardingGetForwardNumberOfEntriesResponse!.Value.Key!.Value.ForwardNumberOfEntries;
         var tasks = new List<Task<KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>>>();
@@ -54,6 +54,6 @@ internal sealed class Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo,
 
         KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
 
-        Layer3ForwardingGetGenericForwardingEntryResponses = [.. responses.Select(q => q.Key!.Value)];
+        Layer3ForwardingGetGenericForwardingEntryResponses = [.. responses.Select(static q => q.Key!.Value)];
     }
 }

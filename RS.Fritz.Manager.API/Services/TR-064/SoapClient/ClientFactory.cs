@@ -5,6 +5,8 @@ namespace RS.Fritz.Manager.API;
 internal sealed class ClientFactory<T>(INetworkService networkService) : IClientFactory<T>
     where T : class
 {
+    private readonly INetworkService networkService = networkService;
+
     public T Build(Func<FritzServiceEndpointConfiguration, EndpointAddress, NetworkCredential?, T> createClient, Uri location, bool secure, string controlUrl, ushort? port, NetworkCredential? networkCredential)
         => createClient(GetEndpointConfiguration(secure), GetEndpointAddress(location, secure, controlUrl, port), networkCredential);
 

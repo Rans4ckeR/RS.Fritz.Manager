@@ -73,13 +73,13 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
     }
 
     private void NotifyAllStartCommandsCanExecuteChanged()
-        => CaptureInterfaceGroups?.ToList().ForEach(q => q.CaptureInterfaces.ForEach(r => r.StartCommand.NotifyCanExecuteChanged()));
+        => CaptureInterfaceGroups?.ToList().ForEach(static q => q.CaptureInterfaces.ForEach(static r => r.StartCommand.NotifyCanExecuteChanged()));
 
     private bool CanExecuteCaptureInterfaceStartCommand(CaptureInterface captureInterface)
-        => PacketCaptureSizeLimit > 0 && !string.IsNullOrWhiteSpace(FolderName) && (!CaptureInterfaceGroups?.SelectMany(q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false);
+        => PacketCaptureSizeLimit > 0 && !string.IsNullOrWhiteSpace(FolderName) && (!CaptureInterfaceGroups?.SelectMany(static q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false);
 
     private bool CanExecuteCaptureInterfaceStopCommand(CaptureInterface captureInterface)
-        => CaptureInterfaceGroups?.SelectMany(q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false;
+        => CaptureInterfaceGroups?.SelectMany(static q => q.CaptureInterfaces).Single(q => q.CaptureInterface == captureInterface).Active ?? false;
 
     private async Task DoExecuteSelectTargetFolderCommandAsync()
     {

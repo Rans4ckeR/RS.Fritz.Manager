@@ -52,20 +52,20 @@ internal sealed class WanDslLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo,
             true);
 
     private async Task GetWanDslLinkConfigGetInfoAsync()
-        => WanDslLinkConfigGetInfoResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetInfoAsync()).ConfigureAwait(true);
+        => WanDslLinkConfigGetInfoResponse = await ExecuteApiAsync(static q => q.WanDslLinkConfigGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanDslLinkConfigGetDslLinkInfoAsync()
-        => WanDslLinkConfigGetDslLinkInfoResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetDslLinkInfoAsync()).ConfigureAwait(true);
+        => WanDslLinkConfigGetDslLinkInfoResponse = await ExecuteApiAsync(static q => q.WanDslLinkConfigGetDslLinkInfoAsync()).ConfigureAwait(true);
 
     private async Task GetWanDslLinkConfigGetDestinationAddressAsync()
-        => WanDslLinkConfigGetDestinationAddressResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetDestinationAddressAsync()).ConfigureAwait(true);
+        => WanDslLinkConfigGetDestinationAddressResponse = await ExecuteApiAsync(static q => q.WanDslLinkConfigGetDestinationAddressAsync()).ConfigureAwait(true);
 
     private async Task GetWanDslLinkConfigGetAtmEncapsulationAsync()
-        => WanDslLinkConfigGetAtmEncapsulationResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetAtmEncapsulationAsync()).ConfigureAwait(true);
+        => WanDslLinkConfigGetAtmEncapsulationResponse = await ExecuteApiAsync(static q => q.WanDslLinkConfigGetAtmEncapsulationAsync()).ConfigureAwait(true);
 
     private async Task GetWanDslLinkConfigGetAutoConfigAsync()
-        => WanDslLinkConfigGetAutoConfigResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetAutoConfigAsync()).ConfigureAwait(true);
+        => WanDslLinkConfigGetAutoConfigResponse = await ExecuteApiAsync(static q => q.WanDslLinkConfigGetAutoConfigAsync()).ConfigureAwait(true);
 
     private async Task GetWanDslLinkConfigGetStatisticsAsync()
-        => WanDslLinkConfigGetStatisticsResponse = await ExecuteApiAsync(q => q.WanDslLinkConfigGetStatisticsAsync()).ConfigureAwait(true);
+        => WanDslLinkConfigGetStatisticsResponse = await ExecuteApiAsync(static q => q.WanDslLinkConfigGetStatisticsAsync()).ConfigureAwait(true);
 }

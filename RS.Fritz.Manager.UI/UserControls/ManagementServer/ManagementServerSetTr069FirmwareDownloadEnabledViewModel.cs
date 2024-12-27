@@ -1,7 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 internal sealed class ManagementServerSetTr069FirmwareDownloadEnabledViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-    : ManualOperationViewModel<ManagementServerSetTr069FirmwareDownloadEnabledRequest, ManagementServerSetTr069FirmwareDownloadEnabledResponse>(deviceLoginInfo, logger, "SetTr069FirmwareDownloadEnabled", "Update Tr069FirmwareDownloadEnabled", (d, r) => d.ManagementServerSetTr069FirmwareDownloadEnabledAsync(r))
+    : ManualOperationViewModel<ManagementServerSetTr069FirmwareDownloadEnabledRequest, ManagementServerSetTr069FirmwareDownloadEnabledResponse>(deviceLoginInfo, logger, "SetTr069FirmwareDownloadEnabled", "Update Tr069FirmwareDownloadEnabled", static (d, r) => d.ManagementServerSetTr069FirmwareDownloadEnabledAsync(r))
 {
     public bool? Tr069FirmwareDownloadEnabled
     {

@@ -57,20 +57,20 @@ internal sealed class LanHostConfigManagementViewModel(DeviceLoginInfo deviceLog
             true);
 
     private async Task GetLanHostConfigManagementGetInfoAsync()
-        => LanHostConfigManagementGetInfoResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetInfoAsync()).ConfigureAwait(true);
+        => LanHostConfigManagementGetInfoResponse = await ExecuteApiAsync(static q => q.LanHostConfigManagementGetInfoAsync()).ConfigureAwait(true);
 
     private async Task LanHostConfigManagementGetSubnetMaskAsync()
-        => LanHostConfigManagementGetSubnetMaskResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetSubnetMaskAsync()).ConfigureAwait(true);
+        => LanHostConfigManagementGetSubnetMaskResponse = await ExecuteApiAsync(static q => q.LanHostConfigManagementGetSubnetMaskAsync()).ConfigureAwait(true);
 
     private async Task LanHostConfigManagementGetIpRoutersListAsync()
-        => LanHostConfigManagementGetIpRoutersListResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetIpRoutersListAsync()).ConfigureAwait(true);
+        => LanHostConfigManagementGetIpRoutersListResponse = await ExecuteApiAsync(static q => q.LanHostConfigManagementGetIpRoutersListAsync()).ConfigureAwait(true);
 
     private async Task LanHostConfigManagementGetAddressRangeAsync()
-        => LanHostConfigManagementGetAddressRangeResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetAddressRangeAsync()).ConfigureAwait(true);
+        => LanHostConfigManagementGetAddressRangeResponse = await ExecuteApiAsync(static q => q.LanHostConfigManagementGetAddressRangeAsync()).ConfigureAwait(true);
 
     private async Task LanHostConfigManagementGetIpInterfaceNumberOfEntriesAsync()
-        => LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetIpInterfaceNumberOfEntriesAsync()).ConfigureAwait(true);
+        => LanHostConfigManagementGetIpInterfaceNumberOfEntriesResponse = await ExecuteApiAsync(static q => q.LanHostConfigManagementGetIpInterfaceNumberOfEntriesAsync()).ConfigureAwait(true);
 
     private async Task LanHostConfigManagementGetDnsServersAsync()
-        => LanHostConfigManagementGetDnsServersResponse = await ExecuteApiAsync(q => q.LanHostConfigManagementGetDnsServersAsync()).ConfigureAwait(true);
+        => LanHostConfigManagementGetDnsServersResponse = await ExecuteApiAsync(static q => q.LanHostConfigManagementGetDnsServersAsync()).ConfigureAwait(true);
 }

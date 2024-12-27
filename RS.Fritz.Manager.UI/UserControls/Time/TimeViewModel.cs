@@ -12,5 +12,5 @@ internal sealed class TimeViewModel(DeviceLoginInfo deviceLoginInfo, ILogger log
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => TimeGetInfoResponse = await ExecuteApiAsync(q => q.TimeGetInfoAsync()).ConfigureAwait(true);
+        => TimeGetInfoResponse = await ExecuteApiAsync(static q => q.TimeGetInfoAsync()).ConfigureAwait(true);
 }

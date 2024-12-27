@@ -20,7 +20,7 @@ internal sealed partial class App
         DispatcherUnhandledException += AppDispatcherUnhandledException;
 
         host = Host.CreateDefaultBuilder()
-            .ConfigureServices((_, services) =>
+            .ConfigureServices(static (_, services) =>
             {
                 IServiceCollection unused = services
                     .AddSingleton<DeviceLoginInfo>()
@@ -62,7 +62,7 @@ internal sealed partial class App
 
     private static void PreventWpfFlashbang(Window window)
     {
-        window.Loaded += (s, _) => ((Window)s).WindowState = WindowState.Normal;
+        window.Loaded += static (s, _) => ((Window)s).WindowState = WindowState.Normal;
         window.WindowState = WindowState.Minimized;
     }
 

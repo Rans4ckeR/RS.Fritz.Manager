@@ -13,7 +13,7 @@ internal sealed class SslProtocolCertificateEndpointBehavior : IEndpointBehavior
         bindingParameters.Add(new Func<HttpClientHandler, HttpMessageHandler>(q =>
         {
             q.SslProtocols = SslProtocols;
-            q.ServerCertificateCustomValidationCallback = (_, _, _, _) => true;
+            q.ServerCertificateCustomValidationCallback = static (_, _, _, _) => true;
 
             return q;
         }));

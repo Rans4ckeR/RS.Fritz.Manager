@@ -2,7 +2,7 @@
 
 internal sealed class
     DeviceConfigGetConfigFileViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-    : ManualOperationViewModel<DeviceConfigGetConfigFileRequest, DeviceConfigGetConfigFileResponse>(deviceLoginInfo, logger, "GetConfigFile", "Get Config File URL", (d, r) => d.DeviceConfigGetConfigFileAsync(r))
+    : ManualOperationViewModel<DeviceConfigGetConfigFileRequest, DeviceConfigGetConfigFileResponse>(deviceLoginInfo, logger, "GetConfigFile", "Get Config File URL", static (d, r) => d.DeviceConfigGetConfigFileAsync(r))
 {
     public string? Password
     {

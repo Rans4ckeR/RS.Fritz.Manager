@@ -42,16 +42,16 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection ConfigureHttpClients(this IServiceCollection serviceCollection)
     {
         _ = serviceCollection.AddHttpClient(Constants.DefaultHttpClientName)
-            .ConfigureHttpClient((_, httpClient) =>
+            .ConfigureHttpClient(static (_, httpClient) =>
             {
                 httpClient.Timeout = TimeSpan.FromSeconds(10);
                 httpClient.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
             })
-            .ConfigurePrimaryHttpMessageHandler(_ => new SocketsHttpHandler
+            .ConfigurePrimaryHttpMessageHandler(static _ => new SocketsHttpHandler
             {
                 SslOptions = new()
                 {
-                    RemoteCertificateValidationCallback = (_, _, _, sslPolicyErrors) => (sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) is 0,
+                    RemoteCertificateValidationCallback = static (_, _, _, sslPolicyErrors) => (sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) is 0,
                     CertificateChainPolicy = new()
                     {
                         DisableCertificateDownloads = true

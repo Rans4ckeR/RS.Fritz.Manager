@@ -11,6 +11,9 @@ internal sealed class HostsViewModel(
     HostsHostsCheckUpdateViewModel hostsHostsCheckUpdateViewModel)
     : FritzServiceViewModel(deviceLoginInfo, logger, "Hosts")
 {
+    private readonly IDeviceHostsService deviceHostsService = deviceHostsService;
+    private readonly IDeviceMeshService deviceMeshService = deviceMeshService;
+
     public HostsGetGenericHostEntryViewModel HostsGetGenericHostEntryViewModel { get; } = hostsGetGenericHostEntryViewModel;
 
     public HostsHostsCheckUpdateViewModel HostsHostsCheckUpdateViewModel { get; } = hostsHostsCheckUpdateViewModel;
@@ -75,7 +78,7 @@ internal sealed class HostsViewModel(
 
     private async Task GetHostsGetHostNumberOfEntriesAsync()
     {
-        HostsGetHostNumberOfEntriesResponse = await ExecuteApiAsync(q => q.HostsGetHostNumberOfEntriesAsync()).ConfigureAwait(true);
+        HostsGetHostNumberOfEntriesResponse = await ExecuteApiAsync(static q => q.HostsGetHostNumberOfEntriesAsync()).ConfigureAwait(true);
 
         ushort numberOfEntries = HostsGetHostNumberOfEntriesResponse!.Value.Key!.Value.HostNumberOfEntries;
         var tasks = new List<Task<KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>>>();
@@ -89,17 +92,17 @@ internal sealed class HostsViewModel(
 
         KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
 
-        HostsGetGenericHostEntryResponses = [.. responses.Select(q => q.Key!.Value)];
+        HostsGetGenericHostEntryResponses = [.. responses.Select(static q => q.Key!.Value)];
     }
 
     private async Task GetHostsGetInfoAsync()
-        => HostsGetInfoResponse = await ExecuteApiAsync(q => q.HostsGetInfoAsync()).ConfigureAwait(true);
+        => HostsGetInfoResponse = await ExecuteApiAsync(static q => q.HostsGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetHostsGetChangeCounterAsync()
-        => HostsGetChangeCounterResponse = await ExecuteApiAsync(q => q.HostsGetChangeCounterAsync()).ConfigureAwait(true);
+        => HostsGetChangeCounterResponse = await ExecuteApiAsync(static q => q.HostsGetChangeCounterAsync()).ConfigureAwait(true);
 
     private async Task GetHostsGetFriendlyNameAsync()
-        => HostsGetFriendlyNameResponse = await ExecuteApiAsync(q => q.HostsGetFriendlyNameAsync()).ConfigureAwait(true);
+        => HostsGetFriendlyNameResponse = await ExecuteApiAsync(static q => q.HostsGetFriendlyNameAsync()).ConfigureAwait(true);
 
     private async Task GetHostsGetHostListPathAsync(CancellationToken cancellationToken)
         => DeviceHostInfo = await deviceHostsService.GetDeviceHostsAsync(ApiDevice, cancellationToken).ConfigureAwait(true);

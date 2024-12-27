@@ -16,10 +16,10 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
         IsActive = true;
         this.logger = logger;
 
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<ObservableInternetGatewayDevice?>>(this, (r, m) => ((DeviceLoginInfo)r).Receive(m));
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<InternetGatewayDevice?>>(this, (r, m) => ((DeviceLoginInfo)r).Receive(m));
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<SecureString?>>(this, (r, m) => ((DeviceLoginInfo)r).Receive(m));
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<User?>>(this, (r, m) => ((DeviceLoginInfo)r).Receive(m));
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<ObservableInternetGatewayDevice?>>(this, static (r, m) => ((DeviceLoginInfo)r).Receive(m));
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<InternetGatewayDevice?>>(this, static (r, m) => ((DeviceLoginInfo)r).Receive(m));
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<SecureString?>>(this, static (r, m) => ((DeviceLoginInfo)r).Receive(m));
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<User?>>(this, static (r, m) => ((DeviceLoginInfo)r).Receive(m));
     }
 
     public ObservableInternetGatewayDevice? InternetGatewayDevice
@@ -122,12 +122,12 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
                         }
                         else
                         {
-                            SelectedInternetGatewayDevice = message.NewValue.InternetGatewayDevices.SingleOrDefault(q => q.UniqueServiceName?.Contains(UPnPConstants.InternetGatewayDeviceV1AvmDeviceType, StringComparison.OrdinalIgnoreCase) ?? false) ?? message.NewValue.InternetGatewayDevices.MaxBy(q => q.Version);
+                            SelectedInternetGatewayDevice = message.NewValue.InternetGatewayDevices.SingleOrDefault(static q => q.UniqueServiceName?.Contains(UPnPConstants.InternetGatewayDeviceV1AvmDeviceType, StringComparison.OrdinalIgnoreCase) ?? false) ?? message.NewValue.InternetGatewayDevices.MaxBy(static q => q.Version);
 
                             await SelectedInternetGatewayDevice!.InitializeAsync().ConfigureAwait(true);
 
                             Users = SelectedInternetGatewayDevice.Users!;
-                            User = Users.SingleOrDefault(q => q.LastUser);
+                            User = Users.SingleOrDefault(static q => q.LastUser);
                         }
 
                         SetLoginInfo();

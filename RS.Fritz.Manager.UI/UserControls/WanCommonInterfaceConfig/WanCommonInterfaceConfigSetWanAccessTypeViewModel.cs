@@ -1,7 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 internal sealed class WanCommonInterfaceConfigSetWanAccessTypeViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-    : ManualOperationViewModel<WanCommonInterfaceConfigSetWanAccessTypeRequest, WanCommonInterfaceConfigSetWanAccessTypeResponse>(deviceLoginInfo, logger, "SetWanAccessType", "Update WanAccessType", (d, r) => d.WanCommonInterfaceConfigSetWanAccessTypeAsync(r))
+    : ManualOperationViewModel<WanCommonInterfaceConfigSetWanAccessTypeRequest, WanCommonInterfaceConfigSetWanAccessTypeResponse>(deviceLoginInfo, logger, "SetWanAccessType", "Update WanAccessType", static (d, r) => d.WanCommonInterfaceConfigSetWanAccessTypeAsync(r))
 {
     public string? WanAccessType
     {

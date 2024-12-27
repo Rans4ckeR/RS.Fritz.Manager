@@ -19,8 +19,8 @@ internal sealed class LanEthernetInterfaceConfigViewModel(DeviceLoginInfo device
         => API.TaskExtensions.WhenAllSafe([GetLanEthernetInterfaceConfigGetInfoAsync(), GetLanEthernetInterfaceConfigGetStatisticsAsync()], true);
 
     private async Task GetLanEthernetInterfaceConfigGetInfoAsync()
-        => LanEthernetInterfaceConfigGetInfoResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetInfoAsync()).ConfigureAwait(true);
+        => LanEthernetInterfaceConfigGetInfoResponse = await ExecuteApiAsync(static q => q.LanEthernetInterfaceConfigGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetLanEthernetInterfaceConfigGetStatisticsAsync()
-        => LanEthernetInterfaceConfigGetStatisticsResponse = await ExecuteApiAsync(q => q.LanEthernetInterfaceConfigGetStatisticsAsync()).ConfigureAwait(true);
+        => LanEthernetInterfaceConfigGetStatisticsResponse = await ExecuteApiAsync(static q => q.LanEthernetInterfaceConfigGetStatisticsAsync()).ConfigureAwait(true);
 }

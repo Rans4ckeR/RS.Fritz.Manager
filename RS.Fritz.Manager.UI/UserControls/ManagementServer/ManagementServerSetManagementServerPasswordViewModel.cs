@@ -2,7 +2,7 @@
 
 internal sealed class
     ManagementServerSetManagementServerPasswordViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-    : ManualOperationViewModel<ManagementServerSetManagementServerPasswordRequest, ManagementServerSetManagementServerPasswordResponse>(deviceLoginInfo, logger, "SetManagementServerPassword", "Update ManagementServerPassword", (d, r) => d.ManagementServerSetManagementServerPasswordAsync(r))
+    : ManualOperationViewModel<ManagementServerSetManagementServerPasswordRequest, ManagementServerSetManagementServerPasswordResponse>(deviceLoginInfo, logger, "SetManagementServerPassword", "Update ManagementServerPassword", static (d, r) => d.ManagementServerSetManagementServerPasswordAsync(r))
 {
     public string? Password
     {

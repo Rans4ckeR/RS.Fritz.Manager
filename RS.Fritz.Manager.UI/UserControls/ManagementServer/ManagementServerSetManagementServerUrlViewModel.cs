@@ -1,7 +1,7 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
 internal sealed class ManagementServerSetManagementServerUrlViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
-    : ManualOperationViewModel<ManagementServerSetManagementServerUrlRequest, ManagementServerSetManagementServerUrlResponse>(deviceLoginInfo, logger, "SetManagementServerUrl", "Update ManagementServerUrl", (d, r) => d.ManagementServerSetManagementServerUrlAsync(r))
+    : ManualOperationViewModel<ManagementServerSetManagementServerUrlRequest, ManagementServerSetManagementServerUrlResponse>(deviceLoginInfo, logger, "SetManagementServerUrl", "Update ManagementServerUrl", static (d, r) => d.ManagementServerSetManagementServerUrlAsync(r))
 {
     public string? Url
     {

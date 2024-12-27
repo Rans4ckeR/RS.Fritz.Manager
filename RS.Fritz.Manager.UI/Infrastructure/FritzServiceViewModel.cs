@@ -19,7 +19,7 @@ internal abstract class FritzServiceViewModel : ObservableRecipient
         this.requiredServiceType = requiredServiceType;
         DefaultCommand = new AsyncRelayCommand<bool?>(ExecuteDefaultCommandAsync, _ => CanExecuteDefaultCommand);
 
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<bool>>(this, (r, m) => ((FritzServiceViewModel)r).Receive(m));
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<bool>>(this, static (r, m) => ((FritzServiceViewModel)r).Receive(m));
     }
 
     public DeviceLoginInfo DeviceLoginInfo { get; }

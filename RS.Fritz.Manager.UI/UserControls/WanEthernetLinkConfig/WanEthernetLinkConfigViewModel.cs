@@ -10,5 +10,5 @@ internal sealed class WanEthernetLinkConfigViewModel(DeviceLoginInfo deviceLogin
     }
 
     protected override async ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => WanEthernetLinkConfigGetEthernetLinkStatusResponse = await ExecuteApiAsync(q => q.WanEthernetLinkConfigGetEthernetLinkStatusAsync()).ConfigureAwait(true);
+        => WanEthernetLinkConfigGetEthernetLinkStatusResponse = await ExecuteApiAsync(static q => q.WanEthernetLinkConfigGetEthernetLinkStatusAsync()).ConfigureAwait(true);
 }

@@ -30,8 +30,8 @@ internal sealed class DeviceConfigViewModel(
         => API.TaskExtensions.WhenAllSafe([GetDeviceConfigGetPersistentDataAsync(), GetDeviceConfigGetSupportDataInfoResponseAsync()], true);
 
     private async Task GetDeviceConfigGetPersistentDataAsync()
-        => DeviceConfigGetPersistentDataResponse = await ExecuteApiAsync(q => q.DeviceConfigGetPersistentDataAsync()).ConfigureAwait(true);
+        => DeviceConfigGetPersistentDataResponse = await ExecuteApiAsync(static q => q.DeviceConfigGetPersistentDataAsync()).ConfigureAwait(true);
 
     private async Task GetDeviceConfigGetSupportDataInfoResponseAsync()
-        => DeviceConfigGetSupportDataInfoResponse = await ExecuteApiAsync(q => q.DeviceConfigGetSupportDataInfoAsync()).ConfigureAwait(true);
+        => DeviceConfigGetSupportDataInfoResponse = await ExecuteApiAsync(static q => q.DeviceConfigGetSupportDataInfoAsync()).ConfigureAwait(true);
 }

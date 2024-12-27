@@ -4,6 +4,9 @@ namespace RS.Fritz.Manager.API;
 
 internal sealed class CaptureControlService(IHttpClientFactory httpClientFactory, INetworkService networkService) : ICaptureControlService
 {
+    private readonly INetworkService networkService = networkService;
+    private readonly IHttpClientFactory httpClientFactory = httpClientFactory;
+
     public async ValueTask<IEnumerable<CaptureInterfaceGroup>> GetInterfacesAsync(InternetGatewayDevice internetGatewayDevice, CancellationToken cancellationToken = default)
     {
         string sid = await GetSidAsync(internetGatewayDevice).ConfigureAwait(false);

@@ -40,14 +40,14 @@ internal sealed class LanConfigSecurityViewModel(DeviceLoginInfo deviceLoginInfo
             true);
 
     private async Task GetLanConfigSecurityGetAnonymousLoginAsync()
-        => LanConfigSecurityGetAnonymousLoginResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetAnonymousLoginAsync()).ConfigureAwait(true);
+        => LanConfigSecurityGetAnonymousLoginResponse = await ExecuteApiAsync(static q => q.LanConfigSecurityGetAnonymousLoginAsync()).ConfigureAwait(true);
 
     private async Task GetLanConfigSecurityGetCurrentUserAsync()
-        => LanConfigSecurityGetCurrentUserResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetCurrentUserAsync()).ConfigureAwait(true);
+        => LanConfigSecurityGetCurrentUserResponse = await ExecuteApiAsync(static q => q.LanConfigSecurityGetCurrentUserAsync()).ConfigureAwait(true);
 
     private async Task GetLanConfigSecurityGetInfoAsync()
-        => LanConfigSecurityGetInfoResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetInfoAsync()).ConfigureAwait(true);
+        => LanConfigSecurityGetInfoResponse = await ExecuteApiAsync(static q => q.LanConfigSecurityGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetLanConfigSecurityGetUserListAsync()
-        => LanConfigSecurityGetUserListResponse = await ExecuteApiAsync(q => q.LanConfigSecurityGetUserListAsync()).ConfigureAwait(true);
+        => LanConfigSecurityGetUserListResponse = await ExecuteApiAsync(static q => q.LanConfigSecurityGetUserListAsync()).ConfigureAwait(true);
 }

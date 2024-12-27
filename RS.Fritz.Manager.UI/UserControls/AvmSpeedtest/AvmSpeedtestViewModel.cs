@@ -19,8 +19,8 @@ internal sealed class AvmSpeedtestViewModel(DeviceLoginInfo deviceLoginInfo, ILo
         => API.TaskExtensions.WhenAllSafe([GetAvmSpeedtestGetInfoAsync(), GetAvmSpeedtestGetStatisticsAsync()], true);
 
     private async Task GetAvmSpeedtestGetInfoAsync()
-        => AvmSpeedtestGetInfoResponse = await ExecuteApiAsync(q => q.AvmSpeedtestGetInfoAsync()).ConfigureAwait(true);
+        => AvmSpeedtestGetInfoResponse = await ExecuteApiAsync(static q => q.AvmSpeedtestGetInfoAsync()).ConfigureAwait(true);
 
     private async Task GetAvmSpeedtestGetStatisticsAsync()
-        => AvmSpeedtestGetStatisticsResponse = await ExecuteApiAsync(q => q.AvmSpeedtestGetStatisticsAsync()).ConfigureAwait(true);
+        => AvmSpeedtestGetStatisticsResponse = await ExecuteApiAsync(static q => q.AvmSpeedtestGetStatisticsAsync()).ConfigureAwait(true);
 }
