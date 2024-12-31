@@ -2,7 +2,7 @@
 
 namespace RS.Fritz.Manager.UI;
 
-internal sealed class WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanIpConnectionGetGenericPortMappingEntryViewModel wanIpConnectionGetGenericPortMappingEntryViewModel)
+internal sealed class WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, ILogger<WanIpConnectionViewModel> logger, WanIpConnectionGetGenericPortMappingEntryViewModel wanIpConnectionGetGenericPortMappingEntryViewModel)
     : WanAccessTypeAwareFritzServiceViewModel(deviceLoginInfo, logger, WanAccessType.Ethernet, "WANIPConnection")
 {
     public WanIpConnectionGetGenericPortMappingEntryViewModel WanIpConnectionGetGenericPortMappingEntryViewModel { get; } = wanIpConnectionGetGenericPortMappingEntryViewModel;

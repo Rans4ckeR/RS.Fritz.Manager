@@ -21,7 +21,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
 
     public MainWindowViewModel(
         DeviceLoginInfo deviceLoginInfo,
-        ILogger logger,
+        ILogger<MainWindowViewModel> logger,
         IDeviceSearchService deviceSearchService,
         CaptureControlCaptureViewModel captureControlCaptureViewModel,
         WanIpConnectionViewModel wanIpConnectionViewModel,
@@ -69,6 +69,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         CloseMessageCommand = new RelayCommand(ExecuteCloseMessageCommand);
 
         StrongReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, static (r, m) => ((MainWindowViewModel)r).UserMessage = m.Value.Message);
+        StrongReferenceMessenger.Default.Register<LogMessageValueChangedMessage>(this, static (r, m) => ((MainWindowViewModel)r).Log = m.Value.Message);
         StrongReferenceMessenger.Default.Register<ActiveViewValueChangedMessage>(this, static (r, m) => ((MainWindowViewModel)r).ActiveView = m.Value);
         StrongReferenceMessenger.Default.Register<PropertyChangedMessage<ObservableInternetGatewayDevice?>>(this, static (r, m) => ((MainWindowViewModel)r).Receive(m));
         UpdateCanExecuteDefaultCommand();
@@ -158,6 +159,19 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
                 MainContentOpacity = OpacityOverlay;
                 MainContentIsHitTestVisible = false;
             }
+
+            Log = value;
+        }
+    }
+
+    public string? Log
+    {
+        get;
+        private set
+        {
+            value = field is null ? value : FormattableString.Invariant($"{field}{Environment.NewLine}{Environment.NewLine}{value}");
+
+            _ = SetProperty(ref field, value);
         }
     }
 

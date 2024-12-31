@@ -27,8 +27,9 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Ribbon Grid.Row="0" Grid.Column="0" Background="{StaticResource TitleBackgroundSolidColorBrush}" Foreground="MediumBlue">
+                <Ribbon Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource TitleBackgroundSolidColorBrush}" Foreground="MediumBlue">
                     <Ribbon.ApplicationMenu>
                         <RibbonApplicationMenu Visibility="Hidden"/>
                     </Ribbon.ApplicationMenu>
@@ -251,6 +252,16 @@
                 <ScrollViewer Grid.Row="1" Grid.Column="0" Background="{StaticResource WindowBackgroundSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                     <ContentControl Content="{Binding ActiveView}"/>
                 </ScrollViewer>
+                <Expander Grid.Row="1" Grid.Column="1" ExpandDirection="Right" IsExpanded="False" Background="{StaticResource ForegroundSolidColorBrush}">
+                    <Expander.Header>
+                        <TextBlock Text="Application Log">
+                            <TextBlock.LayoutTransform>
+                                <RotateTransform Angle="90"/>
+                            </TextBlock.LayoutTransform>
+                        </TextBlock>
+                    </Expander.Header>
+                    <TextBox Text="{Binding Log, Mode=OneWay}" IsReadOnly="True" Background="{StaticResource ForegroundSolidColorBrush}" Foreground="{StaticResource TextSolidColorBrush}" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+                </Expander>
             </Grid>
         </ContentControl>
         <ContentControl Grid.Row="0" Grid.Column="0" Panel.ZIndex="{Binding MessageZIndex}">

@@ -1,6 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class HostsGetGenericHostEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+internal sealed class HostsGetGenericHostEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger<HostsGetGenericHostEntryViewModel> logger)
     : FritzServiceViewModel(deviceLoginInfo, logger)
 {
     public ushort? Index

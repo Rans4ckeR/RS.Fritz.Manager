@@ -2,7 +2,7 @@
 
 internal sealed class DeviceConfigViewModel(
     DeviceLoginInfo deviceLoginInfo,
-    ILogger logger,
+    ILogger<DeviceConfigViewModel> logger,
     DeviceConfigGenerateUuIdViewModel deviceConfigGenerateUuIdViewModel,
     DeviceConfigCreateUrlSidViewModel deviceConfigCreateUrlSidViewModel,
     DeviceConfigGetConfigFileViewModel deviceConfigGetConfigFileViewModel)

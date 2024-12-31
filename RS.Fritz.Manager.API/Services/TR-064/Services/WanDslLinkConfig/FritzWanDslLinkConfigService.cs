@@ -1,9 +1,10 @@
 ﻿using System.Net;
+using Microsoft.Extensions.Logging;
 
 namespace RS.Fritz.Manager.API;
 
-internal sealed class FritzWanDslLinkConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-    : FritzServiceClient<IFritzWanDslLinkConfigService>(endpointConfiguration, remoteAddress, networkCredential), IFritzWanDslLinkConfigService
+internal sealed class FritzWanDslLinkConfigService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential, ILoggerFactory loggerFactory)
+    : FritzServiceClient<IFritzWanDslLinkConfigService>(endpointConfiguration, remoteAddress, networkCredential, loggerFactory), IFritzWanDslLinkConfigService
 {
     public Task<WanDslLinkConfigGetInfoResponse> GetInfoAsync(WanDslLinkConfigGetInfoRequest wanDslLinkConfigGetInfoRequest)
         => Channel.GetInfoAsync(wanDslLinkConfigGetInfoRequest);

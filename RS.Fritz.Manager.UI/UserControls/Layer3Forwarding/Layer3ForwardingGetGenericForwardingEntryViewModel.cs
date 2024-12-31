@@ -1,6 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+internal sealed class Layer3ForwardingGetGenericForwardingEntryViewModel(DeviceLoginInfo deviceLoginInfo, ILogger<Layer3ForwardingGetGenericForwardingEntryViewModel> logger)
     : FritzServiceViewModel(deviceLoginInfo, logger)
 {
     public ushort? Index

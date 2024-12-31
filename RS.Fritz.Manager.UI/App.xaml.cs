@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Threading;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -20,15 +21,23 @@ internal sealed partial class App
         DispatcherUnhandledException += AppDispatcherUnhandledException;
 
         host = Host.CreateDefaultBuilder()
+            .ConfigureAppConfiguration(static builder => builder.AddInMemoryCollection(
+                new Dictionary<string, string?>
+                {
+                    ["Logging:LogLevel:Default"] = LogLevel.Trace.ToString(),
+                    ["Logging:UserInterfaceLogService:LogLevel:Default"] = LogLevel.Trace.ToString()
+                }))
+            .ConfigureLogging(static builder =>
+                builder
+                    .ClearProviders()
+                    .AddUserInterfaceLogService())
             .ConfigureServices(static (_, services) =>
-            {
-                IServiceCollection unused = services
+                services
                     .AddSingleton<DeviceLoginInfo>()
-                    .AddSingleton<ILogger, UserInterfaceLogService>()
                     .AddSingleton<MainWindow>()
                     .AddFritzApi()
-                    .AddViewModels();
-            }).Build();
+                    .AddViewModels())
+            .Build();
     }
 
     protected override async void OnStartup(StartupEventArgs e)
@@ -73,7 +82,7 @@ internal sealed partial class App
 
     private void AppDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
-        ILogger logger = host.Services.GetRequiredService<ILogger>();
+        ILogger logger = host.Services.GetRequiredService<ILogger<App>>();
 
         e.Handled = true;
 
@@ -82,7 +91,7 @@ internal sealed partial class App
 
     private void HandleTaskSchedulerUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
     {
-        ILogger logger = host.Services.GetRequiredService<ILogger>();
+        ILogger logger = host.Services.GetRequiredService<ILogger<App>>();
 
         logger.ExceptionThrown(e.Exception);
     }

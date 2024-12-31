@@ -1,6 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class AvmSpeedtestViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+internal sealed class AvmSpeedtestViewModel(DeviceLoginInfo deviceLoginInfo, ILogger<AvmSpeedtestViewModel> logger)
     : FritzServiceViewModel(deviceLoginInfo, logger, "X_AVM-DE_Speedtest")
 {
     public KeyValuePair<AvmSpeedtestGetInfoResponse?, UPnPFault?>? AvmSpeedtestGetInfoResponse

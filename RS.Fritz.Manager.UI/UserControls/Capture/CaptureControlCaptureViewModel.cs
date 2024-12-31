@@ -13,7 +13,7 @@ internal sealed class CaptureControlCaptureViewModel : FritzServiceViewModel
 {
     private readonly ICaptureControlService captureControlService;
 
-    public CaptureControlCaptureViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, ICaptureControlService captureControlService)
+    public CaptureControlCaptureViewModel(DeviceLoginInfo deviceLoginInfo, ILogger<CaptureControlCaptureViewModel> logger, ICaptureControlService captureControlService)
            : base(deviceLoginInfo, logger)
     {
         this.captureControlService = captureControlService;

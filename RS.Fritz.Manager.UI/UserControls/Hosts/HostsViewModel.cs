@@ -4,7 +4,7 @@ namespace RS.Fritz.Manager.UI;
 
 internal sealed class HostsViewModel(
     DeviceLoginInfo deviceLoginInfo,
-    ILogger logger,
+    ILogger<HostsViewModel> logger,
     IDeviceHostsService deviceHostsService,
     IDeviceMeshService deviceMeshService,
     HostsGetGenericHostEntryViewModel hostsGetGenericHostEntryViewModel,

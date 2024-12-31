@@ -1,6 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class LanConfigSecurityViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel)
+internal sealed class LanConfigSecurityViewModel(DeviceLoginInfo deviceLoginInfo, ILogger<LanConfigSecurityViewModel> logger, LanConfigSecuritySetConfigPasswordViewModel lanConfigSecuritySetConfigPasswordViewModel)
     : FritzServiceViewModel(deviceLoginInfo, logger, "LANConfigSecurity")
 {
     public LanConfigSecuritySetConfigPasswordViewModel LanConfigSecuritySetConfigPasswordViewModel { get; } = lanConfigSecuritySetConfigPasswordViewModel;

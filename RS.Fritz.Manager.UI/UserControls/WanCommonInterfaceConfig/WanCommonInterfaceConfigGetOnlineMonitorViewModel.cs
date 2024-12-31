@@ -28,7 +28,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
     private List<uint>? upstreamNormalApplicationsBps;
     private List<uint>? upstreamBackgroundApplicationsBps;
 
-    public WanCommonInterfaceConfigGetOnlineMonitorViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+    public WanCommonInterfaceConfigGetOnlineMonitorViewModel(DeviceLoginInfo deviceLoginInfo, ILogger<WanCommonInterfaceConfigGetOnlineMonitorViewModel> logger)
         : base(deviceLoginInfo, logger)
     {
         scaleYTransform.Freeze();
