@@ -1,9 +1,10 @@
 ﻿using System.Net;
+using Microsoft.Extensions.Logging;
 
 namespace RS.Fritz.Manager.API;
 
-internal sealed class FritzLanConfigSecurityService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential = null)
-    : FritzServiceClient<IFritzLanConfigSecurityService>(endpointConfiguration, remoteAddress, networkCredential), IFritzLanConfigSecurityService
+internal sealed class FritzLanConfigSecurityService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential, ILoggerFactory loggerFactory)
+    : FritzServiceClient<IFritzLanConfigSecurityService>(endpointConfiguration, remoteAddress, networkCredential, loggerFactory), IFritzLanConfigSecurityService
 {
     public Task<LanConfigSecurityGetAnonymousLoginResponse> GetAnonymousLoginAsync(LanConfigSecurityGetAnonymousLoginRequest lanConfigSecurityGetAnonymousLoginRequest)
         => Channel.GetAnonymousLoginAsync(lanConfigSecurityGetAnonymousLoginRequest);

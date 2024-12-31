@@ -1,6 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class TimeViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, TimeSetNtpServersViewModel timeSetNtpServersViewModel)
+internal sealed class TimeViewModel(DeviceLoginInfo deviceLoginInfo, ILogger<TimeViewModel> logger, TimeSetNtpServersViewModel timeSetNtpServersViewModel)
     : FritzServiceViewModel(deviceLoginInfo, logger, "Time")
 {
     public TimeSetNtpServersViewModel TimeSetNtpServersViewModel { get; } = timeSetNtpServersViewModel;

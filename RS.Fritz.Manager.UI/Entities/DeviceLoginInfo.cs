@@ -10,7 +10,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
 {
     private readonly ILogger logger;
 
-    public DeviceLoginInfo(ILogger logger)
+    public DeviceLoginInfo(ILogger<DeviceLoginInfo> logger)
         : base(StrongReferenceMessenger.Default)
     {
         IsActive = true;

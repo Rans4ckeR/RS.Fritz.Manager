@@ -1,6 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class LanHostConfigManagementViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+internal sealed class LanHostConfigManagementViewModel(DeviceLoginInfo deviceLoginInfo, ILogger<LanHostConfigManagementViewModel> logger)
     : FritzServiceViewModel(deviceLoginInfo, logger, "LANHostConfigManagement")
 {
     public KeyValuePair<LanHostConfigManagementGetInfoResponse?, UPnPFault?>? LanHostConfigManagementGetInfoResponse

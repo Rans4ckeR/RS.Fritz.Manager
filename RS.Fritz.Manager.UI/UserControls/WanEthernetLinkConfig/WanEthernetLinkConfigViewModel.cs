@@ -1,6 +1,6 @@
 ﻿namespace RS.Fritz.Manager.UI;
 
-internal sealed class WanEthernetLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger)
+internal sealed class WanEthernetLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger<WanEthernetLinkConfigViewModel> logger)
     : FritzServiceViewModel(deviceLoginInfo, logger)
 {
     public KeyValuePair<WanEthernetLinkConfigGetEthernetLinkStatusResponse?, UPnPFault?>? WanEthernetLinkConfigGetEthernetLinkStatusResponse

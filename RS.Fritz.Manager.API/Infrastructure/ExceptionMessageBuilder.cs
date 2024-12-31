@@ -40,6 +40,7 @@ public static class ExceptionMessageBuilder
         {
             sb.AppendLine(FormattableString.Invariant($"{nameof(FaultException)}.{nameof(FaultException.Action)}: {faultException.Action}"))
                 .AppendLine(FormattableString.Invariant($"{nameof(FaultException)}.{nameof(FaultException.Reason)}: {faultException.Reason}"))
+                .AppendLine(FormattableString.Invariant($"{nameof(FaultException)}.{nameof(FaultException.Code)}:"))
                 .GetFaultCode(faultException.Code);
 
             _ = ex switch

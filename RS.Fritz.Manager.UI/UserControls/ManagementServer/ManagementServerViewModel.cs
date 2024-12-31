@@ -2,7 +2,7 @@
 
 internal sealed class ManagementServerViewModel(
     DeviceLoginInfo deviceLoginInfo,
-    ILogger logger,
+    ILogger<ManagementServerViewModel> logger,
     ManagementServerSetManagementServerUrlViewModel managementServerSetManagementServerUrlViewModel,
     ManagementServerSetManagementServerUsernameViewModel managementServerSetManagementServerUsernameViewModel,
     ManagementServerSetManagementServerPasswordViewModel managementServerSetManagementServerPasswordViewModel,

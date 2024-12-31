@@ -7,7 +7,7 @@ internal sealed class WanDslInterfaceConfigViewModel : WanAccessTypeAwareFritzSe
 {
     private readonly DispatcherTimer autoRefreshTimer;
 
-    public WanDslInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger logger, WanDslInterfaceConfigInfoViewModel wanDslInterfaceConfigInfoViewModel, WanDslInterfaceConfigDslInfoViewModel wanDslInterfaceConfigDslInfoViewModel)
+    public WanDslInterfaceConfigViewModel(DeviceLoginInfo deviceLoginInfo, ILogger<WanDslInterfaceConfigViewModel> logger, WanDslInterfaceConfigInfoViewModel wanDslInterfaceConfigInfoViewModel, WanDslInterfaceConfigDslInfoViewModel wanDslInterfaceConfigDslInfoViewModel)
         : base(deviceLoginInfo, logger, WanAccessType.Dsl, "WANDSLInterfaceConfig")
     {
         WanDslInterfaceConfigInfoViewModel = wanDslInterfaceConfigInfoViewModel;

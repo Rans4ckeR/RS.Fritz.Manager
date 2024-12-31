@@ -6,16 +6,23 @@ using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
+using Microsoft.Extensions.Logging;
 
 namespace RS.Fritz.Manager.API;
 
-internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, IFritzServiceOperationHandler fritzServiceOperationHandler, IUsersService usersService, INetworkService networkService)
+internal sealed class DeviceSearchService(
+    IHttpClientFactory httpClientFactory,
+    IFritzServiceOperationHandler fritzServiceOperationHandler,
+    IUsersService usersService,
+    INetworkService networkService,
+    ILogger<DeviceSearchService> logger)
     : IDeviceSearchService
 {
     private readonly INetworkService networkService = networkService;
     private readonly IHttpClientFactory httpClientFactory = httpClientFactory;
     private readonly IFritzServiceOperationHandler fritzServiceOperationHandler = fritzServiceOperationHandler;
     private readonly IUsersService usersService = usersService;
+    private readonly ILogger logger = logger;
 
     public async ValueTask<IEnumerable<GroupedInternetGatewayDevice>> GetInternetGatewayDevicesAsync(int sendCount = 1, int timeout = 2000, CancellationToken cancellationToken = default)
     {
@@ -85,33 +92,6 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
                 return value.Replace(value.EndsWith(':') ? ":" : ": ", null, StringComparison.OrdinalIgnoreCase);
             },
             StringComparer.OrdinalIgnoreCase)));
-
-    private static async ValueTask<FrozenSet<(IPAddress IPAddress, string Response)>> ReceiveAsync(Socket socket, int receiveTimeout, CancellationToken cancellationToken)
-    {
-        var responses = new List<(IPAddress IPAddress, string Response)>();
-        var receivedAddress = new SocketAddress(socket.AddressFamily);
-        using IMemoryOwner<byte> memoryOwner = MemoryPool<byte>.Shared.Rent(4096);
-        using var timeoutCancellationTokenSource = new CancellationTokenSource(receiveTimeout);
-        using var linkedCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(timeoutCancellationTokenSource.Token, cancellationToken);
-
-        while (!linkedCancellationTokenSource.IsCancellationRequested)
-        {
-            Memory<byte> buffer = memoryOwner.Memory[..4096];
-
-            try
-            {
-                int bytesReceived = await socket.ReceiveFromAsync(buffer, SocketFlags.None, receivedAddress, linkedCancellationTokenSource.Token).ConfigureAwait(false);
-                var endPoint = (IPEndPoint)new IPEndPoint(0L, 0).Create(receivedAddress);
-
-                responses.Add((endPoint.Address, Encoding.UTF8.GetString(buffer.Span[..bytesReceived])));
-            }
-            catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
-            {
-            }
-        }
-
-        return responses.ToFrozenSet();
-    }
 
     private static SystemVersion GetBaseSystemVersion(AvmSystemVersion systemVersion)
         => new(systemVersion.Hw, systemVersion.Major, systemVersion.Minor, systemVersion.Patch, systemVersion.BuildNumber, systemVersion.Display);
@@ -188,6 +168,36 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
             device.DeviceList?.Select(GetBaseDevice).ToList(),
             null);
 
+    private async ValueTask<FrozenSet<(IPAddress IPAddress, string Response)>> ReceiveAsync(Socket socket, int receiveTimeout, CancellationToken cancellationToken)
+    {
+        var responses = new List<(IPAddress IPAddress, string Response)>();
+        var receivedAddress = new SocketAddress(socket.AddressFamily);
+        using IMemoryOwner<byte> memoryOwner = MemoryPool<byte>.Shared.Rent(4096);
+        using var timeoutCancellationTokenSource = new CancellationTokenSource(receiveTimeout);
+        using var linkedCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(timeoutCancellationTokenSource.Token, cancellationToken);
+
+        while (!linkedCancellationTokenSource.IsCancellationRequested)
+        {
+            Memory<byte> buffer = memoryOwner.Memory[..4096];
+
+            try
+            {
+                int bytesReceived = await socket.ReceiveFromAsync(buffer, SocketFlags.None, receivedAddress, linkedCancellationTokenSource.Token).ConfigureAwait(false);
+                var remoteIpEndPoint = (IPEndPoint)new IPEndPoint(0L, 0).Create(receivedAddress);
+                string response = Encoding.UTF8.GetString(buffer.Span[..bytesReceived]);
+
+                logger.DiscoverReply((socket.LocalEndPoint as IPEndPoint)!, remoteIpEndPoint, response);
+
+                responses.Add((remoteIpEndPoint.Address, response));
+            }
+            catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
+            {
+            }
+        }
+
+        return responses.ToFrozenSet();
+    }
+
     private Uri? GetPreferredLocation(IReadOnlyCollection<Uri?> secureLocations, IReadOnlyCollection<Uri?> locations)
         => secureLocations.FirstOrDefault(q => Socket.OSSupportsIPv6 && q?.HostNameType is UriHostNameType.IPv6 && !networkService.IsPrivateIpAddress(IPAddress.Parse(q.IdnHost)))
             ?? secureLocations.FirstOrDefault(q => Socket.OSSupportsIPv6 && q?.HostNameType is UriHostNameType.IPv6 && networkService.IsPrivateIpAddress(IPAddress.Parse(q.IdnHost)))
@@ -225,6 +235,8 @@ internal sealed class DeviceSearchService(IHttpClientFactory httpClientFactory, 
         {
             for (int i = 0; i < sendCount; i++)
             {
+                logger.DiscoverRequest(localEndPoint, multiCastIpEndPoint, request);
+
                 _ = await socket.SendToAsync(buffer, SocketFlags.None, multiCastSocketAddress, cancellationToken).ConfigureAwait(false);
             }
 

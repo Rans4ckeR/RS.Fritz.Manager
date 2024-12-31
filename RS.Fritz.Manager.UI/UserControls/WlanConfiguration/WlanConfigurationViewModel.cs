@@ -2,7 +2,7 @@
 
 namespace RS.Fritz.Manager.UI;
 
-internal sealed class WlanConfigurationViewModel(DeviceLoginInfo deviceLoginInfo, IWlanDeviceService wlanDeviceService, ILogger logger)
+internal sealed class WlanConfigurationViewModel(DeviceLoginInfo deviceLoginInfo, IWlanDeviceService wlanDeviceService, ILogger<WlanConfigurationViewModel> logger)
     : FritzServiceViewModel(deviceLoginInfo, logger, "WLANConfiguration")
 {
     private readonly IWlanDeviceService wlanDeviceService = wlanDeviceService;

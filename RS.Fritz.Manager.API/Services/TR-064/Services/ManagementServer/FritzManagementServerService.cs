@@ -1,9 +1,10 @@
 ﻿using System.Net;
+using Microsoft.Extensions.Logging;
 
 namespace RS.Fritz.Manager.API;
 
-internal sealed class FritzManagementServerService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential)
-    : FritzServiceClient<IFritzManagementServerService>(endpointConfiguration, remoteAddress, networkCredential), IFritzManagementServerService
+internal sealed class FritzManagementServerService(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential networkCredential, ILoggerFactory loggerFactory)
+    : FritzServiceClient<IFritzManagementServerService>(endpointConfiguration, remoteAddress, networkCredential, loggerFactory), IFritzManagementServerService
 {
     public Task<ManagementServerGetInfoResponse> GetInfoAsync(ManagementServerGetInfoRequest managementServerGetInfoRequest)
         => Channel.GetInfoAsync(managementServerGetInfoRequest);

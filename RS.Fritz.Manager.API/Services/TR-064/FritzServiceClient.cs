@@ -3,16 +3,19 @@ using System.Security.Authentication;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.Xml;
+using Microsoft.Extensions.Logging;
 
 namespace RS.Fritz.Manager.API;
 
 internal abstract class FritzServiceClient<T> : ClientBase<T>
     where T : class
 {
-    protected FritzServiceClient(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential)
+    protected FritzServiceClient(FritzServiceEndpointConfiguration endpointConfiguration, EndpointAddress remoteAddress, NetworkCredential? networkCredential, ILoggerFactory loggerFactory)
         : base(GetBindingForEndpoint(endpointConfiguration), remoteAddress)
     {
         Endpoint.Name = endpointConfiguration.ToString();
+
+        Endpoint.EndpointBehaviors.Add(new ClientMessageLoggingBehavior(loggerFactory.CreateLogger(GetType())));
 
         SetSslProtocols(SslProtocols.None);
         SetCredentials(networkCredential);

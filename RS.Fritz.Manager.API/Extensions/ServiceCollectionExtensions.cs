@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Security;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Http.Logging;
 
 namespace RS.Fritz.Manager.API;
 
@@ -37,28 +38,35 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IClientFactory<IFritzTimeService>, ClientFactory<IFritzTimeService>>()
             .AddSingleton<IClientFactory<IFritzUserInterfaceService>, ClientFactory<IFritzUserInterfaceService>>()
             .AddSingleton<IClientFactory<IFritzDeviceConfigService>, ClientFactory<IFritzDeviceConfigService>>()
+            .AddSingleton<IHttpClientAsyncLogger, TraceHttpClientAsyncLogger>()
             .ConfigureHttpClients();
 
     private static IServiceCollection ConfigureHttpClients(this IServiceCollection serviceCollection)
     {
-        _ = serviceCollection.AddHttpClient(Constants.DefaultHttpClientName)
-            .ConfigureHttpClient(static (_, httpClient) =>
-            {
-                httpClient.Timeout = TimeSpan.FromSeconds(10);
-                httpClient.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
-            })
-            .ConfigurePrimaryHttpMessageHandler(static _ => new SocketsHttpHandler
-            {
-                SslOptions = new()
-                {
-                    RemoteCertificateValidationCallback = static (_, _, _, sslPolicyErrors) => (sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) is 0,
-                    CertificateChainPolicy = new()
+        _ = serviceCollection
+            .ConfigureHttpClientDefaults(static builder =>
+                builder
+                    .ConfigureHttpClient(static (_, httpClient) =>
                     {
-                        DisableCertificateDownloads = true
-                    }
-                },
-                AutomaticDecompression = DecompressionMethods.All
-            });
+                        httpClient.Timeout = TimeSpan.FromSeconds(10);
+                        httpClient.DefaultVersionPolicy = HttpVersionPolicy.RequestVersionOrHigher;
+                    })
+                    .ConfigurePrimaryHttpMessageHandler(static _ => new SocketsHttpHandler
+                    {
+                        SslOptions = new()
+                        {
+                            RemoteCertificateValidationCallback = static (_, _, _, sslPolicyErrors) => (sslPolicyErrors & SslPolicyErrors.RemoteCertificateNotAvailable) is 0,
+                            CertificateChainPolicy = new()
+                            {
+                                DisableCertificateDownloads = true
+                            }
+                        },
+                        AutomaticDecompression = DecompressionMethods.All,
+                        PooledConnectionLifetime = TimeSpan.FromMinutes(15)
+                    })
+                    .RemoveAllLoggers()
+                    .AddLogger(static provider => provider.GetRequiredService<IHttpClientAsyncLogger>()))
+            .AddHttpClient(Constants.DefaultHttpClientName);
 
         return serviceCollection;
     }

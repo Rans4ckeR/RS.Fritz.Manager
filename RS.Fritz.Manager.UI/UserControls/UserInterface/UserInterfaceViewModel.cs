@@ -8,7 +8,7 @@ internal sealed class UserInterfaceViewModel(
     UserInterfaceDoManualUpdateViewModel userInterfaceDoManualUpdateViewModel,
     UserInterfaceSetInternationalConfigViewModel userInterfaceSetInternationalConfigViewModel,
     UserInterfaceSetConfigViewModel userInterfaceSetConfigViewModel,
-    ILogger logger)
+    ILogger<UserInterfaceViewModel> logger)
     : FritzServiceViewModel(deviceLoginInfo, logger, "UserInterface")
 {
     public KeyValuePair<UserInterfaceGetInfoResponse?, UPnPFault?>? UserInterfaceGetInfoResponse
