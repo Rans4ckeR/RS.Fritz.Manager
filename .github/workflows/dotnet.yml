@@ -22,7 +22,7 @@ jobs:
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@main
       with:
-        versionSpec: '6.x'
+        versionSpec: '6.0.x'
     - name: Determine Version
       uses: gittools/actions/gitversion/execute@main
     - name: Publish
