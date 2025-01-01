@@ -7,8 +7,6 @@ namespace RS.Fritz.Manager.API;
 
 internal sealed class TraceHttpClientAsyncLogger(ILogger<TraceHttpClientAsyncLogger> logger) : IHttpClientAsyncLogger
 {
-    private static readonly string[] XmlContentTypes = [MediaTypeNames.Application.Xml, MediaTypeNames.Text.Xml, MediaTypeNames.Text.Html];
-
     private readonly ILogger logger = logger;
 
     public async ValueTask<object?> LogRequestStartAsync(HttpRequestMessage request, CancellationToken cancellationToken = default)
@@ -49,8 +47,8 @@ internal sealed class TraceHttpClientAsyncLogger(ILogger<TraceHttpClientAsyncLog
 
     private static string? GetFormattedContent(string? mediaType, string? content) =>
         mediaType is null || content is null
-            ? content
-            : XmlContentTypes.Contains(mediaType, StringComparer.OrdinalIgnoreCase)
+            ? null
+            : MediaTypeNames.Text.Xml.Equals(mediaType, StringComparison.OrdinalIgnoreCase)
                 ? XElement.Parse(content).ToString()
                 : content;
 }
