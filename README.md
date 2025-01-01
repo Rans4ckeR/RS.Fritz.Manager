@@ -26,7 +26,6 @@ A Windows .NET WPF application for x64 and ARM64.
 A NuGet package to manage FritzBox devices using pure WCF calls.
 
 * [NuGet](https://www.nuget.org/packages/RS.Fritz.Manager.API)
-* [GitHub](https://github.com/Rans4ckeR/RS.Fritz.Manager/packages/1302526)
 
 ### Usage Examples
 
@@ -45,16 +44,19 @@ using IServiceScope serviceScope = host.Services.CreateScope();
 
 // Search for routers and take the first one
 IDeviceSearchService deviceSearchService = serviceScope.ServiceProvider.GetRequiredService<IDeviceSearchService>();
-InternetGatewayDevice device = (await deviceSearchService.GetDevicesAsync()).First();
+GroupedInternetGatewayDevice groupedInternetGatewayDevice = (await deviceSearchService.GetInternetGatewayDevicesAsync()).First();
+
+// Select the router's internal AVM (FritzBox) device, as opposed to a generic UPnP device
+InternetGatewayDevice device = groupedInternetGatewayDevice.Devices.First(q => q.IsAvm);
 
 // Show the device model from UPnP data
-Console.WriteLine($"Device model: {device.UPnPDescription.Device.ModelDescription}");
+Console.WriteLine($"Device model: {device.UPnPDescription?.Device?.ModelDescription}");
 
 // Initialize the device for TR-064, retrieves the security port and the users
 await device.InitializeAsync();
 
 // Provide the password for the last logged on user
-string lastUsedUserName = device.Users.Single(q => q.LastUser).Name;
+string lastUsedUserName = device.Users!.OrderBy(q => q.LastUser).First().Name;
 Console.WriteLine($"Enter password for {lastUsedUserName}:");
 device.NetworkCredential = new NetworkCredential(lastUsedUserName, Console.ReadLine());
 
@@ -93,14 +95,14 @@ Console.WriteLine($"Session: {webUiSessionInfo.Sid}");
 ICaptureControlService captureControlService = serviceScope.ServiceProvider.GetRequiredService<ICaptureControlService>();
 IEnumerable<CaptureInterfaceGroup>? interfaceGroups = await captureControlService.GetInterfacesAsync(device);
 CaptureInterface captureInterface = interfaceGroups.First().CaptureInterfaces.First();
-var fileInfo = new FileInfo(FormattableString.Invariant($"c:\\temp\\{captureInterface.Name}_{DateTime.Now.ToString("s").Replace(":", string.Empty)}.eth"));
+var fileInfo = new FileInfo(FormattableString.Invariant($@"c:\temp\{captureInterface.Name}_{DateTime.Now.ToString("s").Replace(":", string.Empty)}.eth"));
 
 Task.Run(() => StopCaptureAsync(device, captureInterface, TimeSpan.FromSeconds(10), captureControlService));
 
 await captureControlService.StartCaptureAsync(device, fileInfo, captureInterface);
 Console.WriteLine($"Network trace written to file: {fileInfo}");
 
-await host.RunAsync();
+return;
 
 static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterface captureInterface, TimeSpan timeSpan, ICaptureControlService captureControlService)
 {

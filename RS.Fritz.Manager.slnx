@@ -9,6 +9,7 @@
     <File Path=".github/workflows/dotnet.yml" />
     <File Path="README.md" />
   </Folder>
+  <Project Path="RS.Fritz.Manager.API.Examples/RS.Fritz.Manager.API.Examples.csproj" />
   <Project Path="RS.Fritz.Manager.API/RS.Fritz.Manager.API.csproj" />
   <Project Path="RS.Fritz.Manager.UI/RS.Fritz.Manager.UI.csproj">
     <Platform Solution="*|Any CPU" Project="x64" />
