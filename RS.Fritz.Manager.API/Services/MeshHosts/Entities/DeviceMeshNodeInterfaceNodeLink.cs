@@ -2,7 +2,7 @@
 
 namespace RS.Fritz.Manager.API;
 
-public readonly record struct DeviceMeshNodeLink(
+public readonly record struct DeviceMeshNodeInterfaceNodeLink(
     [property: JsonPropertyName("uid")] string Uid,
     [property: JsonPropertyName("type")] string Type,
     [property: JsonPropertyName("state")] string State,
@@ -17,6 +17,7 @@ public readonly record struct DeviceMeshNodeLink(
     [property: JsonPropertyName("cur_data_rate_tx")] int? CurDataRateTx,
     [property: JsonPropertyName("cur_availability_rx")] int? CurAvailabilityRx,
     [property: JsonPropertyName("cur_availability_tx")] int? CurAvailabilityTx,
+    [property: JsonPropertyName("learned_via_lldp")] bool? LearnedViaLldp,
     [property: JsonPropertyName("rx_rsni")] int? RxRsni,
     [property: JsonPropertyName("tx_rsni")] int? TxRsni,
     [property: JsonPropertyName("rx_rcpi")] int? RxRcpi,

@@ -1,0 +1,717 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Mesh Network Topology by FRITZ!OS",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "description": "Schema Version used for the FRITZ!OS topology JSON dump",
+      "type": "string",
+      "enum": [
+        "7.8"
+      ]
+    },
+    "nodes": {
+      "description": "List of all involved devices",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "uid": {
+            "description": "Unique identifier of the device",
+            "type": "string"
+          },
+          "device_friendly_name": {
+            "description": "Friendly name of the device. Value can be null.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "device_name": {
+            "description": "Name of the device",
+            "type": "string"
+          },
+          "device_vendor_class_id": {
+            "description": "Vendor class identifier of the device learned via DHCP. Value can be null.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "device_model": {
+            "description": "Device model, e.g. FRITZ!Box 7590",
+            "type": "string"
+          },
+          "device_manufacturer": {
+            "description": "Device manufacturer, e.g. AVM",
+            "type": "string"
+          },
+          "device_firmware_version": {
+            "description": "Device firmware version, e.g. 154.06.92-57341",
+            "type": "string"
+          },
+          "device_mac_address": {
+            "description": "MAC address of the device",
+            "type": "string"
+          },
+          "device_id": {
+            "description": "(Non-)unique identifier of the device which represents a chassis ID according to LLDP (IEEE-802.1AB-2016, 8.5.2.3 chassis ID). Value can be null.",
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "subtype": {
+                "description": "Subtype according to LLDP (IEEE-802.1AB-2016, 8.5.2.2 chassis ID subtype)",
+                "type": "string",
+                "enum": [
+                  "RESERVED",
+                  "CHASSIS_COMPONENT",
+                  "INTERFACE_ALIAS",
+                  "PORT_COMPONENT",
+                  "MAC_ADDRESS",
+                  "NETWORK_ADDRESS",
+                  "INTERFACE_NAME",
+                  "LOCALLY_ASSIGNED",
+                  "INVALID_MAX"
+                ]
+              },
+              "value": {
+                "description": "A value that matches subtype, e.g. 'E0:28:6D:76:3C:7C' if subtype is 'MAC_ADDRESS' or '192.168.178.1' if subtype is 'NETWORK_ADDRESS'",
+                "type": "string"
+              }
+            },
+            "required": [
+              "subtype",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          "device_capabilities": {
+            "description": "Capabilities of the device according to LLDP (IEEE-802.1AB-2016, 8.5.8.1 system capabilities). Value can be null.",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "enum": [
+                "OTHER",
+                "REPEATER",
+                "MAC_BRIDGE_COMPONENT",
+                "WLAN_ACCESS_POINT",
+                "ROUTER",
+                "TELEPHONE",
+                "DOCSIS_CABLE_DEVICE",
+                "STATION_ONLY",
+                "C_VLAN_COMPONENT",
+                "S_VLAN_COMPONENT",
+                "TWO_PORT_MAC_RELAY_COMPONENT",
+                "RESERVED_FIELD_1",
+                "RESERVED_FIELD_2",
+                "RESERVED_FIELD_3",
+                "RESERVED_FIELD_4",
+                "RESERVED_FIELD_5",
+                "INVALID_MAX"
+              ]
+            }
+          },
+          "enabled_device_capabilities": {
+            "description": "Enabled capabilities of the device according to LLDP (IEEE-802.1AB-2016, 8.5.8.2 enabled capabilities). Value can be null.",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "enum": [
+                "OTHER",
+                "REPEATER",
+                "MAC_BRIDGE_COMPONENT",
+                "WLAN_ACCESS_POINT",
+                "ROUTER",
+                "TELEPHONE",
+                "DOCSIS_CABLE_DEVICE",
+                "STATION_ONLY",
+                "C_VLAN_COMPONENT",
+                "S_VLAN_COMPONENT",
+                "TWO_PORT_MAC_RELAY_COMPONENT",
+                "RESERVED_FIELD_1",
+                "RESERVED_FIELD_2",
+                "RESERVED_FIELD_3",
+                "RESERVED_FIELD_4",
+                "RESERVED_FIELD_5",
+                "INVALID_MAX"
+              ]
+            }
+          },
+          "is_meshed": {
+            "description": "Indicates the device is part of AVM mesh",
+            "type": "boolean"
+          },
+          "mesh_role": {
+            "description": "The AVM mesh role of the device",
+            "type": "string",
+            "enum": [
+              "unknown",
+              "master",
+              "slave"
+            ]
+          },
+          "meshd_version": {
+            "description": "The version of the meshd on this device; 0.0 if unknown",
+            "type": "string"
+          },
+          "metrics": {
+            "description": "Current metrics of this node",
+            "type": "object",
+            "properties": {
+              "wan_counters": {
+                "description": "WAN counters of this node",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "last_update": {
+                    "description": "UNIX timestamp in milliseconds of the last time the WAN counters were updated",
+                    "type": "integer"
+                  },
+                  "bytes": {
+                    "description": "Number of bytes this node has received from/sent to the WAN",
+                    "type": "object",
+                    "properties": {
+                      "rx": {
+                        "description": "Number of bytes received from the WAN at the IP layer",
+                        "type": "integer"
+                      },
+                      "tx": {
+                        "description": "Number of bytes sent to the WAN at the IP layer",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "rx",
+                      "tx"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "last_update",
+                  "bytes"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "wan_counters"
+            ],
+            "additionalProperties": false
+          },
+          "node_interfaces": {
+            "description": "List of all available interfaces of this device",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "uid": {
+                  "description": "Unique identifier of this interface",
+                  "type": "string"
+                },
+                "name": {
+                  "description": "Interface name",
+                  "type": "string"
+                },
+                "type": {
+                  "description": "Interface type, e.g. LAN or WLAN",
+                  "type": "string",
+                  "enum": [
+                    "unknown",
+                    "LAN",
+                    "WLAN",
+                    "PLC",
+                    "DECT"
+                  ]
+                },
+                "mac_address": {
+                  "description": "Interface MAC address. Might be zero for unconfigured interfaces.",
+                  "type": "string"
+                },
+                "node_uid": {
+                  "description": "Unique identifier of the associated node",
+                  "type": "string"
+                },
+                "blocking_state": {
+                  "description": "Indicates if this interface has been blocked for traffic flow to prevent a network loop",
+                  "type": "string",
+                  "enum": [
+                    "UNKNOWN",
+                    "NOT_BLOCKED",
+                    "BLOCKED"
+                  ]
+                },
+                "node_links": {
+                  "description": "Connection links",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "uid": {
+                        "description": "Unique identifier of this link",
+                        "type": "string"
+                      },
+                      "type": {
+                        "description": "Link type, e.g. LAN or WLAN",
+                        "type": "string",
+                        "enum": [
+                          "unknown",
+                          "LAN",
+                          "WLAN",
+                          "PLC",
+                          "DECT"
+                        ]
+                      },
+                      "state": {
+                        "description": "Connection state",
+                        "type": "string",
+                        "enum": [
+                          "DISCONNECTED",
+                          "CONNECTED"
+                        ]
+                      },
+                      "last_connected": {
+                        "description": "UNIX timestamp when this link was last connected",
+                        "type": "integer"
+                      },
+                      "node_1_uid": {
+                        "description": "First endpoint node uid of this link",
+                        "type": "string"
+                      },
+                      "node_2_uid": {
+                        "description": "Second endpoint node uid of this link",
+                        "type": "string"
+                      },
+                      "node_interface_1_uid": {
+                        "description": "First endpoint node interface uid of this link",
+                        "type": "string"
+                      },
+                      "node_interface_2_uid": {
+                        "description": "Second endpoint node interface uid of this link",
+                        "type": "string"
+                      },
+                      "max_data_rate_rx": {
+                        "description": "Maximum rx data rate in kbit/s from node 2 to node 1",
+                        "type": "integer"
+                      },
+                      "max_data_rate_tx": {
+                        "description": "Maximum tx data rate in kbit/s from node 1 to node 2",
+                        "type": "integer"
+                      },
+                      "cur_data_rate_rx": {
+                        "description": "Current rx data rate in kbit/s from node 2 to node 1",
+                        "type": "integer"
+                      },
+                      "cur_data_rate_tx": {
+                        "description": "Current tx data rate in kbit/s from node 1 to node 2",
+                        "type": "integer"
+                      },
+                      "cur_availability_rx": {
+                        "description": "Current rx link availability in percent from node 1 to node 2 [NOTE: 255 - indicates value is unknown!]",
+                        "type": "integer"
+                      },
+                      "cur_availability_tx": {
+                        "description": "Current tx link availability in percent from node 1 to node 2 [NOTE: 255 - indicates value is unknown!]",
+                        "type": "integer"
+                      },
+                      "learned_via_lldp": {
+                        "description": "LAN: Was this link learned via LLDP? Value can be null.",
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      },
+                      "rx_rsni": {
+                        "description": "WLAN: Receive signal to noise indicator in dB measured at node 1 [NOTE: 255 - indicates value is unknown!]",
+                        "type": "integer"
+                      },
+                      "tx_rsni": {
+                        "description": "WLAN: Receive signal to noise indicator in dB measured at node 2 [NOTE: 255 - indicates value is unknown!]",
+                        "type": "integer"
+                      },
+                      "rx_rcpi": {
+                        "description": "WLAN: Receive channel power indicator in dBm measured at node 1 [NOTE: 255 - indicates value is unknown!]",
+                        "type": "integer"
+                      },
+                      "tx_rcpi": {
+                        "description": "WLAN: Receive channel power indicator in dBm measured at node 2 [NOTE: 255 - indicates value is unknown!]",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "uid",
+                      "type",
+                      "state",
+                      "node_1_uid",
+                      "node_2_uid",
+                      "node_interface_1_uid",
+                      "node_interface_2_uid"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "link_detected": {
+                  "description": "LAN: Has a link been detected on this interface? Value can be null.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "cur_data_rate": {
+                  "description": "LAN: Current data rate in kbit/s. Value can be null.",
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "cur_availability_rx": {
+                  "description": "LAN: Current rx interface availability in percent. Value can be null.",
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "cur_availability_tx": {
+                  "description": "LAN: Current tx interface availability in percent. Value can be null.",
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "lldp_active": {
+                  "description": "LAN: Does this LAN interface speak LLDP? Value can be null.",
+                  "type": [
+                    "boolean",
+                    "null"
+                  ]
+                },
+                "mld_mac_address": {
+                  "description": "MLD MAC address this interface is affiliated with, according to IEEE 802.11be D3.0)",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "link_id": {
+                  "description": "Link ID iff interface is in MLO, according to IEEE 802.11be D3.0 Link ID (35.3.3.2)",
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "ul_ttlm": {
+                  "description": "Shows uplink TID to link mapping for MLD",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "description": "Element index in array corresponds to TID, and bit position corresponds to link id",
+                    "type": "string",
+                    "additionalItems": false
+                  }
+                },
+                "dl_ttlm": {
+                  "description": "Shows downlink TID to link mapping for MLD",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "description": "Element index in array corresponds to TID, and bit position corresponds to link id",
+                    "type": "string",
+                    "additionalItems": false
+                  }
+                },
+                "ssid": {
+                  "description": "WLAN: SSID name. Might be empty for unconfigured interfaces.",
+                  "type": "string"
+                },
+                "opmode": {
+                  "description": "WLAN: Operation mode of this interface. In case of an error, expect other values than defined in the enum field.",
+                  "type": "string",
+                  "enum": [
+                    "AP",
+                    "AP_GUEST",
+                    "ATACLIENT",
+                    "WDS_REPEATER",
+                    "REPEATER",
+                    "HS_2.0",
+                    "AP_OWE",
+                    "AP_GUEST_OWE",
+                    "HS_2.0_OWE",
+                    "STATION",
+                    "AP_UNSPECIFIED",
+                    "AP_UNSPECIFIED_MLD",
+                    "AP_MLD",
+                    "AP_GUEST_MLD",
+                    "AP_HOTSPOT_MLD",
+                    "STATION_MLD",
+                    "REPEATER_MLD",
+                    "INVALID"
+                  ]
+                },
+                "security": {
+                  "description": "WLAN: Security algorithm",
+                  "type": "string",
+                  "enum": [
+                    "UNDEFINED",
+                    "NONE",
+                    "WEP_OPEN",
+                    "WEP_SHARED",
+                    "WPAPSK",
+                    "WPA2PSK",
+                    "WPA_WPA2_MIXED",
+                    "WPAENT",
+                    "WPA2ENT",
+                    "WPA3PSK",
+                    "WPA2_WPA3_MIXED",
+                    "OWE",
+                    "INVALID",
+                    "INVALID WLAN SECURITY MODE"
+                  ]
+                },
+                "supported_streams_tx": {
+                  "description": "WLAN: Tx properties. Table representing possible stream configurations for a certain channel width.",
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "description": "Channel width",
+                        "type": "string"
+                      },
+                      {
+                        "description": "Supported stream count",
+                        "type": "integer"
+                      }
+                    ],
+                    "additionalItems": false
+                  }
+                },
+                "supported_streams_rx": {
+                  "description": "WLAN: Rx properties. Table representing possible stream configurations for a certain channel width.",
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": [
+                      {
+                        "description": "Channel width",
+                        "type": "string"
+                      },
+                      {
+                        "description": "Supported stream count",
+                        "type": "integer"
+                      }
+                    ],
+                    "additionalItems": false
+                  }
+                },
+                "current_channel": {
+                  "description": "WLAN: Currently used primary WLAN channel",
+                  "type": "integer"
+                },
+                "current_channel_info": {
+                  "description": "WLAN: Description of the currently used WIFI channel",
+                  "type": "object",
+                  "properties": {
+                    "primary_freq": {
+                      "description": "Primary frequency in kHz. Value can be null.",
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "primary_center": {
+                      "description": "Primary segment center frequency in kHz. Value can be null.",
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "channel_width": {
+                      "description": "Current channel width. Value can be null.",
+                      "type": [
+                        "string",
+                        "null"
+                      ],
+                      "enum": [
+                        "20 MHz",
+                        "40 MHz",
+                        "80 MHz",
+                        "160 MHz",
+                        "80+80 MHz",
+                        "320 MHz",
+                        "INVALID",
+                        null
+                      ]
+                    },
+                    "puncturing_map": {
+                      "description": "Channel Puncturing map value, where each bit represents a 20 MHz sub-channel in the segment. A 1 indicates that this sub-channel is disabled.",
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "secondary_center": {
+                      "description": "Secondary segment center frequency in kHz. Value will be null if channel_width is null. If non-null, it will be 0 unless channel_width is 80+80 MHz.",
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "max_power": {
+                      "description": "Maximum power used on this channel in dBm. Value can be null.",
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "primary_freq",
+                    "primary_center",
+                    "channel_width",
+                    "secondary_center",
+                    "max_power"
+                  ],
+                  "additionalProperties": false
+                },
+                "radio_id": {
+                  "description": "ID of the radio this interface is associated with",
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "channel_utilization": {
+                  "description": "WLAN and PLC: Percentage value of current channel/medium utilization [NOTE PLC: 255 - indicates value is unknown!]",
+                  "type": "integer"
+                },
+                "anpi": {
+                  "description": "WLAN: Average noise and interference power indicator in dBm [NOTE: 255 - indicates value is unknown!]",
+                  "type": "integer"
+                },
+                "steering_enabled": {
+                  "description": "WLAN: Steering of this interface is enabled.",
+                  "type": "boolean"
+                },
+                "11k_friendly": {
+                  "description": "WLAN: Beacon Reporting seems to work with this interface and client is capable of it.",
+                  "type": "boolean"
+                },
+                "11v_friendly": {
+                  "description": "WLAN: BSS Transition Management seems to work with this interface and client is capable of it.",
+                  "type": "boolean"
+                },
+                "legacy_friendly": {
+                  "description": "WLAN: Legacy Steering seems to work with this interface.",
+                  "type": "boolean"
+                },
+                "rrm_compliant": {
+                  "description": "WLAN: Beacon report RCPI measurements seem to be encoded as described in Table 9-154 of IEEE802.11 (2016).",
+                  "type": "boolean"
+                },
+                "mlo_modes": {
+                  "description": "IEEE 802.11be MLO Modes that are possible on the associated interface radio.",
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "",
+                      "STR",
+                      "NSTR",
+                      "EMLSR",
+                      "EMLMR",
+                      "RESERVED_0",
+                      "RESERVED_1",
+                      "RESERVED_2",
+                      "RESERVED_3",
+                      "INVALID MAX"
+                    ]
+                  }
+                },
+                "phymodes": {
+                  "description": "WLAN: Currently selected Phymodes. Might be empty for unconfigured interfaces. In case of an error, expect other values than defined in the enum field.",
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "",
+                      "a",
+                      "b",
+                      "g",
+                      "n",
+                      "ac",
+                      "ax",
+                      "be",
+                      "INVALID MAX"
+                    ]
+                  }
+                },
+                "client_position": {
+                  "description": "WLAN: Rating of the connected uplink rcpi.",
+                  "type": "string",
+                  "enum": [
+                    "too_close",
+                    "too_far",
+                    "ok",
+                    "unknown"
+                  ]
+                },
+                "channel_list": {
+                  "description": "WLAN: List of all channels this interface can operate on",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "channel": {
+                        "description": "Channel ID for this entry",
+                        "type": "integer"
+                      },
+                      "frequency": {
+                        "description": "Frequency of this entry in kHz",
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "channel",
+                      "frequency"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "uid",
+                "type",
+                "mac_address"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "uid",
+          "device_mac_address",
+          "metrics"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "nodes",
+    "schema_version"
+  ]
+}
