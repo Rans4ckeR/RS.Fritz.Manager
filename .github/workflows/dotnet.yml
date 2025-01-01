@@ -9,7 +9,7 @@ permissions:
 jobs:
   build:
     if: github.repository == 'Rans4ckeR/RS.Fritz.Manager'
-    runs-on: windows-latest
+    runs-on: windows-2025
     steps:
     - name: Checkout
       uses: actions/checkout@main
@@ -22,7 +22,7 @@ jobs:
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@main
       with:
-        versionSpec: '6.0.x'
+        versionSpec: '6.x'
     - name: Determine Version
       uses: gittools/actions/gitversion/execute@main
     - name: Publish
