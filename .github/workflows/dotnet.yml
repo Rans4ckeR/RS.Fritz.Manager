@@ -18,7 +18,7 @@ jobs:
     - name: Setup .NET Core SDK
       uses: actions/setup-dotnet@main
       with:
-        dotnet-version: '9.x.x'
+        dotnet-version: '9.0.2xx'
         dotnet-quality: 'daily'
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@main
