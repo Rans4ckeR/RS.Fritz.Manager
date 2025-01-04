@@ -81,7 +81,7 @@ internal sealed class HostsViewModel(
         HostsGetHostNumberOfEntriesResponse = await ExecuteApiAsync(static q => q.HostsGetHostNumberOfEntriesAsync()).ConfigureAwait(true);
 
         ushort numberOfEntries = HostsGetHostNumberOfEntriesResponse!.Value.Key!.Value.HostNumberOfEntries;
-        var tasks = new List<Task<KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>>>();
+        List<Task<KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>>> tasks = [];
 
         for (ushort i = 0; i < numberOfEntries; i++)
         {

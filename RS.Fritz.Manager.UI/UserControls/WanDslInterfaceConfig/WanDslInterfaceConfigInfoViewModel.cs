@@ -135,7 +135,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
         if (range is 0)
             range = 1;
 
-        var uiElements = new List<UIElement>();
+        List<UIElement> uiElements = [];
 
         for (int i = startIndex; i < values.Count; i++)
         {
@@ -160,8 +160,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
         Canvas.SetTop(labelMax, 0.5);
         Canvas.SetLeft(labelMin, uiElements.OfType<Line>().Last().X2);
         Canvas.SetTop(labelMin, 0.5 - 15d);
-        uiElements.AddRange([labelMax, labelMin]);
 
-        return uiElements;
+        return [.. uiElements, labelMax, labelMin];
     }
 }

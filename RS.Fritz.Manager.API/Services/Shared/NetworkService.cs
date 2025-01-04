@@ -7,11 +7,7 @@ namespace RS.Fritz.Manager.API;
 
 internal sealed class NetworkService : INetworkService
 {
-    private static readonly FrozenSet<AddressFamily> SupportedAddressFamilies = new[]
-    {
-        AddressFamily.InterNetwork,
-        AddressFamily.InterNetworkV6
-    }.ToFrozenSet();
+    private static readonly FrozenSet<AddressFamily> SupportedAddressFamilies = [AddressFamily.InterNetwork, AddressFamily.InterNetworkV6];
 
     public Uri FormatUri(string scheme, Uri uri, ushort port, string path)
     {

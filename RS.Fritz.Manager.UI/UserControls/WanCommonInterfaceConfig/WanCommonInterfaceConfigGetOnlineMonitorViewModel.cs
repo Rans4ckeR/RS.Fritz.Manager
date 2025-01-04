@@ -197,7 +197,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
     {
         const double yScale = 300d;
         const double xScale = 50d;
-        var streamBps = downstreamInternetBps!.Concat(downstreamIpTvBps!).ToList();
+        List<uint> streamBps = [.. downstreamInternetBps!, .. downstreamIpTvBps!];
         uint min = streamBps.Min();
         uint max = streamBps.Max();
         uint range = max - min;
@@ -205,7 +205,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
         if (range is 0)
             range = 1;
 
-        var uiElements = new List<UIElement>();
+        List<UIElement> uiElements = [];
 
         CreateUiElements(yScale, xScale, min, range, uiElements, downstreamInternetBps!, downstreamInternetBrush);
         CreateUiElements(yScale, xScale, min, range, uiElements, downstreamIpTvBps!, downstreamIpTvBrush);
@@ -223,9 +223,8 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
         Canvas.SetTop(labelInternet, 50d);
         Canvas.SetLeft(labelIpTvInternet, 0d);
         Canvas.SetTop(labelIpTvInternet, 25d);
-        uiElements.AddRange([labelMax, labelMin, labelInternet, labelIpTvInternet]);
 
-        OnlineMonitorDownstreamElements = uiElements;
+        OnlineMonitorDownstreamElements = [.. uiElements, labelMax, labelMin, labelInternet, labelIpTvInternet];
     }
 
     private void UpdateOnlineMonitorUpstreamElements()
@@ -239,7 +238,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
         if (range is 0)
             range = 1;
 
-        var uiElements = new List<UIElement>();
+        List<UIElement> uiElements = [];
 
         CreateUiElements(yScale, xScale, min, range, uiElements, upstreamTotalBps!, upstreamTotalBrush);
         CreateUiElements(yScale, xScale, min, range, uiElements, upstreamRealTimeApplicationsBps!, upstreamRealTimeApplicationsBrush);
@@ -269,8 +268,7 @@ internal sealed class WanCommonInterfaceConfigGetOnlineMonitorViewModel : FritzS
         Canvas.SetTop(labelNormal, 50d);
         Canvas.SetLeft(labelBackground, 0d);
         Canvas.SetTop(labelBackground, 25d);
-        uiElements.AddRange([labelMax, labelMin, labelTotal, labelRealtime, labelPrioritized, labelNormal, labelBackground]);
 
-        OnlineMonitorUpstreamElements = uiElements;
+        OnlineMonitorUpstreamElements = [.. uiElements, labelMax, labelMin, labelTotal, labelRealtime, labelPrioritized, labelNormal, labelBackground];
     }
 }

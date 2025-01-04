@@ -8,6 +8,9 @@ public static class UPnPConstants
     public const string InternetGatewayDeviceV1DeviceType = $"{InternetGatewayDeviceNamespace}:1";
     public const string InternetGatewayDeviceV2DeviceType = $"{InternetGatewayDeviceNamespace}:2";
     public const string InternetGatewayDeviceV1AvmDeviceType = $"{InternetGatewayDeviceAvmNamespace}:1";
+    public const ushort MultiCastPort = 1900;
+    public const string AllDeviceTypes = "ssdp:all";
+    public const string RootDeviceDeviceType = "upnp:rootdevice";
     internal const string Root = "root";
     internal const string Device = "device";
     internal const string Icon = "icon";
@@ -19,8 +22,6 @@ public static class UPnPConstants
     internal const string Device10Namespace = $"{DeviceNamespace}-1-0";
     internal const string Device10AvmNamespace = $"{DeviceAvmNamespace}-1-0";
     internal const string ServiceNamespace = $"{Namespace}:{Service}";
-    internal const string RootDeviceDeviceType = "upnp:rootdevice";
-    internal const ushort MultiCastPort = 1900;
     private const string Namespace = "urn:schemas-upnp-org";
     private const string AvmNamespace = "urn:dslforum-org";
     private const string Control = "control";

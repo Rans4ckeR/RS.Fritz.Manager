@@ -8,7 +8,7 @@ public static class DeviceExtensions
 
         foreach (Device deviceListItem in device.DeviceList ?? [])
         {
-            serviceListItems = serviceListItems.Concat(GetServices(deviceListItem));
+            serviceListItems = [.. serviceListItems, .. GetServices(deviceListItem)];
         }
 
         return serviceListItems;

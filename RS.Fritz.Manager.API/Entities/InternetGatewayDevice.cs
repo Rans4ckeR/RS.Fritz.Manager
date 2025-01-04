@@ -17,7 +17,7 @@ public sealed record InternetGatewayDevice(
     string? Nls,
     int? BootId,
     int? ConfigId,
-    ushort? SearchPort,
+    ushort? UnicastSearchPort,
     IEnumerable<Uri?>? SecureLocations,
     UPnPDescription? UPnPDescription,
     Uri? PreferredLocation,
@@ -35,7 +35,7 @@ public sealed record InternetGatewayDevice(
     public bool IsAvm => SearchTarget?.StartsWith(UPnPConstants.InternetGatewayDeviceAvmNamespace, StringComparison.OrdinalIgnoreCase) ?? false;
 
     public IEnumerable<ServiceListItem> Services
-        => services ??= UPnPDescription?.Device?.GetServices().ToArray() ?? [];
+        => services ??= [.. UPnPDescription?.Device?.GetServices() ?? []];
 
     public async ValueTask InitializeAsync()
     {

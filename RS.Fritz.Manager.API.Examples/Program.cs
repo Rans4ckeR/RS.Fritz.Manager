@@ -62,7 +62,7 @@ Console.WriteLine($"Session: {webUiSessionInfo.Sid}");
 
 // Capture live network traffic from router to file
 ICaptureControlService captureControlService = serviceScope.ServiceProvider.GetRequiredService<ICaptureControlService>();
-IEnumerable<CaptureInterfaceGroup>? interfaceGroups = await captureControlService.GetInterfacesAsync(device);
+IEnumerable<CaptureInterfaceGroup> interfaceGroups = await captureControlService.GetInterfacesAsync(device);
 CaptureInterface captureInterface = interfaceGroups.First().CaptureInterfaces.First();
 var fileInfo = new FileInfo(FormattableString.Invariant($@"c:\temp\{captureInterface.Name}_{DateTime.Now.ToString("s").Replace(":", string.Empty)}.eth"));
 

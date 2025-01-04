@@ -14,7 +14,7 @@ public readonly record struct DeviceSearchResponse(
     string? Nls,
     int? BootId,
     int? ConfigId,
-    ushort? SearchPort,
+    ushort? UnicastSearchPort,
     Uri? SecureLocation,
     IPAddress IpAddress,
     IPAddress LocalIpAddress);

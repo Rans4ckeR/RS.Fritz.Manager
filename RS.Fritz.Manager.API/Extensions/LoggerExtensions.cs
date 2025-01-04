@@ -19,11 +19,11 @@ public static partial class LoggerExtensions
         }
     }
 
-    [LoggerMessage(Level = LogLevel.Trace, EventId = (int)LoggingEvents.SoapRequest, Message = "{Request}")]
-    internal static partial void SoapRequest(this ILogger logger, string request);
+    [LoggerMessage(Level = LogLevel.Trace, EventId = (int)LoggingEvents.SoapRequest, Message = "Version: {Version}, IsFault: {IsFault}, IsEmpty: {IsEmpty}, Body:\r\n{Body}")]
+    internal static partial void SoapRequest(this ILogger logger, string version, bool isFault, bool isEmpty, string body);
 
-    [LoggerMessage(Level = LogLevel.Trace, EventId = (int)LoggingEvents.SoapReply, Message = "{Reply}")]
-    internal static partial void SoapReply(this ILogger logger, string reply);
+    [LoggerMessage(Level = LogLevel.Trace, EventId = (int)LoggingEvents.SoapReply, Message = "Version: {Version}, IsFault: {IsFault}, IsEmpty: {IsEmpty}, Body:\r\n{Body}")]
+    internal static partial void SoapReply(this ILogger logger, string version, bool isFault, bool isEmpty, string body);
 
     [LoggerMessage(Level = LogLevel.Trace, EventId = (int)LoggingEvents.DiscoverRequest, Message = "{LocalIpEndPoint} -> {RemoteIpEndPoint}\r\n{Request}")]
     internal static partial void DiscoverRequest(this ILogger logger, IPEndPoint localIpEndPoint, IPEndPoint remoteIpEndPoint, string request);

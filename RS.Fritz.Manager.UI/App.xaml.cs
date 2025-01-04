@@ -24,8 +24,9 @@ internal sealed partial class App
             .ConfigureAppConfiguration(static builder => builder.AddInMemoryCollection(
                 new Dictionary<string, string?>
                 {
-                    ["Logging:LogLevel:Default"] = LogLevel.Trace.ToString(),
-                    ["Logging:UserInterfaceLogService:LogLevel:Default"] = LogLevel.Trace.ToString()
+                    ["Logging:LogLevel:Default"] = LogLevel.Warning.ToString(),
+                    ["Logging:UserInterfaceLogService:LogLevel:Default"] = LogLevel.Warning.ToString(),
+                    ["Logging:UserInterfaceLogService:LogLevel:RS"] = LogLevel.Trace.ToString()
                 }))
             .ConfigureLogging(static builder =>
                 builder

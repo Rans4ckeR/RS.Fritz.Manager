@@ -21,7 +21,7 @@ internal sealed class CaptureControlService(IHttpClientFactory httpClientFactory
         });
         using HttpResponseMessage httpResponseMessage = await httpClient.PostAsync(captureUri, content, cancellationToken).ConfigureAwait(false);
         string responseContent = await httpResponseMessage.EnsureSuccessStatusCode().Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-        var captureInterfaceGroups = new List<CaptureInterfaceGroup>();
+        List<CaptureInterfaceGroup> captureInterfaceGroups = [];
         int groupNameBeginPosition = -1;
 
         while ((groupNameBeginPosition = responseContent.IndexOf("<h3>", groupNameBeginPosition + 1, StringComparison.OrdinalIgnoreCase)) is not -1)
@@ -30,7 +30,7 @@ internal sealed class CaptureControlService(IHttpClientFactory httpClientFactory
             string groupName = responseContent[(groupNameBeginPosition + "<h3>".Length)..groupNameEndPosition];
             int interfaceNameBeginPosition = groupNameEndPosition;
             int nextGroupNameBeginPosition = responseContent.IndexOf("<h3>", groupNameBeginPosition + 1, StringComparison.OrdinalIgnoreCase);
-            var captureInterfaces = new List<CaptureInterface>();
+            List<CaptureInterface> captureInterfaces = [];
 
             while ((interfaceNameBeginPosition = responseContent.IndexOf("<th>", interfaceNameBeginPosition + 1, StringComparison.OrdinalIgnoreCase)) is not -1 && interfaceNameBeginPosition < nextGroupNameBeginPosition)
             {

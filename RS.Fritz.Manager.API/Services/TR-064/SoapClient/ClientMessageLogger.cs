@@ -13,34 +13,33 @@ internal sealed class ClientMessageLogger(ILogger logger) : IClientMessageInspec
 
     public void AfterReceiveReply(ref Message reply, object correlationState)
     {
-        MessageBuffer messageBuffer = reply.CreateBufferedCopy(int.MaxValue);
+        (string version, bool isFault, bool isEmpty, string body) = GetLogMessage(ref reply);
 
-        logger.SoapReply(GetLogMessage(messageBuffer));
-
-        reply = messageBuffer.CreateMessage();
+        logger.SoapReply(version, isFault, isEmpty, body);
     }
 
     public object? BeforeSendRequest(ref Message request, IClientChannel channel)
     {
-        MessageBuffer messageBuffer = request.CreateBufferedCopy(int.MaxValue);
+        (string version, bool isFault, bool isEmpty, string body) = GetLogMessage(ref request);
 
-        logger.SoapRequest(GetLogMessage(messageBuffer));
-
-        request = messageBuffer.CreateMessage();
+        logger.SoapRequest(version, isFault, isEmpty, body);
 
         return null;
     }
 
-    private static string GetLogMessage(MessageBuffer messageBuffer)
+    private static (string Version, bool IsFault, bool IsEmpty, string Body) GetLogMessage(ref Message message)
     {
-        Message message = messageBuffer.CreateMessage();
+        using MessageBuffer messageBuffer = message.CreateBufferedCopy(int.MaxValue);
+        using Message messageCopy = messageBuffer.CreateMessage();
         var stringBuilder = new StringBuilder();
 
         using (var xmlWriter = XmlWriter.Create(stringBuilder))
         {
-            message.WriteMessage(xmlWriter);
+            messageCopy.WriteMessage(xmlWriter);
         }
 
-        return XElement.Parse(stringBuilder.ToString()).ToString();
+        message = messageBuffer.CreateMessage();
+
+        return (messageCopy.Version.ToString(), messageCopy.IsFault, messageCopy.IsEmpty, XElement.Parse(stringBuilder.ToString()).ToString());
     }
 }

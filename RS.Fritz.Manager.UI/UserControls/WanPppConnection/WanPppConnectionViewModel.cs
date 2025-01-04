@@ -119,7 +119,7 @@ internal sealed class WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo,
         WanConnectionGetPortMappingNumberOfEntriesResponse = await ExecuteApiAsync(static q => q.WanPppConnectionGetPortMappingNumberOfEntriesAsync()).ConfigureAwait(true);
 
         ushort numberOfEntries = WanConnectionGetPortMappingNumberOfEntriesResponse!.Value.Key!.Value.PortMappingNumberOfEntries;
-        var tasks = new List<Task<KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>>>();
+        List<Task<KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>>> tasks = [];
 
         for (ushort i = 0; i < numberOfEntries; i++)
         {

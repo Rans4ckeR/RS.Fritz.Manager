@@ -65,9 +65,9 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
     {
         const double yScale = 200d;
         const double xScale = 2d;
-        var downstreamSnrValues = WanDslInterfaceConfigGetDslInfoResponse!.Value.Key!.Value.SnrPsDs.Split(',').Select(static q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
-        var upstreamSnrValues = WanDslInterfaceConfigGetDslInfoResponse!.Value.Key!.Value.SnrPsUs.Split(',').Select(static q => uint.Parse(q, CultureInfo.InvariantCulture)).ToList();
-        var snrValues = downstreamSnrValues.Concat(upstreamSnrValues).ToList();
+        List<uint> downstreamSnrValues = [.. WanDslInterfaceConfigGetDslInfoResponse!.Value.Key!.Value.SnrPsDs.Split(',').Select(static q => uint.Parse(q, CultureInfo.InvariantCulture))];
+        List<uint> upstreamSnrValues = [.. WanDslInterfaceConfigGetDslInfoResponse!.Value.Key!.Value.SnrPsUs.Split(',').Select(static q => uint.Parse(q, CultureInfo.InvariantCulture))];
+        List<uint> snrValues = [.. downstreamSnrValues, .. upstreamSnrValues];
         uint min = snrValues.Min();
         uint max = snrValues.Max();
         uint range = max - min;
@@ -75,7 +75,7 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
         if (range is 0)
             range = 1;
 
-        var uiElements = new List<UIElement>();
+        List<UIElement> uiElements = [];
 
         CreateUiElements(yScale, xScale, min, range, uiElements, downstreamSnrValues, downstreamLineBrush);
         CreateUiElements(yScale, xScale, min, range, uiElements, upstreamSnrValues, upstreamLineBrush);
@@ -87,8 +87,7 @@ internal sealed class WanDslInterfaceConfigDslInfoViewModel : ObservableObject
         Canvas.SetTop(labelMax, 200);
         Canvas.SetLeft(labelMin, uiElements.OfType<Line>().Last().X2);
         Canvas.SetTop(labelMin, -15d);
-        uiElements.AddRange([labelMax, labelMin]);
 
-        DownstreamSnrElements = uiElements;
+        DownstreamSnrElements = [.. uiElements, labelMax, labelMin];
     }
 }
