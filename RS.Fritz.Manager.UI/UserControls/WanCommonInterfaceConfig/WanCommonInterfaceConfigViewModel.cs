@@ -87,16 +87,14 @@ internal sealed class WanCommonInterfaceConfigViewModel : FritzServiceViewModel
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => API.TaskExtensions.WhenAllSafe(
-            [
+        => Task.WhenAll(
                 GetWanCommonInterfaceConfigGetCommonLinkPropertiesAsync(),
                 GetWanCommonInterfaceConfigGetTotalBytesReceivedAsync(),
                 GetWanCommonInterfaceConfigGetTotalBytesSentAsync(),
                 GetWanCommonInterfaceConfigGetTotalPacketsReceivedAsync(),
                 GetWanCommonInterfaceConfigGetTotalPacketsSentAsync(),
-                GetWanCommonInterfaceConfigGetOnlineMonitorAsync()
-            ],
-            true);
+                GetWanCommonInterfaceConfigGetOnlineMonitorAsync())
+            .Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
     private async void AutoRefreshTimerTick(object? sender, EventArgs e)
     {

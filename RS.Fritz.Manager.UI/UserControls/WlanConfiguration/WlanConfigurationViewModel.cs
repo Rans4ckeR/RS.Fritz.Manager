@@ -120,8 +120,7 @@ internal sealed class WlanConfigurationViewModel(DeviceLoginInfo deviceLoginInfo
     public Visibility Interface4Visibility => interface4Visibility ??= HasWlanConfigurationService(4) ? Visibility.Visible : Visibility.Hidden;
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => API.TaskExtensions.WhenAllSafe(
-            [
+        => Task.WhenAll(
                 GetWlanConfigurationGetHostListPathAsync(cancellationToken),
                 GetWlanConfigurationGetInfoAsync(),
                 GetWlanConfigurationGetBasBeaconSecurityPropertiesAsync(),
@@ -138,9 +137,8 @@ internal sealed class WlanConfigurationViewModel(DeviceLoginInfo deviceLoginInfo
                 GetWlanConfigurationGetWlanHybridModeAsync(),
                 GetWlanConfigurationGetWlanExtInfoAsync(),
                 GetWlanConfigurationGetWpsInfoAsync(),
-                GetWlanConfigurationGetWlanConnectionInfoAsync()
-            ],
-            true);
+                GetWlanConfigurationGetWlanConnectionInfoAsync())
+            .Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
     private async Task GetWlanConfigurationGetHostListPathAsync(CancellationToken cancellationToken)
         => WlanDeviceInfo = await wlanDeviceService.GetWlanDevicesAsync(ApiDevice, cancellationToken).ConfigureAwait(true);

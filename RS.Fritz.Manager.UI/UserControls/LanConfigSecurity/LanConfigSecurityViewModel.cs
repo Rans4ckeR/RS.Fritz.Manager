@@ -30,14 +30,12 @@ internal sealed class LanConfigSecurityViewModel(DeviceLoginInfo deviceLoginInfo
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => API.TaskExtensions.WhenAllSafe(
-            [
+        => Task.WhenAll(
                 GetLanConfigSecurityGetAnonymousLoginAsync(),
                 GetLanConfigSecurityGetCurrentUserAsync(),
                 GetLanConfigSecurityGetInfoAsync(),
-                GetLanConfigSecurityGetUserListAsync()
-            ],
-            true);
+                GetLanConfigSecurityGetUserListAsync())
+            .Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
     private async Task GetLanConfigSecurityGetAnonymousLoginAsync()
         => LanConfigSecurityGetAnonymousLoginResponse = await ExecuteApiAsync(static q => q.LanConfigSecurityGetAnonymousLoginAsync()).ConfigureAwait(true);

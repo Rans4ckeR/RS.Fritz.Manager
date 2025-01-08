@@ -65,16 +65,14 @@ internal sealed class HostsViewModel(
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => API.TaskExtensions.WhenAllSafe(
-            [
+        => Task.WhenAll(
                 GetHostsGetHostListPathAsync(cancellationToken),
                 GetHostsGetMeshListPathAsync(cancellationToken),
                 GetHostsGetHostNumberOfEntriesAsync(),
                 GetHostsGetInfoAsync(),
                 GetHostsGetChangeCounterAsync(),
-                GetHostsGetFriendlyNameAsync()
-            ],
-            true);
+                GetHostsGetFriendlyNameAsync())
+            .Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
     private async Task GetHostsGetHostNumberOfEntriesAsync()
     {
@@ -90,7 +88,7 @@ internal sealed class HostsViewModel(
             tasks.Add(ExecuteApiAsync(q => q.HostsGetGenericHostEntryAsync(new(capturedIndex))));
         }
 
-        KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
+        KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>[] responses = await Task.WhenAll(tasks).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
         HostsGetGenericHostEntryResponses = [.. responses.Select(static q => q.Key!.Value)];
     }

@@ -40,16 +40,14 @@ internal sealed class WanDslLinkConfigViewModel(DeviceLoginInfo deviceLoginInfo,
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => API.TaskExtensions.WhenAllSafe(
-            [
+        => Task.WhenAll(
                 GetWanDslLinkConfigGetInfoAsync(),
                 GetWanDslLinkConfigGetDslLinkInfoAsync(),
                 GetWanDslLinkConfigGetDestinationAddressAsync(),
                 GetWanDslLinkConfigGetAtmEncapsulationAsync(),
                 GetWanDslLinkConfigGetAutoConfigAsync(),
-                GetWanDslLinkConfigGetStatisticsAsync()
-            ],
-            true);
+                GetWanDslLinkConfigGetStatisticsAsync())
+            .Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
     private async Task GetWanDslLinkConfigGetInfoAsync()
         => WanDslLinkConfigGetInfoResponse = await ExecuteApiAsync(static q => q.WanDslLinkConfigGetInfoAsync()).ConfigureAwait(true);

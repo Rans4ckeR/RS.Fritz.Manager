@@ -43,7 +43,7 @@ internal sealed class ManagementServerViewModel(
     public ManagementServerSetTr069FirmwareDownloadEnabledViewModel ManagementServerSetTr069FirmwareDownloadEnabledViewModel { get; } = managementServerSetTr069FirmwareDownloadEnabledViewModel;
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => API.TaskExtensions.WhenAllSafe([GetManagementServerGetInfoAsync(), GetManagementServerGetTr069FirmwareDownloadEnabledAsync()], true);
+        => Task.WhenAll(GetManagementServerGetInfoAsync(), GetManagementServerGetTr069FirmwareDownloadEnabledAsync()).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
     private async Task GetManagementServerGetInfoAsync()
         => ManagementServerGetInfoResponse = await ExecuteApiAsync(static q => q.ManagementServerGetInfoAsync()).ConfigureAwait(true);

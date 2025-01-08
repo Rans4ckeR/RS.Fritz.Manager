@@ -18,7 +18,7 @@ internal sealed class DeviceSearchService(
     ILogger<DeviceSearchService> logger)
     : IDeviceSearchService
 {
-    private static readonly string[] InternetGatewayDeviceDeviceTypes = [UPnPConstants.InternetGatewayDeviceV2DeviceType, UPnPConstants.InternetGatewayDeviceV1DeviceType, UPnPConstants.InternetGatewayDeviceV1AvmDeviceType];
+    private static readonly FrozenSet<string> InternetGatewayDeviceDeviceTypes = [UPnPConstants.InternetGatewayDeviceV2DeviceType, UPnPConstants.InternetGatewayDeviceV1DeviceType, UPnPConstants.InternetGatewayDeviceV1AvmDeviceType];
 
     private readonly INetworkService networkService = networkService;
     private readonly IHttpClientFactory httpClientFactory = httpClientFactory;
@@ -27,18 +27,74 @@ internal sealed class DeviceSearchService(
     private readonly ILogger logger = logger;
 
     // <inheritdoc/>
+    public async ValueTask<GroupedInternetGatewayDevice?> GetInternetGatewayDeviceAsync(IPAddress ipAddress, ushort port = UPnPConstants.AvmPort, CancellationToken cancellationToken = default)
+    {
+        IPEndPoint ipEndPoint = new(ipAddress, port);
+        List<(Uri Uri, string DeviceType, UPnPDescription UPnPDescription)> descriptions =
+        [
+            .. await Task.WhenAll(InternetGatewayDeviceDeviceTypes.Select(async q =>
+            {
+                string path = q switch
+                {
+                    UPnPConstants.InternetGatewayDeviceV1AvmDeviceType => "tr64desc.xml",
+                    UPnPConstants.InternetGatewayDeviceV2DeviceType => "igd2desc.xml",
+                    UPnPConstants.InternetGatewayDeviceV1DeviceType => "igddesc.xml",
+                    _ => throw new ArgumentOutOfRangeException(nameof(q), q, null)
+                };
+                Uri uri = networkService.FormatUri(ipEndPoint, Uri.UriSchemeHttp, path);
+
+                return (uri, q, await GetUPnPDescription(uri, q, cancellationToken));
+            })).Evaluate()
+        ];
+
+        if (descriptions.Count is 0)
+            return null;
+
+        List<InternetGatewayDevice> internetGatewayDevices =
+        [
+            .. descriptions.Select(q => new InternetGatewayDevice(
+                fritzServiceOperationHandler,
+                usersService,
+                null,
+                null,
+                null,
+                [q.Uri],
+                q.UPnPDescription.Device!.Value.ModelName,
+                q.DeviceType,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                q.UPnPDescription,
+                q.Uri,
+                [],
+                ushort.TryParse(q.DeviceType[..1], out ushort version) ? version : null))
+        ];
+
+        return new(
+            internetGatewayDevices.SelectMany(static q => q.Locations ?? []),
+            null,
+            internetGatewayDevices,
+            internetGatewayDevices.MaxBy(static q => q.Version)?.PreferredLocation,
+            [ipAddress]);
+    }
+
+    // <inheritdoc/>
     public async ValueTask<GroupedInternetGatewayDevice[]> GetInternetGatewayDevicesAsync(int sendCount = 1, int timeoutInSeconds = 1, IPEndPoint? ipEndPoint = null, CancellationToken cancellationToken = default)
     {
         List<ServerDeviceResponse> serverDeviceResponses = await GetRawDeviceResponsesAsync(InternetGatewayDeviceDeviceTypes, sendCount, timeoutInSeconds, ipEndPoint, cancellationToken).ConfigureAwait(false);
 
-        return await TaskExtensions.WhenAllSafe(serverDeviceResponses.Select(q => ParseInternetGatewayDeviceAsync(q, cancellationToken))).ConfigureAwait(false);
+        return await Task.WhenAll(serverDeviceResponses.Select(q => ParseInternetGatewayDeviceAsync(q, cancellationToken))).Evaluate();
     }
 
     // <inheritdoc/>
     public async ValueTask<List<ServerDeviceResponse>> GetRawDeviceResponsesAsync(IEnumerable<string> deviceTypes, int sendCount = 1, int timeoutInSeconds = 1, IPEndPoint? ipEndPoint = null, CancellationToken cancellationToken = default)
     {
         IEnumerable<Task<IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)>>> tasks = deviceTypes.Select(q => GetRawDeviceResponses(q, sendCount, timeoutInSeconds, ipEndPoint, cancellationToken));
-        IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)>[] responses = await TaskExtensions.WhenAllSafe(tasks).ConfigureAwait(false);
+        IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)>[] responses = await Task.WhenAll(tasks).Evaluate();
 
         return ParseServerDeviceResponses(responses.SelectMany(static q => q));
     }
@@ -250,7 +306,7 @@ internal sealed class DeviceSearchService(
     {
         IEnumerable<IPAddress> sourceIpAddresses = networkService.GetUnicastAddresses();
         IEnumerable<IPEndPoint> destinationIpEndpoints = ipEndPoint is not null ? [ipEndPoint] : networkService.GetMulticastAddresses().Select(static q => new IPEndPoint(q, UPnPConstants.MultiCastPort));
-        (IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)[] localAddressesDeviceResponses = await TaskExtensions.WhenAllSafe(destinationIpEndpoints.SelectMany(q => sourceIpAddresses.Where(r => r.AddressFamily == q.AddressFamily).Select(r => SearchDevicesAsync(r, q, deviceType, sendCount, timeoutInSeconds, ipEndPoint is null, cancellationToken)))).ConfigureAwait(false);
+        (IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)[] localAddressesDeviceResponses = await Task.WhenAll(destinationIpEndpoints.SelectMany(q => sourceIpAddresses.Where(r => r.AddressFamily == q.AddressFamily).Select(r => SearchDevicesAsync(r, q, deviceType, sendCount, timeoutInSeconds, ipEndPoint is null, cancellationToken)))).Evaluate();
 
         return localAddressesDeviceResponses.Where(static q => q.Responses.Any(static r => r.Response.Length is not 0)).Select(static q => (q.LocalIpAddress, q.Responses)).Distinct();
     }

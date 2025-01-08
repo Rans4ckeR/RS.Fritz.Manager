@@ -40,8 +40,31 @@
                         <RibbonGroup>
                             <RibbonButton Label="Discover Internet Gateway Devices" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png" Command="{Binding DefaultCommand}" CommandParameter="{StaticResource False}"/>
                         </RibbonGroup>
+                        <RibbonGroup VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <RibbonTextBox Grid.Row="0" Grid.Column="0" Label="IP:   " ToolTipTitle="Use [:::::::] notation for IPv6" Text="{Binding IpAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <RibbonTextBox.InputBindings>
+                                        <KeyBinding Command="{Binding ConnectDirectlyCommand}" CommandParameter="{StaticResource False}" Key="Return" />
+                                    </RibbonTextBox.InputBindings>
+                                </RibbonTextBox>
+                                <RibbonTextBox Grid.Row="1" Grid.Column="0" Label="Port:" Text="{Binding Port, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                    <RibbonTextBox.InputBindings>
+                                        <KeyBinding Command="{Binding ConnectDirectlyCommand}" CommandParameter="{StaticResource False}" Key="Return" />
+                                    </RibbonTextBox.InputBindings>
+                                </RibbonTextBox>
+                                <RibbonButton Grid.Row="2" Grid.Column="0" Label="Connect Manually" Command="{Binding ConnectDirectlyCommand}" CommandParameter="{StaticResource False}" SmallImageSource="/RS.Fritz.Manager.UI;component/Images/Search.png"/>
+                            </Grid>
+                        </RibbonGroup>
                         <RibbonGroup>
-                            <RibbonComboBox Label="Select A Discovered Device:" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Device.png">
+                            <RibbonComboBox Label="Select A Found Device:" LargeImageSource="/RS.Fritz.Manager.UI;component/Images/Device.png">
                                 <RibbonGallery SelectedItem="{Binding DeviceLoginInfo.InternetGatewayDevice}">
                                     <RibbonGalleryCategory ItemsSource="{Binding Devices}">
                                         <RibbonGalleryCategory.ItemTemplate>

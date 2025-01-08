@@ -9,6 +9,7 @@ public static class UPnPConstants
     public const string InternetGatewayDeviceV2DeviceType = $"{InternetGatewayDeviceNamespace}:2";
     public const string InternetGatewayDeviceV1AvmDeviceType = $"{InternetGatewayDeviceAvmNamespace}:1";
     public const ushort MultiCastPort = 1900;
+    public const ushort AvmPort = 49000;
     public const string AllDeviceTypes = "ssdp:all";
     public const string RootDeviceDeviceType = "upnp:rootdevice";
     internal const string Root = "root";

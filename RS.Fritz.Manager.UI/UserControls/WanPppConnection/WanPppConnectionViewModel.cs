@@ -78,8 +78,7 @@ internal sealed class WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo,
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => API.TaskExtensions.WhenAllSafe(
-            [
+        => Task.WhenAll(
                 GetWanPppConnectionGetInfoAsync(),
                 GetWanPppConnectionGetConnectionTypeInfoAsync(),
                 GetWanPppConnectionGetStatusInfoAsync(),
@@ -89,9 +88,8 @@ internal sealed class WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo,
                 GetWanPppConnectionGetDnsServersAsync(),
                 GetWanPppConnectionGetPortMappingNumberOfEntriesAsync(),
                 GetWanPppConnectionGetExternalIpAddressAsync(),
-                GetWanPppConnectionGetAutoDisconnectTimeSpanAsync()
-            ],
-            true);
+                GetWanPppConnectionGetAutoDisconnectTimeSpanAsync())
+            .Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
     private async Task GetWanPppConnectionGetInfoAsync()
         => WanPppConnectionGetInfoResponse = await ExecuteApiAsync(static q => q.WanPppConnectionGetInfoAsync()).ConfigureAwait(true);
@@ -128,7 +126,7 @@ internal sealed class WanPppConnectionViewModel(DeviceLoginInfo deviceLoginInfo,
             tasks.Add(ExecuteApiAsync(q => q.WanPppConnectionGetGenericPortMappingEntryAsync(new(capturedIndex))));
         }
 
-        KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
+        KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>[] responses = await Task.WhenAll(tasks).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
         WanConnectionGetGenericPortMappingEntryResponses = [.. responses.Select(static q => q.Key!.Value)];
     }
