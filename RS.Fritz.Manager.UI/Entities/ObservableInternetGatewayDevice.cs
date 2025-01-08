@@ -8,7 +8,7 @@ internal sealed class ObservableInternetGatewayDevice : ObservableRecipient
 {
     public ObservableInternetGatewayDevice(GroupedInternetGatewayDevice groupedInternetGatewayDevice)
         : base(StrongReferenceMessenger.Default)
-        => InternetGatewayDevices = [.. groupedInternetGatewayDevice.Devices.OrderByDescending(static q => q.UniqueServiceName?.Contains(UPnPConstants.InternetGatewayDeviceV1AvmDeviceType, StringComparison.OrdinalIgnoreCase))];
+        => InternetGatewayDevices = [.. groupedInternetGatewayDevice.Devices.OrderByDescending(static q => q.IsAvm)];
 
 #pragma warning disable SA1500 // Braces for multi-line statements should not share line
 #pragma warning disable SA1513 // Closing brace should be followed by blank line

@@ -30,7 +30,6 @@ A NuGet package to manage FritzBox devices using pure WCF calls.
 ### Usage Examples
 
 ```C#
-using System.Net;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RS.Fritz.Manager.API;
@@ -56,9 +55,9 @@ Console.WriteLine($"Device model: {device.UPnPDescription?.Device?.ModelDescript
 await device.InitializeAsync();
 
 // Provide the password for the last logged on user
-string lastUsedUserName = device.Users!.OrderBy(q => q.LastUser).First().Name;
+string lastUsedUserName = device.Users!.OrderByDescending(q => q.LastUser).First().Name;
 Console.WriteLine($"Enter password for {lastUsedUserName}:");
-device.NetworkCredential = new NetworkCredential(lastUsedUserName, Console.ReadLine());
+device.NetworkCredential = new(lastUsedUserName, Console.ReadLine());
 
 // TR-064 example; show the device uptime from the TR-064 DeviceInfo service
 DeviceInfoGetInfoResponse deviceInfo = await device.DeviceInfoGetInfoAsync();

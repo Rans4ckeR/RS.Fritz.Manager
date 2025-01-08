@@ -42,13 +42,11 @@ internal sealed class UserInterfaceViewModel(
     public UserInterfaceSetConfigViewModel UserInterfaceSetConfigViewModel { get; } = userInterfaceSetConfigViewModel;
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => API.TaskExtensions.WhenAllSafe(
-            [
+        => Task.WhenAll(
                 GetUserInterfaceGetInfoAsync(),
                 GetUserInterfaceGetInternationalConfigAsync(),
-                GetUserInterfaceAvmGetInfoAsync()
-            ],
-            true);
+                GetUserInterfaceAvmGetInfoAsync())
+            .Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
     private async Task GetUserInterfaceGetInfoAsync()
         => UserInterfaceGetInfoResponse = await ExecuteApiAsync(static q => q.UserInterfaceGetInfoAsync()).ConfigureAwait(true);

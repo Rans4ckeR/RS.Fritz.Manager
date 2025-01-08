@@ -27,7 +27,7 @@ internal sealed class DeviceConfigViewModel(
     public DeviceConfigGetConfigFileViewModel DeviceConfigGetConfigFileViewModel { get; } = deviceConfigGetConfigFileViewModel;
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => API.TaskExtensions.WhenAllSafe([GetDeviceConfigGetPersistentDataAsync(), GetDeviceConfigGetSupportDataInfoResponseAsync()], true);
+        => Task.WhenAll(GetDeviceConfigGetPersistentDataAsync(), GetDeviceConfigGetSupportDataInfoResponseAsync()).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
     private async Task GetDeviceConfigGetPersistentDataAsync()
         => DeviceConfigGetPersistentDataResponse = await ExecuteApiAsync(static q => q.DeviceConfigGetPersistentDataAsync()).ConfigureAwait(true);

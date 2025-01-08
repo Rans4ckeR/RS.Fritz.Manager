@@ -1,4 +1,5 @@
-﻿using System.Security;
+﻿using System.Collections.Frozen;
+using System.Security;
 using System.ServiceModel.Security;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
@@ -8,6 +9,10 @@ namespace RS.Fritz.Manager.UI;
 
 internal sealed class DeviceLoginInfo : ObservableRecipient
 {
+    private const string DslWanAccessType = "DSL";
+
+    private static readonly FrozenSet<string> EthernetWanAccessTypes = ["Ethernet", "X_AVM-DE_Fiber", "X_AVM-DE_UMTS", "X_AVM-DE_Cable", "X_AVM-DE_LTE"];
+
     private readonly ILogger logger;
 
     public DeviceLoginInfo(ILogger<DeviceLoginInfo> logger)
@@ -92,12 +97,8 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
         Authenticated = true;
         WanAccessType = wanCommonInterfaceConfigGetCommonLinkProperties.WanAccessType switch
         {
-            "DSL" => UI.WanAccessType.Dsl,
-            "Ethernet" => UI.WanAccessType.Ethernet,
-            "X_AVM-DE_Fiber" => UI.WanAccessType.Ethernet,
-            "X_AVM-DE_UMTS" => UI.WanAccessType.Ethernet,
-            "X_AVM-DE_Cable" => UI.WanAccessType.Ethernet,
-            "X_AVM-DE_LTE" => UI.WanAccessType.Ethernet,
+            DslWanAccessType => UI.WanAccessType.Dsl,
+            { } q when EthernetWanAccessTypes.Contains(q) => UI.WanAccessType.Ethernet,
             _ => throw new ArgumentOutOfRangeException(nameof(WanCommonInterfaceConfigGetCommonLinkPropertiesResponse.WanAccessType), wanCommonInterfaceConfigGetCommonLinkProperties.WanAccessType, null)
         };
     }
@@ -122,7 +123,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
                         }
                         else
                         {
-                            SelectedInternetGatewayDevice = message.NewValue.InternetGatewayDevices.SingleOrDefault(static q => q.UniqueServiceName?.Contains(UPnPConstants.InternetGatewayDeviceV1AvmDeviceType, StringComparison.OrdinalIgnoreCase) ?? false) ?? message.NewValue.InternetGatewayDevices.MaxBy(static q => q.Version);
+                            SelectedInternetGatewayDevice = message.NewValue.InternetGatewayDevices.FirstOrDefault(static q => q.IsAvm) ?? message.NewValue.InternetGatewayDevices.MaxBy(static q => q.Version);
 
                             await SelectedInternetGatewayDevice!.InitializeAsync().ConfigureAwait(true);
 

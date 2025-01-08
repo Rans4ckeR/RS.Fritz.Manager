@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Net;
 using System.ServiceModel.Security;
 using System.Windows;
 using System.Windows.Media;
@@ -67,6 +68,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         LoginCommand = new AsyncRelayCommand<bool?>(ExecuteLoginCommandAsync, _ => CanExecuteLoginCommand);
         CopyMessageCommand = new RelayCommand(ExecuteCopyMessageCommand);
         CloseMessageCommand = new RelayCommand(ExecuteCloseMessageCommand);
+        ConnectDirectlyCommand = new AsyncRelayCommand<bool?>(ExecuteConnectDirectlyCommandAsync, _ => CanExecuteConnectDirectlyCommand);
 
         StrongReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, static (r, m) => ((MainWindowViewModel)r).UserMessage = m.Value.Message);
         StrongReferenceMessenger.Default.Register<LogMessageValueChangedMessage>(this, static (r, m) => ((MainWindowViewModel)r).Log = m.Value.Message);
@@ -209,6 +211,21 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         }
     }
 
+    public IAsyncRelayCommand ConnectDirectlyCommand { get; }
+
+    public bool ConnectDirectlyCommandActive
+    {
+        get;
+        set
+        {
+            if (!SetProperty(ref field, value))
+                return;
+
+            UpdateCanExecuteConnectDirectlyCommand();
+            ConnectDirectlyCommand.NotifyCanExecuteChanged();
+        }
+    }
+
     public ImageSource LoginButtonImage
     {
         get;
@@ -231,6 +248,30 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
                 ActiveView = DeviceLoginInfo.InternetGatewayDevice;
         }
     } = true;
+
+    public string? IpAddress
+    {
+        get;
+        set
+        {
+            if (!SetProperty(ref field, value))
+                return;
+
+            UpdateCanExecuteConnectDirectlyCommand();
+        }
+    }
+
+    public ushort Port
+    {
+        get;
+        set
+        {
+            if (!SetProperty(ref field, value))
+                return;
+
+            UpdateCanExecuteConnectDirectlyCommand();
+        }
+    } = UPnPConstants.AvmPort;
 #pragma warning restore SA1500 // Braces for multi-line statements should not share line
 #pragma warning restore SA1513 // Closing brace should be followed by blank line
 
@@ -241,6 +282,16 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         {
             if (SetProperty(ref field, value))
                 LoginCommand.NotifyCanExecuteChanged();
+        }
+    }
+
+    private bool CanExecuteConnectDirectlyCommand
+    {
+        get;
+        set
+        {
+            if (SetProperty(ref field, value))
+                ConnectDirectlyCommand.NotifyCanExecuteChanged();
         }
     }
 
@@ -255,6 +306,12 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
                 case nameof(LoginCommandActive):
                     {
                         UpdateCanExecuteLoginCommand();
+                        break;
+                    }
+
+                case nameof(ConnectDirectlyCommandActive):
+                    {
+                        UpdateCanExecuteConnectDirectlyCommand();
                         break;
                     }
 
@@ -322,6 +379,9 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     private void UpdateCanExecuteLoginCommand()
         => CanExecuteLoginCommand = !LoginCommandActive && (DeviceLoginInfo.SelectedInternetGatewayDevice?.IsAvm ?? false) && DeviceLoginInfo.LoginInfoSet;
 
+    private void UpdateCanExecuteConnectDirectlyCommand()
+        => CanExecuteConnectDirectlyCommand = !ConnectDirectlyCommandActive && IpAddress is not null && IPAddress.TryParse(IpAddress, out _);
+
     private async Task ExecuteLoginCommandAsync(bool? showView)
     {
         try
@@ -343,6 +403,28 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         finally
         {
             LoginCommandActive = false;
+        }
+    }
+
+    private async Task ExecuteConnectDirectlyCommandAsync(bool? showView)
+    {
+        try
+        {
+            ConnectDirectlyCommandActive = true;
+            ActiveView = null;
+            DeviceLoginInfo.InternetGatewayDevice = null;
+
+            GroupedInternetGatewayDevice? device = await deviceSearchService.GetInternetGatewayDeviceAsync(IPAddress.Parse(IpAddress!), Port).ConfigureAwait(true);
+
+            Devices = device is null ? [] : [new ObservableInternetGatewayDevice(device)];
+        }
+        catch (Exception ex)
+        {
+            Logger.ExceptionThrown(ex);
+        }
+        finally
+        {
+            ConnectDirectlyCommandActive = false;
         }
     }
 

@@ -33,7 +33,7 @@ internal sealed class Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo,
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => API.TaskExtensions.WhenAllSafe([GetLayer3ForwardingGetDefaultConnectionServiceAsync(), GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()], true);
+        => Task.WhenAll(GetLayer3ForwardingGetDefaultConnectionServiceAsync(), GetLayer3ForwardingGetForwardNumberOfEntriesResponseAsync()).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
     private async Task GetLayer3ForwardingGetDefaultConnectionServiceAsync()
         => Layer3ForwardingGetDefaultConnectionServiceResponse = await ExecuteApiAsync(static q => q.Layer3ForwardingGetDefaultConnectionServiceAsync()).ConfigureAwait(true);
@@ -52,7 +52,7 @@ internal sealed class Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo,
             tasks.Add(ExecuteApiAsync(q => q.Layer3ForwardingGetGenericForwardingEntryAsync(new(capturedIndex))));
         }
 
-        KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>[] responses = await API.TaskExtensions.WhenAllSafe(tasks, true).ConfigureAwait(true);
+        KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>[] responses = await Task.WhenAll(tasks).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
         Layer3ForwardingGetGenericForwardingEntryResponses = [.. responses.Select(static q => q.Key!.Value)];
     }

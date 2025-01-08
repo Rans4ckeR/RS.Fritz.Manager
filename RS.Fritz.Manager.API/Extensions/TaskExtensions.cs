@@ -1,53 +1,102 @@
-﻿namespace RS.Fritz.Manager.API;
+﻿using System.Runtime.ExceptionServices;
 
+namespace RS.Fritz.Manager.API;
+
+/// <summary>
+/// Extension methods for <see cref="Task"/>.
+/// </summary>
 public static class TaskExtensions
 {
-    /// <summary>
-    /// Executes a list of tasks and waits for all of them to complete and throws an <see cref="AggregateException"/> containing all exceptions from all tasks.
-    /// When using <see cref="Task.WhenAll(IEnumerable{Task})"/> only the first thrown exception from a single <see cref="Task"/> may be observed.
-    /// </summary>
-    /// <typeparam name="T">The type of <paramref name="tasks"/>'s return value.</typeparam>
-    /// <param name="tasks">The list of <see cref="Task"/>s who's exceptions will be handled.</param>
-    /// <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false.</param>
-    /// <returns>Returns a <see cref="ValueTask"/> that awaited and handled the original <paramref name="tasks"/>.</returns>
-    public static async ValueTask<T[]> WhenAllSafe<T>(IEnumerable<Task<T>> tasks, bool continueOnCapturedContext = false)
+    /// <inheritdoc cref="Evaluate(ValueTask,bool)"/>>
+    public static async ValueTask Evaluate(this Task task, ConfigureAwaitOptions configureAwaitOptions = ConfigureAwaitOptions.None)
     {
-        var whenAllTask = Task.WhenAll(tasks);
+        if (task.IsCompletedSuccessfully)
+            return;
 
         try
         {
-            return await whenAllTask.ConfigureAwait(continueOnCapturedContext);
+            await task
+                .ConfigureAwait(configureAwaitOptions);
         }
         catch
         {
-            if (whenAllTask.Exception is null)
+            if (task.Exception is null)
                 throw;
 
-            throw whenAllTask.Exception;
+            ExceptionDispatchInfo.Capture(task.GetFlattenedAggregateException()).Throw();
         }
     }
 
     /// <summary>
-    /// Executes a list of tasks and waits for all of them to complete and throws an <see cref="AggregateException"/> containing all exceptions from all tasks.
-    /// When using <see cref="Task.WhenAll(IEnumerable{Task})"/> only the first thrown exception from a single <see cref="Task"/> may be observed.
+    /// Ensures all exceptions are observed from an async method by flattening any <see cref="AggregateException"/> instances into a single <see cref="AggregateException"/> instance.
     /// </summary>
-    /// <param name="tasks">The list of <see cref="Task"/>s who's exceptions will be handled.</param>
-    /// <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false.</param>
-    /// <returns>Returns a <see cref="ValueTask"/> that awaited and handled the original <paramref name="tasks"/>.</returns>
-    public static async ValueTask WhenAllSafe(IEnumerable<Task> tasks, bool continueOnCapturedContext = false)
+    public static async ValueTask Evaluate(this ValueTask task, bool continueOnCapturedContext = false)
     {
-        var whenAllTask = Task.WhenAll(tasks);
+        if (task.IsCompletedSuccessfully)
+            return;
 
         try
         {
-            await whenAllTask.ConfigureAwait(continueOnCapturedContext);
+            await task.ConfigureAwait(continueOnCapturedContext);
         }
         catch
         {
-            if (whenAllTask.Exception is null)
+            if (task.AsTask().Exception is null)
                 throw;
 
-            throw whenAllTask.Exception;
+            ExceptionDispatchInfo.Capture(task.AsTask().GetFlattenedAggregateException()).Throw();
         }
     }
+
+    /// <inheritdoc cref="Evaluate(ValueTask,bool)"/>>
+    public static async ValueTask<T> Evaluate<T>(this Task<T> task, ConfigureAwaitOptions configureAwaitOptions = ConfigureAwaitOptions.None)
+    {
+        if (task.IsCompletedSuccessfully)
+            return task.Result;
+
+        T? result = default;
+
+        try
+        {
+            result = await task
+                .ConfigureAwait(configureAwaitOptions);
+        }
+        catch
+        {
+            if (task.Exception is null)
+                throw;
+
+            ExceptionDispatchInfo.Capture(task.GetFlattenedAggregateException()).Throw();
+        }
+
+        return result!;
+    }
+
+    /// <inheritdoc cref="Evaluate(ValueTask,bool)"/>>
+    public static async ValueTask<T> Evaluate<T>(this ValueTask<T> task, bool continueOnCapturedContext = false)
+    {
+        if (task.IsCompletedSuccessfully)
+            return task.Result;
+
+        T? result = default;
+
+        try
+        {
+            result = await task.ConfigureAwait(continueOnCapturedContext);
+        }
+        catch
+        {
+            if (task.AsTask().Exception is null)
+                throw;
+
+            ExceptionDispatchInfo.Capture(task.AsTask().GetFlattenedAggregateException()).Throw();
+        }
+
+        return result!;
+    }
+
+    /// <summary>
+    /// Gets the flattened aggregate exception for a faulted task.
+    /// </summary>
+    public static AggregateException GetFlattenedAggregateException(this Task task) => task.Exception!.Flatten();
 }

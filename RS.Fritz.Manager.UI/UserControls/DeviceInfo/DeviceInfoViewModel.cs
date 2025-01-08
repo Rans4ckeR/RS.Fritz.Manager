@@ -24,7 +24,7 @@ internal sealed class DeviceInfoViewModel(DeviceLoginInfo deviceLoginInfo, ILogg
     public DeviceInfoSetProvisioningCodeViewModel DeviceInfoSetProvisioningCodeViewModel { get; } = deviceInfoSetProvisioningCodeViewModel;
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => API.TaskExtensions.WhenAllSafe([GetDeviceInfoGetSecurityPortAsync(), GetDeviceInfoGetInfoAsync(), GetDeviceInfoGetDeviceLogAsync()], true);
+        => Task.WhenAll(GetDeviceInfoGetSecurityPortAsync(), GetDeviceInfoGetInfoAsync(), GetDeviceInfoGetDeviceLogAsync()).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
     private async Task GetDeviceInfoGetSecurityPortAsync() => DeviceInfoGetSecurityPortResponse = await ExecuteApiAsync(static q => q.DeviceInfoGetSecurityPortAsync()).ConfigureAwait(true);
 

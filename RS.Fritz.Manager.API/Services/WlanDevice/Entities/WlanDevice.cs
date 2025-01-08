@@ -10,4 +10,5 @@ public readonly record struct WlanDevice(
     [property: XmlElement(ElementName = "X_AVM-DE_Speed")] ushort Speed,
     [property: XmlElement(ElementName = "X_AVM-DE_SignalStrength")] ushort SignalStrength,
     [property: XmlElement(ElementName = "AssociatedDeviceChannel")] ushort AssociatedDeviceChannel,
+    [property: XmlElement(ElementName = "X_AVM-DE_ChannelWidth")] ushort ChannelWidth,
     [property: XmlElement(ElementName = "AssociatedDeviceGuest")] bool AssociatedDeviceGuest);

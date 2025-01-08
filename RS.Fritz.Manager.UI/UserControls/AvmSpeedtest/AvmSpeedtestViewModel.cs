@@ -16,7 +16,7 @@ internal sealed class AvmSpeedtestViewModel(DeviceLoginInfo deviceLoginInfo, ILo
     }
 
     protected override ValueTask DoExecuteDefaultCommandAsync(CancellationToken cancellationToken)
-        => API.TaskExtensions.WhenAllSafe([GetAvmSpeedtestGetInfoAsync(), GetAvmSpeedtestGetStatisticsAsync()], true);
+        => Task.WhenAll(GetAvmSpeedtestGetInfoAsync(), GetAvmSpeedtestGetStatisticsAsync()).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
 
     private async Task GetAvmSpeedtestGetInfoAsync()
         => AvmSpeedtestGetInfoResponse = await ExecuteApiAsync(static q => q.AvmSpeedtestGetInfoAsync()).ConfigureAwait(true);
