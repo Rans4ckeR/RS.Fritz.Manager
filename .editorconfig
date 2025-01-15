@@ -636,6 +636,7 @@ dotnet_diagnostic.MSTEST0030.severity = warning
 dotnet_diagnostic.MSTEST0031.severity = warning
 dotnet_diagnostic.MSTEST0034.severity = warning
 dotnet_diagnostic.MSTEST0035.severity = warning
+dotnet_diagnostic.MSTEST0037.severity = warning
 
 [*.vb]
 dotnet_diagnostic.CA1047.severity = warning

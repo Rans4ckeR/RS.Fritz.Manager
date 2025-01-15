@@ -70,10 +70,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         CloseMessageCommand = new RelayCommand(ExecuteCloseMessageCommand);
         ConnectDirectlyCommand = new AsyncRelayCommand<bool?>(ExecuteConnectDirectlyCommandAsync, _ => CanExecuteConnectDirectlyCommand);
 
-        StrongReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, static (r, m) => ((MainWindowViewModel)r).UserMessage = m.Value.Message);
-        StrongReferenceMessenger.Default.Register<LogMessageValueChangedMessage>(this, static (r, m) => ((MainWindowViewModel)r).Log = m.Value.Message);
-        StrongReferenceMessenger.Default.Register<ActiveViewValueChangedMessage>(this, static (r, m) => ((MainWindowViewModel)r).ActiveView = m.Value);
-        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<ObservableInternetGatewayDevice?>>(this, static (r, m) => ((MainWindowViewModel)r).Receive(m));
+        SetupMessageSubscriptions();
         UpdateCanExecuteDefaultCommand();
     }
 
@@ -357,6 +354,14 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     }
 
     protected override bool GetCanExecuteDefaultCommand() => !DefaultCommandActive;
+
+    private void SetupMessageSubscriptions()
+    {
+        StrongReferenceMessenger.Default.Register<UserMessageValueChangedMessage>(this, static (r, m) => ((MainWindowViewModel)r).UserMessage = m.Value.Message);
+        StrongReferenceMessenger.Default.Register<LogMessageValueChangedMessage>(this, static (r, m) => ((MainWindowViewModel)r).Log = m.Value.Message);
+        StrongReferenceMessenger.Default.Register<ActiveViewValueChangedMessage>(this, static (r, m) => ((MainWindowViewModel)r).ActiveView = m.Value);
+        StrongReferenceMessenger.Default.Register<PropertyChangedMessage<ObservableInternetGatewayDevice?>>(this, static (r, m) => ((MainWindowViewModel)r).Receive(m));
+    }
 
     private void Receive(PropertyChangedMessage<ObservableInternetGatewayDevice?> message)
     {
