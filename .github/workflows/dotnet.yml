@@ -41,7 +41,7 @@ jobs:
     - name: Package
       run: dotnet pack RS.Fritz.Manager.API/RS.Fritz.Manager.API.csproj --no-restore --configuration Release -p:PackageVersion=$env:GitVersion_SemVer
     - name: NuGet Login
-      uses: NuGet/login@main
+      uses: NuGet/login@v1
       id: login
       with:
         user: ${{ secrets.NUGET_USER }}
