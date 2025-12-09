@@ -156,6 +156,10 @@ static async Task StopCaptureAsync(InternetGatewayDevice device, CaptureInterfac
   * ❌ SetIdleDisconnectTime
   * ✅ X_AVM-DE_GetAutoDisconnectTimeSpan
   * ❌ X_AVM-DE_SetAutoDisconnectTimeSpan
+* ✅ urn:dslforum-org:service:X_AVM-DE_WANFiber
+  * ✅ GetInfo
+  * ✅ GetInfoGPON
+  * ✅ GetStatistics
 * ✅ urn:dslforum-org:service:WANCommonInterfaceConfig
   * ✅ GetCommonLinkProperties
   * ✅ GetTotalBytesSent

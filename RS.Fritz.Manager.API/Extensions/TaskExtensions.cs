@@ -51,9 +51,6 @@ public static class TaskExtensions
     /// <inheritdoc cref="Evaluate(ValueTask,bool)"/>>
     public static async ValueTask<T> Evaluate<T>(this Task<T> task, ConfigureAwaitOptions configureAwaitOptions = ConfigureAwaitOptions.None)
     {
-        if (task.IsCompletedSuccessfully)
-            return task.Result;
-
         T? result = default;
 
         try

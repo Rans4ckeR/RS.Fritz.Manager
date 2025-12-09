@@ -192,15 +192,15 @@ csharp_preserve_single_line_statements = true
 
 # Naming rules
 
-dotnet_naming_rule.interface_should_be_begins_with_i.severity = suggestion
+dotnet_naming_rule.interface_should_be_begins_with_i.severity = warning
 dotnet_naming_rule.interface_should_be_begins_with_i.symbols = interface
 dotnet_naming_rule.interface_should_be_begins_with_i.style = begins_with_i
 
-dotnet_naming_rule.types_should_be_pascal_case.severity = suggestion
+dotnet_naming_rule.types_should_be_pascal_case.severity = warning
 dotnet_naming_rule.types_should_be_pascal_case.symbols = types
 dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case
 
-dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = suggestion
+dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = warning
 dotnet_naming_rule.non_field_members_should_be_pascal_case.symbols = non_field_members
 dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
 
@@ -256,7 +256,7 @@ dotnet_diagnostic.SA1413.severity = none
 
 # SA1601: Partial elements should be documented
 dotnet_diagnostic.SA1601.severity = none
-dotnet_diagnostic.CA1812.severity = none
+dotnet_diagnostic.CA1812.severity = suggestion
 dotnet_diagnostic.IDE0051.severity = warning
 dotnet_diagnostic.IDE0052.severity = warning
 dotnet_diagnostic.IDE0064.severity = warning
@@ -412,9 +412,12 @@ dotnet_diagnostic.IDE0320.severity = warning
 
 # ReSharper properties
 resharper_braces_redundant = false
-dotnet_diagnostic.MVVMTK0042.severity = warning
-dotnet_diagnostic.MVVMTK0051.severity = warning
-dotnet_diagnostic.MVVMTK0056.severity = warning
+csharp_style_prefer_implicitly_typed_lambda_expression = true:warning
+csharp_style_prefer_unbound_generic_type_in_nameof = true:warning
+dotnet_diagnostic.ASP0027.severity = warning
+dotnet_diagnostic.ASP0028.severity = warning
+csharp_style_prefer_simple_property_accessors = true:suggestion
+dotnet_diagnostic.CA1516.severity = warning
 
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
@@ -637,6 +640,9 @@ dotnet_diagnostic.MSTEST0031.severity = warning
 dotnet_diagnostic.MSTEST0034.severity = warning
 dotnet_diagnostic.MSTEST0035.severity = warning
 dotnet_diagnostic.MSTEST0037.severity = warning
+dotnet_diagnostic.MSTEST0039.severity = warning
 
-[*.vb]
 dotnet_diagnostic.CA1047.severity = warning
+dotnet_diagnostic.CA1874.severity = warning
+dotnet_diagnostic.CA1875.severity = warning
+dotnet_diagnostic.MSTEST0045.severity = warning

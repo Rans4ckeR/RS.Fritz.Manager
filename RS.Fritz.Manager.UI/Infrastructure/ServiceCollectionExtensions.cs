@@ -14,6 +14,7 @@ internal static class ServiceCollectionExtensions
             .AddSingleton<WanDslInterfaceConfigInfoViewModel>()
             .AddSingleton<WanDslInterfaceConfigDslInfoViewModel>()
             .AddSingleton<WanDslLinkConfigViewModel>()
+            .AddSingleton<WanFiberViewModel>()
             .AddSingleton<WanCommonInterfaceConfigViewModel>()
             .AddSingleton<WanCommonInterfaceConfigSetWanAccessTypeViewModel>()
             .AddSingleton<WanCommonInterfaceConfigGetOnlineMonitorViewModel>()

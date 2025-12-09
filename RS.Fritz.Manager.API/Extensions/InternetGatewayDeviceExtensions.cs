@@ -172,6 +172,15 @@ public static class InternetGatewayDeviceExtensions
     public static Task<WanDslLinkConfigGetStatisticsResponse> WanDslLinkConfigGetStatisticsAsync(this InternetGatewayDevice internetGatewayDevice)
         => internetGatewayDevice.ExecuteAsync(static (h, d) => h.WanDslLinkConfigGetStatisticsAsync(d));
 
+    public static Task<WanFiberGetInfoResponse> WanFiberGetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
+        => internetGatewayDevice.ExecuteAsync(static (h, d) => h.WanFiberGetInfoAsync(d));
+
+    public static Task<WanFiberGetInfoGponResponse> WanFiberGetInfoGponAsync(this InternetGatewayDevice internetGatewayDevice)
+        => internetGatewayDevice.ExecuteAsync(static (h, d) => h.WanFiberGetInfoGponAsync(d));
+
+    public static Task<WanFiberGetStatisticsResponse> WanFiberGetStatisticsAsync(this InternetGatewayDevice internetGatewayDevice)
+        => internetGatewayDevice.ExecuteAsync(static (h, d) => h.WanFiberGetStatisticsAsync(d));
+
     public static Task<AvmSpeedtestGetInfoResponse> AvmSpeedtestGetInfoAsync(this InternetGatewayDevice internetGatewayDevice)
         => internetGatewayDevice.ExecuteAsync(static (h, d) => h.AvmSpeedtestGetInfoAsync(d));
 

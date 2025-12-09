@@ -52,7 +52,7 @@ internal sealed class Layer3ForwardingViewModel(DeviceLoginInfo deviceLoginInfo,
             tasks.Add(ExecuteApiAsync(q => q.Layer3ForwardingGetGenericForwardingEntryAsync(new(capturedIndex))));
         }
 
-        KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>[] responses = await Task.WhenAll(tasks).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        KeyValuePair<Layer3ForwardingGetGenericForwardingEntryResponse?, UPnPFault?>[] responses = await Task.WhenAll(tasks).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext).ConfigureAwait(true);
 
         Layer3ForwardingGetGenericForwardingEntryResponses = [.. responses.Select(static q => q.Key!.Value)];
     }

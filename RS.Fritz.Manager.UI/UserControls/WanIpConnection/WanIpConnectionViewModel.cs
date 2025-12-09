@@ -99,7 +99,7 @@ internal sealed class WanIpConnectionViewModel(DeviceLoginInfo deviceLoginInfo, 
             tasks.Add(ExecuteApiAsync(q => q.WanIpConnectionGetGenericPortMappingEntryAsync(new(capturedIndex))));
         }
 
-        KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>[] responses = await Task.WhenAll(tasks).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        KeyValuePair<WanConnectionGetGenericPortMappingEntryResponse?, UPnPFault?>[] responses = await Task.WhenAll(tasks).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext).ConfigureAwait(true);
 
         WanConnectionGetGenericPortMappingEntryResponses = [.. responses.Select(static q => q.Key!.Value)];
     }

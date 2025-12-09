@@ -116,6 +116,12 @@ public interface IFritzServiceOperationHandler
 
     Task<WanDslLinkConfigGetStatisticsResponse> WanDslLinkConfigGetStatisticsAsync(InternetGatewayDevice internetGatewayDevice);
 
+    Task<WanFiberGetInfoResponse> WanFiberGetInfoAsync(InternetGatewayDevice internetGatewayDevice);
+
+    Task<WanFiberGetInfoGponResponse> WanFiberGetInfoGponAsync(InternetGatewayDevice internetGatewayDevice);
+
+    Task<WanFiberGetStatisticsResponse> WanFiberGetStatisticsAsync(InternetGatewayDevice internetGatewayDevice);
+
     Task<AvmSpeedtestGetInfoResponse> AvmSpeedtestGetInfoAsync(InternetGatewayDevice internetGatewayDevice);
 
     Task<AvmSpeedtestGetStatisticsResponse> AvmSpeedtestGetStatisticsAsync(InternetGatewayDevice internetGatewayDevice);

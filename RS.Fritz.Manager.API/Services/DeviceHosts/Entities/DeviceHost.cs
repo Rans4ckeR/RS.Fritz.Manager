@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿#pragma warning disable CA1054 // URI-like parameters should not be strings
+#pragma warning disable CA1056 // URI-like properties should not be strings
+using System.Runtime.Serialization;
 
 namespace RS.Fritz.Manager.API;
 
@@ -25,4 +27,7 @@ public readonly record struct DeviceHost(
     [property: DataMember(Name = "X_AVM-DE_IsMeshable", Order = 18)] bool IsMeshable,
     [property: DataMember(Name = "X_AVM-DE_Priority", Order = 19)] bool Priority,
     [property: DataMember(Name = "X_AVM-DE_FriendlyName", Order = 20)] string FriendlyName,
-    [property: DataMember(Name = "X_AVM-DE_FriendlyNameIsWriteable", Order = 21)] bool FriendlyNameIsWriteable);
+    [property: DataMember(Name = "X_AVM-DE_FriendlyNameIsWriteable", Order = 21)] bool FriendlyNameIsWriteable,
+    [property: DataMember(Name = "X_AVM-DE_FilterProfileID", Order = 22)] string FilterProfileId,
+    [property: DataMember(Name = "X_AVM-DE_HostFilterEditHide", Order = 23)] bool HostFilterEditHide,
+    [property: DataMember(Name = "X_AVM-DE_AddTicketAvailable", Order = 24)] bool AddTicketAvailable);

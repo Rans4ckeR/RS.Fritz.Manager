@@ -88,7 +88,7 @@ internal sealed class HostsViewModel(
             tasks.Add(ExecuteApiAsync(q => q.HostsGetGenericHostEntryAsync(new(capturedIndex))));
         }
 
-        KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>[] responses = await Task.WhenAll(tasks).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext);
+        KeyValuePair<HostsGetGenericHostEntryResponse?, UPnPFault?>[] responses = await Task.WhenAll(tasks).Evaluate(ConfigureAwaitOptions.ContinueOnCapturedContext).ConfigureAwait(true);
 
         HostsGetGenericHostEntryResponses = [.. responses.Select(static q => q.Key!.Value)];
     }

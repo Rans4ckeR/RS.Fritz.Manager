@@ -27,6 +27,7 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IClientFactory<IFritzWanIpConnectionService>, ClientFactory<IFritzWanIpConnectionService>>()
             .AddSingleton<IClientFactory<IFritzWanEthernetLinkConfigService>, ClientFactory<IFritzWanEthernetLinkConfigService>>()
             .AddSingleton<IClientFactory<IFritzWanDslLinkConfigService>, ClientFactory<IFritzWanDslLinkConfigService>>()
+            .AddSingleton<IClientFactory<IFritzWanFiberService>, ClientFactory<IFritzWanFiberService>>()
             .AddSingleton<IClientFactory<IFritzAvmSpeedtestService>, ClientFactory<IFritzAvmSpeedtestService>>()
             .AddSingleton<IClientFactory<IFritzLanEthernetInterfaceConfigService>, ClientFactory<IFritzLanEthernetInterfaceConfigService>>()
             .AddSingleton<IClientFactory<IFritzLanHostConfigManagementService>, ClientFactory<IFritzLanHostConfigManagementService>>()
@@ -62,7 +63,9 @@ public static class ServiceCollectionExtensions
                             }
                         },
                         AutomaticDecompression = DecompressionMethods.All,
-                        PooledConnectionLifetime = TimeSpan.FromMinutes(15)
+                        PooledConnectionLifetime = TimeSpan.FromMinutes(15),
+                        EnableMultipleHttp2Connections = true,
+                        EnableMultipleHttp3Connections = true
                     })
                     .RemoveAllLoggers()
                     .AddLogger(static provider => provider.GetRequiredService<IHttpClientAsyncLogger>()))

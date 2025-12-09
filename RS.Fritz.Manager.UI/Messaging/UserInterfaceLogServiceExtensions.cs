@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging.Configuration;
 
 namespace RS.Fritz.Manager.UI;
 
-public static class UserInterfaceLogServiceExtensions
+internal static class UserInterfaceLogServiceExtensions
 {
     public static ILoggingBuilder AddUserInterfaceLogService(this ILoggingBuilder loggingBuilder)
     {

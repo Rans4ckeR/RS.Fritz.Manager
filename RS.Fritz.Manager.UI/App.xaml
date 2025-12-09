@@ -27,6 +27,7 @@
                 <ResourceDictionary Source="Resources\TR-064\WanEthernetLinkConfigResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\WanIpConnectionResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\WanPppConnectionResourceDictionary.xaml"/>
+                <ResourceDictionary Source="Resources\TR-064\WanFiberResourceDictionary.xaml"/>
                 <ResourceDictionary Source="Resources\TR-064\WlanConfigurationResourceDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

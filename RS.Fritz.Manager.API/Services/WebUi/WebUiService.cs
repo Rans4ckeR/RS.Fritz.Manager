@@ -63,11 +63,7 @@ internal sealed class WebUiService(IHttpClientFactory httpClientFactory, INetwor
     }
 
     private static byte[] GetHash(byte[] password, byte[] salt, int iterations)
-    {
-        using var derivedBytes = new Rfc2898DeriveBytes(password, salt, iterations, HashAlgorithmName.SHA256);
-
-        return derivedBytes.GetBytes(32);
-    }
+        => Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, HashAlgorithmName.SHA256, 32);
 
     private Uri GetLoginUri(InternetGatewayDevice internetGatewayDevice)
         => networkService.FormatUri(Uri.UriSchemeHttps, internetGatewayDevice.PreferredLocation!, 443, LoginPath);

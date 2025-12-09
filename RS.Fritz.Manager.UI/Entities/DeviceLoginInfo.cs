@@ -169,8 +169,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
         switch (message.PropertyName)
         {
             case nameof(Password):
-                if (SelectedInternetGatewayDevice is not null)
-                    SelectedInternetGatewayDevice.NetworkCredential = new(User?.Name, Password);
+                SelectedInternetGatewayDevice?.NetworkCredential = new(User?.Name, Password);
 
                 SetLoginInfo();
                 break;
@@ -185,8 +184,7 @@ internal sealed class DeviceLoginInfo : ObservableRecipient
         switch (message.PropertyName)
         {
             case nameof(User):
-                if (SelectedInternetGatewayDevice is not null)
-                    SelectedInternetGatewayDevice.NetworkCredential = new(User?.Name, Password);
+                SelectedInternetGatewayDevice?.NetworkCredential = new(User?.Name, Password);
 
                 SetLoginInfo();
                 break;

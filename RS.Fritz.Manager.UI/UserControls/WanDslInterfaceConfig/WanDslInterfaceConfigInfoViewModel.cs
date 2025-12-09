@@ -44,7 +44,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
 
             if (wanDslInterfaceConfigGetInfoResponses.Count > 1)
             {
-                UpstreamCurrRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => (uint)(q.UpstreamCurrRate < 0 ? 0 : q.UpstreamCurrRate))]);
+                UpstreamCurrRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.UpstreamCurrRate)]);
                 DownstreamCurrRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.DownstreamCurrRate)]);
                 UpstreamMaxRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.UpstreamMaxRate)]);
                 DownstreamMaxRateHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.DownstreamMaxRate)]);
@@ -52,8 +52,8 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
                 DownstreamNoiseMarginHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.DownstreamNoiseMargin)]);
                 UpstreamAttenuationHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.UpstreamAttenuation)]);
                 DownstreamAttenuationHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.DownstreamAttenuation)]);
-                UpstreamPowerHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => (uint)q.UpstreamPower)]);
-                DownstreamPowerHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => (uint)q.DownstreamPower)]);
+                UpstreamPowerHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.UpstreamPower)]);
+                DownstreamPowerHistory = UpdateHistory([.. wanDslInterfaceConfigGetInfoResponses.Select(static q => q.DownstreamPower)]);
             }
 
             _ = SetProperty(ref field, value);
@@ -120,17 +120,17 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
         private set => _ = SetProperty(ref field, value);
     }
 
-    private List<UIElement> UpdateHistory(List<uint> values)
+    private List<UIElement> UpdateHistory(List<int> values)
     {
         const double yScale = 30d;
         const double xScale = 5d;
         const int xLimit = 100;
         int startIndex = values.Count > xLimit ? values.Count - xLimit : 1;
-        uint min = values.Skip(startIndex - 1).Min();
-        uint max = values.Skip(startIndex - 1).Max();
-        uint labelMinValue = values.Min();
-        uint labelMaxValue = values.Max();
-        uint range = max - min;
+        int min = values.Skip(startIndex - 1).Min();
+        int max = values.Skip(startIndex - 1).Max();
+        int labelMinValue = values.Min();
+        int labelMaxValue = values.Max();
+        int range = max - min;
 
         if (range is 0)
             range = 1;
@@ -139,7 +139,7 @@ internal sealed class WanDslInterfaceConfigInfoViewModel : ObservableObject
 
         for (int i = startIndex; i < values.Count; i++)
         {
-            uint value = values[i];
+            int value = values[i];
             var line = new Line
             {
                 X1 = (i - startIndex - 1) * xScale,

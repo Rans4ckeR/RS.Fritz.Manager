@@ -12,7 +12,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0" Target="{Binding ElementName=ConnectionType}" Content="_ConnectionType" ToolTip="The connection type for a specific active connection."/>
-            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PossibleConnectionTypes}" Content="_PossibleConnectionTypes" ToolTip="The types of connections possible in the context of a specific modem and link type. Possible values are Unconfigured, IP_Routed, IP_Bridged, DHCP_Spoofed, IpoE_Bridged, PPTP_Relay, L2TP_Relay, IpoE_Relay."/>
+            <Label Grid.Row="1" Grid.Column="0" Target="{Binding ElementName=PossibleConnectionTypes}" Content="_PossibleConnectionTypes" ToolTip="The types of connections possible in the context of a specific modem and link type. Possible values are Unconfigured, IP_Routed, IP_Bridged, DHCP_Spoofed, IpoE_Bridged, PPTP_Relay, L2TP_Relay, IpoE_Relay, PPPoE_Bridged, PPPoE_Relay."/>
             <TextBlock x:Name="ConnectionType" Grid.Row="0" Grid.Column="1" Text="{Binding ConnectionType}"/>
             <TextBlock x:Name="PossibleConnectionTypes" Grid.Row="1" Grid.Column="1" Text="{Binding PossibleConnectionTypes}"/>
         </Grid>

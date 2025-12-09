@@ -279,6 +279,10 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -312,6 +316,14 @@
             <TextBlock x:Name="SpeedMax" Grid.Row="12" Grid.Column="1" Text="{Binding SpeedMax}"/>
             <Label Grid.Row="13" Grid.Column="0" Target="{Binding ElementName=SpeedRxMax}" Content="_SpeedRxMax"/>
             <TextBlock x:Name="SpeedRxMax" Grid.Row="13" Grid.Column="1" Text="{Binding SpeedRxMax}"/>
+            <Label Grid.Row="14" Grid.Column="0" Target="{Binding ElementName=MldMacAddress}" Content="_MldMacAddress"/>
+            <TextBlock x:Name="MldMacAddress" Grid.Row="14" Grid.Column="1" Text="{Binding MldMacAddress}"/>
+            <Label Grid.Row="15" Grid.Column="0" Target="{Binding ElementName=ApMldMacAddress}" Content="_ApMldMacAddress"/>
+            <TextBlock x:Name="ApMldMacAddress" Grid.Row="15" Grid.Column="1" Text="{Binding ApMldMacAddress}"/>
+            <Label Grid.Row="16" Grid.Column="0" Target="{Binding ElementName=MloList}" Content="_MloList"/>
+            <TextBlock x:Name="MloList" Grid.Row="16" Grid.Column="1" Text="{Binding MloList}"/>
+            <Label Grid.Row="17" Grid.Column="0" Target="{Binding ElementName=MloModes}" Content="_MloModes"/>
+            <TextBlock x:Name="MloModes" Grid.Row="17" Grid.Column="1" Text="{Binding MloModes}"/>
         </Grid>
     </DataTemplate>
     <DataTemplate DataType="{x:Type api:WlanConfigurationGetWlanExtInfoResponse}">

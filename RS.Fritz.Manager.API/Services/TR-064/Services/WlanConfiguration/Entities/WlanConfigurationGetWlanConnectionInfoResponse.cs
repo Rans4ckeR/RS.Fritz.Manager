@@ -15,4 +15,8 @@ public readonly record struct WlanConfigurationGetWlanConnectionInfoResponse(
     [property: MessageBodyMember(Name = "NewX_AVM-DE_Speed")] ushort Speed,
     [property: MessageBodyMember(Name = "NewX_AVM-DE_SpeedRX")] uint SpeedRx,
     [property: MessageBodyMember(Name = "NewX_AVM-DE_SpeedMax")] uint SpeedMax,
-    [property: MessageBodyMember(Name = "NewX_AVM-DE_SpeedRXMax")] uint SpeedRxMax);
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_SpeedRXMax")] uint SpeedRxMax,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_MLDMACAddress")] string MldMacAddress,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_APMLDMACAddress")] string ApMldMacAddress,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_MLOList ")] string MloList,
+    [property: MessageBodyMember(Name = "NewX_AVM-DE_MLOModes")] string MloModes);

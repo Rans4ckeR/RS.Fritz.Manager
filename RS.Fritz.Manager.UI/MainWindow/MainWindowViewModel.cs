@@ -35,6 +35,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         WanDslInterfaceConfigViewModel wanDslInterfaceConfigViewModel,
         WanEthernetLinkConfigViewModel wanEthernetLinkConfigViewModel,
         WanDslLinkConfigViewModel wanDslLinkConfigViewModel,
+        WanFiberViewModel wanFiberViewModel,
         AvmSpeedtestViewModel avmSpeedtestViewModel,
         LanEthernetInterfaceConfigViewModel lanEthernetInterfaceConfigViewModel,
         LanHostConfigManagementViewModel lanHostConfigManagementViewModel,
@@ -56,6 +57,7 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
         HostsViewModel = hostsViewModel;
         WanEthernetLinkConfigViewModel = wanEthernetLinkConfigViewModel;
         WanDslLinkConfigViewModel = wanDslLinkConfigViewModel;
+        WanFiberViewModel = wanFiberViewModel;
         AvmSpeedtestViewModel = avmSpeedtestViewModel;
         CaptureControlCaptureViewModel = captureControlCaptureViewModel;
         LanEthernetInterfaceConfigViewModel = lanEthernetInterfaceConfigViewModel;
@@ -99,6 +101,8 @@ internal sealed class MainWindowViewModel : FritzServiceViewModel
     public WanEthernetLinkConfigViewModel WanEthernetLinkConfigViewModel { get; }
 
     public WanDslLinkConfigViewModel WanDslLinkConfigViewModel { get; }
+
+    public WanFiberViewModel WanFiberViewModel { get; }
 
     public AvmSpeedtestViewModel AvmSpeedtestViewModel { get; }
 

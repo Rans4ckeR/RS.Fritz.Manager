@@ -14,6 +14,7 @@ internal sealed class FritzServiceOperationHandler(
     IClientFactory<IFritzWanIpConnectionService> fritzWanIpConnectionServiceClientFactory,
     IClientFactory<IFritzWanEthernetLinkConfigService> fritzWanEthernetLinkConfigServiceClientFactory,
     IClientFactory<IFritzWanDslLinkConfigService> fritzWanDslLinkConfigServiceClientFactory,
+    IClientFactory<IFritzWanFiberService> fritzWanFiberClientFactory,
     IClientFactory<IFritzAvmSpeedtestService> fritzAvmSpeedtestServiceClientFactory,
     IClientFactory<IFritzLanEthernetInterfaceConfigService> fritzLanEthernetInterfaceConfigServiceClientFactory,
     IClientFactory<IFritzLanHostConfigManagementService> fritzLanHostConfigManagementServiceClientFactory,
@@ -36,6 +37,7 @@ internal sealed class FritzServiceOperationHandler(
     private readonly IClientFactory<IFritzWanIpConnectionService> fritzWanIpConnectionServiceClientFactory = fritzWanIpConnectionServiceClientFactory;
     private readonly IClientFactory<IFritzWanPppConnectionService> fritzWanPppConnectionServiceClientFactory = fritzWanPppConnectionServiceClientFactory;
     private readonly IClientFactory<IFritzWanEthernetLinkConfigService> fritzWanEthernetLinkConfigServiceClientFactory = fritzWanEthernetLinkConfigServiceClientFactory;
+    private readonly IClientFactory<IFritzWanFiberService> fritzWanFiberClientFactory = fritzWanFiberClientFactory;
     private readonly IClientFactory<IFritzWanDslLinkConfigService> fritzWanDslLinkConfigServiceClientFactory = fritzWanDslLinkConfigServiceClientFactory;
     private readonly IClientFactory<IFritzAvmSpeedtestService> fritzAvmSpeedtestServiceClientFactory = fritzAvmSpeedtestServiceClientFactory;
     private readonly IClientFactory<IFritzLanEthernetInterfaceConfigService> fritzLanEthernetInterfaceConfigServiceClientFactory = fritzLanEthernetInterfaceConfigServiceClientFactory;
@@ -219,6 +221,15 @@ internal sealed class FritzServiceOperationHandler(
 
     public Task<WanDslLinkConfigGetStatisticsResponse> WanDslLinkConfigGetStatisticsAsync(InternetGatewayDevice internetGatewayDevice)
         => ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanDslLinkConfigServiceClientFactory, static (q, r, t, u) => new FritzWanDslLinkConfigService(q, r, t!, u)), static q => q.GetStatisticsAsync(default));
+
+    public Task<WanFiberGetInfoResponse> WanFiberGetInfoAsync(InternetGatewayDevice internetGatewayDevice)
+        => ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanFiberClientFactory, static (q, r, t, u) => new FritzWanFiberService(q, r, t!, u)), static q => q.GetInfoAsync(default));
+
+    public Task<WanFiberGetInfoGponResponse> WanFiberGetInfoGponAsync(InternetGatewayDevice internetGatewayDevice)
+        => ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanFiberClientFactory, static (q, r, t, u) => new FritzWanFiberService(q, r, t!, u)), static q => q.GetInfoGponAsync(default));
+
+    public Task<WanFiberGetStatisticsResponse> WanFiberGetStatisticsAsync(InternetGatewayDevice internetGatewayDevice)
+        => ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzWanFiberClientFactory, static (q, r, t, u) => new FritzWanFiberService(q, r, t!, u)), static q => q.GetStatisticsAsync(default));
 
     public Task<AvmSpeedtestGetInfoResponse> AvmSpeedtestGetInfoAsync(InternetGatewayDevice internetGatewayDevice)
         => ExecuteAsync(GetFritzServiceClient(internetGatewayDevice, fritzAvmSpeedtestServiceClientFactory, static (q, r, t, u) => new FritzAvmSpeedtestService(q, r, t!, u)), static q => q.GetInfoAsync(default));

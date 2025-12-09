@@ -43,8 +43,8 @@ internal sealed class DeviceSearchService(
                 };
                 Uri uri = networkService.FormatUri(ipEndPoint, Uri.UriSchemeHttp, path);
 
-                return (uri, q, await GetUPnPDescription(uri, q, cancellationToken));
-            })).Evaluate()
+                return (uri, q, await GetUPnPDescription(uri, q, cancellationToken).ConfigureAwait(false));
+            })).Evaluate().ConfigureAwait(false)
         ];
 
         if (descriptions.Count is 0)
@@ -87,14 +87,14 @@ internal sealed class DeviceSearchService(
     {
         List<ServerDeviceResponse> serverDeviceResponses = await GetRawDeviceResponsesAsync(InternetGatewayDeviceDeviceTypes, sendCount, timeoutInSeconds, ipEndPoint, cancellationToken).ConfigureAwait(false);
 
-        return await Task.WhenAll(serverDeviceResponses.Select(q => ParseInternetGatewayDeviceAsync(q, cancellationToken))).Evaluate();
+        return await Task.WhenAll(serverDeviceResponses.Select(q => ParseInternetGatewayDeviceAsync(q, cancellationToken))).Evaluate().ConfigureAwait(false);
     }
 
     // <inheritdoc/>
     public async ValueTask<List<ServerDeviceResponse>> GetRawDeviceResponsesAsync(IEnumerable<string> deviceTypes, int sendCount = 1, int timeoutInSeconds = 1, IPEndPoint? ipEndPoint = null, CancellationToken cancellationToken = default)
     {
         IEnumerable<Task<IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)>>> tasks = deviceTypes.Select(q => GetRawDeviceResponses(q, sendCount, timeoutInSeconds, ipEndPoint, cancellationToken));
-        IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)>[] responses = await Task.WhenAll(tasks).Evaluate();
+        IEnumerable<(IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)>[] responses = await Task.WhenAll(tasks).Evaluate().ConfigureAwait(false);
 
         return ParseServerDeviceResponses(responses.SelectMany(static q => q));
     }
@@ -306,7 +306,7 @@ internal sealed class DeviceSearchService(
     {
         IEnumerable<IPAddress> sourceIpAddresses = networkService.GetUnicastAddresses();
         IEnumerable<IPEndPoint> destinationIpEndpoints = ipEndPoint is not null ? [ipEndPoint] : networkService.GetMulticastAddresses().Select(static q => new IPEndPoint(q, UPnPConstants.MultiCastPort));
-        (IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)[] localAddressesDeviceResponses = await Task.WhenAll(destinationIpEndpoints.SelectMany(q => sourceIpAddresses.Where(r => r.AddressFamily == q.AddressFamily).Select(r => SearchDevicesAsync(r, q, deviceType, sendCount, timeoutInSeconds, ipEndPoint is null, cancellationToken)))).Evaluate();
+        (IPAddress LocalIpAddress, FrozenSet<(IPAddress IPAddress, string Response)> Responses)[] localAddressesDeviceResponses = await Task.WhenAll(destinationIpEndpoints.SelectMany(q => sourceIpAddresses.Where(r => r.AddressFamily == q.AddressFamily).Select(r => SearchDevicesAsync(r, q, deviceType, sendCount, timeoutInSeconds, ipEndPoint is null, cancellationToken)))).Evaluate().ConfigureAwait(false);
 
         return localAddressesDeviceResponses.Where(static q => q.Responses.Any(static r => r.Response.Length is not 0)).Select(static q => (q.LocalIpAddress, q.Responses)).Distinct();
     }

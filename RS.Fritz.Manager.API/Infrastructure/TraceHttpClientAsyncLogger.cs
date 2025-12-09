@@ -11,13 +11,16 @@ internal sealed class TraceHttpClientAsyncLogger(ILogger<TraceHttpClientAsyncLog
 
     public async ValueTask<object?> LogRequestStartAsync(HttpRequestMessage request, CancellationToken cancellationToken = default)
     {
+        if (!logger.IsEnabled(LogLevel.Trace))
+            return null;
+
         string? requestBody = null;
         string? mediaType = null;
 
         if (request.Content is not null)
         {
             mediaType = request.Content.Headers.ContentType?.MediaType;
-            requestBody = await request.Content.ReadAsStringAsync(cancellationToken);
+            requestBody = await request.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         }
 
         logger.HttpRequest(request, GetFormattedContent(mediaType, requestBody));
@@ -27,8 +30,11 @@ internal sealed class TraceHttpClientAsyncLogger(ILogger<TraceHttpClientAsyncLog
 
     public async ValueTask LogRequestStopAsync(object? context, HttpRequestMessage request, HttpResponseMessage response, TimeSpan elapsed, CancellationToken cancellationToken = default)
     {
+        if (!logger.IsEnabled(LogLevel.Trace))
+            return;
+
         string? mediaType = response.Content.Headers.ContentType?.MediaType;
-        string responseBody = await response.Content.ReadAsStringAsync(cancellationToken);
+        string responseBody = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
 
         logger.HttpReply(response, GetFormattedContent(mediaType, responseBody)!, elapsed);
     }
@@ -36,7 +42,7 @@ internal sealed class TraceHttpClientAsyncLogger(ILogger<TraceHttpClientAsyncLog
     public ValueTask LogRequestFailedAsync(object? context, HttpRequestMessage request, HttpResponseMessage? response, Exception exception, TimeSpan elapsed, CancellationToken cancellationToken = default) =>
         default;
 
-    public object? LogRequestStart(HttpRequestMessage request) =>
+    public object LogRequestStart(HttpRequestMessage request) =>
         throw new NotSupportedException();
 
     public void LogRequestStop(object? context, HttpRequestMessage request, HttpResponseMessage response, TimeSpan elapsed) =>
