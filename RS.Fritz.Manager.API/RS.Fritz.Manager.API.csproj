@@ -43,7 +43,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.1" />
     <PackageReference Include="System.ServiceModel.Http" Version="10.0.652802" />
   </ItemGroup>
 </Project>
