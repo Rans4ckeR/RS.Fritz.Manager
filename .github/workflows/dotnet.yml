@@ -5,6 +5,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+  id-token: write
   packages: write
 jobs:
   build:
@@ -40,7 +41,7 @@ jobs:
     - name: Package
       run: dotnet pack RS.Fritz.Manager.API/RS.Fritz.Manager.API.csproj --no-restore --configuration Release -p:PackageVersion=$env:GitVersion_SemVer
     - name: NuGet Login
-      uses: NuGet/login@v1
+      uses: NuGet/login@main
       id: login
       with:
         user: ${{ secrets.NUGET_USER }}
